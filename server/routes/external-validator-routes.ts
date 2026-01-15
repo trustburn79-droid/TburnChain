@@ -4,9 +4,17 @@
  * 
  * Security Features (2026-01-15):
  * - Rate limiting per IP and per address
- * - HMAC-SHA256 signature verification
- * - Replay attack prevention with nonce tracking
+ * - HMAC-SHA256 signature verification with constant-time comparison
+ * - Replay attack prevention with nonce tracking (5-min TTL)
+ * - Timestamp drift validation (60s tolerance)
  * - Input validation and sanitization
+ * 
+ * PRODUCTION DEPLOYMENT REQUIREMENTS:
+ * - For clustered/multi-instance deployments, replace in-memory Maps with Redis:
+ *   - rateLimitStore: Use Redis INCR with TTL for distributed rate limiting
+ *   - usedNonces: Use Redis SET with NX+EX for distributed nonce tracking
+ * - Single-instance deployment can use current in-memory implementation
+ * - See server/config/redis-config.ts for Redis connection setup
  */
 
 import { Router, Request, Response, NextFunction } from 'express';
@@ -144,40 +152,60 @@ function heartbeatRateLimiter(req: Request, res: Response, next: NextFunction): 
 }
 
 // Security validation middleware for authenticated endpoints
+// MANDATORY: All authenticated routes MUST provide x-api-key, x-timestamp, x-nonce, x-signature headers
 function validateSecurityHeaders(req: Request, res: Response, next: NextFunction): void {
   const apiKey = req.headers['x-api-key'] as string;
-  const timestamp = parseInt(req.headers['x-timestamp'] as string, 10);
+  const timestampStr = req.headers['x-timestamp'] as string;
   const nonce = req.headers['x-nonce'] as string;
   const signature = req.headers['x-signature'] as string;
 
-  // Validate required headers for authenticated endpoints
+  // All security headers are MANDATORY for authenticated endpoints
   if (!apiKey) {
-    res.status(401).json({ success: false, error: 'Missing API key' });
+    res.status(401).json({ success: false, error: 'Missing required header: x-api-key' });
+    return;
+  }
+
+  if (!timestampStr) {
+    res.status(401).json({ success: false, error: 'Missing required header: x-timestamp' });
+    return;
+  }
+
+  if (!nonce) {
+    res.status(401).json({ success: false, error: 'Missing required header: x-nonce' });
+    return;
+  }
+
+  if (!signature) {
+    res.status(401).json({ success: false, error: 'Missing required header: x-signature' });
+    return;
+  }
+
+  const timestamp = parseInt(timestampStr, 10);
+  if (isNaN(timestamp)) {
+    res.status(401).json({ success: false, error: 'Invalid timestamp format' });
     return;
   }
 
   // Validate timestamp to prevent replay attacks
-  if (timestamp && !verifyTimestamp(timestamp)) {
+  if (!verifyTimestamp(timestamp)) {
     console.warn(`[Security] Invalid timestamp from API key: ${apiKey.slice(0, 8)}...`);
-    res.status(401).json({ success: false, error: 'Request timestamp expired or invalid' });
+    res.status(401).json({ success: false, error: 'Request timestamp expired or invalid (clock drift > 60s)' });
     return;
   }
 
   // Validate nonce uniqueness
-  if (nonce && !verifyNonceUnused(nonce)) {
-    console.warn(`[Security] Duplicate nonce detected: ${nonce}`);
+  if (!verifyNonceUnused(nonce)) {
+    console.warn(`[Security] Duplicate nonce detected: ${nonce.slice(0, 8)}...`);
     res.status(401).json({ success: false, error: 'Duplicate request detected (replay attack prevention)' });
     return;
   }
 
-  // Verify HMAC signature if provided
-  if (signature && nonce && timestamp) {
-    const payload = `${timestamp}:${nonce}:${JSON.stringify(req.body)}`;
-    if (!verifyHmacSignature(payload, signature, apiKey)) {
-      console.warn(`[Security] Invalid signature for API key: ${apiKey.slice(0, 8)}...`);
-      res.status(401).json({ success: false, error: 'Invalid request signature' });
-      return;
-    }
+  // Verify HMAC signature (MANDATORY)
+  const payload = `${timestamp}:${nonce}:${JSON.stringify(req.body)}`;
+  if (!verifyHmacSignature(payload, signature, apiKey)) {
+    console.warn(`[Security] Invalid signature for API key: ${apiKey.slice(0, 8)}...`);
+    res.status(401).json({ success: false, error: 'Invalid request signature' });
+    return;
   }
 
   next();
