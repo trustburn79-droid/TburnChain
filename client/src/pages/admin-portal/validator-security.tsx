@@ -371,12 +371,12 @@ export default function AdminValidatorSecurity() {
       <div className="space-y-6 p-6">
         <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
           <ShieldAlert className="h-16 w-16 text-destructive mb-4" />
-          <h2 className="text-2xl font-bold mb-2" data-testid="text-error-title">Authentication Required</h2>
+          <h2 className="text-2xl font-bold mb-2" data-testid="text-error-title">{t("validatorSecurityPage.authRequired")}</h2>
           <p className="text-muted-foreground mb-4" data-testid="text-error-message">
-            You must be logged in as an admin to access validator security management.
+            {t("validatorSecurityPage.authMessage")}
           </p>
           <p className="text-sm text-muted-foreground">
-            Please ensure you are logged into the admin portal with proper credentials.
+            {t("validatorSecurityPage.authHint")}
           </p>
         </div>
       </div>
@@ -388,16 +388,16 @@ export default function AdminValidatorSecurity() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">
-            External Validator Security
+            {t("validatorSecurityPage.title")}
           </h1>
           <p className="text-muted-foreground">
-            Monitor and manage security for external validator nodes
+            {t("validatorSecurityPage.subtitle")}
           </p>
         </div>
         <div className="flex items-center gap-4">
           <Badge variant={wsConnected ? "default" : "secondary"} className="gap-1">
             {wsConnected ? <Wifi className="h-3 w-3" /> : <WifiOff className="h-3 w-3" />}
-            {wsConnected ? "Live" : "Offline"}
+            {wsConnected ? t("validatorSecurityPage.live") : t("validatorSecurityPage.offline")}
           </Badge>
           <Button
             variant="outline"
@@ -407,7 +407,7 @@ export default function AdminValidatorSecurity() {
             data-testid="button-refresh"
           >
             <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`} />
-            Refresh
+            {t("validatorSecurityPage.refresh")}
           </Button>
         </div>
       </div>
@@ -415,52 +415,52 @@ export default function AdminValidatorSecurity() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card data-testid="card-active-validators">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Validators</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("validatorSecurityPage.cards.activeValidators")}</CardTitle>
             <ShieldCheck className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{overview.activeValidators}</div>
             <p className="text-xs text-muted-foreground">
-              of {overview.totalValidators} total
+              {t("validatorSecurityPage.cards.ofTotal", { total: overview.totalValidators })}
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-blocked-validators">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Blocked Validators</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("validatorSecurityPage.cards.blockedValidators")}</CardTitle>
             <Ban className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-500">{overview.blockedValidators}</div>
             <p className="text-xs text-muted-foreground">
-              Due to security violations
+              {t("validatorSecurityPage.cards.dueToViolations")}
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-alerts-24h">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Alerts (24h)</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("validatorSecurityPage.cards.alerts24h")}</CardTitle>
             <AlertTriangle className="h-4 w-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{overview.totalAlerts24h}</div>
             <p className="text-xs text-muted-foreground">
-              {overview.criticalAlerts} critical
+              {t("validatorSecurityPage.cards.critical", { count: overview.criticalAlerts })}
             </p>
           </CardContent>
         </Card>
 
         <Card data-testid="card-success-rate">
           <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Success Rate</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("validatorSecurityPage.cards.successRate")}</CardTitle>
             <TrendingUp className="h-4 w-4 text-blue-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{overview.successRate.toFixed(1)}%</div>
             <p className="text-xs text-muted-foreground">
-              Avg latency: {overview.avgLatencyMs.toFixed(0)}ms
+              {t("validatorSecurityPage.cards.avgLatency", { ms: overview.avgLatencyMs.toFixed(0) })}
             </p>
           </CardContent>
         </Card>
@@ -470,11 +470,11 @@ export default function AdminValidatorSecurity() {
         <TabsList>
           <TabsTrigger value="overview" data-testid="tab-overview">
             <Shield className="h-4 w-4 mr-2" />
-            Overview
+            {t("validatorSecurityPage.tabs.overview")}
           </TabsTrigger>
           <TabsTrigger value="alerts" data-testid="tab-alerts">
             <ShieldAlert className="h-4 w-4 mr-2" />
-            Alerts
+            {t("validatorSecurityPage.tabs.alerts")}
             {alerts.length > 0 && (
               <Badge variant="destructive" className="ml-2">
                 {alerts.length}
@@ -483,15 +483,15 @@ export default function AdminValidatorSecurity() {
           </TabsTrigger>
           <TabsTrigger value="rate-limits" data-testid="tab-rate-limits">
             <Gauge className="h-4 w-4 mr-2" />
-            Rate Limits
+            {t("validatorSecurityPage.tabs.rateLimits")}
           </TabsTrigger>
           <TabsTrigger value="ip-whitelist" data-testid="tab-ip-whitelist">
             <Network className="h-4 w-4 mr-2" />
-            IP Whitelist
+            {t("validatorSecurityPage.tabs.ipWhitelist")}
           </TabsTrigger>
           <TabsTrigger value="audit-logs" data-testid="tab-audit-logs">
             <FileText className="h-4 w-4 mr-2" />
-            Audit Logs
+            {t("validatorSecurityPage.tabs.auditLogs")}
           </TabsTrigger>
         </TabsList>
 
@@ -499,35 +499,35 @@ export default function AdminValidatorSecurity() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>Security Status</CardTitle>
-                <CardDescription>Current security posture of external validators</CardDescription>
+                <CardTitle>{t("validatorSecurityPage.securityStatus.title")}</CardTitle>
+                <CardDescription>{t("validatorSecurityPage.securityStatus.subtitle")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span>Rate Limiting</span>
-                    <Badge variant="default">Active</Badge>
+                    <span>{t("validatorSecurityPage.securityStatus.rateLimiting")}</span>
+                    <Badge variant="default">{t("validatorSecurityPage.securityStatus.active")}</Badge>
                   </div>
                   <Progress value={100} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span>Anomaly Detection</span>
-                    <Badge variant="default">Active</Badge>
+                    <span>{t("validatorSecurityPage.securityStatus.anomalyDetection")}</span>
+                    <Badge variant="default">{t("validatorSecurityPage.securityStatus.active")}</Badge>
                   </div>
                   <Progress value={100} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span>Nonce Tracking</span>
-                    <Badge variant="default">Active</Badge>
+                    <span>{t("validatorSecurityPage.securityStatus.nonceTracking")}</span>
+                    <Badge variant="default">{t("validatorSecurityPage.securityStatus.active")}</Badge>
                   </div>
                   <Progress value={100} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span>Audit Logging</span>
-                    <Badge variant="default">Active</Badge>
+                    <span>{t("validatorSecurityPage.securityStatus.auditLogging")}</span>
+                    <Badge variant="default">{t("validatorSecurityPage.securityStatus.active")}</Badge>
                   </div>
                   <Progress value={100} />
                 </div>
@@ -536,8 +536,8 @@ export default function AdminValidatorSecurity() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>Latest security events</CardDescription>
+                <CardTitle>{t("validatorSecurityPage.recentActivity.title")}</CardTitle>
+                <CardDescription>{t("validatorSecurityPage.recentActivity.subtitle")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[200px]">
@@ -554,7 +554,7 @@ export default function AdminValidatorSecurity() {
                   {alerts.length === 0 && (
                     <div className="flex items-center justify-center h-full text-muted-foreground">
                       <CheckCircle className="h-5 w-5 mr-2" />
-                      No recent alerts
+                      {t("validatorSecurityPage.recentActivity.noAlerts")}
                     </div>
                   )}
                 </ScrollArea>
@@ -566,18 +566,18 @@ export default function AdminValidatorSecurity() {
         <TabsContent value="alerts" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Security Alerts</CardTitle>
-              <CardDescription>Real-time security alerts from external validators</CardDescription>
+              <CardTitle>{t("validatorSecurityPage.alerts.title")}</CardTitle>
+              <CardDescription>{t("validatorSecurityPage.alerts.subtitle")}</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Severity</TableHead>
-                    <TableHead>Validator</TableHead>
-                    <TableHead>Message</TableHead>
-                    <TableHead>Time</TableHead>
+                    <TableHead>{t("validatorSecurityPage.auditLogs.action")}</TableHead>
+                    <TableHead>{t("validatorSecurityPage.auditLogs.severity")}</TableHead>
+                    <TableHead>{t("validatorSecurityPage.auditLogs.validator")}</TableHead>
+                    <TableHead>{t("validatorSecurityPage.ipWhitelist.description")}</TableHead>
+                    <TableHead>{t("validatorSecurityPage.auditLogs.timestamp")}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -599,7 +599,7 @@ export default function AdminValidatorSecurity() {
                   {alerts.length === 0 && (
                     <TableRow>
                       <TableCell colSpan={5} className="text-center text-muted-foreground">
-                        No security alerts
+                        {t("validatorSecurityPage.alerts.noAlerts")}
                       </TableCell>
                     </TableRow>
                   )}
@@ -612,18 +612,18 @@ export default function AdminValidatorSecurity() {
         <TabsContent value="rate-limits" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Rate Limit Status</CardTitle>
-              <CardDescription>Monitor rate limiting for each validator</CardDescription>
+              <CardTitle>{t("validatorSecurityPage.rateLimits.title")}</CardTitle>
+              <CardDescription>{t("validatorSecurityPage.rateLimits.subtitle")}</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Validator</TableHead>
-                    <TableHead>Requests</TableHead>
-                    <TableHead>Violations</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead>{t("validatorSecurityPage.auditLogs.validator")}</TableHead>
+                    <TableHead>{t("validatorSecurityPage.rateLimits.requestsPerSecond")}</TableHead>
+                    <TableHead>{t("common.violations") || "Violations"}</TableHead>
+                    <TableHead>{t("common.status") || "Status"}</TableHead>
+                    <TableHead>{t("common.actions") || "Actions"}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -640,9 +640,9 @@ export default function AdminValidatorSecurity() {
                       </TableCell>
                       <TableCell>
                         {entry.blocked ? (
-                          <Badge variant="destructive">Blocked</Badge>
+                          <Badge variant="destructive">{t("validatorSecurityPage.rateLimits.blocked")}</Badge>
                         ) : (
-                          <Badge variant="default">Active</Badge>
+                          <Badge variant="default">{t("validatorSecurityPage.rateLimits.active")}</Badge>
                         )}
                       </TableCell>
                       <TableCell>
@@ -653,7 +653,7 @@ export default function AdminValidatorSecurity() {
                             onClick={() => unblockValidatorMutation.mutate(entry.validatorAddress)}
                             data-testid={`button-unblock-${entry.validatorAddress}`}
                           >
-                            Unblock
+                            {t("validatorSecurityPage.rateLimits.unblock")}
                           </Button>
                         )}
                       </TableCell>
@@ -662,7 +662,7 @@ export default function AdminValidatorSecurity() {
                   {rateLimits.length === 0 && (
                     <TableRow>
                       <TableCell colSpan={5} className="text-center text-muted-foreground">
-                        No rate limit data available
+                        {t("validatorSecurityPage.rateLimits.noData")}
                       </TableCell>
                     </TableRow>
                   )}
@@ -676,39 +676,39 @@ export default function AdminValidatorSecurity() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>IP Whitelist</CardTitle>
-                <CardDescription>Manage allowed IP addresses for validator connections</CardDescription>
+                <CardTitle>{t("validatorSecurityPage.ipWhitelist.title")}</CardTitle>
+                <CardDescription>{t("validatorSecurityPage.ipWhitelist.subtitle")}</CardDescription>
               </div>
               <Dialog open={showAddIPDialog} onOpenChange={setShowAddIPDialog}>
                 <DialogTrigger asChild>
                   <Button size="sm" data-testid="button-add-ip">
                     <Plus className="h-4 w-4 mr-2" />
-                    Add IP
+                    {t("validatorSecurityPage.ipWhitelist.addIP")}
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Add IP to Whitelist</DialogTitle>
+                    <DialogTitle>{t("validatorSecurityPage.ipWhitelist.addIPTitle")}</DialogTitle>
                     <DialogDescription>
-                      Add a new IP address or CIDR subnet to the whitelist
+                      {t("validatorSecurityPage.ipWhitelist.addIPDescription")}
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="ip">IP Address / Subnet</Label>
+                      <Label htmlFor="ip">{t("validatorSecurityPage.ipWhitelist.ipAddress")}</Label>
                       <Input
                         id="ip"
-                        placeholder="192.168.1.1 or 10.0.0.0/8"
+                        placeholder={t("validatorSecurityPage.ipWhitelist.ipPlaceholder")}
                         value={newIP}
                         onChange={(e) => setNewIP(e.target.value)}
                         data-testid="input-new-ip"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="description">Description</Label>
+                      <Label htmlFor="description">{t("validatorSecurityPage.ipWhitelist.description")}</Label>
                       <Input
                         id="description"
-                        placeholder="Validator node location"
+                        placeholder={t("validatorSecurityPage.ipWhitelist.descriptionPlaceholder")}
                         value={newIPDescription}
                         onChange={(e) => setNewIPDescription(e.target.value)}
                         data-testid="input-new-ip-description"
@@ -720,14 +720,14 @@ export default function AdminValidatorSecurity() {
                       variant="outline"
                       onClick={() => setShowAddIPDialog(false)}
                     >
-                      Cancel
+                      {t("validatorSecurityPage.ipWhitelist.cancel")}
                     </Button>
                     <Button
                       onClick={() => addIPMutation.mutate({ ip: newIP, description: newIPDescription })}
                       disabled={!newIP}
                       data-testid="button-confirm-add-ip"
                     >
-                      Add IP
+                      {t("validatorSecurityPage.ipWhitelist.add")}
                     </Button>
                   </DialogFooter>
                 </DialogContent>
@@ -737,11 +737,11 @@ export default function AdminValidatorSecurity() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>IP / Subnet</TableHead>
-                    <TableHead>Description</TableHead>
-                    <TableHead>Added By</TableHead>
-                    <TableHead>Added At</TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead>{t("validatorSecurityPage.ipWhitelist.ipAddress")}</TableHead>
+                    <TableHead>{t("validatorSecurityPage.ipWhitelist.description")}</TableHead>
+                    <TableHead>{t("common.addedBy") || "Added By"}</TableHead>
+                    <TableHead>{t("common.addedAt") || "Added At"}</TableHead>
+                    <TableHead>{t("common.actions") || "Actions"}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -768,7 +768,7 @@ export default function AdminValidatorSecurity() {
                   {ipWhitelist.length === 0 && (
                     <TableRow>
                       <TableCell colSpan={5} className="text-center text-muted-foreground">
-                        No IP addresses in whitelist
+                        {t("validatorSecurityPage.ipWhitelist.noEntries")}
                       </TableCell>
                     </TableRow>
                   )}
@@ -781,19 +781,19 @@ export default function AdminValidatorSecurity() {
         <TabsContent value="audit-logs" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Audit Logs</CardTitle>
-              <CardDescription>Security audit trail for validator operations</CardDescription>
+              <CardTitle>{t("validatorSecurityPage.auditLogs.title")}</CardTitle>
+              <CardDescription>{t("validatorSecurityPage.auditLogs.subtitle")}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[500px]">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Time</TableHead>
-                      <TableHead>Level</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Action</TableHead>
-                      <TableHead>Validator</TableHead>
+                      <TableHead>{t("validatorSecurityPage.auditLogs.timestamp")}</TableHead>
+                      <TableHead>{t("validatorSecurityPage.auditLogs.severity")}</TableHead>
+                      <TableHead>{t("common.category") || "Category"}</TableHead>
+                      <TableHead>{t("validatorSecurityPage.auditLogs.action")}</TableHead>
+                      <TableHead>{t("validatorSecurityPage.auditLogs.validator")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -815,7 +815,7 @@ export default function AdminValidatorSecurity() {
                     {auditLogs.length === 0 && (
                       <TableRow>
                         <TableCell colSpan={5} className="text-center text-muted-foreground">
-                          No audit logs available
+                          {t("validatorSecurityPage.auditLogs.noLogs")}
                         </TableCell>
                       </TableRow>
                     )}

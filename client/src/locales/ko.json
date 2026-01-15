@@ -16596,7 +16596,8 @@
     "feedbackSystem": "피드백 시스템",
     "announcements": "공지사항",
     "marketing": "마케팅",
-    "newsletterManagement": "뉴스레터 관리"
+    "newsletterManagement": "뉴스레터 관리",
+    "validatorSecurity": "검증자 보안"
   },
   "adminNewsletter": {
     "title": "뉴스레터 구독자",
@@ -37772,6 +37773,111 @@
       "subtitle": "검증자 소프트웨어를 다운로드하고 TBURN 네트워크에 참여하세요",
       "download": "지금 다운로드",
       "learnMore": "자세히 알아보기"
+    }
+  },
+  "validatorSecurityPage": {
+    "title": "외부 검증자 보안",
+    "subtitle": "외부 검증자 노드를 위한 엔터프라이즈급 보안 관리",
+    "live": "실시간",
+    "offline": "오프라인",
+    "refresh": "새로고침",
+    "authRequired": "인증 필요",
+    "authMessage": "검증자 보안 대시보드에 접근하려면 로그인하세요",
+    "authHint": "전체 접근을 위해 관리자 자격 증명이 필요합니다",
+    "tabs": {
+      "overview": "개요",
+      "alerts": "알림",
+      "rateLimits": "속도 제한",
+      "ipWhitelist": "IP 화이트리스트",
+      "auditLogs": "감사 로그"
+    },
+    "cards": {
+      "activeValidators": "활성 검증자",
+      "blockedValidators": "차단된 검증자",
+      "alerts24h": "알림 (24시간)",
+      "successRate": "성공률",
+      "dueToViolations": "보안 위반으로 인한",
+      "ofTotal": "총 {{total}}개 중",
+      "critical": "{{count}}개 심각",
+      "avgLatency": "평균 지연 {{ms}}ms"
+    },
+    "securityStatus": {
+      "title": "보안 상태",
+      "subtitle": "실시간 보안 모니터링 지표",
+      "rateLimiting": "속도 제한",
+      "anomalyDetection": "이상 탐지",
+      "nonceTracking": "논스 추적",
+      "auditLogging": "감사 로깅",
+      "active": "활성"
+    },
+    "recentActivity": {
+      "title": "최근 활동",
+      "subtitle": "최신 보안 이벤트",
+      "noAlerts": "최근 알림 없음"
+    },
+    "overview": {
+      "securityOverview": "보안 개요",
+      "activeValidators": "활성 검증자",
+      "blockedValidators": "차단된 검증자",
+      "alerts24h": "알림 (24시간)",
+      "successRate": "성공률",
+      "encryptionSettings": "암호화 설정",
+      "encryptionSettingsDesc": "검증자 통신을 위한 현재 암호화 구성",
+      "algorithm": "알고리즘",
+      "keyDerivation": "키 파생",
+      "keyRotation": "키 순환",
+      "lastRotation": "마지막 순환",
+      "quantumResistance": "양자 저항성"
+    },
+    "alerts": {
+      "title": "보안 알림",
+      "subtitle": "실시간 이상 탐지 및 보안 알림",
+      "noAlerts": "보안 알림 없음",
+      "dismiss": "무시",
+      "investigate": "조사",
+      "resolve": "해결",
+      "severityCritical": "심각",
+      "severityHigh": "높음",
+      "severityMedium": "보통",
+      "severityLow": "낮음"
+    },
+    "rateLimits": {
+      "title": "속도 제한된 검증자",
+      "subtitle": "과도한 요청으로 현재 차단된 검증자",
+      "noData": "속도 제한 데이터 없음",
+      "unblock": "차단 해제",
+      "active": "활성",
+      "blocked": "차단됨",
+      "requestsPerSecond": "요청/초"
+    },
+    "ipWhitelist": {
+      "title": "IP 화이트리스트",
+      "subtitle": "검증자 접근을 위한 신뢰할 수 있는 IP 주소 관리",
+      "addIP": "IP 추가",
+      "addIPTitle": "화이트리스트에 IP 추가",
+      "addIPDescription": "허용할 IP 주소 또는 CIDR 서브넷을 입력하세요",
+      "ipAddress": "IP 주소 / CIDR",
+      "ipPlaceholder": "예: 192.168.1.1 또는 10.0.0.0/24",
+      "description": "설명",
+      "descriptionPlaceholder": "선택적 설명",
+      "cancel": "취소",
+      "add": "IP 추가",
+      "noEntries": "화이트리스트에 IP 주소 없음"
+    },
+    "auditLogs": {
+      "title": "감사 로그",
+      "subtitle": "검증자 운영에 대한 보안 감사 추적",
+      "noLogs": "감사 로그 없음",
+      "timestamp": "시간",
+      "severity": "심각도",
+      "action": "작업",
+      "validator": "검증자"
+    },
+    "toast": {
+      "ipAdded": "IP가 화이트리스트에 추가되었습니다",
+      "ipRemoved": "IP가 화이트리스트에서 제거되었습니다",
+      "validatorUnblocked": "검증자 차단이 해제되었습니다",
+      "error": "오류가 발생했습니다"
     }
   }
 }
