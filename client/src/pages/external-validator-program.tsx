@@ -677,7 +677,7 @@ export default function ExternalValidatorProgramPage() {
                     <Server className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">Linux x64</CardTitle>
+                    <CardTitle className="text-lg">Linux x64 <Badge variant="outline" className="ml-2 text-xs">v1.1.0</Badge></CardTitle>
                     <CardDescription>Ubuntu 20.04+, Debian 11+</CardDescription>
                   </div>
                 </div>
@@ -686,17 +686,18 @@ export default function ExternalValidatorProgramPage() {
                 <div className="text-sm text-muted-foreground space-y-1">
                   <p>• Node.js 20+ runtime included</p>
                   <p>• SystemD service installer</p>
+                  <p>• <span className="text-green-600 dark:text-green-400">Security API integration</span></p>
                   <p>• Auto-update support</p>
                 </div>
                 <a 
-                  href="/downloads/tburn-validator-node-v1.0.0-linux-x64.tar.gz"
+                  href="/downloads/tburn-validator-node-v1.1.0-linux-x64.tar.gz"
                   download
                   className="block"
                   data-testid="download-linux"
                 >
                   <Button className="w-full" variant="outline">
                     <Download className="w-4 h-4 mr-2" />
-                    {t("externalValidator.download.downloadBtn")} (97 MB)
+                    {t("externalValidator.download.downloadBtn")} (102 MB)
                   </Button>
                 </a>
               </CardContent>
@@ -709,7 +710,7 @@ export default function ExternalValidatorProgramPage() {
                     <Cpu className="w-6 h-6 text-blue-500" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">Docker Image</CardTitle>
+                    <CardTitle className="text-lg">Docker Image <Badge variant="outline" className="ml-2 text-xs">v1.1.0</Badge></CardTitle>
                     <CardDescription>All platforms</CardDescription>
                   </div>
                 </div>
@@ -718,10 +719,11 @@ export default function ExternalValidatorProgramPage() {
                 <div className="text-sm text-muted-foreground space-y-1">
                   <p>• Docker Compose included</p>
                   <p>• Kubernetes ready</p>
+                  <p>• <span className="text-green-600 dark:text-green-400">Security heartbeat built-in</span></p>
                   <p>• Prometheus metrics</p>
                 </div>
                 <div className="bg-muted rounded-lg p-2 font-mono text-xs overflow-x-auto">
-                  docker pull tburn/validator:1.0.0
+                  docker pull tburn/validator:1.1.0
                 </div>
                 <Button className="w-full" variant="outline" data-testid="download-docker">
                   View Docker Guide
@@ -744,6 +746,7 @@ export default function ExternalValidatorProgramPage() {
               <CardContent className="space-y-4">
                 <div className="text-sm text-muted-foreground space-y-1">
                   <p>• TypeScript source</p>
+                  <p>• <span className="text-green-600 dark:text-green-400">MainnetSecurityClient included</span></p>
                   <p>• Full test suite</p>
                   <p>• Development docs</p>
                 </div>

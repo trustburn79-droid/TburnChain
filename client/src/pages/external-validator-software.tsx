@@ -60,17 +60,24 @@ interface SoftwareReleaseData {
 }
 
 const CODE_SNIPPETS = {
-  download: `# Download TBURN Validator Node
-curl -LO https://releases.tburn.io/validator/v1.0.0/tburn-validator-node-v1.0.0-linux-x64.tar.gz
+  download: `# Download TBURN Validator Node v1.1.0 (with Security API)
+curl -LO https://releases.tburn.io/validator/v1.1.0/tburn-validator-node-v1.1.0-linux-x64.tar.gz
 
 # Verify checksum
-sha256sum tburn-validator-node-v1.0.0-linux-x64.tar.gz
+sha256sum tburn-validator-node-v1.1.0-linux-x64.tar.gz
 
-# Extract
-tar -xzf tburn-validator-node-v1.0.0-linux-x64.tar.gz
-cd tburn-validator-node`,
+# Extract (includes security templates)
+tar -xzf tburn-validator-node-v1.1.0-linux-x64.tar.gz
+cd tburn-validator-node
 
-  install: `# Run interactive setup wizard
+# Files included:
+# - tburn-validator (main binary)
+# - config/config.yaml.template
+# - config/security.yaml.template  <- Security API config
+# - docker-compose.yml
+# - systemd/tburn-validator.service`,
+
+  install: `# Run interactive setup wizard (includes security setup)
 ./tburn-validator setup
 
 # Or use CLI flags for automation
@@ -78,20 +85,29 @@ cd tburn-validator-node`,
   --node-name "my-validator" \\
   --stake-amount 100000 \\
   --region "us-east" \\
-  --auto-start`,
+  --api-key "\${TBURN_API_KEY}" \\
+  --enable-security-heartbeat \\
+  --auto-start
 
-  docker: `# Pull official Docker image
-docker pull tburn/validator:1.0.0
+# Configure security separately (optional)
+./tburn-validator security configure \\
+  --api-key "\${TBURN_API_KEY}" \\
+  --heartbeat-interval 30`,
 
-# Run with Docker Compose
+  docker: `# Pull official Docker image v1.1.0 (with Security API)
+docker pull tburn/validator:1.1.0
+
+# Run with Docker Compose (recommended)
 docker-compose up -d
 
-# Or run standalone
+# Or run standalone with security config
 docker run -d \\
   --name tburn-validator \\
   -v ~/.tburn:/root/.tburn \\
+  -e TBURN_API_KEY="\${TBURN_API_KEY}" \\
+  -e TBURN_SECURITY_HEARTBEAT=true \\
   -p 8545:8545 -p 8546:8546 -p 30303:30303 \\
-  tburn/validator:1.0.0`,
+  tburn/validator:1.1.0`,
 
   config: `# ~/.tburn/config.yaml
 node:
@@ -115,6 +131,11 @@ security:
   keystore_path: "/root/.tburn/keystore"
   tls_enabled: true
   mtls_enabled: true
+  # Security API Integration (v1.1.0+)
+  api:
+    enabled: true
+    heartbeat_enabled: true
+    heartbeat_interval: 30  # seconds
 
 monitoring:
   prometheus_port: 9100
@@ -297,7 +318,7 @@ export default function ExternalValidatorSoftwarePage() {
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
             <Badge variant="outline" className="mb-4 border-primary/50 text-primary" data-testid="badge-hero">
-              v{releaseData?.latestVersion || "1.0.0"} - {t("externalValidatorSoftware.hero.badge")}
+              v{releaseData?.latestVersion || "1.1.0"} - {t("externalValidatorSoftware.hero.badge")}
             </Badge>
             <h1 className="text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6">
               {t("externalValidatorSoftware.hero.title")}
@@ -307,7 +328,7 @@ export default function ExternalValidatorSoftwarePage() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Button size="lg" className="gap-2" asChild data-testid="button-download-hero">
-                <a href={linuxRelease?.downloadUrl || "/downloads/tburn-validator-node-v1.0.0-linux-x64.tar.gz"} download>
+                <a href={linuxRelease?.downloadUrl || "/downloads/tburn-validator-node-v1.1.0-linux-x64.tar.gz"} download>
                   <Download className="h-5 w-5" />
                   {t("externalValidatorSoftware.download.linux.download")}
                 </a>
@@ -505,7 +526,7 @@ export default function ExternalValidatorSoftwarePage() {
                   </div>
                 </div>
                 <Button className="w-full gap-2" asChild data-testid="button-download-linux">
-                  <a href={linuxRelease?.downloadUrl || "/downloads/tburn-validator-node-v1.0.0-linux-x64.tar.gz"} download>
+                  <a href={linuxRelease?.downloadUrl || "/downloads/tburn-validator-node-v1.1.0-linux-x64.tar.gz"} download>
                     <Download className="h-4 w-4" />
                     Download
                   </a>
@@ -1086,7 +1107,7 @@ export default function ExternalValidatorSoftwarePage() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Button size="lg" className="gap-2" asChild data-testid="button-download-cta">
-                <a href={linuxRelease?.downloadUrl || "/downloads/tburn-validator-node-v1.0.0-linux-x64.tar.gz"} download>
+                <a href={linuxRelease?.downloadUrl || "/downloads/tburn-validator-node-v1.1.0-linux-x64.tar.gz"} download>
                   <Download className="h-5 w-5" />
                   {t("externalValidatorSoftware.cta.download")}
                 </a>

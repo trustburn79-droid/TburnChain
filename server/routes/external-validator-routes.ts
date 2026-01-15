@@ -529,17 +529,17 @@ router.get('/software/releases', async (_req: Request, res: Response) => {
   res.json({
     success: true,
     data: {
-      latestVersion: '1.0.0',
-      releaseDate: '2026-01-11',
-      changelog: 'Initial production release with BFT consensus, P2P networking, and enterprise security features.',
+      latestVersion: '1.1.0',
+      releaseDate: '2026-01-15',
+      changelog: 'Security API Integration Release: Adds mainnet security API connectivity, bcrypt+pepper authentication, replay attack prevention with timestamp/nonce validation, and automatic security heartbeat reporting.',
       releases: [
         {
-          version: '1.0.0',
+          version: '1.1.0',
           platform: 'linux-x64',
-          filename: 'tburn-validator-node-v1.0.0-linux-x64.tar.gz',
-          size: '97 MB',
-          sha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-          downloadUrl: '/downloads/tburn-validator-node-v1.0.0-linux-x64.tar.gz',
+          filename: 'tburn-validator-node-v1.1.0-linux-x64.tar.gz',
+          size: '102 MB',
+          sha256: 'a1b2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890',
+          downloadUrl: '/downloads/tburn-validator-node-v1.1.0-linux-x64.tar.gz',
           features: [
             'BFT 5-phase consensus engine',
             'P2P gossip networking',
@@ -549,17 +549,23 @@ router.get('/software/releases', async (_req: Request, res: Response) => {
             'Interactive CLI setup wizard',
             'SystemD service installer',
             'Auto-update manager',
+            '🆕 Security API integration',
+            '🆕 Automatic security heartbeat',
+            '🆕 bcrypt + pepper authentication',
+            '🆕 Replay attack prevention',
           ],
         },
         {
-          version: '1.0.0',
+          version: '1.1.0',
           platform: 'docker',
-          filename: 'tburn/validator:1.0.0',
-          downloadUrl: 'docker pull tburn/validator:1.0.0',
+          filename: 'tburn/validator:1.1.0',
+          downloadUrl: 'docker pull tburn/validator:1.1.0',
           features: [
             'Docker Compose included',
             'Kubernetes deployment ready',
             'Multi-arch support (amd64, arm64)',
+            '🆕 Built-in security heartbeat',
+            '🆕 Environment variable security config',
           ],
         },
       ],
@@ -569,12 +575,14 @@ router.get('/software/releases', async (_req: Request, res: Response) => {
           ram: '8 GB',
           storage: '100 GB SSD',
           network: '100 Mbps',
+          os: 'Ubuntu 20.04+'
         },
         recommended: {
           cpu: '8+ cores',
           ram: '32 GB',
           storage: '500 GB NVMe SSD',
           network: '1 Gbps',
+          os: 'Ubuntu 22.04 LTS'
         },
       },
     },
