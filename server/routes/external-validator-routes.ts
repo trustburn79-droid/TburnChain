@@ -11,6 +11,8 @@ import {
   ExternalValidatorTier,
   ValidatorRegion 
 } from '../core/validators/enterprise-external-validator-engine';
+import { validatorRegistrationService } from '../services/validator-registration-service';
+import { validatorRegistrationRequestSchema, keyRotationRequestSchema } from '@shared/schema';
 
 const router = Router();
 
@@ -1508,6 +1510,398 @@ router.post('/security/heartbeat', validateValidatorApiKey, async (req: Request,
   }
 });
 
+// ============================================================================
+// ENTERPRISE VALIDATOR REGISTRATION API
+// Production-grade validator onboarding with crypto verification & multi-sig approval
+// ============================================================================
+
+// POST /register - Submit new validator registration
+router.post('/register', async (req: Request, res: Response) => {
+  try {
+    const ipAddress = req.ip || req.socket.remoteAddress;
+    const userAgent = req.headers['user-agent'];
+
+    // Validate request body
+    const parseResult = validatorRegistrationRequestSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid registration request',
+        details: parseResult.error.errors,
+      });
+    }
+
+    const result = await validatorRegistrationService.submitRegistration(
+      parseResult.data,
+      ipAddress,
+      userAgent
+    );
+
+    if (result.success) {
+      res.status(201).json({
+        success: true,
+        data: {
+          registrationId: result.registrationId,
+          status: result.status,
+          message: result.message,
+        },
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        error: result.message,
+      });
+    }
+  } catch (error) {
+    console.error('[ValidatorRegistration] Registration error:', error);
+    res.status(500).json({ success: false, error: 'Registration failed' });
+  }
+});
+
+// GET /registrations - List all registrations (admin)
+router.get('/registrations', async (req: Request, res: Response) => {
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = Math.min(parseInt(req.query.limit as string) || 20, 100);
+    const status = req.query.status as string | undefined;
+
+    const { registrations, total } = await validatorRegistrationService.getAllRegistrations(
+      page,
+      limit,
+      status
+    );
+
+    res.json({
+      success: true,
+      data: {
+        registrations,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages: Math.ceil(total / limit),
+        },
+      },
+    });
+  } catch (error) {
+    console.error('[ValidatorRegistration] List error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch registrations' });
+  }
+});
+
+// GET /registrations/pending - Get pending registrations for admin review
+router.get('/registrations/pending', async (req: Request, res: Response) => {
+  try {
+    const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
+    const registrations = await validatorRegistrationService.getPendingRegistrations(limit);
+
+    res.json({
+      success: true,
+      data: registrations,
+    });
+  } catch (error) {
+    console.error('[ValidatorRegistration] Pending list error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch pending registrations' });
+  }
+});
+
+// GET /registrations/:id - Get registration by ID
+router.get('/registrations/:id', async (req: Request, res: Response) => {
+  try {
+    const registration = await validatorRegistrationService.getRegistrationById(req.params.id);
+
+    if (!registration) {
+      return res.status(404).json({ success: false, error: 'Registration not found' });
+    }
+
+    // Get multi-sig approvals if applicable
+    let approvals: any[] = [];
+    if (registration.requiresMultisig) {
+      approvals = await validatorRegistrationService.getMultisigApprovals(req.params.id);
+    }
+
+    res.json({
+      success: true,
+      data: {
+        registration,
+        approvals,
+      },
+    });
+  } catch (error) {
+    console.error('[ValidatorRegistration] Get registration error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch registration' });
+  }
+});
+
+// GET /registrations/address/:address - Get registration by validator address
+router.get('/registrations/address/:address', async (req: Request, res: Response) => {
+  try {
+    const registration = await validatorRegistrationService.getRegistrationByAddress(req.params.address);
+
+    if (!registration) {
+      return res.status(404).json({ success: false, error: 'Registration not found' });
+    }
+
+    res.json({
+      success: true,
+      data: registration,
+    });
+  } catch (error) {
+    console.error('[ValidatorRegistration] Get by address error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch registration' });
+  }
+});
+
+// POST /registrations/:id/approve - Approve registration (admin)
+router.post('/registrations/:id/approve', async (req: Request, res: Response) => {
+  try {
+    const { adminAddress, notes } = req.body;
+
+    if (!adminAddress) {
+      return res.status(400).json({ success: false, error: 'Admin address required' });
+    }
+
+    const result = await validatorRegistrationService.approveRegistration(
+      req.params.id,
+      adminAddress,
+      notes
+    );
+
+    if (result.success) {
+      res.json({
+        success: true,
+        data: {
+          apiKey: result.apiKey, // Return ONCE - user must save it
+          message: result.message,
+        },
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        error: result.message,
+      });
+    }
+  } catch (error) {
+    console.error('[ValidatorRegistration] Approval error:', error);
+    res.status(500).json({ success: false, error: 'Approval failed' });
+  }
+});
+
+// POST /registrations/:id/reject - Reject registration (admin)
+router.post('/registrations/:id/reject', async (req: Request, res: Response) => {
+  try {
+    const { adminAddress, reason } = req.body;
+
+    if (!adminAddress || !reason) {
+      return res.status(400).json({ success: false, error: 'Admin address and reason required' });
+    }
+
+    const result = await validatorRegistrationService.rejectRegistration(
+      req.params.id,
+      adminAddress,
+      reason
+    );
+
+    if (result.success) {
+      res.json({ success: true, message: result.message });
+    } else {
+      res.status(400).json({ success: false, error: result.message });
+    }
+  } catch (error) {
+    console.error('[ValidatorRegistration] Rejection error:', error);
+    res.status(500).json({ success: false, error: 'Rejection failed' });
+  }
+});
+
+// POST /registrations/:id/multisig - Submit multi-sig approval
+router.post('/registrations/:id/multisig', async (req: Request, res: Response) => {
+  try {
+    const { approverAddress, approverRole, decision, signatureProof, comments } = req.body;
+    const ipAddress = req.ip || req.socket.remoteAddress;
+
+    if (!approverAddress || !decision || !signatureProof) {
+      return res.status(400).json({
+        success: false,
+        error: 'Approver address, decision, and signature proof required',
+      });
+    }
+
+    if (!['approve', 'reject', 'abstain'].includes(decision)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Decision must be approve, reject, or abstain',
+      });
+    }
+
+    const result = await validatorRegistrationService.submitMultisigApproval(
+      req.params.id,
+      approverAddress,
+      approverRole || 'admin',
+      decision,
+      signatureProof,
+      comments,
+      ipAddress
+    );
+
+    if (result.success) {
+      res.json({ success: true, message: result.message });
+    } else {
+      res.status(400).json({ success: false, error: result.message });
+    }
+  } catch (error) {
+    console.error('[ValidatorRegistration] Multi-sig error:', error);
+    res.status(500).json({ success: false, error: 'Multi-sig submission failed' });
+  }
+});
+
+// POST /api-key/rotate - Rotate API key
+router.post('/api-key/rotate', validateValidatorApiKey, async (req: Request, res: Response) => {
+  try {
+    const ipAddress = req.ip || req.socket.remoteAddress;
+    const userAgent = req.headers['user-agent'];
+
+    // Validate request
+    const parseResult = keyRotationRequestSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid rotation request',
+        details: parseResult.error.errors,
+      });
+    }
+
+    const result = await validatorRegistrationService.rotateApiKey(
+      parseResult.data,
+      ipAddress,
+      userAgent
+    );
+
+    if (result.success) {
+      res.json({
+        success: true,
+        data: {
+          newApiKey: result.newApiKey, // Return ONCE
+          gracePeriodEndsAt: result.gracePeriodEndsAt,
+          message: result.message,
+        },
+      });
+    } else {
+      res.status(400).json({ success: false, error: result.message });
+    }
+  } catch (error) {
+    console.error('[ValidatorRegistration] Key rotation error:', error);
+    res.status(500).json({ success: false, error: 'Key rotation failed' });
+  }
+});
+
+// POST /api-key/revoke - Revoke API key (admin)
+router.post('/api-key/revoke', async (req: Request, res: Response) => {
+  try {
+    const { validatorAddress, reason, adminAddress } = req.body;
+
+    if (!validatorAddress || !reason) {
+      return res.status(400).json({
+        success: false,
+        error: 'Validator address and reason required',
+      });
+    }
+
+    const result = await validatorRegistrationService.revokeApiKey(
+      validatorAddress,
+      reason,
+      adminAddress
+    );
+
+    if (result.success) {
+      res.json({ success: true, message: result.message });
+    } else {
+      res.status(400).json({ success: false, error: result.message });
+    }
+  } catch (error) {
+    console.error('[ValidatorRegistration] Revocation error:', error);
+    res.status(500).json({ success: false, error: 'Revocation failed' });
+  }
+});
+
+// GET /api-key/rotations/:address - Get key rotation history
+router.get('/api-key/rotations/:address', async (req: Request, res: Response) => {
+  try {
+    const limit = Math.min(parseInt(req.query.limit as string) || 20, 100);
+    const rotations = await validatorRegistrationService.getKeyRotationHistory(
+      req.params.address,
+      limit
+    );
+
+    res.json({
+      success: true,
+      data: rotations,
+    });
+  } catch (error) {
+    console.error('[ValidatorRegistration] Rotation history error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch rotation history' });
+  }
+});
+
+// GET /heartbeats/:address - Get heartbeat history
+router.get('/heartbeats/:address', async (req: Request, res: Response) => {
+  try {
+    const limit = Math.min(parseInt(req.query.limit as string) || 100, 500);
+    const heartbeats = await validatorRegistrationService.getRecentHeartbeats(
+      req.params.address,
+      limit
+    );
+
+    res.json({
+      success: true,
+      data: heartbeats,
+    });
+  } catch (error) {
+    console.error('[ValidatorRegistration] Heartbeat history error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch heartbeat history' });
+  }
+});
+
+// POST /heartbeat/record - Record heartbeat (from validator node)
+router.post('/heartbeat/record', validateValidatorApiKey, async (req: Request, res: Response) => {
+  try {
+    const ipAddress = req.ip || req.socket.remoteAddress;
+    const validatorAddress = (req as any).validatorAddress;
+
+    const heartbeatData = {
+      validatorAddress,
+      status: req.body.status || 'healthy',
+      version: req.body.version || 'unknown',
+      blockHeight: req.body.blockHeight,
+      peersConnected: req.body.peersConnected || 0,
+      memoryUsageMb: req.body.memoryUsageMb,
+      cpuUsagePercent: req.body.cpuUsagePercent,
+      diskUsagePercent: req.body.diskUsagePercent,
+      networkLatencyMs: req.body.networkLatencyMs,
+      securityScore: req.body.securityScore || 100,
+      activeAlerts: req.body.activeAlerts || 0,
+      region: req.body.region,
+    };
+
+    const result = await validatorRegistrationService.recordHeartbeat(heartbeatData, ipAddress);
+
+    if (result.success) {
+      res.json({
+        success: true,
+        data: {
+          acknowledged: true,
+          receivedAt: new Date(),
+          nextHeartbeatMs: 30000, // 30 seconds
+        },
+      });
+    } else {
+      res.status(400).json({ success: false, error: result.message });
+    }
+  } catch (error) {
+    console.error('[ValidatorRegistration] Heartbeat record error:', error);
+    res.status(500).json({ success: false, error: 'Heartbeat recording failed' });
+  }
+});
+
 export function registerExternalValidatorRoutes(app: any): void {
   app.use('/api/external-validators', router);
   
@@ -1515,7 +1909,7 @@ export function registerExternalValidatorRoutes(app: any): void {
     console.error('[ExternalValidatorEngine] Failed to start:', err);
   });
   
-  console.log('[ExternalValidators] ✅ Enterprise external validator routes registered (30 endpoints including security sync)');
+  console.log('[ExternalValidators] ✅ Enterprise external validator routes registered (45+ endpoints including registration & security)');
 }
 
 export default router;

@@ -223,7 +223,7 @@ export class ValidatorRegistrationService {
 
       const result = await db
         .insert(externalValidatorRegistrations)
-        .values(registration)
+        .values(registration as any)
         .returning();
 
       // Log audit event
