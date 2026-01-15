@@ -208,7 +208,8 @@ app.get('/vision', async (_req, res) => {
 
 // Backend routes that must NOT be intercepted by SPA fallback
 // Verified from routes.ts: only these 3 non-API routes exist
-const BACKEND_ROUTES = ['/api', '/ws', '/health', '/whitepaper', '/technical-whitepaper', '/vision'];
+// ★ [2026-01-15] Added /rpc for external validator JSON-RPC endpoint
+const BACKEND_ROUTES = ['/api', '/ws', '/health', '/whitepaper', '/technical-whitepaper', '/vision', '/rpc'];
 
 // Early SPA fallback - serves index.html for SPA routes during initialization
 // This enables instant page load while backend services initialize in background
