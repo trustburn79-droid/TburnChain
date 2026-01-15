@@ -497,7 +497,7 @@ const productionVideos: VideoTutorial[] = [
 ];
 
 export default function HelpCenter() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -507,6 +507,73 @@ export default function HelpCenter() {
   const [selectedVideo, setSelectedVideo] = useState<VideoTutorial | null>(null);
   const [articleDetailOpen, setArticleDetailOpen] = useState(false);
   const [videoPlayerOpen, setVideoPlayerOpen] = useState(false);
+
+  // Translation helper functions for content
+  const getCategoryName = useCallback((category: HelpCategory): string => {
+    const key = `adminHelp.content.categories.${category.id}.name`;
+    const translated = t(key);
+    return translated !== key ? translated : category.name;
+  }, [t]);
+
+  const getCategoryDescription = useCallback((category: HelpCategory): string => {
+    const key = `adminHelp.content.categories.${category.id}.description`;
+    const translated = t(key);
+    return translated !== key ? translated : category.description;
+  }, [t]);
+
+  const getArticleTitle = useCallback((article: HelpArticle): string => {
+    const key = `adminHelp.content.articles.${article.id}.title`;
+    const translated = t(key);
+    return translated !== key ? translated : article.title;
+  }, [t]);
+
+  const getArticleDescription = useCallback((article: HelpArticle): string => {
+    const key = `adminHelp.content.articles.${article.id}.description`;
+    const translated = t(key);
+    return translated !== key ? translated : article.description;
+  }, [t]);
+
+  const getArticleContent = useCallback((article: HelpArticle): string => {
+    const key = `adminHelp.content.articles.${article.id}.content`;
+    const translated = t(key);
+    return translated !== key ? translated : (article.content || article.description);
+  }, [t]);
+
+  const getArticleAuthor = useCallback((article: HelpArticle): string => {
+    const key = `adminHelp.content.articles.${article.id}.author`;
+    const translated = t(key);
+    return translated !== key ? translated : (article.author || "");
+  }, [t]);
+
+  const getArticleReadTime = useCallback((article: HelpArticle): string => {
+    const key = `adminHelp.content.articles.${article.id}.readTime`;
+    const translated = t(key);
+    return translated !== key ? translated : (article.readTime || "");
+  }, [t]);
+
+  const getFaqQuestion = useCallback((faq: FAQ): string => {
+    const key = `adminHelp.content.faqs.${faq.id}.question`;
+    const translated = t(key);
+    return translated !== key ? translated : faq.question;
+  }, [t]);
+
+  const getFaqAnswer = useCallback((faq: FAQ): string => {
+    const key = `adminHelp.content.faqs.${faq.id}.answer`;
+    const translated = t(key);
+    return translated !== key ? translated : faq.answer;
+  }, [t]);
+
+  const getVideoTitle = useCallback((video: VideoTutorial): string => {
+    const key = `adminHelp.content.videos.${video.id}.title`;
+    const translated = t(key);
+    return translated !== key ? translated : video.title;
+  }, [t]);
+
+  const getVideoDescription = useCallback((video: VideoTutorial): string => {
+    const key = `adminHelp.content.videos.${video.id}.description`;
+    const translated = t(key);
+    return translated !== key ? translated : (video.description || "");
+  }, [t]);
 
   // Debounce search input
   useEffect(() => {
@@ -627,10 +694,10 @@ export default function HelpCenter() {
   const handleCopyLink = useCallback((articleId: string) => {
     navigator.clipboard.writeText(`${window.location.origin}/admin/help/article/${articleId}`);
     toast({
-      title: "Link Copied",
-      description: "Article link copied to clipboard",
+      title: t("adminHelp.content.linkCopied"),
+      description: t("adminHelp.content.linkCopiedDesc"),
     });
-  }, [toast]);
+  }, [toast, t]);
 
   if (error) {
     return (
@@ -823,7 +890,7 @@ export default function HelpCenter() {
                   <div className={`h-12 w-12 rounded-lg ${category.color || 'bg-primary/10'} flex items-center justify-center mx-auto mb-3`}>
                     <IconComponent className={`h-6 w-6 ${category.color?.includes('text-') ? '' : 'text-primary'}`} />
                   </div>
-                  <h3 className="font-medium text-sm mb-1 line-clamp-2">{category.name}</h3>
+                  <h3 className="font-medium text-sm mb-1 line-clamp-2">{getCategoryName(category)}</h3>
                   <p className="text-xs text-muted-foreground">{category.articleCount} {t("adminHelp.articles")}</p>
                 </CardContent>
               </Card>
@@ -880,7 +947,7 @@ export default function HelpCenter() {
                   {filteredArticles.length === 0 ? (
                     <div className="text-center py-8">
                       <HelpCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                      <p className="text-muted-foreground">No articles found. Try different keywords.</p>
+                      <p className="text-muted-foreground">{t("adminHelp.content.noArticlesFound")}</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
@@ -893,8 +960,8 @@ export default function HelpCenter() {
                         >
                           <FileText className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-medium line-clamp-1">{article.title}</h4>
-                            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{article.description}</p>
+                            <h4 className="font-medium line-clamp-1">{getArticleTitle(article)}</h4>
+                            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{getArticleDescription(article)}</p>
                             <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground flex-wrap">
                               <Badge variant="outline">{article.category}</Badge>
                               <span className="flex items-center gap-1">
@@ -903,7 +970,7 @@ export default function HelpCenter() {
                               </span>
                               <span className="flex items-center gap-1">
                                 <Clock className="h-3 w-3" />
-                                {article.readTime || "5 min"}
+                                {getArticleReadTime(article) || "5 min"}
                               </span>
                               <span>{t("adminHelp.updated")} {article.lastUpdated}</span>
                             </div>
@@ -939,8 +1006,8 @@ export default function HelpCenter() {
                               <FileText className="h-5 w-5 text-primary" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-medium line-clamp-2">{article.title}</h4>
-                              <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{article.description}</p>
+                              <h4 className="font-medium line-clamp-2">{getArticleTitle(article)}</h4>
+                              <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{getArticleDescription(article)}</p>
                               <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground flex-wrap">
                                 <span className="flex items-center gap-1">
                                   <Eye className="h-3 w-3" />
@@ -948,7 +1015,7 @@ export default function HelpCenter() {
                                 </span>
                                 <span className="flex items-center gap-1">
                                   <Clock className="h-3 w-3" />
-                                  {article.readTime || "5 min"}
+                                  {getArticleReadTime(article) || "5 min"}
                                 </span>
                                 <span>{t("adminHelp.updated")} {article.lastUpdated}</span>
                               </div>
@@ -979,7 +1046,7 @@ export default function HelpCenter() {
                         >
                           <FileText className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                           <div className="flex-1 min-w-0">
-                            <p className="font-medium text-sm line-clamp-1">{article.title}</p>
+                            <p className="font-medium text-sm line-clamp-1">{getArticleTitle(article)}</p>
                             <p className="text-xs text-muted-foreground">{article.category}</p>
                           </div>
                           <span className="text-xs text-muted-foreground flex-shrink-0">{article.lastUpdated}</span>
@@ -1007,7 +1074,7 @@ export default function HelpCenter() {
                 {filteredVideos.length === 0 ? (
                   <div className="text-center py-8">
                     <Video className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">No videos found. Try different keywords.</p>
+                    <p className="text-muted-foreground">{t("adminHelp.content.noArticlesFound")}</p>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1027,17 +1094,17 @@ export default function HelpCenter() {
                           </Badge>
                         </div>
                         <div className="p-4">
-                          <h4 className="font-medium line-clamp-2">{video.title}</h4>
+                          <h4 className="font-medium line-clamp-2">{getVideoTitle(video)}</h4>
                           {video.description && (
-                            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{video.description}</p>
+                            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{getVideoDescription(video)}</p>
                           )}
                           <div className="flex items-center justify-between mt-3 text-sm text-muted-foreground">
                             <span className="flex items-center gap-1">
                               <Eye className="h-3 w-3" />
-                              {video.views.toLocaleString()} views
+                              {video.views.toLocaleString()} {t("adminHelp.views")}
                             </span>
                             {video.instructor && (
-                              <span className="text-xs">{video.instructor}</span>
+                              <span className="text-xs">{t("adminHelp.content.instructor")}: {video.instructor}</span>
                             )}
                           </div>
                         </div>
@@ -1058,14 +1125,14 @@ export default function HelpCenter() {
                   {t("adminHelp.faqTitle")}
                 </CardTitle>
                 <CardDescription>
-                  Quick answers to the most common questions about TBURN Mainnet
+                  {t("adminHelp.faqDesc") || "TBURN 메인넷에 대한 가장 일반적인 질문에 대한 빠른 답변"}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 {filteredFAQs.length === 0 ? (
                   <div className="text-center py-8">
                     <HelpCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">No FAQs found. Try different keywords.</p>
+                    <p className="text-muted-foreground">{t("adminHelp.content.noArticlesFound")}</p>
                   </div>
                 ) : (
                   <Accordion type="single" collapsible className="w-full">
@@ -1074,11 +1141,11 @@ export default function HelpCenter() {
                         <AccordionTrigger className="text-left">
                           <div className="flex items-start gap-3">
                             <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                            <span>{faq.question}</span>
+                            <span>{getFaqQuestion(faq)}</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent className="text-muted-foreground pl-8">
-                          <p className="mb-3">{faq.answer}</p>
+                          <p className="mb-3">{getFaqAnswer(faq)}</p>
                           <div className="flex items-center gap-4 pt-2 border-t">
                             {faq.category && (
                               <Badge variant="outline" className="text-xs">
@@ -1087,7 +1154,7 @@ export default function HelpCenter() {
                             )}
                             <span className="text-xs flex items-center gap-1">
                               <ThumbsUp className="h-3 w-3" />
-                              {faq.helpful || 0} found helpful
+                              {faq.helpful || 0} {t("adminHelp.helpful")}
                             </span>
                           </div>
                         </AccordionContent>
@@ -1138,13 +1205,13 @@ export default function HelpCenter() {
                   {selectedArticle.featured && (
                     <Badge className="bg-yellow-500/10 text-yellow-500">
                       <Star className="h-3 w-3 mr-1" />
-                      Featured
+                      {t("adminHelp.featuredArticles")}
                     </Badge>
                   )}
                 </div>
-                <SheetTitle className="text-xl">{selectedArticle.title}</SheetTitle>
+                <SheetTitle className="text-xl">{getArticleTitle(selectedArticle)}</SheetTitle>
                 <SheetDescription className="text-base">
-                  {selectedArticle.description}
+                  {getArticleDescription(selectedArticle)}
                 </SheetDescription>
               </SheetHeader>
               
@@ -1154,24 +1221,24 @@ export default function HelpCenter() {
                   {selectedArticle.author && (
                     <span className="flex items-center gap-1">
                       <Users className="h-4 w-4" />
-                      {selectedArticle.author}
+                      {getArticleAuthor(selectedArticle)}
                     </span>
                   )}
                   <span className="flex items-center gap-1">
                     <Clock className="h-4 w-4" />
-                    {selectedArticle.readTime || "5 min read"}
+                    {getArticleReadTime(selectedArticle) || "5 min"}
                   </span>
                   <span className="flex items-center gap-1">
                     <Eye className="h-4 w-4" />
-                    {selectedArticle.views.toLocaleString()} views
+                    {selectedArticle.views.toLocaleString()} {t("adminHelp.views")}
                   </span>
-                  <span>Updated {selectedArticle.lastUpdated}</span>
+                  <span>{t("adminHelp.updated")} {selectedArticle.lastUpdated}</span>
                 </div>
 
                 {/* Article Content */}
                 <div className="prose prose-sm dark:prose-invert max-w-none">
-                  {selectedArticle.content ? (
-                    selectedArticle.content.split('\n').map((line, i) => {
+                  {getArticleContent(selectedArticle) ? (
+                    getArticleContent(selectedArticle).split('\n').map((line, i) => {
                       if (line.startsWith('## ')) {
                         return <h2 key={i} className="text-lg font-semibold mt-6 mb-3">{line.replace('## ', '')}</h2>;
                       } else if (line.startsWith('### ')) {
@@ -1186,7 +1253,7 @@ export default function HelpCenter() {
                       return null;
                     })
                   ) : (
-                    <p>Full article content will be available soon.</p>
+                    <p>{t("adminHelp.content.noArticlesFound")}</p>
                   )}
                 </div>
 
@@ -1206,15 +1273,15 @@ export default function HelpCenter() {
                 <div className="flex items-center gap-2 pt-4 border-t">
                   <Button variant="outline" size="sm" onClick={() => handleCopyLink(selectedArticle.id)}>
                     <Copy className="h-4 w-4 mr-2" />
-                    Copy Link
+                    {t("common.copy")}
                   </Button>
                   <Button variant="outline" size="sm">
                     <Bookmark className="h-4 w-4 mr-2" />
-                    Save
+                    {t("adminHelp.content.bookmarkArticle")}
                   </Button>
                   <Button variant="outline" size="sm">
                     <Share2 className="h-4 w-4 mr-2" />
-                    Share
+                    {t("adminHelp.content.shareArticle")}
                   </Button>
                 </div>
               </div>
@@ -1229,9 +1296,9 @@ export default function HelpCenter() {
           {selectedVideo && (
             <>
               <DialogHeader>
-                <DialogTitle>{selectedVideo.title}</DialogTitle>
+                <DialogTitle>{getVideoTitle(selectedVideo)}</DialogTitle>
                 <DialogDescription>
-                  {selectedVideo.description || "Video tutorial"}
+                  {getVideoDescription(selectedVideo) || t("adminHelp.videoTutorials")}
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
@@ -1241,8 +1308,8 @@ export default function HelpCenter() {
                     <div className="h-20 w-20 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 hover-elevate cursor-pointer">
                       <Play className="h-10 w-10 text-primary ml-1" />
                     </div>
-                    <p className="text-muted-foreground">Click to play video</p>
-                    <p className="text-sm text-muted-foreground mt-1">Duration: {selectedVideo.duration}</p>
+                    <p className="text-muted-foreground">{t("adminHelp.content.playVideo")}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{t("adminHelp.videoDuration")}: {selectedVideo.duration}</p>
                   </div>
                 </div>
                 
@@ -1251,7 +1318,7 @@ export default function HelpCenter() {
                   <div className="flex items-center gap-4">
                     <span className="flex items-center gap-1">
                       <Eye className="h-4 w-4" />
-                      {selectedVideo.views.toLocaleString()} views
+                      {selectedVideo.views.toLocaleString()} {t("adminHelp.views")}
                     </span>
                     {selectedVideo.category && (
                       <Badge variant="outline">{selectedVideo.category}</Badge>
