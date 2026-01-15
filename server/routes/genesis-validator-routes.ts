@@ -108,8 +108,8 @@ router.get('/:address', async (req: Request, res: Response) => {
         nodePublicKey: validator.nodePublicKey,
         initialStake: validator.initialStake,
         commission: validator.commission,
-        status: validator.status,
         isVerified: validator.isVerified,
+        status: validator.isVerified ? 'active' : 'pending',
         createdAt: validator.createdAt,
       },
     });
@@ -308,7 +308,6 @@ router.get('/by-tier/:tier', async (req: Request, res: Response) => {
       tier: genesisValidators.tier,
       priority: genesisValidators.priority,
       nodePublicKey: genesisValidators.nodePublicKey,
-      status: genesisValidators.status,
       isVerified: genesisValidators.isVerified,
     })
       .from(genesisValidators)
