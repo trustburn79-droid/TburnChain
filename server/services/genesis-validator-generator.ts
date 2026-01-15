@@ -3,9 +3,12 @@
  * Production-grade service for generating and managing 125 Genesis Validators
  * 
  * Chain ID: 5800 | TBURN Mainnet
+ * 
+ * Uses secp256k1 elliptic curve cryptography for proper key derivation
  */
 
 import crypto from 'crypto';
+import { ethers } from 'ethers';
 import { db } from '../db';
 import { genesisValidators, genesisConfig, InsertGenesisValidator } from '@shared/schema';
 import { eq, count } from 'drizzle-orm';
@@ -54,17 +57,27 @@ export class GenesisValidatorGenerator {
 
   /**
    * Generate a cryptographically secure validator key pair
-   * Uses secp256k1-compatible key generation with TBURN tb1... address format
+   * Uses proper secp256k1 elliptic curve cryptography with TBURN tb1... address format
+   * 
+   * Private Key: 32 bytes random → 0x prefixed hex
+   * Public Key: secp256k1 point multiplication → uncompressed (64 bytes without 04 prefix)
+   * Address: SHA256 + RIPEMD160 + Bech32m → tb1...
    */
   generateKeyPair(): GenesisValidatorKeyPair {
-    // Generate 32-byte private key
-    const privateKeyBytes = crypto.randomBytes(32);
-    const privateKey = '0x' + privateKeyBytes.toString('hex');
-
-    // Create 64-byte public key (uncompressed without 04 prefix)
-    // In production, this would use proper secp256k1 curve multiplication
-    const publicKeyBuffer = crypto.createHash('sha512').update(privateKeyBytes).digest();
-    const publicKey = '0x' + publicKeyBuffer.toString('hex');
+    // Generate cryptographically secure random wallet using ethers.js secp256k1
+    const wallet = ethers.Wallet.createRandom();
+    
+    // Private key (32 bytes, 0x prefixed)
+    const privateKey = wallet.privateKey;
+    
+    // Get uncompressed public key from ethers SigningKey
+    // ethers returns 0x04 + 64 bytes (uncompressed format)
+    const signingKey = new ethers.SigningKey(privateKey);
+    const uncompressedPubKey = signingKey.publicKey; // 0x04 + 128 hex chars
+    
+    // Remove 0x04 prefix to get 64-byte public key (128 hex chars)
+    // TBURN uses uncompressed public key without the 04 prefix
+    const publicKey = '0x' + uncompressedPubKey.slice(4);
 
     // Derive TBURN native address (tb1...) from public key
     // Uses SHA256 + RIPEMD160 hash + Bech32m encoding
@@ -72,8 +85,8 @@ export class GenesisValidatorGenerator {
 
     return {
       address, // TBURN native format: tb1...
-      publicKey,
-      privateKey, // Used only for display/export, never stored in DB
+      publicKey, // 64-byte uncompressed public key (without 04 prefix)
+      privateKey, // 32-byte private key, used only for display/export
     };
   }
 
