@@ -32640,6 +32640,31 @@
         "answer": "Genesis and Pioneer validators receive dedicated support channels. All validators can access community forums, documentation, and our Discord support server."
       }
     },
+    "security": {
+      "badge": "Enterprise Security",
+      "title": "Security API Integration",
+      "subtitle": "Enterprise-grade security for machine-to-machine communication between validators and mainnet",
+      "auth": {
+        "title": "API Authentication",
+        "bcrypt": "bcrypt (12 rounds) password hashing",
+        "pepper": "Server-side pepper for additional security",
+        "hmac": "HMAC-SHA256 request signatures"
+      },
+      "replay": {
+        "title": "Replay Attack Prevention",
+        "timestamp": "60-second timestamp drift tolerance",
+        "nonce": "Unique nonce per request (5-min TTL)",
+        "constant": "Constant-time comparison"
+      },
+      "headers": {
+        "title": "Required Headers"
+      },
+      "note": {
+        "title": "Keep Your API Key Secure",
+        "text": "Your API key is generated during validator registration. Never share it or commit to version control. Use environment variables for secure storage."
+      },
+      "viewDocs": "View Security Documentation"
+    },
     "download": {
       "title": "Download Validator Software",
       "subtitle": "Get the official TBURN validator node software to start running your node",

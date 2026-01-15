@@ -37,7 +37,10 @@ import {
   Code,
   Crown,
   Rocket,
-  Star
+  Star,
+  Lock,
+  Key,
+  AlertTriangle
 } from "lucide-react";
 
 interface ExternalValidatorStats {
@@ -520,6 +523,132 @@ export default function ExternalValidatorProgramPage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Security API Integration */}
+      <section id="security" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="mb-4 border-green-500/50 text-green-600 dark:text-green-400" data-testid="badge-security">
+              {t("externalValidator.security.badge")}
+            </Badge>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidator.security.title")}</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {t("externalValidator.security.subtitle")}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8">
+            <Card className="hover-elevate" data-testid="card-security-auth">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-lg bg-green-500/10">
+                    <Lock className="w-6 h-6 text-green-500" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">{t("externalValidator.security.auth.title")}</CardTitle>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="text-sm text-muted-foreground space-y-2">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    <span>{t("externalValidator.security.auth.bcrypt")}</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    <span>{t("externalValidator.security.auth.pepper")}</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    <span>{t("externalValidator.security.auth.hmac")}</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="hover-elevate" data-testid="card-security-replay">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-lg bg-blue-500/10">
+                    <RefreshCw className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">{t("externalValidator.security.replay.title")}</CardTitle>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="text-sm text-muted-foreground space-y-2">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    <span>{t("externalValidator.security.replay.timestamp")}</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    <span>{t("externalValidator.security.replay.nonce")}</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    <span>{t("externalValidator.security.replay.constant")}</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="hover-elevate" data-testid="card-security-headers">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-lg bg-primary/10">
+                    <Key className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">{t("externalValidator.security.headers.title")}</CardTitle>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="text-sm text-muted-foreground space-y-2">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    <span>X-API-Key</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    <span>X-Validator-Address</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    <span>X-Timestamp / X-Nonce</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <Card className="border-yellow-500/30 bg-yellow-500/5" data-testid="card-security-note">
+              <CardContent className="py-4">
+                <div className="flex items-start gap-4">
+                  <AlertTriangle className="w-6 h-6 text-yellow-500 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold mb-1">{t("externalValidator.security.note.title")}</h4>
+                    <p className="text-sm text-muted-foreground">{t("externalValidator.security.note.text")}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <div className="text-center mt-6">
+              <Link href="/external-validator-software#security">
+                <Button variant="outline" data-testid="link-security-docs">
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                  {t("externalValidator.security.viewDocs")}
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
