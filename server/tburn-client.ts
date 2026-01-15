@@ -7,7 +7,9 @@ import { IS_PRODUCTION } from './core/sessions/session-bypass';
 // ★ [2026-01-05 CRITICAL FIX] 프로덕션에서 엔터프라이즈 시뮬레이터 비활성화
 // Autoscale 512MB 환경에서 엔터프라이즈 노드가 70-90분 후 힙 메모리 고갈 유발
 // 개발 환경에서만 시뮬레이터 활성화, 프로덕션에서는 정적 데이터 사용
-const DISABLE_ENTERPRISE_IN_PRODUCTION = true;
+// ★ [2026-01-15 MAINNET LAUNCH] MAINNET_MODE=true 시 8GB 힙에서 안전하게 RPC 활성화
+const MAINNET_MODE = process.env.MAINNET_MODE === 'true';
+const DISABLE_ENTERPRISE_IN_PRODUCTION = !MAINNET_MODE; // MAINNET_MODE일 때 비활성화 해제
 
 export interface TBurnNodeConfig {
   rpcUrl: string;
