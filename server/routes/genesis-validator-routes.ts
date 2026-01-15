@@ -182,7 +182,6 @@ router.post('/generate', async (req: Request, res: Response) => {
           address: v.address,
           publicKey: v.publicKey,
           compressedPublicKey: v.compressedPublicKey,
-          ethereumAddress: v.ethereumAddress,
           privateKey: v.privateKey, // ⚠️ EXPORT IMMEDIATELY
           verified: v.verified,
         })),

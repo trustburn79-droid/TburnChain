@@ -48,7 +48,6 @@ export interface GenesisValidatorKeyPair {
   publicKey: string;
   privateKey: string;
   compressedPublicKey: string;
-  ethereumAddress: string;
 }
 
 export interface GeneratedValidator {
@@ -172,11 +171,7 @@ export class GenesisValidatorGenerator {
         // Step 7: Get compressed public key for reference
         const compressedPublicKey = signingKey.compressedPublicKey;
         
-        // Step 8: Get Ethereum address for cross-reference
-        const wallet = new ethers.Wallet(privateKey);
-        const ethereumAddress = wallet.address;
-        
-        // Step 9: Derive TBURN native address (tb1...)
+        // Step 8: Derive TBURN native address (tb1...)
         const address = deriveAddressFromPublicKey(publicKey);
         
         // Validate address format
@@ -189,7 +184,6 @@ export class GenesisValidatorGenerator {
           publicKey,
           privateKey,
           compressedPublicKey,
-          ethereumAddress,
         };
       } catch (error) {
         console.error(`[GenesisValidator] Key generation attempt ${attempts} failed:`, error);
@@ -447,7 +441,6 @@ export class GenesisValidatorGenerator {
       address: string;
       publicKey: string;
       compressedPublicKey: string;
-      ethereumAddress: string;
       privateKey: string;
       verified: boolean;
     }>;
@@ -498,7 +491,6 @@ export class GenesisValidatorGenerator {
           address: v.keyPair.address,
           publicKey: v.keyPair.publicKey,
           compressedPublicKey: v.keyPair.compressedPublicKey,
-          ethereumAddress: v.keyPair.ethereumAddress,
           privateKey: v.keyPair.privateKey,
           verified: v.verified,
         })),
