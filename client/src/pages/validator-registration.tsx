@@ -469,6 +469,7 @@ export default function ValidatorRegistration() {
                 </Button>
               </CardFooter>
             </Card>
+          </div>
         </div>
       </div>
     );
