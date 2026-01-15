@@ -37752,6 +37752,36 @@
         "answer": "커뮤니티 지원을 위해 Discord에 가입하거나, 우선 지원을 위해 엔터프라이즈 지원에 연락하세요."
       }
     },
+    "securityApi": {
+      "badge": "엔터프라이즈 보안",
+      "title": "보안 API 연동",
+      "subtitle": "엔터프라이즈급 인증을 통해 검증자를 메인넷 보안 모니터링 시스템에 연결",
+      "authTitle": "인증 시스템",
+      "authDescription": "bcrypt 해싱, 서버 측 페퍼, HMAC 서명을 사용한 다계층 보안",
+      "features": {
+        "auth": "API 인증",
+        "bcrypt": "bcrypt (12 라운드) 비밀번호 해싱",
+        "pepper": "추가 보안을 위한 서버 측 페퍼",
+        "hmac": "HMAC-SHA256 요청 서명",
+        "replay": "재생 공격 방지",
+        "timestamp": "타임스탬프 검증 (60초 허용 오차)",
+        "nonce": "요청별 고유 nonce (5분 TTL)",
+        "constant": "상수 시간 비교"
+      },
+      "tabs": {
+        "config": "구성",
+        "heartbeat": "하트비트 API",
+        "endpoints": "엔드포인트"
+      },
+      "configTitle": "보안 구성",
+      "configDescription": "~/.tburn/security.yaml에서 보안 설정 구성",
+      "heartbeatTitle": "보안 하트비트",
+      "heartbeatDescription": "메인넷 보안 API에 주기적인 보안 상태 보고 전송",
+      "endpointsTitle": "보안 API 엔드포인트",
+      "endpointsDescription": "보안 보고 및 상태 확인을 위한 사용 가능한 엔드포인트",
+      "warningTitle": "API 키를 안전하게 보관하세요",
+      "warningText": "API 키를 공유하거나 버전 관리 시스템에 저장하지 마세요. 환경 변수 또는 안전한 비밀 관리를 사용하세요. 유출된 키는 검증자 사칭 공격으로 이어질 수 있습니다."
+    },
     "support": {
       "title": "지원 및 리소스",
       "subtitle": "도움말 및 문서에 액세스",

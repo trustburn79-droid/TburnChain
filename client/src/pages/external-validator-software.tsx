@@ -151,7 +151,65 @@ curl http://localhost:9100/metrics
 ./tburn-validator logs --follow
 
 # Check sync status
-./tburn-validator sync-status`
+./tburn-validator sync-status`,
+
+  securityApi: `# Security API Configuration (~/.tburn/security.yaml)
+security:
+  mainnet_api:
+    url: "https://api.tburn.io"
+    # API key provided during registration
+    api_key: "vk_xxxxxxxx_xxxxxxxxxxxxxxxxx"
+    
+  # Required request headers (auto-generated)
+  headers:
+    X-API-Key: "<your-api-key>"
+    X-Validator-Address: "<your-validator-address>"
+    X-Timestamp: "<epoch-ms>"
+    X-Nonce: "<random-32-hex>"
+    X-Signature: "<hmac-sha256-signature>"
+    
+  # Replay protection settings
+  replay_protection:
+    timestamp_drift_tolerance: 60000  # 60 seconds
+    nonce_ttl: 300000  # 5 minutes
+    
+  # Authentication (bcrypt + pepper)
+  auth:
+    algorithm: "bcrypt"
+    rounds: 12
+    pepper_enabled: true`,
+
+  securityHeartbeat: `# Send security heartbeat to mainnet
+curl -X POST https://api.tburn.io/api/external-validators/security/heartbeat \\
+  -H "Content-Type: application/json" \\
+  -H "X-API-Key: \${API_KEY}" \\
+  -H "X-Validator-Address: \${VALIDATOR_ADDRESS}" \\
+  -H "X-Timestamp: \$(date +%s)000" \\
+  -H "X-Nonce: \$(openssl rand -hex 16)" \\
+  -d '{
+    "nodeId": "my-validator",
+    "uptime": 86400,
+    "currentSlot": 12345,
+    "securityStats": {
+      "signingRequests": 1500,
+      "blockedRequests": 0,
+      "rateLimitHits": 0
+    }
+  }'`,
+
+  securityEndpoints: `# Available Security API Endpoints
+
+# 1. Security Heartbeat - Report validator status
+POST /api/external-validators/security/heartbeat
+
+# 2. Security Report - Submit security metrics
+POST /api/external-validators/security/report
+
+# 3. Get Your Status - Check if blocked/rate-limited
+GET /api/external-validators/security/my-status
+
+# 4. Acknowledge Alert - Mark alert as acknowledged
+POST /api/external-validators/security/alerts/:alertId/acknowledge`
 };
 
 const FEATURE_ICONS = [Shield, Lock, Zap, Clock, Network, Monitor, RefreshCw, HardDrive];
@@ -643,6 +701,138 @@ export default function ExternalValidatorSoftwarePage() {
               </CardHeader>
               <CardContent>
                 <CodeBlock code={CODE_SNIPPETS.config} language="yaml" testId="code-config" />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Security API Integration */}
+      <section className="py-16 border-b" id="security">
+        <div className="container">
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="mb-4 border-green-500/50 text-green-600 dark:text-green-400" data-testid="badge-security-api">
+              {t("externalValidatorSoftware.securityApi.badge")}
+            </Badge>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.securityApi.title")}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {t("externalValidatorSoftware.securityApi.subtitle")}
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto space-y-8">
+            <Card data-testid="card-security-overview">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="h-5 w-5 text-green-500" />
+                  {t("externalValidatorSoftware.securityApi.authTitle")}
+                </CardTitle>
+                <CardDescription>{t("externalValidatorSoftware.securityApi.authDescription")}</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <h4 className="font-medium flex items-center gap-2">
+                      <Lock className="h-4 w-4 text-primary" />
+                      {t("externalValidatorSoftware.securityApi.features.auth")}
+                    </h4>
+                    <ul className="text-sm text-muted-foreground space-y-2">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                        <span>{t("externalValidatorSoftware.securityApi.features.bcrypt")}</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                        <span>{t("externalValidatorSoftware.securityApi.features.pepper")}</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                        <span>{t("externalValidatorSoftware.securityApi.features.hmac")}</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="space-y-3">
+                    <h4 className="font-medium flex items-center gap-2">
+                      <RefreshCw className="h-4 w-4 text-primary" />
+                      {t("externalValidatorSoftware.securityApi.features.replay")}
+                    </h4>
+                    <ul className="text-sm text-muted-foreground space-y-2">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                        <span>{t("externalValidatorSoftware.securityApi.features.timestamp")}</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                        <span>{t("externalValidatorSoftware.securityApi.features.nonce")}</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                        <span>{t("externalValidatorSoftware.securityApi.features.constant")}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Tabs defaultValue="config" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="config" className="flex items-center gap-2" data-testid="tab-security-config">
+                  <Settings className="h-4 w-4" />
+                  {t("externalValidatorSoftware.securityApi.tabs.config")}
+                </TabsTrigger>
+                <TabsTrigger value="heartbeat" className="flex items-center gap-2" data-testid="tab-security-heartbeat">
+                  <Activity className="h-4 w-4" />
+                  {t("externalValidatorSoftware.securityApi.tabs.heartbeat")}
+                </TabsTrigger>
+                <TabsTrigger value="endpoints" className="flex items-center gap-2" data-testid="tab-security-endpoints">
+                  <Network className="h-4 w-4" />
+                  {t("externalValidatorSoftware.securityApi.tabs.endpoints")}
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="config" className="mt-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{t("externalValidatorSoftware.securityApi.configTitle")}</CardTitle>
+                    <CardDescription>{t("externalValidatorSoftware.securityApi.configDescription")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <CodeBlock code={CODE_SNIPPETS.securityApi} language="yaml" testId="code-security-config" />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="heartbeat" className="mt-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{t("externalValidatorSoftware.securityApi.heartbeatTitle")}</CardTitle>
+                    <CardDescription>{t("externalValidatorSoftware.securityApi.heartbeatDescription")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <CodeBlock code={CODE_SNIPPETS.securityHeartbeat} testId="code-security-heartbeat" />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="endpoints" className="mt-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{t("externalValidatorSoftware.securityApi.endpointsTitle")}</CardTitle>
+                    <CardDescription>{t("externalValidatorSoftware.securityApi.endpointsDescription")}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <CodeBlock code={CODE_SNIPPETS.securityEndpoints} testId="code-security-endpoints" />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+
+            <Card className="border-yellow-500/30 bg-yellow-500/5" data-testid="card-security-warning">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4">
+                  <AlertTriangle className="h-6 w-6 text-yellow-500 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold mb-2">{t("externalValidatorSoftware.securityApi.warningTitle")}</h4>
+                    <p className="text-sm text-muted-foreground">{t("externalValidatorSoftware.securityApi.warningText")}</p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>

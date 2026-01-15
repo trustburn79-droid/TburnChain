@@ -32805,6 +32805,36 @@
         "answer": "The node will automatically attempt to reconnect. Ensure your firewall allows the required ports and check your network configuration."
       }
     },
+    "securityApi": {
+      "badge": "Enterprise Security",
+      "title": "Security API Integration",
+      "subtitle": "Connect your validator to the mainnet security monitoring system with enterprise-grade authentication",
+      "authTitle": "Authentication System",
+      "authDescription": "Multi-layer security with bcrypt hashing, server-side pepper, and HMAC signatures",
+      "features": {
+        "auth": "API Authentication",
+        "bcrypt": "bcrypt (12 rounds) password hashing",
+        "pepper": "Server-side pepper for additional security",
+        "hmac": "HMAC-SHA256 request signatures",
+        "replay": "Replay Attack Prevention",
+        "timestamp": "Timestamp validation (60s drift tolerance)",
+        "nonce": "Unique nonce per request (5-min TTL)",
+        "constant": "Constant-time comparison"
+      },
+      "tabs": {
+        "config": "Configuration",
+        "heartbeat": "Heartbeat API",
+        "endpoints": "Endpoints"
+      },
+      "configTitle": "Security Configuration",
+      "configDescription": "Configure security settings in ~/.tburn/security.yaml",
+      "heartbeatTitle": "Security Heartbeat",
+      "heartbeatDescription": "Send periodic security status reports to the mainnet security API",
+      "endpointsTitle": "Security API Endpoints",
+      "endpointsDescription": "Available endpoints for security reporting and status checks",
+      "warningTitle": "Keep Your API Key Secure",
+      "warningText": "Never share your API key or store it in version control. Use environment variables or secure secret management. Compromised keys can lead to validator impersonation attacks."
+    },
     "support": {
       "title": "Support",
       "subtitle": "Get help with your validator node",
