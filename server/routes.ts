@@ -69,6 +69,7 @@ import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
 import shardCacheRoutes from "./routes/shard-cache-routes";
 import batchProcessorRoutes from "./routes/batch-processor-routes";
 import shardRebalancerRoutes from "./routes/shard-rebalancer-routes";
+import rpcRoutes from "./routes/rpc-routes";
 import sessionMonitoringRoutes from "./routes/session-monitoring-routes";
 import enterpriseSessionMonitoringRoutes from "./routes/enterprise-session-monitoring-routes";
 import enterpriseDbOptimizerRoutes from "./routes/enterprise-db-optimizer-routes";
@@ -3084,6 +3085,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Threshold-based automatic shard rebalancing for optimal load distribution
   // ============================================
   app.use("/api/shard-rebalancer", shardRebalancerRoutes);
+  
+  // JSON-RPC endpoint for external validators and wallets
+  app.use("/rpc", rpcRoutes);
+  console.log("[RPC] ✅ JSON-RPC endpoint registered at /rpc");
   console.log("[ShardRebalancer] ✅ Enterprise shard rebalancer routes registered (multi-threshold, EWMA prediction, hysteresis)");
 
   // ============================================
