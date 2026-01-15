@@ -771,7 +771,7 @@ export function getTBurnClient(): TBurnClient {
     // Always connect to enterprise node if configured with any tburn API key
     if (config.apiKey && config.apiKey.startsWith('tburn')) {
       console.log('[TBURN Client] 🚀 Initializing TBURN enterprise infrastructure...');
-      console.log('[TBURN Client] 🔐 Using enterprise API key:', config.apiKey);
+      console.log('[TBURN Client] 🔐 Using enterprise API key:', config.apiKey ? config.apiKey.slice(0, 8) + '***' : 'not configured');
       
       // Connect to enterprise node
       tburnClient.connect().then((success) => {
