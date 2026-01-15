@@ -124,126 +124,162 @@ router.get('/:address', async (req: Request, res: Response) => {
 
 /**
  * POST /api/genesis-validators/generate
- * Generate 125 genesis validator key pairs
- * 
- * ⚠️ CRITICAL SECURITY WARNING:
- * This endpoint returns private keys ONCE. They must be:
- * 1. Immediately exported to a secure location (GCP Secret Manager, HSM, etc.)
- * 2. Never logged or stored in plaintext
- * 3. The response should be consumed immediately and not cached
+ * ⛔ DISABLED FOR SECURITY
+ * Server-side key generation is disabled. Validators must generate their own keys offline
+ * and submit public keys via the /register endpoint (BYO - Bring Your Own Key approach).
  */
 router.post('/generate', async (req: Request, res: Response) => {
-  try {
-    console.log('[GenesisValidator] Starting 125 validator key generation...');
-    
-    // Check if already generated
-    const currentCount = await genesisValidatorGenerator.getValidatorCount();
-    if (currentCount >= 125) {
-      res.json({
-        success: true,
-        message: `Already have ${currentCount} genesis validators. Generation skipped.`,
-        data: {
-          alreadyGenerated: true,
-          count: currentCount,
-        },
-      });
-      return;
-    }
-
-    // Generate all validators
-    const result = await genesisValidatorGenerator.generateAndSaveAllValidators();
-
-    if (!result.success) {
-      res.status(500).json({
-        success: false,
-        error: 'Failed to generate validators',
-        errors: result.errors,
-      });
-      return;
-    }
-
-    console.log(`[GenesisValidator] Generated ${result.saved} validators, skipped ${result.skipped}`);
-
-    // Return the validators with private keys and verification status
-    // ⚠️ This is the ONLY time private keys are exposed
-    res.json({
-      success: true,
-      message: `Generated ${result.saved} genesis validators`,
-      warning: 'CRITICAL: Private keys are shown ONLY ONCE. Export them immediately to a secure location.',
-      data: {
-        configId: result.configId,
-        saved: result.saved,
-        skipped: result.skipped,
-        total: result.validators.length,
-        validators: result.validators.map(v => ({
-          index: v.index,
-          name: v.name,
-          tier: v.tier,
-          address: v.address,
-          publicKey: v.publicKey,
-          compressedPublicKey: v.compressedPublicKey,
-          privateKey: v.privateKey, // ⚠️ EXPORT IMMEDIATELY
-          verified: v.verified,
-        })),
-        errors: result.errors,
-        generationStats: result.generationStats,
-      },
-    });
-  } catch (error) {
-    console.error('[GenesisValidator] Generation error:', error);
-    res.status(500).json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Failed to generate validators',
-    });
-  }
+  res.status(403).json({
+    success: false,
+    error: 'SECURITY: Server-side key generation is disabled',
+    message: 'For security, validators must generate their own keys offline using HSM or secure key management.',
+    instructions: [
+      '1. Generate secp256k1 keypair offline using secure tooling (HSM, air-gapped machine)',
+      '2. Derive TBURN address from public key (Bech32m tb1... format)',
+      '3. Submit public key via POST /api/genesis-validators/register',
+      '4. Never share or transmit private keys over network',
+    ],
+    documentation: 'https://docs.tburn.io/validators/key-generation',
+  });
 });
 
 /**
  * POST /api/genesis-validators/export-for-secret-manager
- * Generate validators and format output for GCP Secret Manager import
+ * ⛔ DISABLED FOR SECURITY
  */
 router.post('/export-for-secret-manager', async (req: Request, res: Response) => {
+  res.status(403).json({
+    success: false,
+    error: 'SECURITY: Server-side key export is disabled',
+    message: 'Validators must manage their own keys securely using HSM or KMS.',
+  });
+});
+
+/**
+ * POST /api/genesis-validators/register
+ * BYO (Bring Your Own) Key Registration
+ * Validators submit their public key generated offline
+ */
+router.post('/register', async (req: Request, res: Response) => {
   try {
-    const currentCount = await genesisValidatorGenerator.getValidatorCount();
-    
-    if (currentCount >= 125) {
-      res.json({
+    const { 
+      name, 
+      publicKey, 
+      tier,
+      description,
+      website,
+      contactEmail,
+      nodeEndpoint,
+    } = req.body;
+
+    // Validate required fields
+    if (!name || !publicKey || !tier) {
+      res.status(400).json({
         success: false,
-        error: 'Validators already exist. Cannot export private keys after initial generation.',
-        message: 'Private keys are only available during initial generation. Re-deploy or use backup.',
+        error: 'Missing required fields: name, publicKey, tier',
       });
       return;
     }
 
-    // Generate and format for Secret Manager
-    const result = await genesisValidatorGenerator.generateAndSaveAllValidators();
-
-    if (!result.success) {
-      res.status(500).json({
+    // Validate tier
+    const validTiers = ['core', 'enterprise', 'partner', 'community'];
+    if (!validTiers.includes(tier.toLowerCase())) {
+      res.status(400).json({
         success: false,
-        error: 'Failed to generate validators',
-        errors: result.errors,
+        error: `Invalid tier. Must be one of: ${validTiers.join(', ')}`,
       });
       return;
     }
 
-    // Format for Secret Manager
-    const secretManagerFormat = genesisValidatorGenerator.formatForSecretManager(
-      result.validators.map(v => ({
-        name: v.name,
-        address: v.address,
-        privateKey: v.privateKey,
-      }))
-    );
+    // Validate public key format (should be 66 or 130 hex chars for compressed/uncompressed)
+    const pubKeyClean = publicKey.replace(/^0x/, '');
+    if (!/^[0-9a-fA-F]{66}$/.test(pubKeyClean) && !/^[0-9a-fA-F]{130}$/.test(pubKeyClean)) {
+      res.status(400).json({
+        success: false,
+        error: 'Invalid public key format. Must be 33 bytes (compressed) or 65 bytes (uncompressed) hex.',
+      });
+      return;
+    }
 
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Content-Disposition', 'attachment; filename="tburn-genesis-validators-secrets.json"');
-    res.send(secretManagerFormat);
+    // Derive TBURN address from public key
+    const { generateTBurnAddress } = await import('../utils/tburn-address');
+    const address = generateTBurnAddress(pubKeyClean);
+
+    // Check if address already exists
+    const existing = await db.select()
+      .from(genesisValidators)
+      .where(eq(genesisValidators.address, address))
+      .limit(1);
+
+    if (existing.length > 0) {
+      res.status(409).json({
+        success: false,
+        error: 'Validator with this public key already registered',
+        address,
+      });
+      return;
+    }
+
+    // Get tier-specific stake and commission
+    const tierConfig: Record<string, { stake: string; commission: number; apy: string }> = {
+      core: { stake: '1000000000000000000000000', commission: 300, apy: '20-25%' },
+      enterprise: { stake: '500000000000000000000000', commission: 800, apy: '16-20%' },
+      partner: { stake: '250000000000000000000000', commission: 1500, apy: '14-18%' },
+      community: { stake: '100000000000000000000000', commission: 2000, apy: '12-15%' },
+    };
+    const config = tierConfig[tier.toLowerCase()];
+
+    // Get current count for priority
+    const currentValidators = await db.select().from(genesisValidators);
+    const tierValidators = currentValidators.filter(v => v.tier === tier.toLowerCase());
+    const priority = tierValidators.length + 1;
+
+    // Insert new validator
+    const [newValidator] = await db.insert(genesisValidators).values({
+      configId: 'mainnet-genesis',
+      address,
+      name,
+      description: description || `${tier} tier genesis validator`,
+      website: website || null,
+      contactEmail: contactEmail || null,
+      initialStake: config.stake,
+      selfDelegation: config.stake,
+      commission: config.commission,
+      nodePublicKey: pubKeyClean,
+      nodeEndpoint: nodeEndpoint || null,
+      tier: tier.toLowerCase(),
+      priority,
+      isVerified: false,
+      kycStatus: 'pending',
+    }).returning();
+
+    console.log(`[GenesisValidator] BYO registration: ${name} (${tier}) - ${address}`);
+
+    res.status(201).json({
+      success: true,
+      message: 'Validator registered successfully via BYO key submission',
+      data: {
+        id: newValidator.id,
+        name: newValidator.name,
+        address: newValidator.address,
+        tier: newValidator.tier,
+        priority: newValidator.priority,
+        initialStake: config.stake,
+        commission: config.commission,
+        estimatedAPY: config.apy,
+        status: 'pending_verification',
+        nextSteps: [
+          'Complete KYC verification',
+          'Set up validator node at specified endpoint',
+          'Await verification from TBURN team',
+        ],
+      },
+    });
   } catch (error) {
-    console.error('[GenesisValidator] Export error:', error);
+    console.error('[GenesisValidator] BYO registration error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to export validators',
+      error: error instanceof Error ? error.message : 'Failed to register validator',
     });
   }
 });
