@@ -145,16 +145,17 @@ export class GenesisValidatorGenerator {
       return existing[0].id;
     }
 
-    // Create new genesis config for mainnet
+    // Create new genesis config for mainnet (using only fields that exist in schema)
     const [newConfig] = await db.insert(genesisConfig).values({
       chainId: 5800,
-      networkName: 'TBURN Mainnet',
+      chainName: 'TBURN Mainnet',
+      networkVersion: 'v8.0',
       totalSupply: '10000000000000000000000000000', // 10 billion TB in wei
-      validatorCount: GENESIS_VALIDATOR_COUNT,
-      blockTime: 100, // 100ms
-      epochLength: 32,
+      maxValidatorCount: GENESIS_VALIDATOR_COUNT,
+      initialValidatorCount: 21,
+      blockTimeMs: 100, // 100ms
       status: 'pending',
-      createdBy: 'system',
+      createdBy: 'genesis-generator',
     }).returning();
 
     return newConfig.id;
@@ -202,7 +203,7 @@ export class GenesisValidatorGenerator {
           isVerified: true,
           verifiedAt: new Date(),
           verifiedBy: 'genesis-generator',
-          status: 'active',
+          kycStatus: 'approved',
         };
 
         await db.insert(genesisValidators).values(validatorData);
@@ -229,19 +230,7 @@ export class GenesisValidatorGenerator {
    * Get all genesis validators (without private keys)
    */
   async getAllValidators(): Promise<any[]> {
-    return db.select({
-      id: genesisValidators.id,
-      address: genesisValidators.address,
-      name: genesisValidators.name,
-      tier: genesisValidators.tier,
-      priority: genesisValidators.priority,
-      nodePublicKey: genesisValidators.nodePublicKey,
-      initialStake: genesisValidators.initialStake,
-      commission: genesisValidators.commission,
-      status: genesisValidators.status,
-      isVerified: genesisValidators.isVerified,
-      createdAt: genesisValidators.createdAt,
-    }).from(genesisValidators).orderBy(genesisValidators.priority);
+    return db.select().from(genesisValidators);
   }
 
   /**

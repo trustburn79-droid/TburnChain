@@ -21,11 +21,11 @@ const router = Router();
 router.get('/status', async (req: Request, res: Response) => {
   try {
     const count = await genesisValidatorGenerator.getValidatorCount();
-    const validators = await genesisValidatorGenerator.getAllValidators();
+    const validators = await genesisValidatorGenerator.getAllValidators() || [];
     
     // Group by tier
-    const byTier = validators.reduce((acc, v) => {
-      const tier = v.tier || 'unknown';
+    const byTier = validators.reduce((acc: Record<string, number>, v: any) => {
+      const tier = v?.tier || 'unknown';
       acc[tier] = (acc[tier] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);

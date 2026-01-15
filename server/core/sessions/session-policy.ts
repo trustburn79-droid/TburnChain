@@ -241,6 +241,8 @@ const SESSION_FREE_PREFIX_LIST = [
   // RPC-Validator integration (public monitoring endpoints only, sensitive data requires admin auth)
   '/api/external-validators/rpc-integration/stats',
   '/api/external-validators/rpc-integration/check/',
+  // Genesis validator management (admin internal use)
+  '/api/genesis-validators/',
 ] as const;
 
 const SESSION_FREE_PREFIXES_SORTED = [...SESSION_FREE_PREFIX_LIST].sort((a, b) => b.length - a.length);

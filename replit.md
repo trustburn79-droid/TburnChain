@@ -48,6 +48,7 @@ Core architectural decisions include:
 - **RPC-Validator Integration**: Integration layer connecting validator engine with RPC gateway, featuring auto-sync, health checks, tier-based rate limiting, and allowlist management.
 - **TypeScript Validator SDK**: Comprehensive SDK for programmatic validator management (`external-validator-program/src/sdk/tburn-validator-sdk.ts`).
 - **Security Hardening**: Implemented mandatory HMAC-SHA256 signature verification, timestamp/nonce validation, rate limiting, mTLS client certificate validation, and sensitive data masking.
+- **Genesis Validator Key Generation System**: Production-grade 125 validator key generation with tiered distribution (Core: 10, Enterprise: 25, Partner: 40, Community: 50), cryptographic key pair generation using ethers.js, and secure database storage via Drizzle ORM. Endpoints: `/api/genesis-validators/status` (public), `/api/genesis-validators/generate` (admin), `/api/genesis-validators` (authenticated list).
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
