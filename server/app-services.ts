@@ -15,6 +15,7 @@ import {
   IS_PRODUCTION
 } from "./core/sessions/session-bypass";
 import { never500ErrorHandler, getErrorHealthStats } from "./core/never-500-handler";
+import { ensureGenesisTables } from "./migrations/ensure-genesis-tables";
 
 declare module "express-session" {
   interface SessionData {
@@ -49,6 +50,9 @@ export default async function runAppServices(
   app: Express,
   server: Server,
 ): Promise<void> {
+  // ★ [2026-01-15] Genesis tables migration - ensure tables exist before routes
+  await ensureGenesisTables();
+  
   // ★ [2026-01-04 프로덕션 안정성] 프록시 신뢰 설정
   app.set('trust proxy', 1);
   
