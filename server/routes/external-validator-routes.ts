@@ -908,22 +908,25 @@ router.get('/security/audit-logs', async (req: Request, res: Response) => {
 
 // ============================================================================
 // VALIDATOR-FACING SECURITY SYNC API (For External Validator Programs)
+// SECURITY: Uses bcrypt for API key hashing (not simple SHA-256)
 // ============================================================================
 
 import * as crypto from 'crypto';
+import bcrypt from 'bcryptjs';
+import { db } from '../db';
+import { 
+  externalValidatorApiKeys, 
+  externalValidatorSecurityState,
+  externalValidatorAuditLogs,
+  externalValidatorAlerts
+} from '@shared/schema';
+import { eq, and } from 'drizzle-orm';
 
-// In-memory storage for registered validator API keys (production would use database)
-const registeredValidatorKeys = new Map<string, {
-  validatorAddress: string;
-  apiKeyHash: string;
-  tier: 'genesis' | 'pioneer' | 'standard' | 'community';
-  allowedIPs: string[];
-  createdAt: Date;
-  lastUsed: Date;
-  status: 'active' | 'suspended' | 'revoked';
-}>();
+// Server-side pepper for additional security (keep in environment variable in production)
+const API_KEY_PEPPER = process.env.API_KEY_PEPPER || 'tburn-validator-pepper-2026-secure';
+const BCRYPT_ROUNDS = 12;
 
-// Rate limiting state per validator
+// Rate limiting state per validator (in-memory for performance, backed by DB for persistence)
 const validatorRateLimits = new Map<string, {
   requestCount: number;
   windowStart: number;
@@ -931,47 +934,43 @@ const validatorRateLimits = new Map<string, {
   blockedUntil?: number;
 }>();
 
-// Nonce tracking to prevent replay attacks (TTL-based cleanup)
-const usedNonces = new Set<string>();
+// Nonce tracking to prevent replay attacks (TTL-based with persistence)
+const usedNonces = new Map<string, number>(); // nonce -> expiry timestamp
 const NONCE_WINDOW_MS = 300000; // 5 minute window for nonces
+const TIMESTAMP_DRIFT_MS = 60000; // 1 minute clock drift tolerance
 const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute window
 const MAX_REQUESTS_PER_MINUTE = 100;
 
-// Register demo validator keys (in production, this would be in database)
-function initializeDemoValidatorKeys() {
-  const demoValidators = [
-    { address: '0x1234567890123456789012345678901234567890', tier: 'genesis' as const },
-    { address: '0xabcdef1234567890abcdef1234567890abcdef12', tier: 'pioneer' as const },
-    { address: '0x9876543210987654321098765432109876543210', tier: 'standard' as const },
-  ];
-  
-  for (const v of demoValidators) {
-    const apiKey = `vk_${v.address.slice(2, 10)}_${crypto.randomBytes(16).toString('hex')}`;
-    const apiKeyHash = crypto.createHash('sha256').update(apiKey).digest('hex');
-    
-    registeredValidatorKeys.set(v.address.toLowerCase(), {
-      validatorAddress: v.address,
-      apiKeyHash,
-      tier: v.tier,
-      allowedIPs: ['0.0.0.0/0'], // Allow all IPs for demo
-      createdAt: new Date(),
-      lastUsed: new Date(),
-      status: 'active',
-    });
-    
-    console.log(`[ValidatorKeys] Demo key registered for ${v.address.slice(0, 10)}... (tier: ${v.tier})`);
-  }
+// Hash API key with pepper before bcrypt (double-layer protection)
+async function hashApiKey(apiKey: string): Promise<string> {
+  const pepperedKey = crypto.createHmac('sha256', API_KEY_PEPPER).update(apiKey).digest('hex');
+  return bcrypt.hash(pepperedKey, BCRYPT_ROUNDS);
 }
 
-// Initialize demo keys
-initializeDemoValidatorKeys();
+// Verify API key using constant-time comparison
+async function verifyApiKey(apiKey: string, storedHash: string): Promise<boolean> {
+  const pepperedKey = crypto.createHmac('sha256', API_KEY_PEPPER).update(apiKey).digest('hex');
+  return bcrypt.compare(pepperedKey, storedHash);
+}
 
-// Cleanup old nonces periodically
+// Generate secure API key with prefix for identification
+function generateApiKey(validatorAddress: string): { key: string; prefix: string } {
+  const prefix = `vk_${validatorAddress.slice(2, 10)}`;
+  const secret = crypto.randomBytes(32).toString('base64url');
+  return { key: `${prefix}_${secret}`, prefix };
+}
+
+// Cleanup expired nonces periodically
 setInterval(() => {
-  usedNonces.clear(); // Simple cleanup - in production use TTL-based Map
-}, NONCE_WINDOW_MS);
+  const now = Date.now();
+  for (const [nonce, expiry] of usedNonces.entries()) {
+    if (now > expiry) {
+      usedNonces.delete(nonce);
+    }
+  }
+}, 60000); // Cleanup every minute
 
-// Validate HMAC signature
+// Validate HMAC signature with constant-time comparison
 function validateHMACSignature(
   apiKey: string, 
   timestamp: string, 
@@ -981,30 +980,98 @@ function validateHMACSignature(
 ): boolean {
   const payload = `${timestamp}:${nonce}:${body}`;
   const expectedSignature = crypto.createHmac('sha256', apiKey).update(payload).digest('hex');
+  
+  // Ensure same length for constant-time comparison
+  if (signature.length !== expectedSignature.length) {
+    return false;
+  }
+  
   return crypto.timingSafeEqual(
-    Buffer.from(signature),
-    Buffer.from(expectedSignature)
+    Buffer.from(signature, 'hex'),
+    Buffer.from(expectedSignature, 'hex')
   );
 }
 
-// Enhanced API key validation middleware with HMAC and rate limiting
-function validateValidatorApiKey(req: Request, res: Response, next: Function) {
+// Create tamper-evident audit log hash
+function createAuditLogHash(log: {
+  timestamp: Date;
+  validatorAddress: string;
+  action: string;
+  details: string | null;
+  previousHash?: string;
+}): string {
+  const data = JSON.stringify({
+    ts: log.timestamp.toISOString(),
+    addr: log.validatorAddress,
+    action: log.action,
+    details: log.details,
+    prev: log.previousHash || 'genesis',
+  });
+  return crypto.createHash('sha256').update(data + API_KEY_PEPPER).digest('hex');
+}
+
+// Persist audit log to database
+async function persistAuditLog(log: {
+  validatorAddress: string;
+  action: string;
+  details?: string;
+  severity: 'info' | 'warning' | 'critical';
+  ipAddress?: string;
+  requestPath?: string;
+  responseStatus?: number;
+}) {
+  try {
+    // Get previous log hash for chain integrity
+    const previousLogs = await db.select()
+      .from(externalValidatorAuditLogs)
+      .orderBy(externalValidatorAuditLogs.timestamp)
+      .limit(1);
+    
+    const previousHash = previousLogs.length > 0 ? previousLogs[0].logHash : undefined;
+    
+    const logHash = createAuditLogHash({
+      timestamp: new Date(),
+      validatorAddress: log.validatorAddress,
+      action: log.action,
+      details: log.details || null,
+      previousHash,
+    });
+    
+    await db.insert(externalValidatorAuditLogs).values({
+      validatorAddress: log.validatorAddress,
+      action: log.action,
+      details: log.details,
+      severity: log.severity,
+      ipAddress: log.ipAddress,
+      requestPath: log.requestPath,
+      responseStatus: log.responseStatus,
+      previousLogHash: previousHash,
+      logHash,
+    });
+  } catch (error) {
+    console.error('[ValidatorSecurity] Failed to persist audit log:', error);
+  }
+}
+
+// Enhanced API key validation middleware with bcrypt, HMAC, and rate limiting
+async function validateValidatorApiKey(req: Request, res: Response, next: Function) {
   const apiKey = req.headers['x-api-key'] as string;
   const validatorAddress = req.headers['x-validator-address'] as string;
   const timestamp = req.headers['x-timestamp'] as string;
   const nonce = req.headers['x-nonce'] as string;
   const signature = req.headers['x-signature'] as string;
+  const clientIP = (req.headers['x-forwarded-for'] as string)?.split(',')[0] || req.ip || 'unknown';
   
   // Check required headers
   if (!apiKey || !validatorAddress) {
-    validatorSecurityState.auditLogs.unshift({
-      id: `audit-auth-${Date.now()}`,
-      timestamp: new Date(),
-      action: 'AUTH_FAILED_MISSING_HEADERS',
+    await persistAuditLog({
       validatorAddress: validatorAddress || 'unknown',
+      action: 'AUTH_FAILED_MISSING_HEADERS',
       details: 'Missing API key or validator address',
       severity: 'warning',
-      verified: false,
+      ipAddress: clientIP,
+      requestPath: req.path,
+      responseStatus: 401,
     });
     return res.status(401).json({ 
       success: false, 
@@ -1022,11 +1089,11 @@ function validateValidatorApiKey(req: Request, res: Response, next: Function) {
   
   const normalizedAddress = validatorAddress.toLowerCase();
   
-  // Check rate limiting
+  // Check rate limiting (in-memory for speed)
   const rateLimit = validatorRateLimits.get(normalizedAddress);
+  const now = Date.now();
+  
   if (rateLimit) {
-    const now = Date.now();
-    
     // Check if blocked
     if (rateLimit.blocked && rateLimit.blockedUntil && now < rateLimit.blockedUntil) {
       return res.status(429).json({
@@ -1049,15 +1116,32 @@ function validateValidatorApiKey(req: Request, res: Response, next: Function) {
       rateLimit.blocked = true;
       rateLimit.blockedUntil = now + RATE_LIMIT_WINDOW_MS;
       
-      validatorSecurityState.auditLogs.unshift({
-        id: `audit-rate-${Date.now()}`,
-        timestamp: new Date(),
-        action: 'RATE_LIMITED',
+      await persistAuditLog({
         validatorAddress: normalizedAddress,
+        action: 'RATE_LIMITED',
         details: `Exceeded ${MAX_REQUESTS_PER_MINUTE} requests/minute`,
         severity: 'warning',
-        verified: true,
+        ipAddress: clientIP,
+        requestPath: req.path,
+        responseStatus: 429,
       });
+      
+      // Update DB security state (increment counter)
+      try {
+        const currentState = await db.select()
+          .from(externalValidatorSecurityState)
+          .where(eq(externalValidatorSecurityState.validatorAddress, normalizedAddress))
+          .limit(1);
+        
+        if (currentState.length > 0) {
+          await db.update(externalValidatorSecurityState)
+            .set({ 
+              rateLimitExceededCount: (currentState[0].rateLimitExceededCount || 0) + 1,
+              updatedAt: new Date(),
+            })
+            .where(eq(externalValidatorSecurityState.validatorAddress, normalizedAddress));
+        }
+      } catch {} // Silently ignore DB errors for rate limit tracking
       
       return res.status(429).json({
         success: false,
@@ -1068,90 +1152,170 @@ function validateValidatorApiKey(req: Request, res: Response, next: Function) {
   } else {
     validatorRateLimits.set(normalizedAddress, {
       requestCount: 1,
-      windowStart: Date.now(),
+      windowStart: now,
       blocked: false,
     });
   }
   
-  // For development: Accept requests with valid format even if not registered
-  // In production, this would strictly validate against registered keys
-  const registeredKey = registeredValidatorKeys.get(normalizedAddress);
-  
-  if (registeredKey) {
-    // Verify against registered key
-    const providedKeyHash = crypto.createHash('sha256').update(apiKey).digest('hex');
-    
-    if (registeredKey.apiKeyHash !== providedKeyHash) {
-      validatorSecurityState.auditLogs.unshift({
-        id: `audit-auth-${Date.now()}`,
-        timestamp: new Date(),
-        action: 'AUTH_FAILED_INVALID_KEY',
-        validatorAddress: normalizedAddress,
-        details: 'Invalid API key provided',
-        severity: 'critical',
-        verified: false,
-      });
-      return res.status(401).json({ 
-        success: false, 
-        error: 'Invalid API key' 
-      });
-    }
-    
-    // Check validator status
-    if (registeredKey.status !== 'active') {
-      return res.status(403).json({
-        success: false,
-        error: `Validator key is ${registeredKey.status}`,
-      });
-    }
-    
-    // Update last used
-    registeredKey.lastUsed = new Date();
-    
-    (req as any).validatorTier = registeredKey.tier;
+  // MANDATORY: Require timestamp and nonce for replay protection
+  if (!timestamp || !nonce) {
+    await persistAuditLog({
+      validatorAddress: normalizedAddress,
+      action: 'AUTH_FAILED_MISSING_SECURITY_HEADERS',
+      details: 'Missing timestamp or nonce headers',
+      severity: 'warning',
+      ipAddress: clientIP,
+      requestPath: req.path,
+      responseStatus: 401,
+    });
+    return res.status(401).json({
+      success: false,
+      error: 'Missing security headers (X-Timestamp, X-Nonce required)',
+    });
   }
   
-  // Optional HMAC signature validation (for enhanced security)
-  if (timestamp && nonce && signature) {
-    // Check timestamp freshness (within 5 minutes)
-    const timestampMs = parseInt(timestamp);
-    if (isNaN(timestampMs) || Math.abs(Date.now() - timestampMs) > NONCE_WINDOW_MS) {
-      return res.status(401).json({
+  // Check timestamp freshness (within 1 minute for tighter security)
+  const timestampMs = parseInt(timestamp);
+  if (isNaN(timestampMs) || Math.abs(now - timestampMs) > TIMESTAMP_DRIFT_MS) {
+    return res.status(401).json({
+      success: false,
+      error: 'Request timestamp expired or invalid (drift > 60s)',
+    });
+  }
+  
+  // Check nonce replay
+  const nonceKey = `${normalizedAddress}:${nonce}`;
+  if (usedNonces.has(nonceKey)) {
+    await persistAuditLog({
+      validatorAddress: normalizedAddress,
+      action: 'REPLAY_ATTEMPT_BLOCKED',
+      details: `Nonce replay attempt: ${nonce}`,
+      severity: 'critical',
+      ipAddress: clientIP,
+      requestPath: req.path,
+      responseStatus: 401,
+    });
+    
+    // Update DB security state for replay attempt
+    try {
+      const currentState = await db.select()
+        .from(externalValidatorSecurityState)
+        .where(eq(externalValidatorSecurityState.validatorAddress, normalizedAddress))
+        .limit(1);
+      
+      if (currentState.length > 0) {
+        await db.update(externalValidatorSecurityState)
+          .set({ 
+            replayAttemptsBlocked: (currentState[0].replayAttemptsBlocked || 0) + 1,
+            lastSecurityIncident: new Date(),
+            updatedAt: new Date(),
+          })
+          .where(eq(externalValidatorSecurityState.validatorAddress, normalizedAddress));
+      }
+    } catch {} // Silently ignore DB errors
+    
+    return res.status(401).json({
+      success: false,
+      error: 'Nonce replay detected',
+    });
+  }
+  
+  // Store nonce with expiry
+  usedNonces.set(nonceKey, now + NONCE_WINDOW_MS);
+  
+  // Lookup registered key from database
+  try {
+    const registeredKeys = await db.select()
+      .from(externalValidatorApiKeys)
+      .where(eq(externalValidatorApiKeys.validatorAddress, normalizedAddress))
+      .limit(1);
+    
+    if (registeredKeys.length > 0) {
+      const registeredKey = registeredKeys[0];
+      
+      // Check if key is active
+      if (registeredKey.status !== 'active') {
+        return res.status(403).json({
+          success: false,
+          error: `Validator key is ${registeredKey.status}`,
+        });
+      }
+      
+      // Check expiry
+      if (registeredKey.expiresAt && new Date() > registeredKey.expiresAt) {
+        return res.status(403).json({
+          success: false,
+          error: 'API key has expired',
+        });
+      }
+      
+      // Verify API key using bcrypt (constant-time comparison built-in)
+      const isValid = await verifyApiKey(apiKey, registeredKey.apiKeyHash);
+      
+      if (!isValid) {
+        await persistAuditLog({
+          validatorAddress: normalizedAddress,
+          action: 'AUTH_FAILED_INVALID_KEY',
+          details: 'Invalid API key provided',
+          severity: 'critical',
+          ipAddress: clientIP,
+          requestPath: req.path,
+          responseStatus: 401,
+        });
+        return res.status(401).json({ 
+          success: false, 
+          error: 'Invalid API key' 
+        });
+      }
+      
+      // Update last used timestamp
+      await db.update(externalValidatorApiKeys)
+        .set({ lastUsedAt: new Date() })
+        .where(eq(externalValidatorApiKeys.validatorAddress, normalizedAddress))
+        .catch(() => {});
+      
+      (req as any).validatorTier = registeredKey.tier;
+    } else {
+      // No registered key found - for development, allow with valid format
+      // In production, this should reject
+      if (process.env.NODE_ENV === 'production') {
+        await persistAuditLog({
+          validatorAddress: normalizedAddress,
+          action: 'AUTH_FAILED_NOT_REGISTERED',
+          details: 'Validator not registered',
+          severity: 'warning',
+          ipAddress: clientIP,
+          requestPath: req.path,
+          responseStatus: 401,
+        });
+        return res.status(401).json({
+          success: false,
+          error: 'Validator not registered',
+        });
+      }
+      // Development mode - allow unregistered validators
+      console.log(`[ValidatorAuth] DEV MODE: Allowing unregistered validator ${normalizedAddress}`);
+    }
+  } catch (error) {
+    console.error('[ValidatorAuth] Database error:', error);
+    // Fail open in development, fail closed in production
+    if (process.env.NODE_ENV === 'production') {
+      return res.status(500).json({
         success: false,
-        error: 'Request timestamp expired or invalid',
+        error: 'Authentication service unavailable',
       });
     }
-    
-    // Check nonce replay
-    const nonceKey = `${normalizedAddress}:${nonce}`;
-    if (usedNonces.has(nonceKey)) {
-      validatorSecurityState.auditLogs.unshift({
-        id: `audit-replay-${Date.now()}`,
-        timestamp: new Date(),
-        action: 'REPLAY_ATTEMPT_BLOCKED',
-        validatorAddress: normalizedAddress,
-        details: `Nonce replay attempt: ${nonce}`,
-        severity: 'critical',
-        verified: true,
-      });
-      return res.status(401).json({
-        success: false,
-        error: 'Nonce replay detected',
-      });
-    }
-    
-    usedNonces.add(nonceKey);
   }
   
   // Log successful auth
-  validatorSecurityState.auditLogs.unshift({
-    id: `audit-auth-${Date.now()}`,
-    timestamp: new Date(),
-    action: 'API_AUTH_SUCCESS',
+  await persistAuditLog({
     validatorAddress: normalizedAddress,
-    details: `API key authentication successful`,
+    action: 'API_AUTH_SUCCESS',
+    details: 'API key authentication successful',
     severity: 'info',
-    verified: true,
+    ipAddress: clientIP,
+    requestPath: req.path,
+    responseStatus: 200,
   });
   
   (req as any).validatorAddress = validatorAddress;

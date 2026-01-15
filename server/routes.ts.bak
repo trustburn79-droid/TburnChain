@@ -2850,7 +2850,6 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         req.path.startsWith("/external-validators/software") ||
         req.path.startsWith("/external-validators/health")) {
       return next();
-    }
     // ★ [External Validators Security Sync] These endpoints use API key auth, not session auth
     // They are accessed by external validator programs using X-API-Key header
     if (req.path.startsWith("/external-validators/security/my-status") ||
@@ -2858,6 +2857,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         req.path.startsWith("/external-validators/security/heartbeat") ||
         req.path.startsWith("/external-validators/security/alerts/")) {
       return next();
+    }
     }
     requireAuth(req, res, next);
   });

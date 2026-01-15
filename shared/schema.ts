@@ -13709,3 +13709,129 @@ export type InsertWebsocketMessageMetric = z.infer<typeof insertWebsocketMessage
 export type WebsocketReconnectToken = typeof websocketReconnectTokens.$inferSelect;
 export type InsertWebsocketReconnectToken = z.infer<typeof insertWebsocketReconnectTokenSchema>;
 
+// ============================================================================
+// External Validator API Credentials (Security-Critical)
+// IMPORTANT: Only store HASHED API keys - NEVER plaintext keys
+// ============================================================================
+export const externalValidatorApiKeys = pgTable("external_validator_api_keys", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  validatorAddress: text("validator_address").notNull().unique(),
+  apiKeyHash: text("api_key_hash").notNull(),
+  apiKeyPrefix: text("api_key_prefix").notNull(),
+  tier: text("tier").notNull().default("community"),
+  status: text("status").notNull().default("active"),
+  allowedIPs: jsonb("allowed_ips").$type<string[]>().default([]),
+  rateLimitOverride: integer("rate_limit_override"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  lastUsedAt: timestamp("last_used_at"),
+  expiresAt: timestamp("expires_at"),
+  revokedAt: timestamp("revoked_at"),
+  revokedReason: text("revoked_reason"),
+  createdBy: text("created_by").notNull().default("system"),
+}, (table) => [
+  index("idx_external_validator_api_keys_address").on(table.validatorAddress),
+  index("idx_external_validator_api_keys_status").on(table.status),
+  index("idx_external_validator_api_keys_tier").on(table.tier),
+]);
+
+// External Validator Security State (Rate limits, blocks, etc.)
+export const externalValidatorSecurityState = pgTable("external_validator_security_state", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  validatorAddress: text("validator_address").notNull().unique(),
+  isBlocked: boolean("is_blocked").notNull().default(false),
+  blockReason: text("block_reason"),
+  blockedAt: timestamp("blocked_at"),
+  blockedUntil: timestamp("blocked_until"),
+  requestCount: integer("request_count").notNull().default(0),
+  lastRequestAt: timestamp("last_request_at"),
+  rateLimitExceededCount: integer("rate_limit_exceeded_count").notNull().default(0),
+  replayAttemptsBlocked: integer("replay_attempts_blocked").notNull().default(0),
+  lastSecurityIncident: timestamp("last_security_incident"),
+  securityScore: integer("security_score").notNull().default(100),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_external_validator_security_state_address").on(table.validatorAddress),
+  index("idx_external_validator_security_state_blocked").on(table.isBlocked),
+]);
+
+// External Validator Security Audit Logs (Tamper-Evident)
+export const externalValidatorAuditLogs = pgTable("external_validator_audit_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
+  validatorAddress: text("validator_address").notNull(),
+  action: text("action").notNull(),
+  details: text("details"),
+  severity: text("severity").notNull().default("info"),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  requestPath: text("request_path"),
+  responseStatus: integer("response_status"),
+  previousLogHash: text("previous_log_hash"),
+  logHash: text("log_hash").notNull(),
+}, (table) => [
+  index("idx_external_validator_audit_logs_address").on(table.validatorAddress),
+  index("idx_external_validator_audit_logs_timestamp").on(table.timestamp),
+  index("idx_external_validator_audit_logs_action").on(table.action),
+  index("idx_external_validator_audit_logs_severity").on(table.severity),
+]);
+
+// External Validator Security Alerts
+export const externalValidatorAlerts = pgTable("external_validator_alerts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
+  validatorAddress: text("validator_address").notNull(),
+  alertType: text("alert_type").notNull(),
+  severity: text("severity").notNull().default("medium"),
+  description: text("description").notNull(),
+  status: text("status").notNull().default("active"),
+  acknowledgedAt: timestamp("acknowledged_at"),
+  acknowledgedBy: text("acknowledged_by"),
+  resolvedAt: timestamp("resolved_at"),
+  resolvedBy: text("resolved_by"),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+}, (table) => [
+  index("idx_external_validator_alerts_address").on(table.validatorAddress),
+  index("idx_external_validator_alerts_status").on(table.status),
+  index("idx_external_validator_alerts_severity").on(table.severity),
+  index("idx_external_validator_alerts_type").on(table.alertType),
+]);
+
+// ============================================================================
+// Insert Schemas for External Validator Security
+// ============================================================================
+export const insertExternalValidatorApiKeySchema = createInsertSchema(externalValidatorApiKeys).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertExternalValidatorSecurityStateSchema = createInsertSchema(externalValidatorSecurityState).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertExternalValidatorAuditLogSchema = createInsertSchema(externalValidatorAuditLogs).omit({
+  id: true,
+});
+
+export const insertExternalValidatorAlertSchema = createInsertSchema(externalValidatorAlerts).omit({
+  id: true,
+  timestamp: true,
+});
+
+// ============================================================================
+// Types for External Validator Security
+// ============================================================================
+export type ExternalValidatorApiKey = typeof externalValidatorApiKeys.$inferSelect;
+export type InsertExternalValidatorApiKey = z.infer<typeof insertExternalValidatorApiKeySchema>;
+
+export type ExternalValidatorSecurityState = typeof externalValidatorSecurityState.$inferSelect;
+export type InsertExternalValidatorSecurityState = z.infer<typeof insertExternalValidatorSecurityStateSchema>;
+
+export type ExternalValidatorAuditLog = typeof externalValidatorAuditLogs.$inferSelect;
+export type InsertExternalValidatorAuditLog = z.infer<typeof insertExternalValidatorAuditLogSchema>;
+
+export type ExternalValidatorAlert = typeof externalValidatorAlerts.$inferSelect;
+export type InsertExternalValidatorAlert = z.infer<typeof insertExternalValidatorAlertSchema>;
+
