@@ -118,6 +118,57 @@ export async function ensureGenesisTables(): Promise<void> {
     } else {
       console.log("[Migration] ✅ Genesis tables already exist with correct schema");
     }
+    
+    // Always update validators to use tier-differentiated stakes and commissions
+    // This ensures 20-year tokenomics compliance
+    console.log("[Migration] Updating validators with tier-differentiated stakes and commissions...");
+    
+    // Core tier: 1M TBURN, 3% commission, APY 20-25%
+    await db.execute(sql`
+      UPDATE genesis_validators 
+      SET 
+        initial_stake = '1000000000000000000000000',
+        self_delegation = '1000000000000000000000000',
+        commission = 300,
+        description = 'Core tier genesis validator (1,000,000 TBURN, APY 20-25%)'
+      WHERE tier = 'core'
+    `);
+    
+    // Enterprise tier: 500K TBURN, 8% commission, APY 16-20%
+    await db.execute(sql`
+      UPDATE genesis_validators 
+      SET 
+        initial_stake = '500000000000000000000000',
+        self_delegation = '500000000000000000000000',
+        commission = 800,
+        description = 'Enterprise tier genesis validator (500,000 TBURN, APY 16-20%)'
+      WHERE tier = 'enterprise'
+    `);
+    
+    // Partner tier: 250K TBURN, 15% commission, APY 14-18%
+    await db.execute(sql`
+      UPDATE genesis_validators 
+      SET 
+        initial_stake = '250000000000000000000000',
+        self_delegation = '250000000000000000000000',
+        commission = 1500,
+        description = 'Partner tier genesis validator (250,000 TBURN, APY 14-18%)'
+      WHERE tier = 'partner'
+    `);
+    
+    // Community tier: 100K TBURN, 20% commission, APY 12-15%
+    await db.execute(sql`
+      UPDATE genesis_validators 
+      SET 
+        initial_stake = '100000000000000000000000',
+        self_delegation = '100000000000000000000000',
+        commission = 2000,
+        description = 'Community tier genesis validator (100,000 TBURN, APY 12-15%)'
+      WHERE tier = 'community'
+    `);
+    
+    console.log("[Migration] ✅ Tier-differentiated stakes and commissions applied");
+    
   } catch (error) {
     console.error("[Migration] Error ensuring genesis tables:", error);
     throw error;

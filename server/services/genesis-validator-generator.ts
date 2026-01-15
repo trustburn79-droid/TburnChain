@@ -27,20 +27,66 @@ import { deriveAddressFromPublicKey } from '../utils/tburn-address';
 
 // Genesis Validator Configuration
 const GENESIS_VALIDATOR_COUNT = 125;
-const INITIAL_STAKE_PER_VALIDATOR = '1000000000000000000000000'; // 1,000,000 TB in wei
-const DEFAULT_COMMISSION = 500; // 5% in basis points
 const P2P_PORT = 30303;
 const RPC_PORT = 8545;
 
 // secp256k1 curve order (n) - private keys must be less than this
 const SECP256K1_ORDER = BigInt('0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141');
 
-// Validator name prefixes by tier
-const TIER_PREFIXES: Record<string, { prefix: string; count: number; priority: number }> = {
-  core: { prefix: 'TBURN-Core', count: 10, priority: 100 },
-  enterprise: { prefix: 'TBURN-Enterprise', count: 25, priority: 80 },
-  partner: { prefix: 'TBURN-Partner', count: 40, priority: 60 },
-  community: { prefix: 'TBURN-Genesis', count: 50, priority: 40 },
+// Tier-differentiated configuration aligned with 20-year tokenomics
+// Based on shared/tokenomics-config.ts MARKETING_TIERS
+interface TierConfig {
+  prefix: string;
+  count: number;
+  priority: number;
+  stakeTBURN: number;        // Stake in TBURN tokens
+  stakeWei: string;          // Stake in wei (18 decimals)
+  commissionBps: number;     // Commission in basis points (100 = 1%)
+  apyMin: number;            // Minimum APY %
+  apyMax: number;            // Maximum APY %
+}
+
+const TIER_PREFIXES: Record<string, TierConfig> = {
+  core: { 
+    prefix: 'TBURN-Core', 
+    count: 10, 
+    priority: 100,
+    stakeTBURN: 1_000_000,                                    // 1M TBURN (Genesis tier)
+    stakeWei: (BigInt(1_000_000) * BigInt(10 ** 18)).toString(),
+    commissionBps: 300,                                        // 3% (range: 1-5%)
+    apyMin: 20.0,
+    apyMax: 25.0,
+  },
+  enterprise: { 
+    prefix: 'TBURN-Enterprise', 
+    count: 25, 
+    priority: 80,
+    stakeTBURN: 500_000,                                       // 500K TBURN (Pioneer tier)
+    stakeWei: (BigInt(500_000) * BigInt(10 ** 18)).toString(),
+    commissionBps: 800,                                        // 8% (range: 5-15%)
+    apyMin: 16.0,
+    apyMax: 20.0,
+  },
+  partner: { 
+    prefix: 'TBURN-Partner', 
+    count: 40, 
+    priority: 60,
+    stakeTBURN: 250_000,                                       // 250K TBURN (Standard tier)
+    stakeWei: (BigInt(250_000) * BigInt(10 ** 18)).toString(),
+    commissionBps: 1500,                                       // 15% (range: 10-20%)
+    apyMin: 14.0,
+    apyMax: 18.0,
+  },
+  community: { 
+    prefix: 'TBURN-Genesis', 
+    count: 50, 
+    priority: 40,
+    stakeTBURN: 100_000,                                       // 100K TBURN (Community tier)
+    stakeWei: (BigInt(100_000) * BigInt(10 ** 18)).toString(),
+    commissionBps: 2000,                                       // 20% (range: 15-30%)
+    apyMin: 12.0,
+    apyMax: 15.0,
+  },
 };
 
 export interface GenesisValidatorKeyPair {
@@ -57,6 +103,11 @@ export interface GeneratedValidator {
   priority: number;
   index: number;
   verified: boolean;
+  stakeWei: string;
+  stakeTBURN: number;
+  commissionBps: number;
+  apyMin: number;
+  apyMax: number;
   signatureTest: {
     message: string;
     signature: string;
@@ -268,8 +319,18 @@ export class GenesisValidatorGenerator {
 
   /**
    * Determine validator tier and name based on index
+   * Returns full tier configuration for stake/commission differentiation
    */
-  getValidatorTierInfo(index: number): { tier: string; name: string; priority: number } {
+  getValidatorTierInfo(index: number): { 
+    tier: string; 
+    name: string; 
+    priority: number;
+    stakeWei: string;
+    commissionBps: number;
+    stakeTBURN: number;
+    apyMin: number;
+    apyMax: number;
+  } {
     let currentIndex = 0;
     
     for (const [tierName, config] of Object.entries(TIER_PREFIXES)) {
@@ -279,15 +340,27 @@ export class GenesisValidatorGenerator {
           tier: tierName,
           name: `${config.prefix}-${String(tierIndex).padStart(3, '0')}`,
           priority: config.priority,
+          stakeWei: config.stakeWei,
+          commissionBps: config.commissionBps,
+          stakeTBURN: config.stakeTBURN,
+          apyMin: config.apyMin,
+          apyMax: config.apyMax,
         };
       }
       currentIndex += config.count;
     }
 
+    // Default to community tier
+    const communityConfig = TIER_PREFIXES.community;
     return {
       tier: 'community',
       name: `TBURN-Genesis-${String(index + 1).padStart(3, '0')}`,
-      priority: 40,
+      priority: communityConfig.priority,
+      stakeWei: communityConfig.stakeWei,
+      commissionBps: communityConfig.commissionBps,
+      stakeTBURN: communityConfig.stakeTBURN,
+      apyMin: communityConfig.apyMin,
+      apyMax: communityConfig.apyMax,
     };
   }
 
@@ -317,6 +390,11 @@ export class GenesisValidatorGenerator {
         priority: tierInfo.priority,
         index: i + 1,
         verified: verification.valid,
+        stakeWei: tierInfo.stakeWei,
+        stakeTBURN: tierInfo.stakeTBURN,
+        commissionBps: tierInfo.commissionBps,
+        apyMin: tierInfo.apyMin,
+        apyMax: tierInfo.apyMax,
         signatureTest: {
           message: testMessage,
           signature: signature.serialized,
@@ -387,10 +465,10 @@ export class GenesisValidatorGenerator {
           configId,
           address: validator.keyPair.address,
           name: validator.name,
-          description: `${validator.tier.charAt(0).toUpperCase() + validator.tier.slice(1)} tier genesis validator`,
-          initialStake: INITIAL_STAKE_PER_VALIDATOR,
-          selfDelegation: INITIAL_STAKE_PER_VALIDATOR,
-          commission: DEFAULT_COMMISSION,
+          description: `${validator.tier.charAt(0).toUpperCase() + validator.tier.slice(1)} tier genesis validator (${validator.stakeTBURN.toLocaleString()} TBURN, APY ${validator.apyMin}-${validator.apyMax}%)`,
+          initialStake: validator.stakeWei,
+          selfDelegation: validator.stakeWei,
+          commission: validator.commissionBps,
           nodePublicKey: validator.keyPair.publicKey,
           p2pPort: P2P_PORT,
           rpcPort: RPC_PORT,
