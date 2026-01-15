@@ -2,97 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { LanguageSelector } from "@/components/LanguageSelector";
-
-const founders = [
-  {
-    initials: "KC",
-    name: "Kevin Cho",
-    role: "Mainnet Chair & Chief Architect",
-    company: "TBURN CHAINS Foundation",
-    bio: "블록체인 아키텍처와 AI 통합 분야의 선구자로서, 210,000+ TPS를 목표로 하는 Triple-Band AI Orchestration 시스템과 양자 내성 암호화 기술을 설계했습니다. Metalock에서의 메타버스 플랫폼 개발 경험을 바탕으로 차세대 분산 컴퓨팅 패러다임을 구축하고 있습니다.",
-    expertise: ["AI Orchestration", "Blockchain Architecture", "Quantum Cryptography", "DeFi Systems", "Tokenomics"],
-    stats: [
-      { value: "10+", label: "Years Exp" },
-      { value: "50+", label: "Publications" },
-      { value: "5", label: "Patents" }
-    ],
-    featured: true
-  },
-  {
-    initials: "SL",
-    name: "Sarah Lee",
-    role: "Chief Technology Officer",
-    company: "Ex-Google, Stanford PhD",
-    bio: "분산 시스템과 합의 알고리즘 분야의 세계적 전문가. Google에서 대규모 분산 데이터베이스 시스템을 설계한 경험을 보유하고 있습니다.",
-    expertise: ["Distributed Systems", "Consensus", "Rust"],
-    stats: [
-      { value: "15+", label: "Years Exp" },
-      { value: "30+", label: "Papers" },
-      { value: "12", label: "Patents" }
-    ]
-  },
-  {
-    initials: "MK",
-    name: "Min-Jun Kim",
-    role: "Chief AI Officer",
-    company: "Ex-OpenAI, MIT PhD",
-    bio: "대규모 언어 모델과 분산 AI 시스템 전문가. OpenAI에서 GPT 시리즈 개발에 참여한 경험을 바탕으로 Triple-Band AI Orchestration을 설계했습니다.",
-    expertise: ["Large Language Models", "ML Systems", "AI Safety"],
-    stats: [
-      { value: "12+", label: "Years Exp" },
-      { value: "45+", label: "Papers" },
-      { value: "8K+", label: "Citations" }
-    ]
-  },
-  {
-    initials: "AP",
-    name: "Dr. Alex Park",
-    role: "Head of Cryptography",
-    company: "Ex-NIST, ETH Zürich PhD",
-    bio: "포스트-양자 암호화 분야의 선도적 연구자. NIST 양자 내성 암호화 표준화 프로젝트에 참여한 경험을 보유하고 있습니다.",
-    expertise: ["Post-Quantum", "ZK-Proofs", "MPC"],
-    stats: [
-      { value: "18+", label: "Years Exp" },
-      { value: "60+", label: "Papers" },
-      { value: "15", label: "Patents" }
-    ]
-  },
-  {
-    initials: "JW",
-    name: "James Wang",
-    role: "Head of DeFi & Tokenomics",
-    company: "Ex-Uniswap, Yale MBA",
-    bio: "DeFi 프로토콜 설계와 토큰 이코노미 전문가. Uniswap V3 개발에 참여했으며, TBURN의 20년 토큰 이코노미 모델을 설계했습니다.",
-    expertise: ["DeFi Protocol", "AMM Design", "Tokenomics"],
-    stats: [
-      { value: "8+", label: "Years Exp" },
-      { value: "$2B+", label: "TVL Designed" },
-      { value: "5", label: "Protocols" }
-    ]
-  },
-  {
-    initials: "EH",
-    name: "Emily Han",
-    role: "VP of Engineering",
-    company: "Ex-Meta, Berkeley MS",
-    bio: "대규모 시스템 엔지니어링 및 인프라 전문가. Meta에서 글로벌 인프라 팀을 이끌었으며, 초당 수백만 요청을 처리하는 시스템을 구축했습니다.",
-    expertise: ["Infrastructure", "Scalability", "DevOps"],
-    stats: [
-      { value: "14+", label: "Years Exp" },
-      { value: "100+", label: "Team Led" },
-      { value: "1M+", label: "RPS Handled" }
-    ]
-  }
-];
-
-const advisors = [
-  { initials: "VB", name: "Victoria Brown", role: "Investment Advisor", affiliation: "Partner, Paradigm Ventures" },
-  { initials: "DL", name: "Dr. David Liu", role: "Technical Advisor", affiliation: "Professor, KAIST" },
-  { initials: "MC", name: "Michael Chen", role: "Strategy Advisor", affiliation: "Ex-CEO, Binance Labs" },
-  { initials: "SY", name: "Sophia Yang", role: "Legal Advisor", affiliation: "Partner, Kim & Chang" },
-  { initials: "RT", name: "Dr. Robert Tanaka", role: "AI Research Advisor", affiliation: "Fellow, DeepMind" },
-  { initials: "JK", name: "Jennifer Kwon", role: "Ecosystem Advisor", affiliation: "Head of BD, a16z crypto" }
-];
+import { useTranslation } from "react-i18next";
 
 const partners = ["JP3E Holdings", "Metalock", "Paradigm", "a16z crypto", "Galaxy Digital", "Chainlink"];
 
@@ -131,9 +41,127 @@ const DocumentIcon = () => (
 );
 
 export default function FoundersPage() {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const founders = [
+    {
+      initials: "KC",
+      name: "Kevin Cho",
+      role: t("foundersPage.founders.kevinCho.role"),
+      company: t("foundersPage.founders.kevinCho.company"),
+      bio: t("foundersPage.founders.kevinCho.bio"),
+      expertise: [
+        t("foundersPage.founders.expertise.aiOrchestration"),
+        t("foundersPage.founders.expertise.blockchainArchitecture"),
+        t("foundersPage.founders.expertise.quantumCryptography"),
+        t("foundersPage.founders.expertise.defiSystems"),
+        t("foundersPage.founders.expertise.tokenomics")
+      ],
+      stats: [
+        { value: "10+", label: t("foundersPage.founders.stats.yearsExp") },
+        { value: "50+", label: t("foundersPage.founders.stats.publications") },
+        { value: "5", label: t("foundersPage.founders.stats.patents") }
+      ],
+      featured: true
+    },
+    {
+      initials: "SL",
+      name: "Sarah Lee",
+      role: t("foundersPage.founders.sarahLee.role"),
+      company: t("foundersPage.founders.sarahLee.company"),
+      bio: t("foundersPage.founders.sarahLee.bio"),
+      expertise: [
+        t("foundersPage.founders.expertise.distributedSystems"),
+        t("foundersPage.founders.expertise.consensus"),
+        t("foundersPage.founders.expertise.rust")
+      ],
+      stats: [
+        { value: "15+", label: t("foundersPage.founders.stats.yearsExp") },
+        { value: "30+", label: t("foundersPage.founders.stats.papers") },
+        { value: "12", label: t("foundersPage.founders.stats.patents") }
+      ]
+    },
+    {
+      initials: "MK",
+      name: "Min-Jun Kim",
+      role: t("foundersPage.founders.minJunKim.role"),
+      company: t("foundersPage.founders.minJunKim.company"),
+      bio: t("foundersPage.founders.minJunKim.bio"),
+      expertise: [
+        t("foundersPage.founders.expertise.llm"),
+        t("foundersPage.founders.expertise.mlSystems"),
+        t("foundersPage.founders.expertise.aiSafety")
+      ],
+      stats: [
+        { value: "12+", label: t("foundersPage.founders.stats.yearsExp") },
+        { value: "45+", label: t("foundersPage.founders.stats.papers") },
+        { value: "8K+", label: t("foundersPage.founders.stats.citations") }
+      ]
+    },
+    {
+      initials: "AP",
+      name: "Dr. Alex Park",
+      role: t("foundersPage.founders.alexPark.role"),
+      company: t("foundersPage.founders.alexPark.company"),
+      bio: t("foundersPage.founders.alexPark.bio"),
+      expertise: [
+        t("foundersPage.founders.expertise.postQuantum"),
+        t("foundersPage.founders.expertise.zkProofs"),
+        t("foundersPage.founders.expertise.mpc")
+      ],
+      stats: [
+        { value: "18+", label: t("foundersPage.founders.stats.yearsExp") },
+        { value: "60+", label: t("foundersPage.founders.stats.papers") },
+        { value: "15", label: t("foundersPage.founders.stats.patents") }
+      ]
+    },
+    {
+      initials: "JW",
+      name: "James Wang",
+      role: t("foundersPage.founders.jamesWang.role"),
+      company: t("foundersPage.founders.jamesWang.company"),
+      bio: t("foundersPage.founders.jamesWang.bio"),
+      expertise: [
+        t("foundersPage.founders.expertise.defiProtocol"),
+        t("foundersPage.founders.expertise.ammDesign"),
+        t("foundersPage.founders.expertise.tokenomics")
+      ],
+      stats: [
+        { value: "8+", label: t("foundersPage.founders.stats.yearsExp") },
+        { value: "$2B+", label: t("foundersPage.founders.stats.tvlDesigned") },
+        { value: "5", label: t("foundersPage.founders.stats.protocols") }
+      ]
+    },
+    {
+      initials: "EH",
+      name: "Emily Han",
+      role: t("foundersPage.founders.emilyHan.role"),
+      company: t("foundersPage.founders.emilyHan.company"),
+      bio: t("foundersPage.founders.emilyHan.bio"),
+      expertise: [
+        t("foundersPage.founders.expertise.infrastructure"),
+        t("foundersPage.founders.expertise.scalability"),
+        t("foundersPage.founders.expertise.devops")
+      ],
+      stats: [
+        { value: "14+", label: t("foundersPage.founders.stats.yearsExp") },
+        { value: "100+", label: t("foundersPage.founders.stats.teamLed") },
+        { value: "1M+", label: t("foundersPage.founders.stats.rpsHandled") }
+      ]
+    }
+  ];
+
+  const advisors = [
+    { initials: "VB", name: "Victoria Brown", role: t("foundersPage.advisors.victoriaBrown.role"), affiliation: t("foundersPage.advisors.victoriaBrown.affiliation") },
+    { initials: "DL", name: "Dr. David Liu", role: t("foundersPage.advisors.davidLiu.role"), affiliation: t("foundersPage.advisors.davidLiu.affiliation") },
+    { initials: "MC", name: "Michael Chen", role: t("foundersPage.advisors.michaelChen.role"), affiliation: t("foundersPage.advisors.michaelChen.affiliation") },
+    { initials: "SY", name: "Sophia Yang", role: t("foundersPage.advisors.sophiaYang.role"), affiliation: t("foundersPage.advisors.sophiaYang.affiliation") },
+    { initials: "RT", name: "Dr. Robert Tanaka", role: t("foundersPage.advisors.robertTanaka.role"), affiliation: t("foundersPage.advisors.robertTanaka.affiliation") },
+    { initials: "JK", name: "Jennifer Kwon", role: t("foundersPage.advisors.jenniferKwon.role"), affiliation: t("foundersPage.advisors.jenniferKwon.affiliation") }
+  ];
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 800);
@@ -1285,7 +1313,7 @@ export default function FoundersPage() {
       <div className={`loader ${!isLoading ? "hidden" : ""}`}>
         <div className="loader-content">
           <div className="loader-logo">TB</div>
-          <div className="loader-text">Loading...</div>
+          <div className="loader-text">{t("foundersPage.loading")}</div>
         </div>
       </div>
 
@@ -1302,13 +1330,13 @@ export default function FoundersPage() {
           <span className="nav-logo-text">TBURN</span>
         </Link>
         <div className="nav-links">
-          <Link href="/" className="nav-link">Home</Link>
-          <a href="#founders" className="nav-link active">Founders</a>
-          <a href="#advisors" className="nav-link">Advisors</a>
-          <Link href="/technology" className="nav-link">Technology</Link>
-          <Link href="/whitepaper" className="nav-link">Whitepaper</Link>
+          <Link href="/" className="nav-link">{t("foundersPage.nav.home")}</Link>
+          <a href="#founders" className="nav-link active">{t("foundersPage.nav.founders")}</a>
+          <a href="#advisors" className="nav-link">{t("foundersPage.nav.advisors")}</a>
+          <Link href="/technology" className="nav-link">{t("foundersPage.nav.technology")}</Link>
+          <Link href="/whitepaper" className="nav-link">{t("foundersPage.nav.whitepaper")}</Link>
           <LanguageSelector isDark={true} />
-          <Link href="/membership" className="nav-cta">Join Network</Link>
+          <Link href="/membership" className="nav-cta">{t("foundersPage.nav.joinNetwork")}</Link>
         </div>
       </nav>
 
@@ -1325,7 +1353,7 @@ export default function FoundersPage() {
           transition={{ delay: 0.1 }}
         >
           <span className="hero-badge-dot" />
-          <span>Building the Future of Blockchain</span>
+          <span>{t("foundersPage.hero.badge")}</span>
         </motion.div>
         
         <motion.h1 
@@ -1334,8 +1362,8 @@ export default function FoundersPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <span className="hero-title-line">Meet the</span>
-          <span className="hero-title-line hero-title-gradient">Founding Members</span>
+          <span className="hero-title-line">{t("foundersPage.hero.titleLine1")}</span>
+          <span className="hero-title-line hero-title-gradient">{t("foundersPage.hero.titleLine2")}</span>
         </motion.h1>
         
         <motion.p 
@@ -1344,7 +1372,7 @@ export default function FoundersPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          세계적인 블록체인 전문가, AI 연구자, 기업가들이 모여 차세대 고성능 AI-Enhanced 블록체인 플랫폼을 구축합니다.
+          {t("foundersPage.hero.subtitle")}
         </motion.p>
         
         <motion.div 
@@ -1355,15 +1383,15 @@ export default function FoundersPage() {
         >
           <div className="hero-stat">
             <div className="hero-stat-value">210K+</div>
-            <div className="hero-stat-label">Target TPS</div>
+            <div className="hero-stat-label">{t("foundersPage.hero.stats.tps")}</div>
           </div>
           <div className="hero-stat">
             <div className="hero-stat-value">15+</div>
-            <div className="hero-stat-label">Core Members</div>
+            <div className="hero-stat-label">{t("foundersPage.hero.stats.members")}</div>
           </div>
           <div className="hero-stat">
             <div className="hero-stat-value">50+</div>
-            <div className="hero-stat-label">Years Combined Experience</div>
+            <div className="hero-stat-label">{t("foundersPage.hero.stats.experience")}</div>
           </div>
         </motion.div>
         
@@ -1373,17 +1401,17 @@ export default function FoundersPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          <span>Scroll to Explore</span>
+          <span>{t("foundersPage.hero.scroll")}</span>
           <div className="hero-scroll-line" />
         </motion.div>
       </motion.header>
 
       <section className="section" id="founders">
         <div className="section-header">
-          <span className="section-label">Leadership Team</span>
-          <h2 className="section-title">Core Founding Members</h2>
+          <span className="section-label">{t("foundersPage.foundersSection.label")}</span>
+          <h2 className="section-title">{t("foundersPage.foundersSection.title")}</h2>
           <p className="section-description">
-            TBURN 메인넷의 비전을 실현하기 위해 모인 핵심 창립 멤버들을 소개합니다.
+            {t("foundersPage.foundersSection.description")}
           </p>
         </div>
 
@@ -1445,10 +1473,10 @@ export default function FoundersPage() {
 
       <section className="section advisory-section" id="advisors">
         <div className="section-header">
-          <span className="section-label">Strategic Guidance</span>
-          <h2 className="section-title">Advisory Board</h2>
+          <span className="section-label">{t("foundersPage.advisorsSection.label")}</span>
+          <h2 className="section-title">{t("foundersPage.advisorsSection.title")}</h2>
           <p className="section-description">
-            글로벌 블록체인 생태계의 리더들이 TBURN의 성장을 지원합니다.
+            {t("foundersPage.advisorsSection.description")}
           </p>
         </div>
 
@@ -1476,10 +1504,10 @@ export default function FoundersPage() {
 
       <section className="section partners-section">
         <div className="section-header">
-          <span className="section-label">Ecosystem</span>
-          <h2 className="section-title">Strategic Partners</h2>
+          <span className="section-label">{t("foundersPage.partnersSection.label")}</span>
+          <h2 className="section-title">{t("foundersPage.partnersSection.title")}</h2>
           <p className="section-description">
-            TBURN 생태계 구축을 위해 협력하는 전략적 파트너들입니다.
+            {t("foundersPage.partnersSection.description")}
           </p>
         </div>
 
@@ -1502,10 +1530,10 @@ export default function FoundersPage() {
 
       <section className="section contacts-section" id="contacts">
         <div className="section-header">
-          <span className="section-label">Get in Touch</span>
-          <h2 className="section-title">B. 연락처 및 담당자</h2>
+          <span className="section-label">{t("foundersPage.contactsSection.label")}</span>
+          <h2 className="section-title">{t("foundersPage.contactsSection.title")}</h2>
           <p className="section-description">
-            TBURN 팀과 연락하시려면 아래 담당자에게 문의해 주세요.
+            {t("foundersPage.contactsSection.description")}
           </p>
         </div>
 
@@ -1518,35 +1546,35 @@ export default function FoundersPage() {
           <table className="contacts-table" data-testid="table-contacts">
             <thead>
               <tr>
-                <th>영역</th>
-                <th>담당</th>
-                <th>연락처</th>
+                <th>{t("foundersPage.contactsSection.headers.area")}</th>
+                <th>{t("foundersPage.contactsSection.headers.representative")}</th>
+                <th>{t("foundersPage.contactsSection.headers.contact")}</th>
               </tr>
             </thead>
             <tbody>
               <tr data-testid="contact-ir">
-                <td>투자 문의</td>
-                <td>IR 담당</td>
+                <td>{t("foundersPage.contactsSection.rows.investment.area")}</td>
+                <td>{t("foundersPage.contactsSection.rows.investment.rep")}</td>
                 <td><a href="mailto:ir@tburn.io">ir@tburn.io</a></td>
               </tr>
               <tr data-testid="contact-tech">
-                <td>기술 문의</td>
-                <td>CTO</td>
+                <td>{t("foundersPage.contactsSection.rows.tech.area")}</td>
+                <td>{t("foundersPage.contactsSection.rows.tech.rep")}</td>
                 <td><a href="mailto:tech@tburn.io">tech@tburn.io</a></td>
               </tr>
               <tr data-testid="contact-legal">
-                <td>법률 문의</td>
-                <td>법무팀</td>
+                <td>{t("foundersPage.contactsSection.rows.legal.area")}</td>
+                <td>{t("foundersPage.contactsSection.rows.legal.rep")}</td>
                 <td><a href="mailto:legal@tburn.io">legal@tburn.io</a></td>
               </tr>
               <tr data-testid="contact-partnerships">
-                <td>파트너십</td>
-                <td>BD팀</td>
+                <td>{t("foundersPage.contactsSection.rows.partnership.area")}</td>
+                <td>{t("foundersPage.contactsSection.rows.partnership.rep")}</td>
                 <td><a href="mailto:partnerships@tburn.io">partnerships@tburn.io</a></td>
               </tr>
               <tr data-testid="contact-press">
-                <td>미디어</td>
-                <td>PR팀</td>
+                <td>{t("foundersPage.contactsSection.rows.media.area")}</td>
+                <td>{t("foundersPage.contactsSection.rows.media.rep")}</td>
                 <td><a href="mailto:press@tburn.io">press@tburn.io</a></td>
               </tr>
             </tbody>
@@ -1561,18 +1589,17 @@ export default function FoundersPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="cta-title">Join the TBURN Revolution</h2>
+          <h2 className="cta-title">{t("foundersPage.cta.title")}</h2>
           <p className="cta-description">
-            차세대 AI-Enhanced 블록체인의 미래를 함께 만들어갈 파운더를 찾고 있습니다. 
-            210,000+ TPS의 고성능 블록체인 생태계에 참여하세요.
+            {t("foundersPage.cta.description")}
           </p>
           <div className="cta-buttons">
             <Link href="/membership" className="btn-primary" data-testid="button-apply-founder">
-              <span>Apply as Founder</span>
+              <span>{t("foundersPage.cta.applyFounder")}</span>
               <ArrowRightIcon />
             </Link>
             <Link href="/whitepaper" className="btn-secondary" data-testid="button-whitepaper">
-              <span>Read Whitepaper</span>
+              <span>{t("foundersPage.cta.readWhitepaper")}</span>
               <DocumentIcon />
             </Link>
           </div>
@@ -1587,44 +1614,44 @@ export default function FoundersPage() {
               <span className="footer-logo-text">TBURN</span>
             </div>
             <p className="footer-description">
-              AI-Enhanced Layer 1 블록체인. 210,000+ TPS의 고성능과 양자 내성 보안을 제공하는 차세대 분산 네트워크.
+              {t("foundersPage.footer.description")}
             </p>
           </div>
 
           <div className="footer-column">
-            <h4>Product</h4>
+            <h4>{t("foundersPage.footer.product")}</h4>
             <ul className="footer-links">
-              <li><Link href="/technology">Technology</Link></li>
-              <li><Link href="/whitepaper">Whitepaper</Link></li>
-              <li><Link href="/tokenomics">Tokenomics</Link></li>
-              <li><Link href="/roadmap">Roadmap</Link></li>
+              <li><Link href="/technology">{t("foundersPage.footer.links.technology")}</Link></li>
+              <li><Link href="/whitepaper">{t("foundersPage.footer.links.whitepaper")}</Link></li>
+              <li><Link href="/tokenomics">{t("foundersPage.footer.links.tokenomics")}</Link></li>
+              <li><Link href="/roadmap">{t("foundersPage.footer.links.roadmap")}</Link></li>
             </ul>
           </div>
 
           <div className="footer-column">
-            <h4>Developers</h4>
+            <h4>{t("foundersPage.footer.developers")}</h4>
             <ul className="footer-links">
-              <li><Link href="/docs">Documentation</Link></li>
-              <li><a href="#">SDK</a></li>
-              <li><a href="#">GitHub</a></li>
-              <li><Link href="/rpc">API Reference</Link></li>
+              <li><Link href="/docs">{t("foundersPage.footer.links.documentation")}</Link></li>
+              <li><a href="#">{t("foundersPage.footer.links.sdk")}</a></li>
+              <li><a href="#">{t("foundersPage.footer.links.github")}</a></li>
+              <li><Link href="/rpc">{t("foundersPage.footer.links.apiReference")}</Link></li>
             </ul>
           </div>
 
           <div className="footer-column">
-            <h4>Community</h4>
+            <h4>{t("foundersPage.footer.community")}</h4>
             <ul className="footer-links">
-              <li><a href="#">Discord</a></li>
-              <li><a href="#">Telegram</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Blog</a></li>
+              <li><a href="#">{t("foundersPage.footer.links.discord")}</a></li>
+              <li><a href="#">{t("foundersPage.footer.links.telegram")}</a></li>
+              <li><a href="#">{t("foundersPage.footer.links.twitter")}</a></li>
+              <li><a href="#">{t("foundersPage.footer.links.blog")}</a></li>
             </ul>
           </div>
         </div>
 
         <div className="footer-bottom">
           <p className="footer-copyright">
-            &copy; 2025 TBURN CHAINS Foundation. All rights reserved.
+            {t("foundersPage.footer.copyright")}
           </p>
           <div className="footer-social">
             <a href="#" className="footer-social-link" aria-label="Twitter">

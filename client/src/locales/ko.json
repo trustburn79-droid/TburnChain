@@ -38097,6 +38097,27 @@
         "protocols": "프로토콜",
         "teamLed": "팀 리드",
         "rpsHandled": "RPS 처리"
+      },
+      "expertise": {
+        "aiOrchestration": "AI 오케스트레이션",
+        "blockchainArchitecture": "블록체인 아키텍처",
+        "quantumCryptography": "양자 암호화",
+        "defiSystems": "DeFi 시스템",
+        "tokenomics": "토큰이코노믹스",
+        "distributedSystems": "분산 시스템",
+        "consensus": "합의 알고리즘",
+        "rust": "Rust",
+        "llm": "대규모 언어 모델",
+        "mlSystems": "ML 시스템",
+        "aiSafety": "AI 안전",
+        "postQuantum": "포스트-양자",
+        "zkProofs": "ZK-Proofs",
+        "mpc": "MPC",
+        "defiProtocol": "DeFi 프로토콜",
+        "ammDesign": "AMM 설계",
+        "infrastructure": "인프라",
+        "scalability": "확장성",
+        "devops": "DevOps"
       }
     },
     "advisorsSection": {

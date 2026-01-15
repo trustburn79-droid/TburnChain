@@ -33031,6 +33031,27 @@
         "protocols": "Protocols",
         "teamLed": "Team Led",
         "rpsHandled": "RPS Handled"
+      },
+      "expertise": {
+        "aiOrchestration": "AI Orchestration",
+        "blockchainArchitecture": "Blockchain Architecture",
+        "quantumCryptography": "Quantum Cryptography",
+        "defiSystems": "DeFi Systems",
+        "tokenomics": "Tokenomics",
+        "distributedSystems": "Distributed Systems",
+        "consensus": "Consensus",
+        "rust": "Rust",
+        "llm": "Large Language Models",
+        "mlSystems": "ML Systems",
+        "aiSafety": "AI Safety",
+        "postQuantum": "Post-Quantum",
+        "zkProofs": "ZK-Proofs",
+        "mpc": "MPC",
+        "defiProtocol": "DeFi Protocol",
+        "ammDesign": "AMM Design",
+        "infrastructure": "Infrastructure",
+        "scalability": "Scalability",
+        "devops": "DevOps"
       }
     },
     "advisorsSection": {
