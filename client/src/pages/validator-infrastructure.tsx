@@ -321,6 +321,15 @@ export default function ValidatorInfrastructure() {
                 </div>
               </div>
             </div>
+            <Link href="/validator-registration" className="tburn-panel rounded-lg p-4 flex items-center gap-3 hover:border-orange-500/50 transition cursor-pointer group" data-testid="link-register-validator">
+              <LockKey className="text-3xl text-orange-500 group-hover:scale-110 transition" weight="fill" size={32} />
+              <div>
+                <div className="text-xs text-slate-500 uppercase font-semibold">{t('validatorPage.infrastructurePage.joinNetwork', { defaultValue: 'Join Network' })}</div>
+                <div className="text-lg font-bold text-orange-500" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                  {t('validatorPage.registerValidator', { defaultValue: 'Register Validator' })}
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </header>

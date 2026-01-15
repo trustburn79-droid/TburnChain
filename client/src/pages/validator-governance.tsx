@@ -234,7 +234,7 @@ export default function ValidatorGovernance() {
           <p className="text-slate-400 mt-1">{t('validatorPage.subtitle', { defaultValue: 'Decentralized Trust Network / Validator Intelligence' })}</p>
         </div>
         
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-wrap">
           <div className="tburn-panel px-5 py-3 rounded-lg text-right">
             <div className="text-xs text-slate-500 uppercase font-bold">{t('validatorPage.governancePage.averageApy', { defaultValue: 'Average APY' })}</div>
             <div className="text-xl font-bold text-orange-500" data-testid="current-apy">{averageAPY.toFixed(2)}%</div>
@@ -251,6 +251,13 @@ export default function ValidatorGovernance() {
               {realActiveValidators.toLocaleString()}
             </div>
           </div>
+          <Link href="/validator-registration" className="tburn-panel px-5 py-3 rounded-lg flex items-center gap-3 hover:border-orange-500/50 transition cursor-pointer group" data-testid="link-register-validator">
+            <Gavel className="text-orange-500 group-hover:scale-110 transition" weight="fill" size={24} />
+            <div className="text-left">
+              <div className="text-xs text-slate-500 uppercase font-bold">{t('validatorPage.governancePage.becomeValidator', { defaultValue: 'Become a Validator' })}</div>
+              <div className="text-lg font-bold text-orange-500">{t('validatorPage.registerValidator', { defaultValue: 'Register Now' })}</div>
+            </div>
+          </Link>
         </div>
       </header>
 

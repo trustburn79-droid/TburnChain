@@ -308,14 +308,15 @@ export default function ExternalValidatorProgramPage() {
               {t("externalValidator.hero.subtitle")}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button 
-                size="lg" 
-                onClick={() => setIsRegistrationOpen(true)}
-                data-testid="button-register-validator"
-              >
-                {t("externalValidator.hero.registerBtn")}
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
+              <Link href="/validator-registration">
+                <Button 
+                  size="lg" 
+                  data-testid="button-register-validator"
+                >
+                  {t("externalValidator.hero.registerBtn")}
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
               <Button 
                 size="lg" 
                 variant="outline"

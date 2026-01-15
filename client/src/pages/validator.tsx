@@ -284,6 +284,10 @@ export default function ValidatorCommandCenter() {
               <ShieldCheck className="text-emerald-400" weight="duotone" size={18} />
               {t('validatorPage.externalValidators', { defaultValue: 'External Program' })}
             </Link>
+            <Link href="/validator-registration" className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 px-5 py-3 rounded-lg flex items-center gap-2 transition text-sm font-bold text-white shadow-lg shadow-orange-500/20" data-testid="link-register-validator">
+              <ShieldCheck className="text-white" weight="fill" size={18} />
+              {t('validatorPage.registerValidator', { defaultValue: 'Register Validator' })}
+            </Link>
             <div className="glass-panel px-6 py-3 rounded-lg flex flex-col items-end">
               <span className="text-xs text-slate-500 uppercase font-bold">{t('validatorPage.networkTps', { defaultValue: 'Network TPS' })}</span>
               <span className="text-2xl font-bold text-emerald-400 font-mono" data-testid="network-tps">{formatNumber(currentTps)}</span>
