@@ -38028,5 +38028,171 @@
       "copiedTitle": "복사됨",
       "copiedDescription": "클립보드에 복사되었습니다"
     }
+  },
+  "foundersPage": {
+    "loading": "로딩 중...",
+    "nav": {
+      "home": "홈",
+      "founders": "파운더",
+      "advisors": "어드바이저",
+      "technology": "기술",
+      "whitepaper": "백서",
+      "joinNetwork": "네트워크 참여"
+    },
+    "hero": {
+      "badge": "블록체인의 미래를 구축하다",
+      "titleLine1": "창립 멤버를",
+      "titleLine2": "소개합니다",
+      "subtitle": "세계적인 블록체인 전문가, AI 연구자, 기업가들이 모여 차세대 고성능 AI-Enhanced 블록체인 플랫폼을 구축합니다.",
+      "stats": {
+        "tps": "목표 TPS",
+        "members": "핵심 멤버",
+        "experience": "누적 경력"
+      },
+      "scroll": "스크롤하여 탐색"
+    },
+    "foundersSection": {
+      "label": "리더십 팀",
+      "title": "핵심 창립 멤버",
+      "description": "TBURN 메인넷의 비전을 실현하기 위해 모인 핵심 창립 멤버들을 소개합니다."
+    },
+    "founders": {
+      "kevinCho": {
+        "role": "메인넷 의장 & 수석 아키텍트",
+        "company": "TBURN CHAINS Foundation",
+        "bio": "블록체인 아키텍처와 AI 통합 분야의 선구자로서, 210,000+ TPS를 목표로 하는 Triple-Band AI Orchestration 시스템과 양자 내성 암호화 기술을 설계했습니다. Metalock에서의 메타버스 플랫폼 개발 경험을 바탕으로 차세대 분산 컴퓨팅 패러다임을 구축하고 있습니다."
+      },
+      "sarahLee": {
+        "role": "최고 기술 책임자",
+        "company": "전 Google, Stanford 박사",
+        "bio": "분산 시스템과 합의 알고리즘 분야의 세계적 전문가. Google에서 대규모 분산 데이터베이스 시스템을 설계한 경험을 보유하고 있습니다."
+      },
+      "minJunKim": {
+        "role": "최고 AI 책임자",
+        "company": "전 OpenAI, MIT 박사",
+        "bio": "대규모 언어 모델과 분산 AI 시스템 전문가. OpenAI에서 GPT 시리즈 개발에 참여한 경험을 바탕으로 Triple-Band AI Orchestration을 설계했습니다."
+      },
+      "alexPark": {
+        "role": "암호학 총괄",
+        "company": "전 NIST, ETH Zürich 박사",
+        "bio": "포스트-양자 암호화 분야의 선도적 연구자. NIST 양자 내성 암호화 표준화 프로젝트에 참여한 경험을 보유하고 있습니다."
+      },
+      "jamesWang": {
+        "role": "DeFi & 토큰이코노믹스 총괄",
+        "company": "전 Uniswap, Yale MBA",
+        "bio": "DeFi 프로토콜 설계와 토큰 이코노미 전문가. Uniswap V3 개발에 참여했으며, TBURN의 20년 토큰 이코노미 모델을 설계했습니다."
+      },
+      "emilyHan": {
+        "role": "엔지니어링 부사장",
+        "company": "전 Meta, Berkeley 석사",
+        "bio": "대규모 시스템 엔지니어링 및 인프라 전문가. Meta에서 글로벌 인프라 팀을 이끌었으며, 초당 수백만 요청을 처리하는 시스템을 구축했습니다."
+      },
+      "stats": {
+        "yearsExp": "경력",
+        "publications": "출판물",
+        "patents": "특허",
+        "papers": "논문",
+        "citations": "인용",
+        "tvlDesigned": "설계 TVL",
+        "protocols": "프로토콜",
+        "teamLed": "팀 리드",
+        "rpsHandled": "RPS 처리"
+      }
+    },
+    "advisorsSection": {
+      "label": "전략적 가이던스",
+      "title": "자문위원회",
+      "description": "글로벌 블록체인 생태계의 리더들이 TBURN의 성장을 지원합니다."
+    },
+    "advisors": {
+      "victoriaBrown": {
+        "role": "투자 자문",
+        "affiliation": "파트너, Paradigm Ventures"
+      },
+      "davidLiu": {
+        "role": "기술 자문",
+        "affiliation": "교수, KAIST"
+      },
+      "michaelChen": {
+        "role": "전략 자문",
+        "affiliation": "전 CEO, Binance Labs"
+      },
+      "sophiaYang": {
+        "role": "법률 자문",
+        "affiliation": "파트너, 김앤장"
+      },
+      "robertTanaka": {
+        "role": "AI 연구 자문",
+        "affiliation": "펠로우, DeepMind"
+      },
+      "jenniferKwon": {
+        "role": "생태계 자문",
+        "affiliation": "BD 총괄, a16z crypto"
+      }
+    },
+    "partnersSection": {
+      "label": "에코시스템",
+      "title": "전략적 파트너",
+      "description": "TBURN 생태계 구축을 위해 협력하는 전략적 파트너들입니다."
+    },
+    "contactsSection": {
+      "label": "연락하기",
+      "title": "B. 연락처 및 담당자",
+      "description": "TBURN 팀과 연락하시려면 아래 담당자에게 문의해 주세요.",
+      "headers": {
+        "area": "영역",
+        "representative": "담당",
+        "contact": "연락처"
+      },
+      "rows": {
+        "investment": {
+          "area": "투자 문의",
+          "rep": "IR 담당"
+        },
+        "tech": {
+          "area": "기술 문의",
+          "rep": "CTO"
+        },
+        "legal": {
+          "area": "법률 문의",
+          "rep": "법무팀"
+        },
+        "partnership": {
+          "area": "파트너십",
+          "rep": "BD팀"
+        },
+        "media": {
+          "area": "미디어",
+          "rep": "PR팀"
+        }
+      }
+    },
+    "cta": {
+      "title": "TBURN 혁신에 동참하세요",
+      "description": "차세대 AI-Enhanced 블록체인의 미래를 함께 만들어갈 파운더를 찾고 있습니다. 210,000+ TPS의 고성능 블록체인 생태계에 참여하세요.",
+      "applyFounder": "파운더로 지원",
+      "readWhitepaper": "백서 읽기"
+    },
+    "footer": {
+      "description": "AI-Enhanced Layer 1 블록체인. 210,000+ TPS의 고성능과 양자 내성 보안을 제공하는 차세대 분산 네트워크.",
+      "product": "제품",
+      "developers": "개발자",
+      "community": "커뮤니티",
+      "links": {
+        "technology": "기술",
+        "whitepaper": "백서",
+        "tokenomics": "토큰이코노믹스",
+        "roadmap": "로드맵",
+        "documentation": "문서",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "apiReference": "API 레퍼런스",
+        "discord": "디스코드",
+        "telegram": "텔레그램",
+        "twitter": "트위터",
+        "blog": "블로그"
+      },
+      "copyright": "© 2025 TBURN CHAINS Foundation. All rights reserved."
+    }
   }
 }

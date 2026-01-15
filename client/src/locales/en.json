@@ -32962,5 +32962,171 @@
       "copiedTitle": "Copied",
       "copiedDescription": "Copied to clipboard"
     }
+  },
+  "foundersPage": {
+    "loading": "Loading...",
+    "nav": {
+      "home": "Home",
+      "founders": "Founders",
+      "advisors": "Advisors",
+      "technology": "Technology",
+      "whitepaper": "Whitepaper",
+      "joinNetwork": "Join Network"
+    },
+    "hero": {
+      "badge": "Building the Future of Blockchain",
+      "titleLine1": "Meet the",
+      "titleLine2": "Founding Members",
+      "subtitle": "World-class blockchain experts, AI researchers, and entrepreneurs have come together to build the next-generation high-performance AI-Enhanced blockchain platform.",
+      "stats": {
+        "tps": "Target TPS",
+        "members": "Core Members",
+        "experience": "Years Combined Experience"
+      },
+      "scroll": "Scroll to Explore"
+    },
+    "foundersSection": {
+      "label": "Leadership Team",
+      "title": "Core Founding Members",
+      "description": "Meet the core founding members who have gathered to realize the vision of the TBURN mainnet."
+    },
+    "founders": {
+      "kevinCho": {
+        "role": "Mainnet Chair & Chief Architect",
+        "company": "TBURN CHAINS Foundation",
+        "bio": "A pioneer in blockchain architecture and AI integration, designing the Triple-Band AI Orchestration system targeting 210,000+ TPS and quantum-resistant cryptography. Building next-generation distributed computing paradigms based on experience developing metaverse platforms at Metalock."
+      },
+      "sarahLee": {
+        "role": "Chief Technology Officer",
+        "company": "Ex-Google, Stanford PhD",
+        "bio": "World-renowned expert in distributed systems and consensus algorithms. Has experience designing large-scale distributed database systems at Google."
+      },
+      "minJunKim": {
+        "role": "Chief AI Officer",
+        "company": "Ex-OpenAI, MIT PhD",
+        "bio": "Expert in large language models and distributed AI systems. Designed Triple-Band AI Orchestration based on experience participating in GPT series development at OpenAI."
+      },
+      "alexPark": {
+        "role": "Head of Cryptography",
+        "company": "Ex-NIST, ETH Zürich PhD",
+        "bio": "Leading researcher in post-quantum cryptography. Has experience participating in NIST quantum-resistant cryptography standardization projects."
+      },
+      "jamesWang": {
+        "role": "Head of DeFi & Tokenomics",
+        "company": "Ex-Uniswap, Yale MBA",
+        "bio": "Expert in DeFi protocol design and token economics. Participated in Uniswap V3 development and designed TBURN's 20-year token economy model."
+      },
+      "emilyHan": {
+        "role": "VP of Engineering",
+        "company": "Ex-Meta, Berkeley MS",
+        "bio": "Expert in large-scale systems engineering and infrastructure. Led global infrastructure teams at Meta, building systems that handle millions of requests per second."
+      },
+      "stats": {
+        "yearsExp": "Years Exp",
+        "publications": "Publications",
+        "patents": "Patents",
+        "papers": "Papers",
+        "citations": "Citations",
+        "tvlDesigned": "TVL Designed",
+        "protocols": "Protocols",
+        "teamLed": "Team Led",
+        "rpsHandled": "RPS Handled"
+      }
+    },
+    "advisorsSection": {
+      "label": "Strategic Guidance",
+      "title": "Advisory Board",
+      "description": "Global blockchain ecosystem leaders supporting TBURN's growth."
+    },
+    "advisors": {
+      "victoriaBrown": {
+        "role": "Investment Advisor",
+        "affiliation": "Partner, Paradigm Ventures"
+      },
+      "davidLiu": {
+        "role": "Technical Advisor",
+        "affiliation": "Professor, KAIST"
+      },
+      "michaelChen": {
+        "role": "Strategy Advisor",
+        "affiliation": "Ex-CEO, Binance Labs"
+      },
+      "sophiaYang": {
+        "role": "Legal Advisor",
+        "affiliation": "Partner, Kim & Chang"
+      },
+      "robertTanaka": {
+        "role": "AI Research Advisor",
+        "affiliation": "Fellow, DeepMind"
+      },
+      "jenniferKwon": {
+        "role": "Ecosystem Advisor",
+        "affiliation": "Head of BD, a16z crypto"
+      }
+    },
+    "partnersSection": {
+      "label": "Ecosystem",
+      "title": "Strategic Partners",
+      "description": "Strategic partners collaborating to build the TBURN ecosystem."
+    },
+    "contactsSection": {
+      "label": "Get in Touch",
+      "title": "B. Contact & Representatives",
+      "description": "Please contact the representatives below to reach the TBURN team.",
+      "headers": {
+        "area": "Area",
+        "representative": "Representative",
+        "contact": "Contact"
+      },
+      "rows": {
+        "investment": {
+          "area": "Investment Inquiry",
+          "rep": "IR Team"
+        },
+        "tech": {
+          "area": "Technical Inquiry",
+          "rep": "CTO"
+        },
+        "legal": {
+          "area": "Legal Inquiry",
+          "rep": "Legal Team"
+        },
+        "partnership": {
+          "area": "Partnership",
+          "rep": "BD Team"
+        },
+        "media": {
+          "area": "Media",
+          "rep": "PR Team"
+        }
+      }
+    },
+    "cta": {
+      "title": "Join the TBURN Revolution",
+      "description": "We're looking for founders to build the future of next-generation AI-Enhanced blockchain together. Join the high-performance blockchain ecosystem with 210,000+ TPS.",
+      "applyFounder": "Apply as Founder",
+      "readWhitepaper": "Read Whitepaper"
+    },
+    "footer": {
+      "description": "AI-Enhanced Layer 1 blockchain. A next-generation distributed network providing high performance of 210,000+ TPS and quantum-resistant security.",
+      "product": "Product",
+      "developers": "Developers",
+      "community": "Community",
+      "links": {
+        "technology": "Technology",
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Roadmap",
+        "documentation": "Documentation",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "apiReference": "API Reference",
+        "discord": "Discord",
+        "telegram": "Telegram",
+        "twitter": "Twitter",
+        "blog": "Blog"
+      },
+      "copyright": "© 2025 TBURN CHAINS Foundation. All rights reserved."
+    }
   }
 }
