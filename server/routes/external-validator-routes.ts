@@ -1905,7 +1905,20 @@ router.post('/heartbeat/record', validateValidatorApiKey, async (req: Request, r
 // ADMIN REGISTRATION MANAGEMENT ENDPOINTS
 // ============================================
 
-router.get('/admin/registrations', async (req: Request, res: Response) => {
+// Admin authentication middleware for registration management
+function requireAdminAuth(req: Request, res: Response, next: Function) {
+  const session = (req as any).session;
+  if (session && session.adminAuthenticated) {
+    return next();
+  }
+  return res.status(401).json({ 
+    error: 'Unauthorized', 
+    message: 'Admin authentication required. Please login via /api/admin/auth/login',
+    code: 'ADMIN_AUTH_REQUIRED' 
+  });
+}
+
+router.get('/admin/registrations', requireAdminAuth, async (req: Request, res: Response) => {
   try {
     const { status } = req.query;
     const registrations = externalValidatorEngine.getPendingRegistrations(
@@ -1945,7 +1958,7 @@ router.get('/admin/registrations', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/admin/registrations/:id', async (req: Request, res: Response) => {
+router.get('/admin/registrations/:id', requireAdminAuth, async (req: Request, res: Response) => {
   try {
     const registration = externalValidatorEngine.getPendingRegistrationById(req.params.id);
     
@@ -1963,7 +1976,7 @@ router.get('/admin/registrations/:id', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/admin/registrations/:id/approve', async (req: Request, res: Response) => {
+router.post('/admin/registrations/:id/approve', requireAdminAuth, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const reviewedBy = (req as any).user?.username || 'admin';
@@ -1988,7 +2001,7 @@ router.post('/admin/registrations/:id/approve', async (req: Request, res: Respon
   }
 });
 
-router.post('/admin/registrations/:id/reject', async (req: Request, res: Response) => {
+router.post('/admin/registrations/:id/reject', requireAdminAuth, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { reason } = req.body;
