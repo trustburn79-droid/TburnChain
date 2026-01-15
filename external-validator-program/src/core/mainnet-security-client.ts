@@ -237,6 +237,15 @@ export class MainnetSecurityClient extends EventEmitter {
       const isHttps = parsedUrl.protocol === 'https:';
       const lib = isHttps ? https : http;
 
+      // Generate timestamp and nonce for replay protection
+      const timestamp = Date.now().toString();
+      const nonce = CryptoUtils.generateNonce();
+      
+      // Generate HMAC signature for request integrity
+      const bodyStr = body ? JSON.stringify(body) : '';
+      const signaturePayload = `${timestamp}:${nonce}:${bodyStr}`;
+      const signature = CryptoUtils.hmacSHA256(this.config.apiKey, signaturePayload);
+
       const options = {
         hostname: parsedUrl.hostname,
         port: parsedUrl.port || (isHttps ? 443 : 80),
@@ -248,6 +257,9 @@ export class MainnetSecurityClient extends EventEmitter {
           'X-Validator-Address': this.config.validatorAddress,
           'X-Node-ID': this.config.nodeId,
           'X-API-Key': this.config.apiKey,
+          'X-Timestamp': timestamp,
+          'X-Nonce': nonce,
+          'X-Signature': signature,
         },
       };
 

@@ -376,6 +376,27 @@ export class ValidatorNode extends EventEmitter {
     console.log(`[ValidatorNode] Heartbeat: slot ${status.currentSlot}, epoch ${status.currentEpoch}, peers ${status.connectedPeers}`);
     
     this.emit('heartbeat', status);
+    
+    // Send security heartbeat to mainnet if connected
+    if (this.mainnetSecurityClient?.isConnectedToMainnet()) {
+      try {
+        const securityStats = this.signerClient.getSecurityStats();
+        await this.mainnetSecurityClient.sendSecurityHeartbeat({
+          nodeId: this.config.nodeId,
+          uptime: status.uptime,
+          currentSlot: status.currentSlot,
+          securityStats: {
+            signingRequests: securityStats.anomalyStats?.totalSignings || 0,
+            blockedRequests: securityStats.rateLimitStats?.blocked ? 1 : 0,
+            rateLimitHits: securityStats.rateLimitStats?.violations || 0,
+            replayAttemptsBlocked: 0, // Tracked separately if needed
+            lastSecurityCheck: this.lastSecurityCheck,
+          },
+        });
+      } catch (error) {
+        console.warn('[ValidatorNode] Failed to send security heartbeat to mainnet:', error);
+      }
+    }
   }
 
   getStatus(): ValidatorStatus {

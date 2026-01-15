@@ -64,6 +64,16 @@ export class CryptoUtils {
       .digest('hex');
   }
 
+  static hmacSHA256(key: string | Buffer, data: string | Buffer): string {
+    return crypto.createHmac('sha256', key)
+      .update(data)
+      .digest('hex');
+  }
+
+  static generateNonce(): string {
+    return crypto.randomBytes(16).toString('hex');
+  }
+
   static encrypt(plaintext: string, key: Buffer): { ciphertext: string; iv: string; authTag: string } {
     const iv = crypto.randomBytes(CRYPTO_CONFIG.IV_LENGTH);
     const cipher = crypto.createCipheriv(CRYPTO_CONFIG.SYMMETRIC_ALGORITHM, key, iv);
