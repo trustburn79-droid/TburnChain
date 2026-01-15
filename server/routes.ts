@@ -2858,7 +2858,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/external-validators/security/my-status") ||
         req.path.startsWith("/external-validators/security/report") ||
         req.path.startsWith("/external-validators/security/heartbeat") ||
-        req.path.startsWith("/external-validators/security/alerts/")) {
+        req.path.startsWith("/external-validators/security/alerts/") ||
+        req.path.startsWith("/external-validators/rpc-integration/")) {
       return next();
     }
     requireAuth(req, res, next);

@@ -168,6 +168,12 @@ const SESSION_FREE_PREFIX_PATHS = [
   '/transactions/', '/validators/', '/governance/', '/community/',
   '/explorer/', '/staking/', '/bridge/', '/api-docs/', '/blocks/',
   '/socket.io/', '/scan/', '/docs/', '/sdk/', '/cli/', '/rpc/', '/ws/',
+  // External validator endpoints (API key auth, not session auth)
+  '/api/external-validators/rpc-integration/',
+  '/api/external-validators/security/',
+  '/api/external-validators/register',
+  '/api/external-validators/tiers',
+  '/api/external-validators/status/',
 ].sort((a, b) => b.length - a.length);
 
 // ★ [v5.1] Static extension Set for O(1) lookup
