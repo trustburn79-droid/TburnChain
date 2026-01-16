@@ -2,23 +2,18 @@
  * TBURN Enterprise External Validator API Routes
  * Production-grade REST API for external validator management
  * 
- * Security Features (2026-01-15):
- * - Rate limiting per IP and per address
+ * Security Features (2026-01-16):
+ * - Redis-backed rate limiting for clustered deployments (with memory fallback)
+ * - Distributed nonce tracking for replay attack prevention
  * - HMAC-SHA256 signature verification with constant-time comparison
- * - Replay attack prevention with nonce tracking (5-min TTL)
  * - Timestamp drift validation (60s tolerance)
  * - Input validation and sanitization
  * 
- * PRODUCTION DEPLOYMENT REQUIREMENTS:
- * - For clustered/multi-instance deployments, replace in-memory Maps with Redis:
- *   - rateLimitStore: Use Redis INCR with TTL for distributed rate limiting
- *   - usedNonces: Use Redis SET with NX+EX for distributed nonce tracking
- * - Single-instance deployment can use current in-memory implementation
- * - See server/config/redis-config.ts for Redis connection setup
+ * Chain ID: 5800 | TBURN Mainnet
  */
 
 import { Router, Request, Response, NextFunction } from 'express';
-import crypto from 'crypto';
+import nodeCrypto from 'crypto';
 import { 
   externalValidatorEngine, 
   RegistrationRequest, 
@@ -30,32 +25,17 @@ import {
 import { rpcValidatorIntegration } from '../core/validators/rpc-validator-integration';
 import { validatorRegistrationService } from '../services/validator-registration-service';
 import { validatorRegistrationRequestSchema, keyRotationRequestSchema } from '@shared/schema';
+import { redisSecurityService, initializeSecurityService } from '../services/redis-security-service';
 
 const router = Router();
 
-// ============================================================================
-// SECURITY: Rate Limiting & Replay Attack Prevention
-// ============================================================================
+initializeSecurityService().catch(console.error);
 
-const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
-const RATE_LIMIT_MAX_REQUESTS = 10; // 10 requests per minute for registration
-const HEARTBEAT_RATE_LIMIT = 60; // 60 heartbeats per minute
-const NONCE_TTL_MS = 5 * 60 * 1000; // 5 minutes nonce validity
-const TIMESTAMP_DRIFT_TOLERANCE_MS = 60 * 1000; // 60 seconds drift tolerance
-
-// In-memory rate limit tracking (use Redis in production cluster)
-const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
-const usedNonces = new Map<string, number>(); // nonce -> expiry timestamp
-
-// Cleanup expired nonces every minute
-setInterval(() => {
-  const now = Date.now();
-  for (const [nonce, expiry] of usedNonces.entries()) {
-    if (expiry < now) {
-      usedNonces.delete(nonce);
-    }
-  }
-}, 60 * 1000);
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 10;
+const HEARTBEAT_RATE_LIMIT = 60;
+const NONCE_TTL_SECONDS = 300;
+const TIMESTAMP_DRIFT_TOLERANCE_MS = 60 * 1000;
 
 function getClientIP(req: Request): string {
   const forwarded = req.headers['x-forwarded-for'];
@@ -65,44 +45,24 @@ function getClientIP(req: Request): string {
   return req.ip || req.socket.remoteAddress || 'unknown';
 }
 
-function checkRateLimit(key: string, maxRequests: number): { allowed: boolean; remaining: number; resetIn: number } {
-  const now = Date.now();
-  const record = rateLimitStore.get(key);
-  
-  if (!record || record.resetTime < now) {
-    rateLimitStore.set(key, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-    return { allowed: true, remaining: maxRequests - 1, resetIn: RATE_LIMIT_WINDOW_MS };
-  }
-  
-  if (record.count >= maxRequests) {
-    return { allowed: false, remaining: 0, resetIn: record.resetTime - now };
-  }
-  
-  record.count++;
-  return { allowed: true, remaining: maxRequests - record.count, resetIn: record.resetTime - now };
-}
-
 function verifyTimestamp(timestamp: number): boolean {
   const now = Date.now();
   const drift = Math.abs(now - timestamp);
   return drift <= TIMESTAMP_DRIFT_TOLERANCE_MS;
 }
 
-function verifyNonceUnused(nonce: string): boolean {
-  if (usedNonces.has(nonce)) {
-    return false;
-  }
-  usedNonces.set(nonce, Date.now() + NONCE_TTL_MS);
-  return true;
+async function verifyNonceUnused(nonce: string): Promise<boolean> {
+  const result = await redisSecurityService.checkAndUseNonce(nonce, NONCE_TTL_SECONDS);
+  return result.valid;
 }
 
 function verifyHmacSignature(payload: string, signature: string, apiKey: string): boolean {
   try {
-    const expectedSignature = crypto
+    const expectedSignature = nodeCrypto
       .createHmac('sha256', apiKey)
       .update(payload)
       .digest('hex');
-    return crypto.timingSafeEqual(
+    return nodeCrypto.timingSafeEqual(
       Buffer.from(signature, 'hex'),
       Buffer.from(expectedSignature, 'hex')
     );
@@ -111,18 +71,18 @@ function verifyHmacSignature(payload: string, signature: string, apiKey: string)
   }
 }
 
-// Rate limiting middleware for registration
-function registrationRateLimiter(req: Request, res: Response, next: NextFunction): void {
+async function registrationRateLimiter(req: Request, res: Response, next: NextFunction): Promise<void> {
   const clientIP = getClientIP(req);
   const key = `reg:${clientIP}`;
-  const result = checkRateLimit(key, RATE_LIMIT_MAX_REQUESTS);
+  const result = await redisSecurityService.checkRateLimit(key, RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_MS);
   
   res.setHeader('X-RateLimit-Limit', RATE_LIMIT_MAX_REQUESTS.toString());
   res.setHeader('X-RateLimit-Remaining', result.remaining.toString());
   res.setHeader('X-RateLimit-Reset', Math.ceil(result.resetIn / 1000).toString());
+  res.setHeader('X-RateLimit-Source', result.source);
   
   if (!result.allowed) {
-    console.warn(`[Security] Rate limit exceeded for registration from IP: ${clientIP}`);
+    console.warn(`[Security] Rate limit exceeded for registration from IP: ${clientIP} (${result.source})`);
     res.status(429).json({
       success: false,
       error: 'Rate limit exceeded. Please try again later.',
@@ -133,14 +93,13 @@ function registrationRateLimiter(req: Request, res: Response, next: NextFunction
   next();
 }
 
-// Rate limiting middleware for heartbeat
-function heartbeatRateLimiter(req: Request, res: Response, next: NextFunction): void {
+async function heartbeatRateLimiter(req: Request, res: Response, next: NextFunction): Promise<void> {
   const nodeId = req.body.nodeId || 'unknown';
   const key = `hb:${nodeId}`;
-  const result = checkRateLimit(key, HEARTBEAT_RATE_LIMIT);
+  const result = await redisSecurityService.checkRateLimit(key, HEARTBEAT_RATE_LIMIT, RATE_LIMIT_WINDOW_MS);
   
   if (!result.allowed) {
-    console.warn(`[Security] Heartbeat rate limit exceeded for node: ${nodeId}`);
+    console.warn(`[Security] Heartbeat rate limit exceeded for node: ${nodeId} (${result.source})`);
     res.status(429).json({
       success: false,
       error: 'Heartbeat rate limit exceeded.',
@@ -151,15 +110,12 @@ function heartbeatRateLimiter(req: Request, res: Response, next: NextFunction): 
   next();
 }
 
-// Security validation middleware for authenticated endpoints
-// MANDATORY: All authenticated routes MUST provide x-api-key, x-timestamp, x-nonce, x-signature headers
-function validateSecurityHeaders(req: Request, res: Response, next: NextFunction): void {
+async function validateSecurityHeaders(req: Request, res: Response, next: NextFunction): Promise<void> {
   const apiKey = req.headers['x-api-key'] as string;
   const timestampStr = req.headers['x-timestamp'] as string;
   const nonce = req.headers['x-nonce'] as string;
   const signature = req.headers['x-signature'] as string;
 
-  // All security headers are MANDATORY for authenticated endpoints
   if (!apiKey) {
     res.status(401).json({ success: false, error: 'Missing required header: x-api-key' });
     return;
@@ -186,21 +142,19 @@ function validateSecurityHeaders(req: Request, res: Response, next: NextFunction
     return;
   }
 
-  // Validate timestamp to prevent replay attacks
   if (!verifyTimestamp(timestamp)) {
     console.warn(`[Security] Invalid timestamp from API key: ${apiKey.slice(0, 8)}...`);
     res.status(401).json({ success: false, error: 'Request timestamp expired or invalid (clock drift > 60s)' });
     return;
   }
 
-  // Validate nonce uniqueness
-  if (!verifyNonceUnused(nonce)) {
+  const nonceValid = await verifyNonceUnused(nonce);
+  if (!nonceValid) {
     console.warn(`[Security] Duplicate nonce detected: ${nonce.slice(0, 8)}...`);
     res.status(401).json({ success: false, error: 'Duplicate request detected (replay attack prevention)' });
     return;
   }
 
-  // Verify HMAC signature (MANDATORY)
   const payload = `${timestamp}:${nonce}:${JSON.stringify(req.body)}`;
   if (!verifyHmacSignature(payload, signature, apiKey)) {
     console.warn(`[Security] Invalid signature for API key: ${apiKey.slice(0, 8)}...`);
