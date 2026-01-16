@@ -66,3 +66,17 @@ Core architectural decisions include:
 - **Validation**: Zod
 - **Authentication**: `express-session`, `bcryptjs`
 - **Internationalization**: `react-i18next`
+- **Session Management**: `redis`, `connect-redis`
+
+## Recent Changes (2026-01-16)
+
+### Security Hardening for Mainnet Launch
+- **Admin Authentication Overhaul**: Removed header-based password bypass; admin routes now require session-based authentication via `handleAdminLogin` function with rate limiting (5 attempts/15 min), 1-hour lockout after failed attempts, and audit logging.
+- **Redis Security Service**: New `server/services/redis-security-service.ts` provides distributed rate limiting and nonce tracking for multi-instance deployments with automatic in-memory fallback.
+- **External Validator API Migration**: Migrated from in-memory to Redis-backed rate limiting and nonce stores for clustered deployment support.
+- **Genesis/DB Routes Protection**: Added `requireAdmin` middleware to `genesis-routes.ts` and `db-optimization-routes.ts`.
+- **Event Loop Lag Bug Fix**: Fixed 900ms false positive warnings in `production-health-monitor.ts` caused by hardcoded `expectedMs` value.
+
+### Security Files Reference
+- `server/middleware/auth.ts` - Centralized authentication middleware with admin rate limiting
+- `server/services/redis-security-service.ts` - Redis-backed distributed security service
