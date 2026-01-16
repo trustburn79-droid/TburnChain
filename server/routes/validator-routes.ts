@@ -19,8 +19,20 @@ const router = Router();
 // causing 30s timeout + Internal Server Error
 router.get('/', async (req: Request, res: Response) => {
   try {
-    // Fetch from genesis_validators table (production data source)
-    const genesisValidatorList = await db.select().from(genesisValidators);
+    // ★ [2026-01-16] Select only columns that exist in PRODUCTION database
+    // Excludes: invitationCodeId, invitationCode (added later, not in prod schema)
+    const genesisValidatorList = await db.select({
+      id: genesisValidators.id,
+      address: genesisValidators.address,
+      name: genesisValidators.name,
+      tier: genesisValidators.tier,
+      priority: genesisValidators.priority,
+      initialStake: genesisValidators.initialStake,
+      commission: genesisValidators.commission,
+      isVerified: genesisValidators.isVerified,
+      website: genesisValidators.website,
+      description: genesisValidators.description,
+    }).from(genesisValidators);
     
     // Map genesis validators to frontend-expected format
     const validators = genesisValidatorList.map((v) => {
