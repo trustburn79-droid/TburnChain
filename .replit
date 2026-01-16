@@ -69,6 +69,8 @@ ENABLE_BLOCK_PIPELINE = "false"
 [userenv.production]
 NODE_ENV = "production"
 MAX_SHARDS = "64"
+DEV_SAFE_MODE = "true"
+SKIP_VALIDATOR_SIMULATION = "true"
 
 [userenv.development]
 NODE_ENV = "development"
