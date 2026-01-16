@@ -6981,6 +6981,31 @@ export const genesisConfig = pgTable("genesis_config", {
   lastModifiedBy: text("last_modified_by"),
 });
 
+// ============================================
+// Validator Invitation Codes - Access control for genesis registration
+// ============================================
+export const validatorInvitationCodes = pgTable("validator_invitation_codes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Code Details
+  code: varchar("code", { length: 32 }).notNull().unique(),
+  tier: text("tier").notNull(), // core, enterprise, partner, community
+  
+  // Usage Tracking
+  isUsed: boolean("is_used").notNull().default(false),
+  usedBy: text("used_by"), // validator address that used this code
+  usedAt: timestamp("used_at"),
+  
+  // Expiration
+  expiresAt: timestamp("expires_at"),
+  
+  // Admin Tracking
+  createdBy: text("created_by"),
+  notes: text("notes"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Genesis Validators - Initial validator set for mainnet
 export const genesisValidators = pgTable("genesis_validators", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -7016,6 +7041,10 @@ export const genesisValidators = pgTable("genesis_validators", {
   // KYC/Compliance
   kycStatus: text("kyc_status").notNull().default("pending"), // pending, approved, rejected
   kycDocumentId: text("kyc_document_id"),
+  
+  // Invitation Code Tracking
+  invitationCodeId: varchar("invitation_code_id"),
+  invitationCode: varchar("invitation_code"),
   
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
@@ -7195,6 +7224,15 @@ export const insertNewsletterSubscriberSchema = createInsertSchema(newsletterSub
 
 export type NewsletterSubscriber = typeof newsletterSubscribers.$inferSelect;
 export type InsertNewsletterSubscriber = z.infer<typeof insertNewsletterSubscriberSchema>;
+
+// Validator Invitation Codes Insert Schema
+export const insertValidatorInvitationCodeSchema = createInsertSchema(validatorInvitationCodes).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type ValidatorInvitationCode = typeof validatorInvitationCodes.$inferSelect;
+export type InsertValidatorInvitationCode = z.infer<typeof insertValidatorInvitationCodeSchema>;
 
 // Genesis Insert Schemas
 export const insertGenesisConfigSchema = createInsertSchema(genesisConfig).omit({
