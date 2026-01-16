@@ -471,12 +471,11 @@ function RootRouter() {
   }
   
   if (location === "/validator" && !location.includes("/validator/")) {
+    // Validator Command Center is public - accessible to all users without login
     return (
-      <AuthGuard>
-        <Suspense fallback={<PageLoading />}>
-          <ValidatorCommandCenter />
-        </Suspense>
-      </AuthGuard>
+      <Suspense fallback={<PageLoading />}>
+        <ValidatorCommandCenter />
+      </Suspense>
     );
   }
   

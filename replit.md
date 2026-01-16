@@ -77,6 +77,10 @@ Core architectural decisions include:
 - **Genesis/DB Routes Protection**: Added `requireAdmin` middleware to `genesis-routes.ts` and `db-optimization-routes.ts`.
 - **Event Loop Lag Bug Fix**: Fixed 900ms false positive warnings in `production-health-monitor.ts` caused by hardcoded `expectedMs` value.
 
+### Performance and Routing Fixes
+- **BlockPipeline Disabled**: Set `ENABLE_BLOCK_PIPELINE=false` in environment to prevent 36-second startup lag caused by WAL recovery (860K+ entries). This keeps the server responsive for production use.
+- **Validator Page Fix**: Removed `AuthGuard` from `/validator` route in `client/src/App.tsx` - the Validator Command Center is now a public page accessible without authentication.
+
 ### Security Files Reference
 - `server/middleware/auth.ts` - Centralized authentication middleware with admin rate limiting
 - `server/services/redis-security-service.ts` - Redis-backed distributed security service
