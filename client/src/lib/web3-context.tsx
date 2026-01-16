@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from "react";
 import { BrowserProvider, formatEther, type Eip1193Provider, type TransactionRequest, type TransactionResponse } from "ethers";
+import { formatTBurnAddress, truncateTBurnAddress } from "@/lib/utils";
 
 declare global {
   interface Window {
@@ -140,6 +141,7 @@ export interface WalletState {
   isConnecting: boolean;
   isReconnecting: boolean;
   address: string | null;
+  tburnAddress: string | null;
   balance: string | null;
   chainId: number | null;
   walletType: WalletType;
@@ -178,6 +180,7 @@ export interface Web3ContextType extends WalletState {
   sendTransaction: (tx: TransactionConfig) => Promise<TransactionResponse | null>;
   isWalletAvailable: (walletType: WalletType) => boolean;
   formatAddress: (address: string) => string;
+  formatTburnAddr: (address: string) => string;
   refreshBalance: () => Promise<void>;
   validateAddress: (address: string) => boolean;
   isCorrectNetwork: boolean;
@@ -222,6 +225,7 @@ const initialState: WalletState = {
   isConnecting: false,
   isReconnecting: false,
   address: null,
+  tburnAddress: null,
   balance: null,
   chainId: null,
   walletType: null,
@@ -603,6 +607,7 @@ export function Web3Provider({ children }: { children: ReactNode }) {
           isConnecting: false,
           isReconnecting: false,
           address,
+          tburnAddress: formatTBurnAddress(address),
           balance: null,
           chainId,
           walletType,
@@ -929,6 +934,10 @@ export function Web3Provider({ children }: { children: ReactNode }) {
 
   const isCorrectNetwork = state.chainId === TBURN_CHAIN_ID;
 
+  const formatTburnAddr = useCallback((address: string): string => {
+    return truncateTBurnAddress(formatTBurnAddress(address));
+  }, []);
+
   const value: Web3ContextType = {
     ...state,
     connect,
@@ -939,6 +948,7 @@ export function Web3Provider({ children }: { children: ReactNode }) {
     sendTransaction,
     isWalletAvailable,
     formatAddress: formatAddressDisplay,
+    formatTburnAddr,
     refreshBalance,
     validateAddress,
     isCorrectNetwork,

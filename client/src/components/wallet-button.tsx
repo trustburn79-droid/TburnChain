@@ -41,6 +41,7 @@ export function WalletButton() {
     isConnecting,
     isReconnecting,
     address,
+    tburnAddress,
     balance,
     chainId,
     walletType,
@@ -48,6 +49,7 @@ export function WalletButton() {
     disconnect,
     switchNetwork,
     formatAddress,
+    formatTburnAddr,
     refreshBalance,
     isCorrectNetwork,
     pendingTransactions,
@@ -76,7 +78,23 @@ export function WalletButton() {
     }
   }, [error, toast, t, clearError]);
 
-  const handleCopyAddress = async () => {
+  const handleCopyTburnAddress = async () => {
+    if (!tburnAddress) return;
+    try {
+      await navigator.clipboard.writeText(tburnAddress);
+      toast({
+        title: t("wallet.addressCopied"),
+        description: formatTburnAddr(tburnAddress),
+      });
+    } catch {
+      toast({
+        title: t("wallet.copyFailed"),
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleCopyEthAddress = async () => {
     if (!address) return;
     try {
       await navigator.clipboard.writeText(address);
@@ -195,8 +213,8 @@ export function WalletButton() {
                   </div>
                 </div>
                 <div className="flex flex-col items-start text-left">
-                  <span className="text-xs font-medium">
-                    {address ? formatAddress(address) : ""}
+                  <span className="text-xs font-medium font-mono">
+                    {tburnAddress ? formatTburnAddr(tburnAddress) : (address ? formatAddress(address) : "")}
                   </span>
                   {/* Show balance in button on mobile only */}
                   {balance && (
@@ -377,9 +395,14 @@ export function WalletButton() {
             {t("wallet.refreshBalance")}
           </DropdownMenuItem>
 
-          <DropdownMenuItem onClick={handleCopyAddress} data-testid="button-copy-address">
+          <DropdownMenuItem onClick={handleCopyTburnAddress} data-testid="button-copy-tburn-address">
             <Copy className="h-4 w-4 mr-2" />
-            {t("wallet.copyAddress")}
+            {t("wallet.copyTburnAddress", "Copy TBURN Address (tb1...)")}
+          </DropdownMenuItem>
+          
+          <DropdownMenuItem onClick={handleCopyEthAddress} data-testid="button-copy-eth-address">
+            <Copy className="h-4 w-4 mr-2" />
+            {t("wallet.copyEthAddress", "Copy EVM Address (0x...)")}
           </DropdownMenuItem>
           
           <DropdownMenuItem asChild data-testid="button-view-explorer">

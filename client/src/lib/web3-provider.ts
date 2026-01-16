@@ -87,24 +87,26 @@ class Web3ProviderService {
   }
 
   private setupEventListeners(): void {
-    if (!window.ethereum) return;
+    const ethereum = window.ethereum;
+    if (!ethereum || typeof ethereum.on !== 'function') return;
 
-    window.ethereum.on("accountsChanged", async (accounts: string[]) => {
-      if (accounts.length === 0) {
+    ethereum.on("accountsChanged", (accounts: unknown) => {
+      const accountList = accounts as string[];
+      if (accountList.length === 0) {
         this.disconnect();
       } else {
-        await this.updateState();
+        this.updateState();
       }
     });
 
-    window.ethereum.on("chainChanged", async (chainId: string) => {
-      const numericChainId = parseInt(chainId, 16);
+    ethereum.on("chainChanged", (chainId: unknown) => {
+      const numericChainId = parseInt(chainId as string, 16);
       this.state.chainId = numericChainId;
       this.state.isCorrectNetwork = numericChainId === TBURN_MAINNET_CONFIG.chainId;
-      await this.updateState();
+      this.updateState();
     });
 
-    window.ethereum.on("disconnect", () => {
+    ethereum.on("disconnect", () => {
       this.disconnect();
     });
   }
@@ -161,11 +163,12 @@ class Web3ProviderService {
     this.notifyListeners();
 
     try {
-      this.provider = new BrowserProvider(window.ethereum);
+      const ethereum = window.ethereum!;
+      this.provider = new BrowserProvider(ethereum);
       
-      const accounts = await window.ethereum.request({
+      const accounts = await ethereum.request({
         method: "eth_requestAccounts",
-      });
+      }) as string[];
 
       if (!accounts || accounts.length === 0) {
         throw new Error("No accounts found");
@@ -274,10 +277,10 @@ class Web3ProviderService {
       from: await this.signer.getAddress(),
       to: tx.to,
       data: tx.data,
-      value: tx.value || 0n,
+      value: tx.value || BigInt(0),
     });
 
-    const gasLimitWithBuffer = (gasLimit * 115n) / 100n;
+    const gasLimitWithBuffer = (gasLimit * BigInt(115)) / BigInt(100);
     const maxFeePerGas = feeData.maxFeePerGas || ethers.parseUnits("10", "gwei");
     const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas || ethers.parseUnits("1", "gwei");
     const estimatedCostWei = gasLimitWithBuffer * maxFeePerGas;
@@ -305,7 +308,7 @@ class Web3ProviderService {
     const transaction = await this.signer.sendTransaction({
       to: tx.to,
       data: tx.data,
-      value: tx.value || 0n,
+      value: tx.value || BigInt(0),
       gasLimit: tx.gasLimit || gasEstimate.gasLimit,
       maxFeePerGas: tx.maxFeePerGas || gasEstimate.maxFeePerGas,
       maxPriorityFeePerGas: tx.maxPriorityFeePerGas || gasEstimate.maxPriorityFeePerGas,
@@ -343,7 +346,7 @@ class Web3ProviderService {
       data: deployData,
     });
 
-    const gasLimitWithBuffer = (gasEstimate * 120n) / 100n;
+    const gasLimitWithBuffer = (gasEstimate * BigInt(120)) / BigInt(100);
     const feeData = await this.provider!.getFeeData();
 
     const transaction = await this.signer.sendTransaction({
@@ -379,12 +382,6 @@ class Web3ProviderService {
 
   getSigner(): JsonRpcSigner | null {
     return this.signer;
-  }
-}
-
-declare global {
-  interface Window {
-    ethereum?: any;
   }
 }
 
