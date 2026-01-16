@@ -1,3 +1,11 @@
+/**
+ * TBURN Genesis Block Configuration Routes
+ * Production-grade genesis block creation and management
+ * 
+ * Security: All endpoints require admin authentication
+ * Chain ID: 5800 | TBURN Mainnet
+ */
+
 import { Router, Request, Response } from "express";
 import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { storage } from "../storage";
@@ -20,8 +28,11 @@ import {
   REWARDS_CONFIG,
   SECURITY_CONFIG,
 } from "../core/genesis/enterprise-genesis-config";
+import { requireAdmin } from "../middleware/auth";
 
 const router = Router();
+
+router.use(requireAdmin);
 
 // Genesis Configuration Types
 interface GenesisConfigData {

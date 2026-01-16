@@ -1,6 +1,9 @@
 /**
  * TBURN Database Optimization API Routes
  * Enterprise-grade database management endpoints
+ * 
+ * Security: All endpoints require admin authentication
+ * Chain ID: 5800 | TBURN Mainnet
  */
 
 import { Router, Request, Response } from "express";
@@ -11,8 +14,11 @@ import {
 } from "../db/enterprise-index-optimization";
 import { db } from "../db";
 import { sql } from "drizzle-orm";
+import { requireAdmin } from "../middleware/auth";
 
 const router = Router();
+
+router.use(requireAdmin);
 
 // GET /api/admin/db/status - Database optimization status
 router.get('/status', async (_req: Request, res: Response) => {
