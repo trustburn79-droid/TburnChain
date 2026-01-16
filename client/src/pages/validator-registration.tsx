@@ -2,13 +2,22 @@
  * TBURN Genesis Validator BYO Registration Portal
  * Production-grade registration for validators who generate their own keys offline
  * Chain ID: 5800 | TBURN Mainnet
+ * 
+ * Features:
+ * - React Hook Form + Zod validation
+ * - Session storage persistence
+ * - Page exit prevention
  */
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "wouter";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -161,33 +170,148 @@ interface BackupChecklist {
   recoveryTested: boolean;
 }
 
+// Storage key for session persistence
+const STORAGE_KEY = "tburn_validator_registration_draft";
+
+// Zod validation schema for the registration form
+const registrationSchema = z.object({
+  name: z.string()
+    .min(3, "Validator name must be at least 3 characters")
+    .max(50, "Validator name must be at most 50 characters")
+    .regex(/^[a-zA-Z0-9\s\-_]+$/, "Only alphanumeric characters, spaces, hyphens and underscores allowed"),
+  publicKey: z.string()
+    .refine((key) => {
+      const clean = key.replace(/^0x/, "");
+      return /^[0-9a-fA-F]{66}$/.test(clean) || /^[0-9a-fA-F]{130}$/.test(clean);
+    }, "Invalid public key format. Must be 33-byte compressed or 65-byte uncompressed hex"),
+  tier: z.string().min(1, "Please select a tier"),
+  description: z.string().max(500, "Description must be at most 500 characters").optional(),
+  website: z.string().url("Invalid URL format").optional().or(z.literal("")),
+  contactEmail: z.string().email("Invalid email format").optional().or(z.literal("")),
+  nodeEndpoint: z.string().url("Invalid endpoint URL").optional().or(z.literal("")),
+  invitationCode: z.string()
+    .min(1, "Invitation code is required")
+    .regex(/^TB-[A-Z]{2}-[A-Z0-9]{16}$/, "Invalid invitation code format"),
+});
+
+type RegistrationSchemaType = z.infer<typeof registrationSchema>;
+
+// Load saved draft from localStorage
+const loadDraft = (): Partial<RegistrationFormData & { currentStep: number; backupChecklist: BackupChecklist }> => {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  } catch (e) {
+    console.warn("Failed to load draft:", e);
+  }
+  return {};
+};
+
+// Save draft to localStorage
+const saveDraft = (data: {
+  formData: RegistrationFormData;
+  currentStep: number;
+  backupChecklist: BackupChecklist;
+}) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      ...data.formData,
+      currentStep: data.currentStep,
+      backupChecklist: data.backupChecklist,
+    }));
+  } catch (e) {
+    console.warn("Failed to save draft:", e);
+  }
+};
+
+// Clear draft from localStorage
+const clearDraft = () => {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (e) {
+    console.warn("Failed to clear draft:", e);
+  }
+};
+
 export default function ValidatorRegistration() {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const [currentStep, setCurrentStep] = useState<RegistrationStep>(1);
+  
+  // Load saved draft on initial mount
+  const savedDraft = loadDraft();
+  
+  const [currentStep, setCurrentStep] = useState<RegistrationStep>(
+    (savedDraft.currentStep as RegistrationStep) || 1
+  );
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [registrationResult, setRegistrationResult] = useState<any>(null);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
-  const [backupChecklist, setBackupChecklist] = useState<BackupChecklist>({
-    coldStorage: false,
-    multipleBackups: false,
-    encrypted: false,
-    recoveryTested: false,
-  });
+  const [backupChecklist, setBackupChecklist] = useState<BackupChecklist>(
+    savedDraft.backupChecklist || {
+      coldStorage: false,
+      multipleBackups: false,
+      encrypted: false,
+      recoveryTested: false,
+    }
+  );
 
   const [formData, setFormData] = useState<RegistrationFormData>({
-    name: "",
-    publicKey: "",
-    tier: "",
-    description: "",
-    website: "",
-    contactEmail: "",
-    nodeEndpoint: "",
-    invitationCode: "",
+    name: savedDraft.name || "",
+    publicKey: savedDraft.publicKey || "",
+    tier: savedDraft.tier || "",
+    description: savedDraft.description || "",
+    website: savedDraft.website || "",
+    contactEmail: savedDraft.contactEmail || "",
+    nodeEndpoint: savedDraft.nodeEndpoint || "",
+    invitationCode: savedDraft.invitationCode || "",
   });
 
   const [invitationValidated, setInvitationValidated] = useState(false);
   const [invitationData, setInvitationData] = useState<InvitationValidation | null>(null);
+
+  // Auto-save draft when form data changes
+  useEffect(() => {
+    const hasContent = formData.name || formData.publicKey || formData.invitationCode;
+    if (hasContent) {
+      saveDraft({ formData, currentStep, backupChecklist });
+      setHasUnsavedChanges(true);
+    } else if (hasUnsavedChanges) {
+      // If all key fields are empty but we had unsaved changes, clear the draft
+      clearDraft();
+      setHasUnsavedChanges(false);
+    }
+  }, [formData, currentStep, backupChecklist, hasUnsavedChanges]);
+
+  // Page exit prevention - warn user about unsaved changes
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasUnsavedChanges && !registrationComplete) {
+        e.preventDefault();
+        e.returnValue = t("validatorRegistration.exitWarning", { 
+          defaultValue: "You have unsaved changes. Are you sure you want to leave?" 
+        });
+        return e.returnValue;
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [hasUnsavedChanges, registrationComplete, t]);
+
+  // Show draft restoration toast on mount if draft exists
+  useEffect(() => {
+    if (savedDraft.name || savedDraft.publicKey) {
+      toast({
+        title: t("validatorRegistration.toasts.draftRestored", { defaultValue: "Draft Restored" }),
+        description: t("validatorRegistration.toasts.draftRestoredDesc", { 
+          defaultValue: "Your previous progress has been restored." 
+        }),
+      });
+    }
+  }, []); // Only run on mount
 
   const { data: statusData } = useQuery<StatusResponse>({
     queryKey: ["/api/genesis-validators/status"],
@@ -265,6 +389,8 @@ export default function ValidatorRegistration() {
       if (result.success) {
         setRegistrationResult(result.data);
         setRegistrationComplete(true);
+        setHasUnsavedChanges(false);
+        clearDraft(); // Clear saved draft on successful registration
         toast({
           title: t("validatorRegistration.toasts.registrationSuccess"),
           description: `${result.data.name}`,
@@ -532,6 +658,8 @@ export default function ValidatorRegistration() {
                 <Button
                   className="flex-1 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white"
                   onClick={() => {
+                    clearDraft(); // Clear any saved draft
+                    setHasUnsavedChanges(false);
                     setRegistrationComplete(false);
                     setRegistrationResult(null);
                     setCurrentStep(1);
@@ -681,7 +809,47 @@ export default function ValidatorRegistration() {
               3. {t("validatorRegistration.progress.step3")}
             </span>
           </div>
-          <Progress value={(currentStep / 3) * 100} className="h-2" />
+          <div className="flex items-center gap-3">
+            <Progress value={(currentStep / 3) * 100} className="h-2 flex-1" />
+            {hasUnsavedChanges && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  clearDraft();
+                  setHasUnsavedChanges(false);
+                  setCurrentStep(1);
+                  setFormData({
+                    name: "",
+                    publicKey: "",
+                    tier: "",
+                    description: "",
+                    website: "",
+                    contactEmail: "",
+                    nodeEndpoint: "",
+                    invitationCode: "",
+                  });
+                  setInvitationValidated(false);
+                  setInvitationData(null);
+                  setBackupChecklist({
+                    coldStorage: false,
+                    multipleBackups: false,
+                    encrypted: false,
+                    recoveryTested: false,
+                  });
+                  toast({
+                    title: t("validatorRegistration.toasts.draftCleared", { defaultValue: "Draft Cleared" }),
+                    description: t("validatorRegistration.toasts.draftClearedDesc", { defaultValue: "Your saved draft has been removed." }),
+                  });
+                }}
+                className="text-muted-foreground hover:text-destructive text-xs"
+                data-testid="button-clear-draft"
+              >
+                <XCircle className="w-3 h-3 mr-1" />
+                {t("validatorRegistration.buttons.clearDraft", { defaultValue: "Clear Draft" })}
+              </Button>
+            )}
+          </div>
         </div>
 
         {currentStep === 1 && (
