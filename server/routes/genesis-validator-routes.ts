@@ -2,7 +2,10 @@
  * TBURN Genesis Validator Management API Routes
  * Production-grade REST API for genesis validator key generation and management
  * 
- * Security: These routes require admin authentication
+ * Security: Protected by authentication middleware
+ * - Public: /status (read-only summary)
+ * - Admin only: /, /:address, /by-tier/:tier, /verify/:address
+ * - Invitation required: /register
  * Chain ID: 5800 | TBURN Mainnet
  */
 
@@ -11,8 +14,14 @@ import { genesisValidatorGenerator } from '../services/genesis-validator-generat
 import { db } from '../db';
 import { genesisValidators, genesisConfig } from '@shared/schema';
 import { eq, desc } from 'drizzle-orm';
+import { requireAdmin, requireInvitationCode, createRateLimiter } from '../middleware/auth';
 
 const router = Router();
+
+const registrationRateLimiter = createRateLimiter({
+  windowMs: 60 * 1000,
+  maxRequests: 5,
+});
 
 /**
  * GET /api/genesis-validators/status
@@ -53,8 +62,9 @@ router.get('/status', async (req: Request, res: Response) => {
 /**
  * GET /api/genesis-validators
  * List all genesis validators (without private keys)
+ * Requires admin authentication
  */
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', requireAdmin, async (req: Request, res: Response) => {
   try {
     const validators = await genesisValidatorGenerator.getAllValidators();
     
@@ -77,8 +87,9 @@ router.get('/', async (req: Request, res: Response) => {
 /**
  * GET /api/genesis-validators/:address
  * Get single genesis validator by address
+ * Requires admin authentication
  */
-router.get('/:address', async (req: Request, res: Response) => {
+router.get('/:address', requireAdmin, async (req: Request, res: Response) => {
   try {
     const { address } = req.params;
     
@@ -159,8 +170,9 @@ router.post('/export-for-secret-manager', async (req: Request, res: Response) =>
  * POST /api/genesis-validators/register
  * BYO (Bring Your Own) Key Registration
  * Validators submit their public key generated offline
+ * Requires invitation code and rate limiting
  */
-router.post('/register', async (req: Request, res: Response) => {
+router.post('/register', registrationRateLimiter, requireInvitationCode, async (req: Request, res: Response) => {
   try {
     const { 
       name, 
@@ -287,8 +299,9 @@ router.post('/register', async (req: Request, res: Response) => {
 /**
  * GET /api/genesis-validators/by-tier/:tier
  * Get validators filtered by tier
+ * Requires admin authentication
  */
-router.get('/by-tier/:tier', async (req: Request, res: Response) => {
+router.get('/by-tier/:tier', requireAdmin, async (req: Request, res: Response) => {
   try {
     const { tier } = req.params;
     const validTiers = ['core', 'enterprise', 'partner', 'community', 'genesis'];
@@ -334,8 +347,9 @@ router.get('/by-tier/:tier', async (req: Request, res: Response) => {
 /**
  * POST /api/genesis-validators/verify/:address
  * Mark a validator as verified (admin only)
+ * Requires admin authentication
  */
-router.post('/verify/:address', async (req: Request, res: Response) => {
+router.post('/verify/:address', requireAdmin, async (req: Request, res: Response) => {
   try {
     const { address } = req.params;
     const { verifiedBy } = req.body;
