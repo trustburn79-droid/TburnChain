@@ -110,22 +110,26 @@ function serveIndexHtml(res: express.Response) {
 // ★ [2026-01-16] CRITICAL FIX: Provide fast responses during cold start
 // Return cached static data for critical public endpoints instead of 503
 // This prevents Replit Autoscale proxy timeout (30s) causing 500 errors
+// NOTE: req.path is RELATIVE to mount point - for app.use('/api', ...), 
+//       a request to /api/validators has req.path = '/validators'
 app.use('/api', (req, res, next) => {
   // Allow only health checks during initialization
+  // NOTE: These paths are RELATIVE to /api mount point
   const alwaysAllowedPaths = [
-    '/api/health',
-    '/api/db-environment',
-    '/api/warmup',
+    '/health',
+    '/db-environment',
+    '/warmup',
   ];
   
-  const isAlwaysAllowed = alwaysAllowedPaths.some(path => 
-    req.path === path || req.path.startsWith(path)
+  const isAlwaysAllowed = alwaysAllowedPaths.some(p => 
+    req.path === p || req.path.startsWith(p)
   );
   
   if (!servicesReady && !isAlwaysAllowed) {
     // ★ [2026-01-16] Fast-path for critical public APIs during cold start
     // Serve lightweight static data to prevent timeout
-    if (req.path === '/api/network/stats' || req.path === '/api/public/v1/network/stats') {
+    // NOTE: req.path is RELATIVE - '/network/stats' not '/api/network/stats'
+    if (req.path === '/network/stats' || req.path === '/public/v1/network/stats') {
       console.log(`[Autoscale] Fast-path network stats during init`);
       return res.json({
         id: 'singleton',
@@ -141,7 +145,7 @@ app.use('/api', (req, res, next) => {
       });
     }
     
-    if (req.path === '/api/validators') {
+    if (req.path === '/validators') {
       console.log(`[Autoscale] Fast-path validators during init`);
       return res.json({
         validators: [],
@@ -150,7 +154,7 @@ app.use('/api', (req, res, next) => {
       });
     }
     
-    if (req.path === '/api/auth/check') {
+    if (req.path === '/auth/check') {
       console.log(`[Autoscale] Fast-path auth check during init`);
       return res.json({
         authenticated: false,

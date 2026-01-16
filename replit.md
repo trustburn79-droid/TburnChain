@@ -71,7 +71,8 @@ Core architectural decisions include:
 ## Recent Changes (2026-01-16)
 
 ### Production Cold Start Fix (CRITICAL)
-- **Fast-Path API Responses**: Added lightweight static data responses for critical public APIs (`/api/network/stats`, `/api/validators`, `/api/auth/check`) during cold start to prevent Replit Autoscale proxy timeout (30s) from causing 500 errors.
+- **Fast-Path API Responses**: Added lightweight static data responses for critical public APIs (`/api/network/stats`, `/api/validators`, `/api/auth/check`) during cold start to prevent Replit Autoscale proxy timeout (30s) from causing 500 errors. Fixed `req.path` to use relative paths (e.g., `/validators` not `/api/validators`) since middleware is mounted at `/api`.
+- **Validator Routes Root Handler**: Added root `/` handler to `server/routes/validator-routes.ts` to properly handle `/api/validators` requests. Without this, requests fell through the router without response, causing 30s timeout + 500 error.
 - **Production Environment Variables**: Set `DEV_SAFE_MODE=true` and `SKIP_VALIDATOR_SIMULATION=true` in production environment to reduce cold start time.
 - **Architecture Clarification**: BlockPipeline is a visualization/simulation component only; real production blockchain uses separate validator-node stack (HotStuff BFT consensus, mempool, state engine) that operates independently.
 
