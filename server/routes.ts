@@ -2866,6 +2866,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         req.path.startsWith("/external-validators/rpc-integration/stats") || req.path.startsWith("/external-validators/rpc-integration/check/")) {
       return next();
     }
+    // Invitation Code Management - public endpoints for validator registration
+    if (req.path === "/invitation-codes/quotas" || req.path === "/invitation-codes/validate" || req.path === "/invitation-codes/use") {
+      return next();
+    }
     // Genesis Validator Management - internal admin API (no session required for key generation)
     if (req.path.startsWith("/genesis-validators/")) {
       return next();

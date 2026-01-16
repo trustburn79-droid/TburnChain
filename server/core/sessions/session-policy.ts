@@ -243,6 +243,10 @@ const SESSION_FREE_PREFIX_LIST = [
   '/api/external-validators/rpc-integration/check/',
   // Genesis validator management (admin internal use)
   '/api/genesis-validators/',
+  // Invitation code management (public endpoints only - admin routes require auth)
+  '/api/invitation-codes/quotas',
+  '/api/invitation-codes/validate',
+  '/api/invitation-codes/use',
 ] as const;
 
 const SESSION_FREE_PREFIXES_SORTED = [...SESSION_FREE_PREFIX_LIST].sort((a, b) => b.length - a.length);

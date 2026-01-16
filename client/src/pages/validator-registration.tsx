@@ -115,6 +115,43 @@ interface RegistrationFormData {
   website: string;
   contactEmail: string;
   nodeEndpoint: string;
+  invitationCode: string;
+}
+
+interface TierQuota {
+  tier: string;
+  total: number;
+  registered: number;
+  remaining: number;
+  isFull: boolean;
+}
+
+interface QuotasResponse {
+  success: boolean;
+  data: {
+    quotas: TierQuota[];
+    summary: {
+      totalSlots: number;
+      totalRegistered: number;
+      totalRemaining: number;
+    };
+  };
+}
+
+interface StatusResponse {
+  success: boolean;
+  data: {
+    totalCount: number;
+    targetCount: number;
+    isComplete: boolean;
+  };
+}
+
+interface InvitationValidation {
+  valid: boolean;
+  tier: string;
+  remainingSlots: number;
+  expiresAt: string | null;
 }
 
 interface BackupChecklist {
@@ -141,15 +178,24 @@ export default function ValidatorRegistration() {
   const [formData, setFormData] = useState<RegistrationFormData>({
     name: "",
     publicKey: "",
-    tier: "community",
+    tier: "",
     description: "",
     website: "",
     contactEmail: "",
     nodeEndpoint: "",
+    invitationCode: "",
   });
 
-  const { data: statusData } = useQuery({
+  const [invitationValidated, setInvitationValidated] = useState(false);
+  const [invitationData, setInvitationData] = useState<InvitationValidation | null>(null);
+
+  const { data: statusData } = useQuery<StatusResponse>({
     queryKey: ["/api/genesis-validators/status"],
+  });
+
+  const { data: quotasData } = useQuery<QuotasResponse>({
+    queryKey: ["/api/invitation-codes/quotas"],
+    refetchInterval: 30000,
   });
 
   const { data: networkStats } = useQuery<{
@@ -166,6 +212,41 @@ export default function ValidatorRegistration() {
   const currentTps = networkStats?.tps || 210000;
   const currentEpoch = networkStats?.currentBlockHeight ? Math.floor(networkStats.currentBlockHeight / 100000) : 394;
 
+  const validateInvitationMutation = useMutation({
+    mutationFn: async (code: string) => {
+      const response = await apiRequest("POST", "/api/invitation-codes/validate", { code });
+      return response.json();
+    },
+    onSuccess: (result: any) => {
+      if (result.success && result.data.valid) {
+        setInvitationValidated(true);
+        setInvitationData(result.data);
+        setFormData(prev => ({ ...prev, tier: result.data.tier }));
+        toast({
+          title: t("validatorRegistration.toasts.invitationValid"),
+          description: t("validatorRegistration.toasts.invitationValidDesc", { tier: result.data.tier }),
+        });
+      } else {
+        setInvitationValidated(false);
+        setInvitationData(null);
+        toast({
+          title: t("validatorRegistration.toasts.invitationInvalid"),
+          description: result.error || t("validatorRegistration.toasts.invitationInvalidDesc"),
+          variant: "destructive",
+        });
+      }
+    },
+    onError: (error: any) => {
+      setInvitationValidated(false);
+      setInvitationData(null);
+      toast({
+        title: t("validatorRegistration.toasts.invitationError"),
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
   const registerMutation = useMutation({
     mutationFn: async (data: RegistrationFormData) => {
       const response = await apiRequest("POST", "/api/genesis-validators/register", {
@@ -176,6 +257,7 @@ export default function ValidatorRegistration() {
         website: data.website || undefined,
         contactEmail: data.contactEmail || undefined,
         nodeEndpoint: data.nodeEndpoint || undefined,
+        invitationCode: data.invitationCode,
       });
       return response.json();
     },
@@ -222,13 +304,19 @@ export default function ValidatorRegistration() {
   const validateStep = (step: RegistrationStep): boolean => {
     switch (step) {
       case 1:
-        return allBackupsConfirmed && isValidPublicKey(formData.publicKey);
+        return allBackupsConfirmed && isValidPublicKey(formData.publicKey) && invitationValidated;
       case 2:
         return formData.name.length >= 3 && formData.tier.length > 0;
       case 3:
         return true;
       default:
         return false;
+    }
+  };
+
+  const handleValidateInvitation = () => {
+    if (formData.invitationCode.trim().length > 0) {
+      validateInvitationMutation.mutate(formData.invitationCode.trim());
     }
   };
 
@@ -450,12 +538,15 @@ export default function ValidatorRegistration() {
                     setFormData({
                       name: "",
                       publicKey: "",
-                      tier: "community",
+                      tier: "",
                       description: "",
                       website: "",
                       contactEmail: "",
                       nodeEndpoint: "",
+                      invitationCode: "",
                     });
+                    setInvitationValidated(false);
+                    setInvitationData(null);
                     setBackupChecklist({
                       coldStorage: false,
                       multipleBackups: false,
@@ -829,6 +920,86 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                       })}
                     </AlertDescription>
                   </Alert>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card className="border-purple-500/30 bg-purple-500/5">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Key className="w-5 h-5 text-purple-500" />
+                  {t("validatorRegistration.invitationCode.title", { defaultValue: "Invitation Code" })}
+                </CardTitle>
+                <CardDescription>
+                  {t("validatorRegistration.invitationCode.description", { defaultValue: "Enter your invitation code to register as a genesis validator." })}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="invitationCode" className="flex items-center gap-2">
+                    {t("validatorRegistration.invitationCode.label", { defaultValue: "Invitation Code" })} *
+                  </Label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="invitationCode"
+                      placeholder={t("validatorRegistration.invitationCode.placeholder", { defaultValue: "TB-XX-XXXXXXXXXXXXXXXX" })}
+                      value={formData.invitationCode}
+                      onChange={(e) => {
+                        updateFormData("invitationCode", e.target.value.toUpperCase());
+                        setInvitationValidated(false);
+                        setInvitationData(null);
+                      }}
+                      className="font-mono uppercase"
+                      data-testid="input-invitation-code"
+                    />
+                    <Button
+                      onClick={handleValidateInvitation}
+                      disabled={!formData.invitationCode.trim() || validateInvitationMutation.isPending}
+                      data-testid="button-validate-invitation"
+                    >
+                      {validateInvitationMutation.isPending ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        t("validatorRegistration.invitationCode.validate", { defaultValue: "Validate" })
+                      )}
+                    </Button>
+                  </div>
+                </div>
+                {invitationValidated && invitationData && (
+                  <Alert className="border-green-500/30 bg-green-500/10">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <AlertTitle className="text-green-400">
+                      {t("validatorRegistration.invitationCode.valid", { defaultValue: "Invitation Code Valid" })}
+                    </AlertTitle>
+                    <AlertDescription className="text-green-300">
+                      {t("validatorRegistration.invitationCode.tierAssigned", { 
+                        tier: invitationData.tier.charAt(0).toUpperCase() + invitationData.tier.slice(1),
+                        remaining: invitationData.remainingSlots,
+                        defaultValue: `You are assigned to the ${invitationData.tier} tier. ${invitationData.remainingSlots} slots remaining.`
+                      })}
+                    </AlertDescription>
+                  </Alert>
+                )}
+                {quotasData?.data && (
+                  <div className="space-y-3">
+                    <div className="text-sm font-medium text-muted-foreground">
+                      {t("validatorRegistration.invitationCode.tierQuotas", { defaultValue: "Tier Quotas" })}
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                      {quotasData.data.quotas.map((quota) => (
+                        <div key={quota.tier} className={`p-3 rounded-lg border ${TIER_CONFIGS[quota.tier]?.color || 'border-muted'}`}>
+                          <div className="text-xs uppercase font-bold">{quota.tier}</div>
+                          <div className="text-lg font-mono">{quota.registered}/{quota.total}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {quota.isFull 
+                              ? t("validatorRegistration.invitationCode.tierFull", { defaultValue: "Full" })
+                              : t("validatorRegistration.invitationCode.slotsRemaining", { count: quota.remaining, defaultValue: `${quota.remaining} left` })
+                            }
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </CardContent>
             </Card>
