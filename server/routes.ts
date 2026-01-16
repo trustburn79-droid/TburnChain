@@ -65,6 +65,7 @@ import { registerShardingRoutes } from "./routes/sharding-routes";
 import validatorRoutes from "./routes/validator-routes";
 import { registerExternalValidatorRoutes } from "./routes/external-validator-routes";
 import { registerGenesisValidatorRoutes } from "./routes/genesis-validator-routes";
+import invitationCodeRoutes from "./routes/invitation-code-routes";
 import { rewardRoutes } from "./routes/reward-routes";
 import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
 import shardCacheRoutes from "./routes/shard-cache-routes";
@@ -3052,6 +3053,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Genesis validator key generation and management
   // ============================================
   registerGenesisValidatorRoutes(app);
+  
+  // Validator Invitation Code Management
+  app.use("/api/invitation-codes", invitationCodeRoutes);
+  console.log("[InvitationCodes] ✅ Invitation code routes registered");
   console.log("[GenesisValidators] ✅ Genesis validator routes registered");
 
   // ============================================
