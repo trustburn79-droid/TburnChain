@@ -110,7 +110,6 @@ class RedisSecurityService {
     if (this.isConnected && this.redisClient?.isOpen) {
       try {
         const windowSeconds = Math.ceil(windowMs / 1000);
-        const now = Date.now();
         
         const multi = this.redisClient.multi();
         multi.incr(redisKey);
@@ -120,10 +119,13 @@ class RedisSecurityService {
         const count = results[0] as number;
         const ttl = results[1] as number;
         
-        if (ttl === -1) {
+        // Set expiry when key is first created (ttl === -2 means key doesn't exist)
+        // or when key has no expiry (ttl === -1)
+        if (count === 1 || ttl === -1 || ttl === -2) {
           await this.redisClient.expire(redisKey, windowSeconds);
         }
         
+        // Use windowMs as default if no valid TTL (should not happen after expire is set)
         const resetIn = ttl > 0 ? ttl : windowMs;
         
         return {

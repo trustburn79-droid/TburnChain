@@ -11,6 +11,21 @@ import crypto from 'crypto';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || process.env.SITE_PASSWORD;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
 
+const ADMIN_RATE_LIMIT_WINDOW = 15 * 60 * 1000;
+const ADMIN_MAX_ATTEMPTS = 5;
+const ADMIN_LOCKOUT_DURATION = 60 * 60 * 1000;
+
+const adminAttemptStore = new Map<string, { attempts: number; resetTime: number; lockedUntil?: number }>();
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, value] of adminAttemptStore.entries()) {
+    if (value.resetTime < now && (!value.lockedUntil || value.lockedUntil < now)) {
+      adminAttemptStore.delete(key);
+    }
+  }
+}, 60000);
+
 declare module 'express-session' {
   interface SessionData {
     authenticated?: boolean;
@@ -21,9 +36,53 @@ declare module 'express-session' {
   }
 }
 
+function logAdminAttempt(ip: string, success: boolean, sessionId?: string): void {
+  const timestamp = new Date().toISOString();
+  const status = success ? '✅ SUCCESS' : '❌ FAILED';
+  console.log(`[AdminAuth] ${timestamp} | ${status} | IP: ${ip} | Session: ${sessionId || 'N/A'}`);
+}
+
+function checkAdminRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
+  const now = Date.now();
+  const record = adminAttemptStore.get(ip);
+  
+  if (record?.lockedUntil && record.lockedUntil > now) {
+    return { allowed: false, retryAfter: Math.ceil((record.lockedUntil - now) / 1000) };
+  }
+  
+  if (!record || record.resetTime < now) {
+    return { allowed: true };
+  }
+  
+  if (record.attempts >= ADMIN_MAX_ATTEMPTS) {
+    record.lockedUntil = now + ADMIN_LOCKOUT_DURATION;
+    console.warn(`[AdminAuth] ⚠️ IP ${ip} locked out for ${ADMIN_LOCKOUT_DURATION / 60000} minutes after ${ADMIN_MAX_ATTEMPTS} failed attempts`);
+    return { allowed: false, retryAfter: Math.ceil(ADMIN_LOCKOUT_DURATION / 1000) };
+  }
+  
+  return { allowed: true };
+}
+
+function recordAdminAttempt(ip: string, success: boolean): void {
+  const now = Date.now();
+  
+  if (success) {
+    adminAttemptStore.delete(ip);
+    return;
+  }
+  
+  const record = adminAttemptStore.get(ip);
+  if (!record || record.resetTime < now) {
+    adminAttemptStore.set(ip, { attempts: 1, resetTime: now + ADMIN_RATE_LIMIT_WINDOW });
+  } else {
+    record.attempts++;
+  }
+}
+
 /**
  * Require admin authentication
- * Checks for admin session or valid admin password header
+ * Checks for admin session only - no header-based password bypass
+ * Use /api/admin/login endpoint to authenticate
  */
 export function requireAdmin(req: Request, res: Response, next: NextFunction): void {
   console.log('[Admin] requireAdmin check - sessionID:', req.sessionID, 'adminAuthenticated:', req.session?.adminAuthenticated, 'path:', req.path);
@@ -33,29 +92,80 @@ export function requireAdmin(req: Request, res: Response, next: NextFunction): v
     return next();
   }
   
-  if (req.session?.authenticated) {
-    const adminPassword = req.headers['x-admin-password'] as string;
-    
-    if (!ADMIN_PASSWORD) {
-      console.error('[Admin] CRITICAL: ADMIN_PASSWORD environment variable not set!');
-      res.status(500).json({ error: 'Server configuration error' });
-      return;
-    }
-    
-    if (adminPassword && crypto.timingSafeEqual(
-      Buffer.from(adminPassword),
-      Buffer.from(ADMIN_PASSWORD)
-    )) {
-      console.log('[Admin] ✅ Admin access granted via password header');
-      return next();
-    }
-  }
-  
   console.log('[Admin] ❌ Admin access denied - not authenticated');
   res.status(401).json({ 
     error: 'Admin authentication required',
     message: 'Please login as admin to access this resource'
   });
+}
+
+/**
+ * Admin login handler - use this to authenticate as admin
+ * POST /api/admin/login with { password: string }
+ */
+export async function handleAdminLogin(req: Request, res: Response): Promise<void> {
+  const ip = getClientIP(req);
+  const password = req.body?.password;
+  
+  const rateLimitCheck = checkAdminRateLimit(ip);
+  if (!rateLimitCheck.allowed) {
+    logAdminAttempt(ip, false, req.sessionID);
+    res.status(429).json({
+      error: 'Too many failed attempts',
+      message: `Account locked. Please try again in ${rateLimitCheck.retryAfter} seconds.`,
+      retryAfter: rateLimitCheck.retryAfter
+    });
+    return;
+  }
+  
+  if (!ADMIN_PASSWORD) {
+    console.error('[Admin] CRITICAL: ADMIN_PASSWORD environment variable not set!');
+    res.status(500).json({ error: 'Server configuration error' });
+    return;
+  }
+  
+  if (!password || typeof password !== 'string') {
+    recordAdminAttempt(ip, false);
+    logAdminAttempt(ip, false, req.sessionID);
+    res.status(400).json({ error: 'Password required' });
+    return;
+  }
+  
+  try {
+    const passwordBuffer = Buffer.from(password);
+    const adminBuffer = Buffer.from(ADMIN_PASSWORD);
+    
+    if (passwordBuffer.length !== adminBuffer.length || 
+        !crypto.timingSafeEqual(passwordBuffer, adminBuffer)) {
+      recordAdminAttempt(ip, false);
+      logAdminAttempt(ip, false, req.sessionID);
+      res.status(401).json({ error: 'Invalid admin password' });
+      return;
+    }
+    
+    recordAdminAttempt(ip, true);
+    req.session.adminAuthenticated = true;
+    req.session.authenticated = true;
+    
+    await new Promise<void>((resolve, reject) => {
+      req.session.save((err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+    
+    logAdminAttempt(ip, true, req.sessionID);
+    console.log('[Admin] ✅ Admin session established for:', req.sessionID);
+    
+    res.json({
+      success: true,
+      message: 'Admin login successful',
+      sessionId: req.sessionID
+    });
+  } catch (error) {
+    console.error('[Admin] Login error:', error);
+    res.status(500).json({ error: 'Login failed' });
+  }
 }
 
 /**
