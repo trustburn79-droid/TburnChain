@@ -2,6 +2,12 @@
  * TBURN Validator Invitation Code Routes
  * Manages invitation codes for genesis validator registration
  * Implements tier-based quotas and access control
+ * 
+ * Security:
+ * - Public: /quotas (read-only summary)
+ * - Public: /validate (code validation, rate limited)
+ * - Admin only: /admin/* (code generation, listing)
+ * - Protected: /use (requires valid code)
  */
 
 import { Router, Request, Response } from 'express';
@@ -9,8 +15,19 @@ import { db } from '../db';
 import { validatorInvitationCodes, genesisValidators } from '@shared/schema';
 import { eq, and, sql } from 'drizzle-orm';
 import crypto from 'crypto';
+import { requireAdmin, createRateLimiter } from '../middleware/auth';
 
 const router = Router();
+
+const validateRateLimiter = createRateLimiter({
+  windowMs: 60 * 1000,
+  maxRequests: 10,
+});
+
+const useCodeRateLimiter = createRateLimiter({
+  windowMs: 60 * 1000,
+  maxRequests: 5,
+});
 
 const TIER_QUOTAS: Record<string, number> = {
   core: 10,
@@ -70,7 +87,7 @@ router.get('/quotas', async (_req: Request, res: Response) => {
   }
 });
 
-router.post('/validate', async (req: Request, res: Response) => {
+router.post('/validate', validateRateLimiter, async (req: Request, res: Response) => {
   try {
     const { code } = req.body;
 
@@ -143,7 +160,7 @@ router.post('/validate', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/admin/generate', async (req: Request, res: Response) => {
+router.post('/admin/generate', requireAdmin, async (req: Request, res: Response) => {
   try {
     const { tier, count = 1, expiresInDays = 30, notes, createdBy = 'admin' } = req.body;
 
@@ -195,7 +212,7 @@ router.post('/admin/generate', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/admin/list', async (req: Request, res: Response) => {
+router.get('/admin/list', requireAdmin, async (req: Request, res: Response) => {
   try {
     const { tier, used } = req.query;
 
@@ -238,7 +255,7 @@ router.get('/admin/list', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/use', async (req: Request, res: Response) => {
+router.post('/use', useCodeRateLimiter, async (req: Request, res: Response) => {
   try {
     const { code, validatorAddress } = req.body;
 
