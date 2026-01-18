@@ -75,14 +75,16 @@ class RealtimeMetricsService {
   
   /**
    * 폴링 시작 - 데이터베이스에서 실시간 데이터 가져오기
-   * ★ [2026-01-15] DEV_SAFE_MODE에서 폴링 비활성화 - 메모리 누수 방지
+   * ★ [2026-01-18] ENABLE_REALTIME_METRICS=true로 강제 활성화 가능
    */
   start(): void {
-    // ★ [2026-01-15 MEMORY FIX] DEV_SAFE_MODE에서 폴링 비활성화
-    // DEV_SAFE_MODE 값을 동기적으로 가져오기 위해 환경변수 사용
+    // ★ [2026-01-18] 프로덕션 실시간 TPS 복원
+    // ENABLE_REALTIME_METRICS=true이면 DEV_SAFE_MODE 무시
+    const ENABLE_REALTIME = process.env.ENABLE_REALTIME_METRICS === 'true';
     const DEV_SAFE_MODE = process.env.DEV_SAFE_MODE !== 'false';
-    if (DEV_SAFE_MODE) {
-      console.log('[RealtimeMetrics] ⏸️ Polling DISABLED in DEV_SAFE_MODE (memory protection)');
+    
+    if (DEV_SAFE_MODE && !ENABLE_REALTIME) {
+      console.log('[RealtimeMetrics] ⏸️ Polling DISABLED (set ENABLE_REALTIME_METRICS=true to enable)');
       return;
     }
     
@@ -91,9 +93,9 @@ class RealtimeMetricsService {
     // 즉시 첫 번째 폴링 실행
     this.poll();
     
-    // 주기적 폴링 시작
+    // 주기적 폴링 시작 (30초 간격)
     this.pollInterval = setInterval(() => this.poll(), this.POLL_INTERVAL_MS);
-    console.log(`[RealtimeMetrics] 🔄 Polling started (${this.POLL_INTERVAL_MS}ms interval)`);
+    console.log(`[RealtimeMetrics] 🔄 Polling started (${this.POLL_INTERVAL_MS / 1000}s interval, REALTIME=true)`);
   }
   
   /**

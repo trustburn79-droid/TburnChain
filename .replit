@@ -65,6 +65,7 @@ ADMIN_EMAIL = "trustburn79@gmail.com"
 EMAIL_FROM = "TBURN Chain <noreply@tburn.io>"
 NODE_OPTIONS = "--max-old-space-size=8192"
 ENABLE_BLOCK_PIPELINE = "false"
+ENABLE_REALTIME_METRICS = "true"
 
 [userenv.production]
 NODE_ENV = "production"
