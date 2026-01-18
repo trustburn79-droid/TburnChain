@@ -200,14 +200,14 @@ export default function AdminBridgeValidators() {
   const validators = useMemo(() => {
     if (validatorsData?.validators) return validatorsData.validators;
     return [
-      { id: 1, name: "TBURN Bridge Guardian 1", address: "0x1234567890abcdef1234567890abcdef12345678", stake: "85,000,000 TBURN", status: "active" as const, uptime: 99.99, signatures: 1847500, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
-      { id: 2, name: "TBURN Bridge Guardian 2", address: "0x2345678901bcdef02345678901bcdef023456789", stake: "78,500,000 TBURN", status: "active" as const, uptime: 99.98, signatures: 1842800, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
-      { id: 3, name: "TBURN Bridge Guardian 3", address: "0x3456789012cdef013456789012cdef0134567890", stake: "72,000,000 TBURN", status: "active" as const, uptime: 99.97, signatures: 1838900, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
-      { id: 4, name: "TBURN Bridge Guardian 4", address: "0x4567890123def0124567890123def01245678901", stake: "68,500,000 TBURN", status: "active" as const, uptime: 99.96, signatures: 1835200, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
-      { id: 5, name: "TBURN Bridge Guardian 5", address: "0x5678901234ef01235678901234ef0123567890ab", stake: "65,200,000 TBURN", status: "active" as const, uptime: 99.95, signatures: 1832500, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
-      { id: 6, name: "TBURN Bridge Guardian 6", address: "0x6789012345f012346789012345f01234678901bc", stake: "62,800,000 TBURN", status: "active" as const, uptime: 99.94, signatures: 1828700, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
-      { id: 7, name: "TBURN Bridge Guardian 7", address: "0x789012345601234578901234560123457890abcd", stake: "58,500,000 TBURN", status: "inactive" as const, uptime: 92.50, signatures: 1685000, chains: ["ETH", "BSC", "MATIC"] },
-      { id: 8, name: "TBURN Bridge Guardian 8", address: "0x890123456712345689012345671234568901bcde", stake: "55,200,000 TBURN", status: "slashed" as const, uptime: 78.20, signatures: 1420000, chains: ["ETH", "BSC"] },
+      { id: 1, name: "TBURN Bridge Guardian 1", address: "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce", stake: "85,000,000 TBURN", status: "active" as const, uptime: 99.99, signatures: 1847500, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 2, name: "TBURN Bridge Guardian 2", address: "tbv1qx8e6dg9ylqnm5ht8wt46s6j0mkqq8pyr9arqdf", stake: "78,500,000 TBURN", status: "active" as const, uptime: 99.98, signatures: 1842800, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 3, name: "TBURN Bridge Guardian 3", address: "tbv1qy9f7eh0zmron6ju9xu57t7k1nlrr9qzsa2bseg", stake: "72,000,000 TBURN", status: "active" as const, uptime: 99.97, signatures: 1838900, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 4, name: "TBURN Bridge Guardian 4", address: "tbv1qz0g8fj1anspn7kv0yv68u8l2omss0r0tb3ctfh", stake: "68,500,000 TBURN", status: "active" as const, uptime: 99.96, signatures: 1835200, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 5, name: "TBURN Bridge Guardian 5", address: "tbv1qkwghdmv3x8qre7v4e4axxwg2s96rj5k56m3plz", stake: "65,200,000 TBURN", status: "active" as const, uptime: 99.95, signatures: 1832500, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 6, name: "TBURN Bridge Guardian 6", address: "tbv1qn7m8pk2ts5vqlj6w9cfuqdhzp3rmw4yca8xnef", stake: "62,800,000 TBURN", status: "active" as const, uptime: 99.94, signatures: 1828700, chains: ["ETH", "BSC", "MATIC", "AVAX", "ARB", "OP", "BASE"] },
+      { id: 7, name: "TBURN Bridge Guardian 7", address: "tbv1qa8n9pl3ut6wrmk7x0dg7vrejz4snx5zt2b4ghr", stake: "58,500,000 TBURN", status: "inactive" as const, uptime: 92.50, signatures: 1685000, chains: ["ETH", "BSC", "MATIC"] },
+      { id: 8, name: "TBURN Bridge Guardian 8", address: "tbv1qc9p0qm4wu7xsnl8y1eh8wsfkz5tpy6aub5c5js", stake: "55,200,000 TBURN", status: "slashed" as const, uptime: 78.20, signatures: 1420000, chains: ["ETH", "BSC"] },
     ];
   }, [validatorsData]);
 

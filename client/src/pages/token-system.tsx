@@ -996,7 +996,7 @@ function EnterpriseTokenCreationWizard() {
     multisigSigners: [],
     accessControl: "ownable",
     upgradeability: "none",
-    deployerAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+    deployerAddress: "tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce"
   };
 
   const [formData, setFormData] = useState<TokenFormData>(initialFormData);

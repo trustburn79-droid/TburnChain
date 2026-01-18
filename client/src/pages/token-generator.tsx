@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { web3Provider, type Web3State, TBURN_MAINNET_CONFIG } from "@/lib/web3-provider";
+import { SYSTEM_ADDRESSES, generateRandomAddress } from "@/lib/tburn-address";
 import { useTheme } from "@/components/theme-provider";
 import { UnifiedHeaderNav } from "@/components/unified-header-nav";
 import { Button } from "@/components/ui/button";
@@ -588,7 +589,7 @@ export default function TokenSystemPage() {
         royaltyRecipient: formData.royaltyRecipient,
         aiOptimizationEnabled: formData.aiOptimizationEnabled,
         quantumResistant: formData.quantumResistant,
-        deployerAddress: walletState.address || "0x0000000000000000000000000000000000000000",
+        deployerAddress: walletState.address || SYSTEM_ADDRESSES.ZERO,
       });
       const data = await response.json();
       setGasEstimation({
@@ -749,7 +750,7 @@ export default function TokenSystemPage() {
         aiOptimizationEnabled: formData.aiOptimizationEnabled,
         quantumResistant: formData.quantumResistant,
         mevProtection: formData.mevProtection,
-        deployerAddress: walletState.address || "0x0000000000000000000000000000000000000000",
+        deployerAddress: walletState.address || SYSTEM_ADDRESSES.ZERO,
       });
       const result = await response.json();
 
@@ -2039,7 +2040,7 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
       id: "1",
       name: "TBURN Governance",
       symbol: "TBG",
-      contractAddress: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
+      contractAddress: "tb1qkwghdmv3x8qre7v4e4axxwg2s96rj5k56m3plz",
       standard: "TBC-20",
       totalSupply: "100000000",
       decimals: 18,
@@ -2058,7 +2059,7 @@ function MyTokensContent({ isDark, deployedTokens, tokensLoading, copyToClipboar
       id: "2",
       name: "Dragon NFT Collection",
       symbol: "DRAGON",
-      contractAddress: "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199",
+      contractAddress: "tb1qlxhjenpcy9rsf8w5f5byy2h3t07sk6l67n4qm0",
       standard: "TBC-721",
       totalSupply: "5000",
       decimals: 0,

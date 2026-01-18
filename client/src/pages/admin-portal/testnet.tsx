@@ -142,10 +142,10 @@ const productionNodes: TestnetNode[] = [
 ];
 
 const productionFaucetRequests: FaucetRequest[] = [
-  { id: "fq-1", address: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D", amount: 100, status: "completed", txHash: "0xabc...def", timestamp: "2024-12-11T11:25:00Z" },
-  { id: "fq-2", address: "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984", amount: 100, status: "completed", txHash: "0x123...456", timestamp: "2024-12-11T11:20:00Z" },
-  { id: "fq-3", address: "0x6B175474E89094C44Da98b954EesdedfFe1A6fB9", amount: 100, status: "pending", timestamp: "2024-12-11T11:15:00Z" },
-  { id: "fq-4", address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", amount: 100, status: "completed", txHash: "0x789...abc", timestamp: "2024-12-11T11:10:00Z" },
+  { id: "fq-1", address: "tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce", amount: 100, status: "completed", txHash: "0xabc...def", timestamp: "2024-12-11T11:25:00Z" },
+  { id: "fq-2", address: "tb1qx8e6dg9ylqnm5ht8wt46s6j0mkqq8pyr9arqdf", amount: 100, status: "completed", txHash: "0x123...456", timestamp: "2024-12-11T11:20:00Z" },
+  { id: "fq-3", address: "tb1qy9f7eh0zmron6ju9xu57t7k1nlrr9qzsa2bseg", amount: 100, status: "pending", timestamp: "2024-12-11T11:15:00Z" },
+  { id: "fq-4", address: "tb1qz0g8fj1anspn7kv0yv68u8l2omss0r0tb3ctfh", amount: 100, status: "completed", txHash: "0x789...abc", timestamp: "2024-12-11T11:10:00Z" },
 ];
 
 const productionStats: TestnetStats = {
@@ -304,7 +304,7 @@ export default function TestnetManagement() {
   }, [nodes, stats, toast, t]);
 
   const handleFaucetSubmit = useCallback(() => {
-    if (!faucetAddress || !faucetAddress.startsWith("0x") || faucetAddress.length !== 42) {
+    if (!faucetAddress || !faucetAddress.startsWith("tb1") || faucetAddress.length < 38) {
       toast({ title: t("adminTestnet.invalidAddress"), description: t("adminTestnet.enterValidAddress"), variant: "destructive" });
       return;
     }

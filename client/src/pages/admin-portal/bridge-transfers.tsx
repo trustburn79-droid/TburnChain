@@ -213,8 +213,8 @@ export default function AdminBridgeTransfers() {
     return [
       { 
         id: "0xabc123def456789012345678901234567890abcd", 
-        from: { chain: "Ethereum", address: "0x1234567890abcdef1234567890abcdef12345678" }, 
-        to: { chain: "TBURN", address: "tburn1qwertyuiopasdfghjklzxcvbnm12345678xyz" }, 
+        from: { chain: "Ethereum", address: "tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce" }, 
+        to: { chain: "TBURN", address: "tb1qx8e6dg9ylqnm5ht8wt46s6j0mkqq8pyr9arqdf" }, 
         amount: "2,500,000 USDT", 
         fee: "125 USDT",
         status: "completed" as const, 
@@ -224,8 +224,8 @@ export default function AdminBridgeTransfers() {
       },
       { 
         id: "0xdef456ghi789012345678901234567890bcdef01", 
-        from: { chain: "TBURN", address: "tburn1asdfghjklqwertyuiopzxcvbnm987654321abc" }, 
-        to: { chain: "BSC", address: "0x2345678901bcdef02345678901bcdef023456789" }, 
+        from: { chain: "TBURN", address: "tb1qy9f7eh0zmron6ju9xu57t7k1nlrr9qzsa2bseg" }, 
+        to: { chain: "BSC", address: "tb1qz0g8fj1anspn7kv0yv68u8l2omss0r0tb3ctfh" }, 
         amount: "1,850,000 TBURN", 
         fee: "925 TBURN",
         status: "completed" as const, 
@@ -235,8 +235,8 @@ export default function AdminBridgeTransfers() {
       },
       { 
         id: "0xghi789jkl012345678901234567890cdef012345", 
-        from: { chain: "Polygon", address: "0x3456789012cdef013456789012cdef0134567890" }, 
-        to: { chain: "TBURN", address: "tburn1zxcvbnmasdfghjklqwertyuiop1234567890def" }, 
+        from: { chain: "Polygon", address: "tb1qkwghdmv3x8qre7v4e4axxwg2s96rj5k56m3plz" }, 
+        to: { chain: "TBURN", address: "tb1qn7m8pk2ts5vqlj6w9cfuqdhzp3rmw4yca8xnef" }, 
         amount: "850,000 USDC", 
         fee: "42.5 USDC",
         status: "validating" as const, 
@@ -246,8 +246,8 @@ export default function AdminBridgeTransfers() {
       },
       { 
         id: "0xjkl012mno345678901234567890def0123456789", 
-        from: { chain: "Avalanche", address: "0x4567890123def0124567890123def01245678901" }, 
-        to: { chain: "TBURN", address: "tburn1poiuytrewqlkjhgfdsamnbvcxz987654321ghi" }, 
+        from: { chain: "Avalanche", address: "tb1qa8n9pl3ut6wrmk7x0dg7vrejz4snx5zt2b4ghr" }, 
+        to: { chain: "TBURN", address: "tb1qc9p0qm4wu7xsnl8y1eh8wsfkz5tpy6aub5c5js" }, 
         amount: "425,000 AVAX", 
         fee: "21.25 AVAX",
         status: "pending" as const, 
@@ -257,8 +257,8 @@ export default function AdminBridgeTransfers() {
       },
       { 
         id: "0xmno345pqr678901234567890ef01234567890abc", 
-        from: { chain: "TBURN", address: "tburn1mnbvcxzlkjhgfdsapoiuytrewq9876543210jkl" }, 
-        to: { chain: "Arbitrum", address: "0x5678901234ef01235678901234ef0123567890ab" }, 
+        from: { chain: "TBURN", address: "tb1qd0q1rn5xv8ytomc0zfj9xth0l6uqy7bvc6d6kt" }, 
+        to: { chain: "Arbitrum", address: "tb1qe1r2so6yw9zupnd1agk0yuj1m7vrz8cwd7e7lu" }, 
         amount: "1,200,000 TBURN", 
         fee: "600 TBURN",
         status: "completed" as const, 
@@ -268,8 +268,8 @@ export default function AdminBridgeTransfers() {
       },
       { 
         id: "0xpqr678stu901234567890123456789012345cdef", 
-        from: { chain: "Optimism", address: "0x6789012345f012346789012345f01234678901bc" }, 
-        to: { chain: "TBURN", address: "tburn1qazwsxedcrfvtgbyhnujmikolp0987654321mno" }, 
+        from: { chain: "Optimism", address: "tb1qf2s3tp7zx0avqoe2bhla0vk2n8wsza0dxe8f8mv" }, 
+        to: { chain: "TBURN", address: "tb1qg3t4uq80y1bwrpf3cimb1wl3o9xtz1be9f9gnw" }, 
         amount: "680,000 USDT", 
         fee: "34 USDT",
         status: "completed" as const, 

@@ -192,14 +192,14 @@ const rewardHistory = await sdk.staking.getRewardHistory({
 
   delegation: `// Delegate to a validator
 const delegateResult = await sdk.delegation.delegate({
-  validatorAddress: '0xValidator...',
+  validatorAddress: 'tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce',
   amount: '100000000000000000000000', // 100,000 TBURN
 });
 
 // Redelegate between validators
 const redelegateResult = await sdk.delegation.redelegate({
-  fromValidator: '0xValidatorA...',
-  toValidator: '0xValidatorB...',
+  fromValidator: 'tbv1qx8e6dg9ylqnm5ht8wt46s6j0mkqq8pyr9arqdf',
+  toValidator: 'tbv1qy9f7eh0zmron6ju9xu57t7k1nlrr9qzsa2bseg',
   amount: '50000000000000000000000',
 });
 
@@ -387,21 +387,21 @@ const apiEndpoints = [
     method: "GET",
     endpoint: "/api/staking/positions",
     descriptionKey: "apiGetPositions",
-    params: "?address=0x...&poolId=...",
+    params: "?address=tb1...&poolId=...",
     category: "positions"
   },
   {
     method: "GET",
     endpoint: "/api/staking/delegations",
     descriptionKey: "apiGetDelegations",
-    params: "?address=0x...&validatorId=...",
+    params: "?address=tb1...&validatorId=...",
     category: "delegation"
   },
   {
     method: "GET",
     endpoint: "/api/staking/unbonding",
     descriptionKey: "apiGetUnbonding",
-    params: "?address=0x...",
+    params: "?address=tb1...",
     category: "positions"
   },
   {
@@ -422,7 +422,7 @@ const apiEndpoints = [
     method: "GET",
     endpoint: "/api/staking/rewards/events",
     descriptionKey: "apiGetRewardsEvents",
-    params: "?address=0x...&cycleId=...&limit=100",
+    params: "?address=tb1...&cycleId=...&limit=100",
     category: "rewards"
   },
   {
@@ -545,7 +545,7 @@ const playgroundEndpoints: PlaygroundEndpoint[] = [
     method: "GET",
     category: "positions",
     description: "Get staking positions for an address",
-    defaultParams: '{\n  "address": "0x1234567890abcdef1234567890abcdef12345678"\n}',
+    defaultParams: '{\n  "address": "tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce"\n}',
     requiresAuth: false
   },
   { 
@@ -554,7 +554,7 @@ const playgroundEndpoints: PlaygroundEndpoint[] = [
     method: "GET",
     category: "positions",
     description: "Get delegation positions for an address",
-    defaultParams: '{\n  "address": "0x1234567890abcdef1234567890abcdef12345678"\n}',
+    defaultParams: '{\n  "address": "tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce"\n}',
     requiresAuth: false
   },
   { 
@@ -563,7 +563,7 @@ const playgroundEndpoints: PlaygroundEndpoint[] = [
     method: "GET",
     category: "positions",
     description: "Get pending unbonding requests",
-    defaultParams: '{\n  "address": "0x1234567890abcdef1234567890abcdef12345678"\n}',
+    defaultParams: '{\n  "address": "tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce"\n}',
     requiresAuth: false
   },
   // Rewards
@@ -619,7 +619,7 @@ const playgroundEndpoints: PlaygroundEndpoint[] = [
     method: "GET",
     category: "validators",
     description: "Get specific validator details",
-    defaultParams: '{\n  "address": "0xValidator1234567890abcdef"\n}',
+    defaultParams: '{\n  "address": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce"\n}',
     requiresAuth: false
   },
   // Blocks & Transactions
@@ -693,7 +693,7 @@ const playgroundEndpoints: PlaygroundEndpoint[] = [
     method: "POST",
     category: "write",
     description: "Delegate tokens to a validator",
-    defaultParams: '{\n  "validatorAddress": "0xValidator...",\n  "amount": "100000000000000000000000"\n}',
+    defaultParams: '{\n  "validatorAddress": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",\n  "amount": "100000000000000000000000"\n}',
     requiresAuth: true
   },
   { 
@@ -702,7 +702,7 @@ const playgroundEndpoints: PlaygroundEndpoint[] = [
     method: "POST",
     category: "write",
     description: "Redelegate between validators",
-    defaultParams: '{\n  "fromValidator": "0xValidatorA...",\n  "toValidator": "0xValidatorB...",\n  "amount": "50000000000000000000000"\n}',
+    defaultParams: '{\n  "fromValidator": "tbv1qx8e6dg9ylqnm5ht8wt46s6j0mkqq8pyr9arqdf",\n  "toValidator": "tbv1qy9f7eh0zmron6ju9xu57t7k1nlrr9qzsa2bseg",\n  "amount": "50000000000000000000000"\n}',
     requiresAuth: true
   },
   // DeFi endpoints
@@ -1557,7 +1557,7 @@ export default function StakingSDK() {
         url = url.replace(':hash', parsedParams.hash || '0xabc123');
       }
       if (url.includes(':address')) {
-        url = url.replace(':address', parsedParams.address || '0x1234');
+        url = url.replace(':address', parsedParams.address || 'tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce');
       }
 
       const headers: Record<string, string> = {

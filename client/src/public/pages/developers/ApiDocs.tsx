@@ -248,7 +248,7 @@ curl https://tburn.io/api/v8/blocks/latest \\
     "timestamp": 1733493600,
     "transactions": 147,
     "gasUsed": "15000000",
-    "validator": "0x1234..."
+    "validator": "tbv1qw9..."
   }
 }`} />
                 </div>
@@ -451,7 +451,7 @@ X-RateLimit-Window: 60`} />
     "hash": "0x83b0a4f2c9d8e7b6a5f4c3d2e1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2",
     "parentHash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
     "timestamp": 1733493600,
-    "validator": "0x1234567890abcdef1234567890abcdef12345678",
+    "validator": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "validatorName": "TBURN Enterprise Node #1",
     "size": 45678,
     "gasUsed": "15000000",
@@ -496,7 +496,7 @@ X-RateLimit-Window: 60`} />
         "hash": "0x83b0a4f...",
         "timestamp": 1733493600,
         "transactionCount": 147,
-        "validator": "0x1234...",
+        "validator": "tbv1qw9...",
         "gasUsed": "15000000"
       }
     ],
@@ -556,8 +556,8 @@ X-RateLimit-Window: 60`} />
     "blockNumber": 20750000,
     "blockHash": "0x83b0a4f...",
     "transactionIndex": 42,
-    "from": "0xSender1234567890abcdef1234567890abcdef1234",
-    "to": "0xReceiver1234567890abcdef1234567890abcdef12",
+    "from": "tb1qx8e6dg9ylqnm5ht8wt46s6j0mkqq8pyr9arqdf",
+    "to": "tb1qy9f7eh0zmron6ju9xu57t7k1nlrr9qzsa2bseg",
     "value": "1000000000000000000",
     "gasPrice": "10000000000000",
     "gasUsed": "72",
@@ -628,7 +628,7 @@ X-RateLimit-Window: 60`} />
     "effectiveGasPrice": "10000000000000",
     "logs": [
       {
-        "address": "0xContract...",
+        "address": "tb1qz0g8fj1...",
         "topics": ["0xddf252ad...", "0x000...sender", "0x000...receiver"],
         "data": "0x0000...amount",
         "logIndex": 0
@@ -683,7 +683,7 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "address": "0x1234567890abcdef1234567890abcdef12345678",
+    "address": "tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "balance": "5000000000000000000",
     "balanceFormatted": "5.0 TBURN",
     "nonce": 42,
@@ -711,7 +711,7 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "address": "0x1234567890abcdef1234567890abcdef12345678",
+    "address": "tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "balance": "5000000000000000000",
     "nonce": 42,
     "isContract": false,
@@ -721,7 +721,7 @@ X-RateLimit-Window: 60`} />
     "txCount": 1547,
     "tokens": [
       {
-        "contract": "0xToken...",
+        "contract": "tb1qkwghdmv3...",
         "symbol": "USDT",
         "decimals": 6,
         "balance": "10000000000"
@@ -767,7 +767,7 @@ X-RateLimit-Window: 60`} />
   "data": {
     "tokens": [
       {
-        "contract": "0xUSDT...",
+        "contract": "tb1qkwghdmv3...",
         "name": "Tether USD",
         "symbol": "USDT",
         "decimals": 6,
@@ -776,7 +776,7 @@ X-RateLimit-Window: 60`} />
         "valueUSD": "10000.00"
       },
       {
-        "contract": "0xWBTC...",
+        "contract": "tb1qz0g8fj1...",
         "name": "Wrapped Bitcoin",
         "symbol": "WBTC",
         "decimals": 8,
@@ -811,7 +811,7 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "address": "0xContract...",
+    "address": "tb1qz0g8fj1...",
     "name": "TBURN Token",
     "symbol": "TBURN",
     "type": "TBC-20",
@@ -819,7 +819,7 @@ X-RateLimit-Window: 60`} />
     "compiler": "solc 0.8.19",
     "optimization": true,
     "runs": 200,
-    "creator": "0xCreator...",
+    "creator": "tb1qx8e6dg9...",
     "creationTx": "0xCreateTx...",
     "creationBlock": 1000000,
     "balance": "0",
@@ -846,12 +846,12 @@ X-RateLimit-Window: 60`} />
                     ]} />
 
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Request Example</h4>
-                    <CodeBlock code={`curl -X POST https://tburn.io/api/v8/contracts/0xToken.../call \\
+                    <CodeBlock code={`curl -X POST https://tburn.io/api/v8/contracts/tb1qkwghdmv3.../call \\
   -H "X-API-Key: YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "method": "balanceOf",
-    "params": ["0x1234567890abcdef1234567890abcdef12345678"]
+    "params": ["tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce"]
   }'`} />
 
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
@@ -896,8 +896,8 @@ X-RateLimit-Window: 60`} />
         "logIndex": 0,
         "event": "Transfer",
         "args": {
-          "from": "0xSender...",
-          "to": "0xReceiver...",
+          "from": "tb1qx8e6dg9...",
+          "to": "tb1qy9f7eh0...",
           "value": "1000000000000000000"
         },
         "timestamp": 1733493600
@@ -962,7 +962,7 @@ X-RateLimit-Window: 60`} />
   "data": {
     "tokens": [
       {
-        "address": "0xTBURN...",
+        "address": "tb1qw9d5cf8...",
         "name": "TBURN Token",
         "symbol": "TBURN",
         "decimals": 18,
@@ -1000,7 +1000,7 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "address": "0xTBURN...",
+    "address": "tb1qw9d5cf8...",
     "name": "TBURN Token",
     "symbol": "TBURN",
     "decimals": 18,
@@ -1011,7 +1011,7 @@ X-RateLimit-Window: 60`} />
     "holders": 150000,
     "transfers": 2500000,
     "verified": true,
-    "contractCreator": "0x1234...",
+    "contractCreator": "tb1qw9d5...",
     "createdAt": 1700000000,
     "website": "https://tburn.io",
     "social": {
@@ -1042,13 +1042,13 @@ X-RateLimit-Window: 60`} />
   "data": {
     "holders": [
       {
-        "address": "0xHolder1...",
+        "address": "tb1qw9d5cf8...",
         "balance": "500000000000000000000000",
         "percentage": "50.00",
         "rank": 1
       },
       {
-        "address": "0xHolder2...",
+        "address": "tb1qx8e6dg9...",
         "balance": "100000000000000000000000",
         "percentage": "10.00",
         "rank": 2
@@ -1089,8 +1089,8 @@ X-RateLimit-Window: 60`} />
       {
         "transactionHash": "0x5d4e...",
         "blockNumber": 20750000,
-        "from": "0xSender...",
-        "to": "0xReceiver...",
+        "from": "tb1qx8e6dg9...",
+        "to": "tb1qy9f7eh0...",
         "value": "1000000000000000000",
         "timestamp": 1733493600
       }
@@ -1134,7 +1134,7 @@ X-RateLimit-Window: 60`} />
   "data": {
     "validators": [
       {
-        "address": "0xValidator1...",
+        "address": "tbv1qw9d5cf8...",
         "name": "TBURN Foundation",
         "status": "active",
         "stake": "10000000000000000000000000",
@@ -1170,7 +1170,7 @@ X-RateLimit-Window: 60`} />
   "data": {
     "delegations": [
       {
-        "validator": "0xValidator1...",
+        "validator": "tbv1qw9d5cf8...",
         "validatorName": "TBURN Foundation",
         "amount": "1000000000000000000000",
         "rewards": "50000000000000000000",
@@ -1203,7 +1203,7 @@ X-RateLimit-Window: 60`} />
   "success": true,
   "data": {
     "transactionHash": "0xabc123...",
-    "validator": "0xValidator1...",
+    "validator": "tbv1qw9d5cf8...",
     "amount": "1000000000000000000000",
     "status": "pending"
   }
@@ -1230,7 +1230,7 @@ X-RateLimit-Window: 60`} />
   "success": true,
   "data": {
     "transactionHash": "0xdef456...",
-    "validator": "0xValidator1...",
+    "validator": "tbv1qw9d5cf8...",
     "amount": "500000000000000000000",
     "unbondingCompletesAt": 1735000000,
     "status": "unbonding"
@@ -1258,7 +1258,7 @@ X-RateLimit-Window: 60`} />
     "totalRewards": "125000000000000000000",
     "rewards": [
       {
-        "validator": "0xValidator1...",
+        "validator": "tbv1qw9d5cf8...",
         "validatorName": "TBURN Foundation",
         "pending": "75000000000000000000",
         "claimed": "500000000000000000000"
@@ -1295,7 +1295,7 @@ X-RateLimit-Window: 60`} />
         "chainId": 1,
         "name": "Ethereum",
         "symbol": "ETH",
-        "bridgeContract": "0xBridge1...",
+        "bridgeContract": "tb1qw9d5cf8...",
         "status": "active",
         "minTransfer": "10000000000000000",
         "maxTransfer": "1000000000000000000000",
@@ -1306,7 +1306,7 @@ X-RateLimit-Window: 60`} />
         "chainId": 56,
         "name": "BNB Chain",
         "symbol": "BNB",
-        "bridgeContract": "0xBridge2...",
+        "bridgeContract": "tb1qx8e6dg9...",
         "status": "active",
         "minTransfer": "10000000000000000",
         "maxTransfer": "500000000000000000000",
@@ -1317,7 +1317,7 @@ X-RateLimit-Window: 60`} />
         "chainId": 137,
         "name": "Polygon",
         "symbol": "MATIC",
-        "bridgeContract": "0xBridge3...",
+        "bridgeContract": "tb1qy9f7eh0...",
         "status": "active",
         "minTransfer": "1000000000000000",
         "maxTransfer": "100000000000000000000",
@@ -1358,8 +1358,8 @@ X-RateLimit-Window: 60`} />
         "destTxHash": "0xdest...",
         "sourceChain": 1,
         "destChain": 5800,
-        "from": "0xSender...",
-        "to": "0xReceiver...",
+        "from": "tb1qx8e6dg9...",
+        "to": "tb1qy9f7eh0...",
         "amount": "1000000000000000000",
         "fee": "1000000000000000",
         "status": "completed",
@@ -1400,7 +1400,7 @@ X-RateLimit-Window: 60`} />
     "bridgeId": "bridge_12346",
     "sourceTxHash": "0xabc...",
     "destChain": 1,
-    "to": "0xReceiver...",
+    "to": "tb1qy9f7eh0...",
     "amount": "1000000000000000000",
     "fee": "1000000000000000",
     "estimatedArrival": 1733494200,
@@ -1431,17 +1431,17 @@ X-RateLimit-Window: 60`} />
     "destTxHash": null,
     "sourceChain": 5800,
     "destChain": 1,
-    "from": "0xSender...",
-    "to": "0xReceiver...",
+    "from": "tb1qx8e6dg9...",
+    "to": "tb1qy9f7eh0...",
     "amount": "1000000000000000000",
     "fee": "1000000000000000",
     "status": "validating",
     "confirmations": 15,
     "requiredConfirmations": 20,
     "validators": [
-      { "address": "0xVal1...", "signed": true },
-      { "address": "0xVal2...", "signed": true },
-      { "address": "0xVal3...", "signed": false }
+      { "address": "tbv1qw9d5cf8...", "signed": true },
+      { "address": "tbv1qx8e6dg9...", "signed": true },
+      { "address": "tbv1qy9f7eh0...", "signed": false }
     ],
     "initiatedAt": 1733493600,
     "estimatedArrival": 1733494200
@@ -1480,7 +1480,7 @@ X-RateLimit-Window: 60`} />
     "currentRound": 0,
     "phase": "FINALIZE",
     "state": "running",
-    "proposer": "0x742d35Cc6634C0532925a3b844Bc9e7595f8c3b4",
+    "proposer": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "proposerName": "TBURN Genesis Validator #1",
     "lockedRound": -1,
     "lockedBlockHash": null,
@@ -1525,7 +1525,7 @@ X-RateLimit-Window: 60`} />
   "data": {
     "height": 25847392,
     "round": 0,
-    "proposer": "0x742d35Cc6634C0532925a3b844Bc9e7595f8c3b4",
+    "proposer": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "blockHash": "0x8a3b4c5d6e7f...",
     "phaseTimings": {
       "propose": 12,
@@ -1583,7 +1583,7 @@ X-RateLimit-Window: 60`} />
   "data": {
     "validators": [
       {
-        "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f8c3b4",
+        "address": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
         "moniker": "TBURN Genesis Validator #1",
         "status": "active",
         "votingPower": "1000000000000000000000",
@@ -1635,7 +1635,7 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "validator": "0x742d35Cc6634C0532925a3b844Bc9e7595f8c3b4",
+    "validator": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "totalRewards": "15847392000000000000000",
     "pendingRewards": "284700000000000000",
     "claimedRewards": "15847107300000000000000",
@@ -1847,7 +1847,7 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f8c3b4",
+    "address": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "type": "contract",
     "trustScore": 87,
     "grade": "A",
@@ -1961,7 +1961,7 @@ ws.send(JSON.stringify({
   method: 'subscribe',
   channel: 'address',
   params: {
-    address: '0x1234567890abcdef1234567890abcdef12345678'
+    address: 'tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce'
   }
 }));
 
@@ -1971,8 +1971,8 @@ ws.send(JSON.stringify({
   "type": "transaction",
   "data": {
     "hash": "0x5d4e...",
-    "from": "0xSender...",
-    "to": "0x1234...",
+    "from": "tb1qx8e6dg9...",
+    "to": "tb1qw9d5...",
     "value": "1000000000000000000",
     "status": "confirmed",
     "blockNumber": 20750000
@@ -1987,10 +1987,10 @@ ws.send(JSON.stringify({
   method: 'subscribe',
   channel: 'contract',
   params: {
-    address: '0xTokenContract...',
+    address: 'tb1qkwghdmv3...',
     event: 'Transfer',
     filter: {
-      to: '0xMyWallet...'  // Optional: filter by indexed parameter
+      to: 'tb1qz0g8fj1...'  // Optional: filter by indexed parameter
     }
   }
 }));
@@ -2004,8 +2004,8 @@ ws.send(JSON.stringify({
     "blockNumber": 20750000,
     "event": "Transfer",
     "args": {
-      "from": "0xSender...",
-      "to": "0xMyWallet...",
+      "from": "tb1qx8e6dg9...",
+      "to": "tb1qz0g8fj1...",
       "value": "1000000000000000000"
     }
   }

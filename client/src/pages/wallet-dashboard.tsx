@@ -556,7 +556,7 @@ function SendDialog({
     sendMutation.mutate({ toAddress, amount, memo });
   };
 
-  const isValidAddress = /^0x[a-fA-F0-9]{40}$/.test(toAddress);
+  const isValidAddress = /^tb1[a-z0-9]{38,58}$/.test(toAddress);
   const isValidAmount = parseFloat(amount) > 0;
 
   return (
@@ -576,7 +576,7 @@ function SendDialog({
             <Label htmlFor="recipient">{t("walletDashboard.recipientAddress", "Recipient Address")}</Label>
             <Input
               id="recipient"
-              placeholder="0x..."
+              placeholder="tb1q..."
               value={toAddress}
               onChange={(e) => setToAddress(e.target.value)}
               className={cn(
@@ -1264,7 +1264,7 @@ const defaultBalance: WalletBalance = {
   balance: "15,847.00",
   balanceUsd: "38,191.27",
   change24h: 4.2,
-  address: "0x9a4c...2f5e"
+  address: "tb1qw9...qpce"
 };
 
 const defaultPerformance: PerformanceDataPoint[] = [
@@ -1278,11 +1278,11 @@ const defaultPerformance: PerformanceDataPoint[] = [
 ];
 
 const defaultActivities: ActivityItem[] = [
-  { id: '1', type: 'sent', amount: '500.00', address: '0x7f...9b2d', timestamp: '2 min ago' },
-  { id: '2', type: 'received', amount: '1,200.00', address: '0x2d...4c1a', timestamp: '1 hr ago' },
+  { id: '1', type: 'sent', amount: '500.00', address: 'tb1qx8...qdf', timestamp: '2 min ago' },
+  { id: '2', type: 'received', amount: '1,200.00', address: 'tb1qy9...seg', timestamp: '1 hr ago' },
   { id: '3', type: 'swap', amount: '300.00', address: '', tokenPair: 'TBURN → USDT', timestamp: '5 hrs ago' },
-  { id: '4', type: 'received', amount: '750.00', address: '0x5a...8e3f', timestamp: '8 hrs ago' },
-  { id: '5', type: 'sent', amount: '200.00', address: '0x1c...7d9a', timestamp: '1 day ago' },
+  { id: '4', type: 'received', amount: '750.00', address: 'tb1qz0...tfh', timestamp: '8 hrs ago' },
+  { id: '5', type: 'sent', amount: '200.00', address: 'tb1qkw...plz', timestamp: '1 day ago' },
 ];
 
 export default function WalletDashboard() {
@@ -1318,8 +1318,8 @@ export default function WalletDashboard() {
   // Use connected wallet address first, then fallback to URL param or stored wallet
   const walletAddress = (isConnected && connectedAddress) 
     ? connectedAddress 
-    : (selectedWallet || addressParam || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e");
-  const addressQuery = walletAddress !== "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e" ? `?address=${walletAddress}` : '';
+    : (selectedWallet || addressParam || "tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce");
+  const addressQuery = walletAddress !== "tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce" ? `?address=${walletAddress}` : '';
   
   const handleWalletCreated = (address: string) => {
     setSelectedWallet(address);
