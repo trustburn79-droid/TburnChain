@@ -10608,20 +10608,28 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const realtimeShardData = realtimeMetrics.getShardMetrics();
       
       // Transform to expected format with REALTIME TPS values
+      // ★ [2026-01-18] FIX: Calculate load directly from TPS to ensure DB values are reflected
+      const MAX_TPS_PER_SHARD = 10000; // Each shards capacity
+      
       const shards = enterpriseShards.map((s: any, idx: number) => {
-        // ★ Use realtime TPS from RealtimeMetricsService (updated every 5s)
+        // ★ Use realtime TPS from RealtimeMetricsService (updated every 5s from DB)
         const realtimeShard = realtimeShardData.find(r => r.id === idx);
         const realtimeTps = realtimeShard?.tps || s.tps;
+        
+        // ★ [FIX] Calculate load directly from TPS (TPS/capacity * 100)
+        // This ensures load reflects actual DB TPS values, not cached calculations
+        const calculatedLoad = Math.round((realtimeTps / MAX_TPS_PER_SHARD) * 100);
+        const shardLoad = Math.max(20, Math.min(100, calculatedLoad));
         
         return {
           id: s.shardId,
           name: s.name,
           validators: s.validatorCount,
-          tps: realtimeTps, // ★ REALTIME TPS
-          load: s.load,
+          tps: realtimeTps, // ★ REALTIME TPS from DB
+          load: shardLoad, // ★ Load calculated from TPS
           pendingTx: 50 + idx * 25, // Stable values instead of random
           crossShardTx: s.crossShardTxCount,
-          status: s.load > 70 ? 'warning' : 'healthy' as "healthy" | "warning" | "critical",
+          status: shardLoad > 70 ? 'warning' : 'healthy' as "healthy" | "warning" | "critical",
           rebalanceScore: s.mlOptimizationScore ? Math.floor(s.mlOptimizationScore / 100) : 85
         };
       });
