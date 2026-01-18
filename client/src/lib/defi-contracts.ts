@@ -1,28 +1,22 @@
 import { ethers, Contract, BrowserProvider, JsonRpcSigner } from "ethers";
 import { web3Provider, TBURN_MAINNET_CONFIG } from "./web3-provider";
+import { SYSTEM_ADDRESSES, TOKEN_ADDRESSES as TBURN_TOKEN_ADDRESSES, BRIDGE_CHAIN_ADDRESSES } from "./tburn-address";
 
-export const TBURN_DEX_ROUTER_ADDRESS = "0x7979000000000000000000000000000000000001";
-export const TBURN_DEX_FACTORY_ADDRESS = "0x7979000000000000000000000000000000000002";
-export const TBURN_BRIDGE_ADDRESS = "0x7979000000000000000000000000000000000010";
-export const WTBURN_ADDRESS = "0x7979000000000000000000000000000000000003";
+export const TBURN_DEX_ROUTER_ADDRESS = SYSTEM_ADDRESSES.DEX_ROUTER;
+export const TBURN_DEX_FACTORY_ADDRESS = SYSTEM_ADDRESSES.DEX_FACTORY;
+export const TBURN_BRIDGE_ADDRESS = SYSTEM_ADDRESSES.BRIDGE;
+export const WTBURN_ADDRESS = SYSTEM_ADDRESSES.WTBURN;
 
 export const TOKEN_ADDRESSES: Record<string, { address: string; decimals: number; chainId?: number }> = {
-  TBURN: { address: "0x0000000000000000000000000000000000000000", decimals: 18 },
+  TBURN: { address: TBURN_TOKEN_ADDRESSES.TBURN, decimals: 18 },
   WTBURN: { address: WTBURN_ADDRESS, decimals: 18 },
-  USDT: { address: "0x7979000000000000000000000000000000000100", decimals: 6 },
-  USDC: { address: "0x7979000000000000000000000000000000000101", decimals: 6 },
-  ETH: { address: "0x7979000000000000000000000000000000000102", decimals: 18 },
-  BTC: { address: "0x7979000000000000000000000000000000000103", decimals: 8 },
+  USDT: { address: TBURN_TOKEN_ADDRESSES.USDT, decimals: 6 },
+  USDC: { address: TBURN_TOKEN_ADDRESSES.USDC, decimals: 6 },
+  ETH: { address: TBURN_TOKEN_ADDRESSES.ETH, decimals: 18 },
+  BTC: { address: TBURN_TOKEN_ADDRESSES.BTC, decimals: 8 },
 };
 
-export const BRIDGE_SUPPORTED_CHAINS: Record<string, { chainId: number; bridgeAddress: string; name: string }> = {
-  ethereum: { chainId: 1, bridgeAddress: "0x1000000000000000000000000000000000000010", name: "Ethereum Mainnet" },
-  polygon: { chainId: 137, bridgeAddress: "0x1370000000000000000000000000000000000010", name: "Polygon" },
-  arbitrum: { chainId: 42161, bridgeAddress: "0x4216100000000000000000000000000000000010", name: "Arbitrum One" },
-  optimism: { chainId: 10, bridgeAddress: "0x0010000000000000000000000000000000000010", name: "Optimism" },
-  base: { chainId: 8453, bridgeAddress: "0x8453000000000000000000000000000000000010", name: "Base" },
-  bsc: { chainId: 56, bridgeAddress: "0x0056000000000000000000000000000000000010", name: "BNB Smart Chain" },
-};
+export const BRIDGE_SUPPORTED_CHAINS = BRIDGE_CHAIN_ADDRESSES;
 
 export const DEX_ROUTER_ABI = [
   "function swapExactTokensForTokens(uint256 amountIn, uint256 amountOutMin, address[] calldata path, address to, uint256 deadline) external returns (uint256[] memory amounts)",

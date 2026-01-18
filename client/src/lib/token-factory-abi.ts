@@ -1,8 +1,9 @@
 import { ethers } from "ethers";
+import { SYSTEM_ADDRESSES } from "./tburn-address";
 
-export const TBC20_FACTORY_ADDRESS = "0x1000000000000000000000000000000000000001";
-export const TBC721_FACTORY_ADDRESS = "0x1000000000000000000000000000000000000002";
-export const TBC1155_FACTORY_ADDRESS = "0x1000000000000000000000000000000000000003";
+export const TBC20_FACTORY_ADDRESS = SYSTEM_ADDRESSES.TBC20_FACTORY;
+export const TBC721_FACTORY_ADDRESS = SYSTEM_ADDRESSES.TBC721_FACTORY;
+export const TBC1155_FACTORY_ADDRESS = SYSTEM_ADDRESSES.TBC1155_FACTORY;
 
 export const TBC20_FACTORY_ABI = [
   "function createToken(string name, string symbol, uint256 initialSupply, uint8 decimals, bool mintable, bool burnable, bool pausable, uint256 maxSupply, bool aiOptimized, bool quantumResistant) external returns (address)",
