@@ -19,7 +19,8 @@ const adminAttemptStore = new Map<string, { attempts: number; resetTime: number;
 
 setInterval(() => {
   const now = Date.now();
-  for (const [key, value] of adminAttemptStore.entries()) {
+  const entries = Array.from(adminAttemptStore.entries());
+  for (const [key, value] of entries) {
     if (value.resetTime < now && (!value.lockedUntil || value.lockedUntil < now)) {
       adminAttemptStore.delete(key);
     }
@@ -207,14 +208,13 @@ export async function requireInvitationCode(req: Request, res: Response, next: N
   try {
     const { db } = await import('../db');
     const { validatorInvitationCodes } = await import('@shared/schema');
-    const { eq, and, gt } = await import('drizzle-orm');
+    const { eq, and } = await import('drizzle-orm');
     
     const [code] = await db.select()
       .from(validatorInvitationCodes)
       .where(and(
         eq(validatorInvitationCodes.code, invitationCode),
-        eq(validatorInvitationCodes.isActive, true),
-        gt(validatorInvitationCodes.maxUses, validatorInvitationCodes.usedCount)
+        eq(validatorInvitationCodes.isUsed, false)
       ))
       .limit(1);
     
