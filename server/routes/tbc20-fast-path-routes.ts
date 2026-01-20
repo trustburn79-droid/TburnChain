@@ -23,6 +23,7 @@ import {
   bigIntToU256,
 } from '../utils/tbc20-address-utils';
 import { tbc20Telemetry } from '../services/tbc20-fast-path-telemetry';
+import { runCrossShardBurstTests } from '../tests/tbc20-cross-shard-burst-test';
 
 const router = Router();
 
@@ -602,6 +603,35 @@ router.get('/telemetry/prometheus', (_req: Request, res: Response) => {
     res.send(metrics);
   } catch (error) {
     res.status(500).send('# Error exporting metrics');
+  }
+});
+
+router.post('/test/cross-shard-burst', async (req: Request, res: Response) => {
+  try {
+    const config = req.body || {};
+    
+    const safeConfig = {
+      numShards: Math.min(config.numShards || 24, 24),
+      txPerShard: Math.min(config.txPerShard || 50, 100),
+      fastPathRatio: config.fastPathRatio || 0.85,
+      burstSize: Math.min(config.burstSize || 25, 50),
+      targetLatencyUs: config.targetLatencyUs || 50,
+    };
+    
+    console.log('[TBC20-Test] Starting cross-shard burst test...');
+    const result = await runCrossShardBurstTests(safeConfig);
+    
+    res.json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    console.error('[TBC20-Test] Cross-shard burst test failed:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Cross-shard burst test failed',
+      details: error instanceof Error ? error.message : String(error),
+    });
   }
 });
 
