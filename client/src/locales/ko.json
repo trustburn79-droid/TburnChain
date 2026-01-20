@@ -363,7 +363,12 @@
       "rateLimited": "API 속도 제한 초과 - 일부 데이터가 지연될 수 있습니다",
       "mainnetOffline": "메인넷 API가 오프라인 - 대체 데이터 사용 중",
       "connectionError": "네트워크 연결 오류 - 연결 상태를 확인해 주세요"
-    }
+    },
+    "commission": "수수료",
+    "maxSlots": "최대 슬롯",
+    "maxValidators": "최대 검증자",
+    "maxValidatorsAPY": "연간 수익률",
+    "commissionRange": "수수료 범위"
   },
   "blocks": {
     "title": "블록",

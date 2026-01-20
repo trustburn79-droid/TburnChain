@@ -602,7 +602,12 @@
       "rateLimited": "API rate limit exceeded - some data may be delayed",
       "mainnetOffline": "Mainnet API is offline - using fallback data",
       "connectionError": "Network connection error - please check your connection"
-    }
+    },
+    "commission": "Commission",
+    "maxSlots": "max slots",
+    "maxValidators": "max validators",
+    "maxValidatorsAPY": "APY",
+    "commissionRange": "commission range"
   },
   "blocks": {
     "title": "Blocks",
