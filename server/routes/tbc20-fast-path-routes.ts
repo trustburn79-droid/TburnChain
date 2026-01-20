@@ -22,8 +22,11 @@ import {
   addressToBytes,
   bigIntToU256,
 } from '../utils/tbc20-address-utils';
+import { tbc20Telemetry } from '../services/tbc20-fast-path-telemetry';
 
 const router = Router();
+
+tbc20Telemetry.start();
 
 router.get('/metrics', (_req: Request, res: Response) => {
   try {
@@ -432,6 +435,173 @@ router.get('/state-stats', (_req: Request, res: Response) => {
       success: false,
       error: 'Failed to get state stats',
     });
+  }
+});
+
+router.get('/telemetry', (_req: Request, res: Response) => {
+  try {
+    const stats = tbc20Telemetry.getAggregatedStats();
+    const thresholds = tbc20Telemetry.getThresholds();
+    
+    res.json({
+      success: true,
+      data: {
+        stats,
+        thresholds,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get telemetry',
+    });
+  }
+});
+
+router.get('/telemetry/shards', (_req: Request, res: Response) => {
+  try {
+    const shardMetrics = tbc20Telemetry.getAllShardMetrics();
+    
+    res.json({
+      success: true,
+      data: {
+        shards: shardMetrics,
+        count: shardMetrics.length,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get shard metrics',
+    });
+  }
+});
+
+router.get('/telemetry/shard/:shardId', (req: Request, res: Response) => {
+  try {
+    const shardId = parseInt(req.params.shardId, 10);
+    if (isNaN(shardId)) {
+      res.status(400).json({
+        success: false,
+        error: 'Invalid shard ID',
+      });
+      return;
+    }
+    
+    const metrics = tbc20Telemetry.getShardMetrics(shardId);
+    const alerts = tbc20Telemetry.getAlertsByShard(shardId);
+    
+    res.json({
+      success: true,
+      data: {
+        metrics: metrics || null,
+        alerts: alerts.slice(-20),
+        alertCount: alerts.length,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get shard metrics',
+    });
+  }
+});
+
+router.get('/telemetry/alerts', (req: Request, res: Response) => {
+  try {
+    const limit = parseInt(req.query.limit as string, 10) || 50;
+    const type = req.query.type as 'warning' | 'critical' | undefined;
+    
+    let alerts;
+    if (type === 'warning' || type === 'critical') {
+      alerts = tbc20Telemetry.getAlertsByType(type);
+    } else {
+      alerts = tbc20Telemetry.getRecentAlerts(limit);
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        alerts,
+        count: alerts.length,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get alerts',
+    });
+  }
+});
+
+router.post('/telemetry/thresholds', (req: Request, res: Response) => {
+  try {
+    const thresholds = req.body;
+    tbc20Telemetry.updateThresholds(thresholds);
+    
+    res.json({
+      success: true,
+      data: {
+        thresholds: tbc20Telemetry.getThresholds(),
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update thresholds',
+    });
+  }
+});
+
+router.post('/telemetry/record', (req: Request, res: Response) => {
+  try {
+    const { shardId, ...metrics } = req.body;
+    
+    if (typeof shardId !== 'number') {
+      res.status(400).json({
+        success: false,
+        error: 'shardId is required',
+      });
+      return;
+    }
+    
+    tbc20Telemetry.recordShardMetrics(shardId, metrics);
+    
+    res.json({
+      success: true,
+      data: { recorded: true },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to record metrics',
+    });
+  }
+});
+
+router.delete('/telemetry/alerts', (_req: Request, res: Response) => {
+  try {
+    tbc20Telemetry.clearAlerts();
+    
+    res.json({
+      success: true,
+      data: { cleared: true },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to clear alerts',
+    });
+  }
+});
+
+router.get('/telemetry/prometheus', (_req: Request, res: Response) => {
+  try {
+    const metrics = tbc20Telemetry.exportPrometheusMetrics();
+    res.set('Content-Type', 'text/plain; charset=utf-8');
+    res.send(metrics);
+  } catch (error) {
+    res.status(500).send('# Error exporting metrics');
   }
 });
 
