@@ -66,6 +66,7 @@ EMAIL_FROM = "TBURN Chain <noreply@tburn.io>"
 NODE_OPTIONS = "--max-old-space-size=8192"
 ENABLE_BLOCK_PIPELINE = "false"
 ENABLE_REALTIME_METRICS = "true"
+MAINNET_RPC_URL = "http://3.27.196.77:5000"
 
 [userenv.production]
 NODE_ENV = "production"
