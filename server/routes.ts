@@ -58,6 +58,7 @@ import { registerScalabilityRoutes } from "./routes/scalability-routes";
 import consensusRoutes from "./routes/consensus-routes";
 import blockProductionRoutes from "./routes/block-production-routes";
 import pipelineRoutes from "./routes/pipeline-routes";
+import tbc20FastPathRoutes from "./routes/tbc20-fast-path-routes";
 import { getRealtimeBlockPipeline } from "./core/pipeline/realtime-block-pipeline";
 import verificationRoutes from "./routes/verification-routes";
 import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
@@ -3011,6 +3012,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   app.use("/api/block-production", blockProductionRoutes);
   app.use("/api/pipeline", pipelineRoutes);
   app.use("/api/verification", verificationRoutes);
+  app.use("/api/tbc20-fast-path", tbc20FastPathRoutes);
+  console.log("[TBC20] ✅ TBC-20 Fast Path routes registered (8μs/TX target)");
   console.log("[BlockProduction] ✅ Enterprise block production routes registered");
 
   // ============================================
