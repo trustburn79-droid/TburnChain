@@ -2,6 +2,7 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import rateLimit from "express-rate-limit";
+import { getSafeSortColumn, getSafeSortOrder, getSafeNumber, sanitizeSearchString } from './utils/sql-security';
 import bcrypt from "bcryptjs";
 import { randomBytes, createHash } from "crypto";
 import { Resend } from "resend";
@@ -10,7 +11,6 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Pool } from "@neondatabase/serverless";
 import { tburnWalletService } from "./services/TBurnWalletService";
-import { generateSystemAddress, generateRandomTBurnAddress } from "./utils/tburn-address";
 import { storage } from "./storage";
 import { 
   insertTransactionSchema, insertAiDecisionSchema, insertCrossShardMessageSchema, 
@@ -27,7 +27,6 @@ import {
   websocketSubscriptions,
   websocketMessageMetrics,
   websocketReconnectTokens,
-  genesisValidators,
   type InsertMember,
   type NetworkStats
 } from "@shared/schema";
@@ -65,14 +64,11 @@ import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
 import { registerShardingRoutes } from "./routes/sharding-routes";
 import validatorRoutes from "./routes/validator-routes";
 import { registerExternalValidatorRoutes } from "./routes/external-validator-routes";
-import { registerGenesisValidatorRoutes } from "./routes/genesis-validator-routes";
-import invitationCodeRoutes from "./routes/invitation-code-routes";
 import { rewardRoutes } from "./routes/reward-routes";
 import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
 import shardCacheRoutes from "./routes/shard-cache-routes";
 import batchProcessorRoutes from "./routes/batch-processor-routes";
 import shardRebalancerRoutes from "./routes/shard-rebalancer-routes";
-import rpcRoutes from "./routes/rpc-routes";
 import sessionMonitoringRoutes from "./routes/session-monitoring-routes";
 import enterpriseSessionMonitoringRoutes from "./routes/enterprise-session-monitoring-routes";
 import enterpriseDbOptimizerRoutes from "./routes/enterprise-db-optimizer-routes";
@@ -2853,27 +2849,16 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         req.path.startsWith("/external-validators/setup-guide") ||
         req.path.startsWith("/external-validators/leaderboard") ||
         req.path.startsWith("/external-validators/software") ||
-        req.path.startsWith("/external-validators/health") ||
-        req.path.startsWith("/external-validators/register") ||
-        req.path.startsWith("/external-validators/status/")) {
+        req.path.startsWith("/external-validators/health")) {
       return next();
-    }
     // ★ [External Validators Security Sync] These endpoints use API key auth, not session auth
     // They are accessed by external validator programs using X-API-Key header
     if (req.path.startsWith("/external-validators/security/my-status") ||
         req.path.startsWith("/external-validators/security/report") ||
         req.path.startsWith("/external-validators/security/heartbeat") ||
-        req.path.startsWith("/external-validators/security/alerts/") ||
-        req.path.startsWith("/external-validators/rpc-integration/stats") || req.path.startsWith("/external-validators/rpc-integration/check/")) {
+        req.path.startsWith("/external-validators/security/alerts/")) {
       return next();
     }
-    // Invitation Code Management - public endpoints for validator registration
-    if (req.path === "/invitation-codes/quotas" || req.path === "/invitation-codes/validate" || req.path === "/invitation-codes/use") {
-      return next();
-    }
-    // Genesis Validator Management - internal admin API (no session required for key generation)
-    if (req.path.startsWith("/genesis-validators/")) {
-      return next();
     }
     requireAuth(req, res, next);
   });
@@ -3052,17 +3037,6 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   registerExternalValidatorRoutes(app);
   console.log("[ExternalValidators] ✅ Enterprise external validator routes registered");
-  
-  // ============================================
-  // GENESIS VALIDATOR MANAGEMENT
-  // Genesis validator key generation and management
-  // ============================================
-  registerGenesisValidatorRoutes(app);
-  
-  // Validator Invitation Code Management
-  app.use("/api/invitation-codes", invitationCodeRoutes);
-  console.log("[InvitationCodes] ✅ Invitation code routes registered");
-  console.log("[GenesisValidators] ✅ Genesis validator routes registered");
 
   // ============================================
   // ENTERPRISE REWARD DISTRIBUTION ENGINE
@@ -3096,10 +3070,6 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Threshold-based automatic shard rebalancing for optimal load distribution
   // ============================================
   app.use("/api/shard-rebalancer", shardRebalancerRoutes);
-  
-  // JSON-RPC endpoint for external validators and wallets
-  app.use("/rpc", rpcRoutes);
-  console.log("[RPC] ✅ JSON-RPC endpoint registered at /rpc");
   console.log("[ShardRebalancer] ✅ Enterprise shard rebalancer routes registered (multi-threshold, EWMA prediction, hysteresis)");
 
   // ============================================
@@ -3842,7 +3812,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc20-tburn-native",
           name: "TBURN Token",
           symbol: "TBURN",
-          contractAddress: generateSystemAddress("tburn-token-native"),
+          contractAddress: "0x0000000000000000000000000000000000000001",
           standard: "TBC-20",
           totalSupply: "1000000000000000000000000000",
           decimals: 18,
@@ -3859,7 +3829,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           mevProtection: true,
           verified: true,
           securityScore: 99,
-          deployerAddress: generateSystemAddress("tburn-genesis-deployer"),
+          deployerAddress: "0x0000000000000000000000000000000000000000",
           deployedAt: "2024-01-15T00:00:00Z",
           lastActivity: new Date(Date.now() - 60000).toISOString(),
           features: ["AI Burn Optimization", "Quantum Signatures", "MEV Protection", "Self-Adjusting Gas"],
@@ -3872,7 +3842,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc20-usdt-wrapped",
           name: "Wrapped USDT",
           symbol: "wUSDT",
-          contractAddress: generateSystemAddress("tburn-token-wusdt"),
+          contractAddress: "0xa5f4b9c789012345678901234567890123456789",
           standard: "TBC-20",
           totalSupply: "500000000000000000000000",
           decimals: 18,
@@ -3889,7 +3859,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           mevProtection: true,
           verified: true,
           securityScore: 98,
-          deployerAddress: generateRandomTBurnAddress(),
+          deployerAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
           deployedAt: "2024-02-10T00:00:00Z",
           lastActivity: new Date(Date.now() - 180000).toISOString(),
           features: ["Cross-Chain Bridge", "AI Price Oracle"],
@@ -3902,7 +3872,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc20-defi-gov",
           name: "DeFi Governance Protocol",
           symbol: "DGP",
-          contractAddress: generateSystemAddress("tburn-token-dgp"),
+          contractAddress: "0xb6c567890123456789012345678901234567890a",
           standard: "TBC-20",
           totalSupply: "100000000000000000000000000",
           decimals: 18,
@@ -3919,7 +3889,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           mevProtection: true,
           verified: true,
           securityScore: 96,
-          deployerAddress: generateRandomTBurnAddress(),
+          deployerAddress: "0x123d35Cc6634C0532925a3b844Bc454e4438f123",
           deployedAt: "2024-03-05T00:00:00Z",
           lastActivity: new Date(Date.now() - 300000).toISOString(),
           features: ["Governance Voting", "Staking", "Auto-Burn", "AI Optimization"],
@@ -3932,7 +3902,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc20-gaming-token",
           name: "GameFi Rewards Token",
           symbol: "GRT",
-          contractAddress: generateSystemAddress("tburn-token-grt"),
+          contractAddress: "0xc7d678901234567890123456789012345678901b",
           standard: "TBC-20",
           totalSupply: "10000000000000000000000000000",
           decimals: 18,
@@ -3949,7 +3919,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           mevProtection: false,
           verified: true,
           securityScore: 94,
-          deployerAddress: generateRandomTBurnAddress(),
+          deployerAddress: "0x456d35Cc6634C0532925a3b844Bc454e4438f456",
           deployedAt: "2024-04-20T00:00:00Z",
           lastActivity: new Date(Date.now() - 120000).toISOString(),
           features: ["Play-to-Earn", "NFT Integration", "Cross-Game Assets"],
@@ -3962,7 +3932,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc20-enterprise-sec",
           name: "Enterprise Security Token",
           symbol: "EST",
-          contractAddress: generateSystemAddress("tburn-token-est"),
+          contractAddress: "0xd8e789012345678901234567890123456789012c",
           standard: "TBC-20",
           totalSupply: "50000000000000000000000000",
           decimals: 18,
@@ -3979,7 +3949,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           mevProtection: true,
           verified: true,
           securityScore: 100,
-          deployerAddress: generateRandomTBurnAddress(),
+          deployerAddress: "0x789d35Cc6634C0532925a3b844Bc454e4438f789",
           deployedAt: "2024-05-15T00:00:00Z",
           lastActivity: new Date(Date.now() - 600000).toISOString(),
           features: ["Multi-Signature", "KYC/AML", "Compliance", "Audit Trail"],
@@ -3992,7 +3962,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc721-genesis-validators",
           name: "Genesis Validators NFT",
           symbol: "GVAL",
-          contractAddress: generateSystemAddress("tburn-token-gval"),
+          contractAddress: "0xe9f890123456789012345678901234567890123d",
           standard: "TBC-721",
           totalSupply: "512",
           decimals: 0,
@@ -4009,7 +3979,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           mevProtection: false,
           verified: true,
           securityScore: 97,
-          deployerAddress: generateSystemAddress("tburn-genesis-deployer"),
+          deployerAddress: "0x0000000000000000000000000000000000000000",
           deployedAt: "2024-01-01T00:00:00Z",
           lastActivity: new Date(Date.now() - 3600000).toISOString(),
           features: ["AI Rarity Scoring", "Authenticity Verification", "Dynamic Metadata"],
@@ -4022,7 +3992,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc721-ai-art",
           name: "TBURN AI Art Collection",
           symbol: "TART",
-          contractAddress: generateSystemAddress("tburn-token-tart"),
+          contractAddress: "0xf0a901234567890123456789012345678901234e",
           standard: "TBC-721",
           totalSupply: "10000",
           decimals: 0,
@@ -4039,7 +4009,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           mevProtection: false,
           verified: true,
           securityScore: 95,
-          deployerAddress: generateRandomTBurnAddress(),
+          deployerAddress: "0xabc35Cc6634C0532925a3b844Bc454e4438fabc",
           deployedAt: "2024-06-10T00:00:00Z",
           lastActivity: new Date(Date.now() - 1800000).toISOString(),
           features: ["AI Generation", "Provenance Tracking", "Royalty Enforcement"],
@@ -4052,7 +4022,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc721-metaverse-land",
           name: "TBURN Metaverse Land",
           symbol: "TMLAND",
-          contractAddress: generateSystemAddress("tburn-token-tmland"),
+          contractAddress: "0x01b012345678901234567890123456789012345f",
           standard: "TBC-721",
           totalSupply: "50000",
           decimals: 0,
@@ -4069,7 +4039,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           mevProtection: false,
           verified: true,
           securityScore: 93,
-          deployerAddress: generateRandomTBurnAddress(),
+          deployerAddress: "0xdef35Cc6634C0532925a3b844Bc454e4438fdef",
           deployedAt: "2024-07-01T00:00:00Z",
           lastActivity: new Date(Date.now() - 900000).toISOString(),
           features: ["Virtual Real Estate", "3D Rendering", "Staking Rewards"],
@@ -4082,7 +4052,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc1155-game-assets",
           name: "TBURN Game Assets",
           symbol: "TGAME",
-          contractAddress: generateSystemAddress("tburn-token-tgame"),
+          contractAddress: "0x12c123456789012345678901234567890123456a",
           standard: "TBC-1155",
           totalSupply: "1000000",
           decimals: 0,
@@ -4099,7 +4069,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           mevProtection: true,
           verified: true,
           securityScore: 96,
-          deployerAddress: generateRandomTBurnAddress(),
+          deployerAddress: "0x012d35Cc6634C0532925a3b844Bc454e4438f012",
           deployedAt: "2024-08-05T00:00:00Z",
           lastActivity: new Date(Date.now() - 30000).toISOString(),
           features: ["Batch Transfers", "Semi-Fungible", "AI Supply Management"],
@@ -4112,7 +4082,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc1155-music-royalties",
           name: "Music Royalty Tokens",
           symbol: "MRT",
-          contractAddress: generateSystemAddress("tburn-token-mrt"),
+          contractAddress: "0x23d234567890123456789012345678901234567b",
           standard: "TBC-1155",
           totalSupply: "500000",
           decimals: 0,
@@ -4129,7 +4099,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           mevProtection: false,
           verified: true,
           securityScore: 94,
-          deployerAddress: generateRandomTBurnAddress(),
+          deployerAddress: "0x345d35Cc6634C0532925a3b844Bc454e4438f345",
           deployedAt: "2024-09-10T00:00:00Z",
           lastActivity: new Date(Date.now() - 7200000).toISOString(),
           features: ["Royalty Distribution", "Artist Verification", "Streaming Integration"],
@@ -4227,7 +4197,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         id: "tbc20-tburn-native",
         name: "TBURN Token",
         symbol: "TBURN",
-        contractAddress: addressOrId.startsWith("tb1") ? addressOrId : generateSystemAddress("tburn-token-native"),
+        contractAddress: addressOrId.startsWith("0x") ? addressOrId : "0x0000000000000000000000000000000000000001",
         standard: "TBC-20",
         totalSupply: "1000000000000000000000000000",
         circulatingSupply: "875000000000000000000000000",
@@ -4285,7 +4255,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         vulnerabilities: 0,
         
         // Deployment Info
-        deployerAddress: generateSystemAddress("tburn-genesis-deployer"),
+        deployerAddress: "0x0000000000000000000000000000000000000000",
         deployedAt: "2024-01-15T00:00:00Z",
         deploymentBlock: 1,
         deploymentTxHash: "0x0000000000000000000000000000000000000000000000000000000000000001",
@@ -4752,7 +4722,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc20-enterprise-001",
           name: "Enterprise Governance Token",
           symbol: "EGT",
-          contractAddress: generateSystemAddress("tburn-enterprise-egt"),
+          contractAddress: "0xa5a34b9ca789012345678901234567890867de020",
           standard: "TBC-20",
           totalSupply: "100000000", // 100M tokens
           decimals: 18,
@@ -4762,7 +4732,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           aiOptimizationEnabled: true,
           quantumResistant: true,
           mevProtection: true,
-          deployerAddress: deployerAddress || generateRandomTBurnAddress(),
+          deployerAddress: deployerAddress || "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
           deployedAt: new Date(Date.now() - 86400000 * 30).toISOString(),
           holders: 15847,
           transactionCount: 289456,
@@ -4777,7 +4747,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc20-defi-002",
           name: "DeFi Utility Token",
           symbol: "DUT",
-          contractAddress: generateSystemAddress("tburn-enterprise-dut"),
+          contractAddress: "0xb6b45c0db890123456789012345678901234567890",
           standard: "TBC-20",
           totalSupply: "500000000", // 500M tokens
           decimals: 18,
@@ -4787,7 +4757,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           aiOptimizationEnabled: true,
           quantumResistant: true,
           mevProtection: true,
-          deployerAddress: deployerAddress || generateRandomTBurnAddress(),
+          deployerAddress: deployerAddress || "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
           deployedAt: new Date(Date.now() - 86400000 * 15).toISOString(),
           holders: 8932,
           transactionCount: 156234,
@@ -4801,7 +4771,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc721-nft-003",
           name: "Premium NFT Collection",
           symbol: "PNFT",
-          contractAddress: generateSystemAddress("tburn-enterprise-pnft"),
+          contractAddress: "0xc7c56d1ec901234567890123456789012345678901",
           standard: "TBC-721",
           totalSupply: "10000", // 10K NFTs
           decimals: 0,
@@ -4811,7 +4781,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           aiOptimizationEnabled: true,
           quantumResistant: true,
           mevProtection: false,
-          deployerAddress: deployerAddress || generateRandomTBurnAddress(),
+          deployerAddress: deployerAddress || "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
           deployedAt: new Date(Date.now() - 86400000 * 7).toISOString(),
           holders: 2345,
           transactionCount: 45678,
@@ -4825,7 +4795,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           id: "tbc1155-gamefi-004",
           name: "GameFi Asset Collection",
           symbol: "GFA",
-          contractAddress: generateSystemAddress("tburn-enterprise-gfa"),
+          contractAddress: "0xd8d67e2fd012345678901234567890123456789012",
           standard: "TBC-1155",
           totalSupply: "1000000", // 1M items
           decimals: 0,
@@ -4835,7 +4805,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           aiOptimizationEnabled: true,
           quantumResistant: true,
           mevProtection: true,
-          deployerAddress: deployerAddress || generateRandomTBurnAddress(),
+          deployerAddress: deployerAddress || "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
           deployedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
           holders: 12456,
           transactionCount: 234567,
@@ -4988,8 +4958,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         id: `tx-${Date.now()}-${Math.random().toString(36).substring(7)}`,
         sourceChainId,
         destinationChainId,
-        senderAddress: generateRandomTBurnAddress(),
-        recipientAddress: generateRandomTBurnAddress(),
+        senderAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+        recipientAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
         tokenSymbol,
         amount,
         amountReceived: null,
@@ -5085,7 +5055,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const proposals = [
         {
           id: "prop-001",
-          proposer: generateRandomTBurnAddress(),
+          proposer: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
           title: "Increase Burn Rate from 20% to 25%",
           description: "This proposal aims to increase the daily emission burn rate from 20% to 25% to accelerate deflation and support long-term price stability.",
           status: "active",
@@ -5113,7 +5083,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "prop-002",
-          proposer: generateRandomTBurnAddress(),
+          proposer: "0x8ba1f109551bD432803012645Ac136ddd64DBA72",
           title: "Add Support for zkSync Bridge",
           description: "Proposal to integrate zkSync Era as a supported chain in the TBURN cross-chain bridge with AI risk assessment.",
           status: "active",
@@ -5141,7 +5111,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "prop-003",
-          proposer: generateRandomTBurnAddress(),
+          proposer: "0x456d35Cc6634C0532925a3b844Bc454e4438f456",
           title: "Reduce Tier 1 Validator Minimum Stake",
           description: "Lower the Tier 1 validator minimum stake from 200,000 TBURN to 150,000 TBURN to increase validator decentralization.",
           status: "succeeded",
@@ -5164,7 +5134,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "prop-004",
-          proposer: generateRandomTBurnAddress(),
+          proposer: "0x789d35Cc6634C0532925a3b844Bc454e4438f789",
           title: "Implement AI-Driven Gas Fee Optimization",
           description: "Deploy AI model to dynamically adjust gas fees based on network congestion, reducing costs during low-traffic periods.",
           status: "executed",
@@ -5179,7 +5149,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "prop-005",
-          proposer: generateRandomTBurnAddress(),
+          proposer: "0xabcd35Cc6634C0532925a3b844Bc454e4438fabc",
           title: "Quantum-Resistant Signature Upgrade",
           description: "Mandatory upgrade to CRYSTALS-Dilithium + ED25519 hybrid signatures for all validator operations.",
           status: "active",
@@ -6340,49 +6310,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const cached = cache.get<any>(cacheKey);
       if (cached) return res.json(cached);
       
-      // Fetch from genesis_validators table (production data source)
-      const genesisValidatorList = await db.select().from(genesisValidators);
-      
-      // Map genesis validators to frontend-expected format
-      const validators = genesisValidatorList.map((v, index) => {
-        const stakeValue = BigInt(v.initialStake || '0');
-        const stakeFormatted = (Number(stakeValue) / 1e18).toFixed(0);
-        const commissionPercent = (v.commission || 500) / 100; // basis points to %
-        
-        // Tier-based performance metrics
-        const tierMetrics: Record<string, { uptime: number; aiScore: number; blocks: number }> = {
-          core: { uptime: 99.98, aiScore: 98, blocks: 50000 },
-          enterprise: { uptime: 99.95, aiScore: 95, blocks: 35000 },
-          partner: { uptime: 99.90, aiScore: 92, blocks: 20000 },
-          community: { uptime: 99.85, aiScore: 88, blocks: 10000 },
-        };
-        const metrics = tierMetrics[v.tier || 'community'] || tierMetrics.community;
-        
-        return {
-          address: v.address,
-          name: v.name,
-          status: v.isVerified ? 'active' : 'inactive',
-          stake: stakeFormatted,
-          delegators: Math.floor(Math.random() * 500) + 50, // Simulated delegator count
-          commission: commissionPercent,
-          uptime: metrics.uptime,
-          blocksProduced: metrics.blocks + Math.floor(Math.random() * 1000),
-          blocksProposed: Math.floor(metrics.blocks * 0.3),
-          rewards: (Number(stakeFormatted) * 0.15).toFixed(0), // ~15% APY estimate
-          aiTrustScore: metrics.aiScore,
-          jailedUntil: null,
-          website: v.website || undefined,
-          description: v.description || `${v.tier} tier genesis validator`,
-          votingPower: (Number(stakeFormatted) / 375000).toFixed(4), // % of total 37.5M
-          selfDelegation: stakeFormatted,
-          tier: v.tier,
-          priority: v.priority,
-        };
-      });
+      // Use TBurnEnterpriseNode for real validator data (no Math.random)
+      const enterpriseNode = getEnterpriseNode();
+      const validators = enterpriseNode.getValidators();
       
       const active = validators.filter(v => v.status === 'active').length;
       const inactive = validators.filter(v => v.status === 'inactive').length;
-      const jailed = 0;
+      const jailed = validators.filter(v => v.status === 'jailed').length;
       const totalStake = validators.reduce((sum, v) => sum + Number(v.stake), 0);
       const totalDelegators = validators.reduce((sum, v) => sum + v.delegators, 0);
       
@@ -6407,7 +6341,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     try {
       const address = req.params.address;
       
-      // First try to get from EnterpriseNode
+      // First try to get from EnterpriseNode (same source as /api/validators list)
       const enterpriseNode = getEnterpriseNode();
       const allValidators = enterpriseNode.getValidators();
       const validator = allValidators.find(v => v.address.toLowerCase() === address.toLowerCase());
@@ -6417,63 +6351,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         return;
       }
       
-      // Second, check genesis_validators table (same source as /api/validators list)
-      const genesisValidator = await db.select().from(genesisValidators).where(
-        sql`LOWER(${genesisValidators.address}) = LOWER(${address})`
-      );
-      
-      if (genesisValidator.length > 0) {
-        const v = genesisValidator[0];
-        const stakeValue = BigInt(v.initialStake || '0');
-        const stakeFormatted = (Number(stakeValue) / 1e18).toFixed(0);
-        const commissionPercent = (v.commission || 500) / 100;
-        
-        const tierMetrics: Record<string, { uptime: number; aiScore: number; blocks: number }> = {
-          core: { uptime: 99.98, aiScore: 98, blocks: 50000 },
-          enterprise: { uptime: 99.95, aiScore: 95, blocks: 35000 },
-          partner: { uptime: 99.90, aiScore: 92, blocks: 20000 },
-          community: { uptime: 99.80, aiScore: 88, blocks: 10000 }
-        };
-        const metrics = tierMetrics[v.tier || 'community'] || tierMetrics.community;
-        
-        const formattedValidator = {
-          id: v.id,
-          address: v.address,
-          name: v.name,
-          status: v.status || 'pending',
-          stake: stakeFormatted,
-          delegators: Math.floor(Math.random() * 200) + 50,
-          commission: commissionPercent,
-          uptime: metrics.uptime,
-          blocksProduced: metrics.blocks + Math.floor(Math.random() * 1000),
-          blocksProposed: Math.floor(metrics.blocks * 0.3),
-          rewards: (Number(stakeFormatted) * 0.15).toFixed(0),
-          aiTrustScore: metrics.aiScore,
-          jailedUntil: null,
-          description: v.description || `${v.tier} tier genesis validator`,
-          votingPower: (Number(stakeFormatted) / 37500000 * 100).toFixed(4),
-          selfDelegation: stakeFormatted,
-          tier: v.tier,
-          priority: v.priority || 0,
-          publicKey: v.publicKey,
-          website: v.website,
-          contactEmail: v.contactEmail,
-          nodeEndpoint: v.nodeEndpoint,
-          createdAt: v.createdAt,
-          isGenesis: true
-        };
-        
-        res.json(formattedValidator);
-        return;
-      }
-      
-      // Fallback to storage if not found in genesis_validators
+      // Fallback to database if not found in EnterpriseNode
       const validatorDetails = await storage.getValidatorDetails(address);
       res.json(validatorDetails);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
       res.status(error instanceof Error && error.message.includes("not found") ? 404 : 500)
-        .json({ success: false, error: "Validator not found" });
+        .json({ error: "Failed to fetch validator", details: errorMessage });
     }
   });
 
@@ -7381,7 +7265,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         sharedPool.query(`
           SELECT * FROM members 
           ${whereClause}
-          ORDER BY ${sortBy === 'created_at' ? 'created_at' : sortBy} ${sortOrder === 'asc' ? 'ASC' : 'DESC'}
+          ORDER BY ${getSafeSortColumn('members', sortBy as string, 'created_at')} ${getSafeSortOrder(sortOrder as string)}
           LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
         `, [...params, parseInt(limit as string), offset]),
         sharedPool.query(`SELECT COUNT(*) as total FROM members ${whereClause}`, params)
@@ -9384,7 +9268,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const enterpriseContracts = [
         {
           id: "contract-001",
-          address: generateSystemAddress("tburn-contract-token"),
+          address: "0x0000000000000000000000000000000000000001",
           name: "TBURN Token",
           symbol: "TBURN",
           type: "TBC-20",
@@ -9403,7 +9287,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "contract-002",
-          address: generateSystemAddress("tburn-contract-staking"),
+          address: "0xa5f4b9c789012345678901234567890123456789",
           name: "TBURN Staking Pool V2",
           symbol: "stTBURN",
           type: "TBC-20",
@@ -9422,7 +9306,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "contract-003",
-          address: generateSystemAddress("tburn-contract-dex"),
+          address: "0xb6c567890123456789012345678901234567890a",
           name: "TBURN DEX Router V3",
           symbol: "TBR",
           type: "DEX",
@@ -9441,7 +9325,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "contract-004",
-          address: generateSystemAddress("tburn-contract-bridge"),
+          address: "0xc7d678901234567890123456789012345678901b",
           name: "Cross-Chain Bridge",
           symbol: "BRIDGE",
           type: "Bridge",
@@ -9460,7 +9344,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "contract-005",
-          address: generateSystemAddress("tburn-contract-governance"),
+          address: "0xd8e789012345678901234567890123456789012c",
           name: "Governance DAO V2",
           symbol: "govTBURN",
           type: "Governance",
@@ -9479,7 +9363,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "contract-006",
-          address: generateSystemAddress("tburn-contract-nftmarket"),
+          address: "0xe9f890123456789012345678901234567890123d",
           name: "NFT Marketplace",
           symbol: "NFTM",
           type: "Marketplace",
@@ -9498,7 +9382,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "contract-007",
-          address: generateSystemAddress("tburn-contract-lending"),
+          address: "0xf0a901234567890123456789012345678901234e",
           name: "Lending Protocol V2",
           symbol: "lTBURN",
           type: "Lending",
@@ -9517,7 +9401,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         },
         {
           id: "contract-008",
-          address: generateSystemAddress("tburn-contract-yield"),
+          address: "0x01b012345678901234567890123456789012345f",
           name: "Yield Aggregator",
           symbol: "yTBURN",
           type: "Yield",
@@ -10609,28 +10493,20 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const realtimeShardData = realtimeMetrics.getShardMetrics();
       
       // Transform to expected format with REALTIME TPS values
-      // ★ [2026-01-18] FIX: Calculate load directly from TPS to ensure DB values are reflected
-      const MAX_TPS_PER_SHARD = 10000; // Each shards capacity
-      
       const shards = enterpriseShards.map((s: any, idx: number) => {
-        // ★ Use realtime TPS from RealtimeMetricsService (updated every 5s from DB)
+        // ★ Use realtime TPS from RealtimeMetricsService (updated every 5s)
         const realtimeShard = realtimeShardData.find(r => r.id === idx);
         const realtimeTps = realtimeShard?.tps || s.tps;
-        
-        // ★ [FIX] Calculate load directly from TPS (TPS/capacity * 100)
-        // This ensures load reflects actual DB TPS values, not cached calculations
-        const calculatedLoad = Math.round((realtimeTps / MAX_TPS_PER_SHARD) * 100);
-        const shardLoad = Math.max(20, Math.min(100, calculatedLoad));
         
         return {
           id: s.shardId,
           name: s.name,
           validators: s.validatorCount,
-          tps: realtimeTps, // ★ REALTIME TPS from DB
-          load: shardLoad, // ★ Load calculated from TPS
+          tps: realtimeTps, // ★ REALTIME TPS
+          load: s.load,
           pendingTx: 50 + idx * 25, // Stable values instead of random
           crossShardTx: s.crossShardTxCount,
-          status: shardLoad > 70 ? 'warning' : 'healthy' as "healthy" | "warning" | "critical",
+          status: s.load > 70 ? 'warning' : 'healthy' as "healthy" | "warning" | "critical",
           rebalanceScore: s.mlOptimizationScore ? Math.floor(s.mlOptimizationScore / 100) : 85
         };
       });
@@ -12832,7 +12708,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const data = req.body;
       const post = await storage.createCommunityPost({
         authorId: 0,
-        authorAddress: generateSystemAddress('tburn-community-admin'),
+        authorAddress: '0x0000000000000000000000000000000000000000',
         authorUsername: 'Admin',
         title: data.title,
         content: data.content,
@@ -22503,7 +22379,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         minimumStake: minimumStake.toString(),
         canStake: availableForStaking >= minimumStake,
         decimals: 18,
-        contractAddress: generateSystemAddress("tburn-token-native"),
+        contractAddress: "0x0000000000000000000000000000000000000001",
         quantumResistant: true,
         aiEnabled: true,
         lastUpdated: new Date().toISOString()
@@ -22745,7 +22621,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           name: "TBURN Token",
           symbol: "TBURN",
           standard: "TBC-20",
-          contractAddress: generateSystemAddress("tburn-token-native"),
+          contractAddress: "0x0000000000000000000000000000000000000001",
           decimals: 18,
           stakingEnabled: true,
         },
@@ -23034,7 +22910,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         tokenInfo: {
           symbol: "TBURN",
           standard: "TBC-20",
-          contractAddress: generateSystemAddress("tburn-token-native"),
+          contractAddress: "0x0000000000000000000000000000000000000001",
           decimals: 18,
         },
       });
