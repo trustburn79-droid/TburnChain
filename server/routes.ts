@@ -9762,7 +9762,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Admin Control Panel
   // ============================================
   // Endpoint to get mainnet restart status
-  app.get("/api/admin/restart-status", async (req, res) => {
+  app.get("/api/admin/restart-status", requireAdmin, async (req, res) => {
     try {
       // Get supervisor state first (real-time)
       const supervisorState = restartSupervisor.getState();
@@ -10156,7 +10156,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // AI Usage Stats API Endpoints
-  app.get("/api/admin/ai-usage/stats", async (req, res) => {
+  app.get("/api/admin/ai-usage/stats", requireAdmin, async (req, res) => {
     try {
       const stats = aiService.getAllUsageStats();
       res.json(stats);
@@ -10168,7 +10168,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/ai-health", async (req, res) => {
+  app.get("/api/admin/ai-health", requireAdmin, async (req, res) => {
     try {
       const healthStatus = await aiService.checkAllProviderConnections();
       const stats = aiService.getAllUsageStats();
@@ -10196,7 +10196,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
   
-  app.post("/api/admin/ai-usage/switch-provider", async (req, res) => {
+  app.post("/api/admin/ai-usage/switch-provider", requireAdmin, async (req, res) => {
     try {
       const { provider } = req.body;
       
@@ -10223,7 +10223,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
   
-  app.post("/api/admin/ai-usage/reset-limits", async (req, res) => {
+  app.post("/api/admin/ai-usage/reset-limits", requireAdmin, async (req, res) => {
     try {
       console.log('[Admin] 🔄 Resetting all AI provider limits');
       
@@ -10456,7 +10456,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Cache for block height to reduce repeated fetches
   let cachedBlockHeight = { value: 0, timestamp: 0 };
   
-  app.get("/api/admin/nodes", async (_req, res) => {
+  app.get("/api/admin/nodes", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cacheKey = 'admin_nodes';
@@ -10632,7 +10632,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   
   // Get current shard configuration - REAL-TIME for TPS synchronization
-  app.get("/api/admin/shards/config", async (_req, res) => {
+  app.get("/api/admin/shards/config", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cacheKey = 'shards_config';
@@ -10651,7 +10651,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Update shard configuration
-  app.post("/api/admin/shards/config", async (req, res) => {
+  app.post("/api/admin/shards/config", requireAdmin, async (req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       if (!enterpriseNode) {
@@ -10747,7 +10747,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Preview shard scaling for a specific count
-  app.get("/api/admin/shards/preview/:count", async (req, res) => {
+  app.get("/api/admin/shards/preview/:count", requireAdmin, async (req, res) => {
     try {
       const response = await fetch(`http://localhost:8545/api/admin/shards/preview/${req.params.count}`);
       const preview = await response.json();
@@ -10764,7 +10764,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Get network scaling analysis
-  app.get("/api/admin/network/scaling", async (_req, res) => {
+  app.get("/api/admin/network/scaling", requireAdmin, async (_req, res) => {
     try {
       const response = await fetch('http://localhost:8545/api/admin/network/scaling');
       const scaling = await response.json();
@@ -10780,7 +10780,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
 
   // Validate configuration (dry run)
-  app.post("/api/admin/shards/config/validate", async (req, res) => {
+  app.post("/api/admin/shards/config/validate", requireAdmin, async (req, res) => {
     try {
       const response = await fetch('http://localhost:8545/api/admin/shards/config/validate', {
         method: 'POST',
@@ -10796,7 +10796,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Rollback configuration
-  app.post("/api/admin/shards/config/rollback", async (req, res) => {
+  app.post("/api/admin/shards/config/rollback", requireAdmin, async (req, res) => {
     try {
       const response = await fetch('http://localhost:8545/api/admin/shards/config/rollback', {
         method: 'POST',
@@ -10838,7 +10838,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Get configuration history
-  app.get("/api/admin/shards/config/history", async (req, res) => {
+  app.get("/api/admin/shards/config/history", requireAdmin, async (req, res) => {
     try {
       const limit = req.query.limit || 20;
       const response = await fetch(`http://localhost:8545/api/admin/shards/config/history?limit=${limit}`);
@@ -10851,7 +10851,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Get shard health metrics
-  app.get("/api/admin/shards/health", async (_req, res) => {
+  app.get("/api/admin/shards/health", requireAdmin, async (_req, res) => {
     try {
       const response = await fetch('http://localhost:8545/api/admin/shards/health');
       const health = await response.json();
@@ -10863,7 +10863,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Get scaling events
-  app.get("/api/admin/shards/scaling-events", async (req, res) => {
+  app.get("/api/admin/shards/scaling-events", requireAdmin, async (req, res) => {
     try {
       const limit = req.query.limit || 20;
       const response = await fetch(`http://localhost:8545/api/admin/shards/scaling-events?limit=${limit}`);
@@ -10876,7 +10876,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Get audit logs for shard configuration
-  app.get("/api/admin/shards/audit-logs", async (req, res) => {
+  app.get("/api/admin/shards/audit-logs", requireAdmin, async (req, res) => {
     try {
       const { limit, action, severity } = req.query;
       let url = 'http://localhost:8545/api/admin/shards/audit-logs?';
@@ -10894,7 +10894,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Network Parameters - uses TBurnEnterpriseNode for real configuration
-  app.get("/api/admin/network/params", async (_req, res) => {
+  app.get("/api/admin/network/params", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cacheKey = 'network_params';
@@ -10917,12 +10917,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/network/params", async (req, res) => {
+  app.patch("/api/admin/network/params", requireAdmin, async (req, res) => {
     res.json({ success: true, message: "Parameters updated successfully", params: req.body });
   });
 
   // Token Issuance - uses TBurnEnterpriseNode + TokenRegistry for unified view
-  app.get("/api/admin/tokens", async (_req, res) => {
+  app.get("/api/admin/tokens", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const tokenData = enterpriseNode.getTokensInfo();
@@ -10962,7 +10962,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Get user-deployed tokens only (from TokenRegistry)
-  app.get("/api/admin/tokens/user-deployed", async (_req, res) => {
+  app.get("/api/admin/tokens/user-deployed", requireAdmin, async (_req, res) => {
     try {
       const { tokenRegistry } = await import("./services/TokenRegistry");
       const tokens = tokenRegistry.getAllTokens();
@@ -10975,7 +10975,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Pause/resume user-deployed token
-  app.post("/api/admin/tokens/registry/:address/:action", async (req, res) => {
+  app.post("/api/admin/tokens/registry/:address/:action", requireAdmin, async (req, res) => {
     try {
       const { tokenRegistry } = await import("./services/TokenRegistry");
       const { address, action } = req.params;
@@ -11001,20 +11001,20 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/tokens/mint", async (req, res) => {
+  app.post("/api/admin/tokens/mint", requireAdmin, async (req, res) => {
     res.json({ success: true, message: "Mint transaction submitted", txHash: `0x${Date.now().toString(16)}` });
   });
 
-  app.post("/api/admin/tokens/burn", async (req, res) => {
+  app.post("/api/admin/tokens/burn", requireAdmin, async (req, res) => {
     res.json({ success: true, message: "Burn transaction submitted", txHash: `0x${Date.now().toString(16)}` });
   });
 
-  app.post("/api/admin/tokens/:tokenId/:action", async (req, res) => {
+  app.post("/api/admin/tokens/:tokenId/:action", requireAdmin, async (req, res) => {
     res.json({ success: true, message: `Action ${req.params.action} executed`, tokenId: req.params.tokenId });
   });
 
   // Burn Control - uses TBurnEnterpriseNode for real production data
-  app.get("/api/admin/burn/stats", async (_req, res) => {
+  app.get("/api/admin/burn/stats", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const burnData = enterpriseNode.getBurnStats();
@@ -11033,16 +11033,16 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/burn/rates", async (req, res) => {
+  app.post("/api/admin/burn/rates", requireAdmin, async (req, res) => {
     res.json({ success: true, message: "Burn rate updated", newRate: req.body.rate });
   });
   
-  app.post("/api/admin/burn/scheduled/:burnId/:action", async (req, res) => {
+  app.post("/api/admin/burn/scheduled/:burnId/:action", requireAdmin, async (req, res) => {
     res.json({ success: true, message: `Burn schedule ${req.params.action}d`, burnId: req.params.burnId });
   });
 
   // Bridge Management - Real TBurnEnterpriseNode Data with caching
-  app.get("/api/admin/bridge/stats", async (_req, res) => {
+  app.get("/api/admin/bridge/stats", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_stats');
@@ -11058,7 +11058,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/transfers", async (_req, res) => {
+  app.get("/api/admin/bridge/transfers", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_transfers');
@@ -11074,7 +11074,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/chains", async (_req, res) => {
+  app.get("/api/admin/bridge/chains", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_chains');
@@ -11090,7 +11090,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/chains/stats", async (_req, res) => {
+  app.get("/api/admin/bridge/chains/stats", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_chains_stats');
@@ -11106,7 +11106,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/validators", async (_req, res) => {
+  app.get("/api/admin/bridge/validators", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_validators');
@@ -11122,7 +11122,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/validators/stats", async (_req, res) => {
+  app.get("/api/admin/bridge/validators/stats", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_validators_stats');
@@ -11138,7 +11138,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/signatures", async (_req, res) => {
+  app.get("/api/admin/bridge/signatures", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_signatures');
@@ -11154,7 +11154,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/liquidity", async (_req, res) => {
+  app.get("/api/admin/bridge/liquidity", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_liquidity');
@@ -11179,7 +11179,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/liquidity/pools", async (_req, res) => {
+  app.get("/api/admin/bridge/liquidity/pools", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_liquidity_pools');
@@ -11195,7 +11195,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/liquidity/stats", async (_req, res) => {
+  app.get("/api/admin/bridge/liquidity/stats", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_liquidity_stats');
@@ -11211,7 +11211,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/liquidity/history", async (_req, res) => {
+  app.get("/api/admin/bridge/liquidity/history", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_liquidity_history');
@@ -11227,7 +11227,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/liquidity/alerts", async (_req, res) => {
+  app.get("/api/admin/bridge/liquidity/alerts", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_liquidity_alerts');
@@ -11243,7 +11243,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/bridge/volume", async (_req, res) => {
+  app.get("/api/admin/bridge/volume", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cached = cache.get<any>('bridge_volume');
@@ -11260,7 +11260,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // AI Management
-  app.get("/api/admin/ai/status", async (_req, res) => {
+  app.get("/api/admin/ai/status", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cacheKey = 'admin_ai_status';
@@ -11366,7 +11366,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/ai/analytics", async (_req, res) => {
+  app.get("/api/admin/ai/analytics", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cacheKey = 'admin_ai_analytics';
@@ -11383,7 +11383,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/ai/models", async (_req, res) => {
+  app.get("/api/admin/ai/models", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const orchestrationData = enterpriseNode.getAIOrchestrationData();
@@ -11394,7 +11394,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/ai/params", async (_req, res) => {
+  app.get("/api/admin/ai/params", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cacheKey = 'admin_ai_params';
@@ -11479,7 +11479,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/ai/training", async (_req, res) => {
+  app.get("/api/admin/ai/training", requireAdmin, async (_req, res) => {
     try {
       const cache = getDataCache();
       const cacheKey = 'admin_ai_training';
@@ -11605,7 +11605,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Enterprise AI Training - Get Job Details
-  app.get("/api/admin/ai/training/jobs/:jobId", async (req, res) => {
+  app.get("/api/admin/ai/training/jobs/:jobId", requireAdmin, async (req, res) => {
     try {
       const { jobId } = req.params;
       const job = await storage.getAiTrainingJobById(jobId);
@@ -11621,7 +11621,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Enterprise AI Training - Get Job Metrics
-  app.get("/api/admin/ai/training/jobs/:jobId/metrics", async (req, res) => {
+  app.get("/api/admin/ai/training/jobs/:jobId/metrics", requireAdmin, async (req, res) => {
     try {
       const { jobId } = req.params;
       const job = await storage.getAiTrainingJobById(jobId);
@@ -11661,7 +11661,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Enterprise AI Training - Datasets
-  app.get("/api/admin/ai/training/datasets", async (_req, res) => {
+  app.get("/api/admin/ai/training/datasets", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const trainingData = enterpriseNode.getAITrainingData();
@@ -11689,7 +11689,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Enterprise AI Training - Model Deployments
-  app.get("/api/admin/ai/training/deployments", async (_req, res) => {
+  app.get("/api/admin/ai/training/deployments", requireAdmin, async (_req, res) => {
     try {
       const deployments = [
         {
@@ -11794,7 +11794,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Enterprise AI Training - Training Logs
-  app.get("/api/admin/ai/training/jobs/:jobId/logs", async (req, res) => {
+  app.get("/api/admin/ai/training/jobs/:jobId/logs", requireAdmin, async (req, res) => {
     try {
       const { jobId } = req.params;
       const { level, limit = 100 } = req.query;
@@ -11872,7 +11872,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Alerts Management
-  app.get("/api/admin/alerts", async (_req, res) => {
+  app.get("/api/admin/alerts", requireAdmin, async (_req, res) => {
     try {
       // Production: Return empty alerts array
       res.json({ alerts: [] });
@@ -11884,7 +11884,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Alert Rules endpoint moved to enterprise-admin-routes.ts (database-backed)
 
   // Analytics
-  app.get("/api/admin/analytics/network", async (_req, res) => {
+  app.get("/api/admin/analytics/network", requireAdmin, async (_req, res) => {
     const times = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
     res.json({
       stats: {
@@ -11913,7 +11913,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/analytics/transactions", async (_req, res) => {
+  app.get("/api/admin/analytics/transactions", requireAdmin, async (_req, res) => {
     res.json({
       total: 500000000,
       today: 5000000,
@@ -11924,7 +11924,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/analytics/users", async (_req, res) => {
+  app.get("/api/admin/analytics/users", requireAdmin, async (_req, res) => {
     res.json({
       totalUsers: 500000,
       activeUsers: 150000,
@@ -11936,7 +11936,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // BI Dashboard - supports both /metrics and /metrics/:range
-  app.get("/api/admin/bi/metrics/:range?", async (_req, res) => {
+  app.get("/api/admin/bi/metrics/:range?", requireAdmin, async (_req, res) => {
     res.json({
       kpiMetrics: [
         { name: 'Total Value Locked', value: '$2.5B', change: '+5.2%', trend: 'up' },
@@ -11973,7 +11973,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Token Economics - uses TBurnEnterpriseNode for real production data
-  app.get("/api/admin/economics", async (_req, res) => {
+  app.get("/api/admin/economics", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const economicsData = enterpriseNode.getEconomicsMetrics();
@@ -11990,12 +11990,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/economics/parameters", async (req, res) => {
+  app.post("/api/admin/economics/parameters", requireAdmin, async (req, res) => {
     res.json({ success: true, message: "Economics parameters updated", params: req.body });
   });
 
   // Treasury - uses TBurnEnterpriseNode for real production data
-  app.get("/api/admin/treasury", async (_req, res) => {
+  app.get("/api/admin/treasury", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const treasuryData = enterpriseNode.getTreasuryStats();
@@ -12013,11 +12013,11 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/treasury/transfer", async (req, res) => {
+  app.post("/api/admin/treasury/transfer", requireAdmin, async (req, res) => {
     res.json({ success: true, message: "Transfer submitted for multi-sig approval", txId: `0x${Date.now().toString(16)}` });
   });
 
-  app.post("/api/admin/treasury/transactions/:transactionId/cancel", async (req, res) => {
+  app.post("/api/admin/treasury/transactions/:transactionId/cancel", requireAdmin, async (req, res) => {
     res.json({ success: true, message: "Transaction cancelled", transactionId: req.params.transactionId });
   });
 
@@ -12027,7 +12027,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ========================================================================================
   
   // Performance Metrics (proxied from TBurnEnterpriseNode)
-  app.get("/api/admin/performance", async (_req, res) => {
+  app.get("/api/admin/performance", requireAdmin, async (_req, res) => {
     try {
       const response = await fetch("http://localhost:8545/api/performance");
       if (!response.ok) throw new Error("Enterprise node unavailable");
@@ -12068,7 +12068,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
 
   // Shard Performance Metrics (detailed per-shard data)
   // CRITICAL: Uses Enterprise Node's generateShards() for exact shard count synchronization
-  app.get("/api/admin/shards/performance", async (_req, res) => {
+  app.get("/api/admin/shards/performance", requireAdmin, async (_req, res) => {
     try {
       // Use Enterprise Node directly for accurate shard data
       const enterpriseNode = getEnterpriseNode();
@@ -12107,7 +12107,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Performance History (time-series data for charts)
-  app.get("/api/admin/performance/history", async (req, res) => {
+  app.get("/api/admin/performance/history", requireAdmin, async (req, res) => {
     const timeRange = req.query.range as string || "24h";
     const points = timeRange === "1h" ? 12 : timeRange === "6h" ? 36 : timeRange === "24h" ? 48 : timeRange === "7d" ? 168 : 720;
     const intervalMs = timeRange === "1h" ? 300000 : timeRange === "6h" ? 600000 : timeRange === "24h" ? 1800000 : 3600000;
@@ -12130,7 +12130,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Latency Percentiles (P50, P90, P95, P99, Max)
-  app.get("/api/admin/performance/latency", async (_req, res) => {
+  app.get("/api/admin/performance/latency", requireAdmin, async (_req, res) => {
     res.json({
       p50: Math.floor(140 + Math.random() * 10),
       p90: Math.floor(180 + Math.random() * 15),
@@ -12142,7 +12142,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
 
   // System Health Status - Comprehensive health monitoring
   // Production-grade health metrics targeting 99.99% SLA
-  app.get("/api/admin/health", async (_req, res) => {
+  app.get("/api/admin/health", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -12267,7 +12267,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Validators list for admin management - uses TBurnEnterpriseNode
-  app.get("/api/admin/validators", async (_req, res) => {
+  app.get("/api/admin/validators", requireAdmin, async (_req, res) => {
     try {
       // Use TBurnEnterpriseNode for real validator data (no Math.random)
       const enterpriseNode = getEnterpriseNode();
@@ -12297,7 +12297,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // System Resources (for performance and unified dashboard)
   // Production-ready Enterprise-grade Resource Metrics
   // Returns optimized percentage values reflecting enterprise infrastructure
-  app.get("/api/admin/system/resources", async (_req, res) => {
+  app.get("/api/admin/system/resources", requireAdmin, async (_req, res) => {
     // Enterprise-grade resource utilization: optimized for performance headroom
     // CPU: 3-8% (efficient workload distribution across nodes)
     // Memory: 18-28% (optimized caching with ample headroom)
@@ -12312,7 +12312,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Governance - with caching
-  app.get("/api/admin/governance/params", async (_req, res) => {
+  app.get("/api/admin/governance/params", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'admin_gov_params';
     const cached = cache.get<any>(cacheKey);
@@ -12331,7 +12331,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/governance/proposals", async (_req, res) => {
+  app.get("/api/admin/governance/proposals", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'admin_gov_proposals';
     const cached = cache.get<any>(cacheKey);
@@ -12432,7 +12432,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/proposals", async (_req, res) => {
+  app.get("/api/admin/proposals", requireAdmin, async (_req, res) => {
     res.json({
       proposals: [
         { id: 'prop-1', title: 'Increase Burn Rate', status: 'active', votes: { for: 1500000, against: 500000 }, endDate: new Date(Date.now() + 604800000).toISOString() },
@@ -12441,7 +12441,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/governance/votes", async (_req, res) => {
+  app.get("/api/admin/governance/votes", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'admin_gov_votes';
     const cached = cache.get<any>(cacheKey);
@@ -12457,7 +12457,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/governance/votes/:proposalId", async (req, res) => {
+  app.get("/api/admin/governance/votes/:proposalId", requireAdmin, async (req, res) => {
     const { proposalId } = req.params;
     res.json({
       totalVotes: 8500000,
@@ -12486,12 +12486,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.post("/api/admin/governance/votes", async (req, res) => {
+  app.post("/api/admin/governance/votes", requireAdmin, async (req, res) => {
     const { proposalId, vote } = req.body;
     res.json({ success: true, proposalId, vote, message: "Vote cast successfully" });
   });
 
-  app.get("/api/admin/voting", async (_req, res) => {
+  app.get("/api/admin/voting", requireAdmin, async (_req, res) => {
     res.json({
       activeProposals: 3,
       totalVotes: 5000000,
@@ -12500,7 +12500,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/governance/execution", async (_req, res) => {
+  app.get("/api/admin/governance/execution", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'admin_gov_execution';
     const cached = cache.get<any>(cacheKey);
@@ -12517,7 +12517,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/execution", async (_req, res) => {
+  app.get("/api/admin/execution", requireAdmin, async (_req, res) => {
     res.json({
       pendingExecutions: [],
       completedExecutions: [],
@@ -12526,7 +12526,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Community
-  app.get("/api/admin/community", async (_req, res) => {
+  app.get("/api/admin/community", requireAdmin, async (_req, res) => {
     res.json({
       stats: {
         members: 500000,
@@ -12539,7 +12539,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/community/stats", async (_req, res) => {
+  app.get("/api/admin/community/stats", requireAdmin, async (_req, res) => {
     res.json({
       members: 500000,
       activeDiscussions: 150,
@@ -12549,7 +12549,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Community Content Management - Enterprise-grade CRUD
-  app.get("/api/admin/community/content", async (_req, res) => {
+  app.get("/api/admin/community/content", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     try {
       // Use cache for fast response
@@ -12593,7 +12593,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // News/Announcements CRUD
-  app.post("/api/admin/community/news", async (req, res) => {
+  app.post("/api/admin/community/news", requireAdmin, async (req, res) => {
     const cache = getDataCache();
     try {
       const data = req.body;
@@ -12613,7 +12613,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/community/news/:id", async (req, res) => {
+  app.patch("/api/admin/community/news/:id", requireAdmin, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12630,7 +12630,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.delete("/api/admin/community/news/:id", async (req, res) => {
+  app.delete("/api/admin/community/news/:id", requireAdmin, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12644,7 +12644,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Events CRUD
-  app.post("/api/admin/community/events", async (req, res) => {
+  app.post("/api/admin/community/events", requireAdmin, async (req, res) => {
     const cache = getDataCache();
     try {
       const data = req.body;
@@ -12671,7 +12671,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/community/events/:id", async (req, res) => {
+  app.patch("/api/admin/community/events/:id", requireAdmin, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12688,7 +12688,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.delete("/api/admin/community/events/:id", async (req, res) => {
+  app.delete("/api/admin/community/events/:id", requireAdmin, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12702,7 +12702,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Hub Posts CRUD
-  app.post("/api/admin/community/hub", async (req, res) => {
+  app.post("/api/admin/community/hub", requireAdmin, async (req, res) => {
     const cache = getDataCache();
     try {
       const data = req.body;
@@ -12727,7 +12727,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/community/hub/:id", async (req, res) => {
+  app.patch("/api/admin/community/hub/:id", requireAdmin, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12744,7 +12744,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.delete("/api/admin/community/hub/:id", async (req, res) => {
+  app.delete("/api/admin/community/hub/:id", requireAdmin, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12758,7 +12758,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // User Management - with 30s caching
-  app.get("/api/admin/accounts", async (_req, res) => {
+  app.get("/api/admin/accounts", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'admin_accounts';
     const cached = cache.get<any>(cacheKey);
@@ -12773,7 +12773,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/roles", async (_req, res) => {
+  app.get("/api/admin/roles", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'admin_roles';
     const cached = cache.get<any>(cacheKey);
@@ -12791,7 +12791,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/permissions", async (_req, res) => {
+  app.get("/api/admin/permissions", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'admin_permissions';
     const cached = cache.get<any>(cacheKey);
@@ -12810,7 +12810,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/activity", async (_req, res) => {
+  app.get("/api/admin/activity", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'admin_activity';
     const cached = cache.get<any>(cacheKey);
@@ -12830,7 +12830,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/sessions", async (_req, res) => {
+  app.get("/api/admin/sessions", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'admin_sessions';
     const cached = cache.get<any>(cacheKey);
@@ -12857,7 +12857,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Security - Dynamic calculation based on real system state
-  app.get("/api/admin/security", async (_req, res) => {
+  app.get("/api/admin/security", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -12935,7 +12935,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/security/threats", async (_req, res) => {
+  app.get("/api/admin/security/threats", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -12998,7 +12998,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/access/policies", async (_req, res) => {
+  app.get("/api/admin/access/policies", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -13069,7 +13069,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/compliance", async (_req, res) => {
+  app.get("/api/admin/compliance", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -13292,7 +13292,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // KYC/AML Monitoring
-  app.get("/api/admin/compliance/kyc-aml", async (_req, res) => {
+  app.get("/api/admin/compliance/kyc-aml", requireAdmin, async (_req, res) => {
     try {
       res.json({
         success: true,
@@ -13326,7 +13326,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Regulatory Reports
-  app.get("/api/admin/compliance/reports", async (_req, res) => {
+  app.get("/api/admin/compliance/reports", requireAdmin, async (_req, res) => {
     try {
       res.json({
         success: true,
@@ -13349,7 +13349,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/audit/logs", async (_req, res) => {
+  app.get("/api/admin/audit/logs", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -18330,7 +18330,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Genesis Launch endpoints with caching
-  app.get("/api/admin/genesis/config", async (_req, res) => {
+  app.get("/api/admin/genesis/config", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'genesis_config';
     const cached = cache.get<any>(cacheKey);
@@ -18360,7 +18360,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/genesis/validators", async (_req, res) => {
+  app.get("/api/admin/genesis/validators", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'genesis_validators';
     const cached = cache.get<any>(cacheKey);
@@ -18382,7 +18382,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/genesis/distribution", async (_req, res) => {
+  app.get("/api/admin/genesis/distribution", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'genesis_distribution';
     const cached = cache.get<any>(cacheKey);
@@ -18407,7 +18407,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/genesis/approvals", async (_req, res) => {
+  app.get("/api/admin/genesis/approvals", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'genesis_approvals';
     const cached = cache.get<any>(cacheKey);
@@ -18427,7 +18427,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/genesis/preflight", async (_req, res) => {
+  app.get("/api/admin/genesis/preflight", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'genesis_preflight';
     const cached = cache.get<any>(cacheKey);
@@ -18448,7 +18448,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/genesis/logs", async (_req, res) => {
+  app.get("/api/admin/genesis/logs", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'genesis_logs';
     const cached = cache.get<any>(cacheKey);
@@ -18463,7 +18463,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Configuration
-  app.get("/api/admin/settings", async (_req, res) => {
+  app.get("/api/admin/settings", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -18543,7 +18543,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/config/api", async (_req, res) => {
+  app.get("/api/admin/config/api", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -18601,7 +18601,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/appearance", async (_req, res) => {
+  app.get("/api/admin/appearance", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -18654,7 +18654,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/notifications/settings", async (_req, res) => {
+  app.get("/api/admin/notifications/settings", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -18729,7 +18729,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/integrations", async (_req, res) => {
+  app.get("/api/admin/integrations", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
@@ -18861,7 +18861,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Operations
-  app.get("/api/admin/emergency/status", async (_req, res) => {
+  app.get("/api/admin/emergency/status", requireAdmin, async (_req, res) => {
     res.json({
       status: 'normal',
       activeIncidents: 0,
@@ -18871,7 +18871,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/maintenance", async (_req, res) => {
+  app.get("/api/admin/maintenance", requireAdmin, async (_req, res) => {
     res.json({
       scheduled: [],
       history: [],
@@ -18879,7 +18879,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/backups", async (_req, res) => {
+  app.get("/api/admin/backups", requireAdmin, async (_req, res) => {
     // Production: Return empty backups array
     res.json({
       backups: [],
@@ -18888,7 +18888,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/updates", async (_req, res) => {
+  app.get("/api/admin/updates", requireAdmin, async (_req, res) => {
     res.json({
       currentVersion: '4.0.0',
       latestVersion: '4.0.1',
@@ -18899,7 +18899,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Monitoring
-  app.get("/api/admin/monitoring/realtime", async (_req, res) => {
+  app.get("/api/admin/monitoring/realtime", requireAdmin, async (_req, res) => {
     res.json({
       tps: 50000 + Math.random() * 5000,
       blockHeight: 18090000 + Math.floor(Math.random() * 1000),
@@ -18910,7 +18910,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/monitoring/metrics", async (_req, res) => {
+  app.get("/api/admin/monitoring/metrics", requireAdmin, async (_req, res) => {
     res.json({
       metrics: [
         { name: 'TPS', value: 50000, unit: 'tx/s' },
@@ -18921,14 +18921,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/logs", async (_req, res) => {
+  app.get("/api/admin/logs", requireAdmin, async (_req, res) => {
     // Production: Return empty logs array
     res.json({
       logs: []
     });
   });
 
-  app.get("/api/admin/services/health", async (_req, res) => {
+  app.get("/api/admin/services/health", requireAdmin, async (_req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       const nodeStatus = enterpriseNode.getStatus();
@@ -19017,7 +19017,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.get("/api/admin/sla", async (_req, res) => {
+  app.get("/api/admin/sla", requireAdmin, async (_req, res) => {
     res.json({
       uptime: 99.99,
       responseTime: 150,
@@ -19027,7 +19027,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/dashboards", async (_req, res) => {
+  app.get("/api/admin/dashboards", requireAdmin, async (_req, res) => {
     res.json({
       dashboards: [
         { id: 'default', name: 'Default Dashboard', widgets: 8, isDefault: true },
@@ -19037,7 +19037,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Developer Tools
-  app.get("/api/admin/developer/docs", async (_req, res) => {
+  app.get("/api/admin/developer/docs", requireAdmin, async (_req, res) => {
     res.json({
       categories: [
         { id: 'getting-started', name: 'Getting Started', articles: 5 },
@@ -19047,7 +19047,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/developer/sdk", async (_req, res) => {
+  app.get("/api/admin/developer/sdk", requireAdmin, async (_req, res) => {
     res.json({
       sdks: [
         { id: 'js', name: 'JavaScript SDK', version: '2.0.0', downloads: 50000 },
@@ -19057,7 +19057,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/developer/contracts", async (_req, res) => {
+  app.get("/api/admin/developer/contracts", requireAdmin, async (_req, res) => {
     res.json({
       contracts: [
         { address: "0x1234...5678", name: "TBURN Token", verified: true, compiler: "solidity 0.8.20", deployedAt: "2024-01-15", transactions: 1248567 },
@@ -19076,7 +19076,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/testnet", async (_req, res) => {
+  app.get("/api/admin/testnet", requireAdmin, async (_req, res) => {
     res.json({
       status: 'running',
       faucetBalance: '10000000 TBURN',
@@ -19086,7 +19086,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/debug", async (_req, res) => {
+  app.get("/api/admin/debug", requireAdmin, async (_req, res) => {
     res.json({
       environment: 'production',
       version: '4.0.0',
@@ -19097,7 +19097,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Finance
-  app.get("/api/admin/finance", async (_req, res) => {
+  app.get("/api/admin/finance", requireAdmin, async (_req, res) => {
     const transactionStatuses = ['completed', 'pending', 'failed'] as const;
     res.json({
       metrics: [
@@ -19131,14 +19131,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/accounting/transactions", async (_req, res) => {
+  app.get("/api/admin/accounting/transactions", requireAdmin, async (_req, res) => {
     // Production: Return empty transactions array
     res.json({
       transactions: []
     });
   });
 
-  app.get("/api/admin/budget", async (_req, res) => {
+  app.get("/api/admin/budget", requireAdmin, async (_req, res) => {
     res.json({
       totalBudget: '$10,000,000',
       allocated: '$7,500,000',
@@ -19152,7 +19152,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/costs", async (_req, res) => {
+  app.get("/api/admin/costs", requireAdmin, async (_req, res) => {
     res.json({
       total: '$300,000',
       byCategory: [
@@ -19164,7 +19164,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/tax", async (_req, res) => {
+  app.get("/api/admin/tax", requireAdmin, async (_req, res) => {
     res.json({
       liability: '$500,000',
       paid: '$400,000',
@@ -19175,7 +19175,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Reports
-  app.get("/api/admin/reports/templates", async (_req, res) => {
+  app.get("/api/admin/reports/templates", requireAdmin, async (_req, res) => {
     res.json({
       templates: [
         { id: 'daily', name: 'Daily Report', frequency: 'daily', lastGenerated: new Date().toISOString() },
@@ -19186,7 +19186,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Support
-  app.get("/api/admin/help", async (_req, res) => {
+  app.get("/api/admin/help", requireAdmin, async (_req, res) => {
     res.json({
       categories: [
         { name: 'Getting Started', articleCount: 12, description: 'Basic guides to get you started with the admin portal' },
@@ -19219,7 +19219,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/tickets", async (_req, res) => {
+  app.get("/api/admin/tickets", requireAdmin, async (_req, res) => {
     const statuses = ['open', 'in-progress', 'waiting', 'resolved', 'closed'] as const;
     const priorities = ['low', 'medium', 'high', 'critical'] as const;
     const categories = ['Access Issue', 'Bug Report', 'Feature Request', 'Documentation', 'Training'];
@@ -19230,7 +19230,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.get("/api/admin/feedback", async (_req, res) => {
+  app.get("/api/admin/feedback", requireAdmin, async (_req, res) => {
     const cache = getDataCache();
     const cacheKey = 'admin_feedback';
     const cached = cache.get<any>(cacheKey);
@@ -19271,7 +19271,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
 
   // Announcements endpoint moved to enterprise-admin-routes.ts (database-backed)
 
-  app.get("/api/admin/training", async (_req, res) => {
+  app.get("/api/admin/training", requireAdmin, async (_req, res) => {
     res.json({
       courses: [
         { id: "1", title: "TBURN Platform Fundamentals", description: "Learn the core concepts of TBURN blockchain and admin operations", category: "Getting Started", duration: "2h 30m", modules: 8, completedModules: 8, level: "beginner", enrolled: 245, rating: 4.8, iconName: "BookOpen" },
@@ -19298,12 +19298,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.post("/api/admin/training/courses/:courseId/enroll", async (req, res) => {
+  app.post("/api/admin/training/courses/:courseId/enroll", requireAdmin, async (req, res) => {
     const { courseId } = req.params;
     res.json({ success: true, courseId, message: "Successfully enrolled in course" });
   });
 
-  app.post("/api/admin/training/courses/:courseId/modules/:moduleId/complete", async (req, res) => {
+  app.post("/api/admin/training/courses/:courseId/modules/:moduleId/complete", requireAdmin, async (req, res) => {
     const { courseId, moduleId } = req.params;
     res.json({ success: true, courseId, moduleId, message: "Module marked as complete" });
   });
