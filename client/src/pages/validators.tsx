@@ -38,6 +38,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatAddress, formatTokenAmount, formatPercentage, formatNumber } from "@/lib/format";
+import { formatTBurnAddress, truncateTBurnAddress } from "@/lib/utils";
 import type { Validator } from "@shared/schema";
 import { getMarketingTiersArray, type MarketingTierConfig } from "@shared/tokenomics-config";
 import { useEffect, useState } from "react";
@@ -820,7 +821,7 @@ function TierDetailDialog({ tier, tierData, validators, open, onClose }: TierDet
                               <span className="text-sm font-mono text-muted-foreground">#{idx + 1}</span>
                               <div>
                                 <p className="font-medium">{v.name}</p>
-                                <p className="text-xs text-muted-foreground font-mono">{formatAddress(v.address)}</p>
+                                <p className="text-xs text-muted-foreground font-mono">{truncateTBurnAddress(formatTBurnAddress(v.address))}</p>
                               </div>
                             </div>
                             <div className="flex items-center gap-4">
@@ -1474,7 +1475,7 @@ function ValidatorStatsDialog({ type, validators, tierData, open, onClose }: Val
                               </div>
                               <div>
                                 <p className="font-medium">{v.name}</p>
-                                <p className="text-xs text-muted-foreground font-mono">{formatAddress(v.address)}</p>
+                                <p className="text-xs text-muted-foreground font-mono">{truncateTBurnAddress(formatTBurnAddress(v.address))}</p>
                               </div>
                             </div>
                             <div className="flex items-center gap-3">
@@ -2094,7 +2095,7 @@ export default function Validators() {
                           <div className="flex flex-col gap-1">
                             <span className="font-semibold text-primary">{validator.name}</span>
                             <span className="font-mono text-xs text-muted-foreground">
-                              {formatAddress(validator.address)}
+                              {truncateTBurnAddress(formatTBurnAddress(validator.address))}
                             </span>
                           </div>
                         </TableCell>

@@ -94,6 +94,91 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
+// ★ [2026-01-21] Validator detail by address
+router.get('/:address', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    
+    // Query validator by address
+    const validatorList = await db.select().from(validators).where(
+      sql`${validators.address} = ${address}`
+    );
+    
+    if (validatorList.length === 0) {
+      return res.status(404).json({ 
+        error: 'Validator not found',
+        message: `The validator with address "${address}" could not be found.`
+      });
+    }
+    
+    const v = validatorList[0];
+    const stakeValue = BigInt(v.stake || '0');
+    const stakeFormatted = (Number(stakeValue) / 1e18).toFixed(0);
+    const delegatedStakeValue = BigInt(v.delegatedStake || '0');
+    const delegatedStakeFormatted = (Number(delegatedStakeValue) / 1e18).toFixed(0);
+    
+    // Generate mock performance history (last 30 days)
+    const performanceHistory = Array.from({ length: 30 }, (_, i) => ({
+      timestamp: Date.now() - (29 - i) * 86400000,
+      blockTime: 95 + Math.floor(Math.random() * 10),
+      missedBlocks: Math.floor(Math.random() * 3),
+      uptime: 99 + Math.random(),
+    }));
+    
+    // Generate mock reward history (last 30 days)
+    const rewardHistory = Array.from({ length: 30 }, (_, i) => ({
+      timestamp: Date.now() - (29 - i) * 86400000,
+      amount: (Math.random() * 1000 + 500).toFixed(2),
+      type: i % 7 === 0 ? 'delegation' : 'block',
+    }));
+    
+    // Generate mock delegators
+    const delegatorList = Array.from({ length: Math.min(v.delegators || 0, 10) }, (_, i) => ({
+      address: `0x${Math.random().toString(16).slice(2, 42)}`,
+      amount: ((Math.random() * 10000) + 1000).toFixed(0),
+      timestamp: Date.now() - Math.floor(Math.random() * 30) * 86400000,
+    }));
+    
+    const validatorDetail = {
+      id: v.id,
+      name: v.name,
+      address: v.address,
+      stake: stakeFormatted,
+      delegatedStake: delegatedStakeFormatted,
+      commission: (v.commission || 500) / 100,
+      status: v.status || 'active',
+      uptime: (v.uptime || 10000) / 100,
+      totalBlocks: v.totalBlocks || 0,
+      votingPower: v.votingPower || '0',
+      apy: (v.apy || 0) / 100,
+      reputationScore: (v.reputationScore || 8500) / 100,
+      performanceScore: (v.performanceScore || 9000) / 100,
+      aiTrustScore: (v.aiTrustScore || 7500) / 100,
+      behaviorScore: (v.behaviorScore || 9500) / 100,
+      participationRate: 95 + Math.random() * 5,
+      avgResponseTime: 50 + Math.floor(Math.random() * 50),
+      missedBlocks: v.missedBlocks || 0,
+      slashCount: v.slashCount || 0,
+      avgBlockTime: v.avgBlockTime || 100,
+      rewardEarned: v.rewardEarned ? (Number(BigInt(v.rewardEarned)) / 1e18).toFixed(0) : '0',
+      adaptiveWeight: (v.adaptiveWeight || 10000) / 100,
+      rank: 1,
+      isCommittee: true,
+      delegators: delegatorList,
+      performanceHistory,
+      rewardHistory,
+    };
+    
+    res.json(validatorDetail);
+  } catch (error) {
+    console.error("[ValidatorRoutes] Error fetching validator detail:", error);
+    res.status(500).json({ 
+      error: 'Failed to fetch validator',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 router.get('/status', async (req: Request, res: Response) => {
   try {
     const orchestrator = getValidatorOrchestrator();
