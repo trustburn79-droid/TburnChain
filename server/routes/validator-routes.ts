@@ -164,7 +164,9 @@ router.get('/:address', async (req: Request, res: Response) => {
       adaptiveWeight: (v.adaptiveWeight || 10000) / 100,
       rank: 1,
       isCommittee: true,
-      delegators: delegatorList,
+      delegators: v.delegators || 0,
+      totalDelegators: v.delegators || 0,
+      delegatorsList: delegatorList,
       performanceHistory,
       rewardHistory,
     };

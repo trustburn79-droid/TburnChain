@@ -84,7 +84,9 @@ interface ValidatorDetails {
   rank?: number;
   isCommittee?: boolean;
   
-  delegators: Array<{
+  delegators: number;
+  totalDelegators: number;
+  delegatorsList: Array<{
     address: string;
     amount: string;
     timestamp: number;
@@ -423,7 +425,7 @@ export default function ValidatorDetail() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{validator.delegators?.length || 0}</div>
+            <div className="text-2xl font-bold">{validator.delegators || 0}</div>
             <p className="text-xs text-muted-foreground mt-1">
               {t('validators.totalDelegated')}: {formatTokenAmount(validator.delegatedStake || "0")}
             </p>
@@ -637,11 +639,11 @@ export default function ValidatorDetail() {
             <CardHeader>
               <CardTitle>{t('validators.delegators')}</CardTitle>
               <CardDescription>
-                {t('common.total')}: {validator.delegators?.length || 0} - {formatTokenAmount(validator.delegatedStake || "0")}
+                {t('common.total')}: {validator.delegators || 0} - {formatTokenAmount(validator.delegatedStake || "0")}
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {validator.delegators && validator.delegators.length > 0 ? (
+              {validator.delegatorsList && validator.delegatorsList.length > 0 ? (
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -652,12 +654,12 @@ export default function ValidatorDetail() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {validator.delegators.map((delegator, idx) => (
+                    {validator.delegatorsList.map((delegator, idx) => (
                       <TableRow key={idx}>
                         <TableCell className="font-mono">{formatAddress(delegator.address)}</TableCell>
                         <TableCell className="text-right">{formatTokenAmount(delegator.amount)}</TableCell>
                         <TableCell className="text-right">
-                          {new Date(delegator.timestamp * 1000).toLocaleString('en-US', { timeZone: 'America/New_York' })}
+                          {new Date(delegator.timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })}
                         </TableCell>
                         <TableCell className="text-center">
                           <Button variant="outline" size="sm">{t('validators.undelegate')}</Button>
@@ -773,7 +775,7 @@ export default function ValidatorDetail() {
                   <TableBody>
                     {validator.rewardHistory?.slice(0, 5).map((reward, idx) => (
                       <TableRow key={idx}>
-                        <TableCell>{new Date(reward.timestamp * 1000).toLocaleString('en-US', { timeZone: 'America/New_York' })}</TableCell>
+                        <TableCell>{new Date(reward.timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })}</TableCell>
                         <TableCell>
                           <Badge variant="outline">{reward.type}</Badge>
                         </TableCell>
