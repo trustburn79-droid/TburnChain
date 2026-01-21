@@ -9,7 +9,7 @@ import {
   initializeValidatorOrchestrator 
 } from '../core/validators/enterprise-validator-orchestrator';
 import { db } from '../db';
-import { genesisValidators } from '@shared/schema';
+import { validators, genesisValidators } from '@shared/schema';
 import { sql } from 'drizzle-orm';
 
 const router = Router();
@@ -17,70 +17,71 @@ const router = Router();
 // ★ [2026-01-16] CRITICAL: Root handler for /api/validators
 // Without this, requests to /api/validators fall through without response
 // causing 30s timeout + Internal Server Error
+// ★ [2026-01-21] Fixed: Now queries validators table (587 records) instead of empty genesis_validators
 router.get('/', async (req: Request, res: Response) => {
   try {
-    // ★ [2026-01-16] Select only columns that exist in PRODUCTION database
-    // Excludes: invitationCodeId, invitationCode (added later, not in prod schema)
-    const genesisValidatorList = await db.select({
-      id: genesisValidators.id,
-      address: genesisValidators.address,
-      name: genesisValidators.name,
-      tier: genesisValidators.tier,
-      priority: genesisValidators.priority,
-      initialStake: genesisValidators.initialStake,
-      commission: genesisValidators.commission,
-      isVerified: genesisValidators.isVerified,
-      website: genesisValidators.website,
-      description: genesisValidators.description,
-    }).from(genesisValidators);
+    // Query validators table which contains actual validator data
+    const validatorList = await db.select({
+      id: validators.id,
+      address: validators.address,
+      name: validators.name,
+      stake: validators.stake,
+      delegatedStake: validators.delegatedStake,
+      commission: validators.commission,
+      status: validators.status,
+      uptime: validators.uptime,
+      totalBlocks: validators.totalBlocks,
+      votingPower: validators.votingPower,
+      apy: validators.apy,
+      delegators: validators.delegators,
+      missedBlocks: validators.missedBlocks,
+      rewardEarned: validators.rewardEarned,
+      slashCount: validators.slashCount,
+      aiTrustScore: validators.aiTrustScore,
+      performanceScore: validators.performanceScore,
+    }).from(validators);
     
-    // Map genesis validators to frontend-expected format
-    const validators = genesisValidatorList.map((v) => {
-      const stakeValue = BigInt(v.initialStake || '0');
+    // Map validators to frontend-expected format
+    const validatorResults = validatorList.map((v) => {
+      const stakeValue = BigInt(v.stake || '0');
       const stakeFormatted = (Number(stakeValue) / 1e18).toFixed(0);
       const commissionPercent = (v.commission || 500) / 100;
-      
-      const tierMetrics: Record<string, { uptime: number; aiScore: number; blocks: number }> = {
-        core: { uptime: 99.98, aiScore: 98, blocks: 50000 },
-        enterprise: { uptime: 99.95, aiScore: 95, blocks: 35000 },
-        partner: { uptime: 99.90, aiScore: 92, blocks: 20000 },
-        community: { uptime: 99.85, aiScore: 88, blocks: 10000 },
-      };
-      const metrics = tierMetrics[v.tier || 'community'] || tierMetrics.community;
+      const uptimePercent = (v.uptime || 10000) / 100;
       
       return {
         address: v.address,
         name: v.name,
-        status: v.isVerified ? 'active' : 'inactive',
+        status: v.status || 'active',
         stake: stakeFormatted,
-        delegators: Math.floor(Math.random() * 500) + 50,
+        delegators: v.delegators || 0,
         commission: commissionPercent,
-        uptime: metrics.uptime,
-        blocksProduced: metrics.blocks + Math.floor(Math.random() * 1000),
-        blocksProposed: Math.floor(metrics.blocks * 0.3),
-        rewards: (Number(stakeFormatted) * 0.15).toFixed(0),
-        aiTrustScore: metrics.aiScore,
-        jailedUntil: null,
-        website: v.website || undefined,
-        description: v.description || `${v.tier} tier genesis validator`,
-        votingPower: (Number(stakeFormatted) / 375000).toFixed(4),
+        uptime: uptimePercent,
+        blocksProduced: v.totalBlocks || 0,
+        blocksProposed: Math.floor((v.totalBlocks || 0) * 0.3),
+        rewards: v.rewardEarned ? (Number(BigInt(v.rewardEarned)) / 1e18).toFixed(0) : '0',
+        aiTrustScore: (v.aiTrustScore || 7500) / 100,
+        performanceScore: (v.performanceScore || 9000) / 100,
+        jailedUntil: v.status === 'jailed' ? new Date(Date.now() + 86400000).toISOString() : null,
+        votingPower: v.votingPower || '0',
         selfDelegation: stakeFormatted,
-        tier: v.tier,
-        priority: v.priority,
+        apy: (v.apy || 0) / 100,
+        missedBlocks: v.missedBlocks || 0,
+        slashCount: v.slashCount || 0,
       };
     });
     
-    const active = validators.filter(v => v.status === 'active').length;
-    const inactive = validators.filter(v => v.status === 'inactive').length;
-    const totalStake = validators.reduce((sum, v) => sum + Number(v.stake), 0);
-    const totalDelegators = validators.reduce((sum, v) => sum + v.delegators, 0);
+    const active = validatorResults.filter(v => v.status === 'active').length;
+    const inactive = validatorResults.filter(v => v.status === 'inactive').length;
+    const jailed = validatorResults.filter(v => v.status === 'jailed').length;
+    const totalStake = validatorResults.reduce((sum, v) => sum + Number(v.stake), 0);
+    const totalDelegators = validatorResults.reduce((sum, v) => sum + v.delegators, 0);
     
     res.json({
-      validators,
-      total: validators.length,
+      validators: validatorResults,
+      total: validatorResults.length,
       active,
       inactive,
-      jailed: 0,
+      jailed,
       totalStake,
       totalDelegators
     });
