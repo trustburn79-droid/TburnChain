@@ -264,3 +264,36 @@ export function encodeBool(value: boolean): Uint8Array {
 }
 
 export const ZERO_ADDRESS = bytesToAddress(new Uint8Array(20));
+
+/**
+ * Convert 0x hex address to tb1 bech32m address
+ */
+export function hexToTb1(hexAddress: string): string {
+  const bytes = hexToBytes(hexAddress);
+  return encodeBech32m(TBURN_HRP, bytes);
+}
+
+/**
+ * Convert tb1 bech32m address to 0x hex address
+ */
+export function tb1ToHex(tb1Address: string): string | null {
+  const decoded = decodeBech32m(tb1Address);
+  if (!decoded || decoded.data.length < 20) {
+    return null;
+  }
+  return '0x' + bytesToHex(decoded.data.slice(0, 20));
+}
+
+/**
+ * Normalize address to 0x format for database queries
+ * Accepts both tb1 and 0x formats
+ */
+export function normalizeToHex(address: string): string | null {
+  if (address.startsWith('0x')) {
+    return address.toLowerCase();
+  }
+  if (address.startsWith('tb1')) {
+    return tb1ToHex(address);
+  }
+  return null;
+}

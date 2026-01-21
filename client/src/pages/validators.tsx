@@ -2085,7 +2085,7 @@ export default function Validators() {
                         className="hover-elevate cursor-pointer"
                         data-testid={`row-validator-${validator.address?.slice(0, 10) || 'unknown'}`}
                         onClick={() => {
-                          setLocation(`/app/validator/${validator.address}`);
+                          setLocation(`/app/validator/${formatTBurnAddress(validator.address)}`);
                         }}
                       >
                         <TableCell className="font-mono text-sm">

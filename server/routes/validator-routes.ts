@@ -11,6 +11,7 @@ import {
 import { db } from '../db';
 import { validators, genesisValidators } from '@shared/schema';
 import { sql } from 'drizzle-orm';
+import { normalizeToHex, hexToTb1 } from '../utils/tbc20-address-utils';
 
 const router = Router();
 
@@ -94,14 +95,23 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-// ★ [2026-01-21] Validator detail by address
+// ★ [2026-01-21] Validator detail by address (supports both tb1 and 0x formats)
 router.get('/:address', async (req: Request, res: Response) => {
   try {
     const { address } = req.params;
     
+    // Normalize address to 0x format for database query
+    const hexAddress = normalizeToHex(address);
+    if (!hexAddress) {
+      return res.status(400).json({ 
+        error: 'Invalid address format',
+        message: 'Address must be in tb1 or 0x format'
+      });
+    }
+    
     // Query validator by address
     const validatorList = await db.select().from(validators).where(
-      sql`${validators.address} = ${address}`
+      sql`LOWER(${validators.address}) = ${hexAddress.toLowerCase()}`
     );
     
     if (validatorList.length === 0) {
