@@ -23,6 +23,7 @@ import {
   House
 } from "@phosphor-icons/react";
 import { type ValidatorDisplayData, transformValidator, type ValidatorData, calculateInfrastructureStats } from "@/lib/validator-utils";
+import { formatTBurnAddress } from "@/lib/utils";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -535,7 +536,7 @@ export default function ValidatorInfrastructure() {
                           data-testid={`validator-row-${validator.id}`}
                         >
                           <td className="p-4">
-                            <Link href={`/validator/${validator.address}`} className="flex items-center gap-3" data-testid={`link-validator-${validator.id}`}>
+                            <Link href={`/validator/${formatTBurnAddress(validator.address)}`} className="flex items-center gap-3" data-testid={`link-validator-${validator.id}`}>
                               <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold shadow-lg ${
                                 validator.isGenesis 
                                   ? 'bg-gradient-to-br from-orange-500 to-red-600' 

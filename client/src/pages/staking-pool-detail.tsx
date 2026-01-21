@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation } from "wouter";
+import { formatTBurnAddress } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -475,7 +476,7 @@ export default function StakingPoolDetail() {
               </div>
             </div>
 
-            <Button variant="outline" className="w-full" data-testid="button-view-validator" onClick={() => setLocation(`/app/validator/${pool.validatorAddress}`)}>
+            <Button variant="outline" className="w-full" data-testid="button-view-validator" onClick={() => setLocation(`/app/validator/${formatTBurnAddress(pool.validatorAddress)}`)}>
               {t('stakingPoolDetail.viewValidator')}
               <ExternalLink className="h-4 w-4 ml-2" />
             </Button>

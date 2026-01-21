@@ -1,4 +1,5 @@
 import { useParams, useLocation } from "wouter";
+import { formatTBurnAddress } from "@/lib/utils";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import {
@@ -429,9 +430,9 @@ export default function MemberDetailPage() {
                     {member.stakingPositions.map((position) => (
                       <TableRow key={position.id}>
                         <TableCell>
-                          <Button variant="ghost" className="p-0 h-auto font-mono" onClick={() => setLocation(`/app/validator/${position.validatorAddress}`)}>
-                            {position.validatorAddress.slice(0, 6)}...
-                            {position.validatorAddress.slice(-4)}
+                          <Button variant="ghost" className="p-0 h-auto font-mono" onClick={() => setLocation(`/app/validator/${formatTBurnAddress(position.validatorAddress)}`)}>
+                            {formatTBurnAddress(position.validatorAddress).slice(0, 8)}...
+                            {formatTBurnAddress(position.validatorAddress).slice(-6)}
                           </Button>
                         </TableCell>
                         <TableCell>

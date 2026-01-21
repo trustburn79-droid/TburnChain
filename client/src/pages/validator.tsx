@@ -17,6 +17,7 @@ import {
   House
 } from "@phosphor-icons/react";
 import { type ValidatorDisplayData, transformValidator, type ValidatorData } from "@/lib/validator-utils";
+import { formatTBurnAddress } from "@/lib/utils";
 import { DelegationDialog } from "@/components/DelegationDialog";
 import { Button } from "@/components/ui/button";
 import { TBurnLogo } from "@/components/tburn-logo";
@@ -421,11 +422,11 @@ export default function ValidatorCommandCenter() {
                         <tr 
                           key={validator.id} 
                           className="hover:bg-white/5 transition-colors group cursor-pointer"
-                          onClick={() => setLocation(`/validator/${validator.address}`)}
+                          onClick={() => setLocation(`/validator/${formatTBurnAddress(validator.address)}`)}
                           data-testid={`validator-row-${validator.id}`}
                         >
                           <td className="p-5">
-                            <Link href={`/validator/${validator.address}`} className="flex items-center gap-3" data-testid={`link-validator-${validator.id}`}>
+                            <Link href={`/validator/${formatTBurnAddress(validator.address)}`} className="flex items-center gap-3" data-testid={`link-validator-${validator.id}`}>
                               <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold shadow-lg ${
                                 validator.isGenesis 
                                   ? 'bg-gradient-to-br from-purple-600 to-blue-600' 

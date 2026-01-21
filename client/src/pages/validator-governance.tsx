@@ -13,6 +13,7 @@ import {
   House
 } from "@phosphor-icons/react";
 import { type ValidatorDisplayData, transformValidator, type ValidatorData } from "@/lib/validator-utils";
+import { formatTBurnAddress } from "@/lib/utils";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -347,7 +348,7 @@ export default function ValidatorGovernance() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               {topValidators.map((v, idx) => (
-                <Link key={v.id} href={`/validator/${v.address}`} className="p-4 rounded-xl bg-black/30 border border-slate-700 hover:border-orange-500/50 transition" data-testid={`top-validator-${idx}`}>
+                <Link key={v.id} href={`/validator/${formatTBurnAddress(v.address)}`} className="p-4 rounded-xl bg-black/30 border border-slate-700 hover:border-orange-500/50 transition" data-testid={`top-validator-${idx}`}>
                   <div className="flex items-center gap-3 mb-2">
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold ${
                       idx === 0 ? 'bg-gradient-to-br from-amber-500 to-orange-600' :
