@@ -30568,19 +30568,19 @@
       "stats": {
         "initialSupply": {
           "label": "초기 공급량",
-          "value": "1B TBURN"
+          "value": "100.0B"
         },
         "finalSupply": {
           "label": "최종 공급량",
-          "value": "100M TBURN"
+          "value": "69.4B"
         },
         "projectedBurn": {
           "label": "예상 소각량",
-          "value": "900M TBURN"
+          "value": "50.3B"
         },
         "reductionRate": {
           "label": "감소율",
-          "value": "90%"
+          "value": "30.6%"
         },
         "totalBurn": {
           "label": "예상 총 소각량",

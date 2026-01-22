@@ -46,7 +46,7 @@ export function LanguageSelector({ isDark = true }: LanguageSelectorProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="end" 
-        className={`w-48 max-h-80 overflow-y-auto ${isDark ? 'bg-gray-900 border-gray-700' : 'bg-white border-slate-200'}`}
+        className={`w-48 max-h-80 overflow-y-auto z-[1100] ${isDark ? 'bg-gray-900 border-gray-700' : 'bg-white border-slate-200'}`}
       >
         {languages.map((lang) => (
           <DropdownMenuItem
