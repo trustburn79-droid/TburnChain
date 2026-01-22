@@ -1363,7 +1363,7 @@ export default function FoundersPage() {
           <Link href="/" className="nav-link">{t("foundersPage.nav.home")}</Link>
           <a href="#founders" className="nav-link active">{t("foundersPage.nav.founders")}</a>
           <a href="#advisors" className="nav-link">{t("foundersPage.nav.advisors")}</a>
-          <Link href="/technology" className="nav-link">{t("foundersPage.nav.technology")}</Link>
+          <Link href="/technical-whitepaper" className="nav-link">{t("foundersPage.nav.technology")}</Link>
           <Link href="/whitepaper" className="nav-link">{t("foundersPage.nav.whitepaper")}</Link>
           <LanguageSelector isDark={true} />
           <Link href="/membership" className="nav-cta">{t("foundersPage.nav.joinNetwork")}</Link>
@@ -1654,7 +1654,7 @@ export default function FoundersPage() {
           <div className="footer-column">
             <h4>{t("foundersPage.footer.product")}</h4>
             <ul className="footer-links">
-              <li><Link href="/technology">{t("foundersPage.footer.links.technology")}</Link></li>
+              <li><Link href="/technical-whitepaper">{t("foundersPage.footer.links.technology")}</Link></li>
               <li><Link href="/whitepaper">{t("foundersPage.footer.links.whitepaper")}</Link></li>
               <li><Link href="/tokenomics">{t("foundersPage.footer.links.tokenomics")}</Link></li>
               <li><Link href="/roadmap">{t("foundersPage.footer.links.roadmap")}</Link></li>
