@@ -124,7 +124,8 @@ export default function FoundersPage() {
         t("foundersPage.founders.expertise.solidity"),
         t("foundersPage.founders.expertise.rust"),
         t("foundersPage.founders.expertise.typescript"),
-        t("foundersPage.founders.expertise.security")
+        t("foundersPage.founders.expertise.security"),
+        t("foundersPage.founders.expertise.metaverse")
       ],
       stats: [
         { value: "15+", label: t("foundersPage.founders.stats.yearsExp") },

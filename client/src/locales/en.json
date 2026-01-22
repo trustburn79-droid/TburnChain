@@ -431,6 +431,7 @@
     "nodeHealth": "Node Health",
     "performance": "Performance",
     "security": "Security",
+        "metaverse": "Metaverse",
     "apiKeys": "API Keys",
     "operator": "Operator",
     "operatorPortal": "Operator Portal",
@@ -1827,6 +1828,7 @@
     "tokensFound": "tokens found",
     "price": "Price",
     "security": "Security",
+        "metaverse": "Metaverse",
     "verified": "Verified",
     "noTokensFound": "No Tokens Found",
     "adjustFilters": "Try adjusting your search filters or search terms",
@@ -3535,6 +3537,7 @@
     },
     "categories": {
       "security": "Security",
+        "metaverse": "Metaverse",
       "consensus": "Consensus",
       "execution": "Execution",
       "validation": "Validation",
@@ -4205,6 +4208,7 @@
       "apiKeys": "API Keys",
       "operator": "Operator",
       "security": "Security",
+        "metaverse": "Metaverse",
       "whitepaper": "Whitepaper",
       "terms": "Terms"
     },
@@ -4346,6 +4350,7 @@
       "liveFeed": "Live Feed",
       "system": "System",
       "security": "Security",
+        "metaverse": "Metaverse",
       "analytics": "Analytics"
     },
     "overview": {
@@ -4856,6 +4861,7 @@
         "members": "Members",
         "validators": "Validators",
         "security": "Security",
+        "metaverse": "Metaverse",
         "settings": "Settings",
         "reports": "Reports",
         "kyc": "KYC",
@@ -5466,6 +5472,7 @@
       },
       "auditCategories": {
         "security": "Security",
+        "metaverse": "Metaverse",
         "validators": "Validators",
         "members": "Members",
         "config": "Configuration",
@@ -5504,6 +5511,7 @@
         "validators": "Validators",
         "config": "Configuration",
         "security": "Security",
+        "metaverse": "Metaverse",
         "network": "Network",
         "contracts": "Contracts",
         "transactions": "Transactions",
@@ -6173,6 +6181,7 @@
     "performance": "Performance",
     "governance": "Governance",
     "security": "Security",
+        "metaverse": "Metaverse",
     "activity": "Activity",
     "financial": "Financial",
     "accountOverview": "Account Overview",
@@ -7363,6 +7372,7 @@
     "competitiveEdge": "Competitive Edge",
     "aiSystem": "Quad-Band AI System",
     "security": "Security",
+        "metaverse": "Metaverse",
     "techStack": "Technology Stack",
     "tabs": {
       "overview": "Overview",
@@ -14981,6 +14991,7 @@
           "announcement": "Announcement",
           "technology": "Technology",
           "security": "Security",
+        "metaverse": "Metaverse",
           "tokenomics": "Tokenomics",
           "partnership": "Partnership",
           "defi": "DeFi",
@@ -16985,6 +16996,7 @@
         "tokenomics": "Tokenomics",
         "validators": "Validators",
         "security": "Security",
+        "metaverse": "Metaverse",
         "governance": "Governance",
         "network": "Network"
       },
@@ -18465,6 +18477,7 @@
       "gettingStarted": "Getting Started",
       "network": "Network",
       "security": "Security",
+        "metaverse": "Metaverse",
       "ai": "AI",
       "operations": "Operations",
       "settings": "Settings"
@@ -18937,6 +18950,7 @@
         "rust": "Rust",
         "typescript": "TypeScript",
         "security": "Security",
+        "metaverse": "Metaverse",
     "ipAddress": "IP Address",
     "version": "Version",
     "editNode": "Edit Node",
@@ -19234,6 +19248,7 @@
         "rust": "Rust",
         "typescript": "TypeScript",
         "security": "Security",
+        "metaverse": "Metaverse",
     "committee": "Committee",
     "blockchainParams": "Blockchain Parameters",
     "blockchainParamsDesc": "Configure core blockchain settings",
@@ -20481,6 +20496,7 @@
       "configuration": "Configuration",
       "operations": "Operations",
       "security": "Security",
+        "metaverse": "Metaverse",
       "userManagement": "User Management",
       "development": "Development",
       "system": "System",
@@ -20675,6 +20691,7 @@
       "tps": "TPS",
       "overallScore": "Overall Score",
       "security": "Security",
+        "metaverse": "Metaverse",
       "dataProtection": "Data Protection",
       "operationalRisk": "Operational Risk",
       "regulatory": "Regulatory"
@@ -20882,6 +20899,7 @@
       "alerts": "Alerts",
       "documentation": "Documentation",
       "security": "Security",
+        "metaverse": "Metaverse",
       "uiux": "UI/UX",
       "bug": "버그",
       "feature": "Feature",
@@ -21654,6 +21672,7 @@
       "general": "General",
       "network": "Network",
       "security": "Security",
+        "metaverse": "Metaverse",
       "notifications": "Notifications",
       "appearance": "Appearance"
     },
@@ -21859,7 +21878,8 @@
       "keys": "API Keys",
       "rateLimits": "Rate Limits",
       "endpoints": "Endpoints",
-      "security": "Security"
+      "security": "Security",
+        "metaverse": "Metaverse"
     },
     "keys": {
       "title": "API Keys",
@@ -21989,6 +22009,7 @@
       "analytics": "Analytics",
       "monitoring": "Monitoring",
       "security": "Security",
+        "metaverse": "Metaverse",
       "communication": "Communication",
       "storage": "Storage"
     },
@@ -22436,7 +22457,8 @@
     "cancel": "Cancel",
     "detail": {
       "accountInfo": "Account Information",
-      "security": "Security"
+      "security": "Security",
+        "metaverse": "Metaverse"
     },
     "confirm": {
       "deleteTitle": "Delete Account",
@@ -22799,6 +22821,7 @@
       "delete": "Delete",
       "login": "Login",
       "security": "Security",
+        "metaverse": "Metaverse",
       "settings": "Settings",
       "update": "Update",
       "view": "View"
@@ -23347,6 +23370,7 @@
     "executionSettings": "Execution Settings",
     "executionSettingsDesc": "Configure proposal execution rules",
     "security": "Security",
+        "metaverse": "Metaverse",
     "securitySettings": "Security Settings",
     "securitySettingsDesc": "Configure security parameters",
     "securityAlerts": "Security Alerts",
@@ -23732,6 +23756,7 @@
         "rust": "Rust",
         "typescript": "TypeScript",
         "security": "Security",
+        "metaverse": "Metaverse",
       "wallet": "Wallet",
       "transaction": "Transaction",
       "token": "Token",
@@ -25304,6 +25329,7 @@
       "development": "Development",
       "marketing": "Marketing",
       "security": "Security",
+        "metaverse": "Metaverse",
       "research": "Research & Development",
       "legal": "Legal",
       "hr": "Human Resources",
@@ -25314,6 +25340,7 @@
       "engineering": "Engineering",
       "marketing": "Marketing",
       "security": "Security",
+        "metaverse": "Metaverse",
       "operations": "Operations",
       "rd": "R&D",
       "legal": "Legal",
@@ -25552,6 +25579,7 @@
       "infrastructure": "Infrastructure",
       "aiServices": "AI Services",
       "security": "Security",
+        "metaverse": "Metaverse",
       "operations": "Operations",
       "other": "Other"
     },
@@ -25812,6 +25840,7 @@
     "popularTopics": {
       "validators": "Validators",
       "security": "Security",
+        "metaverse": "Metaverse",
       "aiConfig": "AI Configuration"
     },
     "tabs": {
@@ -25834,6 +25863,7 @@
       "bridge": "Bridge",
       "governance": "Governance",
       "security": "Security",
+        "metaverse": "Metaverse",
       "troubleshooting": "Troubleshooting",
       "api": "API"
     },
@@ -27059,6 +27089,7 @@
       "solutions": "Solutions",
       "community": "Community",
       "security": "Security",
+        "metaverse": "Metaverse",
       "tokenomics": "Tokenomics"
     },
     "content": {
@@ -29345,6 +29376,7 @@
       "tokenStandards": "Token Standards",
       "defi": "DeFi Stack",
       "security": "Security",
+        "metaverse": "Metaverse",
       "governance": "Governance",
       "roadmap": "Roadmap"
     },
@@ -30987,6 +31019,7 @@
         "rust": "Rust",
         "typescript": "TypeScript",
         "security": "Security",
+        "metaverse": "Metaverse",
       "finance": "Finance",
       "legal": "Legal & Compliance",
       "marketing": "Marketing",
@@ -33143,6 +33176,11 @@
         "company": "TBURN CHAINS Foundation",
         "bio": "A key founding investor who has been directly investing in TBURN Mainnet for 5 years. Contributed to the project's early development and growth through strategic investment and advisory."
       },
+      "jesseKim": {
+        "role": "CEO",
+        "company": "TBURN CHAINS Foundation · METALOCK Chairman",
+        "bio": "CEO of TBURN Mainnet and Core Development Team leader. Chairman of METALOCK and metaverse expert. Pioneer in blockchain security with deep experience in Solidity, Rust, and TypeScript smart contract development. Leading next-generation distributed computing paradigms."
+      },
       "minJunKim": {
         "role": "Chief AI Officer",
         "company": "Ex-OpenAI, MIT PhD",
@@ -33203,7 +33241,8 @@
         "solidity": "Solidity",
         "rust": "Rust",
         "typescript": "TypeScript",
-        "security": "Security"
+        "security": "Security",
+        "metaverse": "Metaverse"
       }
     },
     "advisorsSection": {

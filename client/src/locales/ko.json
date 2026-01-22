@@ -191,6 +191,7 @@
     "nodeHealth": "노드 상태",
     "performance": "성능",
     "security": "보안",
+        "metaverse": "메타버스",
     "apiKeys": "API 키",
     "operator": "운영자",
     "operatorPortal": "운영자 포털",
@@ -1677,6 +1678,7 @@
     "tokensFound": "개 토큰 발견",
     "price": "가격",
     "security": "보안",
+        "metaverse": "메타버스",
     "verified": "검증됨",
     "adjustFilters": "검색 필터 또는 검색어를 조정해 보세요",
     "tokenInfo": "토큰 정보",
@@ -3765,6 +3767,7 @@
     },
     "categories": {
       "security": "보안",
+        "metaverse": "메타버스",
       "consensus": "합의",
       "execution": "실행",
       "genesisCreated": "제네시스 블록 생성됨",
@@ -4460,6 +4463,7 @@
       "apiKeys": "API 키",
       "operator": "운영자",
       "security": "보안",
+        "metaverse": "메타버스",
       "whitepaper": "백서",
       "terms": "이용약관"
     },
@@ -4623,6 +4627,7 @@
       "overview": "개요",
       "system": "시스템",
       "security": "보안",
+        "metaverse": "메타버스",
       "analytics": "분석",
       "liveFeed": "실시간 피드"
     },
@@ -5269,6 +5274,7 @@
         "validators": "검증자",
         "validatorsRegistered": "검증자 등록됨",
         "security": "보안",
+        "metaverse": "메타버스",
         "settings": "설정",
         "reports": "보고서",
         "kyc": "KYC",
@@ -5763,6 +5769,7 @@
       },
       "auditCategories": {
         "security": "보안",
+        "metaverse": "메타버스",
         "validators": "검증자",
         "validatorsRegistered": "검증자 등록됨",
         "members": "멤버",
@@ -5803,6 +5810,7 @@
         "validatorsRegistered": "검증자 등록됨",
         "config": "설정",
         "security": "보안",
+        "metaverse": "메타버스",
         "network": "네트워크",
         "contracts": "컨트랙트",
         "transactions": "트랜잭션",
@@ -6485,6 +6493,7 @@
     "performance": "성능",
     "governance": "거버넌스",
     "security": "보안",
+        "metaverse": "메타버스",
     "activity": "활동",
     "accountOverview": "계정 개요",
     "profileInformation": "프로필 정보",
@@ -7712,6 +7721,7 @@
     "competitiveEdge": "경쟁 우위",
     "aiSystem": "Quad-Band AI 시스템",
     "security": "보안",
+        "metaverse": "메타버스",
     "techStack": "기술 스택",
     "tabs": {
       "overview": "개요",
@@ -16757,6 +16767,7 @@
         "tokenomics": "토크노믹스",
         "validators": "검증자",
         "security": "보안",
+        "metaverse": "메타버스",
         "governance": "거버넌스",
         "network": "네트워크"
       },
@@ -18451,6 +18462,7 @@
       "gettingStarted": "시작하기",
       "network": "네트워크",
       "security": "보안",
+        "metaverse": "메타버스",
       "ai": "AI",
       "operations": "운영",
       "settings": "설정"
@@ -18791,6 +18803,7 @@
         "rust": "Rust",
         "typescript": "TypeScript",
         "security": "보안",
+        "metaverse": "메타버스",
     "ipAddress": "IP 주소",
     "version": "버전",
     "editNode": "노드 편집",
@@ -19135,6 +19148,7 @@
         "rust": "Rust",
         "typescript": "TypeScript",
         "security": "보안",
+        "metaverse": "메타버스",
     "committee": "위원회",
     "blockchainParams": "블록체인 파라미터",
     "blockchainParamsDesc": "핵심 블록체인 설정 구성",
@@ -20069,6 +20083,7 @@
     "stats": {
       "overallScore": "전체 점수",
       "security": "보안",
+        "metaverse": "메타버스",
       "dataProtection": "데이터 보호",
       "operationalRisk": "운영 리스크",
       "regulatory": "규제"
@@ -20386,6 +20401,7 @@
       "alerts": "알림",
       "documentation": "문서",
       "security": "보안",
+        "metaverse": "메타버스",
       "uiux": "UI/UX",
       "bug": "버그",
       "feature": "기능",
@@ -20528,6 +20544,7 @@
       "configuration": "설정",
       "operations": "운영",
       "security": "보안",
+        "metaverse": "메타버스",
       "userManagement": "사용자 관리",
       "development": "개발",
       "system": "시스템",
@@ -21518,6 +21535,7 @@
       "general": "일반",
       "network": "네트워크",
       "security": "보안",
+        "metaverse": "메타버스",
       "notifications": "알림",
       "appearance": "외관"
     },
@@ -21726,7 +21744,8 @@
       "keys": "API 키",
       "rateLimits": "요청 제한",
       "endpoints": "엔드포인트",
-      "security": "보안"
+      "security": "보안",
+        "metaverse": "메타버스"
     },
     "keys": {
       "title": "API 키",
@@ -21859,6 +21878,7 @@
       "analytics": "분석",
       "monitoring": "모니터링",
       "security": "보안",
+        "metaverse": "메타버스",
       "communication": "통신",
       "storage": "스토리지"
     },
@@ -22315,7 +22335,8 @@
     "cancel": "취소",
     "detail": {
       "accountInfo": "계정 정보",
-      "security": "보안"
+      "security": "보안",
+        "metaverse": "메타버스"
     },
     "confirm": {
       "deleteTitle": "계정 삭제",
@@ -22843,6 +22864,7 @@
       "delete": "삭제",
       "login": "로그인",
       "security": "보안",
+        "metaverse": "메타버스",
       "settings": "설정",
       "update": "업데이트",
       "view": "조회"
@@ -23403,6 +23425,7 @@
     "executionSettings": "실행 설정",
     "executionSettingsDesc": "제안 실행 규칙 구성",
     "security": "보안",
+        "metaverse": "메타버스",
     "securitySettings": "보안 설정",
     "securitySettingsDesc": "보안 파라미터 구성",
     "securityAlerts": "보안 알림",
@@ -23796,6 +23819,7 @@
         "rust": "Rust",
         "typescript": "TypeScript",
         "security": "보안",
+        "metaverse": "메타버스",
       "wallet": "지갑",
       "transaction": "트랜잭션",
       "token": "토큰",
@@ -25531,6 +25555,7 @@
       "development": "개발",
       "marketing": "마케팅",
       "security": "보안",
+        "metaverse": "메타버스",
       "research": "연구개발",
       "legal": "법무",
       "hr": "인사",
@@ -25541,6 +25566,7 @@
       "engineering": "엔지니어링",
       "marketing": "마케팅",
       "security": "보안",
+        "metaverse": "메타버스",
       "operations": "운영",
       "rd": "연구개발",
       "legal": "법무",
@@ -25771,6 +25797,7 @@
       "infrastructure": "인프라",
       "aiServices": "AI 서비스",
       "security": "보안",
+        "metaverse": "메타버스",
       "operations": "운영",
       "other": "기타"
     },
@@ -26037,6 +26064,7 @@
       "validators": "검증자",
       "validatorsRegistered": "검증자 등록됨",
       "security": "보안",
+        "metaverse": "메타버스",
       "aiConfig": "AI 설정"
     },
     "tabs": {
@@ -26060,6 +26088,7 @@
       "bridge": "브릿지",
       "governance": "거버넌스",
       "security": "보안",
+        "metaverse": "메타버스",
       "troubleshooting": "문제 해결",
       "api": "API"
     },
@@ -27606,6 +27635,7 @@
       "solutions": "솔루션",
       "community": "커뮤니티",
       "security": "보안",
+        "metaverse": "메타버스",
       "tokenomics": "토크노믹스"
     },
     "content": {
@@ -29885,6 +29915,7 @@
       "tokenStandards": "토큰 표준",
       "defi": "DeFi 스택",
       "security": "보안",
+        "metaverse": "메타버스",
       "governance": "거버넌스",
       "roadmap": "로드맵"
     },
@@ -33129,6 +33160,7 @@
         "rust": "Rust",
         "typescript": "TypeScript",
         "security": "보안",
+        "metaverse": "메타버스",
       "finance": "금융",
       "legal": "법률 & 컴플라이언스",
       "marketing": "마케팅",
@@ -38360,6 +38392,11 @@
         "company": "TBURN CHAINS Foundation",
         "bio": "5년간의 TBURN Mainnet 직접 투자에 참여한 핵심 창립투자자. 전략적 투자와 자문을 통해 프로젝트의 초기 개발과 성장에 기여했습니다."
       },
+      "jesseKim": {
+        "role": "CEO",
+        "company": "TBURN CHAINS Foundation · METALOCK 의장",
+        "bio": "TBURN Mainnet CEO이자 핵심 개발팀 리더. METALOCK 의장이자 메타버스 전문가. Solidity, Rust, TypeScript 스마트 컨트랙트 개발에 깊은 경험을 보유한 블록체인 보안 선구자. 차세대 분산 컴퓨팅 패러다임을 주도하고 있습니다."
+      },
       "minJunKim": {
         "role": "최고 AI 책임자",
         "company": "전 OpenAI, MIT 박사",
@@ -38420,7 +38457,8 @@
         "solidity": "Solidity",
         "rust": "Rust",
         "typescript": "TypeScript",
-        "security": "보안"
+        "security": "보안",
+        "metaverse": "메타버스"
       }
     },
     "advisorsSection": {
