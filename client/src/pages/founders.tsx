@@ -121,11 +121,10 @@ export default function FoundersPage() {
       company: t("foundersPage.founders.jesseKim.company"),
       bio: t("foundersPage.founders.jesseKim.bio"),
       expertise: [
-        t("foundersPage.founders.expertise.solidity"),
-        t("foundersPage.founders.expertise.rust"),
-        t("foundersPage.founders.expertise.typescript"),
-        t("foundersPage.founders.expertise.security"),
-        t("foundersPage.founders.expertise.metaverse")
+        t("foundersPage.founders.expertise.businessAnalysis"),
+        t("foundersPage.founders.expertise.businessPlanning"),
+        t("foundersPage.founders.expertise.metaverse"),
+        t("foundersPage.founders.expertise.realMetaverse")
       ],
       stats: [
         { value: "15+", label: t("foundersPage.founders.stats.yearsExp") },
