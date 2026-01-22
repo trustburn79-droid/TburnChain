@@ -591,11 +591,13 @@ export default function FoundersPage() {
 
         .hero-title {
           font-family: var(--font-display);
-          font-size: clamp(3rem, 8vw, 6rem);
+          font-size: clamp(1.75rem, 6vw, 6rem);
           font-weight: 800;
           line-height: 1.1;
           margin-bottom: 1.5rem;
           letter-spacing: -0.03em;
+          word-break: keep-all;
+          overflow-wrap: break-word;
         }
 
         .hero-title-gradient {
@@ -606,11 +608,12 @@ export default function FoundersPage() {
         }
 
         .hero-subtitle {
-          font-size: clamp(1.125rem, 2vw, 1.375rem);
+          font-size: clamp(0.875rem, 2vw, 1.375rem);
           color: var(--color-text-secondary);
           max-width: 700px;
-          margin: 0 auto 3rem;
+          margin: 0 auto 2rem;
           line-height: 1.7;
+          padding: 0 1rem;
         }
 
         .hero-stats {
@@ -717,7 +720,7 @@ export default function FoundersPage() {
           max-width: 1400px;
           margin: 0 auto;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
           gap: 2rem;
           padding: 0 2rem;
         }
@@ -1359,19 +1362,72 @@ export default function FoundersPage() {
         }
 
         @media (max-width: 768px) {
-          .hero-stats { gap: 2rem; }
-          .founders-grid { grid-template-columns: 1fr; }
-          .founder-card.featured { padding: 2rem; }
+          .hero { padding: 8rem 1.5rem 4rem; }
+          .hero-title { font-size: clamp(1.5rem, 7vw, 3rem); }
+          .hero-subtitle { font-size: 1rem; padding: 0 0.5rem; }
+          .hero-stats { gap: 1.5rem; }
+          .hero-stat-value { font-size: 2rem; }
+          .hero-stat-label { font-size: 0.75rem; }
+          .section { padding: 4rem 1rem; }
+          .section-title { font-size: 1.75rem; }
+          .section-subtitle { font-size: 1rem; padding: 0 0.5rem; }
+          .founders-grid { 
+            grid-template-columns: 1fr; 
+            padding: 0 1rem;
+            gap: 1.5rem;
+          }
+          .founder-card { padding: 1.5rem; border-radius: 16px; }
+          .founder-card.featured { padding: 1.5rem; }
+          .founder-name { font-size: 1.25rem; }
+          .founder-role { font-size: 0.875rem; }
+          .founder-company { font-size: 0.75rem; }
+          .founder-bio { font-size: 0.875rem; line-height: 1.6; }
+          .founder-avatar { width: 60px; height: 60px; }
+          .founder-avatar-initials { font-size: 1.25rem; }
+          .founder-expertise { gap: 0.5rem; }
+          .founder-expertise-tag { padding: 0.4rem 0.75rem; font-size: 0.7rem; }
+          .founder-stats-grid { gap: 1rem; }
+          .founder-stat-value { font-size: 1.25rem; }
+          .founder-stat-label { font-size: 0.65rem; }
           .footer-content { grid-template-columns: 1fr; }
           .footer-bottom { flex-direction: column; text-align: center; }
+          .cta-section { padding: 5rem 1rem; }
+          .cta-title { font-size: 1.75rem; }
+          .cta-description { font-size: 1rem; }
+          .cta-buttons { flex-direction: column; align-items: center; }
+          .btn-primary, .btn-secondary { width: 100%; max-width: 280px; justify-content: center; }
         }
 
         @media (max-width: 480px) {
           .hero { padding: 6rem 1rem 3rem; }
-          .section { padding: 4rem 1rem; }
-          .founder-header { flex-direction: column; text-align: center; }
-          .founder-avatar { margin: 0 auto; }
-          .founder-expertise { justify-content: center; }
+          .hero-title { font-size: clamp(1.25rem, 6vw, 2rem); line-height: 1.2; }
+          .hero-badge { font-size: 0.7rem; padding: 0.4rem 1rem; }
+          .section { padding: 3rem 0.75rem; }
+          .section-title { font-size: 1.5rem; }
+          .founders-grid { padding: 0 0.75rem; gap: 1rem; }
+          .founder-card { padding: 1.25rem; }
+          .founder-header { flex-direction: column; text-align: center; gap: 0.75rem; }
+          .founder-avatar { margin: 0 auto; width: 56px; height: 56px; }
+          .founder-info { text-align: center; }
+          .founder-name { font-size: 1.125rem; }
+          .founder-expertise { justify-content: center; flex-wrap: wrap; }
+          .founder-expertise-tag { padding: 0.35rem 0.6rem; font-size: 0.65rem; }
+          .founder-stats-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+          .founder-stat-value { font-size: 1.1rem; }
+          .founder-stat-label { font-size: 0.6rem; }
+          .hero-stats { gap: 1rem; flex-wrap: wrap; }
+          .hero-stat-value { font-size: 1.75rem; }
+          .contacts-section { padding: 3rem 0.75rem; }
+          .contacts-table { font-size: 0.8rem; }
+        }
+
+        @media (max-width: 360px) {
+          .hero-title { font-size: 1.1rem; }
+          .hero-subtitle { font-size: 0.875rem; }
+          .founder-card { padding: 1rem; }
+          .founder-avatar { width: 48px; height: 48px; }
+          .founder-name { font-size: 1rem; }
+          .founder-expertise-tag { padding: 0.3rem 0.5rem; font-size: 0.6rem; }
         }
       `}</style>
 
