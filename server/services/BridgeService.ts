@@ -1,5 +1,6 @@
 import { db } from "../db";
 import { eq, and, desc, gte, lte, sql, or } from "drizzle-orm";
+import { addressFromString } from '../utils/tburn-address';
 import {
   bridgeChains,
   bridgeRoutes,
@@ -124,7 +125,7 @@ export class BridgeService {
     }
 
     const tokens = [
-      { symbol: "TBURN", address: "0x0000000000000000000000000000000000000001" },
+      { symbol: "TBURN", address: addressFromString('tburn-native-token') },
       { symbol: "USDT", address: "0xdAC17F958D2ee523a2206206994597C13D831ec7" },
       { symbol: "USDC", address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" },
       { symbol: "WBTC", address: "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599" },
@@ -639,7 +640,7 @@ export class BridgeService {
       destinationChainId: data.destinationChainId,
       senderAddress,
       recipientAddress,
-      tokenAddress: route?.tokenAddress || "0x0000000000000000000000000000000000000001",
+      tokenAddress: route?.tokenAddress || addressFromString('tburn-native-token'),
       tokenSymbol: data.tokenSymbol || "TBURN",
       amount: data.amount,
       feeAmount: feeAmount,

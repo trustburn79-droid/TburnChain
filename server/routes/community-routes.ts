@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { storage } from "../storage";
+import { addressFromString } from "../utils/tburn-address";
 import type { 
   CommunityStats, 
   CommunityLeaderboardMember,
@@ -435,7 +436,7 @@ router.post("/posts", async (req: Request, res: Response) => {
     
     const postData: InsertCommunityPost = {
       authorId: authorId || 0,
-      authorAddress: authorAddress || "0x0000000000000000000000000000000000000000",
+      authorAddress: authorAddress || addressFromString('tburn-community-author'),
       authorUsername: author || "Anonymous",
       title,
       content,
@@ -635,7 +636,7 @@ router.post("/posts/:postId/comments", async (req: Request, res: Response) => {
     const commentData: InsertCommunityComment = {
       postId,
       authorId: authorId || 0,
-      authorAddress: authorAddress || "0x0000000000000000000000000000000000000000",
+      authorAddress: authorAddress || addressFromString('tburn-community-author'),
       authorUsername: author || "Anonymous",
       content,
       parentCommentId: parentCommentId || null,

@@ -13,6 +13,7 @@ import { Router, Request, Response } from 'express';
 import { db } from '../db';
 import { networkStats, genesisValidators } from '@shared/schema';
 import { desc, eq } from 'drizzle-orm';
+import { addressFromString } from '../utils/tburn-address';
 
 const router = Router();
 
@@ -77,7 +78,7 @@ async function handleRpcMethod(method: string, params: any[] = []): Promise<any>
         gasLimit: '0x1c9c380',
         gasUsed: '0x0',
         transactions: fullTx ? [] : [],
-        miner: '0x0000000000000000000000000000000000000000',
+        miner: addressFromString('tburn-block-producer'),
         difficulty: '0x0',
         totalDifficulty: '0x0',
         size: '0x0',

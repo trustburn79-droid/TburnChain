@@ -4,6 +4,7 @@ import { z } from "zod";
 import { storage } from "../storage";
 import { getEnterpriseNode } from "../services/TBurnEnterpriseNode";
 import { tburnWalletService } from "../services/TBurnWalletService";
+import { addressFromString } from "../utils/tburn-address";
 import { db } from "../db";
 import { 
   walletBalances,
@@ -55,7 +56,7 @@ export function registerWalletDashboardRoutes(
 
   app.get("/api/wallet/balance", async (req: Request, res: Response) => {
     try {
-      const address = (req.query.address as string) || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
+      const address = (req.query.address as string) || addressFromString('tburn-default-wallet');
       
       const nodeStatus = enterpriseNode.getStatus();
       const tokenEconomics = enterpriseNode.getTokenEconomics();
@@ -238,7 +239,7 @@ export function registerWalletDashboardRoutes(
 
   app.get("/api/wallet/performance", async (req: Request, res: Response) => {
     try {
-      const address = (req.query.address as string) || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
+      const address = (req.query.address as string) || addressFromString('tburn-default-wallet');
       const range = timeRangeSchema.parse(req.query.range);
       
       const tokenEconomics = enterpriseNode.getTokenEconomics();
@@ -314,7 +315,7 @@ export function registerWalletDashboardRoutes(
 
   app.get("/api/wallet/activities", async (req: Request, res: Response) => {
     try {
-      const address = (req.query.address as string) || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
+      const address = (req.query.address as string) || addressFromString('tburn-default-wallet');
       const limit = Math.min(parseInt(req.query.limit as string) || 20, 100);
       const cursor = req.query.cursor as string;
 
@@ -420,7 +421,7 @@ export function registerWalletDashboardRoutes(
 
   app.post("/api/wallet/receive", requireAuth, async (req: Request, res: Response) => {
     try {
-      const address = (req.query.address as string) || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
+      const address = (req.query.address as string) || addressFromString('tburn-default-wallet');
       
       const qrData = {
         address,
@@ -448,7 +449,7 @@ export function registerWalletDashboardRoutes(
 
   app.post("/api/wallet/swap", requireAuth, async (req: Request, res: Response) => {
     try {
-      const address = (req.query.address as string) || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
+      const address = (req.query.address as string) || addressFromString('tburn-default-wallet');
       const validation = swapTokenSchema.safeParse(req.body);
       
       if (!validation.success) {

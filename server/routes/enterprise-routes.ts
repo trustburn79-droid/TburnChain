@@ -13,6 +13,7 @@ import { dataHub } from '../services/DataHub';
 import { eventBus } from '../services/EventBus';
 import { getEnterpriseNode } from '../services/TBurnEnterpriseNode';
 import { storage } from '../storage';
+import { addressFromString } from '../utils/tburn-address';
 import { 
   stakingOrchestrator,
   dexOrchestrator,
@@ -1678,7 +1679,7 @@ router.get('/admin/token/issuance', async (req: Request, res: Response) => {
             status: 'active', 
             aiEnabled: true,
             deployedAt: '2024-01-15T00:00:00Z',
-            contractAddress: '0x1234567890abcdef1234567890abcdef12345678'
+            contractAddress: addressFromString('tburn-contract-tburn-main')
           },
           { 
             id: 2, 
@@ -1691,7 +1692,7 @@ router.get('/admin/token/issuance', async (req: Request, res: Response) => {
             status: 'active', 
             aiEnabled: false,
             deployedAt: '2024-03-20T00:00:00Z',
-            contractAddress: '0xabcdef1234567890abcdef1234567890abcdef12'
+            contractAddress: addressFromString('tburn-contract-wtburn')
           },
           { 
             id: 3, 
@@ -1704,7 +1705,7 @@ router.get('/admin/token/issuance', async (req: Request, res: Response) => {
             status: 'active', 
             aiEnabled: false,
             deployedAt: '2024-05-10T00:00:00Z',
-            contractAddress: '0x567890abcdef1234567890abcdef1234567890ab'
+            contractAddress: addressFromString('tburn-contract-nft')
           },
           { 
             id: 4, 
@@ -1717,7 +1718,7 @@ router.get('/admin/token/issuance', async (req: Request, res: Response) => {
             status: 'paused', 
             aiEnabled: true,
             deployedAt: '2024-06-25T00:00:00Z',
-            contractAddress: '0xcdef1234567890abcdef1234567890abcdef1234'
+            contractAddress: addressFromString('tburn-contract-rewards')
           }
         ],
         supplyStats: {

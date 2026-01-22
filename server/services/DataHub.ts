@@ -11,6 +11,7 @@ import type {
 } from "@shared/schema";
 import { storage } from '../storage';
 import { eventBus } from './EventBus';
+import { addressFromString } from '../utils/tburn-address';
 
 export interface NetworkSnapshot {
   timestamp: number;
@@ -297,7 +298,7 @@ class DataHubService {
       // Native TBURN balance
       const balance = await this.getAccountBalance(address);
       holdings.push({
-        tokenAddress: '0x0000000000000000000000000000000000000000',
+        tokenAddress: addressFromString('tburn-native-token'),
         tokenSymbol: 'TBURN',
         tokenName: 'TBURN Native Token',
         tokenType: 'TBC-20',
@@ -309,7 +310,7 @@ class DataHubService {
       const stakedAmount = await this.getAccountStakedAmount(address);
       if (parseFloat(stakedAmount) > 0) {
         holdings.push({
-          tokenAddress: '0x0000000000000000000000000000000000000001',
+          tokenAddress: addressFromString('tburn-token-001'),
           tokenSymbol: 'stTBURN',
           tokenName: 'Staked TBURN',
           tokenType: 'TBC-20',
@@ -322,7 +323,7 @@ class DataHubService {
       const nftAssets = await this.getAccountNftAssets(address);
       if (nftAssets.length > 0) {
         holdings.push({
-          tokenAddress: '0x0000000000000000000000000000000000000002',
+          tokenAddress: addressFromString('tburn-token-002'),
           tokenSymbol: 'TBURN-NFT',
           tokenName: 'TBURN NFT Collection',
           tokenType: 'TBC-721',

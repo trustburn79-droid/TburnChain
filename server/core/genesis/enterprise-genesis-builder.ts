@@ -19,6 +19,7 @@ import path from 'path';
 
 // Import genesis config
 import { GENESIS_CONFIG, GENESIS_ALLOCATION, GENESIS_VALIDATORS } from './enterprise-genesis-config';
+import { addressFromString } from '../../utils/tburn-address';
 
 // ============================================================================
 // Configuration
@@ -405,7 +406,7 @@ export class EnterpriseGenesisBuilder extends EventEmitter {
   addSystemContracts(): void {
     // Staking contract
     this.stateBuilder.addAccount({
-      address: '0x0000000000000000000000000000000000001000',
+      address: addressFromString('tburn-system-staking'),
       balance: '0',
       nonce: 0,
       code: '0x', // Placeholder for staking contract bytecode
@@ -414,7 +415,7 @@ export class EnterpriseGenesisBuilder extends EventEmitter {
     
     // Slashing contract
     this.stateBuilder.addAccount({
-      address: '0x0000000000000000000000000000000000001001',
+      address: addressFromString('tburn-system-slashing'),
       balance: '0',
       nonce: 0,
       code: '0x',
@@ -423,7 +424,7 @@ export class EnterpriseGenesisBuilder extends EventEmitter {
     
     // Rewards contract
     this.stateBuilder.addAccount({
-      address: '0x0000000000000000000000000000000000001002',
+      address: addressFromString('tburn-system-rewards'),
       balance: '0',
       nonce: 0,
       code: '0x',
@@ -432,7 +433,7 @@ export class EnterpriseGenesisBuilder extends EventEmitter {
     
     // Governance contract
     this.stateBuilder.addAccount({
-      address: '0x0000000000000000000000000000000000001003',
+      address: addressFromString('tburn-system-governance'),
       balance: '0',
       nonce: 0,
       code: '0x',
@@ -441,7 +442,7 @@ export class EnterpriseGenesisBuilder extends EventEmitter {
     
     // Bridge contract
     this.stateBuilder.addAccount({
-      address: '0x0000000000000000000000000000000000001004',
+      address: addressFromString('tburn-system-bridge'),
       balance: '0',
       nonce: 0,
       code: '0x',
@@ -739,7 +740,7 @@ export async function buildDevnetGenesis(): Promise<GenesisBlock> {
   
   // Add minimal allocation
   builder.addCustomAllocation(
-    '0x1111111111111111111111111111111111111111',
+    addressFromString('tburn-dev-account'),
     '1000000000000000000000000000', // 1B TBURN
     'Dev Account'
   );
