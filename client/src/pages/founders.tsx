@@ -133,6 +133,23 @@ export default function FoundersPage() {
       ]
     },
     {
+      initials: "JP",
+      name: "Jone Park",
+      role: t("foundersPage.founders.jonePark.role"),
+      company: t("foundersPage.founders.jonePark.company"),
+      bio: t("foundersPage.founders.jonePark.bio"),
+      expertise: [
+        t("foundersPage.founders.expertise.tradeExpert"),
+        t("foundersPage.founders.expertise.globalBroker"),
+        t("foundersPage.founders.expertise.internationalBusiness")
+      ],
+      stats: [
+        { value: "20+", label: t("foundersPage.founders.stats.yearsExp") },
+        { value: "50+", label: t("foundersPage.founders.stats.partnerships") },
+        { value: "30+", label: t("foundersPage.founders.stats.countries") }
+      ]
+    },
+    {
       initials: "MK",
       name: "Min-Jun Kim",
       role: t("foundersPage.founders.minJunKim.role"),
