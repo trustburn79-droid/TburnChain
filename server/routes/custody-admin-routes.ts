@@ -5,23 +5,148 @@
 
 import { Router, Request, Response } from "express";
 import { db } from "../db";
-import { multisigSigners, multisigWallets, custodyTransactions, custodyTransactionApprovals } from "@shared/schema";
-import { eq, and, desc, sql } from "drizzle-orm";
+import { multisigSigners, multisigWallets, custodyTransactions, custodyTransactionApprovals, custodyAuditLogs } from "@shared/schema";
+import { eq, and, desc, sql, lt } from "drizzle-orm";
 import { requireAdmin } from "../middleware/auth";
 import crypto from "crypto";
 import { z } from "zod";
+
+// ============================================
+// TBURN Address Validation (Bech32m tb1 format)
+// ============================================
+
+/**
+ * Validate TBURN mainnet address format
+ * Format: tb1 prefix + 39-59 Bech32m characters (lowercase)
+ * Examples: tb1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+ */
+function isValidTburnAddress(address: string): boolean {
+  // Must start with tb1 (mainnet prefix)
+  if (!address.startsWith("tb1")) return false;
+  
+  // Total length: 42-62 chars (tb1 + 39-59 data chars)
+  if (address.length < 42 || address.length > 62) return false;
+  
+  // Bech32m charset (lowercase only, no 1, b, i, o)
+  const bech32mRegex = /^tb1[02-9ac-hj-np-z]{39,59}$/;
+  return bech32mRegex.test(address);
+}
+
+/**
+ * Validate Ethereum-compatible address (for cross-chain/bridge)
+ * Format: 0x prefix + 40 hex characters
+ */
+function isValidEthAddress(address: string): boolean {
+  return /^0x[a-fA-F0-9]{40}$/.test(address);
+}
+
+/**
+ * Validate any supported address format
+ */
+function isValidAddress(address: string): { valid: boolean; format: string } {
+  if (isValidTburnAddress(address)) {
+    return { valid: true, format: "tburn" };
+  }
+  if (isValidEthAddress(address)) {
+    return { valid: true, format: "ethereum" };
+  }
+  return { valid: false, format: "unknown" };
+}
+
+// ============================================
+// Audit Logging System
+// ============================================
+
+type AuditAction = 
+  | "signer_added" | "signer_updated" | "signer_removed"
+  | "transaction_created" | "transaction_approved" | "transaction_rejected" 
+  | "transaction_executed" | "transaction_cancelled" | "transaction_expired"
+  | "wallet_created" | "wallet_updated";
+
+interface AuditLogData {
+  action: AuditAction;
+  entityType: "signer" | "transaction" | "wallet";
+  entityId: string;
+  walletId?: string;
+  performedBy: string;
+  details: Record<string, any>;
+  ipAddress?: string;
+}
+
+async function recordAuditLog(data: AuditLogData): Promise<void> {
+  try {
+    const logId = `audit-${Date.now()}-${crypto.randomBytes(4).toString("hex")}`;
+    await db.insert(custodyAuditLogs).values({
+      logId,
+      action: data.action,
+      entityType: data.entityType,
+      entityId: data.entityId,
+      walletId: data.walletId || null,
+      performedBy: data.performedBy,
+      details: JSON.stringify(data.details),
+      ipAddress: data.ipAddress || null,
+      createdAt: new Date(),
+    });
+    console.log(`[Audit] ${data.action}: ${data.entityType}/${data.entityId} by ${data.performedBy}`);
+  } catch (error) {
+    // Audit log failures should not break main operations
+    console.error("[Audit] Failed to record audit log:", error);
+  }
+}
+
+// ============================================
+// Error Codes
+// ============================================
+
+const ERROR_CODES = {
+  // Validation errors (4xx)
+  INVALID_ADDRESS_FORMAT: "CUST-001",
+  DUPLICATE_SIGNER_ADDRESS: "CUST-002",
+  INSUFFICIENT_BALANCE: "CUST-003",
+  INSUFFICIENT_SIGNERS: "CUST-004",
+  INVALID_AMOUNT: "CUST-005",
+  
+  // State errors
+  TRANSACTION_NOT_PENDING: "CUST-010",
+  TRANSACTION_EXPIRED: "CUST-011",
+  TIMELOCK_ACTIVE: "CUST-012",
+  ALREADY_VOTED: "CUST-013",
+  SIGNER_INACTIVE: "CUST-014",
+  
+  // Permission errors
+  SIGNER_WALLET_MISMATCH: "CUST-020",
+  EMERGENCY_NOT_AUTHORIZED: "CUST-021",
+  
+  // Not found
+  WALLET_NOT_FOUND: "CUST-030",
+  SIGNER_NOT_FOUND: "CUST-031",
+  TRANSACTION_NOT_FOUND: "CUST-032",
+} as const;
+
+function errorResponse(code: keyof typeof ERROR_CODES, message: string) {
+  return { success: false, error: message, code: ERROR_CODES[code] };
+}
 
 const router = Router();
 
 // Valid signer roles
 const VALID_ROLES = ["board_member", "foundation_officer", "technical_lead", "legal_officer", "community_representative", "security_expert", "strategic_partner"] as const;
 
-// Zod schemas for validation
+// ============================================
+// Zod Schemas with Enhanced Validation
+// ============================================
+
+// Custom address validator
+const tburnAddressSchema = z.string().min(1, "Signer address is required").refine(
+  (val) => isValidAddress(val).valid,
+  { message: "Invalid address format. Must be TBURN (tb1...) or Ethereum (0x...) format" }
+);
+
 const addSignerSchema = z.object({
   walletId: z.string().min(1, "Wallet ID is required"),
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Name is required").max(100, "Name too long"),
   role: z.enum(VALID_ROLES, { errorMap: () => ({ message: `Role must be one of: ${VALID_ROLES.join(", ")}` }) }),
-  signerAddress: z.string().min(1, "Signer address is required"),
+  signerAddress: tburnAddressSchema,
   email: z.string().email().optional().nullable(),
   publicKey: z.string().optional().nullable(),
   canApproveEmergency: z.boolean().optional().default(false),
@@ -117,28 +242,43 @@ router.post("/signers", requireAdmin, async (req: Request, res: Response) => {
     const parseResult = addSignerSchema.safeParse(req.body);
     if (!parseResult.success) {
       const errors = parseResult.error.errors.map(e => e.message).join(", ");
-      return res.status(400).json({ success: false, error: errors });
+      return res.status(400).json(errorResponse("INVALID_ADDRESS_FORMAT", errors));
     }
     
     const { walletId, name, role, signerAddress, email, publicKey, canApproveEmergency } = parseResult.data;
     
     const [wallet] = await db.select().from(multisigWallets).where(eq(multisigWallets.walletId, walletId));
     if (!wallet) {
-      return res.status(404).json({ success: false, error: "Wallet not found" });
+      return res.status(404).json(errorResponse("WALLET_NOT_FOUND", "Wallet not found"));
+    }
+    
+    // Check for duplicate address across all signers for this wallet
+    const existingSignerWithAddress = await db.select().from(multisigSigners)
+      .where(and(
+        eq(multisigSigners.walletId, walletId),
+        eq(multisigSigners.signerAddress, signerAddress.toLowerCase())
+      ));
+    
+    if (existingSignerWithAddress.length > 0) {
+      return res.status(400).json(errorResponse(
+        "DUPLICATE_SIGNER_ADDRESS", 
+        "A signer with this address already exists for this wallet"
+      ));
     }
     
     const activeSigners = await db.select().from(multisigSigners)
       .where(and(eq(multisigSigners.walletId, walletId), eq(multisigSigners.isActive, true)));
     
     if (activeSigners.length >= wallet.totalSigners) {
-      return res.status(400).json({ 
-        success: false, 
-        error: `Maximum signers (${wallet.totalSigners}) reached for this wallet` 
-      });
+      return res.status(400).json(errorResponse(
+        "INSUFFICIENT_SIGNERS", 
+        `Maximum signers (${wallet.totalSigners}) reached for this wallet`
+      ));
     }
     
     const signerId = `signer-${crypto.randomBytes(8).toString("hex")}`;
     const adminEmail = (req as any).session?.user?.email || "system";
+    const clientIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
     
     const [newSigner] = await db.insert(multisigSigners).values({
       signerId,
@@ -155,6 +295,17 @@ router.post("/signers", requireAdmin, async (req: Request, res: Response) => {
     }).returning();
     
     console.log(`[Custody] New signer added: ${name} (${role}) to wallet ${walletId} by ${adminEmail}`);
+    
+    // Record audit log (non-blocking)
+    recordAuditLog({
+      action: "signer_added",
+      entityType: "signer",
+      entityId: signerId,
+      walletId,
+      performedBy: adminEmail,
+      details: { name, role, signerAddress: signerAddress.slice(0, 20) + "...", canApproveEmergency },
+      ipAddress: clientIp,
+    });
     
     res.json({ success: true, signer: newSigner });
   } catch (error: any) {
@@ -250,17 +401,26 @@ router.delete("/signers/:signerId", requireAdmin, async (req: Request, res: Resp
 // Custody Transactions (7/11 Threshold Approval)
 // ============================================
 
+// Transaction types with their special handling requirements
+const TRANSACTION_TYPES = {
+  grant_disbursement: { name: "Grant Disbursement", requiresExtraApproval: false },
+  marketing_spend: { name: "Marketing Spend", requiresExtraApproval: false },
+  partnership_payment: { name: "Partnership Payment", requiresExtraApproval: false },
+  emergency_transfer: { name: "Emergency Transfer", requiresExtraApproval: true, reducedTimelock: 4 }, // 4h instead of 48h
+  dao_execution: { name: "DAO Execution", requiresExtraApproval: false },
+} as const;
+
 // Zod schema for transaction creation
 const createTransactionSchema = z.object({
   walletId: z.string().min(1, "Wallet ID is required"),
   transactionType: z.enum(["grant_disbursement", "marketing_spend", "partnership_payment", "emergency_transfer", "dao_execution"]),
-  recipientAddress: z.string().min(1, "Recipient address is required"),
+  recipientAddress: tburnAddressSchema, // Now validates TBURN/ETH format
   recipientName: z.string().optional(),
   // Amount in base units (18 decimals) - must be numeric string, positive (> 0)
   amount: z.string().min(1, "Amount is required").refine((val) => {
     try {
       const parsed = BigInt(val);
-      return parsed > 0n; // Must be positive (no zero transfers)
+      return parsed > BigInt(0); // Must be positive (no zero transfers)
     } catch {
       return false;
     }
@@ -281,12 +441,21 @@ const ONE_MILLION_TOKENS = BigInt("1000000") * BigInt("1000000000000000000"); //
 const ONE_BILLION_TOKENS = BigInt("1000000000") * BigInt("1000000000000000000"); // 1B * 10^18
 const FIVE_BILLION_TOKENS = BigInt("5000000000") * BigInt("1000000000000000000"); // 5B * 10^18
 
+// Transaction expiry: 7 days to complete approvals
+const TRANSACTION_EXPIRY_HOURS = 168;
+
 /**
  * Calculate timelock hours based on amount using strict > comparisons
  * Note: Amounts in the 1M-1B range use 48h as the implicit default tier
- * Future enhancement: Could add governance-configurable tiers
+ * @param amount - Transaction amount in base units (18 decimals)
+ * @param isEmergency - If true, applies reduced 4h timelock (requires extra approval)
  */
-function calculateTimelockHours(amount: bigint): number {
+function calculateTimelockHours(amount: bigint, isEmergency: boolean = false): number {
+  // Emergency transfers have reduced timelock (4h) but require canApproveEmergency signers
+  if (isEmergency) {
+    return 4;
+  }
+  
   if (amount > FIVE_BILLION_TOKENS) {
     return 720; // 30 days for > 5B tokens (Tier 4)
   } else if (amount > ONE_BILLION_TOKENS) {
@@ -376,18 +545,34 @@ router.post("/transactions", requireAdmin, async (req: Request, res: Response) =
     
     // Verify there are enough active signers to meet threshold
     if (activeSignerCount < wallet.signaturesRequired) {
-      return res.status(400).json({ 
-        success: false, 
-        error: `Insufficient active signers. Required: ${wallet.signaturesRequired}, Active: ${activeSignerCount}` 
-      });
+      return res.status(400).json(errorResponse(
+        "INSUFFICIENT_SIGNERS",
+        `Insufficient active signers. Required: ${wallet.signaturesRequired}, Active: ${activeSignerCount}`
+      ));
     }
     
-    // Calculate timelock based on amount using proper thresholds
-    const timelockHours = calculateTimelockHours(amount);
+    // Check if this is an emergency transfer
+    const isEmergency = data.transactionType === "emergency_transfer";
+    
+    // For emergency transfers, verify we have enough signers with canApproveEmergency
+    if (isEmergency) {
+      const emergencyCapableSigners = activeSigners.filter(s => s.canApproveEmergency);
+      if (emergencyCapableSigners.length < wallet.signaturesRequired) {
+        return res.status(400).json(errorResponse(
+          "EMERGENCY_NOT_AUTHORIZED",
+          `Emergency transfers require ${wallet.signaturesRequired} signers with emergency approval authority. Available: ${emergencyCapableSigners.length}`
+        ));
+      }
+    }
+    
+    // Calculate timelock based on amount and transaction type
+    const timelockHours = calculateTimelockHours(amount, isEmergency);
     
     const transactionId = `tx-${crypto.randomBytes(12).toString("hex")}`;
     const adminEmail = (req as any).session?.user?.email || "system";
+    const clientIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
     const timelockExpiresAt = new Date(Date.now() + timelockHours * 60 * 60 * 1000);
+    const expiresAt = new Date(Date.now() + TRANSACTION_EXPIRY_HOURS * 60 * 60 * 1000);
     
     const [newTransaction] = await db.insert(custodyTransactions).values({
       transactionId,
@@ -408,7 +593,24 @@ router.post("/transactions", requireAdmin, async (req: Request, res: Response) =
     }).returning();
     
     console.log(`[Custody] New transaction created: ${transactionId}, requires ${wallet.signaturesRequired}/${wallet.totalSigners} approvals`);
-    console.log(`[Custody] Timelock: ${timelockHours}h (expires: ${timelockExpiresAt.toISOString()})`);
+    console.log(`[Custody] Timelock: ${timelockHours}h (expires: ${timelockExpiresAt.toISOString()}), Approval expires: ${expiresAt.toISOString()}`);
+    
+    // Record audit log (non-blocking)
+    recordAuditLog({
+      action: "transaction_created",
+      entityType: "transaction",
+      entityId: transactionId,
+      walletId: data.walletId,
+      performedBy: adminEmail,
+      details: { 
+        transactionType: data.transactionType,
+        amount: data.amount,
+        recipientAddress: data.recipientAddress.slice(0, 20) + "...",
+        timelockHours,
+        isEmergency,
+      },
+      ipAddress: clientIp,
+    });
     
     res.json({ 
       success: true, 
@@ -418,6 +620,8 @@ router.post("/transactions", requireAdmin, async (req: Request, res: Response) =
         total: wallet.totalSigners,
         timelockHours,
         timelockExpiresAt: timelockExpiresAt.toISOString(),
+        approvalExpiresAt: expiresAt.toISOString(),
+        isEmergency,
       }
     });
   } catch (error: any) {
@@ -540,6 +744,28 @@ router.post("/transactions/:transactionId/approve", requireAdmin, async (req: Re
     
     const abstainCount = allApprovals.filter(a => a.decision === "abstain").length;
     
+    // Record audit log (non-blocking)
+    const clientIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
+    const auditAction = decision === "approve" ? "transaction_approved" : 
+                        decision === "reject" ? "transaction_rejected" : "transaction_approved";
+    recordAuditLog({
+      action: auditAction as AuditAction,
+      entityType: "transaction",
+      entityId: transactionId,
+      walletId: transaction.walletId,
+      performedBy: signer.name,
+      details: { 
+        signerId,
+        decision,
+        approvalId,
+        currentApprovals: approveCount,
+        requiredApprovals,
+        newStatus,
+        comment: comment || null,
+      },
+      ipAddress: clientIp,
+    });
+    
     res.json({ 
       success: true,
       approval: { approvalId, decision },
@@ -656,12 +882,15 @@ router.post("/transactions/:transactionId/cancel", requireAdmin, async (req: Req
     
     const [transaction] = await db.select().from(custodyTransactions).where(eq(custodyTransactions.transactionId, transactionId));
     if (!transaction) {
-      return res.status(404).json({ success: false, error: "Transaction not found" });
+      return res.status(404).json(errorResponse("TRANSACTION_NOT_FOUND", "Transaction not found"));
     }
     
     if (transaction.status === "executed") {
-      return res.status(400).json({ success: false, error: "Cannot cancel an executed transaction" });
+      return res.status(400).json(errorResponse("TRANSACTION_NOT_PENDING", "Cannot cancel an executed transaction"));
     }
+    
+    const adminEmail = (req as any).session?.user?.email || "system";
+    const clientIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
     
     await db.update(custodyTransactions)
       .set({
@@ -672,9 +901,73 @@ router.post("/transactions/:transactionId/cancel", requireAdmin, async (req: Req
     
     console.log(`[Custody] Transaction ${transactionId} CANCELLED: ${reason || "No reason provided"}`);
     
+    // Record audit log (non-blocking)
+    recordAuditLog({
+      action: "transaction_cancelled",
+      entityType: "transaction",
+      entityId: transactionId,
+      walletId: transaction.walletId,
+      performedBy: adminEmail,
+      details: { reason: reason || "No reason provided", previousStatus: transaction.status },
+      ipAddress: clientIp,
+    });
+    
     res.json({ success: true, cancelled: true });
   } catch (error: any) {
     console.error("[Custody] Error cancelling transaction:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Expire old pending transactions (automated cleanup)
+router.post("/transactions/expire-pending", requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const adminEmail = (req as any).session?.user?.email || "system";
+    const expiryThreshold = new Date(Date.now() - TRANSACTION_EXPIRY_HOURS * 60 * 60 * 1000);
+    
+    // Find pending transactions older than expiry threshold
+    const expiredTransactions = await db.select()
+      .from(custodyTransactions)
+      .where(and(
+        eq(custodyTransactions.status, "pending_approval"),
+        lt(custodyTransactions.proposedAt, expiryThreshold)
+      ));
+    
+    if (expiredTransactions.length === 0) {
+      return res.json({ success: true, expiredCount: 0, message: "No expired transactions found" });
+    }
+    
+    // Update all expired transactions
+    const expiredIds = expiredTransactions.map(t => t.transactionId);
+    await db.update(custodyTransactions)
+      .set({ status: "expired", updatedAt: new Date() })
+      .where(sql`${custodyTransactions.transactionId} = ANY(${expiredIds})`);
+    
+    // Record audit logs for each expired transaction
+    for (const tx of expiredTransactions) {
+      recordAuditLog({
+        action: "transaction_expired",
+        entityType: "transaction",
+        entityId: tx.transactionId,
+        walletId: tx.walletId,
+        performedBy: adminEmail,
+        details: { 
+          proposedAt: tx.proposedAt?.toISOString(),
+          approvalCount: tx.approvalCount,
+          requiredApprovals: tx.requiredApprovals,
+        },
+      });
+    }
+    
+    console.log(`[Custody] Expired ${expiredTransactions.length} pending transactions`);
+    
+    res.json({ 
+      success: true, 
+      expiredCount: expiredTransactions.length,
+      expiredTransactionIds: expiredIds,
+    });
+  } catch (error: any) {
+    console.error("[Custody] Error expiring transactions:", error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -728,6 +1021,66 @@ router.get("/signer-roles", (req: Request, res: Response) => {
       { id: "security_expert", name: "보안 전문가", description: "외부 보안 파트너", icon: "Shield" },
       { id: "strategic_partner", name: "전략적 파트너", description: "전략 파트너사 대표", icon: "Handshake" },
     ]
+  });
+});
+
+// ============================================
+// Audit Logs (Admin Only)
+// ============================================
+
+router.get("/audit-logs", requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const { walletId, entityType, action, limit = "100" } = req.query;
+    
+    let conditions = [];
+    if (walletId) conditions.push(eq(custodyAuditLogs.walletId, walletId as string));
+    if (entityType) conditions.push(eq(custodyAuditLogs.entityType, entityType as string));
+    if (action) conditions.push(eq(custodyAuditLogs.action, action as string));
+    
+    const logs = await db.select()
+      .from(custodyAuditLogs)
+      .where(conditions.length > 0 ? and(...conditions) : undefined)
+      .orderBy(desc(custodyAuditLogs.createdAt))
+      .limit(parseInt(limit as string, 10) || 100);
+    
+    // Parse details JSON for each log
+    const parsedLogs = logs.map(log => ({
+      ...log,
+      details: log.details ? JSON.parse(log.details) : null,
+    }));
+    
+    res.json({ success: true, logs: parsedLogs });
+  } catch (error: any) {
+    console.error("[Custody] Error fetching audit logs:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ============================================
+// Error Codes Reference
+// ============================================
+
+router.get("/error-codes", (req: Request, res: Response) => {
+  res.json({
+    success: true,
+    errorCodes: ERROR_CODES,
+    description: {
+      "CUST-001": "Invalid address format (must be TBURN tb1 or Ethereum 0x)",
+      "CUST-002": "Duplicate signer address for this wallet",
+      "CUST-003": "Insufficient wallet balance for transaction",
+      "CUST-004": "Insufficient active signers to meet threshold",
+      "CUST-005": "Invalid amount (must be positive integer)",
+      "CUST-010": "Transaction is not in pending approval state",
+      "CUST-011": "Transaction has expired (7 day approval window)",
+      "CUST-012": "Timelock period has not yet expired",
+      "CUST-013": "Signer has already voted on this transaction",
+      "CUST-014": "Signer is not active",
+      "CUST-020": "Signer does not belong to the transaction's wallet",
+      "CUST-021": "Insufficient signers with emergency approval authority",
+      "CUST-030": "Wallet not found",
+      "CUST-031": "Signer not found",
+      "CUST-032": "Transaction not found",
+    }
   });
 });
 

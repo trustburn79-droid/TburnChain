@@ -12582,6 +12582,35 @@ export const custodyTransactionApprovals = pgTable("custody_transaction_approval
   index("idx_custody_approval_signer").on(table.signerId),
 ]);
 
+// Custody Audit Logs - Track all custody system operations for compliance
+export const custodyAuditLogs = pgTable("custody_audit_logs", {
+  id: serial("id").primaryKey(),
+  
+  // Log Identity
+  logId: varchar("log_id", { length: 64 }).notNull().unique(),
+  
+  // Action Details
+  action: text("action").notNull(), // signer_added, transaction_created, etc.
+  entityType: text("entity_type").notNull(), // signer, transaction, wallet
+  entityId: varchar("entity_id", { length: 64 }).notNull(),
+  walletId: varchar("wallet_id", { length: 64 }),
+  
+  // Actor Information
+  performedBy: text("performed_by").notNull(), // Admin email or system
+  ipAddress: text("ip_address"),
+  
+  // Additional Details
+  details: text("details"), // JSON string with operation-specific data
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_custody_audit_action").on(table.action),
+  index("idx_custody_audit_entity").on(table.entityType, table.entityId),
+  index("idx_custody_audit_wallet").on(table.walletId),
+  index("idx_custody_audit_time").on(table.createdAt),
+]);
+
 // Vesting Contracts - Smart contract vesting schedules
 export const vestingContracts = pgTable("vesting_contracts", {
   id: serial("id").primaryKey(),
@@ -12746,6 +12775,11 @@ export const insertCustodyQuarterlyReportSchema = createInsertSchema(custodyQuar
   updatedAt: true,
 });
 
+export const insertCustodyAuditLogSchema = createInsertSchema(custodyAuditLogs).omit({
+  id: true,
+  createdAt: true,
+});
+
 // ============================================================================
 // Types for Custody System
 // ============================================================================
@@ -12769,6 +12803,9 @@ export type InsertCustodyDistributionSchedule = z.infer<typeof insertCustodyDist
 
 export type CustodyQuarterlyReportDB = typeof custodyQuarterlyReports.$inferSelect;
 export type InsertCustodyQuarterlyReport = z.infer<typeof insertCustodyQuarterlyReportSchema>;
+
+export type CustodyAuditLogDB = typeof custodyAuditLogs.$inferSelect;
+export type InsertCustodyAuditLog = z.infer<typeof insertCustodyAuditLogSchema>;
 
 // ============================================================================
 // Phase 17: Enterprise Session Bypass v5.1 & AI Provider Registry
