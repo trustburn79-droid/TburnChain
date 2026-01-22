@@ -134,7 +134,7 @@ export default function FoundersPage() {
     },
     {
       initials: "JP",
-      name: "Jone Park",
+      name: "Johe Park",
       role: t("foundersPage.founders.jonePark.role"),
       company: t("foundersPage.founders.jonePark.company"),
       bio: t("foundersPage.founders.jonePark.bio"),
