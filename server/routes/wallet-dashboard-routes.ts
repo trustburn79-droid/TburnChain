@@ -17,11 +17,11 @@ import {
 } from "@shared/schema";
 import { eq, desc, and, gte, lte, sql } from "drizzle-orm";
 
-const ETH_ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/;
+const TBURN_ADDRESS_REGEX = /^(0x[a-fA-F0-9]{40}|tb1[a-zA-Z0-9]{39,59})$/;
 const WEI_REGEX = /^\d+$/;
 
 const sendTransactionSchema = z.object({
-  toAddress: z.string().regex(ETH_ADDRESS_REGEX, "Invalid recipient address"),
+  toAddress: z.string().regex(TBURN_ADDRESS_REGEX, "Invalid recipient address (must be tb1 for TBURN or 0x for external chains)"),
   amount: z.string().regex(WEI_REGEX, "Amount must be a valid number"),
   gasLimit: z.string().regex(WEI_REGEX).optional().default("21000"),
   gasPrice: z.string().regex(WEI_REGEX).optional(),

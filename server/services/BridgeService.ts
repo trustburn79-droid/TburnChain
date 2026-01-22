@@ -43,7 +43,13 @@ function randomBigIntString(min: bigint, max: bigint): string {
   return (min + random).toString();
 }
 
-function generateAddress(): string {
+const TBURN_CHAIN_ID = 5800;
+
+function generateAddress(chainId?: number): string {
+  if (chainId === TBURN_CHAIN_ID) {
+    const randomLabel = `bridge-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    return addressFromString(randomLabel);
+  }
   return "0x" + Array.from({ length: 40 }, () => 
     Math.floor(Math.random() * 16).toString(16)
   ).join("");
@@ -109,8 +115,8 @@ export class BridgeService {
         isEvm: config.isEvm,
         avgBlockTime: config.avgBlockTime,
         confirmationsRequired: config.confirmations,
-        bridgeContractAddress: generateAddress(),
-        tokenFactoryAddress: generateAddress(),
+        bridgeContractAddress: generateAddress(config.chainId),
+        tokenFactoryAddress: generateAddress(config.chainId),
         totalLiquidity: randomBigIntString(BigInt("100000") * PRECISION, BigInt("10000000") * PRECISION),
         volume24h: randomBigIntString(BigInt("10000") * PRECISION, BigInt("500000") * PRECISION),
         volumeTotal: randomBigIntString(BigInt("10000000") * PRECISION, BigInt("100000000") * PRECISION),
@@ -149,7 +155,7 @@ export class BridgeService {
             tokenAddress: token.address,
             tokenSymbol: token.symbol,
             tokenDecimals: token.symbol === "USDT" || token.symbol === "USDC" ? 6 : 18,
-            wrappedTokenAddress: generateAddress(),
+            wrappedTokenAddress: generateAddress(destChain.chainId),
             routeType: routeTypes[Math.floor(Math.random() * routeTypes.length)],
             status: Math.random() > 0.1 ? "active" : "paused",
             minAmount: (BigInt(1) * PRECISION).toString(),
@@ -181,14 +187,14 @@ export class BridgeService {
           tokenAddress: token.address,
           tokenSymbol: token.symbol,
           tokenDecimals: token.symbol === "USDT" || token.symbol === "USDC" ? 6 : 18,
-          poolAddress: generateAddress(),
+          poolAddress: generateAddress(chain.chainId),
           totalLiquidity: randomBigIntString(BigInt(100000) * PRECISION, BigInt(5000000) * PRECISION),
           availableLiquidity: randomBigIntString(BigInt(50000) * PRECISION, BigInt(4000000) * PRECISION),
           lockedLiquidity: randomBigIntString(BigInt(10000) * PRECISION, BigInt(1000000) * PRECISION),
           utilizationRate: Math.floor(Math.random() * 6000) + 1000,
           minLiquidity: (BigInt(10000) * PRECISION).toString(),
           targetLiquidity: (BigInt(1000000) * PRECISION).toString(),
-          lpTokenAddress: generateAddress(),
+          lpTokenAddress: generateAddress(chain.chainId),
           lpTokenSupply: randomBigIntString(BigInt(10000) * PRECISION, BigInt(1000000) * PRECISION),
           lpApy: Math.floor(Math.random() * 2000) + 300,
           totalFeesEarned: randomBigIntString(BigInt(1000) * PRECISION, BigInt(100000) * PRECISION),
@@ -212,9 +218,9 @@ export class BridgeService {
 
     for (const name of validatorNames) {
       const validator: InsertBridgeValidator = {
-        address: generateAddress(),
+        address: generateAddress(TBURN_CHAIN_ID),
         name: name,
-        operatorAddress: generateAddress(),
+        operatorAddress: generateAddress(TBURN_CHAIN_ID),
         status: Math.random() > 0.1 ? "active" : "inactive",
         stake: randomBigIntString(BigInt(100000) * PRECISION, BigInt(10000000) * PRECISION),
         minStake: (BigInt(100000) * PRECISION).toString(),
@@ -249,8 +255,8 @@ export class BridgeService {
       const transfer: InsertBridgeTransfer = {
         sourceChainId: sourceChain.chainId,
         destinationChainId: destChain.chainId,
-        senderAddress: generateAddress(),
-        recipientAddress: generateAddress(),
+        senderAddress: generateAddress(sourceChain.chainId),
+        recipientAddress: generateAddress(destChain.chainId),
         tokenAddress: token.address,
         tokenSymbol: token.symbol,
         amount: randomBigIntString(BigInt(100) * PRECISION, BigInt(100000) * PRECISION),
@@ -282,7 +288,7 @@ export class BridgeService {
       const activity: InsertBridgeActivity = {
         eventType: eventType,
         chainId: chain.chainId,
-        walletAddress: generateAddress(),
+        walletAddress: generateAddress(chain.chainId),
         amount: randomBigIntString(BigInt(10) * PRECISION, BigInt(10000) * PRECISION),
         tokenSymbol: token.symbol,
         txHash: generateTxHash(),
