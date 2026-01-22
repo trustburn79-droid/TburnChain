@@ -1077,7 +1077,7 @@ export default function TokenomicsSimulation() {
                 <div>
                   <div className="font-bold text-green-500 mb-1">메인넷 제네시스 풀 실행 준비 완료</div>
                   <p className="text-sm text-muted-foreground">
-                    본 문서는 TBURN 재단 및 Metalock (주식회사 메타록)의 승인을 받아 2025년 12월 22일 TGE와 함께 시행됩니다.
+                    본 문서는 TBURN 재단 및 METAROCK (주식회사 메타록)의 승인을 받아 2025년 12월 22일 TGE와 함께 시행됩니다.
                     모든 토큰 배분, 베스팅 스케줄, 소각 메커니즘은 본 마스터 플랜에 따라 자동화된 스마트 컨트랙트로 실행됩니다.
                   </p>
                 </div>

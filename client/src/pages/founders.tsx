@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useTranslation } from "react-i18next";
 
-const partners = ["JP3E Holdings", "Metalock", "Paradigm", "a16z crypto", "Galaxy Digital", "Chainlink"];
+const partners = ["JP3E Holdings", "METAROCK", "Paradigm", "a16z crypto", "Galaxy Digital", "Chainlink"];
 
 const LinkedInIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-[18px] h-[18px]">
