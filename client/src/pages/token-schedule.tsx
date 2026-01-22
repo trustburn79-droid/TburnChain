@@ -361,11 +361,93 @@ export default function TokenSchedule() {
         .ts-border-b { border-bottom: 1px solid var(--ts-border-glass); }
         .ts-pb-2 { padding-bottom: 8px; }
 
+        /* Responsive - Tablet */
+        @media (max-width: 1024px) {
+          .ts-header-icon { width: 32px; height: 32px; }
+          .ts-hero-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Responsive - Mobile */
         @media (max-width: 768px) {
-          .ts-hero h1 { font-size: 1.25rem; white-space: normal; }
-          .ts-hero-stats { grid-template-columns: 1fr 1fr; }
-          .ts-section-title { font-size: 1.5rem; }
-          .ts-card { padding: 20px; }
+          .ts-container { padding: 0 16px; }
+          .ts-header { height: 64px; }
+          .ts-nav-wrapper { top: 64px; padding: 8px 0; }
+          .ts-nav-item { padding: 6px 12px; font-size: 0.8rem; }
+          
+          .ts-header-left .ts-logo-text { font-size: 1.2rem; }
+          .ts-header-right { gap: 4px; }
+          .ts-header-icon { width: 28px; height: 28px; }
+          .ts-header-icon:nth-child(n+5) { display: none; }
+          
+          .ts-hero { padding: 80px 0 40px; }
+          .ts-hero h1 { font-size: 1.25rem; white-space: normal; line-height: 1.3; }
+          .ts-hero p { font-size: 0.95rem !important; }
+          .ts-hero-stats { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
+          .ts-hero-stat-card { padding: 20px; border-radius: 16px; }
+          .ts-stat-val { font-size: 1.6rem; }
+          .ts-stat-lbl { font-size: 0.75rem; }
+          
+          .ts-section { padding: 50px 0; scroll-margin-top: 120px; }
+          .ts-section-header { margin-bottom: 24px; gap: 12px; flex-wrap: wrap; }
+          .ts-section-icon { width: 40px; height: 40px; font-size: 18px; border-radius: 12px; }
+          .ts-section-title { font-size: 1.3rem; }
+          
+          .ts-card { padding: 16px; margin-bottom: 16px; border-radius: 16px; }
+          .ts-card-header { flex-direction: column; align-items: flex-start; gap: 10px; padding-bottom: 12px; margin-bottom: 16px; }
+          .ts-card-title { font-size: 1rem; }
+          
+          .ts-grid { gap: 16px; }
+          
+          .ts-table-wrapper { margin: 0 -16px; border-radius: 0; border-left: none; border-right: none; }
+          .ts-root table { font-size: 0.7rem; }
+          .ts-root th, .ts-root td { padding: 8px 6px; }
+          
+          .ts-chart-row { height: 28px; margin-bottom: 8px; }
+          .ts-chart-label { width: 45px; font-size: 0.75rem; }
+          .ts-chart-track { margin: 0 8px; }
+          .ts-chart-fill { padding-left: 8px; font-size: 0.7rem; }
+          .ts-chart-value-text { right: 8px; font-size: 0.7rem; }
+          
+          .ts-milestone { padding: 14px; gap: 12px; flex-wrap: wrap; }
+          .ts-m-year { font-size: 1rem; width: auto; min-width: 50px; }
+          .ts-m-val { font-size: 0.9rem; width: auto; min-width: 100px; }
+          .ts-m-desc { font-size: 0.85rem; width: 100%; margin-top: 5px; }
+          
+          .ts-badge { font-size: 0.65rem; padding: 4px 8px; }
+          
+          .ts-scroll-top { width: 44px; height: 44px; bottom: 20px; right: 20px; font-size: 16px; }
+          
+          .ts-footer { padding: 40px 0; margin-top: 40px; }
+        }
+
+        /* Responsive - Small Mobile */
+        @media (max-width: 480px) {
+          .ts-container { padding: 0 12px; }
+          .ts-header-left .ts-logo-text { font-size: 1rem; }
+          .ts-header-icon:nth-child(n+3) { display: none; }
+          
+          .ts-hero h1 { font-size: 1.1rem; }
+          .ts-hero-stats { grid-template-columns: 1fr; gap: 10px; }
+          .ts-hero-stat-card { padding: 16px; }
+          .ts-stat-val { font-size: 1.4rem; }
+          
+          .ts-section-header { flex-direction: column; align-items: flex-start; }
+          .ts-section-title { font-size: 1.2rem; }
+          
+          .ts-root table { font-size: 0.65rem; }
+          .ts-root th, .ts-root td { padding: 6px 4px; }
+          
+          .ts-milestone { flex-direction: column; align-items: flex-start; gap: 8px; }
+          .ts-m-year, .ts-m-val { width: 100%; }
+        }
+
+        /* Responsive - Extra Small */
+        @media (max-width: 360px) {
+          .ts-hero h1 { font-size: 1rem; }
+          .ts-section-title { font-size: 1.1rem; }
+          .ts-card { padding: 12px; }
+          .ts-nav-item { padding: 5px 10px; font-size: 0.75rem; }
+          .ts-stat-val { font-size: 1.2rem; }
         }
       `}</style>
       
