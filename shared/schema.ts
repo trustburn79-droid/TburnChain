@@ -12541,6 +12541,8 @@ export const custodyTransactions = pgTable("custody_transactions", {
   proposedAt: timestamp("proposed_at").notNull().defaultNow(),
   proposedBy: varchar("proposed_by", { length: 128 }).notNull(),
   timelockExpiresAt: timestamp("timelock_expires_at"),
+  approvalExpiresAt: timestamp("approval_expires_at"), // 7-day approval window
+  isEmergency: boolean("is_emergency").notNull().default(false), // Emergency transfer flag
   
   // Rejection (if applicable)
   rejectedAt: timestamp("rejected_at"),

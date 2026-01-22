@@ -6,7 +6,7 @@
 import { Router, Request, Response } from "express";
 import { db } from "../db";
 import { multisigSigners, multisigWallets, custodyTransactions, custodyTransactionApprovals, custodyAuditLogs } from "@shared/schema";
-import { eq, and, desc, sql, lt } from "drizzle-orm";
+import { eq, and, desc, sql, lt, or } from "drizzle-orm";
 import { requireAdmin } from "../middleware/auth";
 import crypto from "crypto";
 import { z } from "zod";
@@ -58,7 +58,7 @@ function isValidAddress(address: string): { valid: boolean; format: string } {
 // ============================================
 
 type AuditAction = 
-  | "signer_added" | "signer_updated" | "signer_removed"
+  | "signer_added" | "signer_updated" | "signer_removed" | "signer_abstained"
   | "transaction_created" | "transaction_approved" | "transaction_rejected" 
   | "transaction_executed" | "transaction_cancelled" | "transaction_expired"
   | "wallet_created" | "wallet_updated";
@@ -280,12 +280,17 @@ router.post("/signers", requireAdmin, async (req: Request, res: Response) => {
     const adminEmail = (req as any).session?.user?.email || "system";
     const clientIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
     
+    // Normalize address: Ethereum addresses are case-insensitive, TBURN tb1 addresses are already lowercase
+    const normalizedAddress = signerAddress.startsWith("0x") 
+      ? signerAddress.toLowerCase() 
+      : signerAddress; // tb1 addresses stay as-is (already lowercase per Bech32m spec)
+    
     const [newSigner] = await db.insert(multisigSigners).values({
       signerId,
       walletId,
       name,
       role,
-      signerAddress,
+      signerAddress: normalizedAddress,
       email: email || null,
       publicKey: publicKey || null,
       canApproveEmergency: canApproveEmergency || false,
@@ -347,6 +352,27 @@ router.patch("/signers/:signerId", requireAdmin, async (req: Request, res: Respo
     
     console.log(`[Custody] Signer updated: ${signerId}`);
     
+    // Record audit log (non-blocking)
+    const adminEmail = (req as any).session?.user?.email || "system";
+    const clientIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
+    recordAuditLog({
+      action: "signer_updated",
+      entityType: "signer",
+      entityId: signerId,
+      walletId: existingSigner.walletId,
+      performedBy: adminEmail,
+      details: { 
+        changes: Object.keys(updateData).filter(k => k !== "updatedAt"),
+        previousValues: {
+          name: existingSigner.name,
+          role: existingSigner.role,
+          canApproveEmergency: existingSigner.canApproveEmergency,
+          isActive: existingSigner.isActive,
+        },
+      },
+      ipAddress: clientIp,
+    });
+    
     res.json({ success: true, signer: updatedSigner });
   } catch (error: any) {
     console.error("[Custody] Error updating signer:", error);
@@ -389,6 +415,22 @@ router.delete("/signers/:signerId", requireAdmin, async (req: Request, res: Resp
       .returning();
     
     console.log(`[Custody] Signer removed: ${signerId}, reason: ${reason || "Admin action"}`);
+    
+    // Record audit log (non-blocking)
+    const adminEmail = (req as any).session?.user?.email || "system";
+    const clientIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
+    recordAuditLog({
+      action: "signer_removed",
+      entityType: "signer",
+      entityId: signerId,
+      walletId: existingSigner.walletId,
+      performedBy: adminEmail,
+      details: { 
+        signerName: existingSigner.name,
+        reason: reason || "Admin action",
+      },
+      ipAddress: clientIp,
+    });
     
     res.json({ success: true, signer: removedSigner });
   } catch (error: any) {
@@ -590,6 +632,8 @@ router.post("/transactions", requireAdmin, async (req: Request, res: Response) =
       requiredApprovals: wallet.signaturesRequired, // 7 for foundation wallet
       proposedBy: adminEmail,
       timelockExpiresAt,
+      approvalExpiresAt: expiresAt,
+      isEmergency,
     }).returning();
     
     console.log(`[Custody] New transaction created: ${transactionId}, requires ${wallet.signaturesRequired}/${wallet.totalSigners} approvals`);
@@ -747,7 +791,7 @@ router.post("/transactions/:transactionId/approve", requireAdmin, async (req: Re
     // Record audit log (non-blocking)
     const clientIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
     const auditAction = decision === "approve" ? "transaction_approved" : 
-                        decision === "reject" ? "transaction_rejected" : "transaction_approved";
+                        decision === "reject" ? "transaction_rejected" : "signer_abstained";
     recordAuditLog({
       action: auditAction as AuditAction,
       entityType: "transaction",
@@ -861,6 +905,24 @@ router.post("/transactions/:transactionId/execute", requireAdmin, async (req: Re
     console.log(`[Custody] Transaction ${transactionId} EXECUTED by ${adminEmail}`);
     console.log(`[Custody] TxHash: ${executedTxHash}, Amount: ${transaction.amount}`);
     
+    // Record audit log (non-blocking)
+    const clientIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
+    recordAuditLog({
+      action: "transaction_executed",
+      entityType: "transaction",
+      entityId: transactionId,
+      walletId: transaction.walletId,
+      performedBy: adminEmail,
+      details: { 
+        txHash: executedTxHash,
+        amount: transaction.amount,
+        recipientAddress: transaction.recipientAddress.slice(0, 20) + "...",
+        approvalCount: transaction.approvalCount,
+        newWalletBalance: newRemaining,
+      },
+      ipAddress: clientIp,
+    });
+    
     res.json({ 
       success: true, 
       executed: true,
@@ -923,14 +985,20 @@ router.post("/transactions/:transactionId/cancel", requireAdmin, async (req: Req
 router.post("/transactions/expire-pending", requireAdmin, async (req: Request, res: Response) => {
   try {
     const adminEmail = (req as any).session?.user?.email || "system";
-    const expiryThreshold = new Date(Date.now() - TRANSACTION_EXPIRY_HOURS * 60 * 60 * 1000);
+    const now = new Date();
     
-    // Find pending transactions older than expiry threshold
+    // Find pending transactions whose approval window has expired (using approvalExpiresAt or fallback to 7 days from proposedAt)
     const expiredTransactions = await db.select()
       .from(custodyTransactions)
       .where(and(
         eq(custodyTransactions.status, "pending_approval"),
-        lt(custodyTransactions.proposedAt, expiryThreshold)
+        or(
+          lt(custodyTransactions.approvalExpiresAt, now),
+          and(
+            sql`${custodyTransactions.approvalExpiresAt} IS NULL`,
+            lt(custodyTransactions.proposedAt, new Date(now.getTime() - TRANSACTION_EXPIRY_HOURS * 60 * 60 * 1000))
+          )
+        )
       ));
     
     if (expiredTransactions.length === 0) {
