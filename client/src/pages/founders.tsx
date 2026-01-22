@@ -49,7 +49,7 @@ export default function FoundersPage() {
   const founders = [
     {
       initials: "KC",
-      name: "Kevin Cho",
+      name: "Kevin Jeong",
       role: t("foundersPage.founders.kevinCho.role"),
       company: t("foundersPage.founders.kevinCho.company"),
       bio: t("foundersPage.founders.kevinCho.bio"),
