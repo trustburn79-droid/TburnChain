@@ -68,20 +68,20 @@ export default function FoundersPage() {
       featured: true
     },
     {
-      initials: "SL",
-      name: "Sarah Lee",
-      role: t("foundersPage.founders.sarahLee.role"),
-      company: t("foundersPage.founders.sarahLee.company"),
-      bio: t("foundersPage.founders.sarahLee.bio"),
+      initials: "OC",
+      name: "Olivia Che",
+      role: t("foundersPage.founders.oliviaChe.role"),
+      company: t("foundersPage.founders.oliviaChe.company"),
+      bio: t("foundersPage.founders.oliviaChe.bio"),
       expertise: [
-        t("foundersPage.founders.expertise.distributedSystems"),
-        t("foundersPage.founders.expertise.consensus"),
-        t("foundersPage.founders.expertise.rust")
+        t("foundersPage.founders.expertise.investment"),
+        t("foundersPage.founders.expertise.portfolio"),
+        t("foundersPage.founders.expertise.blockchain")
       ],
       stats: [
-        { value: "15+", label: t("foundersPage.founders.stats.yearsExp") },
-        { value: "30+", label: t("foundersPage.founders.stats.papers") },
-        { value: "12", label: t("foundersPage.founders.stats.patents") }
+        { value: "5+", label: t("foundersPage.founders.stats.yearsInvestment") },
+        { value: "$50M+", label: t("foundersPage.founders.stats.invested") },
+        { value: "20+", label: t("foundersPage.founders.stats.portfolio") }
       ]
     },
     {

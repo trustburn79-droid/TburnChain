@@ -38339,10 +38339,10 @@
         "company": "TBURN CHAINS Foundation",
         "bio": "블록체인 아키텍처와 AI 통합 분야의 선구자로서, 210,000+ TPS를 목표로 하는 Triple-Band AI Orchestration 시스템과 양자 내성 암호화 기술을 설계했습니다. Metalock에서의 메타버스 플랫폼 개발 경험을 바탕으로 차세대 분산 컴퓨팅 패러다임을 구축하고 있습니다."
       },
-      "sarahLee": {
-        "role": "최고 기술 책임자",
-        "company": "전 Google, Stanford 박사",
-        "bio": "분산 시스템과 합의 알고리즘 분야의 세계적 전문가. Google에서 대규모 분산 데이터베이스 시스템을 설계한 경험을 보유하고 있습니다."
+      "oliviaChe": {
+        "role": "메인 창립투자자",
+        "company": "TBURN CHAINS Foundation",
+        "bio": "5년간의 TBURN Mainnet 직접 투자에 참여한 핵심 창립투자자. 전략적 투자와 자문을 통해 프로젝트의 초기 개발과 성장에 기여했습니다."
       },
       "minJunKim": {
         "role": "최고 AI 책임자",
@@ -38373,7 +38373,10 @@
         "tvlDesigned": "설계 TVL",
         "protocols": "프로토콜",
         "teamLed": "팀 리드",
-        "rpsHandled": "RPS 처리"
+        "rpsHandled": "RPS 처리",
+        "yearsInvestment": "투자 기간",
+        "invested": "투자금",
+        "portfolio": "포트폴리오"
       },
       "expertise": {
         "aiOrchestration": "AI 오케스트레이션",
@@ -38394,7 +38397,10 @@
         "ammDesign": "AMM 설계",
         "infrastructure": "인프라",
         "scalability": "확장성",
-        "devops": "DevOps"
+        "devops": "DevOps",
+        "investment": "투자",
+        "portfolio": "포트폴리오 관리",
+        "blockchain": "블록체인"
       }
     },
     "advisorsSection": {

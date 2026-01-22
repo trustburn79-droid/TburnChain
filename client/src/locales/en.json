@@ -33122,10 +33122,10 @@
         "company": "TBURN CHAINS Foundation",
         "bio": "A pioneer in blockchain architecture and AI integration, designing the Triple-Band AI Orchestration system targeting 210,000+ TPS and quantum-resistant cryptography. Building next-generation distributed computing paradigms based on experience developing metaverse platforms at Metalock."
       },
-      "sarahLee": {
-        "role": "Chief Technology Officer",
-        "company": "Ex-Google, Stanford PhD",
-        "bio": "World-renowned expert in distributed systems and consensus algorithms. Has experience designing large-scale distributed database systems at Google."
+      "oliviaChe": {
+        "role": "Founding Investor",
+        "company": "TBURN CHAINS Foundation",
+        "bio": "A key founding investor who has been directly investing in TBURN Mainnet for 5 years. Contributed to the project's early development and growth through strategic investment and advisory."
       },
       "minJunKim": {
         "role": "Chief AI Officer",
@@ -33156,7 +33156,10 @@
         "tvlDesigned": "TVL Designed",
         "protocols": "Protocols",
         "teamLed": "Team Led",
-        "rpsHandled": "RPS Handled"
+        "rpsHandled": "RPS Handled",
+        "yearsInvestment": "Years Investment",
+        "invested": "Invested",
+        "portfolio": "Portfolio"
       },
       "expertise": {
         "aiOrchestration": "AI Orchestration",
@@ -33177,7 +33180,10 @@
         "ammDesign": "AMM Design",
         "infrastructure": "Infrastructure",
         "scalability": "Scalability",
-        "devops": "DevOps"
+        "devops": "DevOps",
+        "investment": "Investment",
+        "portfolio": "Portfolio Management",
+        "blockchain": "Blockchain"
       }
     },
     "advisorsSection": {
