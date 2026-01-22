@@ -352,7 +352,7 @@ export function registerWalletDashboardRoutes(
 
   app.post("/api/wallet/send", requireAuth, async (req: Request, res: Response) => {
     try {
-      const fromAddress = (req.query.address as string) || "0x9a4c8d2f5e3b7a1c6e9d4f8a2b5c7e3f1a4d2f5e";
+      const fromAddress = (req.query.address as string) || addressFromString('tburn-default-wallet-sender');
       const validation = sendTransactionSchema.safeParse(req.body);
       
       if (!validation.success) {
