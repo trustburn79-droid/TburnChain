@@ -23218,6 +23218,8 @@
         "yearsExp": "سنوات الخبرة",
         "publications": "المنشورات",
         "patents": "براءات الاختراع",
+        "partnerships": "الشراكات",
+        "countries": "الدول",
         "papers": "الأوراق البحثية",
         "citations": "الاستشهادات",
         "tvlDesigned": "TVL المصمم",
@@ -23244,7 +23246,33 @@
         "ammDesign": "تصميم AMM",
         "infrastructure": "البنية التحتية",
         "scalability": "قابلية التوسع",
-        "devops": "DevOps"
+        "devops": "DevOps",
+        "businessAnalysis": "تحليل الأعمال",
+        "businessPlanning": "تخطيط الأعمال",
+        "realMetaverse": "الميتافيرس الحقيقي",
+        "tradeExpert": "خبير تجاري",
+        "globalBroker": "وسيط عالمي",
+        "internationalBusiness": "الأعمال الدولية"
+      },
+      "jonePark": {
+        "role": "الرئيس",
+        "company": "رئيس JP3E",
+        "bio": "رئيس JP3E وخبير التجارة الدولية. وسيط عالمي رائد يتمتع بخبرة واسعة في تطوير الأعمال عبر الحدود والشراكات الاستراتيجية في صناعة البلوكتشين."
+      },
+      "kevinJeong": {
+        "role": "رئيس مجلس الإدارة",
+        "company": "مؤسس TBURN CHAINS",
+        "bio": "رئيس مجلس إدارة ومؤسس TBURN CHAINS Foundation. خبير متخصص في تقنية البلوكتشين عالية الأداء. طور تقنية تصميم 100M TPS لبناء منصات بلوكتشين من الجيل التالي."
+      },
+      "oliviaChe": {
+        "role": "مستثمر مؤسس",
+        "company": "مستثمر مؤسس",
+        "bio": "مستثمر مؤسس في TBURN مع 5 سنوات من الالتزام بالاستثمار. مستشار استراتيجي يدعم تطوير النظام البيئي TBURN على المدى الطويل."
+      },
+      "jesseKim": {
+        "role": "الرئيس التنفيذي",
+        "company": "مؤسسة TBURN CHAINS · رئيس METALOCK",
+        "bio": "الرئيس التنفيذي لـ TBURN Mainnet. رئيس METALOCK وخبير الميتافيرس. بناء نماذج الحوسبة الموزعة من الجيل التالي بناءً على خبرة تطوير منصة الميتافيرس في Metalock."
       }
     },
     "advisorsSection": {

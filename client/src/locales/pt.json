@@ -23206,6 +23206,8 @@
         "yearsExp": "Anos Exp",
         "publications": "Publicações",
         "patents": "Patentes",
+        "partnerships": "Parcerias",
+        "countries": "Países",
         "papers": "Artigos",
         "citations": "Citações",
         "tvlDesigned": "TVL Projetado",
@@ -23232,7 +23234,33 @@
         "ammDesign": "Design AMM",
         "infrastructure": "Infraestrutura",
         "scalability": "Escalabilidade",
-        "devops": "DevOps"
+        "devops": "DevOps",
+        "businessAnalysis": "Análise de Negócios",
+        "businessPlanning": "Planejamento Empresarial",
+        "realMetaverse": "Metaverso Real",
+        "tradeExpert": "Especialista em Comércio",
+        "globalBroker": "Corretor Global",
+        "internationalBusiness": "Negócios Internacionais"
+      },
+      "jonePark": {
+        "role": "Presidente",
+        "company": "Presidente da JP3E",
+        "bio": "Presidente da JP3E e especialista em comércio internacional. Corretor global líder com vasta experiência em desenvolvimento de negócios transfronteiriços e parcerias estratégicas na indústria blockchain."
+      },
+      "kevinJeong": {
+        "role": "Presidente",
+        "company": "Fundador da TBURN CHAINS",
+        "bio": "Presidente e Fundador da TBURN CHAINS Foundation. Especialista em tecnologia blockchain de alto desempenho. Desenvolveu tecnologia de design de 100M TPS para construir plataformas blockchain de próxima geração."
+      },
+      "oliviaChe": {
+        "role": "Investidor Fundador",
+        "company": "Investidor Fundador",
+        "bio": "Investidor fundador na TBURN com 5 anos de compromisso de investimento. Consultor estratégico que apoia o desenvolvimento de longo prazo do ecossistema TBURN."
+      },
+      "jesseKim": {
+        "role": "CEO",
+        "company": "Fundação TBURN CHAINS · Presidente da METALOCK",
+        "bio": "CEO da TBURN Mainnet. Presidente da METALOCK e especialista em metaverso. Construindo paradigmas de computação distribuída de próxima geração com base na experiência de desenvolvimento de plataforma de metaverso na Metalock."
       }
     },
     "advisorsSection": {

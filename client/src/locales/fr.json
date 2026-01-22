@@ -23520,6 +23520,8 @@
         "yearsExp": "Années Exp",
         "publications": "Publications",
         "patents": "Brevets",
+        "partnerships": "Partenariats",
+        "countries": "Pays",
         "papers": "Articles",
         "citations": "Citations",
         "tvlDesigned": "TVL Conçu",
@@ -23546,7 +23548,33 @@
         "ammDesign": "Conception AMM",
         "infrastructure": "Infrastructure",
         "scalability": "Évolutivité",
-        "devops": "DevOps"
+        "devops": "DevOps",
+        "businessAnalysis": "Analyse Commerciale",
+        "businessPlanning": "Planification Commerciale",
+        "realMetaverse": "Métavers Réel",
+        "tradeExpert": "Expert Commercial",
+        "globalBroker": "Courtier Mondial",
+        "internationalBusiness": "Commerce International"
+      },
+      "jonePark": {
+        "role": "Président",
+        "company": "Président de JP3E",
+        "bio": "Président de JP3E et expert en commerce international. Courtier mondial de premier plan avec une vaste expérience dans le développement commercial transfrontalier et les partenariats stratégiques dans l'industrie blockchain."
+      },
+      "kevinJeong": {
+        "role": "Président",
+        "company": "Fondateur de TBURN CHAINS",
+        "bio": "Président et Fondateur de TBURN CHAINS Foundation. Expert en technologie blockchain haute performance. A développé la technologie de conception 100M TPS pour construire des plateformes blockchain de nouvelle génération."
+      },
+      "oliviaChe": {
+        "role": "Investisseur Fondateur",
+        "company": "Investisseur Fondateur",
+        "bio": "Investisseur fondateur dans TBURN avec 5 ans d'engagement d'investissement. Conseiller stratégique soutenant le développement à long terme de l'écosystème TBURN."
+      },
+      "jesseKim": {
+        "role": "PDG",
+        "company": "Fondation TBURN CHAINS · Président de METALOCK",
+        "bio": "PDG de TBURN Mainnet. Président de METALOCK et expert en métavers. Construction de paradigmes informatiques distribués de nouvelle génération basés sur l'expérience de développement de plateforme métavers chez Metalock."
       }
     },
     "advisorsSection": {

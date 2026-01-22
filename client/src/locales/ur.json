@@ -15248,7 +15248,9 @@
         "tvlDesigned": "ڈیزائن TVL",
         "protocols": "پروٹوکول",
         "teamLed": "ٹیم قیادت",
-        "rpsHandled": "RPS سنبھالے"
+        "rpsHandled": "RPS سنبھالے",
+        "partnerships": "شراکت داری",
+        "countries": "ممالک"
       },
       "expertise": {
         "aiOrchestration": "AI آرکیسٹریشن",
@@ -15269,7 +15271,33 @@
         "ammDesign": "AMM ڈیزائن",
         "infrastructure": "انفراسٹرکچر",
         "scalability": "اسکیل ایبلٹی",
-        "devops": "DevOps"
+        "devops": "DevOps",
+        "businessAnalysis": "کاروباری تجزیہ",
+        "businessPlanning": "کاروباری منصوبہ بندی",
+        "realMetaverse": "حقیقی میٹاورس",
+        "tradeExpert": "تجارتی ماہر",
+        "globalBroker": "عالمی بروکر",
+        "internationalBusiness": "بین الاقوامی کاروبار"
+      },
+      "jonePark": {
+        "role": "چیئرمین",
+        "company": "JP3E چیئرمین",
+        "bio": "JP3E کے چیئرمین اور بین الاقوامی تجارت کے ماہر۔ بلاکچین انڈسٹری میں سرحد پار کاروباری ترقی اور سٹریٹجک شراکت داری میں وسیع تجربے والے عالمی بروکر۔"
+      },
+      "kevinJeong": {
+        "role": "چیئرمین",
+        "company": "TBURN CHAINS بانی",
+        "bio": "TBURN CHAINS فاؤنڈیشن کے چیئرمین اور بانی۔ اعلی کارکردگی بلاکچین ٹیکنالوجی کے ماہر۔ اگلی نسل کے بلاکچین پلیٹ فارم بنانے کے لیے 100M TPS ڈیزائن ٹیکنالوجی تیار کی۔"
+      },
+      "oliviaChe": {
+        "role": "بانی سرمایہ کار",
+        "company": "بانی سرمایہ کار",
+        "bio": "TBURN میں 5 سال کے سرمایہ کاری کے عزم کے ساتھ بانی سرمایہ کار۔ TBURN ماحولیاتی نظام کی طویل مدتی ترقی کی حمایت کرنے والے سٹریٹجک مشیر۔"
+      },
+      "jesseKim": {
+        "role": "سی ای او",
+        "company": "TBURN CHAINS فاؤنڈیشن · METALOCK چیئرمین",
+        "bio": "TBURN Mainnet کے سی ای او۔ METALOCK کے چیئرمین اور میٹاورس کے ماہر۔ Metalock میں میٹاورس پلیٹ فارم کی ترقی کے تجربے کی بنیاد پر اگلی نسل کے تقسیم شدہ کمپیوٹنگ پیراڈائمز بنا رہے ہیں۔"
       }
     },
     "advisorsSection": {

@@ -26625,6 +26625,8 @@
         "yearsExp": "経験年数",
         "publications": "出版物",
         "patents": "特許",
+        "partnerships": "パートナーシップ",
+        "countries": "国",
         "papers": "論文",
         "citations": "引用",
         "tvlDesigned": "設計TVL",
@@ -26651,7 +26653,33 @@
         "ammDesign": "AMM設計",
         "infrastructure": "インフラ",
         "scalability": "スケーラビリティ",
-        "devops": "DevOps"
+        "devops": "DevOps",
+        "businessAnalysis": "ビジネス分析",
+        "businessPlanning": "事業企画",
+        "realMetaverse": "リアルメタバース",
+        "tradeExpert": "貿易専門家",
+        "globalBroker": "グローバルブローカー",
+        "internationalBusiness": "国際ビジネス"
+      },
+      "jonePark": {
+        "role": "会長",
+        "company": "JP3E会長",
+        "bio": "JP3E会長兼国際貿易専門家。ブロックチェーン業界における国境を越えたビジネス開発と戦略的パートナーシップで豊富な経験を持つグローバルブローカー。"
+      },
+      "kevinJeong": {
+        "role": "会長",
+        "company": "TBURN CHAINS創設者",
+        "bio": "TBURN CHAINS Foundationの会長兼創設者。高性能ブロックチェーン技術の専門家。次世代ブロックチェーンプラットフォーム構築のための100M TPS設計技術を開発。"
+      },
+      "oliviaChe": {
+        "role": "創業投資家",
+        "company": "創業投資家",
+        "bio": "5年間の投資コミットメントを持つTBURNの創業投資家。TBURNエコシステムの長期的発展を支援する戦略アドバイザー。"
+      },
+      "jesseKim": {
+        "role": "CEO",
+        "company": "TBURN CHAINS財団 · METALOCK会長",
+        "bio": "TBURN MainnetのCEO。METALOCK会長兼メタバース専門家。Metalockでのメタバースプラットフォーム開発経験を基に次世代分散コンピューティングパラダイムを構築。"
       }
     },
     "advisorsSection": {

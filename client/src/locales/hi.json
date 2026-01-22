@@ -3299,6 +3299,8 @@
         "yearsExp": "वर्ष अनुभव",
         "publications": "प्रकाशन",
         "patents": "पेटेंट",
+        "partnerships": "साझेदारी",
+        "countries": "देश",
         "papers": "पेपर",
         "citations": "उद्धरण",
         "tvlDesigned": "डिज़ाइन TVL",
@@ -3325,7 +3327,33 @@
         "ammDesign": "AMM डिज़ाइन",
         "infrastructure": "इंफ्रास्ट्रक्चर",
         "scalability": "स्केलेबिलिटी",
-        "devops": "DevOps"
+        "devops": "DevOps",
+        "businessAnalysis": "व्यापार विश्लेषण",
+        "businessPlanning": "व्यापार नियोजन",
+        "realMetaverse": "रियल मेटावर्स",
+        "tradeExpert": "व्यापार विशेषज्ञ",
+        "globalBroker": "वैश्विक ब्रोकर",
+        "internationalBusiness": "अंतर्राष्ट्रीय व्यापार"
+      },
+      "jonePark": {
+        "role": "अध्यक्ष",
+        "company": "JP3E अध्यक्ष",
+        "bio": "JP3E के अध्यक्ष और अंतर्राष्ट्रीय व्यापार विशेषज्ञ। ब्लॉकचेन उद्योग में सीमा पार व्यापार विकास और रणनीतिक साझेदारी में व्यापक अनुभव वाले अग्रणी वैश्विक ब्रोकर।"
+      },
+      "kevinJeong": {
+        "role": "अध्यक्ष",
+        "company": "TBURN CHAINS संस्थापक",
+        "bio": "TBURN CHAINS Foundation के अध्यक्ष और संस्थापक। उच्च-प्रदर्शन ब्लॉकचेन तकनीक में विशेषज्ञ। अगली पीढ़ी के ब्लॉकचेन प्लेटफॉर्म बनाने के लिए 100M TPS डिजाइन तकनीक विकसित की।"
+      },
+      "oliviaChe": {
+        "role": "संस्थापक निवेशक",
+        "company": "संस्थापक निवेशक",
+        "bio": "5 वर्षों की निवेश प्रतिबद्धता के साथ TBURN में संस्थापक निवेशक। TBURN इकोसिस्टम के दीर्घकालिक विकास का समर्थन करने वाले रणनीतिक सलाहकार।"
+      },
+      "jesseKim": {
+        "role": "सीईओ",
+        "company": "TBURN CHAINS फाउंडेशन · METALOCK अध्यक्ष",
+        "bio": "TBURN Mainnet के सीईओ। METALOCK के अध्यक्ष और मेटावर्स विशेषज्ञ। Metalock में मेटावर्स प्लेटफॉर्म विकास अनुभव के आधार पर अगली पीढ़ी के वितरित कंप्यूटिंग प्रतिमान का निर्माण।"
       }
     },
     "advisorsSection": {

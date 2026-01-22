@@ -25460,6 +25460,8 @@
         "yearsExp": "Años Exp",
         "publications": "Publicaciones",
         "patents": "Patentes",
+        "partnerships": "Asociaciones",
+        "countries": "Países",
         "papers": "Artículos",
         "citations": "Citaciones",
         "tvlDesigned": "TVL Diseñado",
@@ -25486,7 +25488,33 @@
         "ammDesign": "Diseño AMM",
         "infrastructure": "Infraestructura",
         "scalability": "Escalabilidad",
-        "devops": "DevOps"
+        "devops": "DevOps",
+        "businessAnalysis": "Análisis de Negocios",
+        "businessPlanning": "Planificación Empresarial",
+        "realMetaverse": "Metaverso Real",
+        "tradeExpert": "Experto en Comercio",
+        "globalBroker": "Corredor Global",
+        "internationalBusiness": "Negocios Internacionales"
+      },
+      "jonePark": {
+        "role": "Presidente",
+        "company": "Presidente de JP3E",
+        "bio": "Presidente de JP3E y experto en comercio internacional. Corredor global líder con amplia experiencia en desarrollo de negocios transfronterizos y asociaciones estratégicas en la industria blockchain."
+      },
+      "kevinJeong": {
+        "role": "Presidente",
+        "company": "Fundador de TBURN CHAINS",
+        "bio": "Presidente y Fundador de TBURN CHAINS Foundation. Experto en tecnología blockchain de alto rendimiento. Desarrolló tecnología de diseño de 100M TPS para construir plataformas blockchain de próxima generación."
+      },
+      "oliviaChe": {
+        "role": "Inversor Fundador",
+        "company": "Inversor Fundador",
+        "bio": "Inversor fundador en TBURN con 5 años de compromiso de inversión. Asesor estratégico que apoya el desarrollo a largo plazo del ecosistema TBURN."
+      },
+      "jesseKim": {
+        "role": "CEO",
+        "company": "Fundación TBURN CHAINS · Presidente de METALOCK",
+        "bio": "CEO de TBURN Mainnet. Presidente de METALOCK y experto en metaverso. Construyendo paradigmas de computación distribuida de próxima generación basados en experiencia de desarrollo de plataformas de metaverso en Metalock."
       }
     },
     "advisorsSection": {
