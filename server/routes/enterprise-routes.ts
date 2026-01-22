@@ -92,7 +92,8 @@ router.use(requireEnterpriseAuth);
 // ============================================
 
 // Common validation schemas
-const ethereumAddressSchema = z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid Ethereum address');
+// Supports both Ethereum (0x) and TBURN (tb1) mainnet address formats
+const ethereumAddressSchema = z.string().regex(/^(0x[a-fA-F0-9]{40}|tb1[a-zA-Z0-9]{39,59})$/, 'Invalid address format - must be Ethereum (0x...) or TBURN mainnet (tb1...)');
 const amountSchema = z.string().regex(/^\d+(\.\d+)?$/, 'Invalid amount format');
 const positiveNumberSchema = z.number().positive();
 const uuidSchema = z.string().uuid();
@@ -1728,17 +1729,17 @@ router.get('/admin/token/issuance', async (req: Request, res: Response) => {
           burnedSupply: burnMetrics.totalBurned || '1000000000'
         },
         recentActions: [
-          { id: 1, action: 'Mint', token: 'TBURN', amount: '1000000', to: '0x7890...cdef', by: 'Admin', timestamp: new Date(Date.now() - 3600000).toISOString(), txHash: '0xabc123...' },
+          { id: 1, action: 'Mint', token: 'TBURN', amount: '1000000', to: 'tb17890...cdef', by: 'Admin', timestamp: new Date(Date.now() - 3600000).toISOString(), txHash: '0xabc123...' },
           { id: 2, action: 'Burn', token: 'TBURN', amount: '500000', to: 'Burn Address', by: 'AI System', timestamp: new Date(Date.now() - 7200000).toISOString(), txHash: '0xdef456...' },
           { id: 3, action: 'Pause', token: 'TBRW', amount: '-', to: '-', by: 'Admin', timestamp: new Date(Date.now() - 86400000).toISOString(), txHash: '0xghi789...' },
-          { id: 4, action: 'Mint', token: 'wTBURN', amount: '250000', to: '0x4567...89ab', by: 'Bridge', timestamp: new Date(Date.now() - 172800000).toISOString(), txHash: '0xjkl012...' }
+          { id: 4, action: 'Mint', token: 'wTBURN', amount: '250000', to: 'tb14567...89ab', by: 'Bridge', timestamp: new Date(Date.now() - 172800000).toISOString(), txHash: '0xjkl012...' }
         ],
         topHolders: [
-          { rank: 1, address: '0x1234...5678', balance: '50000000', percentage: 5.00, type: 'Whale' },
-          { rank: 2, address: '0x2345...6789', balance: '35000000', percentage: 3.50, type: 'Whale' },
-          { rank: 3, address: '0x3456...7890', balance: '28000000', percentage: 2.80, type: 'Whale' },
-          { rank: 4, address: '0x4567...8901', balance: '22000000', percentage: 2.20, type: 'Whale' },
-          { rank: 5, address: '0x5678...9012', balance: '18000000', percentage: 1.80, type: 'Whale' }
+          { rank: 1, address: 'tb11111...aaaa', balance: '50000000', percentage: 5.00, type: 'Whale' },
+          { rank: 2, address: 'tb12222...bbbb', balance: '35000000', percentage: 3.50, type: 'Whale' },
+          { rank: 3, address: 'tb13333...cccc', balance: '28000000', percentage: 2.80, type: 'Whale' },
+          { rank: 4, address: 'tb14444...dddd', balance: '22000000', percentage: 2.20, type: 'Whale' },
+          { rank: 5, address: 'tb15555...eeee', balance: '18000000', percentage: 1.80, type: 'Whale' }
         ],
         holderStats: {
           totalHolders: 125000,
@@ -2084,11 +2085,11 @@ router.get('/admin/treasury', async (req: Request, res: Response) => {
           { month: 'Dec', balance: 250 }
         ],
         multiSigSigners: [
-          { address: '0x1234...5678', name: 'Admin 1', signed: true, role: 'Chief Admin' },
-          { address: '0x2345...6789', name: 'Admin 2', signed: true, role: 'Treasury Manager' },
-          { address: '0x3456...7890', name: 'Admin 3', signed: false, role: 'Security Officer' },
-          { address: '0x4567...8901', name: 'Admin 4', signed: false, role: 'Operations Lead' },
-          { address: '0x5678...9012', name: 'Admin 5', signed: false, role: 'Tech Lead' }
+          { address: 'tb1admin01...aaaa', name: 'Admin 1', signed: true, role: 'Chief Admin' },
+          { address: 'tb1admin02...bbbb', name: 'Admin 2', signed: true, role: 'Treasury Manager' },
+          { address: 'tb1admin03...cccc', name: 'Admin 3', signed: false, role: 'Security Officer' },
+          { address: 'tb1admin04...dddd', name: 'Admin 4', signed: false, role: 'Operations Lead' },
+          { address: 'tb1admin05...eeee', name: 'Admin 5', signed: false, role: 'Tech Lead' }
         ],
         pendingTransfers: [
           { id: 'transfer_1', from: 'Main Treasury', to: 'Development Fund', amount: '75000', reason: 'Q4 Development Budget', signatures: 2, requiredSignatures: 3, createdAt: new Date(Date.now() - 86400000).toISOString() }
