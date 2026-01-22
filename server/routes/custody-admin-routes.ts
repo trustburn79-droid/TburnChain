@@ -9,14 +9,38 @@ import { multisigSigners, multisigWallets, custodyTransactions, custodyTransacti
 import { eq, and, desc, sql } from "drizzle-orm";
 import { requireAdmin } from "../middleware/auth";
 import crypto from "crypto";
+import { z } from "zod";
 
 const router = Router();
 
+// Valid signer roles
+const VALID_ROLES = ["board_member", "foundation_officer", "technical_lead", "legal_officer", "community_representative", "security_expert", "strategic_partner"] as const;
+
+// Zod schemas for validation
+const addSignerSchema = z.object({
+  walletId: z.string().min(1, "Wallet ID is required"),
+  name: z.string().min(1, "Name is required"),
+  role: z.enum(VALID_ROLES, { errorMap: () => ({ message: `Role must be one of: ${VALID_ROLES.join(", ")}` }) }),
+  signerAddress: z.string().min(1, "Signer address is required"),
+  email: z.string().email().optional().nullable(),
+  publicKey: z.string().optional().nullable(),
+  canApproveEmergency: z.boolean().optional().default(false),
+});
+
+const updateSignerSchema = z.object({
+  name: z.string().min(1).optional(),
+  role: z.enum(VALID_ROLES).optional(),
+  email: z.string().email().optional().nullable(),
+  publicKey: z.string().optional().nullable(),
+  canApproveEmergency: z.boolean().optional(),
+  isActive: z.boolean().optional(),
+});
+
 // ============================================
-// Multisig Wallets
+// Multisig Wallets (Admin Only)
 // ============================================
 
-router.get("/wallets", async (req: Request, res: Response) => {
+router.get("/wallets", requireAdmin, async (req: Request, res: Response) => {
   try {
     const wallets = await db.select().from(multisigWallets).orderBy(desc(multisigWallets.createdAt));
     res.json({ success: true, wallets });
@@ -26,7 +50,7 @@ router.get("/wallets", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/wallets/:walletId", async (req: Request, res: Response) => {
+router.get("/wallets/:walletId", requireAdmin, async (req: Request, res: Response) => {
   try {
     const { walletId } = req.params;
     const [wallet] = await db.select().from(multisigWallets).where(eq(multisigWallets.walletId, walletId));
@@ -49,7 +73,7 @@ router.get("/wallets/:walletId", async (req: Request, res: Response) => {
 // Multisig Signers Management (Admin Only)
 // ============================================
 
-router.get("/signers", async (req: Request, res: Response) => {
+router.get("/signers", requireAdmin, async (req: Request, res: Response) => {
   try {
     const { walletId, activeOnly } = req.query;
     
@@ -71,7 +95,7 @@ router.get("/signers", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/signers/:signerId", async (req: Request, res: Response) => {
+router.get("/signers/:signerId", requireAdmin, async (req: Request, res: Response) => {
   try {
     const { signerId } = req.params;
     const [signer] = await db.select().from(multisigSigners).where(eq(multisigSigners.signerId, signerId));
@@ -89,16 +113,14 @@ router.get("/signers/:signerId", async (req: Request, res: Response) => {
 
 router.post("/signers", requireAdmin, async (req: Request, res: Response) => {
   try {
-    const { walletId, name, role, signerAddress, email, publicKey, canApproveEmergency } = req.body;
-    
-    if (!walletId || !name || !role || !signerAddress) {
-      return res.status(400).json({ success: false, error: "Missing required fields: walletId, name, role, signerAddress" });
+    // Validate request body with Zod
+    const parseResult = addSignerSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      const errors = parseResult.error.errors.map(e => e.message).join(", ");
+      return res.status(400).json({ success: false, error: errors });
     }
     
-    const validRoles = ["board_member", "foundation_officer", "technical_lead", "legal_officer", "community_representative", "security_expert", "strategic_partner"];
-    if (!validRoles.includes(role)) {
-      return res.status(400).json({ success: false, error: `Invalid role. Must be one of: ${validRoles.join(", ")}` });
-    }
+    const { walletId, name, role, signerAddress, email, publicKey, canApproveEmergency } = parseResult.data;
     
     const [wallet] = await db.select().from(multisigWallets).where(eq(multisigWallets.walletId, walletId));
     if (!wallet) {
@@ -144,7 +166,15 @@ router.post("/signers", requireAdmin, async (req: Request, res: Response) => {
 router.patch("/signers/:signerId", requireAdmin, async (req: Request, res: Response) => {
   try {
     const { signerId } = req.params;
-    const { name, role, email, publicKey, canApproveEmergency, isActive } = req.body;
+    
+    // Validate request body with Zod
+    const parseResult = updateSignerSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      const errors = parseResult.error.errors.map(e => e.message).join(", ");
+      return res.status(400).json({ success: false, error: errors });
+    }
+    
+    const { name, role, email, publicKey, canApproveEmergency, isActive } = parseResult.data;
     
     const [existingSigner] = await db.select().from(multisigSigners).where(eq(multisigSigners.signerId, signerId));
     if (!existingSigner) {
