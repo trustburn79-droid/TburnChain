@@ -75,6 +75,7 @@ import enterpriseSessionMonitoringRoutes from "./routes/enterprise-session-monit
 import enterpriseDbOptimizerRoutes from "./routes/enterprise-db-optimizer-routes";
 import distributionProgramsRoutes from "./routes/distribution-programs-routes";
 import enterpriseAdminRoutes from "./routes/enterprise-admin-routes";
+import custodyAdminRoutes from "./routes/custody-admin-routes";
 import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
 import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
 import { healthMonitor } from "./core/health/production-health-monitor";
@@ -2900,6 +2901,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   app.use("/api/enterprise/admin", requireAdmin, enterpriseAdminRoutes);
   app.use("/api/admin", requireAdmin, enterpriseAdminRoutes); // Also mount at /api/admin for backwards compatibility
   console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints, admin auth required)");
+  app.use("/api/custody-admin", requireAdmin, custodyAdminRoutes);
+  console.log("[CustodyAdmin] ✅ Custody admin routes registered (multisig signer management)");
 
   // ============================================
   // ENTERPRISE DATA HUB & ORCHESTRATION (Cross-Module Integration)
