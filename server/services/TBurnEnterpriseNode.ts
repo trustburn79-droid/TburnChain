@@ -51,6 +51,7 @@ import {
   formatTBurnAddress,
   encodeBech32m,
   migrateLegacyAddress,
+  addressFromString,
   SYSTEM_ADDRESSES,
   SIGNER_ADDRESSES
 } from '../utils/tburn-address';
@@ -6754,7 +6755,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         maxValidators: 200,
         rpcEndpoint: 'https://mainnet-rpc.tburn.io',
         explorerUrl: 'https://explorer.tburn.io',
-        bridgeContract: '0xB2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1',
+        bridgeContract: addressFromString('tburn-mainnet-bridge-contract'),
         confirmations: 1,
         enabled: true,
         lastBlock: this.state?.blockHeight || 25500000 + (seedValue % 100000),
@@ -9323,11 +9324,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
         pendingReview: 0,
       },
       topAccounts: [
-        { address: '0x742d35Cc6634C0532925a3b844Bc9e7595f7bD0f', label: 'DEX Router', transactions: 2850000, volume: 14250000000, fees: 2850000 },
-        { address: '0x8ba1f109551bD432803012645Ac136ddd64DBA72', label: 'Staking Pool', transactions: 1420000, volume: 8520000000, fees: 1420000 },
-        { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', label: 'Bridge Contract', transactions: 850000, volume: 5100000000, fees: 850000 },
-        { address: '0xA0b86a00D66CfbA76Ad3e0e9f46dCd3a3Bb03F90', label: 'Lending Protocol', transactions: 620000, volume: 3720000000, fees: 620000 },
-        { address: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', label: 'NFT Marketplace', transactions: 420000, volume: 1890000000, fees: 420000 },
+        { address: addressFromString('tburn-dex-router'), label: 'DEX Router', transactions: 2850000, volume: 14250000000, fees: 2850000 },
+        { address: addressFromString('tburn-staking-pool'), label: 'Staking Pool', transactions: 1420000, volume: 8520000000, fees: 1420000 },
+        { address: addressFromString('tburn-bridge-contract'), label: 'Bridge Contract', transactions: 850000, volume: 5100000000, fees: 850000 },
+        { address: addressFromString('tburn-lending-protocol'), label: 'Lending Protocol', transactions: 620000, volume: 3720000000, fees: 620000 },
+        { address: addressFromString('tburn-nft-marketplace'), label: 'NFT Marketplace', transactions: 420000, volume: 1890000000, fees: 420000 },
       ],
     };
   }
@@ -9923,12 +9924,12 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const seedValue = parseInt(dateSeed.slice(0, 8), 16);
     
     return [
-      { id: "val-001", address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", name: "TBURN Foundation", status: "active", stake: "5000000000000000000000000", commission: 500, uptime: 9998, attestationsProcessed: 125847 + (seedValue % 1000), attestationsValid: 125832 + (seedValue % 990), rewardsEarned: "250000000000000000000000", avgResponseTime: 45, aiTrustScore: 9850, reputationScore: 9920 },
-      { id: "val-002", address: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", name: "ChainGuard Security", status: "active", stake: "3500000000000000000000000", commission: 600, uptime: 9995, attestationsProcessed: 98234 + (seedValue % 800), attestationsValid: 98189 + (seedValue % 790), rewardsEarned: "175000000000000000000000", avgResponseTime: 52, aiTrustScore: 9780, reputationScore: 9880 },
-      { id: "val-003", address: "0x456f109551bD432803012645Ac136ddd64DBA456", name: "BlockSecure Labs", status: "active", stake: "2800000000000000000000000", commission: 550, uptime: 9992, attestationsProcessed: 87654 + (seedValue % 700), attestationsValid: 87598 + (seedValue % 690), rewardsEarned: "140000000000000000000000", avgResponseTime: 48, aiTrustScore: 9720, reputationScore: 9850 },
-      { id: "val-004", address: "0xabcf109551bD432803012645Ac136ddd64DBAabc", name: "Quantum Bridge Node", status: "active", stake: "4200000000000000000000000", commission: 450, uptime: 9997, attestationsProcessed: 112345 + (seedValue % 900), attestationsValid: 112321 + (seedValue % 890), rewardsEarned: "210000000000000000000000", avgResponseTime: 38, aiTrustScore: 9890, reputationScore: 9940 },
-      { id: "val-005", address: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", name: "CrossChain Sentinel", status: "active", stake: "3100000000000000000000000", commission: 520, uptime: 9993, attestationsProcessed: 95678 + (seedValue % 750), attestationsValid: 95612 + (seedValue % 740), rewardsEarned: "155000000000000000000000", avgResponseTime: 55, aiTrustScore: 9750, reputationScore: 9870 },
-      { id: "val-006", address: "0x012f109551bD432803012645Ac136ddd64DBA012", name: "AI Bridge Oracle", status: "active", stake: "2500000000000000000000000", commission: 480, uptime: 9990, attestationsProcessed: 78901 + (seedValue % 600), attestationsValid: 78845 + (seedValue % 590), rewardsEarned: "125000000000000000000000", avgResponseTime: 42, aiTrustScore: 9810, reputationScore: 9890 }
+      { id: "val-001", address: addressFromString('tburn-validator-foundation'), name: "TBURN Foundation", status: "active", stake: "5000000000000000000000000", commission: 500, uptime: 9998, attestationsProcessed: 125847 + (seedValue % 1000), attestationsValid: 125832 + (seedValue % 990), rewardsEarned: "250000000000000000000000", avgResponseTime: 45, aiTrustScore: 9850, reputationScore: 9920 },
+      { id: "val-002", address: addressFromString('tburn-validator-chainguard'), name: "ChainGuard Security", status: "active", stake: "3500000000000000000000000", commission: 600, uptime: 9995, attestationsProcessed: 98234 + (seedValue % 800), attestationsValid: 98189 + (seedValue % 790), rewardsEarned: "175000000000000000000000", avgResponseTime: 52, aiTrustScore: 9780, reputationScore: 9880 },
+      { id: "val-003", address: addressFromString('tburn-validator-blocksecure'), name: "BlockSecure Labs", status: "active", stake: "2800000000000000000000000", commission: 550, uptime: 9992, attestationsProcessed: 87654 + (seedValue % 700), attestationsValid: 87598 + (seedValue % 690), rewardsEarned: "140000000000000000000000", avgResponseTime: 48, aiTrustScore: 9720, reputationScore: 9850 },
+      { id: "val-004", address: addressFromString('tburn-validator-quantum'), name: "Quantum Bridge Node", status: "active", stake: "4200000000000000000000000", commission: 450, uptime: 9997, attestationsProcessed: 112345 + (seedValue % 900), attestationsValid: 112321 + (seedValue % 890), rewardsEarned: "210000000000000000000000", avgResponseTime: 38, aiTrustScore: 9890, reputationScore: 9940 },
+      { id: "val-005", address: addressFromString('tburn-validator-crosschain'), name: "CrossChain Sentinel", status: "active", stake: "3100000000000000000000000", commission: 520, uptime: 9993, attestationsProcessed: 95678 + (seedValue % 750), attestationsValid: 95612 + (seedValue % 740), rewardsEarned: "155000000000000000000000", avgResponseTime: 55, aiTrustScore: 9750, reputationScore: 9870 },
+      { id: "val-006", address: addressFromString('tburn-validator-ai-oracle'), name: "AI Bridge Oracle", status: "active", stake: "2500000000000000000000000", commission: 480, uptime: 9990, attestationsProcessed: 78901 + (seedValue % 600), attestationsValid: 78845 + (seedValue % 590), rewardsEarned: "125000000000000000000000", avgResponseTime: 42, aiTrustScore: 9810, reputationScore: 9890 }
     ];
   }
 
@@ -9982,10 +9983,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
       .digest('hex');
     
     return [
-      { id: "act-001", eventType: "transfer_completed", chainId: 5800, walletAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", amount: "50000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(0, 64)}`, createdAt: new Date(now - 60000).toISOString() },
+      { id: "act-001", eventType: "transfer_completed", chainId: 5800, walletAddress: addressFromString('tburn-wallet-user-001'), amount: "50000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(0, 64)}`, createdAt: new Date(now - 60000).toISOString() },
       { id: "act-002", eventType: "transfer_initiated", chainId: 1, walletAddress: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", amount: "25000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(4, 68)}`, createdAt: new Date(now - 120000).toISOString() },
-      { id: "act-003", eventType: "liquidity_added", chainId: 5800, walletAddress: "0x456f109551bD432803012645Ac136ddd64DBA456", amount: "100000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(8, 72)}`, createdAt: new Date(now - 180000).toISOString() },
-      { id: "act-004", eventType: "validator_joined", chainId: null, walletAddress: "0xabcf109551bD432803012645Ac136ddd64DBAabc", amount: "500000000000000000000000", tokenSymbol: "TBURN", txHash: null, createdAt: new Date(now - 300000).toISOString() },
+      { id: "act-003", eventType: "liquidity_added", chainId: 5800, walletAddress: addressFromString('tburn-wallet-user-002'), amount: "100000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(8, 72)}`, createdAt: new Date(now - 180000).toISOString() },
+      { id: "act-004", eventType: "validator_joined", chainId: null, walletAddress: addressFromString('tburn-validator-new-001'), amount: "500000000000000000000000", tokenSymbol: "TBURN", txHash: null, createdAt: new Date(now - 300000).toISOString() },
       { id: "act-005", eventType: "transfer_completed", chainId: 56, walletAddress: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", amount: "75000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(12, 76)}`, createdAt: new Date(now - 420000).toISOString() },
       { id: "act-006", eventType: "liquidity_removed", chainId: 1, walletAddress: "0x012f109551bD432803012645Ac136ddd64DBA012", amount: "30000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(16, 80)}`, createdAt: new Date(now - 600000).toISOString() },
       { id: "act-007", eventType: "transfer_initiated", chainId: 42161, walletAddress: "0x789d35Cc6634C0532925a3b844Bc454e4438f789", amount: "150000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(20, 84)}`, createdAt: new Date(now - 780000).toISOString() },
@@ -10023,11 +10024,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const seedValue = parseInt(dateSeed.slice(0, 8), 16);
     
     return [
-      { id: "tx-001", sourceChainId: 1, destinationChainId: 5800, senderAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", recipientAddress: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", tokenSymbol: "TBURN", amount: "100000000000000000000000", amountReceived: null, feeAmount: "300000000000000000000", status: "pending", sourceTxHash: `0x${dateSeed.slice(0, 64)}`, destinationTxHash: null, confirmations: 8 + (seedValue % 4), requiredConfirmations: 12, estimatedArrival: new Date(now + 180000).toISOString(), aiVerified: true, aiRiskScore: 120, createdAt: new Date(now - 120000).toISOString() },
-      { id: "tx-002", sourceChainId: 56, destinationChainId: 5800, senderAddress: "0x123d35Cc6634C0532925a3b844Bc454e4438f123", recipientAddress: "0x456f109551bD432803012645Ac136ddd64DBA456", tokenSymbol: "TBURN", amount: "50000000000000000000000", amountReceived: null, feeAmount: "125000000000000000000", status: "confirming", sourceTxHash: `0x${dateSeed.slice(4, 68)}`, destinationTxHash: null, confirmations: 12 + (seedValue % 3), requiredConfirmations: 15, estimatedArrival: new Date(now + 45000).toISOString(), aiVerified: true, aiRiskScore: 85, createdAt: new Date(now - 60000).toISOString() },
-      { id: "tx-003", sourceChainId: 5800, destinationChainId: 137, senderAddress: "0x789d35Cc6634C0532925a3b844Bc454e4438f789", recipientAddress: "0xabcf109551bD432803012645Ac136ddd64DBAabc", tokenSymbol: "TBURN", amount: "25000000000000000000000", amountReceived: "24925000000000000000000", feeAmount: "75000000000000000000", status: "completed", sourceTxHash: `0x${dateSeed.slice(8, 72)}`, destinationTxHash: `0x${dateSeed.slice(12, 76)}`, confirmations: 128, requiredConfirmations: 128, estimatedArrival: null, aiVerified: true, aiRiskScore: 50, createdAt: new Date(now - 300000).toISOString() },
-      { id: "tx-004", sourceChainId: 42161, destinationChainId: 5800, senderAddress: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", recipientAddress: "0x012f109551bD432803012645Ac136ddd64DBA012", tokenSymbol: "TBURN", amount: "200000000000000000000000", amountReceived: "199700000000000000000000", feeAmount: "300000000000000000000", status: "completed", sourceTxHash: `0x${dateSeed.slice(16, 80)}`, destinationTxHash: `0x${dateSeed.slice(20, 84)}`, confirmations: 1, requiredConfirmations: 1, estimatedArrival: null, aiVerified: true, aiRiskScore: 65, createdAt: new Date(now - 600000).toISOString() },
-      { id: "tx-005", sourceChainId: 10, destinationChainId: 5800, senderAddress: "0x321d35Cc6634C0532925a3b844Bc454e4438f321", recipientAddress: "0x654f109551bD432803012645Ac136ddd64DBA654", tokenSymbol: "TBURN", amount: "75000000000000000000000", amountReceived: null, feeAmount: "135000000000000000000", status: "bridging", sourceTxHash: `0x${dateSeed.slice(24, 88)}`, destinationTxHash: null, confirmations: 1, requiredConfirmations: 1, estimatedArrival: new Date(now + 2000).toISOString(), aiVerified: true, aiRiskScore: 70, createdAt: new Date(now - 30000).toISOString() }
+      { id: "tx-001", sourceChainId: 1, destinationChainId: 5800, senderAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", recipientAddress: addressFromString('tburn-wallet-recipient-001'), tokenSymbol: "TBURN", amount: "100000000000000000000000", amountReceived: null, feeAmount: "300000000000000000000", status: "pending", sourceTxHash: `0x${dateSeed.slice(0, 64)}`, destinationTxHash: null, confirmations: 8 + (seedValue % 4), requiredConfirmations: 12, estimatedArrival: new Date(now + 180000).toISOString(), aiVerified: true, aiRiskScore: 120, createdAt: new Date(now - 120000).toISOString() },
+      { id: "tx-002", sourceChainId: 56, destinationChainId: 5800, senderAddress: "0x123d35Cc6634C0532925a3b844Bc454e4438f123", recipientAddress: addressFromString('tburn-wallet-recipient-002'), tokenSymbol: "TBURN", amount: "50000000000000000000000", amountReceived: null, feeAmount: "125000000000000000000", status: "confirming", sourceTxHash: `0x${dateSeed.slice(4, 68)}`, destinationTxHash: null, confirmations: 12 + (seedValue % 3), requiredConfirmations: 15, estimatedArrival: new Date(now + 45000).toISOString(), aiVerified: true, aiRiskScore: 85, createdAt: new Date(now - 60000).toISOString() },
+      { id: "tx-003", sourceChainId: 5800, destinationChainId: 137, senderAddress: addressFromString('tburn-wallet-sender-001'), recipientAddress: "0xabcf109551bD432803012645Ac136ddd64DBAabc", tokenSymbol: "TBURN", amount: "25000000000000000000000", amountReceived: "24925000000000000000000", feeAmount: "75000000000000000000", status: "completed", sourceTxHash: `0x${dateSeed.slice(8, 72)}`, destinationTxHash: `0x${dateSeed.slice(12, 76)}`, confirmations: 128, requiredConfirmations: 128, estimatedArrival: null, aiVerified: true, aiRiskScore: 50, createdAt: new Date(now - 300000).toISOString() },
+      { id: "tx-004", sourceChainId: 42161, destinationChainId: 5800, senderAddress: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", recipientAddress: addressFromString('tburn-wallet-recipient-003'), tokenSymbol: "TBURN", amount: "200000000000000000000000", amountReceived: "199700000000000000000000", feeAmount: "300000000000000000000", status: "completed", sourceTxHash: `0x${dateSeed.slice(16, 80)}`, destinationTxHash: `0x${dateSeed.slice(20, 84)}`, confirmations: 1, requiredConfirmations: 1, estimatedArrival: null, aiVerified: true, aiRiskScore: 65, createdAt: new Date(now - 600000).toISOString() },
+      { id: "tx-005", sourceChainId: 10, destinationChainId: 5800, senderAddress: "0x321d35Cc6634C0532925a3b844Bc454e4438f321", recipientAddress: addressFromString('tburn-wallet-recipient-004'), tokenSymbol: "TBURN", amount: "75000000000000000000000", amountReceived: null, feeAmount: "135000000000000000000", status: "bridging", sourceTxHash: `0x${dateSeed.slice(24, 88)}`, destinationTxHash: null, confirmations: 1, requiredConfirmations: 1, estimatedArrival: new Date(now + 2000).toISOString(), aiVerified: true, aiRiskScore: 70, createdAt: new Date(now - 30000).toISOString() }
     ];
   }
 
