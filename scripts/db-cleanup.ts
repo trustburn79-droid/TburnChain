@@ -1,12 +1,14 @@
-import { drizzle } from 'drizzle-orm/neon-serverless';
-import { neon } from '@neondatabase/serverless';
-import { sql } from 'drizzle-orm';
+import pg from 'pg';
 
-const connectionString = process.env.DATABASE_URL!;
-const sqlClient = neon(connectionString);
-const db = drizzle(sqlClient);
+const { Client } = pg;
 
 async function cleanup() {
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+  });
+  
+  await client.connect();
   console.log('🔥 개발 DB 대용량 정리 시작...\n');
 
   const tables = [
@@ -22,9 +24,8 @@ async function cleanup() {
     try {
       console.log(`📊 ${table.name} 처리 중...`);
       
-      // 현재 행 수 확인
-      const countResult = await db.execute(sql.raw(`SELECT COUNT(*) as cnt FROM ${table.name}`));
-      const currentCount = Number(countResult[0]?.cnt || 0);
+      const countResult = await client.query(`SELECT COUNT(*)::int as cnt FROM ${table.name}`);
+      const currentCount = countResult.rows[0]?.cnt || 0;
       console.log(`   현재 행 수: ${currentCount.toLocaleString()}`);
       
       if (currentCount <= table.keep) {
@@ -35,15 +36,14 @@ async function cleanup() {
       const toDelete = currentCount - table.keep;
       console.log(`   삭제 예정: ${toDelete.toLocaleString()}행`);
 
-      // 삭제 실행
-      await db.execute(sql.raw(`
+      await client.query(`
         DELETE FROM ${table.name} 
         WHERE id IN (
           SELECT id FROM ${table.name} 
           ORDER BY id ASC 
           LIMIT ${toDelete}
         )
-      `));
+      `);
       
       console.log(`   ✅ 삭제 완료\n`);
     } catch (error) {
@@ -54,7 +54,7 @@ async function cleanup() {
   console.log('🧹 VACUUM 실행 중 (공간 회수)...');
   for (const table of tables) {
     try {
-      await db.execute(sql.raw(`VACUUM ${table.name}`));
+      await client.query(`VACUUM ${table.name}`);
       console.log(`   ✅ ${table.name} VACUUM 완료`);
     } catch (error) {
       console.log(`   ⚠️ ${table.name} VACUUM 실패 (정상일 수 있음)`);
@@ -63,11 +63,10 @@ async function cleanup() {
 
   console.log('\n✨ 정리 완료!');
   
-  // 최종 용량 확인
-  const sizeResult = await db.execute(sql.raw(`
-    SELECT pg_size_pretty(pg_database_size(current_database())) as total_size
-  `));
-  console.log(`📦 최종 DB 용량: ${sizeResult[0]?.total_size}`);
+  const sizeResult = await client.query(`SELECT pg_size_pretty(pg_database_size(current_database())) as total_size`);
+  console.log(`📦 최종 DB 용량: ${sizeResult.rows[0]?.total_size}`);
+
+  await client.end();
 }
 
 cleanup().catch(console.error);
