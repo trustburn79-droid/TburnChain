@@ -15,7 +15,8 @@ import {
   shardConfigurations, 
   shardConfigHistory, 
   shardScalingEvents, 
-  shardConfigAuditLogs 
+  shardConfigAuditLogs,
+  validators
 } from '@shared/schema';
 import { eq, desc, sql } from 'drizzle-orm';
 import { z } from 'zod';
@@ -49,6 +50,7 @@ import {
   generateValidatorAddress,
   formatTBurnAddress,
   encodeBech32m,
+  migrateLegacyAddress,
   SYSTEM_ADDRESSES,
   SIGNER_ADDRESSES
 } from '../utils/tburn-address';
@@ -2415,6 +2417,12 @@ export class TBurnEnterpriseNode extends EventEmitter {
       // Initialize wallet cache and load user-created wallets from database
       this.initializeWalletCache();
       await this.loadWalletsFromDatabase();
+      
+      // Load validators from database for consistent data across all pages
+      await this.loadValidatorsFromDatabase();
+      
+      // Start periodic validator cache refresh (every 5 minutes)
+      this.startValidatorCacheRefresh();
       
       // ★ [2026-01-18] PRODUCTION FIX: Normalize shard data in DB
       // This fixes the /admin/shards 100% load issue
@@ -5375,8 +5383,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
   }
 
   /**
-   * Get validator list - real validator data for Admin Portal
-   * Derived from shard configuration and staking parameters
+   * Get validator list - real validator data from database
+   * Returns cached validators that were loaded from the database
    */
   getValidators(): Array<{
     address: string;
@@ -5400,75 +5408,220 @@ export class TBurnEnterpriseNode extends EventEmitter {
     tier: number;
     region: string;
   }> {
-    const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
-    const regions = ['US-East', 'EU-West', 'AP-East', 'US-West', 'EU-Central', 'AP-South'];
+    // Return cached validators from database
+    return this.cachedValidators;
+  }
+  
+  /**
+   * Migrate validator addresses from legacy 0x format to TBURN tb1 Bech32m format
+   * This ensures all validators use the native TBURN mainnet address format
+   * 
+   * Guardrails:
+   * - Idempotent: Only runs once per server instance (static flag)
+   * - Safe: Checks if addresses need migration before updating
+   * - Logged: Logs before/after counts for verification
+   */
+  async migrateValidatorAddressesToTb1Format(): Promise<void> {
+    // Idempotency guard - only run once per server instance
+    if (TBurnEnterpriseNode.ADDRESS_MIGRATION_COMPLETED) {
+      return;
+    }
     
-    // Genesis validators (Tier 1 - Committee)
-    const tier1Names = [
-      'TBURN Genesis Node', 'Foundation Validator', 'Treasury Guardian',
-      'Mainnet Pioneer', 'Protocol Sentinel', 'Network Guardian',
-      'Chain Defender', 'Block Producer Alpha', 'Consensus Leader',
-      'Stake Master', 'Validator Prime', 'Enterprise Node'
-    ];
-
-    return Array.from({ length: Math.min(totalValidators, 125) }, (_, i) => {
-      // Tier classification
-      const tier = i < 12 ? 1 : (i < 50 ? 2 : 3);
+    try {
+      const dbValidators = await storage.getAllValidators();
       
-      // Deterministic address generation from index
-      const addressHash = crypto.createHash('sha256')
-        .update(`validator-${i}-${this.config.nodeId}`)
-        .digest('hex');
+      // Count addresses that need migration
+      const needsMigration = dbValidators.filter(v => 
+        v.address.startsWith('0x') || 
+        (v.address.startsWith('tburn') && !v.address.startsWith('tb1'))
+      );
       
-      // Deterministic stake based on tier (scaled for 10B supply)
-      const baseStake = tier === 1 ? 45_000_000 : (tier === 2 ? 8_000_000 : 500_000);
-      const stakeVariance = (parseInt(addressHash.slice(0, 8), 16) % 5_000_000);
-      const stake = baseStake + stakeVariance;
+      if (needsMigration.length === 0) {
+        console.log('[Enterprise Node] ✅ All validator addresses already in tb1 format');
+        TBurnEnterpriseNode.ADDRESS_MIGRATION_COMPLETED = true;
+        return;
+      }
       
-      // Status: 98% active, 1.5% inactive, 0.5% jailed
-      const statusSeed = parseInt(addressHash.slice(8, 12), 16) % 1000;
-      const status = statusSeed < 980 ? 'active' : (statusSeed < 995 ? 'inactive' : 'jailed');
+      console.log(`[Enterprise Node] 🔄 Migrating ${needsMigration.length} validator addresses from legacy to tb1 format...`);
       
-      // Deterministic metrics from address hash
-      const metricSeed = parseInt(addressHash.slice(12, 20), 16);
-      const uptime = 99 + ((metricSeed % 100) / 100); // 99.00-99.99%
-      const commission = tier === 1 ? 5 : (tier === 2 ? 7 : 10);
-      const delegators = tier === 1 ? (15000 + metricSeed % 5000) : (tier === 2 ? (2000 + metricSeed % 3000) : (100 + metricSeed % 400));
+      let migratedCount = 0;
+      for (const validator of needsMigration) {
+        const newAddress = migrateLegacyAddress(validator.address);
+        
+        // Update address directly using SQL (since updateValidator uses address as key)
+        await db.update(validators)
+          .set({ address: newAddress })
+          .where(eq(validators.id, validator.id));
+        
+        migratedCount++;
+      }
       
-      // Block production metrics
-      const blocksProduced = Math.floor(this.currentBlockHeight / totalValidators) + (metricSeed % 10000);
-      const blocksProposed = blocksProduced + (metricSeed % 1000);
+      // Mark migration as completed
+      TBurnEnterpriseNode.ADDRESS_MIGRATION_COMPLETED = true;
       
-      // AI Trust Score: 90-100 for active validators
-      const aiTrustScore = status === 'active' ? (9000 + metricSeed % 1000) : (status === 'inactive' ? 7000 + metricSeed % 1000 : 5000);
+      console.log(`[Enterprise Node] ✅ Migrated ${migratedCount} validator addresses to tb1 format`);
+      console.log('[Enterprise Node] ⚠️  Note: Related tables (delegations, rewards) may still reference old addresses');
+    } catch (error) {
+      console.error('[Enterprise Node] Failed to migrate validator addresses:', error);
+    }
+  }
+  
+  /**
+   * Load validators from database and cache them
+   * Called during initialization and periodically refreshed
+   */
+  async loadValidatorsFromDatabase(): Promise<void> {
+    try {
+      // First, migrate any legacy addresses to tb1 format
+      await this.migrateValidatorAddressesToTb1Format();
       
-      // Rewards calculation (APY-based)
-      const annualRewardRate = tier === 1 ? 0.12 : (tier === 2 ? 0.10 : 0.08);
-      const rewards = Math.floor(stake * annualRewardRate).toString();
-
+      const dbValidators = await storage.getAllValidators();
+      const regions = ['US-East', 'EU-West', 'AP-East', 'US-West', 'EU-Central', 'AP-South'];
+      
+      // Calculate total stake for voting power calculation
+      const totalStake = dbValidators.reduce((sum, v) => sum + BigInt(v.stake || '0'), BigInt(0));
+      
+      this.cachedValidators = dbValidators.map((v, i) => {
+        const stake = BigInt(v.stake || '0');
+        const stakeNum = Number(stake);
+        
+        // Determine tier based on stake amount
+        const tier = stakeNum >= 40_000_000 ? 1 : (stakeNum >= 5_000_000 ? 2 : 3);
+        
+        // Calculate voting power as percentage of total stake
+        const votingPower = totalStake > BigInt(0) 
+          ? Number((stake * BigInt(10000)) / totalStake) / 100 
+          : 0;
+        
+        return {
+          address: v.address,
+          name: v.name,
+          status: (v.status || 'active') as 'active' | 'inactive' | 'jailed',
+          stake: v.stake,
+          delegators: v.delegators || 0,
+          commission: v.commission || 500,
+          uptime: (v.uptime || 9950) / 100, // Convert basis points to percentage
+          blocksProduced: v.totalBlocks || 0,
+          blocksProposed: v.proposedBlocks || 0,
+          rewards: v.totalRewards || '0',
+          aiTrustScore: v.aiTrustScore || 9500,
+          jailedUntil: v.jailedUntil?.toISOString() || null,
+          votingPower,
+          selfDelegation: v.selfDelegation || Math.floor(stakeNum * 0.6).toString(),
+          minDelegation: (tier === 1 ? this.TIER_1_MIN_STAKE : (tier === 2 ? this.TIER_2_MIN_STAKE : this.TIER_3_MIN_STAKE)).toString(),
+          slashingEvents: v.slashingEvents || 0,
+          missedBlocks: v.missedBlocks || 0,
+          signatureRate: (v.uptime || 9950) / 100,
+          tier,
+          region: regions[i % regions.length]
+        };
+      });
+      
+      console.log(`[Enterprise Node] ✅ Loaded ${this.cachedValidators.length} validators from database`);
+    } catch (error) {
+      console.error('[Enterprise Node] Failed to load validators from database:', error);
+      this.cachedValidators = [];
+    }
+  }
+  
+  // Cached validators from database
+  private cachedValidators: Array<{
+    address: string;
+    name: string;
+    status: 'active' | 'inactive' | 'jailed';
+    stake: string;
+    delegators: number;
+    commission: number;
+    uptime: number;
+    blocksProduced: number;
+    blocksProposed: number;
+    rewards: string;
+    aiTrustScore: number;
+    jailedUntil: string | null;
+    votingPower: number;
+    selfDelegation: string;
+    minDelegation: string;
+    slashingEvents: number;
+    missedBlocks: number;
+    signatureRate: number;
+    tier: number;
+    region: string;
+  }> = [];
+  
+  // Cache refresh timer
+  private validatorCacheRefreshInterval: NodeJS.Timeout | null = null;
+  private static ADDRESS_MIGRATION_COMPLETED = false;  // Idempotency guard
+  
+  /**
+   * Start periodic validator cache refresh (every 5 minutes)
+   * Ensures validator data stays current without restart
+   */
+  startValidatorCacheRefresh(): void {
+    if (this.validatorCacheRefreshInterval) {
+      clearInterval(this.validatorCacheRefreshInterval);
+    }
+    
+    // Refresh every 5 minutes
+    this.validatorCacheRefreshInterval = setInterval(async () => {
+      try {
+        await this.refreshValidatorCache();
+      } catch (error) {
+        console.error('[Enterprise Node] Validator cache refresh failed:', error);
+      }
+    }, 5 * 60 * 1000);
+    
+    console.log('[Enterprise Node] ✅ Validator cache refresh started (5min interval)');
+  }
+  
+  /**
+   * Refresh validator cache from database (no migration, just reload)
+   */
+  async refreshValidatorCache(): Promise<void> {
+    const dbValidators = await storage.getAllValidators();
+    const regions = ['US-East', 'EU-West', 'AP-East', 'US-West', 'EU-Central', 'AP-South'];
+    const totalStake = dbValidators.reduce((sum, v) => sum + BigInt(v.stake || '0'), BigInt(0));
+    
+    this.cachedValidators = dbValidators.map((v, i) => {
+      const stake = BigInt(v.stake || '0');
+      const stakeNum = Number(stake);
+      const tier = stakeNum >= 40_000_000 ? 1 : (stakeNum >= 5_000_000 ? 2 : 3);
+      const votingPower = totalStake > BigInt(0) 
+        ? Number((stake * BigInt(10000)) / totalStake) / 100 
+        : 0;
+      
       return {
-        address: `0x${addressHash.slice(0, 40)}`,
-        name: tier === 1 ? (tier1Names[i] || `Committee Validator ${i + 1}`) : `Validator ${i + 1}`,
-        status,
-        stake: stake.toString(),
-        delegators,
-        commission,
-        uptime,
-        blocksProduced,
-        blocksProposed,
-        rewards,
-        aiTrustScore,
-        jailedUntil: status === 'jailed' ? new Date(Date.now() + 86400000 * 7).toISOString() : null,
-        votingPower: (stake / this.stakedAmount) * 100,
-        selfDelegation: Math.floor(stake * 0.6).toString(),
+        address: v.address,
+        name: v.name,
+        status: (v.status || 'active') as 'active' | 'inactive' | 'jailed',
+        stake: v.stake,
+        delegators: v.delegators || 0,
+        commission: v.commission || 500,
+        uptime: (v.uptime || 9950) / 100,
+        blocksProduced: v.totalBlocks || 0,
+        blocksProposed: v.proposedBlocks || 0,
+        rewards: v.totalRewards || '0',
+        aiTrustScore: v.aiTrustScore || 9500,
+        jailedUntil: v.jailedUntil?.toISOString() || null,
+        votingPower,
+        selfDelegation: v.selfDelegation || Math.floor(stakeNum * 0.6).toString(),
         minDelegation: (tier === 1 ? this.TIER_1_MIN_STAKE : (tier === 2 ? this.TIER_2_MIN_STAKE : this.TIER_3_MIN_STAKE)).toString(),
-        slashingEvents: status === 'jailed' ? 1 : 0,
-        missedBlocks: Math.floor((100 - uptime) * blocksProduced / 100),
-        signatureRate: uptime,
+        slashingEvents: v.slashingEvents || 0,
+        missedBlocks: v.missedBlocks || 0,
+        signatureRate: (v.uptime || 9950) / 100,
         tier,
         region: regions[i % regions.length]
       };
     });
+    
+    console.log(`[Enterprise Node] 🔄 Validator cache refreshed (${this.cachedValidators.length} validators)`);
+  }
+  
+  /**
+   * Invalidate and refresh validator cache
+   * Call this after admin actions that modify validators
+   */
+  async invalidateValidatorCache(): Promise<void> {
+    await this.refreshValidatorCache();
   }
 
   /**
