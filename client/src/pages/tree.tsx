@@ -172,6 +172,7 @@ const routeTree: RouteItem[] = [
       { path: "/vc", label: "VC Test Mode" },
       { path: "/brand", label: "Brand" },
       { path: "/vision", label: "Vision" },
+      { path: "/founders", label: "Team" },
     ]
   },
   {
