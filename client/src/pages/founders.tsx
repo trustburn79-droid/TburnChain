@@ -129,8 +129,8 @@ export default function FoundersPage() {
       ],
       stats: [
         { value: "15+", label: t("foundersPage.founders.stats.yearsExp") },
-        { value: "100+", label: t("foundersPage.founders.stats.protocols") },
-        { value: "50+", label: t("foundersPage.founders.stats.patents") }
+        { value: "10+", label: t("foundersPage.founders.stats.protocols") },
+        { value: "10+", label: t("foundersPage.founders.stats.patents") }
       ]
     },
     {
