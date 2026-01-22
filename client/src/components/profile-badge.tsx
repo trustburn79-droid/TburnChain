@@ -446,16 +446,6 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
               )}
             </div>
 
-            <Link href="/user?tab=wallet&action=create" onClick={() => setIsOpen(false)}>
-              <div className="flex items-center justify-between py-2.5 px-3 rounded-lg bg-muted/40 hover:bg-muted/60 transition-colors cursor-pointer group">
-                <div className="flex items-center gap-3">
-                  <Plus className="h-4 w-4 text-[#FCD535] shrink-0" />
-                  <span className="text-sm text-[#FCD535]">{t("profile.createNewWallet", "지갑생성")}</span>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
-              </div>
-            </Link>
-
             <div className="grid grid-cols-2 gap-2">
               <div className="py-3 px-3 rounded-lg bg-muted/40">
                 <div className="flex items-center gap-2 mb-1">
