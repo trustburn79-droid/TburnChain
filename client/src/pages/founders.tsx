@@ -115,6 +115,24 @@ export default function FoundersPage() {
       ]
     },
     {
+      initials: "JK",
+      name: "Jesse Jw KIM",
+      role: t("foundersPage.founders.jesseKim.role"),
+      company: t("foundersPage.founders.jesseKim.company"),
+      bio: t("foundersPage.founders.jesseKim.bio"),
+      expertise: [
+        t("foundersPage.founders.expertise.solidity"),
+        t("foundersPage.founders.expertise.rust"),
+        t("foundersPage.founders.expertise.typescript"),
+        t("foundersPage.founders.expertise.security")
+      ],
+      stats: [
+        { value: "15+", label: t("foundersPage.founders.stats.yearsExp") },
+        { value: "100+", label: t("foundersPage.founders.stats.protocols") },
+        { value: "50+", label: t("foundersPage.founders.stats.patents") }
+      ]
+    },
+    {
       initials: "MK",
       name: "Min-Jun Kim",
       role: t("foundersPage.founders.minJunKim.role"),
@@ -149,23 +167,6 @@ export default function FoundersPage() {
       ]
     },
     {
-      initials: "JW",
-      name: "James Wang",
-      role: t("foundersPage.founders.jamesWang.role"),
-      company: t("foundersPage.founders.jamesWang.company"),
-      bio: t("foundersPage.founders.jamesWang.bio"),
-      expertise: [
-        t("foundersPage.founders.expertise.defiProtocol"),
-        t("foundersPage.founders.expertise.ammDesign"),
-        t("foundersPage.founders.expertise.tokenomics")
-      ],
-      stats: [
-        { value: "8+", label: t("foundersPage.founders.stats.yearsExp") },
-        { value: "$2B+", label: t("foundersPage.founders.stats.tvlDesigned") },
-        { value: "5", label: t("foundersPage.founders.stats.protocols") }
-      ]
-    },
-    {
       initials: "EH",
       name: "Emily Han",
       role: t("foundersPage.founders.emilyHan.role"),
@@ -180,6 +181,23 @@ export default function FoundersPage() {
         { value: "14+", label: t("foundersPage.founders.stats.yearsExp") },
         { value: "100+", label: t("foundersPage.founders.stats.teamLed") },
         { value: "1M+", label: t("foundersPage.founders.stats.rpsHandled") }
+      ]
+    },
+    {
+      initials: "JW",
+      name: "James Wang",
+      role: t("foundersPage.founders.jamesWang.role"),
+      company: t("foundersPage.founders.jamesWang.company"),
+      bio: t("foundersPage.founders.jamesWang.bio"),
+      expertise: [
+        t("foundersPage.founders.expertise.defiProtocol"),
+        t("foundersPage.founders.expertise.ammDesign"),
+        t("foundersPage.founders.expertise.tokenomics")
+      ],
+      stats: [
+        { value: "8+", label: t("foundersPage.founders.stats.yearsExp") },
+        { value: "$2B+", label: t("foundersPage.founders.stats.tvlDesigned") },
+        { value: "5", label: t("foundersPage.founders.stats.protocols") }
       ]
     }
   ];
