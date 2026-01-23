@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TBurnLogo } from "@/components/tburn-logo";
 import { LanguageSelector } from "@/components/LanguageSelector";
-import { Home, ScanLine, User, Bug, Shield, Coins, ImageIcon, HelpCircle } from "lucide-react";
+import { ScanLine, User, Bug, Shield, Coins, ImageIcon, HelpCircle } from "lucide-react";
 
 export default function TokenDetails() {
   const { t } = useTranslation();
@@ -135,6 +135,10 @@ export default function TokenDetails() {
           height: 80px;
           display: flex;
           align-items: center;
+          width: 100%;
+        }
+        .td-header .td-container {
+          width: 100%;
         }
 
         .td-logo-box { display: flex; align-items: center; gap: 12px; }
@@ -156,12 +160,13 @@ export default function TokenDetails() {
           display: flex;
           align-items: center;
           gap: 8px;
+          flex-shrink: 0;
         }
         .td-header-right {
           display: flex;
           align-items: center;
           gap: 8px;
-          margin-left: auto;
+          flex-shrink: 0;
         }
         .td-header-icon {
           display: flex;
@@ -471,12 +476,11 @@ export default function TokenDetails() {
       <div className="td-root">
         <header className="td-header">
           <div className="td-container td-flex td-justify-between td-items-center">
-            <div className="td-header-left">
+            <a href="/" className="td-header-left" style={{ textDecoration: 'none' }}>
               <TBurnLogo className="w-10 h-10" showText={false} />
               <div className="td-logo-text td-font-orbitron">TBURN</div>
-            </div>
+            </a>
             <div className="td-header-right">
-              <a href="/" className="td-header-icon" title="Home"><Home size={18} /></a>
               <a href="/scan" className="td-header-icon" title="Scan"><ScanLine size={18} /></a>
               <a href="/user" className="td-header-icon" title="User"><User size={18} /></a>
               <a href="/bug-bounty" className="td-header-icon" title="Bug Bounty"><Bug size={18} /></a>
