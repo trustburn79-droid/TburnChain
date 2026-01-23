@@ -47,7 +47,7 @@
       (function() {
         var VERSION_KEY = 'tburn_version';
         var RELOAD_FLAG = 'tburn_version_reload';
-        var CURRENT_VERSION = '2026.01.23.v3';
+        var CURRENT_VERSION = '2026.01.23.v4';
         
         function clearAllCaches() {
           try {
@@ -77,16 +77,8 @@
           document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#030407;color:#fff;font-family:Space Grotesk,system-ui,sans-serif;text-align:center;padding:20px;"><svg width="80" height="80" viewBox="0 0 100 100" style="margin-bottom:24px;"><circle cx="50" cy="50" r="40" stroke="#FF6B35" stroke-width="2" fill="none"/><path d="M50 20 C35 35,25 50,30 65 C35 80,45 85,50 85 C55 85,65 80,70 65 C75 50,65 35,50 20" fill="url(#g)"/><defs><linearGradient id="g" x1="50%" y1="100%" x2="50%" y2="0%"><stop offset="0%" stop-color="#FF6B35"/><stop offset="100%" stop-color="#FFD700"/></linearGradient></defs></svg><h2 style="color:#FF6B35;margin-bottom:16px;font-size:24px;">Unable to load page resources</h2><p style="color:#999;margin-bottom:8px;font-size:14px;">The page could not be loaded due to a browser cache issue.</p><p style="color:#666;margin-bottom:24px;font-size:13px;">Press Ctrl+Shift+R (Mac: Cmd+Shift+R) to force refresh.</p><button onclick="sessionStorage.clear();localStorage.clear();location.href=location.origin+\'?v=\'+Date.now()" style="background:linear-gradient(135deg,#FF6B35,#F7931E);color:#fff;border:none;padding:14px 32px;border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;box-shadow:0 4px 12px rgba(255,107,53,0.3);">Force Refresh</button></div>';
         }
         
-        function handleResourceError(e) {
-          var tag = e.target && e.target.tagName;
-          if (tag === 'SCRIPT' || tag === 'LINK') {
-            // No automatic retry - just show error UI immediately
-            // User can click "Force Refresh" button manually
-            showErrorUI();
-          }
-        }
-        
-        window.addEventListener('error', handleResourceError, true);
+        // Disabled aggressive error handler - let React error boundaries handle errors
+        // The previous handler was too aggressive and showed error UI for temporary network issues
         
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.getRegistrations().then(function(r) { r.forEach(function(x) { x.unregister(); }); });
