@@ -10305,10 +10305,17 @@ let enterpriseNode: TBurnEnterpriseNode | null = null;
 let isLightweightMode = false;
 
 // Import DEV_SAFE_MODE check
+const DEV_SAFE_MODE = process.env.NODE_ENV === 'development';
+
+export function getEnterpriseNode(): TBurnEnterpriseNode {
+  if (!enterpriseNode) {
+    enterpriseNode = new TBurnEnterpriseNode({
+      rpcPort: 8545,
+      wsPort: 8546,
       p2pPort: 30303,
       dataDir: '/var/lib/tburn',
-      enableMetrics: !DEV_SAFE_MODE, // Disable heavy metrics in DEV_SAFE_MODE
-      enableSnapshots: !DEV_SAFE_MODE // Disable snapshots in DEV_SAFE_MODE
+      enableMetrics: !DEV_SAFE_MODE,
+      enableSnapshots: !DEV_SAFE_MODE
     });
     
     // DEV_SAFE_MODE: Skip auto-start of heavy services (RPC server, peer discovery, etc)
