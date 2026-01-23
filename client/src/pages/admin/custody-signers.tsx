@@ -144,13 +144,13 @@ const roleColors: Record<string, string> = {
 };
 
 const generateTestCredentials = () => {
-  const chars = "0123456789abcdefghjkmnpqrstuvwxyz";
+  const bech32mChars = "023456789acdefghjklmnpqrstuvwxyz";
   const hexChars = "0123456789abcdef";
   
   const generateBech32Address = () => {
     let address = "tb1q";
     for (let i = 0; i < 38; i++) {
-      address += chars[Math.floor(Math.random() * chars.length)];
+      address += bech32mChars[Math.floor(Math.random() * bech32mChars.length)];
     }
     return address;
   };
