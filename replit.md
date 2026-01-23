@@ -45,7 +45,7 @@ Key architectural decisions and features include:
 - **External Validator Registration System**: 3-step wizard at `/validator-registration` for external validators with cryptographic proof verification.
 - **RPC-Validator Integration**: Integration layer connecting validator engine with RPC gateway, featuring auto-sync, health checks, tier-based rate limiting, and allowlist management.
 - **TypeScript Validator SDK**: Comprehensive SDK for programmatic validator management (`external-validator-program/src/sdk/tburn-validator-sdk.ts`).
-- **Security Hardening**: Implemented mandatory HMAC-SHA256 signature verification, timestamp/nonce validation, rate limiting, mTLS client certificate validation, and sensitive data masking.
+- **Security Hardening**: Implemented mandatory HMAC-SHA256 signature verification, timestamp/nonce validation, rate limiting, mTLS client certificate validation, sensitive data masking, Helmet middleware with Content-Security-Policy headers, and HTML escaping for user-facing error messages.
 - **Genesis Validator Key Generation System**: Production-grade 125 validator key generation with tiered distribution and secure database storage.
 
 ## External Dependencies
