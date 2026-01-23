@@ -10,6 +10,12 @@ import logoImage3 from "@assets/nano_banana_pro_20260122_083314_1_1769175193618.
 import logoImage4 from "@assets/nano_banana_pro_20260122_083653_3_1769175193619.png";
 import logoImage5 from "@assets/nano_banana_pro_20260122_083655_2_1769175193620.png";
 import logoImage6 from "@assets/다운로드_1769175193620.png";
+import logoImage7 from "@assets/imgfx_20260123_211407_6_1769175760705.png";
+import logoImage8 from "@assets/imgfx_20260123_211402_1_1769175760706.png";
+import logoImage9 from "@assets/TBURN_MAINNET_1769175760707.png";
+import logoImage10 from "@assets/imgfx_20260123_211406_4_1769175776019.png";
+import logoImage11 from "@assets/imgfx_20260123_211405_3_1769175776025.png";
+import logoImage12 from "@assets/imgfx_20260123_211402_2_1769175776026.png";
 
 const brandStyles = `
   .brand-page {
@@ -879,6 +885,12 @@ const uploadedLogoAssets = [
   { id: "uploaded-coin-rainbow", title: "TBURN Coin (Rainbow)", desc: "Trust Burn coin with multi-color design", imageSrc: logoImage4, formats: ["PNG"] },
   { id: "uploaded-coin-network", title: "TBURN Coin (Network)", desc: "Trust Burn coin with network background", imageSrc: logoImage5, formats: ["PNG"] },
   { id: "uploaded-flame-circle", title: "TBURN Circle", desc: "Flame logo with circle border", imageSrc: logoImage6, formats: ["PNG"] },
+  { id: "uploaded-chain-vertical", title: "TBURN Chain (Vertical)", desc: "TBURN Chain logo with vertical layout", imageSrc: logoImage7, formats: ["PNG"] },
+  { id: "uploaded-tburn-vertical", title: "TBURN (Vertical)", desc: "TBURN logo with vertical layout", imageSrc: logoImage8, formats: ["PNG"] },
+  { id: "uploaded-mainnet-banner", title: "TBURN Mainnet", desc: "TBURN Mainnet banner with network design", imageSrc: logoImage9, formats: ["PNG"] },
+  { id: "uploaded-chain-horizontal-warm", title: "TBURN Chain (Horizontal)", desc: "TBURN Chain horizontal with warm tones", imageSrc: logoImage10, formats: ["PNG"] },
+  { id: "uploaded-chain-horizontal-white", title: "TBURN Chain (White)", desc: "TBURN Chain horizontal with white text", imageSrc: logoImage11, formats: ["PNG"] },
+  { id: "uploaded-tburn-horizontal", title: "TBURN (Horizontal)", desc: "TBURN horizontal logo design", imageSrc: logoImage12, formats: ["PNG"] },
 ];
 
 const logoAssetsRow3_4 = [
