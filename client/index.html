@@ -45,13 +45,9 @@
     <!-- CRITICAL: Inline error handler - runs BEFORE React loads -->
     <script>
       (function() {
-        var MAX_RETRIES = 2;
-        var RETRY_WINDOW = 120000;
-        var RETRY_KEY = 'tburn_chunk_retry';
-        var TIME_KEY = 'tburn_chunk_time';
         var VERSION_KEY = 'tburn_version';
         var RELOAD_FLAG = 'tburn_version_reload';
-        var CURRENT_VERSION = '2026.01.23.v2';
+        var CURRENT_VERSION = '2026.01.23.v3';
         
         function clearAllCaches() {
           try {
@@ -64,6 +60,7 @@
           } catch(e) {}
         }
         
+        // Version check - only reload ONCE per session when version changes
         var storedVersion = localStorage.getItem(VERSION_KEY);
         var alreadyReloaded = sessionStorage.getItem(RELOAD_FLAG);
         if (storedVersion && storedVersion !== CURRENT_VERSION && !alreadyReloaded) {
@@ -76,15 +73,6 @@
           sessionStorage.removeItem(RELOAD_FLAG);
         }
         
-        function getRetryInfo() {
-          try {
-            var count = parseInt(sessionStorage.getItem(RETRY_KEY) || '0');
-            var time = parseInt(sessionStorage.getItem(TIME_KEY) || '0');
-            if (Date.now() - time > RETRY_WINDOW) { count = 0; }
-            return { count: count, time: time };
-          } catch(e) { return { count: 0, time: 0 }; }
-        }
-        
         function showErrorUI() {
           document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#030407;color:#fff;font-family:Space Grotesk,system-ui,sans-serif;text-align:center;padding:20px;"><svg width="80" height="80" viewBox="0 0 100 100" style="margin-bottom:24px;"><circle cx="50" cy="50" r="40" stroke="#FF6B35" stroke-width="2" fill="none"/><path d="M50 20 C35 35,25 50,30 65 C35 80,45 85,50 85 C55 85,65 80,70 65 C75 50,65 35,50 20" fill="url(#g)"/><defs><linearGradient id="g" x1="50%" y1="100%" x2="50%" y2="0%"><stop offset="0%" stop-color="#FF6B35"/><stop offset="100%" stop-color="#FFD700"/></linearGradient></defs></svg><h2 style="color:#FF6B35;margin-bottom:16px;font-size:24px;">Unable to load page resources</h2><p style="color:#999;margin-bottom:8px;font-size:14px;">The page could not be loaded due to a browser cache issue.</p><p style="color:#666;margin-bottom:24px;font-size:13px;">Press Ctrl+Shift+R (Mac: Cmd+Shift+R) to force refresh.</p><button onclick="sessionStorage.clear();localStorage.clear();location.href=location.origin+\'?v=\'+Date.now()" style="background:linear-gradient(135deg,#FF6B35,#F7931E);color:#fff;border:none;padding:14px 32px;border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;box-shadow:0 4px 12px rgba(255,107,53,0.3);">Force Refresh</button></div>';
         }
@@ -92,22 +80,9 @@
         function handleResourceError(e) {
           var tag = e.target && e.target.tagName;
           if (tag === 'SCRIPT' || tag === 'LINK') {
-            var info = getRetryInfo();
-            var now = Date.now();
-            
-            if (info.count >= MAX_RETRIES) {
-              showErrorUI();
-              return;
-            }
-            
-            sessionStorage.setItem(RETRY_KEY, (info.count + 1).toString());
-            sessionStorage.setItem(TIME_KEY, now.toString());
-            
-            clearAllCaches();
-            
-            setTimeout(function() {
-              location.href = location.origin + location.pathname + '?_t=' + now;
-            }, 200);
+            // No automatic retry - just show error UI immediately
+            // User can click "Force Refresh" button manually
+            showErrorUI();
           }
         }
         
