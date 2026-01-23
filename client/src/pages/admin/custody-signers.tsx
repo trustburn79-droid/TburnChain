@@ -143,6 +143,32 @@ const roleColors: Record<string, string> = {
   strategic_partner: "bg-cyan-500/20 text-cyan-400 border-cyan-500/50",
 };
 
+const generateTestCredentials = () => {
+  const chars = "0123456789abcdefghjkmnpqrstuvwxyz";
+  const hexChars = "0123456789abcdef";
+  
+  const generateBech32Address = () => {
+    let address = "tb1q";
+    for (let i = 0; i < 38; i++) {
+      address += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return address;
+  };
+  
+  const generatePublicKey = () => {
+    let pubKey = "pk1";
+    for (let i = 0; i < 64; i++) {
+      pubKey += hexChars[Math.floor(Math.random() * hexChars.length)];
+    }
+    return pubKey;
+  };
+  
+  return {
+    signerAddress: generateBech32Address(),
+    publicKey: generatePublicKey(),
+  };
+};
+
 export default function CustodySignersAdmin() {
   const { toast } = useToast();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -663,10 +689,40 @@ export default function CustodySignersAdmin() {
               </div>
 
               <div className="border-t pt-4">
-                <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
-                  <Key className="h-4 w-4" />
-                  서명 자격 증명
-                </h4>
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-sm font-medium flex items-center gap-2">
+                    <Key className="h-4 w-4" />
+                    서명 자격 증명
+                  </h4>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const creds = generateTestCredentials();
+                      setFormData({
+                        ...formData,
+                        signerAddress: creds.signerAddress,
+                        publicKey: creds.publicKey,
+                      });
+                      toast({
+                        title: "테스트 자격증명 생성됨",
+                        description: "개발/테스트용 주소와 공개키가 생성되었습니다.",
+                      });
+                    }}
+                    data-testid="button-generate-credentials"
+                  >
+                    <RefreshCw className="h-3.5 w-3.5 mr-1.5" />
+                    테스트 자격증명 생성
+                  </Button>
+                </div>
+                
+                <div className="p-3 rounded-lg border border-blue-500/30 bg-blue-500/10 mb-4">
+                  <p className="text-xs text-blue-600 dark:text-blue-400">
+                    <strong>개발/테스트 환경:</strong> 실제 하드웨어 지갑이 없는 경우 위 버튼을 클릭하여 테스트용 자격증명을 생성할 수 있습니다. 
+                    프로덕션 환경에서는 각 서명자가 본인의 하드웨어 지갑에서 생성한 실제 주소를 사용해야 합니다.
+                  </p>
+                </div>
                 
                 <div className="space-y-4">
                   <div className="space-y-2">
