@@ -14831,6 +14831,16 @@
               "title": "4.2 钱包 安全",
               "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
               "important": "重要: We do not have access to your private keys and cannot help recover lost funds."
+            },
+            "notifications": {
+              "disabled": "通知已关闭",
+              "disabledDesc": "通知已被关闭。",
+              "enabled": "通知已开启",
+              "enabledDesc": "您将收到通知。"
+            },
+            "settings": {
+              "comingSoon": "设置功能即将推出。",
+              "title": "设置"
             }
           },
           "burn": {
@@ -15269,13 +15279,101 @@
         },
         "learn": {
           "trustScore": {
-            "title": "信任评分系统",
-            "subtitle": "3-stage verification process",
-            "forumTitle": "社区论坛",
-            "viewAll": "查看全部",
-            "recentPosts": "最近帖子",
-            "subtitleHow": "How Trust Scores work",
-            "subtitleVerification": "验证 methodology"
+            "components": {
+              "financial": {
+                "items": {
+                  "accountingAudit": "会计审计状态",
+                  "distributionData": "代币分配数据",
+                  "fundingReport": "资金报告可用性",
+                  "walletDisclosure": "钱包地址披露"
+                },
+                "title": "财务透明度"
+              },
+              "teamTransparency": {
+                "items": {
+                  "communication": "社区沟通评分",
+                  "experience": "专业经验验证",
+                  "kyc": "KYC验证完成",
+                  "realName": "实名验证"
+                },
+                "title": "团队透明度"
+              },
+              "technical": {
+                "items": {
+                  "codeQuality": "代码质量分析",
+                  "documentation": "文档质量",
+                  "securityAudit": "安全审计完成",
+                  "testCoverage": "测试覆盖率"
+                },
+                "title": "技术评估"
+              }
+            },
+            "grades": {
+              "a": {
+                "description": "通过验证，有少量改进空间",
+                "title": "高信任"
+              },
+              "b": {
+                "description": "完成基本验证，存在一些问题",
+                "title": "中等信任"
+              },
+              "c": {
+                "description": "验证不完整，存在重大问题",
+                "title": "有限信任"
+              },
+              "f": {
+                "description": "验证失败或数据不足",
+                "title": "未验证"
+              },
+              "s": {
+                "description": "最高验证级别，完全透明",
+                "title": "卓越信任"
+              }
+            },
+            "philosophy": {
+              "comprehensive": {
+                "description": "涵盖团队、技术、财务和执行能力的多维度分析",
+                "title": "全面审查"
+              },
+              "objective": {
+                "description": "通过标准化指标和AI评估消除人为偏见的数据驱动评估",
+                "title": "客观分析"
+              },
+              "realtime": {
+                "description": "基于项目行为变化即时调整评分的持续监控",
+                "title": "实时更新"
+              },
+              "transparent": {
+                "description": "所有评分因素和方法论公开记录并可链上验证",
+                "title": "完全透明"
+              }
+            },
+            "process": {
+              "aiAnalysis": {
+                "description": "自动化模式识别和风险评估",
+                "title": "AI分析"
+              },
+              "dataCollection": {
+                "description": "从多个来源收集项目信息",
+                "title": "数据收集"
+              },
+              "expertReview": {
+                "description": "领域专家进行人工验证",
+                "title": "专家审查"
+              },
+              "onchainCommit": {
+                "description": "验证结果的不可变记录",
+                "title": "链上提交"
+              }
+            },
+            "evaluationPhilosophy": "评估方法论",
+            "gradeSystem": "评级系统",
+            "gradeSystemDescription": "项目根据信任评分进行分类",
+            "scoreComponents": "评分组成部分",
+            "scoreComponentsStatus": "实时组件追踪",
+            "tag": "验证系统",
+            "verificationProcess": "验证流程",
+            "verificationProcessDescription": "我们的4步验证工作流程"
           },
           "wallet": {
             "title": "What is a 钱包?",
@@ -15296,6 +15394,16 @@
           "defi": {
             "title": "Intro to DeFi",
             "subtitle": "Decentralized finance fundamentals"
+          },
+          "notifications": {
+            "disabled": "通知已关闭",
+            "disabledDesc": "通知已被关闭。",
+            "enabled": "通知已开启",
+            "enabledDesc": "您将收到通知。"
+          },
+          "settings": {
+            "comingSoon": "设置功能即将推出。",
+            "title": "设置"
           }
         },
         "solutions": {

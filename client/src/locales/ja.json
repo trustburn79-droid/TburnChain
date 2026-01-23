@@ -15634,6 +15634,16 @@
               "title": "4.2 ウォレット セキュリティ",
               "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
               "important": "Important: We do not have access to your private keys and cannot help recover lost funds."
+            },
+            "notifications": {
+              "disabled": "通知オフ",
+              "disabledDesc": "通知がオフになりました。",
+              "enabled": "通知オン",
+              "enabledDesc": "通知を受け取ります。"
+            },
+            "settings": {
+              "comingSoon": "設定機能は近日公開予定です。",
+              "title": "設定"
             }
           },
           "burn": {
@@ -16100,7 +16110,102 @@
             "viewAll": "すべて表示",
             "recentPosts": "最近の投稿",
             "subtitleHow": "How トラストスコアs work",
-            "subtitleVerification": "検証 methodology"
+            "subtitleVerification": "検証 methodology",
+            "components": {
+              "financial": {
+                "items": {
+                  "accountingAudit": "会計監査状況",
+                  "distributionData": "トークン配布データ",
+                  "fundingReport": "資金報告書の有無",
+                  "walletDisclosure": "ウォレットアドレスの開示"
+                },
+                "title": "財務透明性"
+              },
+              "teamTransparency": {
+                "items": {
+                  "communication": "コミュニティコミュニケーションスコア",
+                  "experience": "専門経験の検証",
+                  "kyc": "KYC検証完了",
+                  "realName": "実名確認"
+                },
+                "title": "チーム透明性"
+              },
+              "technical": {
+                "items": {
+                  "codeQuality": "コード品質分析",
+                  "documentation": "ドキュメント品質",
+                  "securityAudit": "セキュリティ監査完了",
+                  "testCoverage": "テストカバレッジ率"
+                },
+                "title": "技術評価"
+              }
+            },
+            "evaluationPhilosophy": "評価方法論",
+            "gradeSystem": "評価システム",
+            "gradeSystemDescription": "プロジェクトは信頼スコアに基づいて分類されます",
+            "grades": {
+              "a": {
+                "description": "軽微な改善点がある優れた検証",
+                "title": "高信頼"
+              },
+              "b": {
+                "description": "一部懸念事項のある基本検証完了",
+                "title": "中程度の信頼"
+              },
+              "c": {
+                "description": "重大な懸念事項のある不完全な検証",
+                "title": "限定的信頼"
+              },
+              "f": {
+                "description": "検証失敗またはデータ不足",
+                "title": "未検証"
+              },
+              "s": {
+                "description": "完全な透明性を持つ最高検証レベル",
+                "title": "卓越した信頼"
+              }
+            },
+            "philosophy": {
+              "comprehensive": {
+                "description": "チーム、技術、財務、実行能力をカバーする多次元分析",
+                "title": "包括的レビュー"
+              },
+              "objective": {
+                "description": "標準化された指標とAI評価によるバイアス排除のデータ駆動型評価",
+                "title": "客観的分析"
+              },
+              "realtime": {
+                "description": "プロジェクト行動変化に基づく即時スコア調整による継続的監視",
+                "title": "リアルタイム更新"
+              },
+              "transparent": {
+                "description": "全てのスコアリング要素と方法論は公開されオンチェーン検証可能",
+                "title": "完全透明性"
+              }
+            },
+            "process": {
+              "aiAnalysis": {
+                "description": "自動パターン認識とリスク評価",
+                "title": "AI分析"
+              },
+              "dataCollection": {
+                "description": "複数ソースからのプロジェクト情報収集",
+                "title": "データ収集"
+              },
+              "expertReview": {
+                "description": "ドメイン専門家による人間検証",
+                "title": "専門家レビュー"
+              },
+              "onchainCommit": {
+                "description": "検証結果の不変記録",
+                "title": "オンチェーンコミット"
+              }
+            },
+            "scoreComponents": "スコア構成要素",
+            "scoreComponentsStatus": "リアルタイム構成要素追跡",
+            "tag": "検証システム",
+            "verificationProcess": "検証プロセス",
+            "verificationProcessDescription": "4ステップ検証ワークフロー"
           },
           "wallet": {
             "title": "What is a ウォレット?",
@@ -16121,6 +16226,16 @@
           "defi": {
             "title": "Intro to DeFi",
             "subtitle": "Decentralized finance fundamentals"
+          },
+          "notifications": {
+            "disabled": "通知オフ",
+            "disabledDesc": "通知がオフになりました。",
+            "enabled": "通知オン",
+            "enabledDesc": "通知を受け取ります。"
+          },
+          "settings": {
+            "comingSoon": "設定機能は近日公開予定です。",
+            "title": "設定"
           }
         },
         "solutions": {
