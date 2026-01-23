@@ -65,11 +65,12 @@ export default function WalletGuide() {
         }
       ],
       networkConfig: [
-        { label: t('publicPages.learn.walletGuide.network.name', 'Network Name'), value: "TBurn Chain" },
-        { label: t('publicPages.learn.walletGuide.network.rpc', 'RPC URL'), value: "https://tburn.io/rpc" },
+        { label: t('publicPages.learn.walletGuide.network.name', 'Network Name'), value: "TBurn Chain Mainnet" },
+        { label: t('publicPages.learn.walletGuide.network.rpc', 'RPC URL'), value: "https://mainnet.tburn.io/rpc" },
         { label: t('publicPages.learn.walletGuide.network.chainId', 'Chain ID'), value: "5800" },
         { label: t('publicPages.learn.walletGuide.network.symbol', 'Currency Symbol'), value: "TBURN" },
-        { label: t('publicPages.learn.walletGuide.network.explorer', 'Block Explorer'), value: "https://scan.tburn.io" }
+        { label: t('publicPages.learn.walletGuide.network.explorer', 'Block Explorer'), value: "https://scan.tburn.io" },
+        { label: t('publicPages.learn.walletGuide.network.addressFormat', 'Address Format'), value: "tb1... (Bech32m)" }
       ]
     },
     trust: {
@@ -98,11 +99,12 @@ export default function WalletGuide() {
         }
       ],
       networkConfig: [
-        { label: t('publicPages.learn.walletGuide.network.name', 'Network Name'), value: "TBurn Chain" },
-        { label: t('publicPages.learn.walletGuide.network.rpc', 'RPC URL'), value: "https://tburn.io/rpc" },
+        { label: t('publicPages.learn.walletGuide.network.name', 'Network Name'), value: "TBurn Chain Mainnet" },
+        { label: t('publicPages.learn.walletGuide.network.rpc', 'RPC URL'), value: "https://mainnet.tburn.io/rpc" },
         { label: t('publicPages.learn.walletGuide.network.chainId', 'Chain ID'), value: "5800" },
         { label: t('publicPages.learn.walletGuide.network.symbol', 'Currency Symbol'), value: "TBURN" },
-        { label: t('publicPages.learn.walletGuide.network.explorer', 'Block Explorer'), value: "https://scan.tburn.io" }
+        { label: t('publicPages.learn.walletGuide.network.explorer', 'Block Explorer'), value: "https://scan.tburn.io" },
+        { label: t('publicPages.learn.walletGuide.network.addressFormat', 'Address Format'), value: "tb1... (Bech32m)" }
       ]
     },
     ledger: {
@@ -131,11 +133,12 @@ export default function WalletGuide() {
         }
       ],
       networkConfig: [
-        { label: t('publicPages.learn.walletGuide.network.name', 'Network Name'), value: "TBurn Chain" },
-        { label: t('publicPages.learn.walletGuide.network.rpc', 'RPC URL'), value: "https://tburn.io/rpc" },
+        { label: t('publicPages.learn.walletGuide.network.name', 'Network Name'), value: "TBurn Chain Mainnet" },
+        { label: t('publicPages.learn.walletGuide.network.rpc', 'RPC URL'), value: "https://mainnet.tburn.io/rpc" },
         { label: t('publicPages.learn.walletGuide.network.chainId', 'Chain ID'), value: "5800" },
         { label: t('publicPages.learn.walletGuide.network.symbol', 'Currency Symbol'), value: "TBURN" },
-        { label: t('publicPages.learn.walletGuide.network.explorer', 'Block Explorer'), value: "https://scan.tburn.io" }
+        { label: t('publicPages.learn.walletGuide.network.explorer', 'Block Explorer'), value: "https://scan.tburn.io" },
+        { label: t('publicPages.learn.walletGuide.network.addressFormat', 'Address Format'), value: "tb1... (Bech32m)" }
       ]
     }
   };

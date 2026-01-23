@@ -43,9 +43,9 @@ export default function WhatIsBurnChain() {
   ];
 
   const consensusSpecs = [
-    { label: t('publicPages.learn.whatIsBurnChain.specs.theoreticalTps'), value: "520,000+" },
-    { label: t('publicPages.learn.whatIsBurnChain.specs.practicalTps'), value: "100,000+" },
-    { label: t('publicPages.learn.whatIsBurnChain.specs.blockTime'), value: "0.5s" },
+    { label: t('publicPages.learn.whatIsBurnChain.specs.theoreticalTps'), value: "100,000" },
+    { label: t('publicPages.learn.whatIsBurnChain.specs.practicalTps'), value: "100,000" },
+    { label: t('publicPages.learn.whatIsBurnChain.specs.blockTime'), value: "100ms" },
     { label: t('publicPages.learn.whatIsBurnChain.specs.finality'), value: "< 1s" },
   ];
 

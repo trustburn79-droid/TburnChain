@@ -121,7 +121,7 @@ export default function TechnicalWhitepaper() {
           <div className="tw-spec-grid">
             <div className="tw-spec-card">
               <div className="label">{t('technicalWhitepaper.sections.abstract.specs.peakTps')}</div>
-              <div className="value cyan">210,000</div>
+              <div className="value cyan">100,000</div>
             </div>
             <div className="tw-spec-card">
               <div className="label">{t('technicalWhitepaper.sections.abstract.specs.blockTime')}</div>
@@ -133,7 +133,7 @@ export default function TechnicalWhitepaper() {
             </div>
             <div className="tw-spec-card">
               <div className="label">{t('technicalWhitepaper.sections.abstract.specs.validators')}</div>
-              <div className="value purple">1,600</div>
+              <div className="value purple">587</div>
             </div>
           </div>
         </section>
@@ -192,12 +192,15 @@ export default function TechnicalWhitepaper() {
             </thead>
             <tbody>
               <tr><td>Chain ID</td><td><code>5800 (0x16a8)</code></td><td><code>5900 (0x170C)</code></td></tr>
-              <tr><td>RPC Endpoint</td><td><code>https://tburn.io/rpc</code></td><td><code>https://tburn.io/testnet-rpc</code></td></tr>
-              <tr><td>WebSocket</td><td><code>wss://tburn.io/ws</code></td><td><code>wss://tburn.io/testnet-ws</code></td></tr>
-              <tr><td>Explorer</td><td><code>https://tburn.io/scan</code></td><td><code>https://tburn.io/testnet-scan</code></td></tr>
+              <tr><td>RPC Endpoint</td><td><code>https://mainnet.tburn.io/rpc</code></td><td><code>https://testnet.tburn.io/rpc</code></td></tr>
+              <tr><td>WebSocket</td><td><code>wss://mainnet.tburn.io/ws</code></td><td><code>wss://testnet.tburn.io/ws</code></td></tr>
+              <tr><td>Explorer</td><td><code>https://scan.tburn.io</code></td><td><code>https://testnet-scan.tburn.io</code></td></tr>
               <tr><td>{t('technicalWhitepaper.sections.architecture.networkSpecs.currencySymbol')}</td><td>TBURN</td><td>tTBURN</td></tr>
               <tr><td>{t('technicalWhitepaper.sections.architecture.networkSpecs.blockTime')}</td><td>100ms</td><td>100ms</td></tr>
               <tr><td>{t('technicalWhitepaper.sections.architecture.networkSpecs.gasUnit')}</td><td>Ember (EMB)</td><td>Ember (EMB)</td></tr>
+              <tr><td>Address Format</td><td><code>tb1... (Bech32m)</code></td><td><code>tb1... (Bech32m)</code></td></tr>
+              <tr><td>Genesis Validators</td><td>587</td><td>32</td></tr>
+              <tr><td>Active Shards</td><td>24 (scalable to 64)</td><td>8</td></tr>
             </tbody>
           </table>
         </section>
@@ -259,15 +262,15 @@ export default function TechnicalWhitepaper() {
           <div className="tw-spec-grid">
             <div className="tw-spec-card">
               <div className="label">{t('technicalWhitepaper.sections.sharding.config.activeShards')}</div>
-              <div className="value cyan">64</div>
+              <div className="value cyan">24</div>
             </div>
             <div className="tw-spec-card">
               <div className="label">{t('technicalWhitepaper.sections.sharding.config.validatorsPerShard')}</div>
-              <div className="value green">25</div>
+              <div className="value green">24</div>
             </div>
             <div className="tw-spec-card">
               <div className="label">{t('technicalWhitepaper.sections.sharding.config.tpsPerShard')}</div>
-              <div className="value orange">3,280</div>
+              <div className="value orange">4,166</div>
             </div>
             <div className="tw-spec-card">
               <div className="label">{t('technicalWhitepaper.sections.sharding.config.crossShardLatency')}</div>
@@ -282,7 +285,7 @@ export default function TechnicalWhitepaper() {
           </div>
           <p>{t('technicalWhitepaper.sections.sharding.tpsFormula.withConfig')}</p>
           <div className="tw-code">
-            <code>TPS = 64 shards × 625 tx/shard × 0.525 load × 10 blocks/sec<br/>TPS ≈ 210,000</code>
+            <code>TPS = 24 shards × 625 tx/shard × 0.667 load × 10 blocks/sec<br/>TPS ≈ 100,000 (scalable to 64 shards)</code>
           </div>
 
           <h3>4.3 {t('technicalWhitepaper.sections.sharding.hardware.title')}</h3>

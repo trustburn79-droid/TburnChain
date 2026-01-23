@@ -149,7 +149,7 @@ export default function Tokenomics() {
               <div className="space-y-4">
                 <div className="flex justify-between border-b border-gray-300 dark:border-white/10 pb-2 gap-2">
                   <span className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.tokenomics.tburn.totalSupply')}</span>
-                  <span className="text-gray-900 dark:text-white font-mono">10,000,000,000</span>
+                  <span className="text-gray-900 dark:text-white font-mono">100,000,000,000</span>
                 </div>
                 <div className="flex justify-between border-b border-gray-300 dark:border-white/10 pb-2 gap-2">
                   <span className="text-gray-600 dark:text-gray-400">{t('publicPages.learn.tokenomics.tburn.decimals')}</span>
@@ -263,7 +263,7 @@ export default function Tokenomics() {
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span className="text-4xl font-bold text-gray-900 dark:text-white font-mono">10B</span>
+                <span className="text-4xl font-bold text-gray-900 dark:text-white font-mono">100B</span>
                 <span className="text-sm text-gray-500">{t('publicPages.learn.tokenomics.distributionSection.totalSupply')}</span>
               </div>
             </div>
