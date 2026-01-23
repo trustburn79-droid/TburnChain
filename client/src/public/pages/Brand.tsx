@@ -4,6 +4,13 @@ import { useToast } from "@/hooks/use-toast";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useTranslation } from "react-i18next";
 
+import logoImage1 from "@assets/nano_banana_pro_20260122_082358_1_1769175193614.png";
+import logoImage2 from "@assets/nano_banana_pro_20260122_083312_2_1769175193617.png";
+import logoImage3 from "@assets/nano_banana_pro_20260122_083314_1_1769175193618.png";
+import logoImage4 from "@assets/nano_banana_pro_20260122_083653_3_1769175193619.png";
+import logoImage5 from "@assets/nano_banana_pro_20260122_083655_2_1769175193620.png";
+import logoImage6 from "@assets/다운로드_1769175193620.png";
+
 const brandStyles = `
   .brand-page {
     --gold: #D4AF37;
@@ -863,12 +870,24 @@ const logoAssets = [
   { id: "symbol-large", title: "Symbol (Large)", desc: "Large symbol for print and display", bg: "dark-bg", type: "symbol-large", formats: ["SVG", "PNG", "PDF"] },
   { id: "symbol-large-outline", title: "Symbol Outline (Large)", desc: "Large outline version for print", bg: "dark-bg", type: "symbol-large-outline", formats: ["SVG", "PNG", "PDF"] },
   { id: "symbol-large-transparent", title: "Symbol (Large Transparent)", desc: "Large PNG for transparent backgrounds", bg: "transparent-bg", type: "symbol-large", formats: ["PNG", "WEBP", "PDF"] },
-  { id: "symbol", title: "Symbol", desc: "Use as icon or favicon", bg: "dark-bg", type: "symbol", formats: ["SVG", "PNG", "ICO"] },
-  { id: "symbol-outline", title: "Symbol Outline", desc: "Outline version of the symbol", bg: "dark-bg", type: "symbol-outline", formats: ["SVG", "PNG"] },
-  { id: "symbol-transparent", title: "Symbol (Transparent)", desc: "PNG symbol for transparent backgrounds", bg: "transparent-bg", type: "symbol", formats: ["PNG", "WEBP"] },
-  { id: "wordmark-gold", title: "Wordmark (Gold)", desc: "Text only without symbol", bg: "dark-bg", type: "wordmark-gold", formats: ["SVG", "PNG"] },
-  { id: "wordmark-white", title: "Wordmark (White)", desc: "White wordmark for dark backgrounds", bg: "navy-bg", type: "wordmark-white", formats: ["SVG", "PNG"] },
-  { id: "wordmark-dark", title: "Wordmark (Dark)", desc: "Dark wordmark for light backgrounds", bg: "gold-bg", type: "wordmark-dark", formats: ["SVG", "PNG"] },
+];
+
+const uploadedLogoAssets = [
+  { id: "uploaded-flame-simple", title: "TBURN Flame", desc: "Simple flame logo with T symbol", imageSrc: logoImage1, formats: ["PNG"] },
+  { id: "uploaded-coin-silver", title: "TBURN Coin (Silver)", desc: "Trust Burn coin with circuit design", imageSrc: logoImage2, formats: ["PNG"] },
+  { id: "uploaded-coin-gold", title: "TBURN Coin (Gold Glow)", desc: "Trust Burn coin with gold glow effect", imageSrc: logoImage3, formats: ["PNG"] },
+  { id: "uploaded-coin-rainbow", title: "TBURN Coin (Rainbow)", desc: "Trust Burn coin with multi-color design", imageSrc: logoImage4, formats: ["PNG"] },
+  { id: "uploaded-coin-network", title: "TBURN Coin (Network)", desc: "Trust Burn coin with network background", imageSrc: logoImage5, formats: ["PNG"] },
+  { id: "uploaded-flame-circle", title: "TBURN Circle", desc: "Flame logo with circle border", imageSrc: logoImage6, formats: ["PNG"] },
+];
+
+const logoAssetsRow3_4 = [
+  { id: "symbol", title: "Symbol", desc: "Use as icon or favicon", bg: "dark-bg", type: "symbol", dark: false, formats: ["SVG", "PNG", "ICO"] },
+  { id: "symbol-outline", title: "Symbol Outline", desc: "Outline version of the symbol", bg: "dark-bg", type: "symbol-outline", dark: false, formats: ["SVG", "PNG"] },
+  { id: "symbol-transparent", title: "Symbol (Transparent)", desc: "PNG symbol for transparent backgrounds", bg: "transparent-bg", type: "symbol", dark: false, formats: ["PNG", "WEBP"] },
+  { id: "wordmark-gold", title: "Wordmark (Gold)", desc: "Text only without symbol", bg: "dark-bg", type: "wordmark-gold", dark: false, formats: ["SVG", "PNG"] },
+  { id: "wordmark-white", title: "Wordmark (White)", desc: "White wordmark for dark backgrounds", bg: "navy-bg", type: "wordmark-white", dark: false, formats: ["SVG", "PNG"] },
+  { id: "wordmark-dark", title: "Wordmark (Dark)", desc: "Dark wordmark for light backgrounds", bg: "gold-bg", type: "wordmark-dark", dark: true, formats: ["SVG", "PNG"] },
 ];
 
 const primaryColors = [
@@ -1063,6 +1082,48 @@ export default function Brand() {
 
         <div className="logo-grid">
           {logoAssets.map((asset) => (
+            <div key={asset.id} className="logo-card" data-testid={`logo-card-${asset.id}`}>
+              <div className={`logo-preview ${asset.bg}`}>
+                {renderLogoDisplay(asset.type, asset.dark)}
+              </div>
+              <div className="logo-info">
+                <h4>{asset.title}</h4>
+                <p>{asset.desc}</p>
+                <div className="logo-formats">
+                  {asset.formats.map((f) => (
+                    <span key={f} className="format-tag">{f}</span>
+                  ))}
+                </div>
+                <button className="logo-download-btn" onClick={() => downloadAsset(asset.id)} data-testid={`button-download-${asset.id}`}>
+                  <Download className="w-4 h-4" /> {t('brandPage.download')}
+                </button>
+              </div>
+            </div>
+          ))}
+          {uploadedLogoAssets.map((asset) => (
+            <div key={asset.id} className="logo-card" data-testid={`logo-card-${asset.id}`}>
+              <div className="logo-preview dark-bg" style={{ padding: "16px" }}>
+                <img 
+                  src={asset.imageSrc} 
+                  alt={asset.title} 
+                  style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "8px" }} 
+                />
+              </div>
+              <div className="logo-info">
+                <h4>{asset.title}</h4>
+                <p>{asset.desc}</p>
+                <div className="logo-formats">
+                  {asset.formats.map((f) => (
+                    <span key={f} className="format-tag">{f}</span>
+                  ))}
+                </div>
+                <button className="logo-download-btn" onClick={() => downloadAsset(asset.id)} data-testid={`button-download-${asset.id}`}>
+                  <Download className="w-4 h-4" /> {t('brandPage.download')}
+                </button>
+              </div>
+            </div>
+          ))}
+          {logoAssetsRow3_4.map((asset) => (
             <div key={asset.id} className="logo-card" data-testid={`logo-card-${asset.id}`}>
               <div className={`logo-preview ${asset.bg}`}>
                 {renderLogoDisplay(asset.type, asset.dark)}
