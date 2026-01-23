@@ -6696,7 +6696,7 @@
     "loginError": "Failed to login. Please try again.",
     "authenticate": "Authenticate",
     "gatewaySecure": "GATEWAY_SECURE",
-    "connectToNeural": "Connect to the Neural Consensus Layer",
+    "connectToNeural": "Connect to TBURN Mainnet Network",
     "enterAccessKey": "Enter access key...",
     "enterAdminEmail": "Enter admin email...",
     "authenticating": "Authenticating...",
@@ -6709,23 +6709,23 @@
     "noNodeId": "Don't have a node ID?",
     "initializeNode": "Initialize Node",
     "whyConnect": "Why Connect?",
-    "whyConnectSubtitle": "Join the world's first trust-based Layer 1.",
+    "whyConnectSubtitle": "Access the production Layer 1 blockchain with 100K TPS capacity.",
     "benefits": {
       "testnetAccess": {
-        "title": "Testnet Early Access",
-        "description": "Be the first to test new features and earn contribution points."
+        "title": "Mainnet Explorer Access",
+        "description": "Real-time access to blocks, transactions, and 24-shard network data."
       },
       "governance": {
         "title": "Governance Participation",
-        "description": "Influence the future of TBurn Chain through proposal voting."
+        "description": "Participate in protocol decisions with 587 active validators."
       },
       "resources": {
         "title": "Technical Resources",
-        "description": "Full access to developer documentation, SDKs, and API keys."
+        "description": "Full RPC endpoints, SDKs, and Chain ID 5800 documentation."
       },
       "rewards": {
         "title": "Ecosystem Rewards",
-        "description": "Exclusive airdrops and rewards for active community members."
+        "description": "Stake TBURN tokens and earn validator rewards with tb1 addresses."
       }
     },
     "nav": {

@@ -6105,7 +6105,7 @@
     "loginError": "登录失败。请重试。",
     "authenticate": "身份验证",
     "gatewaySecure": "GATEWAY_SECURE",
-    "connectToNeural": "连接到神经共识层",
+    "connectToNeural": "连接到TBURN主网网络",
     "enterAccessKey": "输入访问密钥...",
     "enterAdminEmail": "输入管理员邮箱...",
     "authenticating": "验证中...",
@@ -6118,7 +6118,7 @@
     "noNodeId": "没有节点 ID？",
     "initializeNode": "初始化节点",
     "whyConnect": "为什么要连接？",
-    "whyConnectSubtitle": "加入全球首个基于信任的 Layer 1 区块链。",
+    "whyConnectSubtitle": "访问具有100K TPS容量的生产级Layer 1区块链。",
     "benefits": {
       "testnetAccess": {
         "title": "测试网抢先体验",

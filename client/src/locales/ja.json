@@ -6553,7 +6553,7 @@
     "loginError": "ログインに失敗しました。再試行してください。",
     "authenticate": "認証",
     "gatewaySecure": "GATEWAY_SECURE",
-    "connectToNeural": "ニューラルコンセンサスレイヤーに接続",
+    "connectToNeural": "TBURNメインネットワークに接続",
     "enterAccessKey": "アクセスキーを入力...",
     "enterAdminEmail": "管理者メールを入力...",
     "authenticating": "認証中...",
@@ -6566,7 +6566,7 @@
     "noNodeId": "ノードIDをお持ちでないですか？",
     "initializeNode": "ノードを初期化",
     "whyConnect": "なぜ接続するのか？",
-    "whyConnectSubtitle": "世界初の信頼ベースのレイヤー1に参加しましょう。",
+    "whyConnectSubtitle": "100K TPS容量のプロダクションレイヤー1ブロックチェーンにアクセス。",
     "benefits": {
       "testnetAccess": {
         "title": "テストネット早期アクセス",
