@@ -194,6 +194,17 @@ function getTranslatedStatus(status: string | null | undefined, t: TranslationFn
   return (typeof translated === 'string' && translated !== translationKey) ? translated : status;
 }
 
+// Convert vendor model names to neutral AI Engine branding
+function getNeutralModelName(name: string): string {
+  const lowerName = name.toLowerCase();
+  if (lowerName.includes("gemini")) return "AI Engine α";
+  if (lowerName.includes("claude") || lowerName.includes("anthropic")) return "AI Engine β";
+  if (lowerName.includes("gpt") || lowerName.includes("openai")) return "AI Engine γ";
+  if (lowerName.includes("grok") || lowerName.includes("xai")) return "AI Engine δ";
+  if (lowerName.includes("llama")) return "AI Engine γ";
+  return name;
+}
+
 function getTranslatedBand(band: string | null | undefined, t: TranslationFn): string {
   if (!band) return t('aiOrchestration.operational');
   const bandKey = band.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -934,18 +945,6 @@ export default function AIOrchestration() {
   };
 
   const getModelIcon = (name: string) => {
-
-  // Convert vendor model names to neutral AI Engine branding
-  const getNeutralModelName = (name: string): string => {
-    const lowerName = name.toLowerCase();
-    if (lowerName.includes("gemini")) return "AI Engine α";
-    if (lowerName.includes("claude") || lowerName.includes("anthropic")) return "AI Engine β";
-    if (lowerName.includes("gpt") || lowerName.includes("openai")) return "AI Engine γ";
-    if (lowerName.includes("grok") || lowerName.includes("xai")) return "AI Engine δ";
-    if (lowerName.includes("llama")) return "AI Engine γ";
-    return name;
-  };
-
     if (name.includes("grok")) return <RefreshCw className="h-4 w-4" />;
     if (name.includes("gpt")) return <Brain className="h-4 w-4" />;
     if (name.includes("claude")) return <Target className="h-4 w-4" />;
