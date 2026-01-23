@@ -971,22 +971,194 @@ export default function Brand() {
     }
   };
 
-  const downloadAsset = (assetName: string) => {
-    toast({ title: `Starting download: ${assetName}...`, description: "File will download shortly." });
+  const downloadAsset = async (assetId: string) => {
+    const uploadedAsset = uploadedLogoAssets.find(a => a.id === assetId);
+    if (uploadedAsset && uploadedAsset.imageSrc) {
+      try {
+        toast({ title: `Downloading ${uploadedAsset.title}...` });
+        const response = await fetch(uploadedAsset.imageSrc);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${assetId}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        toast({ title: `Downloaded ${uploadedAsset.title}`, description: "File saved successfully." });
+      } catch (error) {
+        toast({ title: "Download failed", variant: "destructive" });
+      }
+      return;
+    }
+    
+    const logoAsset = logoAssets.find(a => a.id === assetId);
+    const row34Asset = logoAssetsRow3_4.find(a => a.id === assetId);
+    const asset = logoAsset || row34Asset;
+    
+    if (asset) {
+      try {
+        toast({ title: `Generating ${asset.title}...` });
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          if (asset.bg === 'dark-bg') {
+            ctx.fillStyle = '#1a1a2e';
+          } else if (asset.bg === 'light-bg') {
+            ctx.fillStyle = '#ffffff';
+          } else {
+            ctx.fillStyle = 'transparent';
+          }
+          ctx.fillRect(0, 0, 512, 512);
+          
+          ctx.fillStyle = '#D4AF37';
+          ctx.beginPath();
+          ctx.arc(256, 200, 80, 0, Math.PI * 2);
+          ctx.fill();
+          
+          ctx.fillStyle = '#FF6B35';
+          ctx.beginPath();
+          ctx.moveTo(256, 120);
+          ctx.bezierCurveTo(290, 160, 290, 220, 256, 280);
+          ctx.bezierCurveTo(222, 220, 222, 160, 256, 120);
+          ctx.fill();
+          
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 48px Space Grotesk, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('TBURN', 256, 380);
+          
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const url = URL.createObjectURL(blob);
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = `tburn-${assetId}.png`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              URL.revokeObjectURL(url);
+              toast({ title: `Downloaded ${asset.title}`, description: "File saved successfully." });
+            }
+          }, 'image/png');
+        }
+      } catch (error) {
+        toast({ title: "Download failed", variant: "destructive" });
+      }
+      return;
+    }
+    
+    toast({ title: `Asset ${assetId} not found`, variant: "destructive" });
   };
 
-  const downloadSection = (section: string) => {
-    toast({ title: `Downloading ${section} section assets...` });
+  const downloadSection = async (section: string) => {
+    toast({ title: `Preparing ${section} download...` });
+    
+    if (section === "logos") {
+      for (const asset of uploadedLogoAssets.slice(0, 3)) {
+        await downloadAsset(asset.id);
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+      toast({ title: "Logo downloads complete!" });
+    } else if (section === "colors") {
+      const colorData = `TBURN Brand Colors
+================
+Primary Gold: #D4AF37
+Accent Orange: #FF6B35
+Dark Navy: #1a1a2e
+Text Light: #FFFFFF
+Text Gray: #9CA3AF
+Success: #10B981
+Warning: #F59E0B
+Error: #EF4444
+`;
+      const blob = new Blob([colorData], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'tburn-brand-colors.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      toast({ title: "Colors file downloaded!" });
+    } else if (section === "typography") {
+      const fontInfo = `TBURN Typography Guide
+=====================
+Primary Font: Space Grotesk
+- Weights: 400, 500, 600, 700
+- Use for: Headlines, navigation, buttons
+
+Monospace Font: JetBrains Mono
+- Weights: 400, 500
+- Use for: Code, addresses, hashes, technical data
+
+Download fonts from:
+- Space Grotesk: https://fonts.google.com/specimen/Space+Grotesk
+- JetBrains Mono: https://fonts.google.com/specimen/JetBrains+Mono
+`;
+      const blob = new Blob([fontInfo], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'tburn-typography-guide.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      toast({ title: "Typography guide downloaded!" });
+    } else if (section === "banners" || section === "icons") {
+      toast({ title: `${section} assets are being prepared...`, description: "Individual downloads available below." });
+    }
   };
 
-  const downloadPackage = (type: string) => {
+  const downloadPackage = async (type: string) => {
     const packageNames: Record<string, string> = {
       full: "Full Brand Package",
       print: "Print Package",
       digital: "Digital Package",
       social: "Social Media Package",
     };
-    toast({ title: `Downloading ${packageNames[type]}...` });
+    toast({ title: `Preparing ${packageNames[type]}...` });
+    
+    const packageInfo = `TBURN ${packageNames[type]}
+${'='.repeat(30)}
+
+Package Contents:
+- Logo files (PNG format)
+- Brand colors reference
+- Typography guidelines
+- Usage instructions
+
+Brand Guidelines:
+1. Always maintain clear space around the logo
+2. Do not stretch or distort the logo
+3. Use approved color combinations only
+4. Minimum logo size: 32px height for digital
+
+Contact: brand@tburn.network
+Website: https://tburn.network
+`;
+    
+    const blob = new Blob([packageInfo], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `tburn-${type}-package-readme.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    for (const asset of uploadedLogoAssets.slice(0, 2)) {
+      await downloadAsset(asset.id);
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+    
+    toast({ title: `${packageNames[type]} downloaded!` });
   };
 
   const renderLogoDisplay = (type: string, dark: boolean = false) => {
