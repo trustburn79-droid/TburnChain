@@ -22,8 +22,9 @@ declare global {
 // CRITICAL: Dynamic Import Error Handler with Infinite Loop Prevention
 // Auto-reload when chunk loading fails (stale cache issue)
 // ============================================
-const RELOAD_COOLDOWN_MS = 30000; // 30 seconds between reloads
-const MAX_RELOADS = 3; // Maximum 3 reloads in cooldown period
+const RELOAD_COOLDOWN_MS = 120000; // 2 minutes between reloads
+const MAX_RELOADS = 2; // Maximum 2 reloads in cooldown period
+const CURRENT_VERSION = '2026.01.23.v1';
 
 function getReloadHistory(): number[] {
   try {
@@ -72,13 +73,7 @@ function showChunkErrorUI() {
   }
 }
 
-function handleChunkError() {
-  if (window.__TBURN_CHUNK_ERROR_RELOAD__) {
-    return; // Already handling
-  }
-  
-  window.__TBURN_CHUNK_ERROR_RELOAD__ = true;
-  
+function clearAllCaches() {
   // Clear Service Worker and caches
   if ('caches' in window) {
     caches.keys().then(names => names.forEach(name => caches.delete(name)));
@@ -88,6 +83,22 @@ function handleChunkError() {
       regs.forEach(reg => reg.unregister())
     );
   }
+  // Clear session storage but preserve language preference
+  const lang = localStorage.getItem('language');
+  sessionStorage.clear();
+  localStorage.clear();
+  if (lang) localStorage.setItem('language', lang);
+  localStorage.setItem('tburn_version', CURRENT_VERSION);
+}
+
+function handleChunkError() {
+  if (window.__TBURN_CHUNK_ERROR_RELOAD__) {
+    return; // Already handling
+  }
+  
+  window.__TBURN_CHUNK_ERROR_RELOAD__ = true;
+  
+  clearAllCaches();
   
   // Check if we can reload
   if (recordReload()) {
@@ -95,7 +106,7 @@ function handleChunkError() {
     // Use cache-busting URL to bypass CDN
     setTimeout(() => {
       window.location.href = window.location.origin + window.location.pathname + '?_t=' + Date.now();
-    }, 100);
+    }, 200);
   } else {
     // Too many reloads - show manual refresh UI
     showChunkErrorUI();

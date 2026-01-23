@@ -45,10 +45,36 @@
     <!-- CRITICAL: Inline error handler - runs BEFORE React loads -->
     <script>
       (function() {
-        var MAX_RETRIES = 3;
-        var RETRY_WINDOW = 60000;
+        var MAX_RETRIES = 2;
+        var RETRY_WINDOW = 120000;
         var RETRY_KEY = 'tburn_chunk_retry';
         var TIME_KEY = 'tburn_chunk_time';
+        var VERSION_KEY = 'tburn_version';
+        var CURRENT_VERSION = '2026.01.23.v1';
+        
+        function clearAllCaches() {
+          try {
+            if ('caches' in window) {
+              caches.keys().then(function(n) { n.forEach(function(k) { caches.delete(k); }); });
+            }
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.getRegistrations().then(function(r) { r.forEach(function(x) { x.unregister(); }); });
+            }
+            sessionStorage.clear();
+            var lang = localStorage.getItem('language');
+            localStorage.clear();
+            if (lang) localStorage.setItem('language', lang);
+          } catch(e) {}
+        }
+        
+        var storedVersion = localStorage.getItem(VERSION_KEY);
+        if (storedVersion && storedVersion !== CURRENT_VERSION) {
+          clearAllCaches();
+          localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
+          location.href = location.origin + location.pathname + '?_v=' + Date.now();
+        } else {
+          localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
+        }
         
         function getRetryInfo() {
           try {
@@ -77,16 +103,11 @@
             sessionStorage.setItem(RETRY_KEY, (info.count + 1).toString());
             sessionStorage.setItem(TIME_KEY, now.toString());
             
-            if ('caches' in window) {
-              caches.keys().then(function(n) { n.forEach(function(k) { caches.delete(k); }); });
-            }
-            if ('serviceWorker' in navigator) {
-              navigator.serviceWorker.getRegistrations().then(function(r) { r.forEach(function(x) { x.unregister(); }); });
-            }
+            clearAllCaches();
             
             setTimeout(function() {
               location.href = location.origin + location.pathname + '?_t=' + now;
-            }, 100);
+            }, 200);
           }
         }
         
