@@ -134,6 +134,10 @@ export default function TokenSchedule() {
           height: 80px;
           display: flex;
           align-items: center;
+          width: 100%;
+        }
+        .ts-header .ts-container {
+          width: 100%;
         }
 
         .ts-logo-box {
@@ -161,12 +165,13 @@ export default function TokenSchedule() {
           display: flex;
           align-items: center;
           gap: 8px;
+          flex-shrink: 0;
         }
         .ts-header-right {
           display: flex;
           align-items: center;
           gap: 8px;
-          margin-left: auto;
+          flex-shrink: 0;
         }
         .ts-header-icon {
           display: flex;
