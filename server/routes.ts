@@ -2232,7 +2232,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // GC 트리거
-  app.post("/api/memory/gc", async (_req, res) => {
+  app.post("/api/memory/gc", requireAdmin, async (_req, res) => {
     try {
       const modules = await getMemoryModules();
       const beforeUsage = process.memoryUsage();
@@ -2336,7 +2336,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // ★ [v2.0] Manual Cleanup Trigger
-  app.post("/api/memory/guardian/cleanup", async (req, res) => {
+  app.post("/api/memory/guardian/cleanup", requireAdmin, async (req, res) => {
     try {
       const { memoryGuardian } = await import('./services/memory-guardian');
       const level = (req.body?.level || 'soft') as 'soft' | 'aggressive' | 'emergency';
@@ -2444,7 +2444,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // ★ [v2.0] Pool Prewarm
-  app.post("/api/memory/pools/prewarm", async (req, res) => {
+  app.post("/api/memory/pools/prewarm", requireAdmin, async (req, res) => {
     try {
       const { blockPool, txPool } = await import('./utils/object-pool');
       const blockCount = parseInt(req.body?.blockCount) || 50;
@@ -4434,7 +4434,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Deploy Token (TBC-20, TBC-721, TBC-1155)
-  app.post("/api/token-system/deploy", async (req, res) => {
+  app.post("/api/token-system/deploy", requireAuth, async (req, res) => {
     try {
       const { 
         standard, 
@@ -4944,7 +4944,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Initiate Bridge Transfer - Enterprise Node data
-  app.post("/api/bridge/transfers/initiate", async (req, res) => {
+  app.post("/api/bridge/transfers/initiate", requireAuth, async (req, res) => {
     try {
       const node = getEnterpriseNode();
       const { sourceChainId, destinationChainId, amount, tokenSymbol = "TBURN" } = req.body;
@@ -4998,7 +4998,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Claim Bridge Transfer
-  app.post("/api/bridge/transfers/:id/claim", async (req, res) => {
+  app.post("/api/bridge/transfers/:id/claim", requireAuth, async (req, res) => {
     try {
       const transferId = req.params.id;
       const now = Date.now();
@@ -5199,7 +5199,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Governance Voting - Public User Vote
-  app.post("/api/governance/vote", async (req, res) => {
+  app.post("/api/governance/vote", requireAuth, async (req, res) => {
     try {
       const { proposalId, vote, voterAddress } = req.body;
       
@@ -6369,7 +6369,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Validator activation/deactivation
-  app.post("/api/validators/:address/activate", async (req, res) => {
+  app.post("/api/validators/:address/activate", requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       await storage.activateValidator(address);
@@ -6380,7 +6380,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/validators/:address/deactivate", async (req, res) => {
+  app.post("/api/validators/:address/deactivate", requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       await storage.deactivateValidator(address);
@@ -6392,7 +6392,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Delegation
-  app.post("/api/validators/:address/delegate", async (req, res) => {
+  app.post("/api/validators/:address/delegate", requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       const { amount } = req.body;
@@ -6412,7 +6412,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/validators/:address/undelegate", async (req, res) => {
+  app.post("/api/validators/:address/undelegate", requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       const { amount } = req.body;
@@ -6433,7 +6433,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Claim rewards
-  app.post("/api/validators/:address/claim-rewards", async (req, res) => {
+  app.post("/api/validators/:address/claim-rewards", requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       const reward = await storage.claimRewards(address);
@@ -6445,7 +6445,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Update commission
-  app.post("/api/validators/:address/commission", async (req, res) => {
+  app.post("/api/validators/:address/commission", requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       const { commission } = req.body;
@@ -6916,7 +6916,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Update member status
-  app.post("/api/members/:id/status", async (req, res) => {
+  app.post("/api/members/:id/status", requireAuth, async (req, res) => {
     try {
       const { status } = req.body;
       await storage.updateMember(req.params.id, { memberStatus: status });
@@ -6928,7 +6928,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Update member KYC level
-  app.post("/api/members/:id/kyc", async (req, res) => {
+  app.post("/api/members/:id/kyc", requireAdmin, async (req, res) => {
     try {
       const { kycLevel } = req.body;
       if (!['none', 'basic', 'advanced', 'institutional'].includes(kycLevel)) {
@@ -6943,7 +6943,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Delete member
-  app.delete("/api/members/:id", async (req, res) => {
+  app.delete("/api/members/:id", requireAdmin, async (req, res) => {
     try {
       await storage.deleteMember(req.params.id);
       res.json({ success: true });
@@ -6965,7 +6965,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Create staking position
-  app.post("/api/members/:id/staking", async (req, res) => {
+  app.post("/api/members/:id/staking", requireAuth, async (req, res) => {
     try {
       const position = await storage.createMemberStakingPosition({
         memberId: req.params.id,
