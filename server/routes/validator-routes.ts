@@ -100,18 +100,20 @@ router.get('/:address', async (req: Request, res: Response) => {
   try {
     const { address } = req.params;
     
-    // Normalize address to 0x format for database query
-    const hexAddress = normalizeToHex(address);
-    if (!hexAddress) {
+    // Validate address format (accept both tb1 and 0x)
+    const isTb1 = address.startsWith('tb1');
+    const isHex = address.startsWith('0x') && address.length === 42;
+    
+    if (!isTb1 && !isHex) {
       return res.status(400).json({ 
         error: 'Invalid address format',
         message: 'Address must be in tb1 or 0x format'
       });
     }
     
-    // Query validator by address
+    // Query validator by address directly (database stores tb1 for TBURN)
     const validatorList = await db.select().from(validators).where(
-      sql`LOWER(${validators.address}) = ${hexAddress.toLowerCase()}`
+      sql`LOWER(${validators.address}) = ${address.toLowerCase()}`
     );
     
     if (validatorList.length === 0) {

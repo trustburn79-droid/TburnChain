@@ -509,7 +509,7 @@ export default function AdminValidators() {
         { label: t("adminValidators.totalStake"), value: `${formatTBURN(validator.stake)} TBURN` },
         { label: t("adminValidators.selfDelegation"), value: `${formatTBURN(validator.selfDelegation || "0")} TBURN` },
         { label: t("adminValidators.delegators"), value: validator.delegators.toLocaleString() },
-        { label: t("adminValidators.votingPower"), value: `${validator.votingPower?.toFixed(2) || 0}%` },
+        { label: t("adminValidators.votingPower"), value: `${Number(validator.votingPower || 0).toFixed(2)}%` },
         { label: t("adminValidators.rewards"), value: `${formatTBURN(validator.rewards)} TBURN` },
         { label: t("adminValidators.minDelegation"), value: `${formatTBURN(validator.minDelegation || "0")} TBURN` },
       ],
