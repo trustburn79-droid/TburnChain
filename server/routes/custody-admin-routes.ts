@@ -1,10 +1,10 @@
 /**
-import { generateTxHash } from "../utils/tburn-address";
  * TBURN Custody Admin Routes
  * Manage multisig signers, wallets, and custody operations
  */
 
 import { Router, Request, Response } from "express";
+import { generateTxHash } from "../utils/tburn-address";
 import { db } from "../db";
 import { multisigSigners, multisigWallets, custodyTransactions, custodyTransactionApprovals, custodyAuditLogs } from "@shared/schema";
 import { eq, and, desc, sql, lt, or } from "drizzle-orm";
