@@ -186,7 +186,9 @@ export default function CustodySignersAdmin() {
     email: "",
     publicKey: "",
     canApproveEmergency: false,
+    credentialType: "test" as "test" | "production",
   });
+  const [isTestCredential, setIsTestCredential] = useState(false);
 
   const { data: statsData, isLoading: statsLoading } = useQuery<{ success: boolean; stats: CustodyStats }>({
     queryKey: ["/api/custody-admin/stats"],
@@ -261,7 +263,9 @@ export default function CustodySignersAdmin() {
       email: "",
       publicKey: "",
       canApproveEmergency: false,
+      credentialType: "test",
     });
+    setIsTestCredential(false);
   };
 
   const openEditDialog = (signer: Signer) => {
@@ -274,7 +278,9 @@ export default function CustodySignersAdmin() {
       email: signer.email || "",
       publicKey: signer.publicKey || "",
       canApproveEmergency: signer.canApproveEmergency,
+      credentialType: "production",
     });
+    setIsTestCredential(false);
     setIsEditDialogOpen(true);
   };
 
@@ -689,76 +695,149 @@ export default function CustodySignersAdmin() {
               </div>
 
               <div className="border-t pt-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-sm font-medium flex items-center gap-2">
-                    <Key className="h-4 w-4" />
-                    서명 자격 증명
-                  </h4>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      const creds = generateTestCredentials();
-                      setFormData({
-                        ...formData,
-                        signerAddress: creds.signerAddress,
-                        publicKey: creds.publicKey,
-                      });
-                      toast({
-                        title: "테스트 자격증명 생성됨",
-                        description: "개발/테스트용 주소와 공개키가 생성되었습니다.",
-                      });
-                    }}
-                    data-testid="button-generate-credentials"
-                  >
-                    <RefreshCw className="h-3.5 w-3.5 mr-1.5" />
-                    테스트 자격증명 생성
-                  </Button>
-                </div>
-                
-                <div className="p-3 rounded-lg border border-blue-500/30 bg-blue-500/10 mb-4">
-                  <p className="text-xs text-blue-600 dark:text-blue-400">
-                    <strong>개발/테스트 환경:</strong> 실제 하드웨어 지갑이 없는 경우 위 버튼을 클릭하여 테스트용 자격증명을 생성할 수 있습니다. 
-                    프로덕션 환경에서는 각 서명자가 본인의 하드웨어 지갑에서 생성한 실제 주소를 사용해야 합니다.
-                  </p>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="address">TBURN 서명 주소 *</Label>
-                    <Input 
-                      id="address"
-                      value={formData.signerAddress}
-                      onChange={(e) => setFormData({...formData, signerAddress: e.target.value})}
-                      placeholder="tb1q8z7n5d..."
-                      className="font-mono text-sm"
-                      data-testid="input-address"
-                    />
-                    <div className="text-xs text-muted-foreground space-y-1">
-                      <p>TBURN 메인넷 Bech32m 주소 형식 (tb1으로 시작, 42-62자)</p>
-                      <p className="text-yellow-600 dark:text-yellow-400">
-                        이 주소의 개인키로 트랜잭션 서명이 이루어집니다. 정확히 입력하세요.
-                      </p>
-                    </div>
-                  </div>
+                <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
+                  <Key className="h-4 w-4" />
+                  서명 자격 증명
+                </h4>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="publicKey">공개 키 (Public Key)</Label>
-                    <Input 
-                      id="publicKey"
-                      value={formData.publicKey}
-                      onChange={(e) => setFormData({...formData, publicKey: e.target.value})}
-                      placeholder="pk1q8z7n5d4f6g7h8j9k0..."
-                      className="font-mono text-sm"
-                      data-testid="input-public-key"
-                    />
-                    <div className="text-xs text-muted-foreground space-y-1">
-                      <p>서명 검증용 공개 키 (pk1 형식, 66자 이상)</p>
-                      <p>지원 알고리즘: secp256k1, Ed25519, SPHINCS+ (양자내성)</p>
-                    </div>
+                <div className="space-y-2 mb-4">
+                  <Label>자격증명 유형</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button
+                      type="button"
+                      variant={formData.credentialType === "test" ? "default" : "outline"}
+                      size="sm"
+                      className="justify-start"
+                      onClick={() => {
+                        setFormData({...formData, credentialType: "test", signerAddress: "", publicKey: ""});
+                        setIsTestCredential(false);
+                      }}
+                      data-testid="button-type-test"
+                    >
+                      <AlertTriangle className="h-3.5 w-3.5 mr-1.5" />
+                      테스트/개발용
+                    </Button>
+                    <Button
+                      type="button"
+                      variant={formData.credentialType === "production" ? "default" : "outline"}
+                      size="sm"
+                      className="justify-start"
+                      onClick={() => {
+                        setFormData({...formData, credentialType: "production", signerAddress: "", publicKey: ""});
+                        setIsTestCredential(false);
+                      }}
+                      data-testid="button-type-production"
+                    >
+                      <Shield className="h-3.5 w-3.5 mr-1.5" />
+                      프로덕션 (하드웨어 지갑)
+                    </Button>
                   </div>
                 </div>
+
+                {formData.credentialType === "test" ? (
+                  <div className="space-y-4">
+                    <div className="p-3 rounded-lg border border-yellow-500/30 bg-yellow-500/10">
+                      <div className="flex items-start gap-2">
+                        <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 mt-0.5 shrink-0" />
+                        <div className="text-xs text-yellow-600 dark:text-yellow-400">
+                          <p className="font-semibold mb-1">테스트용 자격증명</p>
+                          <p>개발/테스트 환경에서만 사용하세요. 프로덕션 배포 전에 반드시 실제 하드웨어 지갑 주소로 교체해야 합니다.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => {
+                        const creds = generateTestCredentials();
+                        setFormData({
+                          ...formData,
+                          signerAddress: creds.signerAddress,
+                          publicKey: creds.publicKey,
+                        });
+                        setIsTestCredential(true);
+                        toast({
+                          title: "테스트 자격증명 생성됨",
+                          description: "개발/테스트용 주소와 공개키가 생성되었습니다.",
+                        });
+                      }}
+                      data-testid="button-generate-credentials"
+                    >
+                      <RefreshCw className="h-4 w-4 mr-2" />
+                      테스트 자격증명 자동 생성
+                    </Button>
+
+                    {isTestCredential && formData.signerAddress && (
+                      <div className="p-3 rounded-lg border bg-muted/50 space-y-2">
+                        <div>
+                          <p className="text-xs text-muted-foreground mb-1">생성된 서명 주소</p>
+                          <p className="font-mono text-xs break-all">{formData.signerAddress}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground mb-1">생성된 공개 키</p>
+                          <p className="font-mono text-xs break-all">{formData.publicKey}</p>
+                        </div>
+                        <Badge variant="outline" className="bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 border-yellow-500/50">
+                          <AlertTriangle className="h-3 w-3 mr-1" />
+                          테스트용 - 프로덕션 전 교체 필요
+                        </Badge>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="p-3 rounded-lg border border-green-500/30 bg-green-500/10">
+                      <div className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400 mt-0.5 shrink-0" />
+                        <div className="text-xs text-green-600 dark:text-green-400">
+                          <p className="font-semibold mb-1">프로덕션 자격증명</p>
+                          <p>하드웨어 지갑(Ledger, Trezor 등)에서 생성한 실제 주소와 공개키를 입력하세요.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="address">TBURN 서명 주소 * (하드웨어 지갑)</Label>
+                      <Input 
+                        id="address"
+                        value={formData.signerAddress}
+                        onChange={(e) => setFormData({...formData, signerAddress: e.target.value})}
+                        placeholder="tb1q... (하드웨어 지갑에서 복사)"
+                        className="font-mono text-sm"
+                        data-testid="input-address"
+                      />
+                      <div className="text-xs text-muted-foreground space-y-1">
+                        <p>Ledger/Trezor 앱에서 TBURN 주소를 복사하여 붙여넣으세요</p>
+                        <p>형식: tb1으로 시작, 42-62자</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="publicKey">공개 키 (Public Key) *</Label>
+                      <Input 
+                        id="publicKey"
+                        value={formData.publicKey}
+                        onChange={(e) => setFormData({...formData, publicKey: e.target.value})}
+                        placeholder="pk1... (하드웨어 지갑에서 내보내기)"
+                        className="font-mono text-sm"
+                        data-testid="input-public-key"
+                      />
+                      <div className="text-xs text-muted-foreground space-y-1">
+                        <p>tburn-cli ledger export-pubkey 명령으로 추출</p>
+                        <p>형식: pk1 + 64자 hex (66자 이상)</p>
+                      </div>
+                    </div>
+
+                    {formData.signerAddress && formData.publicKey && (
+                      <Badge variant="outline" className="bg-green-500/20 text-green-600 dark:text-green-400 border-green-500/50">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        프로덕션 준비 완료
+                      </Badge>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="border-t pt-4">
