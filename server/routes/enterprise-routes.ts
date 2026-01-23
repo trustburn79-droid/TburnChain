@@ -209,6 +209,39 @@ const adminSettingsSchema = z.object({
   category: z.string().max(50).optional()
 });
 
+// Additional admin operation schemas
+const apiKeyCreateSchema = z.object({
+  name: z.string().min(1).max(100),
+  permissions: z.array(z.string()).min(1),
+  expiresAt: z.string().datetime().optional(),
+  rateLimit: z.number().int().positive().optional()
+});
+
+const burnRateUpdateSchema = z.object({
+  transactionBurnRate: z.number().min(0).max(100).optional(),
+  stakingRewardBurnRate: z.number().min(0).max(100).optional(),
+  bridgeFeesBurnRate: z.number().min(0).max(100).optional()
+});
+
+const economicsUpdateSchema = z.object({
+  inflationRate: z.number().min(0).max(100).optional(),
+  stakingRewardRate: z.number().min(0).max(100).optional(),
+  treasuryAllocation: z.number().min(0).max(100).optional()
+});
+
+const maintenanceScheduleSchema = z.object({
+  scheduledAt: z.string().datetime(),
+  estimatedDuration: z.number().int().positive(),
+  reason: z.string().min(1).max(500),
+  affectedServices: z.array(z.string()).optional()
+});
+
+const complianceAssessmentSchema = z.object({
+  assessmentType: z.enum(["kyc", "aml", "sanctions", "pep", "full"]),
+  targetAddress: z.string().optional(),
+  notes: z.string().max(1000).optional()
+});
+
 /**
  * Validation middleware factory
  */
@@ -1460,7 +1493,7 @@ router.get('/admin/api-keys', async (req: Request, res: Response) => {
  * POST /api/enterprise/admin/api-keys
  * Create new API key with EventBus propagation
  */
-router.post('/admin/api-keys', async (req: Request, res: Response) => {
+router.post('/admin/api-keys', requireAdmin, validateBody(apiKeyCreateSchema), async (req: Request, res: Response) => {
   try {
     const { label, description, environment, scopes } = req.body;
     
@@ -1940,7 +1973,7 @@ router.get('/admin/burn-control', async (req: Request, res: Response) => {
  * POST /api/enterprise/admin/burn-control/update-rates
  * Update burn rates
  */
-router.post('/admin/burn-control/update-rates', async (req: Request, res: Response) => {
+router.post('/admin/burn-control/update-rates', requireAdmin, validateBody(burnRateUpdateSchema), async (req: Request, res: Response) => {
   try {
     const { transactionBurnRate, timeBurnRate, volumeThreshold, volumeBurnRate } = req.body;
     
@@ -2046,7 +2079,7 @@ router.get('/admin/economics', async (req: Request, res: Response) => {
  * POST /api/enterprise/admin/economics/update
  * Update economic parameters
  */
-router.post('/admin/economics/update', async (req: Request, res: Response) => {
+router.post('/admin/economics/update', requireAdmin, validateBody(economicsUpdateSchema), async (req: Request, res: Response) => {
   try {
     const { inflationRate, rewardDistribution, stakingConfig, validatorCommission } = req.body;
     
@@ -2379,7 +2412,7 @@ router.post('/admin/security/threats/:id/unblock', async (req: Request, res: Res
  * POST /api/enterprise/admin/compliance/assessment
  * Run compliance assessment
  */
-router.post('/admin/compliance/assessment', async (req: Request, res: Response) => {
+router.post('/admin/compliance/assessment', requireAdmin, validateBody(complianceAssessmentSchema), async (req: Request, res: Response) => {
   try {
     res.json({
       success: true,
@@ -2635,7 +2668,7 @@ router.post('/admin/operations/maintenance/mode', async (req: Request, res: Resp
   }
 });
 
-router.post('/admin/operations/maintenance/schedule', async (req: Request, res: Response) => {
+router.post('/admin/operations/maintenance/schedule', requireAdmin, validateBody(maintenanceScheduleSchema), async (req: Request, res: Response) => {
   try {
     const { title, type, startTime, endTime, description, notification } = req.body;
     res.json({
