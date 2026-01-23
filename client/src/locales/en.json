@@ -5036,6 +5036,7 @@
       "general": "General",
       "compliance": "Compliance",
       "bugBounty": "Bug Bounty",
+    "custodySigners": "Custody Signers",
       "support": "Support",
       "warning": "Warning",
       "priority": "Priority",
@@ -7626,6 +7627,7 @@
       "certikAPlus": "CertiK A+",
       "insurance": "Insurance",
       "bugBounty": "Bug Bounty",
+    "custodySigners": "Custody Signers",
       "activeLink": "Active →"
     },
     "nav": {
@@ -16854,6 +16856,7 @@
     "threatDetection": "Threat Detection",
     "compliance": "Compliance",
     "bugBounty": "Bug Bounty",
+    "custodySigners": "Custody Signers",
     "dataAnalytics": "Data & Analytics",
     "biDashboard": "BI Dashboard",
     "txAnalytics": "Transaction Analytics",
@@ -28777,6 +28780,7 @@
       "language": "Language",
       "securityAudit": "Security Audit",
       "bugBounty": "Bug Bounty",
+    "custodySigners": "Custody Signers",
       "hallOfFame": "Hall of Fame",
       "wallet": "Wallet",
       "auditsReports": "Audits & Reports"
