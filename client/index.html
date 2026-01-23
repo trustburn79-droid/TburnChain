@@ -50,7 +50,8 @@
         var RETRY_KEY = 'tburn_chunk_retry';
         var TIME_KEY = 'tburn_chunk_time';
         var VERSION_KEY = 'tburn_version';
-        var CURRENT_VERSION = '2026.01.23.v1';
+        var RELOAD_FLAG = 'tburn_version_reload';
+        var CURRENT_VERSION = '2026.01.23.v2';
         
         function clearAllCaches() {
           try {
@@ -60,20 +61,19 @@
             if ('serviceWorker' in navigator) {
               navigator.serviceWorker.getRegistrations().then(function(r) { r.forEach(function(x) { x.unregister(); }); });
             }
-            sessionStorage.clear();
-            var lang = localStorage.getItem('language');
-            localStorage.clear();
-            if (lang) localStorage.setItem('language', lang);
           } catch(e) {}
         }
         
         var storedVersion = localStorage.getItem(VERSION_KEY);
-        if (storedVersion && storedVersion !== CURRENT_VERSION) {
+        var alreadyReloaded = sessionStorage.getItem(RELOAD_FLAG);
+        if (storedVersion && storedVersion !== CURRENT_VERSION && !alreadyReloaded) {
           clearAllCaches();
           localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
+          sessionStorage.setItem(RELOAD_FLAG, '1');
           location.href = location.origin + location.pathname + '?_v=' + Date.now();
         } else {
           localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
+          sessionStorage.removeItem(RELOAD_FLAG);
         }
         
         function getRetryInfo() {
