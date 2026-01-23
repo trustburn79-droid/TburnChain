@@ -114,36 +114,12 @@ function handleChunkError() {
 }
 
 function setupChunkErrorHandler() {
-  window.addEventListener('error', (event) => {
-    const message = event.message || '';
-    const target = event.target as HTMLScriptElement | null;
-    
-    const isChunkError = 
-      message.includes('Failed to fetch dynamically imported module') ||
-      message.includes('Loading chunk') ||
-      message.includes('Loading CSS chunk') ||
-      (target?.tagName === 'SCRIPT' && target?.src?.includes('/assets/'));
-    
-    if (isChunkError) {
-      handleChunkError();
-    }
-  }, true);
-  
-  window.addEventListener('unhandledrejection', (event) => {
-    const reason = event.reason?.message || String(event.reason) || '';
-    
-    const isChunkError = 
-      reason.includes('Failed to fetch dynamically imported module') ||
-      reason.includes('Loading chunk') ||
-      reason.includes('error loading dynamically imported module');
-    
-    if (isChunkError) {
-      handleChunkError();
-    }
-  });
+  // Chunk error handling is now centralized in index.html inline script
+  // to prevent multiple handlers from causing infinite refresh loops
+  console.log('[TBURN] Chunk error handler: using index.html inline handler');
 }
 
-// Initialize chunk error handler immediately
+// Initialize chunk error handler
 setupChunkErrorHandler();
 
 // CRITICAL: Disable browser's automatic scroll restoration

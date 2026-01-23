@@ -98,69 +98,9 @@ export function lazyWithRetry<T extends ComponentType<any>>(
 }
 
 export function installChunkErrorHandler(): void {
-  let chunkErrorCount = 0;
-  const MAX_ERRORS_BEFORE_RELOAD = 3;
-  const ERROR_RESET_TIMEOUT = 60000;
-  
-  setInterval(() => {
-    chunkErrorCount = 0;
-  }, ERROR_RESET_TIMEOUT);
-  
-  window.addEventListener('unhandledrejection', (event) => {
-    const error = event.reason;
-    
-    const isChunkError = 
-      error?.message?.includes('Failed to fetch dynamically imported module') ||
-      error?.message?.includes('Loading chunk') ||
-      error?.message?.includes('ChunkLoadError') ||
-      error?.name === 'ChunkLoadError';
-    
-    if (isChunkError) {
-      chunkErrorCount++;
-      console.error(`[ChunkErrorHandler] Chunk error ${chunkErrorCount}/${MAX_ERRORS_BEFORE_RELOAD}`);
-      
-      if (chunkErrorCount >= MAX_ERRORS_BEFORE_RELOAD) {
-        console.warn('[ChunkErrorHandler] Too many chunk errors, reloading page...');
-        
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.getRegistrations().then(registrations => {
-            registrations.forEach(reg => reg.unregister());
-          });
-        }
-        
-        if ('caches' in window) {
-          caches.keys().then(names => {
-            names.forEach(name => caches.delete(name));
-          });
-        }
-        
-        setTimeout(() => {
-          window.location.href = window.location.href.split('?')[0] + 
-            '?_reload=' + Date.now();
-        }, 1000);
-      }
-    }
-  });
-  
-  window.addEventListener('error', (event) => {
-    if (event.target instanceof HTMLScriptElement) {
-      const src = (event.target as HTMLScriptElement).src || '';
-      
-      if (src.includes('/assets/') && src.endsWith('.js')) {
-        chunkErrorCount++;
-        console.error(`[ChunkErrorHandler] Script load error: ${src}`);
-        
-        if (chunkErrorCount < MAX_ERRORS_BEFORE_RELOAD) {
-          const newScript = document.createElement('script');
-          newScript.src = src + (src.includes('?') ? '&' : '?') + '_retry=' + Date.now();
-          newScript.async = true;
-          document.head.appendChild(newScript);
-        }
-      }
-    }
-  }, true);
-  
-  console.log('[ChunkErrorHandler] Installed global chunk error handler');
+  // Disabled automatic reload to prevent infinite refresh loops
+  // The inline script in index.html handles cache clearing with proper loop prevention
+  console.log('[ChunkErrorHandler] Chunk error handler disabled (handled by index.html)');
 }
 
 export function createLazyRoute(
@@ -201,17 +141,8 @@ export class ChunkErrorBoundary extends Component<ChunkErrorBoundaryProps, Chunk
   
   componentDidCatch(error: Error, errorInfo: any) {
     console.error('[ChunkErrorBoundary] Caught error:', error, errorInfo);
-    
-    const isChunkError = 
-      error.message?.includes('Failed to fetch dynamically imported module') ||
-      error.message?.includes('Loading chunk') ||
-      error.message?.includes('ChunkLoadError');
-    
-    if (isChunkError) {
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    }
+    // Removed auto-reload to prevent infinite refresh loops
+    // User can manually refresh using the button
   }
   
   render() {
