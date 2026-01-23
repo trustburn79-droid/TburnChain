@@ -31,7 +31,11 @@ const router = Router();
 // SECURITY: Authentication & Authorization Middleware
 // ============================================
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin7979';
+// SECURITY: Admin password must be set via environment variable - no fallback
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+if (!ADMIN_PASSWORD) {
+  console.error('[CRITICAL] ADMIN_PASSWORD environment variable is not set. Admin features disabled.');
+}
 
 /**
  * Enterprise Admin Authentication Middleware
@@ -1439,7 +1443,7 @@ router.post('/admin/api-keys', async (req: Request, res: Response) => {
     const newKeyId = `key_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     const keyPrefix = newKeyId.substring(0, 8);
     
-    eventBus.emit({
+    eventBus.publish({
       channel: 'admin.audit',
       type: 'API_KEY_CREATED',
       data: {
@@ -1486,7 +1490,7 @@ router.delete('/admin/api-keys/:keyId', async (req: Request, res: Response) => {
     const { keyId } = req.params;
     const { reason } = req.body;
     
-    eventBus.emit({
+    eventBus.publish({
       channel: 'admin.audit',
       type: 'API_KEY_REVOKED',
       data: {
@@ -1527,7 +1531,7 @@ router.post('/admin/api-keys/:keyId/rotate', async (req: Request, res: Response)
     
     const newKeyId = `key_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     
-    eventBus.emit({
+    eventBus.publish({
       channel: 'admin.audit',
       type: 'API_KEY_ROTATED',
       data: {

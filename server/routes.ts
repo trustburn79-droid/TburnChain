@@ -106,7 +106,7 @@ import { tokenomicsDataService, type TokenProgram } from "./services/tokenomics-
 import { GENESIS_ALLOCATION, TOKEN_CONSTANTS, TOKEN_PRICING } from "@shared/tokenomics-config";
 import { safeErrorResponse, safe503 } from "./core/safe-error-response";
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
 const SITE_PASSWORD = ADMIN_PASSWORD;
 
