@@ -82,6 +82,30 @@ import {
   RequestShedder 
 } from '../core/sharding/request-shedder';
 
+function generateMockTxHash(): string {
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  const hash = Array.from({ length: 52 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+  return `th1${hash}`;
+}
+
+function generateMockBlockHash(): string {
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  const hash = Array.from({ length: 52 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+  return `bh1${hash}`;
+}
+
+function generateMockStateRoot(): string {
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  const hash = Array.from({ length: 52 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+  return `sr1${hash}`;
+}
+
+function generateMockValidatorAddress(): string {
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  const hash = Array.from({ length: 42 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+  return `tbv1${hash}`;
+}
+
 export interface NodeConfig {
   nodeId: string;
   apiKey: string;
@@ -3176,7 +3200,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           startTime,
           endTime,
           phasesJson: JSON.stringify(phasesData),
-          finalHash: i === 0 ? null : `0x${crypto.randomBytes(32).toString('hex')}`,
+          finalHash: i === 0 ? null : generateMockTxHash(),
           aiParticipation,
           participationRate: (participatingValidators / totalValidators) || 0,
           createdAt: new Date(startTime).toISOString()
@@ -3323,7 +3347,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         payload: {
           from: generateRandomTBurnAddress(),
           to: generateRandomTBurnAddress(),
-          data: `0x${crypto.randomBytes(32).toString('hex')}`
+          data: generateMockTxHash()
         }
       });
     });
@@ -3360,7 +3384,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           verificationStatus: status,
           lastActivity: new Date(Date.now() - Math.floor(Math.random() * 3600000)).toISOString(),
           gasUsed: (BigInt(Math.floor(Math.random() * 1000000000))).toString(),
-          bytecode: `0x${crypto.randomBytes(32).toString('hex')}...`,
+          bytecode: `bc1${Array.from({length:52},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}...`,
           abi: null,
           sourceCode: null
         });
@@ -3392,7 +3416,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         verificationStatus: 'verified',
         lastActivity: new Date(Date.now() - Math.floor(Math.random() * 3600000)).toISOString(),
         gasUsed: (BigInt(Math.floor(Math.random() * 1000000000))).toString(),
-        bytecode: `0x${crypto.randomBytes(64).toString('hex')}`,
+        bytecode: generateMockTxHash(),
         sourceCode: null,
         abi: [
           { type: 'function', name: 'transfer', inputs: [{ name: 'to', type: 'address' }, { name: 'amount', type: 'uint256' }] },
@@ -3450,7 +3474,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
             blockHeight: this.currentBlockHeight - i,
             gasUsed: 50000 + Math.floor(Math.random() * 100000),
             feedbackScore: 8500 + Math.floor(Math.random() * 1500),
-            input: { blockHash: `0x${crypto.randomBytes(32).toString('hex')}`, validatorCount: totalValidatorsForDecision },
+            input: { blockHash: generateMockTxHash(), validatorCount: totalValidatorsForDecision },
             output: { approved: true, score: 9500 + Math.floor(Math.random() * 500) }
           },
           createdAt: timestamp.toISOString(),
@@ -3481,10 +3505,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         blocks.push({
           id: `block-${blockNumber}`,
           blockNumber,
-          blockHash: `0x${crypto.randomBytes(32).toString('hex')}`,
-          parentHash: `0x${crypto.randomBytes(32).toString('hex')}`,
+          blockHash: generateMockTxHash(),
+          parentHash: generateMockTxHash(),
           timestamp: blockTimestamp,
-          validatorAddress: `0x${crypto.randomBytes(20).toString('hex')}`,
+          validatorAddress: generateMockValidatorAddress(),
           transactionCount: 50 + Math.floor(Math.random() * 100),
           gasUsed: String(5000000 + Math.floor(Math.random() * 5000000)),
           gasLimit: String(15000000),
@@ -3575,7 +3599,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         startTime,
         endTime,
         phasesJson: JSON.stringify(phasesData),
-        finalHash: `0x${crypto.randomBytes(32).toString('hex')}`,
+        finalHash: generateMockTxHash(),
         aiParticipation,
         createdAt: new Date(startTime).toISOString()
       });
@@ -3804,7 +3828,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     
     return {
       height: this.currentBlockHeight,
-      hash: `0x${crypto.createHash('sha256').update(`block-${this.currentBlockHeight}-${now}`).digest('hex')}`,
+      hash: generateMockBlockHash(),
       timestamp: Math.floor(now / 1000),
       proposer: generateValidatorAddress(proposerIndex),
       transactionCount,
@@ -3834,16 +3858,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private processBlockFinality(block: BlockProduction): void {
     try {
       // Generate parent hash deterministically
-      const parentHash = `0x${crypto.createHash('sha256').update(`block-${block.height - 1}`).digest('hex')}`;
+      const parentHash = generateMockBlockHash();
       
       // Generate state root and receipts root
-      const stateRoot = `0x${crypto.createHash('sha256').update(`state-${block.height}`).digest('hex')}`;
-      const receiptsRoot = `0x${crypto.createHash('sha256').update(`receipts-${block.height}`).digest('hex')}`;
+      const stateRoot = generateMockStateRoot();
+      const receiptsRoot = generateMockStateRoot();
       
       // Generate transaction hashes for this block (simulated)
       const txHashes: string[] = [];
       for (let i = 0; i < Math.min(block.transactionCount, 100); i++) {
-        txHashes.push(`0x${crypto.createHash('sha256').update(`tx-${block.height}-${i}`).digest('hex')}`);
+        txHashes.push(generateMockTxHash());
       }
       
       // Register block for verification
@@ -4219,12 +4243,12 @@ export class TBurnEnterpriseNode extends EventEmitter {
       throw new Error(`Block ${height} not found`);
     }
 
-    const blockHash = typeof heightOrHash === 'string' ? heightOrHash : `0x${crypto.randomBytes(32).toString('hex')}`;
-    const parentHash = `0x${crypto.randomBytes(32).toString('hex')}`;
+    const blockHash = typeof heightOrHash === 'string' ? heightOrHash : generateMockTxHash();
+    const parentHash = generateMockTxHash();
     // Dynamic validator index based on shard configuration
     const totalValidatorsForGetBlock = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
     const validatorIndex = Math.floor(Math.random() * totalValidatorsForGetBlock);
-    const validatorAddress = `0x${crypto.createHash('sha256').update(`validator${validatorIndex}`).digest('hex').slice(0, 40)}`;
+    const validatorAddress = generateMockValidatorAddress();
     
     return {
       id: `block-${height}`,
@@ -4240,8 +4264,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
       gasUsed: 15000000 + Math.floor(Math.random() * 5000000),
       gasLimit: 30000000,
       shardId: Math.floor(Math.random() * this.shardConfig.currentShardCount),
-      stateRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
-      receiptsRoot: `0x${crypto.randomBytes(32).toString('hex')}`,
+      stateRoot: generateMockTxHash(),
+      receiptsRoot: generateMockTxHash(),
       hashAlgorithm: ['BLAKE3', 'SHA3-512', 'SHA-256'][Math.floor(Math.random() * 3)]
     };
   }
@@ -5125,18 +5149,18 @@ export class TBurnEnterpriseNode extends EventEmitter {
       
       messages.push({
         id: `msg-${Date.now()}-${i}`,
-        messageId: `0x${crypto.randomBytes(32).toString('hex')}`,
+        messageId: generateMockTxHash(),
         fromShardId: fromShard,
         fromShardName: this.SHARD_NAMES[fromShard] || `Shard-${fromShard + 1}`,
         toShardId: toShard,
         toShardName: this.SHARD_NAMES[toShard] || `Shard-${toShard + 1}`,
-        transactionHash: `0x${crypto.randomBytes(32).toString('hex')}`,
+        transactionHash: generateMockTxHash(),
         status,
         messageType: messageTypes[Math.floor(Math.random() * messageTypes.length)],
         payload: {
           from: generateRandomTBurnAddress(),
           to: generateRandomTBurnAddress(),
-          data: `0x${crypto.randomBytes(32).toString('hex')}`,
+          data: generateMockTxHash(),
           value: (BigInt(Math.floor(Math.random() * 1000)) * BigInt('1000000000000000000')).toString(),
           gasUsed: (50000 + Math.floor(Math.random() * 100000)).toString()
         },
@@ -10281,15 +10305,6 @@ let enterpriseNode: TBurnEnterpriseNode | null = null;
 let isLightweightMode = false;
 
 // Import DEV_SAFE_MODE check
-import { DEV_SAFE_MODE } from '../core/memory/metrics-config';
-
-export function getEnterpriseNode(): TBurnEnterpriseNode {
-  if (!enterpriseNode) {
-    enterpriseNode = new TBurnEnterpriseNode({
-      nodeId: 'tburn-enterprise-primary',
-      apiKey: 'tburn797900',
-      rpcPort: 8545,
-      wsPort: 8546,
       p2pPort: 30303,
       dataDir: '/var/lib/tburn',
       enableMetrics: !DEV_SAFE_MODE, // Disable heavy metrics in DEV_SAFE_MODE

@@ -121,7 +121,7 @@ class AutoBurnOrchestratorService {
           totalBurned: this.totalBurned.toString(),
           newCirculatingSupply: circulatingSupply.toString(),
           deflationRate: this.deflationRate,
-          txHash: txHash || `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+          txHash: txHash || generateMockTxHash(),
           timestamp: Date.now()
         },
         timestamp: Date.now(),
@@ -147,7 +147,7 @@ class AutoBurnOrchestratorService {
       return {
         success: true,
         burnId,
-        txHash: txHash || `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: txHash || generateMockTxHash(),
         message: `Successfully burned ${amount} tokens from ${source}`,
         affectedModules: ['auto-burn', 'token-system', 'dashboard'],
         newTotalBurned: this.totalBurned.toString(),

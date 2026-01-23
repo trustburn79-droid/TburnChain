@@ -72,7 +72,7 @@ class StakingOrchestratorService {
   async stake(command: StakeCommand): Promise<StakingResult> {
     const { userAddress, validatorAddress, amount, poolId } = command;
     const stakeAmount = BigInt(amount);
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`;
+    const txHash = generateMockTxHash();
 
     try {
       // Persist staking position to database
@@ -92,7 +92,7 @@ class StakingOrchestratorService {
       await storage.createTransaction({
         hash: txHash,
         blockNumber: currentBlock,
-        blockHash: `0x${currentBlock.toString(16)}`,
+        blockHash: generateMockBlockHash(),
         from: userAddress,
         to: validatorAddress,
         value: amount,
@@ -227,7 +227,7 @@ class StakingOrchestratorService {
 
       return {
         success: true,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: generateMockTxHash(),
         message: 'Unstake operation initiated - 21 day unbonding period',
         affectedModules: ['staking', 'validators', 'wallets', 'dashboard'],
         updatedMetrics: {
@@ -285,7 +285,7 @@ class StakingOrchestratorService {
 
       return {
         success: true,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: generateMockTxHash(),
         message: 'Rewards claimed successfully',
         affectedModules: ['staking', 'wallets'],
         updatedMetrics: {
@@ -344,7 +344,7 @@ class StakingOrchestratorService {
 
       return {
         success: true,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: generateMockTxHash(),
         message: 'Redelegation successful',
         affectedModules: ['staking', 'validators'],
         updatedMetrics: {}

@@ -68,7 +68,7 @@ class DexOrchestratorService {
    */
   async swap(command: SwapCommand): Promise<DexResult> {
     const { userAddress, poolId, tokenIn, tokenOut, amountIn, minAmountOut } = command;
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`;
+    const txHash = generateMockTxHash();
 
     try {
       const inputAmount = BigInt(amountIn);
@@ -102,7 +102,7 @@ class DexOrchestratorService {
       await storage.createTransaction({
         hash: txHash,
         blockNumber: currentBlock,
-        blockHash: `0x${currentBlock.toString(16)}`,
+        blockHash: generateMockBlockHash(),
         from: userAddress,
         to: poolId,
         value: amountIn,
@@ -255,7 +255,7 @@ class DexOrchestratorService {
 
       return {
         success: true,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: generateMockTxHash(),
         message: 'Liquidity added successfully',
         affectedModules: ['dex', 'wallets', 'dashboard'],
         outputAmount: lpTokens.toString()
@@ -326,7 +326,7 @@ class DexOrchestratorService {
 
       return {
         success: true,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: generateMockTxHash(),
         message: 'Liquidity removed successfully',
         affectedModules: ['dex', 'wallets', 'dashboard']
       };

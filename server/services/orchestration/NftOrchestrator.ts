@@ -103,7 +103,7 @@ class NftOrchestratorService {
       return {
         success: true,
         listingId,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: generateMockTxHash(),
         message: 'NFT listed successfully',
         affectedModules: ['nft', 'wallets']
       };
@@ -194,7 +194,7 @@ class NftOrchestratorService {
         success: true,
         saleId,
         listingId,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: generateMockTxHash(),
         message: 'NFT purchased successfully',
         affectedModules: ['nft', 'wallets', 'dashboard'],
         royaltyPaid: royaltyAmount.toString(),
@@ -239,7 +239,7 @@ class NftOrchestratorService {
       return {
         success: true,
         listingId,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: generateMockTxHash(),
         message: 'Bid placed successfully',
         affectedModules: ['nft', 'wallets']
       };
@@ -287,7 +287,7 @@ class NftOrchestratorService {
       return {
         success: true,
         listingId,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: generateMockTxHash(),
         message: 'Bid accepted successfully',
         affectedModules: ['nft', 'wallets']
       };

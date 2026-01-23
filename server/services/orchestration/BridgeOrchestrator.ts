@@ -56,7 +56,7 @@ class BridgeOrchestratorService {
    */
   async initiateTransfer(command: BridgeTransferCommand): Promise<BridgeResult> {
     const { userAddress, amount, sourceChain, targetChain, tokenAddress, recipientAddress } = command;
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`;
+    const txHash = generateMockTxHash();
 
     try {
       const transferAmount = BigInt(amount);
@@ -89,7 +89,7 @@ class BridgeOrchestratorService {
       await storage.createTransaction({
         hash: txHash,
         blockNumber: currentBlock,
-        blockHash: `0x${currentBlock.toString(16)}`,
+        blockHash: generateMockBlockHash(),
         from: userAddress,
         to: `bridge:${targetChain}`,
         value: amount,
@@ -230,7 +230,7 @@ class BridgeOrchestratorService {
       return {
         success: true,
         transferId,
-        txHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`,
+        txHash: generateMockTxHash(),
         message: 'Bridge transfer claimed successfully',
         affectedModules: ['bridge', 'wallets', 'token-system']
       };
