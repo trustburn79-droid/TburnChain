@@ -1154,8 +1154,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       console.log(`[Login] Site password login successful`);
       res.json({ success: true });
     } else {
-      console.log(`[Login] Failed - email: ${email}, password check failed`);
-      console.log(`[Login] Debug - SITE_PASSWORD length: ${SITE_PASSWORD?.length}, input length: ${password?.length}`);
+      console.log(`[Login] Failed - email: ${email ? email.replace(/(.{2}).*(@.*)/, '$1***$2') : 'unknown'}, auth failed`);
       res.status(401).json({ error: "이메일 또는 비밀번호가 올바르지 않습니다." });
     }
   });
