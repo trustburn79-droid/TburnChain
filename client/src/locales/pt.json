@@ -1120,9 +1120,9 @@
       }
     },
     "footer": {
-      "terms": "Terms of Service",
+      "terms": "Termos de serviço",
       "privacy": "Privacy Policy",
-      "riskDisclosure": "Risk Disclosure",
+      "riskDisclosure": "Divulgação de riscos",
       "support": "Customer Support",
       "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
     },
@@ -12193,11 +12193,11 @@
           },
           "disclaimer": {
             "title": "Umviso Legal",
-            "subtitle": "Legal notices",
+            "subtitle": "Avisos legais",
             "forumTitle": "Fórum da Comunidade",
             "viewAll": "Ver Tudo",
             "recentPosts": "Postagens Recentes",
-            "subtitleRisk": "Risco disclosures"
+            "subtitleRisk": "Divulgações de riscos"
           }
         },
         "learn": {
@@ -17027,7 +17027,7 @@
         "ambassador": "Ambassador",
         "grants": "Grants",
         "support": "Support",
-        "terms": "Terms of Service",
+        "terms": "Termos de serviço",
         "privacy": "Privacy Policy"
       },
       "social": {
@@ -18491,7 +18491,7 @@
         "ambassador": "Ambassador",
         "grants": "Grants",
         "support": "Support",
-        "terms": "Terms of Service",
+        "terms": "Termos de serviço",
         "privacy": "Privacy Policy"
       }
     },
@@ -18787,7 +18787,7 @@
         "grants": "Grants",
         "support": "Support",
         "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
-        "terms": "Terms of Service",
+        "terms": "Termos de serviço",
         "privacy": "Privacy Policy"
       },
       "dialog": {
@@ -19515,7 +19515,7 @@
         "ambassador": "Ambassador",
         "grants": "Grants",
         "support": "Support",
-        "terms": "Terms of Service",
+        "terms": "Termos de serviço",
         "privacy": "Privacy Policy",
         "tagline": "Building the future of decentralized finance"
       },
@@ -19890,7 +19890,7 @@
         "support": "Support",
         "blog": "Blog",
         "legal": "Legal",
-        "terms": "Terms of Service",
+        "terms": "Termos de serviço",
         "privacy": "Privacy Policy",
         "disclaimer": "Disclaimer",
         "poweredBy": "Powered by TBURN Technology"
@@ -20206,7 +20206,7 @@
         "support": "Support",
         "blog": "Blog",
         "legal": "Legal",
-        "terms": "Terms of Service",
+        "terms": "Termos de serviço",
         "privacy": "Privacy Policy",
         "disclaimer": "Disclaimer",
         "poweredBy": "Powered by TBURN Technology"
@@ -21007,7 +21007,7 @@
       "blog": "Blog",
       "docs": "Documentation",
       "support": "Support",
-      "terms": "Terms of Service",
+      "terms": "Termos de serviço",
       "privacy": "Privacy Policy",
       "disclaimer": "Disclaimer",
       "copyright": "© 2024-2025 TBURN Chain. All rights reserved.",
@@ -21498,7 +21498,7 @@
       "support": "Support",
       "ambassador": "Ambassador",
       "grants": "Grants",
-      "terms": "Terms of Service",
+      "terms": "Termos de serviço",
       "privacy": "Privacy Policy"
     }
   },

@@ -1495,9 +1495,9 @@
       }
     },
     "footer": {
-      "terms": "Terms of Service",
+      "terms": "شروط الخدمة",
       "privacy": "Privacy Policy",
-      "riskDisclosure": "Risk Disclosure",
+      "riskDisclosure": "الإفصاح عن المخاطر",
       "support": "Customer Support",
       "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
     },
@@ -12366,11 +12366,11 @@
           },
           "disclaimer": {
             "title": "إخلاء المسؤولية",
-            "subtitle": "Legal notices",
+            "subtitle": "الإشعارات القانونية",
             "forumTitle": "منتدى المجتمع",
             "viewAll": "عرض الكل",
             "recentPosts": "المشاركات الأخيرة",
-            "subtitleRisk": "Risk disclosures"
+            "subtitleRisk": "إفصاحات المخاطر"
           }
         },
         "learn": {
@@ -12662,7 +12662,7 @@
           "privacyPolicy": "سياسة الخصوصية",
           "privacyPolicyDesc": "How we handle your data",
           "disclaimer": "إخلاء المسؤولية",
-          "disclaimerDesc": "Risk disclosures & notices"
+          "disclaimerDesc": "إفصاحات المخاطر والإشعارات"
         },
         "learnMore": {
           "title": "اعرف المزيد",
@@ -12870,7 +12870,7 @@
           "termsOfService": "شروط الخدمة",
           "termsOfServiceDesc": "User agreement",
           "disclaimer": "إخلاء المسؤولية",
-          "disclaimerDesc": "Risk disclosures"
+          "disclaimerDesc": "إفصاحات المخاطر"
         },
         "learnMore": {
           "title": "اعرف المزيد",
@@ -17149,7 +17149,7 @@
         "ambassador": "Ambassador",
         "grants": "Grants",
         "support": "Support",
-        "terms": "Terms of Service",
+        "terms": "شروط الخدمة",
         "privacy": "Privacy Policy"
       },
       "social": {
@@ -18613,7 +18613,7 @@
         "ambassador": "Ambassador",
         "grants": "Grants",
         "support": "Support",
-        "terms": "Terms of Service",
+        "terms": "شروط الخدمة",
         "privacy": "Privacy Policy"
       }
     },
@@ -18909,7 +18909,7 @@
         "grants": "Grants",
         "support": "Support",
         "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
-        "terms": "Terms of Service",
+        "terms": "شروط الخدمة",
         "privacy": "Privacy Policy"
       },
       "dialog": {
@@ -19637,7 +19637,7 @@
         "ambassador": "Ambassador",
         "grants": "Grants",
         "support": "Support",
-        "terms": "Terms of Service",
+        "terms": "شروط الخدمة",
         "privacy": "Privacy Policy",
         "tagline": "Building the future of decentralized finance"
       },
@@ -20012,7 +20012,7 @@
         "support": "Support",
         "blog": "Blog",
         "legal": "Legal",
-        "terms": "Terms of Service",
+        "terms": "شروط الخدمة",
         "privacy": "Privacy Policy",
         "disclaimer": "Disclaimer",
         "poweredBy": "Powered by TBURN Technology"
@@ -20328,7 +20328,7 @@
         "support": "Support",
         "blog": "Blog",
         "legal": "Legal",
-        "terms": "Terms of Service",
+        "terms": "شروط الخدمة",
         "privacy": "Privacy Policy",
         "disclaimer": "Disclaimer",
         "poweredBy": "Powered by TBURN Technology"
@@ -21129,7 +21129,7 @@
       "blog": "Blog",
       "docs": "Documentation",
       "support": "Support",
-      "terms": "Terms of Service",
+      "terms": "شروط الخدمة",
       "privacy": "Privacy Policy",
       "disclaimer": "Disclaimer",
       "copyright": "© 2024-2025 TBURN Chain. All rights reserved.",
@@ -21620,7 +21620,7 @@
       "support": "Support",
       "ambassador": "Ambassador",
       "grants": "Grants",
-      "terms": "Terms of Service",
+      "terms": "شروط الخدمة",
       "privacy": "Privacy Policy"
     }
   },

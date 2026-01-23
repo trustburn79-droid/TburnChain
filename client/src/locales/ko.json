@@ -2907,9 +2907,9 @@
       }
     },
     "footer": {
-      "terms": "Terms of Service",
+      "terms": "서비스 약관",
       "privacy": "Privacy Policy",
-      "riskDisclosure": "Risk Disclosure",
+      "riskDisclosure": "위험 공시",
       "support": "Customer Support",
       "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
     },
@@ -16169,11 +16169,11 @@
           },
           "disclaimer": {
             "title": "면책조항",
-            "subtitle": "법적 고지 notices",
+            "subtitle": "법적 고지사항",
             "forumTitle": "커뮤니티 포럼",
             "viewAll": "전체 보기",
             "recentPosts": "최근 게시물",
-            "subtitleRisk": "위험 disclosures"
+            "subtitleRisk": "위험 공시"
           }
         },
         "learn": {
@@ -34685,7 +34685,7 @@
         "support": "Support",
         "blog": "Blog",
         "legal": "Legal",
-        "terms": "Terms of Service",
+        "terms": "서비스 약관",
         "privacy": "Privacy Policy",
         "disclaimer": "Disclaimer",
         "poweredBy": "Powered by TBURN Technology"
@@ -35002,7 +35002,7 @@
         "support": "Support",
         "blog": "Blog",
         "legal": "Legal",
-        "terms": "Terms of Service",
+        "terms": "서비스 약관",
         "privacy": "Privacy Policy",
         "disclaimer": "Disclaimer",
         "poweredBy": "Powered by TBURN Technology"
@@ -36058,7 +36058,7 @@
       "blog": "Blog",
       "docs": "Documentation",
       "support": "Support",
-      "terms": "Terms of Service",
+      "terms": "서비스 약관",
       "privacy": "Privacy Policy",
       "disclaimer": "Disclaimer",
       "copyright": "© 2024-2025 TBURN Chain. All rights reserved.",
@@ -36566,7 +36566,7 @@
       "support": "Support",
       "ambassador": "Ambassador",
       "grants": "Grants",
-      "terms": "Terms of Service",
+      "terms": "서비스 약관",
       "privacy": "Privacy Policy"
     }
   },
