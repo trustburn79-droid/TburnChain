@@ -116,11 +116,14 @@ tburn deploy Token --network=testnet --verify`,
         { flag: "--memo", desc: "Transaction memo", default: "" },
         { flag: "--auto-compound", desc: "Enable auto-compounding of rewards", default: "false" },
       ],
-      examples: `# Delegate 1000 TBURN to validator
-tburn stake delegate tburn1val... 1000 --network=mainnet
+      examples: `# Delegate 1000 TBURN to validator (Chain ID: 5800)
+tburn stake delegate tb1qvalidator7x2e5d4c6b8a7... 1000 --network=mainnet
 
 # Delegate with auto-compounding enabled
-tburn stake delegate tburn1val... 500 --auto-compound=true`,
+tburn stake delegate tb1qvalidator7x2e5d4c6b8a7... 500 --auto-compound=true
+
+# View current delegations
+tburn stake delegations --address=tb1qyouraddress7x2e5d4c6b8a7...`,
     },
     {
       cmd: "tburn stake undelegate",
@@ -131,10 +134,13 @@ tburn stake delegate tburn1val... 500 --auto-compound=true`,
         { flag: "--force", desc: "Skip confirmation prompt", default: "false" },
       ],
       examples: `# Undelegate 500 TBURN (21-day unbonding period)
-tburn stake undelegate tburn1val... 500
+tburn stake undelegate tb1qvalidator7x2e5d4c6b8a7... 500
 
 # Force undelegate without confirmation
-tburn stake undelegate tburn1val... 500 --force`,
+tburn stake undelegate tb1qvalidator7x2e5d4c6b8a7... 500 --force
+
+# Check unbonding status
+tburn stake unbonding --address=tb1qyouraddress7x2e5d4c6b8a7...`,
     },
     {
       cmd: "tburn stake rewards",
@@ -146,10 +152,13 @@ tburn stake undelegate tburn1val... 500 --force`,
         { flag: "--validator", desc: "Filter by specific validator", default: "" },
       ],
       examples: `# View all pending rewards
-tburn stake rewards view
+tburn stake rewards view --address=tb1qyouraddress7x2e5d4c6b8a7...
 
 # Claim rewards from specific validator
-tburn stake rewards claim --validator=tburn1val...`,
+tburn stake rewards claim --validator=tb1qvalidator7x2e5d4c6b8a7...
+
+# Auto-claim and restake all rewards
+tburn stake rewards claim --restake --all`,
     },
     {
       cmd: "tburn stake validators",
@@ -178,11 +187,14 @@ tburn stake validators --status=active --sort=uptime`,
         { flag: "--slippage", desc: "Maximum slippage tolerance (%)", default: "0.5" },
         { flag: "--fast", desc: "Use fast bridge (higher fee)", default: "false" },
       ],
-      examples: `# Bridge 100 TBURN to Ethereum
-tburn bridge transfer ethereum TBURN 100
+      examples: `# Bridge 100 TBURN from TBURN Chain to Ethereum
+tburn bridge transfer ethereum TBURN 100 --from=tb1qyouraddress7x2e5d4c6b8a7...
 
 # Bridge to specific recipient with 1% slippage
-tburn bridge transfer polygon USDC 500 --recipient=0x... --slippage=1`,
+tburn bridge transfer polygon USDC 500 --recipient=0x742d35Cc... --slippage=1
+
+# Bridge with fast mode (higher fee, faster confirmation)
+tburn bridge transfer arbitrum TBURN 250 --fast --network=mainnet`,
     },
     {
       cmd: "tburn bridge status",
@@ -192,11 +204,14 @@ tburn bridge transfer polygon USDC 500 --recipient=0x... --slippage=1`,
         { flag: "--watch", desc: "Watch for status changes", default: "false" },
         { flag: "--timeout", desc: "Watch timeout in seconds", default: "600" },
       ],
-      examples: `# Check bridge transfer status
-tburn bridge status 0x1234...
+      examples: `# Check bridge transfer status (use tx hash)
+tburn bridge status txhash_8a7b6c5d4e3f2a1b...
 
-# Watch transfer until completion
-tburn bridge status 0x1234... --watch`,
+# Watch transfer until completion with timeout
+tburn bridge status txhash_8a7b6c5d4e3f2a1b... --watch --timeout=1800
+
+# Get detailed bridge history
+tburn bridge history --address=tb1qyouraddress7x2e5d4c6b8a7... --limit=20`,
     },
     {
       cmd: "tburn bridge chains",
@@ -256,11 +271,14 @@ tburn token deploy "Gold Token" GOLD 0 --decimals=8 --mintable=true`,
         { flag: "--gas-price", desc: "Gas price in gwei", default: "auto" },
         { flag: "--memo", desc: "Transaction memo", default: "" },
       ],
-      examples: `# Transfer 100 tokens
-tburn token transfer 0x... 0xrecipient... 100
+      examples: `# Transfer 100 tokens (tb1 Bech32m addresses)
+tburn token transfer TBURN tb1qrecipient7x2e5d4c6b8a7... 100
 
-# Transfer with custom gas
-tburn token transfer TBURN 0xrecipient... 50 --gas-price=25`,
+# Transfer with custom gas and memo
+tburn token transfer stTBURN tb1qrecipient7x2e5d4c6b8a7... 50 --gas-price=25 --memo="Payment"
+
+# Batch transfer to multiple recipients
+tburn token transfer TBURN --batch=recipients.csv --network=mainnet`,
     },
     {
       cmd: "tburn token approve",
@@ -269,11 +287,14 @@ tburn token transfer TBURN 0xrecipient... 50 --gas-price=25`,
       options: [
         { flag: "--unlimited", desc: "Approve unlimited amount", default: "false" },
       ],
-      examples: `# Approve DEX contract
-tburn token approve TBURN 0xDexContract... 1000
+      examples: `# Approve DEX contract (tb1 address)
+tburn token approve TBURN tb1qdexcontract7x2e5d4c6b8a7... 1000
 
 # Approve unlimited for DeFi protocol
-tburn token approve USDC 0xProtocol... --unlimited`,
+tburn token approve USDC tb1qprotocol7x2e5d4c6b8a7... --unlimited
+
+# Revoke approval (set to 0)
+tburn token approve TBURN tb1qdexcontract7x2e5d4c6b8a7... 0`,
     },
   ];
 

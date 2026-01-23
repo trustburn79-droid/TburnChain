@@ -93,6 +93,8 @@ export default function ApiDocs() {
     { id: "overview", label: t("apiDocs.sidebar.overview", "Overview"), icon: Globe },
     { id: "authentication", label: t("apiDocs.sidebar.authentication", "Authentication"), icon: Key },
     { id: "rate-limits", label: t("apiDocs.sidebar.rateLimits", "Rate Limits"), icon: Clock },
+    { id: "pagination", label: "Pagination", icon: Filter },
+    { id: "error-codes", label: "Error Codes", icon: AlertTriangle },
     { section: t("apiDocs.sidebar.endpoints", "ENDPOINTS") },
     { id: "block", label: t("apiDocs.sidebar.block", "Block"), icon: Box },
     { id: "transaction", label: t("apiDocs.sidebar.transaction", "Transaction"), icon: Activity },
@@ -111,7 +113,7 @@ export default function ApiDocs() {
   ];
 
   const handleCopyUrl = () => {
-    navigator.clipboard.writeText("https://tburn.io/api/v8");
+    navigator.clipboard.writeText("https://mainnet.tburn.io/api/v8");
     setCopiedUrl(true);
     setTimeout(() => setCopiedUrl(false), 2000);
   };
@@ -151,11 +153,13 @@ export default function ApiDocs() {
               className="px-4 py-2 rounded bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 font-mono text-sm text-gray-700 dark:text-gray-300 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-white/10 transition"
               data-testid="button-copy-base-url"
             >
-              <span className="text-[#7000ff]">{t("apiDocs.baseUrl", "Base URL")}:</span> https://tburn.io/api/v8
+              <span className="text-[#7000ff]">{t("apiDocs.baseUrl", "Base URL")}:</span> https://mainnet.tburn.io/api/v8
               {copiedUrl ? <Check className="w-4 h-4 text-[#00ff9d]" /> : <Copy className="w-4 h-4" />}
             </button>
             <span className="text-gray-500">|</span>
-            <span className="text-sm text-gray-600 dark:text-gray-400">WebSocket: <code className="text-[#00f0ff]">wss://tburn.io/ws</code></span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">WebSocket: <code className="text-[#00f0ff]">wss://mainnet.tburn.io/ws</code></span>
+            <span className="text-gray-500">|</span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">Chain ID: <code className="text-[#00ff9d]">5800</code></span>
           </div>
         </div>
       </section>
@@ -233,10 +237,32 @@ export default function ApiDocs() {
                   </div>
                 </div>
 
+                <div className="grid md:grid-cols-2 gap-4 mb-8">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-4">Network Specifications</h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between"><span className="text-gray-600 dark:text-gray-400">Chain ID</span><span className="text-[#00f0ff] font-mono">5800</span></div>
+                      <div className="flex justify-between"><span className="text-gray-600 dark:text-gray-400">Active Shards</span><span className="text-[#00ff9d] font-mono">24 (scalable to 64)</span></div>
+                      <div className="flex justify-between"><span className="text-gray-600 dark:text-gray-400">Validators</span><span className="text-[#ffd700] font-mono">587</span></div>
+                      <div className="flex justify-between"><span className="text-gray-600 dark:text-gray-400">TPS Capacity</span><span className="text-[#7000ff] font-mono">100,000</span></div>
+                      <div className="flex justify-between"><span className="text-gray-600 dark:text-gray-400">Block Time</span><span className="text-gray-900 dark:text-white font-mono">100ms</span></div>
+                      <div className="flex justify-between"><span className="text-gray-600 dark:text-gray-400">Address Format</span><span className="text-[#00f0ff] font-mono">tb1 (Bech32m)</span></div>
+                    </div>
+                  </div>
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-4">API Endpoints</h4>
+                    <div className="space-y-2 text-sm font-mono">
+                      <div><span className="text-gray-600 dark:text-gray-400">REST:</span> <span className="text-[#00f0ff]">https://mainnet.tburn.io/api/v8</span></div>
+                      <div><span className="text-gray-600 dark:text-gray-400">WebSocket:</span> <span className="text-[#00f0ff]">wss://mainnet.tburn.io/ws</span></div>
+                      <div><span className="text-gray-600 dark:text-gray-400">RPC:</span> <span className="text-[#00f0ff]">https://mainnet.tburn.io/rpc</span></div>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t("apiDocs.overview.quickStart", "Quick Start")}</h3>
                   <CodeBlock code={`# Get the latest block
-curl https://tburn.io/api/v8/blocks/latest \\
+curl https://mainnet.tburn.io/api/v8/blocks/latest \\
   -H "X-API-Key: YOUR_API_KEY"
 
 # Response
@@ -244,11 +270,12 @@ curl https://tburn.io/api/v8/blocks/latest \\
   "success": true,
   "data": {
     "number": 20750000,
-    "hash": "0x83b0a4f...",
+    "hash": "tb1hash83b0a4f2c9d8e7b6a5f4c3d2e1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5",
     "timestamp": 1733493600,
     "transactions": 147,
     "gasUsed": "15000000",
-    "validator": "tbv1qw9..."
+    "validator": "tb1vqw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
+    "shardId": 12
   }
 }`} />
                 </div>
@@ -266,14 +293,54 @@ curl https://tburn.io/api/v8/blocks/latest \\
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
                       All API requests require authentication using an API key. Include your key in the request header:
                     </p>
-                    <CodeBlock code={`curl https://tburn.io/api/v8/blocks/latest \\
-  -H "X-API-Key: YOUR_API_KEY"`} />
+                    <CodeBlock code={`curl https://mainnet.tburn.io/api/v8/blocks/latest \\
+  -H "X-API-Key: YOUR_API_KEY" \\
+  -H "Content-Type: application/json"`} />
                     
                     <div className="mt-6 p-4 rounded-lg bg-[#ffd700]/10 border border-[#ffd700]/30">
                       <p className="text-sm text-[#ffd700] flex items-center gap-2">
                         <AlertTriangle className="w-4 h-4" />
                         Never expose your API key in client-side code. Use server-side requests or environment variables.
                       </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Authentication Best Practices</h3>
+                    <div className="space-y-4 text-gray-600 dark:text-gray-400">
+                      <div className="flex items-start gap-3">
+                        <Shield className="w-5 h-5 text-[#00ff9d] flex-shrink-0 mt-0.5" />
+                        <div>
+                          <h4 className="font-medium text-gray-900 dark:text-white">Use Environment Variables</h4>
+                          <p className="text-sm">Store API keys in environment variables, never hardcode them in source files.</p>
+                          <CodeBlock code={`# .env file
+TBURN_API_KEY=your_api_key_here
+
+# Usage in Node.js
+const apiKey = process.env.TBURN_API_KEY;`} />
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Lock className="w-5 h-5 text-[#00f0ff] flex-shrink-0 mt-0.5" />
+                        <div>
+                          <h4 className="font-medium text-gray-900 dark:text-white">Server-Side Only</h4>
+                          <p className="text-sm">Never expose API keys in client-side JavaScript. Use a backend proxy for frontend apps.</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <RefreshCw className="w-5 h-5 text-[#7000ff] flex-shrink-0 mt-0.5" />
+                        <div>
+                          <h4 className="font-medium text-gray-900 dark:text-white">Rotate Keys Regularly</h4>
+                          <p className="text-sm">Rotate API keys every 90 days. Revoke compromised keys immediately via the Developer Portal.</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Filter className="w-5 h-5 text-[#ffd700] flex-shrink-0 mt-0.5" />
+                        <div>
+                          <h4 className="font-medium text-gray-900 dark:text-white">Use IP Allowlists</h4>
+                          <p className="text-sm">Restrict API key usage to specific IP addresses for production environments.</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -414,6 +481,64 @@ X-RateLimit-Window: 60`} />
   }
 }`} />
                   </div>
+
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Idempotency Keys</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      For mutating operations (POST, PUT, DELETE), use idempotency keys to safely retry requests without duplicating actions:
+                    </p>
+                    <CodeBlock code={`# Include X-Idempotency-Key header for safe retries
+curl -X POST https://mainnet.tburn.io/api/v8/transactions/send \\
+  -H "X-API-Key: YOUR_API_KEY" \\
+  -H "X-Idempotency-Key: unique-request-id-12345" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "signedTx": "tb1signedtx..."
+  }'
+
+# Response includes idempotency status
+{
+  "success": true,
+  "data": {
+    "hash": "tb1txhash5d4e3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0",
+    "status": "pending"
+  },
+  "idempotencyKey": "unique-request-id-12345",
+  "cached": false
+}`} />
+                    <div className="mt-4 p-4 rounded-lg bg-[#00f0ff]/10 border border-[#00f0ff]/30">
+                      <p className="text-sm text-[#00f0ff]">
+                        Idempotency keys are stored for 24 hours. Reusing a key within this period returns the cached response.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Rate Limit Best Practices</h3>
+                    <div className="space-y-3 text-gray-600 dark:text-gray-400 text-sm">
+                      <div className="flex items-start gap-2">
+                        <span className="text-[#00ff9d]">1.</span>
+                        <span><strong>Implement exponential backoff</strong> - Start with 1 second delay, double on each retry up to 32 seconds max.</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-[#00ff9d]">2.</span>
+                        <span><strong>Cache responses</strong> - Cache block and transaction data locally to reduce API calls.</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-[#00ff9d]">3.</span>
+                        <span><strong>Use WebSocket</strong> - For real-time data, use WebSocket subscriptions instead of polling.</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-[#00ff9d]">4.</span>
+                        <span><strong>Batch requests</strong> - Use batch endpoints when fetching multiple resources.</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-[#00ff9d]">5.</span>
+                        <span><strong>Monitor headers</strong> - Check X-RateLimit-Remaining and throttle before hitting limits.</span>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
                 </div>
               </section>
 
@@ -448,19 +573,19 @@ X-RateLimit-Window: 60`} />
   "success": true,
   "data": {
     "number": 20750000,
-    "hash": "0x83b0a4f2c9d8e7b6a5f4c3d2e1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2",
-    "parentHash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+    "hash": "tb1hash83b0a4f2c9d8e7b6a5f4c3d2e1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6",
+    "parentHash": "tb1hash1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8",
     "timestamp": 1733493600,
-    "validator": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
+    "validator": "tb1vqw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "validatorName": "TBURN Enterprise Node #1",
     "size": 45678,
     "gasUsed": "15000000",
     "gasLimit": "30000000",
     "baseFeePerGas": "1000000000",
     "transactionCount": 147,
-    "stateRoot": "0xabc123...",
-    "receiptsRoot": "0xdef456...",
-    "shardId": 0,
+    "stateRoot": "tb1stateabc123def456789abc123def456789abc123def456789abc123",
+    "receiptsRoot": "tb1rcptdef456789abc123def456789abc123def456789abc123def456",
+    "shardId": 12,
     "consensusType": "TBFT",
     "finalized": true,
     "transactions": [...] // if includeTxs=true
@@ -482,8 +607,9 @@ X-RateLimit-Window: 60`} />
                       { name: "limit", type: "integer", desc: "Results per page, max 100 (default: 20)" },
                       { name: "fromBlock", type: "integer", desc: "Start from block number" },
                       { name: "toBlock", type: "integer", desc: "End at block number" },
-                      { name: "validator", type: "address", desc: "Filter by validator address" },
-                      { name: "shardId", type: "integer", desc: "Filter by shard ID (0-15)" },
+                      { name: "validator", type: "address", desc: "Filter by validator address (tb1v...)" },
+                      { name: "shardId", type: "integer", desc: "Filter by shard ID (0-23)" },
+                      { name: "cursor", type: "string", desc: "Cursor for pagination (alternative to page)" },
                     ]} />
 
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
@@ -493,10 +619,11 @@ X-RateLimit-Window: 60`} />
     "blocks": [
       {
         "number": 20750000,
-        "hash": "0x83b0a4f...",
+        "hash": "tb1hash83b0a4f2c9d8e7b6...",
         "timestamp": 1733493600,
         "transactionCount": 147,
-        "validator": "tbv1qw9...",
+        "validator": "tb1vqw9d5cf8xkplm4gt7...",
+        "shardId": 12,
         "gasUsed": "15000000"
       }
     ],
@@ -504,7 +631,8 @@ X-RateLimit-Window: 60`} />
       "page": 1,
       "limit": 20,
       "total": 20750000,
-      "hasMore": true
+      "hasMore": true,
+      "nextCursor": "tb1cursor_20749980"
     }
   }
 }`} />
@@ -545,17 +673,18 @@ X-RateLimit-Window: 60`} />
                     
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Path Parameters</h4>
                     <ParamTable params={[
-                      { name: "txHash", type: "string", required: true, desc: "Transaction hash (0x prefixed)" },
+                      { name: "txHash", type: "string", required: true, desc: "Transaction hash (tb1tx prefixed)" },
                     ]} />
 
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "hash": "0x5d4e3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3",
+    "hash": "tb1tx5d4e3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b",
     "blockNumber": 20750000,
-    "blockHash": "0x83b0a4f...",
+    "blockHash": "tb1hash83b0a4f2c9d8e7b6...",
     "transactionIndex": 42,
+    "shardId": 12,
     "from": "tb1qx8e6dg9ylqnm5ht8wt46s6j0mkqq8pyr9arqdf",
     "to": "tb1qy9f7eh0zmron6ju9xu57t7k1nlrr9qzsa2bseg",
     "value": "1000000000000000000",
@@ -563,7 +692,7 @@ X-RateLimit-Window: 60`} />
     "gasUsed": "72",
     "gasLimit": "100",
     "nonce": 156,
-    "input": "0x",
+    "input": "tb1data",
     "type": "transfer",
     "status": "success",
     "timestamp": 1733493600,
@@ -589,19 +718,21 @@ X-RateLimit-Window: 60`} />
                     ]} />
 
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Request Example</h4>
-                    <CodeBlock code={`curl -X POST https://tburn.io/api/v8/transactions/send \\
+                    <CodeBlock code={`curl -X POST https://mainnet.tburn.io/api/v8/transactions/send \\
   -H "X-API-Key: YOUR_API_KEY" \\
+  -H "X-Idempotency-Key: tx-unique-12345" \\
   -H "Content-Type: application/json" \\
   -d '{
-    "signedTx": "0xf86c808504a817c800825208943535353535353535353535353535353535353535880de0b6b3a76400008025a028ef61340bd939bc2195fe537567866003e1a15d3c71ff63e1590620aa636276a067cbe9d8997f761aecb703304b3800ccf555c9f3dc64214b297fb1966a3b6d83"
+    "signedTx": "tb1signedtx28ef61340bd939bc2195fe537567866003e1a15d3c71ff63e1590620aa636276067cbe9d8997f761aecb703304b3800ccf555c9f3dc64214b297fb1966a3b6d83"
   }'`} />
 
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "hash": "0x5d4e3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3",
+    "hash": "tb1tx5d4e3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b",
     "status": "pending",
+    "shardId": 12,
     "estimatedConfirmation": 2
   }
 }`} />
@@ -619,22 +750,23 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "transactionHash": "0x5d4e3c2b...",
+    "transactionHash": "tb1tx5d4e3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d...",
     "blockNumber": 20750000,
-    "blockHash": "0x83b0a4f...",
+    "blockHash": "tb1hash83b0a4f2c9d8e7b6a5f4c3d2e1b0a9f8e7d6...",
+    "shardId": 12,
     "status": 1,
     "gasUsed": "72",
     "cumulativeGasUsed": "5250000",
     "effectiveGasPrice": "10000000000000",
     "logs": [
       {
-        "address": "tb1qz0g8fj1...",
-        "topics": ["0xddf252ad...", "0x000...sender", "0x000...receiver"],
-        "data": "0x0000...amount",
+        "address": "tb1cz0g8fj1xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
+        "topics": ["tb1topicTransfer...", "tb1topic_sender...", "tb1topic_receiver..."],
+        "data": "tb1data_amount...",
         "logIndex": 0
       }
     ],
-    "logsBloom": "0x00000..."
+    "logsBloom": "tb1bloom00000..."
   }
 }`} />
                   </div>
@@ -820,7 +952,7 @@ X-RateLimit-Window: 60`} />
     "optimization": true,
     "runs": 200,
     "creator": "tb1qx8e6dg9...",
-    "creationTx": "0xCreateTx...",
+    "creationTx": "tb1txCreateTx...",
     "creationBlock": 1000000,
     "balance": "0",
     "txCount": 50000,
@@ -846,7 +978,7 @@ X-RateLimit-Window: 60`} />
                     ]} />
 
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Request Example</h4>
-                    <CodeBlock code={`curl -X POST https://tburn.io/api/v8/contracts/tb1qkwghdmv3.../call \\
+                    <CodeBlock code={`curl -X POST https://mainnet.tburn.io/api/v8/contracts/tb1cqkwghdmv3.../call \\
   -H "X-API-Key: YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -891,13 +1023,14 @@ X-RateLimit-Window: 60`} />
   "data": {
     "events": [
       {
-        "transactionHash": "0x5d4e...",
+        "transactionHash": "tb1tx5d4e3c2b1a0f9e8d7c6b5a4f...",
         "blockNumber": 20750000,
         "logIndex": 0,
+        "shardId": 12,
         "event": "Transfer",
         "args": {
-          "from": "tb1qx8e6dg9...",
-          "to": "tb1qy9f7eh0...",
+          "from": "tb1qx8e6dg9ylqnm5ht8wt46s6j0mkqq...",
+          "to": "tb1qy9f7eh0zmron6ju9xu57t7k1nlrr...",
           "value": "1000000000000000000"
         },
         "timestamp": 1733493600
@@ -1087,10 +1220,11 @@ X-RateLimit-Window: 60`} />
   "data": {
     "transfers": [
       {
-        "transactionHash": "0x5d4e...",
+        "transactionHash": "tb1tx5d4e3c2b1a0f9e8d...",
         "blockNumber": 20750000,
-        "from": "tb1qx8e6dg9...",
-        "to": "tb1qy9f7eh0...",
+        "shardId": 12,
+        "from": "tb1qx8e6dg9ylqnm5ht8wt46...",
+        "to": "tb1qy9f7eh0zmron6ju9xu57...",
         "value": "1000000000000000000",
         "timestamp": 1733493600
       }
@@ -1134,7 +1268,7 @@ X-RateLimit-Window: 60`} />
   "data": {
     "validators": [
       {
-        "address": "tbv1qw9d5cf8...",
+        "address": "tb1vqw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
         "name": "TBURN Foundation",
         "status": "active",
         "stake": "10000000000000000000000000",
@@ -1142,11 +1276,13 @@ X-RateLimit-Window: 60`} />
         "commission": "5.00",
         "uptime": "99.98",
         "blocksProposed": 150000,
+        "shardAssignment": [0, 3, 7, 15],
         "rewards": "50000000000000000000000"
       }
     ],
-    "totalValidators": 100,
-    "totalStake": "500000000000000000000000000"
+    "totalValidators": 587,
+    "activeValidators": 585,
+    "totalStake": "587000000000000000000000000"
   }
 }`} />
                   </div>
@@ -1170,10 +1306,11 @@ X-RateLimit-Window: 60`} />
   "data": {
     "delegations": [
       {
-        "validator": "tbv1qw9d5cf8...",
+        "validator": "tb1vqw9d5cf8xkplm4gt7vs35...",
         "validatorName": "TBURN Foundation",
         "amount": "1000000000000000000000",
         "rewards": "50000000000000000000",
+        "shardAssignment": [0, 5, 12],
         "delegatedAt": 1730000000
       }
     ],
@@ -1202,9 +1339,10 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "transactionHash": "0xabc123...",
-    "validator": "tbv1qw9d5cf8...",
+    "transactionHash": "tb1txabc123def456789...",
+    "validator": "tb1vqw9d5cf8xkplm4gt7...",
     "amount": "1000000000000000000000",
+    "shardId": 5,
     "status": "pending"
   }
 }`} />
@@ -1229,10 +1367,11 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "transactionHash": "0xdef456...",
-    "validator": "tbv1qw9d5cf8...",
+    "transactionHash": "tb1txdef456789abc123...",
+    "validator": "tb1vqw9d5cf8xkplm4gt7...",
     "amount": "500000000000000000000",
     "unbondingCompletesAt": 1735000000,
+    "shardId": 5,
     "status": "unbonding"
   }
 }`} />
@@ -1258,7 +1397,7 @@ X-RateLimit-Window: 60`} />
     "totalRewards": "125000000000000000000",
     "rewards": [
       {
-        "validator": "tbv1qw9d5cf8...",
+        "validator": "tb1vqw9d5cf8xkplm4gt7vs35...",
         "validatorName": "TBURN Foundation",
         "pending": "75000000000000000000",
         "claimed": "500000000000000000000"
@@ -1354,8 +1493,8 @@ X-RateLimit-Window: 60`} />
     "transfers": [
       {
         "id": "bridge_12345",
-        "sourceTxHash": "0xsource...",
-        "destTxHash": "0xdest...",
+        "sourceTxHash": "tb1txsource123abc...",
+        "destTxHash": "tb1txdest456def...",
         "sourceChain": 1,
         "destChain": 5800,
         "from": "tb1qx8e6dg9...",
@@ -1398,7 +1537,7 @@ X-RateLimit-Window: 60`} />
   "success": true,
   "data": {
     "bridgeId": "bridge_12346",
-    "sourceTxHash": "0xabc...",
+    "sourceTxHash": "tb1txabc123def...",
     "destChain": 1,
     "to": "tb1qy9f7eh0...",
     "amount": "1000000000000000000",
@@ -1427,7 +1566,7 @@ X-RateLimit-Window: 60`} />
   "success": true,
   "data": {
     "bridgeId": "bridge_12346",
-    "sourceTxHash": "0xabc...",
+    "sourceTxHash": "tb1txabc123def456...",
     "destTxHash": null,
     "sourceChain": 5800,
     "destChain": 1,
@@ -1439,9 +1578,9 @@ X-RateLimit-Window: 60`} />
     "confirmations": 15,
     "requiredConfirmations": 20,
     "validators": [
-      { "address": "tbv1qw9d5cf8...", "signed": true },
-      { "address": "tbv1qx8e6dg9...", "signed": true },
-      { "address": "tbv1qy9f7eh0...", "signed": false }
+      { "address": "tb1vqw9d5cf8xkplm4gt7...", "signed": true },
+      { "address": "tb1vx8e6dg9ylqnm5ht8w...", "signed": true },
+      { "address": "tb1vy9f7eh0zmron6ju9x...", "signed": false }
     ],
     "initiatedAt": 1733493600,
     "estimatedArrival": 1733494200
@@ -1459,7 +1598,7 @@ X-RateLimit-Window: 60`} />
                 
                 <div className="mb-6 p-4 rounded-lg bg-[#7000ff]/10 border border-[#7000ff]/30">
                   <p className="text-sm text-[#7000ff]">
-                    TBURN uses a 5-phase Enterprise BFT Consensus: Propose → Prevote → Precommit → Commit → Finalize. Chain ID: 5800, 125 validators, 100ms block time.
+                    TBURN uses a 5-phase Enterprise BFT Consensus: Propose → Prevote → Precommit → Commit → Finalize. Chain ID: 5800, 587 validators, 100ms block time, 100,000 TPS capacity.
                   </p>
                 </div>
 
@@ -1480,12 +1619,12 @@ X-RateLimit-Window: 60`} />
     "currentRound": 0,
     "phase": "FINALIZE",
     "state": "running",
-    "proposer": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
+    "proposer": "tb1vqw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "proposerName": "TBURN Genesis Validator #1",
     "lockedRound": -1,
     "lockedBlockHash": null,
     "validRound": 0,
-    "validBlockHash": "0x8a3b4c5d6e7f...",
+    "validBlockHash": "tb1hash8a3b4c5d6e7f...",
     "lastBlockTime": 1735689600000,
     "avgRoundTimeMs": 95.4,
     "quorumThreshold": "66.67%",
@@ -1525,8 +1664,8 @@ X-RateLimit-Window: 60`} />
   "data": {
     "height": 25847392,
     "round": 0,
-    "proposer": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
-    "blockHash": "0x8a3b4c5d6e7f...",
+    "proposer": "tb1vqw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
+    "blockHash": "tb1hash8a3b4c5d6e7f...",
     "phaseTimings": {
       "propose": 12,
       "prevote": 18,
@@ -1557,7 +1696,7 @@ X-RateLimit-Window: 60`} />
 
                 <div className="mb-6 p-4 rounded-lg bg-[#00ff9d]/10 border border-[#00ff9d]/30">
                   <p className="text-sm text-[#00ff9d]">
-                    TBURN Mainnet operates with 125 genesis validators. Enterprise-grade validator management with performance scoring, reward distribution, and slashing.
+                    TBURN Mainnet operates with 587 active validators. Enterprise-grade validator management with performance scoring, reward distribution, and slashing protection.
                   </p>
                 </div>
 
@@ -1573,7 +1712,7 @@ X-RateLimit-Window: 60`} />
                     <ParamTable params={[
                       { name: "status", type: "string", desc: "Filter by status: active, inactive, jailed (default: all)" },
                       { name: "sortBy", type: "string", desc: "Sort by: stake, uptime, apr, performance (default: stake)" },
-                      { name: "limit", type: "integer", desc: "Results per page (default: 50, max: 125)" },
+                      { name: "limit", type: "integer", desc: "Results per page (default: 50, max: 100)" },
                       { name: "page", type: "integer", desc: "Page number (default: 1)" },
                     ]} />
 
@@ -1583,11 +1722,11 @@ X-RateLimit-Window: 60`} />
   "data": {
     "validators": [
       {
-        "address": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
+        "address": "tb1vqw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
         "moniker": "TBURN Genesis Validator #1",
         "status": "active",
         "votingPower": "1000000000000000000000",
-        "votingPowerPercentage": 0.8,
+        "votingPowerPercentage": 0.17,
         "commission": 5.0,
         "selfStake": "500000000000000000000",
         "totalStake": "1000000000000000000000",
@@ -1598,22 +1737,23 @@ X-RateLimit-Window: 60`} />
         "performanceScore": 98.5,
         "performanceTier": "platinum",
         "apr": 12.5,
+        "shardAssignment": [0, 5, 12],
         "lastActive": 1735689600000
       }
     ],
     "summary": {
-      "totalValidators": 125,
-      "activeValidators": 124,
-      "inactiveValidators": 0,
+      "totalValidators": 587,
+      "activeValidators": 585,
+      "inactiveValidators": 1,
       "jailedValidators": 1,
-      "totalStake": "125000000000000000000000000",
+      "totalStake": "587000000000000000000000000",
       "averageUptime": 99.87
     },
     "pagination": {
       "page": 1,
       "limit": 50,
-      "total": 125,
-      "totalPages": 3
+      "total": 587,
+      "totalPages": 12
     }
   }
 }`} />
@@ -1635,7 +1775,7 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "validator": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
+    "validator": "tb1vqw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "totalRewards": "15847392000000000000000",
     "pendingRewards": "284700000000000000",
     "claimedRewards": "15847107300000000000000",
@@ -1665,7 +1805,7 @@ X-RateLimit-Window: 60`} />
 
                 <div className="mb-6 p-4 rounded-lg bg-[#00f0ff]/10 border border-[#00f0ff]/30">
                   <p className="text-sm text-[#00f0ff]">
-                    TBURN supports dynamic sharding with 5-64 shards. Current mainnet: 64 shards, ~210,000 TPS capacity. Cross-shard messaging with priority queue routing.
+                    TBURN supports dynamic sharding with scalable architecture. Current mainnet: 24 active shards (scalable to 64), 100,000 TPS capacity. Cross-shard messaging with priority queue routing.
                   </p>
                 </div>
 
@@ -1681,17 +1821,18 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "totalShards": 64,
-    "activeShards": 64,
-    "globalTPS": 185420,
-    "targetTPS": 210000,
+    "totalShards": 24,
+    "activeShards": 24,
+    "maxShards": 64,
+    "globalTPS": 87420,
+    "targetTPS": 100000,
     "shards": [
       {
         "id": 0,
         "status": "active",
-        "validators": 8,
-        "currentTPS": 2897,
-        "avgBlockTime": 98,
+        "validators": 24,
+        "currentTPS": 3642,
+        "avgBlockTime": 100,
         "pendingTransactions": 1247,
         "crossShardMessages": {
           "incoming": 847,
@@ -1706,7 +1847,8 @@ X-RateLimit-Window: 60`} />
       "enabled": true,
       "lastRebalance": 1735689000000,
       "nextScheduled": null,
-      "threshold": 0.85
+      "threshold": 0.85,
+      "scalingToShards": null
     }
   }
 }`} />
@@ -1721,8 +1863,8 @@ X-RateLimit-Window: 60`} />
 
                     <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
                     <ParamTable params={[
-                      { name: "sourceShard", type: "integer", desc: "Filter by source shard ID" },
-                      { name: "destShard", type: "integer", desc: "Filter by destination shard ID" },
+                      { name: "sourceShard", type: "integer", desc: "Filter by source shard ID (0-23)" },
+                      { name: "destShard", type: "integer", desc: "Filter by destination shard ID (0-23)" },
                       { name: "status", type: "string", desc: "pending, delivered, failed (default: all)" },
                       { name: "limit", type: "integer", desc: "Results per page (default: 50)" },
                     ]} />
@@ -1847,7 +1989,7 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "address": "tbv1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
+    "address": "tb1vqw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce",
     "type": "contract",
     "trustScore": 87,
     "grade": "A",
@@ -1884,10 +2026,10 @@ X-RateLimit-Window: 60`} />
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
                       Connect to the WebSocket endpoint with your API key for real-time blockchain events.
                     </p>
-                    <CodeBlock code={`const ws = new WebSocket('wss://tburn.io/ws/v8?apiKey=YOUR_API_KEY');
+                    <CodeBlock code={`const ws = new WebSocket('wss://mainnet.tburn.io/ws?apiKey=YOUR_API_KEY');
 
 ws.onopen = () => {
-  console.log('Connected to TBURN WebSocket');
+  console.log('Connected to TBURN Mainnet WebSocket');
   
   // Subscribe to new blocks
   ws.send(JSON.stringify({
@@ -1899,7 +2041,14 @@ ws.onopen = () => {
 ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
   console.log('Received:', data);
-};`} />
+};
+
+// Heartbeat to keep connection alive
+setInterval(() => {
+  if (ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({ method: 'ping' }));
+  }
+}, 30000);`} />
                   </div>
 
                   <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
@@ -1927,12 +2076,12 @@ ws.onmessage = (event) => {
                           <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><code className="text-[#00f0ff]">address</code></td>
                             <td className="py-3">Transactions for specific address</td>
-                            <td className="py-3"><code className="text-gray-400">address: "0x..."</code></td>
+                            <td className="py-3"><code className="text-gray-400">address: "tb1q..."</code></td>
                           </tr>
                           <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><code className="text-[#00f0ff]">contract</code></td>
                             <td className="py-3">Contract events</td>
-                            <td className="py-3"><code className="text-gray-400">address: "0x...", event: "Transfer"</code></td>
+                            <td className="py-3"><code className="text-gray-400">address: "tb1c...", event: "Transfer"</code></td>
                           </tr>
                           <tr className="border-b border-gray-200 dark:border-white/5">
                             <td className="py-3"><code className="text-[#00f0ff]">pendingTx</code></td>
@@ -1970,11 +2119,12 @@ ws.send(JSON.stringify({
   "channel": "address",
   "type": "transaction",
   "data": {
-    "hash": "0x5d4e...",
-    "from": "tb1qx8e6dg9...",
-    "to": "tb1qw9d5...",
+    "hash": "tb1tx5d4e3c2b1a0f9e8d...",
+    "from": "tb1qx8e6dg9ylqnm5ht8w...",
+    "to": "tb1qw9d5cf8xkplm4gt7v...",
     "value": "1000000000000000000",
     "status": "confirmed",
+    "shardId": 12,
     "blockNumber": 20750000
   }
 }`} />
@@ -2000,12 +2150,13 @@ ws.send(JSON.stringify({
   "channel": "contract",
   "type": "event",
   "data": {
-    "transactionHash": "0x5d4e...",
+    "transactionHash": "tb1tx5d4e3c2b1a0f9e8d...",
     "blockNumber": 20750000,
+    "shardId": 12,
     "event": "Transfer",
     "args": {
-      "from": "tb1qx8e6dg9...",
-      "to": "tb1qz0g8fj1...",
+      "from": "tb1qx8e6dg9ylqnm5ht8w...",
+      "to": "tb1qz0g8fj1xkplm4gt7v...",
       "value": "1000000000000000000"
     }
   }
@@ -2025,20 +2176,88 @@ ws.send(JSON.stringify({
   method: 'unsubscribe',
   channel: 'address',
   params: {
-    address: '0x1234...'
+    address: 'tb1qw9d5cf8xkplm4gt7vs35r5h9ljkp7nxr8zqpce'
   }
 }));`} />
                   </div>
                 </div>
               </section>
 
+              {/* Pagination Section */}
+              <section id="pagination" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <Filter className="w-8 h-8 text-[#00f0ff]" /> Pagination
+                </h2>
+                
+                <div className="space-y-6">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Offset-Based Pagination</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      Use <code className="text-[#00f0ff]">page</code> and <code className="text-[#00f0ff]">limit</code> parameters for simple pagination:
+                    </p>
+                    <CodeBlock code={`# Get page 2 of transactions with 50 results per page
+curl "https://mainnet.tburn.io/api/v8/transactions?page=2&limit=50" \\
+  -H "X-API-Key: YOUR_API_KEY"
+
+# Response includes pagination metadata
+{
+  "success": true,
+  "data": {
+    "transactions": [...],
+    "pagination": {
+      "page": 2,
+      "limit": 50,
+      "total": 2847392,
+      "totalPages": 56948,
+      "hasMore": true
+    }
+  }
+}`} />
+                  </div>
+
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Cursor-Based Pagination</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      For large datasets, use cursor-based pagination for better performance:
+                    </p>
+                    <CodeBlock code={`# Initial request
+curl "https://mainnet.tburn.io/api/v8/blocks?limit=100" \\
+  -H "X-API-Key: YOUR_API_KEY"
+
+# Response with cursor
+{
+  "success": true,
+  "data": {
+    "blocks": [...],
+    "pagination": {
+      "limit": 100,
+      "hasMore": true,
+      "nextCursor": "tb1cursor_block_20749900"
+    }
+  }
+}
+
+# Next page using cursor
+curl "https://mainnet.tburn.io/api/v8/blocks?limit=100&cursor=tb1cursor_block_20749900" \\
+  -H "X-API-Key: YOUR_API_KEY"`} />
+                    <div className="mt-4 p-4 rounded-lg bg-[#00ff9d]/10 border border-[#00ff9d]/30">
+                      <p className="text-sm text-[#00ff9d]">
+                        Cursor-based pagination is recommended for real-time data and large result sets as it handles data changes gracefully.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
               {/* Error Handling */}
-              <section className="scroll-mt-24">
+              <section id="error-codes" className="scroll-mt-24">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <AlertTriangle className="w-8 h-8 text-[#ff0055]" /> Error Handling
                 </h2>
                 
+                <div className="space-y-6">
                 <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">HTTP Status Codes</h3>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead className="text-gray-500 border-b border-gray-300 dark:border-white/10">
@@ -2049,6 +2268,16 @@ ws.send(JSON.stringify({
                         </tr>
                       </thead>
                       <tbody className="text-gray-700 dark:text-gray-300">
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#00ff9d]">200</td>
+                          <td className="py-3">OK</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Request successful</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#00ff9d]">201</td>
+                          <td className="py-3">Created</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Resource created successfully</td>
+                        </tr>
                         <tr className="border-b border-gray-200 dark:border-white/5">
                           <td className="py-3 font-mono text-[#ff0055]">400</td>
                           <td className="py-3">Bad Request</td>
@@ -2064,6 +2293,144 @@ ws.send(JSON.stringify({
                           <td className="py-3">Forbidden</td>
                           <td className="py-3 text-gray-600 dark:text-gray-400">API key doesn't have permission for this endpoint</td>
                         </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">404</td>
+                          <td className="py-3">Not Found</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Resource not found (block, transaction, address)</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">409</td>
+                          <td className="py-3">Conflict</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Duplicate request (check idempotency key)</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ffd700]">429</td>
+                          <td className="py-3">Too Many Requests</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Rate limit exceeded</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">500</td>
+                          <td className="py-3">Internal Server Error</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Server-side error, please retry</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">503</td>
+                          <td className="py-3">Service Unavailable</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Service temporarily unavailable</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Error Codes Reference</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="text-gray-500 border-b border-gray-300 dark:border-white/10">
+                        <tr>
+                          <th className="py-3 text-left">Error Code</th>
+                          <th className="py-3 text-left">HTTP</th>
+                          <th className="py-3 text-left">Description</th>
+                          <th className="py-3 text-left">Resolution</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-gray-700 dark:text-gray-300 text-xs">
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">INVALID_API_KEY</td>
+                          <td className="py-3">401</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">API key is invalid or expired</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Check your API key or generate a new one</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">MISSING_API_KEY</td>
+                          <td className="py-3">401</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">X-API-Key header is missing</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Include X-API-Key header in request</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">RATE_LIMIT_EXCEEDED</td>
+                          <td className="py-3">429</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Too many requests</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Wait and retry with exponential backoff</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">INVALID_ADDRESS</td>
+                          <td className="py-3">400</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Address format is invalid</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Use tb1 Bech32m format addresses</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">INVALID_TX_HASH</td>
+                          <td className="py-3">400</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Transaction hash format is invalid</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Use valid tb1tx prefixed hash</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">BLOCK_NOT_FOUND</td>
+                          <td className="py-3">404</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Block does not exist</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Verify block number exists on chain</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">TX_NOT_FOUND</td>
+                          <td className="py-3">404</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Transaction not found</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Transaction may be pending or hash is incorrect</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">INSUFFICIENT_FUNDS</td>
+                          <td className="py-3">400</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Insufficient balance for transaction</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Ensure account has enough TBURN</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">NONCE_TOO_LOW</td>
+                          <td className="py-3">400</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Transaction nonce already used</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Get latest nonce from account endpoint</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">GAS_LIMIT_EXCEEDED</td>
+                          <td className="py-3">400</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Gas limit too high or low</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Use gas estimation endpoint</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">CONTRACT_EXECUTION_FAILED</td>
+                          <td className="py-3">400</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Smart contract call reverted</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Check contract state and parameters</td>
+                        </tr>
+                        <tr className="border-b border-gray-200 dark:border-white/5">
+                          <td className="py-3 font-mono text-[#ff0055]">SHARD_UNAVAILABLE</td>
+                          <td className="py-3">503</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Target shard is temporarily unavailable</td>
+                          <td className="py-3 text-gray-600 dark:text-gray-400">Retry after a short delay</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Error Response Format</h3>
+                  <CodeBlock code={`{
+  "success": false,
+  "error": {
+    "code": "INVALID_ADDRESS",
+    "message": "Invalid address format. Expected tb1 Bech32m address.",
+    "details": {
+      "field": "to",
+      "provided": "0x1234...",
+      "expected": "tb1q... or tb1v... format"
+    },
+    "requestId": "req_8a7b6c5d4e3f2a1b",
+    "timestamp": 1735689600000
+  }
+}`} />
+                </div>
+                </div>
                         <tr className="border-b border-gray-200 dark:border-white/5">
                           <td className="py-3 font-mono text-[#ff0055]">404</td>
                           <td className="py-3">Not Found</td>

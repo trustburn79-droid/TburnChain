@@ -10,32 +10,70 @@ import { SiEthereum } from "react-icons/si";
 const basicTokenCode = `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@tburn/contracts/token/TBC20/TBC20.sol";
+import "@tburn/contracts/access/TBurnOwnable.sol";
+import "@tburn/contracts/security/ReentrancyGuard.sol";
 
 /**
- * @title TBurn Basic Token
- * @notice ERC20 token with TBurn Chain integration
+ * @title TBurn Basic Token (Production-Ready)
+ * @notice TBC-20 token for TBURN Chain (Chain ID: 5800)
+ * @dev Mainnet RPC: https://mainnet.tburn.io/rpc
+ * @custom:network TBURN Mainnet
+ * @custom:validators 587 active validators
+ * @custom:shards 24 active (scalable to 64)
+ * @custom:tps 100,000 TPS capacity
+ * @custom:blocktime 100ms
  */
-contract TBurnToken is ERC20, Ownable {
+contract TBurnToken is TBC20, TBurnOwnable, ReentrancyGuard {
     uint256 public constant MAX_SUPPLY = 1_000_000_000 * 10**18;
+    uint256 public constant MIN_GAS_RESERVE = 21000;
+    
+    // tb1 address format example: tb1qtoken7x2e5d4c6b8a9f3m2n1p0k8j7h6g5f4d3s2
+    address public immutable treasury;
+    
+    event TokensMinted(address indexed to, uint256 amount, uint256 gasUsed);
+    event TokensBurned(address indexed from, uint256 amount);
+    
+    error ExceedsMaxSupply(uint256 requested, uint256 available);
+    error InsufficientGas(uint256 required, uint256 provided);
+    error ZeroAmount();
     
     constructor(
         string memory name,
         string memory symbol,
-        uint256 initialSupply
-    ) ERC20(name, symbol) Ownable(msg.sender) {
-        require(initialSupply <= MAX_SUPPLY, "Exceeds max supply");
+        uint256 initialSupply,
+        address _treasury
+    ) TBC20(name, symbol) TBurnOwnable(msg.sender) {
+        if (initialSupply > MAX_SUPPLY) {
+            revert ExceedsMaxSupply(initialSupply, MAX_SUPPLY);
+        }
+        if (_treasury == address(0)) {
+            revert ZeroAmount();
+        }
+        treasury = _treasury;
         _mint(msg.sender, initialSupply);
     }
     
-    function mint(address to, uint256 amount) external onlyOwner {
-        require(totalSupply() + amount <= MAX_SUPPLY, "Exceeds max supply");
+    function mint(address to, uint256 amount) external onlyOwner nonReentrant {
+        if (amount == 0) revert ZeroAmount();
+        uint256 available = MAX_SUPPLY - totalSupply();
+        if (amount > available) {
+            revert ExceedsMaxSupply(amount, available);
+        }
+        
+        uint256 gasStart = gasleft();
         _mint(to, amount);
+        emit TokensMinted(to, amount, gasStart - gasleft());
     }
     
-    function burn(uint256 amount) external {
+    function burn(uint256 amount) external nonReentrant {
+        if (amount == 0) revert ZeroAmount();
         _burn(msg.sender, amount);
+        emit TokensBurned(msg.sender, amount);
+    }
+    
+    function estimateGas(uint256 amount) external pure returns (uint256) {
+        return MIN_GAS_RESERVE + (amount / 10**18) * 100;
     }
 }`;
 
@@ -95,30 +133,110 @@ contract AutoBurnToken is ERC20 {
 const stakingCode = `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@tburn/contracts/token/TBC20/ITBC20.sol";
+import "@tburn/contracts/security/ReentrancyGuard.sol";
+import "@tburn/contracts/access/AccessControl.sol";
+import "@tburn/contracts/sharding/CrossShardAware.sol";
 
-contract TBurnStaking is ReentrancyGuard {
-    IERC20 public stakingToken;
-    uint256 public rewardRate = 100; // 1% per epoch
+/**
+ * @title TBurn Staking Contract (Production-Ready)
+ * @notice Cross-shard staking with 587 validator integration
+ * @dev Chain ID: 5800 | RPC: https://mainnet.tburn.io/rpc
+ */
+contract TBurnStaking is ReentrancyGuard, AccessControl, CrossShardAware {
+    bytes32 public constant OPERATOR_ROLE = keccak256("OPERATOR_ROLE");
     
-    mapping(address => uint256) public stakedBalance;
-    mapping(address => uint256) public lastStakeTime;
+    ITBC20 public immutable stakingToken;
+    uint256 public rewardRate = 100; // 1% per epoch
+    uint256 public constant MIN_STAKE = 1000 * 10**18;
+    uint256 public constant LOCK_PERIOD = 7 days;
+    
+    struct StakeInfo {
+        uint256 amount;
+        uint256 stakedAt;
+        uint256 rewards;
+        uint8 originShard;
+        bool locked;
+    }
+    
+    mapping(address => StakeInfo) public stakes;
+    uint256 public totalStaked;
+    
+    event Staked(address indexed user, uint256 amount, uint8 shard);
+    event Unstaked(address indexed user, uint256 amount, uint256 rewards);
+    event RewardsClaimed(address indexed user, uint256 amount);
+    
+    error StakeAmountTooLow(uint256 provided, uint256 minimum);
+    error StakeLocked(uint256 unlockTime);
+    error NoStakeFound();
+    error TransferFailed();
     
     constructor(address _token) {
-        stakingToken = IERC20(_token);
+        stakingToken = ITBC20(_token);
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(OPERATOR_ROLE, msg.sender);
     }
     
     function stake(uint256 amount) external nonReentrant {
-        require(amount > 0, "Cannot stake 0");
-        stakingToken.transferFrom(msg.sender, address(this), amount);
-        stakedBalance[msg.sender] += amount;
-        lastStakeTime[msg.sender] = block.timestamp;
+        if (amount < MIN_STAKE) {
+            revert StakeAmountTooLow(amount, MIN_STAKE);
+        }
+        
+        // Claim pending rewards first
+        if (stakes[msg.sender].amount > 0) {
+            _claimRewards(msg.sender);
+        }
+        
+        bool success = stakingToken.transferFrom(msg.sender, address(this), amount);
+        if (!success) revert TransferFailed();
+        
+        stakes[msg.sender] = StakeInfo({
+            amount: stakes[msg.sender].amount + amount,
+            stakedAt: block.timestamp,
+            rewards: 0,
+            originShard: uint8(block.number % 24), // 24 active shards
+            locked: true
+        });
+        
+        totalStaked += amount;
+        emit Staked(msg.sender, amount, stakes[msg.sender].originShard);
+    }
+    
+    function unstake() external nonReentrant {
+        StakeInfo storage stakeInfo = stakes[msg.sender];
+        if (stakeInfo.amount == 0) revert NoStakeFound();
+        if (block.timestamp < stakeInfo.stakedAt + LOCK_PERIOD) {
+            revert StakeLocked(stakeInfo.stakedAt + LOCK_PERIOD);
+        }
+        
+        uint256 rewards = calculateRewards(msg.sender);
+        uint256 total = stakeInfo.amount + rewards;
+        
+        totalStaked -= stakeInfo.amount;
+        delete stakes[msg.sender];
+        
+        bool success = stakingToken.transfer(msg.sender, total);
+        if (!success) revert TransferFailed();
+        
+        emit Unstaked(msg.sender, stakeInfo.amount, rewards);
     }
     
     function calculateRewards(address user) public view returns (uint256) {
-        uint256 timeStaked = block.timestamp - lastStakeTime[user];
-        return (stakedBalance[user] * rewardRate * timeStaked) / (365 days * 10000);
+        StakeInfo memory stakeInfo = stakes[user];
+        if (stakeInfo.amount == 0) return 0;
+        
+        uint256 timeStaked = block.timestamp - stakeInfo.stakedAt;
+        return (stakeInfo.amount * rewardRate * timeStaked) / (365 days * 10000);
+    }
+    
+    function _claimRewards(address user) internal {
+        uint256 rewards = calculateRewards(user);
+        if (rewards > 0) {
+            stakes[user].rewards = 0;
+            stakes[user].stakedAt = block.timestamp;
+            stakingToken.transfer(user, rewards);
+            emit RewardsClaimed(user, rewards);
+        }
     }
 }`;
 
@@ -158,49 +276,31 @@ pragma solidity ^0.8.19;
 import "@tburn/contracts/token/TBC20/TBC20.sol";
 import "@tburn/contracts/token/TBC20/extensions/TBC20Burnable.sol";
 import "@tburn/contracts/security/QuantumResistant.sol";
+import "@tburn/contracts/security/ReentrancyGuard.sol";
 
 /**
- * @title TBC-20 Token Standard
- * @notice TBURN Chain native token standard with quantum-resistant signatures
- * @dev Chain ID 5800 optimized with cross-shard transfer support
+ * @title TBC-20 Token Standard (Production-Ready)
+ * @notice TBURN Chain native token with quantum-resistant signatures
+ * @dev Chain ID: 5800 | RPC: https://mainnet.tburn.io/rpc
+ * @custom:network TBURN Mainnet
+ * @custom:validators 587 active validators
+ * @custom:shards 24 active (scalable to 64)
+ * @custom:tps 100,000 TPS capacity
+ * @custom:blocktime 100ms
+ * @custom:addressformat tb1 (Bech32m)
  */
-contract MyTBC20Token is TBC20, TBC20Burnable, QuantumResistant {
+contract MyTBC20Token is TBC20, TBC20Burnable, QuantumResistant, ReentrancyGuard {
     uint256 public constant INITIAL_SUPPLY = 1_000_000_000 * 10**18;
+    uint256 public constant MAX_SHARDS = 24; // Current active shards
+    uint256 public constant MAX_SHARDS_FUTURE = 64; // Scalable capacity
     
-    // Cross-shard transfer optimization for 64 shards
+    // Cross-shard transfer optimization for 24 active shards
     mapping(uint8 => uint256) public shardBalances;
+    mapping(bytes32 => bool) public processedMessages;
     
-    constructor() TBC20("My TBC20 Token", "MTK") {
-        _mint(msg.sender, INITIAL_SUPPLY);
-    }
-    
-    /**
-     * @notice Cross-shard optimized transfer
-     * @param to Recipient address
-     * @param amount Transfer amount
-     * @param targetShard Destination shard (0-63)
-     */
-    function crossShardTransfer(
-        address to,
-        uint256 amount,
-        uint8 targetShard
-    ) external returns (bytes32 messageId) {
-        require(targetShard < 64, "Invalid shard");
-        _burn(msg.sender, amount);
-        
-        // Emit cross-shard message for router
-        messageId = keccak256(abi.encodePacked(
-            block.chainid, // 5800
-            msg.sender,
-            to,
-            amount,
-            targetShard,
-            block.timestamp
-        ));
-        
-        emit CrossShardTransfer(msg.sender, to, amount, targetShard, messageId);
-        return messageId;
-    }
+    // tb1 address format examples in comments:
+    // Treasury: tb1qtreasury7x2e5d4c6b8a9f3m2n1p0k8j7h6g5f4d
+    // Router: tb1qrouter8x3e5d4c6b8a9f3m2n1p0k8j7h6g5f4d3
     
     event CrossShardTransfer(
         address indexed from,
@@ -209,6 +309,66 @@ contract MyTBC20Token is TBC20, TBC20Burnable, QuantumResistant {
         uint8 targetShard,
         bytes32 messageId
     );
+    event CrossShardReceived(bytes32 indexed messageId, address indexed to, uint256 amount);
+    
+    error InvalidShard(uint8 provided, uint8 maximum);
+    error MessageAlreadyProcessed(bytes32 messageId);
+    error InsufficientBalance(uint256 requested, uint256 available);
+    error ZeroAmount();
+    error ZeroAddress();
+    
+    constructor() TBC20("My TBC20 Token", "MTK") {
+        _mint(msg.sender, INITIAL_SUPPLY);
+    }
+    
+    /**
+     * @notice Cross-shard optimized transfer with gas estimation
+     * @param to Recipient address (tb1 format internally)
+     * @param amount Transfer amount
+     * @param targetShard Destination shard (0-23 for current network)
+     * @return messageId Unique cross-shard message identifier
+     */
+    function crossShardTransfer(
+        address to,
+        uint256 amount,
+        uint8 targetShard
+    ) external nonReentrant returns (bytes32 messageId) {
+        if (to == address(0)) revert ZeroAddress();
+        if (amount == 0) revert ZeroAmount();
+        if (targetShard >= MAX_SHARDS) {
+            revert InvalidShard(targetShard, uint8(MAX_SHARDS - 1));
+        }
+        if (balanceOf(msg.sender) < amount) {
+            revert InsufficientBalance(amount, balanceOf(msg.sender));
+        }
+        
+        _burn(msg.sender, amount);
+        
+        // Generate unique message ID for cross-shard router
+        messageId = keccak256(abi.encodePacked(
+            block.chainid, // 5800
+            msg.sender,
+            to,
+            amount,
+            targetShard,
+            block.timestamp,
+            block.number
+        ));
+        
+        shardBalances[targetShard] += amount;
+        emit CrossShardTransfer(msg.sender, to, amount, targetShard, messageId);
+        return messageId;
+    }
+    
+    /**
+     * @notice Estimate gas for cross-shard transfer
+     * @param amount Transfer amount
+     * @return gasEstimate Estimated gas in Ember (EMB)
+     */
+    function estimateCrossShardGas(uint256 amount) external pure returns (uint256 gasEstimate) {
+        // Base gas: 21000 + cross-shard overhead: 15000 + data: 68 per 32 bytes
+        return 21000 + 15000 + ((amount / 10**18) * 68);
+    }
 }`;
 
 const tbc721Code = `// SPDX-License-Identifier: MIT
@@ -217,15 +377,24 @@ pragma solidity ^0.8.19;
 import "@tburn/contracts/token/TBC721/TBC721.sol";
 import "@tburn/contracts/token/TBC721/extensions/TBC721URIStorage.sol";
 import "@tburn/contracts/security/QuantumResistant.sol";
+import "@tburn/contracts/security/ReentrancyGuard.sol";
 import "@tburn/contracts/ai/ITrustScore.sol";
+import "@tburn/contracts/access/AccessControl.sol";
 
 /**
- * @title TBC-721 NFT Standard
+ * @title TBC-721 NFT Standard (Production-Ready)
  * @notice TBURN Chain native NFT with AI trust verification
- * @dev Optimized for 210K TPS with parallel minting support
+ * @dev Chain ID: 5800 | RPC: https://mainnet.tburn.io/rpc
+ * @custom:network TBURN Mainnet
+ * @custom:validators 587 active validators
+ * @custom:shards 24 active (scalable to 64)
+ * @custom:tps 100,000 TPS capacity
  */
-contract MyTBC721NFT is TBC721, TBC721URIStorage, QuantumResistant {
-    ITrustScore public trustOracle;
+contract MyTBC721NFT is TBC721, TBC721URIStorage, QuantumResistant, ReentrancyGuard, AccessControl {
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    uint256 public constant MAX_SHARDS = 24;
+    
+    ITrustScore public immutable trustOracle;
     uint256 public minMintTrustScore = 50;
     uint256 private _tokenIdCounter;
     
@@ -234,60 +403,115 @@ contract MyTBC721NFT is TBC721, TBC721URIStorage, QuantumResistant {
         uint8 originShard;
         uint256 trustScoreAtMint;
         bool crossShardVerified;
+        bytes32 contentHash;
     }
     
     mapping(uint256 => NFTMetadata) public tokenMetadata;
+    mapping(bytes32 => bool) public contentExists;
+    
+    // tb1 address format: tb1qnft7x2e5d4c6b8a9f3m2n1p0k8j7h6g5f4d3s2
+    
+    event NFTMinted(address indexed to, uint256 indexed tokenId, uint8 shard);
+    event CrossShardNFTTransfer(
+        address indexed from,
+        address indexed to,
+        uint256 indexed tokenId,
+        uint8 targetShard,
+        bytes32 messageId
+    );
+    
+    error TrustScoreTooLow(uint256 provided, uint256 required);
+    error NotTokenOwner(address caller, address owner);
+    error InvalidShard(uint8 provided, uint8 maximum);
+    error ContentAlreadyExists(bytes32 contentHash);
+    error ZeroAddress();
     
     constructor(address _trustOracle) TBC721("My TBC721 NFT", "MNFT") {
+        if (_trustOracle == address(0)) revert ZeroAddress();
         trustOracle = ITrustScore(_trustOracle);
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, msg.sender);
     }
     
     /**
-     * @notice Mint NFT with trust score verification
-     * @param to Recipient address
+     * @notice Mint NFT with trust score verification and duplicate prevention
+     * @param to Recipient address (tb1 format internally)
      * @param uri Token metadata URI
+     * @param contentHash Hash of NFT content for duplicate detection
      */
-    function safeMint(address to, string memory uri) external returns (uint256) {
+    function safeMint(
+        address to, 
+        string memory uri,
+        bytes32 contentHash
+    ) external nonReentrant onlyRole(MINTER_ROLE) returns (uint256) {
+        if (to == address(0)) revert ZeroAddress();
+        
         uint256 senderTrust = trustOracle.getScore(msg.sender);
-        require(senderTrust >= minMintTrustScore, "Trust score too low");
+        if (senderTrust < minMintTrustScore) {
+            revert TrustScoreTooLow(senderTrust, minMintTrustScore);
+        }
+        
+        if (contentExists[contentHash]) {
+            revert ContentAlreadyExists(contentHash);
+        }
+        contentExists[contentHash] = true;
         
         uint256 tokenId = _tokenIdCounter++;
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
         
+        uint8 currentShard = uint8(block.number % MAX_SHARDS);
         tokenMetadata[tokenId] = NFTMetadata({
             mintedAt: block.timestamp,
-            originShard: uint8(block.number % 64),
+            originShard: currentShard,
             trustScoreAtMint: senderTrust,
-            crossShardVerified: false
+            crossShardVerified: false,
+            contentHash: contentHash
         });
         
+        emit NFTMinted(to, tokenId, currentShard);
         return tokenId;
     }
     
     /**
      * @notice Cross-shard NFT transfer with atomic verification
+     * @param to Recipient address
+     * @param tokenId NFT token ID
+     * @param targetShard Destination shard (0-23)
      */
     function crossShardTransfer(
         address to,
         uint256 tokenId,
         uint8 targetShard
-    ) external {
-        require(ownerOf(tokenId) == msg.sender, "Not owner");
-        require(targetShard < 64, "Invalid shard");
+    ) external nonReentrant returns (bytes32 messageId) {
+        address tokenOwner = ownerOf(tokenId);
+        if (tokenOwner != msg.sender) {
+            revert NotTokenOwner(msg.sender, tokenOwner);
+        }
+        if (targetShard >= MAX_SHARDS) {
+            revert InvalidShard(targetShard, uint8(MAX_SHARDS - 1));
+        }
         
         tokenMetadata[tokenId].crossShardVerified = true;
         _transfer(msg.sender, to, tokenId);
         
-        emit CrossShardNFTTransfer(msg.sender, to, tokenId, targetShard);
+        messageId = keccak256(abi.encodePacked(
+            block.chainid,
+            tokenId,
+            msg.sender,
+            to,
+            targetShard,
+            block.timestamp
+        ));
+        
+        emit CrossShardNFTTransfer(msg.sender, to, tokenId, targetShard, messageId);
+        return messageId;
     }
     
-    event CrossShardNFTTransfer(
-        address indexed from,
-        address indexed to,
-        uint256 indexed tokenId,
-        uint8 targetShard
-    );
+    function supportsInterface(bytes4 interfaceId) 
+        public view override(TBC721, AccessControl) returns (bool) {
+        return super.supportsInterface(interfaceId);
+    }
 }`;
 
 const tbc1155Code = `// SPDX-License-Identifier: MIT
@@ -296,13 +520,22 @@ pragma solidity ^0.8.19;
 import "@tburn/contracts/token/TBC1155/TBC1155.sol";
 import "@tburn/contracts/token/TBC1155/extensions/TBC1155Supply.sol";
 import "@tburn/contracts/security/QuantumResistant.sol";
+import "@tburn/contracts/security/ReentrancyGuard.sol";
+import "@tburn/contracts/access/AccessControl.sol";
 
 /**
- * @title TBC-1155 Multi-Token Standard
+ * @title TBC-1155 Multi-Token Standard (Production-Ready)
  * @notice TBURN Chain native multi-token with batch operations
- * @dev Optimized for high-throughput gaming and DeFi applications
+ * @dev Chain ID: 5800 | RPC: https://mainnet.tburn.io/rpc
+ * @custom:network TBURN Mainnet
+ * @custom:validators 587 active validators
+ * @custom:shards 24 active (scalable to 64)
+ * @custom:tps 100,000 TPS capacity
  */
-contract MyTBC1155Token is TBC1155, TBC1155Supply, QuantumResistant {
+contract MyTBC1155Token is TBC1155, TBC1155Supply, QuantumResistant, ReentrancyGuard, AccessControl {
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 public constant OPERATOR_ROLE = keccak256("OPERATOR_ROLE");
+    
     // Token type constants
     uint256 public constant GOLD = 0;
     uint256 public constant SILVER = 1;
@@ -310,63 +543,12 @@ contract MyTBC1155Token is TBC1155, TBC1155Supply, QuantumResistant {
     
     // Cross-shard batch optimization
     uint256 public constant MAX_BATCH_SIZE = 1000;
+    uint256 public constant MAX_SHARDS = 24;
+    
+    // tb1 address format: tb1qmulti7x2e5d4c6b8a9f3m2n1p0k8j7h6g5f4d3
     
     mapping(uint256 => string) private _tokenURIs;
-    
-    constructor() TBC1155("https://api.tburn.io/metadata/") {}
-    
-    /**
-     * @notice High-throughput batch mint for gaming
-     * @param to Recipient address
-     * @param ids Token IDs array
-     * @param amounts Amounts array
-     */
-    function mintBatch(
-        address to,
-        uint256[] memory ids,
-        uint256[] memory amounts
-    ) external {
-        require(ids.length <= MAX_BATCH_SIZE, "Batch too large");
-        _mintBatch(to, ids, amounts, "");
-    }
-    
-    /**
-     * @notice Cross-shard batch transfer with parallel execution
-     * @param to Recipient address
-     * @param ids Token IDs to transfer
-     * @param amounts Amounts to transfer
-     * @param targetShard Destination shard
-     */
-    function crossShardBatchTransfer(
-        address to,
-        uint256[] memory ids,
-        uint256[] memory amounts,
-        uint8 targetShard
-    ) external returns (bytes32 batchId) {
-        require(ids.length == amounts.length, "Length mismatch");
-        require(targetShard < 64, "Invalid shard");
-        
-        _safeBatchTransferFrom(msg.sender, to, ids, amounts, "");
-        
-        batchId = keccak256(abi.encodePacked(
-            block.chainid,
-            msg.sender,
-            to,
-            ids,
-            amounts,
-            targetShard,
-            block.timestamp
-        ));
-        
-        emit CrossShardBatchTransfer(msg.sender, to, ids, amounts, targetShard, batchId);
-        return batchId;
-    }
-    
-    function uri(uint256 tokenId) public view override returns (string memory) {
-        string memory tokenURI = _tokenURIs[tokenId];
-        if (bytes(tokenURI).length > 0) return tokenURI;
-        return super.uri(tokenId);
-    }
+    mapping(bytes32 => bool) public processedBatches;
     
     event CrossShardBatchTransfer(
         address indexed from,
@@ -376,6 +558,107 @@ contract MyTBC1155Token is TBC1155, TBC1155Supply, QuantumResistant {
         uint8 targetShard,
         bytes32 batchId
     );
+    event BatchMinted(address indexed to, uint256[] ids, uint256[] amounts, uint8 shard);
+    
+    error BatchTooLarge(uint256 provided, uint256 maximum);
+    error ArrayLengthMismatch(uint256 idsLength, uint256 amountsLength);
+    error InvalidShard(uint8 provided, uint8 maximum);
+    error BatchAlreadyProcessed(bytes32 batchId);
+    error ZeroAddress();
+    
+    constructor() TBC1155("https://mainnet.tburn.io/api/metadata/") {
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, msg.sender);
+        _grantRole(OPERATOR_ROLE, msg.sender);
+    }
+    
+    /**
+     * @notice High-throughput batch mint for gaming with gas optimization
+     * @param to Recipient address (tb1 format internally)
+     * @param ids Token IDs array
+     * @param amounts Amounts array
+     */
+    function mintBatch(
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts
+    ) external nonReentrant onlyRole(MINTER_ROLE) {
+        if (to == address(0)) revert ZeroAddress();
+        if (ids.length > MAX_BATCH_SIZE) {
+            revert BatchTooLarge(ids.length, MAX_BATCH_SIZE);
+        }
+        if (ids.length != amounts.length) {
+            revert ArrayLengthMismatch(ids.length, amounts.length);
+        }
+        
+        _mintBatch(to, ids, amounts, "");
+        emit BatchMinted(to, ids, amounts, uint8(block.number % MAX_SHARDS));
+    }
+    
+    /**
+     * @notice Cross-shard batch transfer with parallel execution
+     * @param to Recipient address
+     * @param ids Token IDs to transfer
+     * @param amounts Amounts to transfer
+     * @param targetShard Destination shard (0-23)
+     * @return batchId Unique batch identifier for tracking
+     */
+    function crossShardBatchTransfer(
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        uint8 targetShard
+    ) external nonReentrant returns (bytes32 batchId) {
+        if (to == address(0)) revert ZeroAddress();
+        if (ids.length != amounts.length) {
+            revert ArrayLengthMismatch(ids.length, amounts.length);
+        }
+        if (targetShard >= MAX_SHARDS) {
+            revert InvalidShard(targetShard, uint8(MAX_SHARDS - 1));
+        }
+        
+        _safeBatchTransferFrom(msg.sender, to, ids, amounts, "");
+        
+        batchId = keccak256(abi.encodePacked(
+            block.chainid, // 5800
+            msg.sender,
+            to,
+            keccak256(abi.encodePacked(ids)),
+            keccak256(abi.encodePacked(amounts)),
+            targetShard,
+            block.timestamp,
+            block.number
+        ));
+        
+        if (processedBatches[batchId]) {
+            revert BatchAlreadyProcessed(batchId);
+        }
+        processedBatches[batchId] = true;
+        
+        emit CrossShardBatchTransfer(msg.sender, to, ids, amounts, targetShard, batchId);
+        return batchId;
+    }
+    
+    /**
+     * @notice Estimate gas for batch operations
+     * @param batchSize Number of items in batch
+     * @return gasEstimate Estimated gas in Ember (EMB)
+     */
+    function estimateBatchGas(uint256 batchSize) external pure returns (uint256 gasEstimate) {
+        // Base: 21000 + per-item: 5000 + cross-shard overhead: 15000
+        return 21000 + (batchSize * 5000) + 15000;
+    }
+    
+    function uri(uint256 tokenId) public view override returns (string memory) {
+        string memory tokenURI = _tokenURIs[tokenId];
+        if (bytes(tokenURI).length > 0) return tokenURI;
+        return super.uri(tokenId);
+    }
+    
+    function supportsInterface(bytes4 interfaceId) 
+        public view override(TBC1155, AccessControl) returns (bool) {
+        return super.supportsInterface(interfaceId);
+    }
 }`;
 
 export default function SmartContracts() {

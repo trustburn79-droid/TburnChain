@@ -51,35 +51,55 @@ console.log(\`Assigned Shard: \${tx.shardId}\`);`;
 
 const defiExample = `import { TBurnClient, DeFi } from '@tburn/sdk';
 
-const client = new TBurnClient({ apiKey: 'YOUR_KEY' });
-
-// 1. Get Pool Info
-const pool = await client.defi.getPool('TBURN-USDT');
-console.log(\`TVL: \${pool.tvl}, APY: \${pool.apy}%\`);
-
-// 2. Add Liquidity
-const lpTokens = await client.defi.addLiquidity({
-  poolId: 'TBURN-USDT',
-  amountA: '1000',
-  amountB: '500',
-  slippage: 0.5
+// Initialize for TBURN Mainnet DeFi operations
+const client = new TBurnClient({
+  apiKey: 'YOUR_KEY',
+  network: 'mainnet',  // Chain ID: 5800, 100K TPS
+  retries: 3,
+  timeout: 30000
 });
 
-// 3. Swap Tokens
+// 1. Get Pool Info with metrics
+const pool = await client.defi.getPool('TBURN-USDT');
+console.log(\`Pool TVL: \${pool.tvl}\`);
+console.log(\`APY: \${pool.apy}% | 24h Volume: \${pool.volume24h}\`);
+
+// 2. Add Liquidity (from tb1 address)
+const lpTokens = await client.defi.addLiquidity({
+  poolId: 'TBURN-USDT',
+  amountA: '1000',  // TBURN
+  amountB: '500',   // USDT
+  slippage: 0.5,
+  from: 'tb1qyouraddress7x2e5d4c6b8a7...'
+});
+console.log(\`LP Tokens: \${lpTokens.amount} | Shard: \${lpTokens.shardId}\`);
+
+// 3. Swap Tokens with slippage protection
 const swap = await client.defi.swap({
   from: 'TBURN',
   to: 'USDT',
   amount: '100',
-  minReceived: '98'
-});`;
+  minReceived: '98',
+  deadline: Date.now() + 300000  // 5 min deadline
+});
+console.log(\`Swapped: \${swap.amountIn} → \${swap.amountOut}\`);`;
 
 const streamingExample = `import { TBurnClient } from '@tburn/sdk';
 
-const client = new TBurnClient({ apiKey: 'YOUR_KEY' });
+// Initialize with mainnet WebSocket (wss://mainnet.tburn.io/ws)
+const client = new TBurnClient({
+  apiKey: 'YOUR_KEY',
+  network: 'mainnet',  // Chain ID: 5800
+  ws: {
+    autoReconnect: true,
+    reconnectInterval: 3000,
+    maxReconnectAttempts: 10
+  }
+});
 
-// 1. Subscribe to New Blocks
+// 1. Subscribe to New Blocks (100ms block time)
 client.ws.subscribeBlocks((block) => {
-  console.log(\`New block: #\${block.number}\`);
+  console.log(\`Block #\${block.number} | Shard: \${block.shardId} | Txs: \${block.transactionCount}\`);
 });
 
 // 2. Watch Address Transactions (tb1 Bech32m format)
