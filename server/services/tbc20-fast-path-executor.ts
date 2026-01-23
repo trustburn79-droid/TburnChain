@@ -48,10 +48,23 @@ export interface StateDB {
   setStorage(address: TburnAddress, slot: Uint8Array, value: Uint8Array): void;
 }
 
+/**
+ * WARNING: InMemoryState is NOT persistent across server restarts.
+ * This implementation stores state in volatile memory for development/testing only.
+ * 
+ * For production mainnet operations, use FastPathStateAdapter which integrates
+ * with EnterpriseStateStore for persistent state management via WAL pipeline.
+ * 
+ * @see server/core/execution/tbc20-fast-path-integration.ts for production adapter
+ */
 export class InMemoryState implements StateDB {
   private balances: Map<string, bigint> = new Map();
   private nonces: Map<string, number> = new Map();
   private storage: Map<string, Uint8Array> = new Map();
+  
+  constructor() {
+    console.warn('[TBC20-FastPath] InMemoryState initialized - state will NOT persist across restarts. Use FastPathStateAdapter for production.');
+  }
 
   getBalance(address: TburnAddress): bigint {
     return this.balances.get(address.toLowerCase()) || BigInt(0);
