@@ -427,15 +427,15 @@ tburn validators rewards 0x742d35Cc6634C0532... --history=30
   const shardingCommands = [
     {
       cmd: "tburn shards list",
-      desc: "List all 64 shards with load and TPS metrics",
+      desc: "List shards with load and TPS metrics (24 active, max 64)",
       usage: "tburn shards list [options]",
       options: [
         { flag: "--sort", desc: "Sort by (id/load/tps)", default: "id" },
-        { flag: "--status", desc: "Filter by status", default: "all" },
+        { flag: "--status", desc: "Filter by status (active/standby/all)", default: "active" },
         { flag: "--threshold", desc: "Show shards above load threshold", default: "" },
       ],
-      examples: `# List all shards
-tburn shards list
+      examples: `# List all active shards (Chain ID: 5800)
+tburn shards list --network=mainnet
 
 # List overloaded shards (>80% load)
 tburn shards list --threshold=80
@@ -444,9 +444,9 @@ tburn shards list --threshold=80
 tburn shards list --sort=tps
 
 # Output:
-# Total: 64 shards | Global TPS: 185,420 / 210,000
-# Shard 0: TPS=2,897 Load=72% Validators=8
-# Shard 1: TPS=3,012 Load=75% Validators=8`,
+# Active: 24 shards | Max: 64 | Global TPS: 154,908 / 210,000
+# Shard 0: TPS=6,454 Load=72% Validators=25
+# Shard 1: TPS=6,512 Load=75% Validators=24`,
     },
     {
       cmd: "tburn shards info",
