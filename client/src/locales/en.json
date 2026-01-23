@@ -15478,6 +15478,8 @@
           "wantToHost": "Want to host an event?",
           "registered": "Registration Successful!",
           "registeredDesc": "You have been registered for this event. Check your email for details.",
+          "comingSoonTitle": "Coming Soon",
+          "comingSoonDesc": "Event registration will open soon. Please wait for the official announcement.",
           "notificationSet": "Reminder Set!",
           "notificationDesc": "We will notify you before the event starts.",
           "linkCopied": "Link copied!",

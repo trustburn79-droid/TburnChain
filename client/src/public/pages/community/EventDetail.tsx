@@ -84,10 +84,9 @@ export default function EventDetail() {
   };
 
   const handleRegister = () => {
-    setIsRegistered(true);
     toast({
-      title: t('publicPages.community.events.detail.registered'),
-      description: t('publicPages.community.events.detail.registeredDesc'),
+      title: t('publicPages.community.events.detail.comingSoonTitle'),
+      description: t('publicPages.community.events.detail.comingSoonDesc'),
     });
   };
 
@@ -260,17 +259,10 @@ export default function EventDetail() {
                   {Math.round(100 - capacityPercentage)}% {t('publicPages.community.events.detail.spotsRemaining')}
                 </p>
 
-                {isRegistered || event.isRegistered ? (
-                  <Button disabled className="w-full bg-green-600">
-                    <Users className="w-4 h-4 mr-2" />
-                    {t('publicPages.community.events.detail.registered')}
-                  </Button>
-                ) : (
-                  <Button onClick={handleRegister} className={`w-full ${buttonColor}`} data-testid="button-register-event">
-                    <Users className="w-4 h-4 mr-2" />
-                    {t('publicPages.community.events.detail.register')}
-                  </Button>
-                )}
+                <Button onClick={handleRegister} className={`w-full ${buttonColor}`} data-testid="button-register-event">
+                  <Users className="w-4 h-4 mr-2" />
+                  {t('publicPages.community.events.detail.register')}
+                </Button>
 
                 <div className="flex gap-2">
                   <Button variant="outline" className="flex-1 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10" onClick={handleNotification}>
