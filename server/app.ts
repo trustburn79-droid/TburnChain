@@ -5,6 +5,7 @@ import express, {
   Response,
   NextFunction,
 } from "express";
+import helmet from "helmet";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import createMemoryStore from "memorystore";
@@ -102,6 +103,29 @@ export const app = express();
 
 // ★ [수정 2] Nginx 프록시 신뢰 설정 (필수)
 app.set('trust proxy', 1);
+
+// ★ [2026-01-23] Security: Helmet middleware with CSP headers
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+      imgSrc: ["'self'", "data:", "https:", "blob:"],
+      connectSrc: ["'self'", "wss:", "ws:", "https:"],
+      frameSrc: ["'none'"],
+      objectSrc: ["'none'"],
+      baseUri: ["'self'"],
+      formAction: ["'self'"],
+      frameAncestors: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+  crossOriginEmbedderPolicy: false,
+  crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" },
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+}));
 
 // ============================================================================
 // ★ [v5.1 ENTERPRISE] PRE-SESSION FILTER WITH PERFORMANCE & SECURITY HARDENING

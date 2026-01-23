@@ -1,6 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@tanstack/react-query";
+
+const escapeHtml = (text: string): string => {
+  const htmlEscapes: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+  return text.replace(/[&<>"']/g, (char) => htmlEscapes[char] || char);
+};
 import { web3Provider, type Web3State, TBURN_MAINNET_CONFIG } from "@/lib/web3-provider";
 import { SYSTEM_ADDRESSES, generateRandomAddress } from "@/lib/tburn-address";
 import { useTheme } from "@/components/theme-provider";
@@ -710,11 +721,12 @@ export default function TokenSystemPage() {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tokens/user-deployed"] });
       queryClient.invalidateQueries({ queryKey: ["/api/token-system/deployed"] });
     } catch (error: any) {
-      addConsoleLog(`> <span class='text-red-500'>[ERROR]</span> ${error.message}`);
+      const safeErrorMsg = escapeHtml(error.message || 'Unknown error');
+      addConsoleLog(`> <span class='text-red-500'>[ERROR]</span> ${safeErrorMsg}`);
       setIsDeploying(false);
       toast({
         title: t('tokenGenerator.deploymentFailed', 'Deployment Failed'),
-        description: error.message,
+        description: safeErrorMsg,
         variant: "destructive",
       });
     }
@@ -797,11 +809,12 @@ export default function TokenSystemPage() {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tokens/user-deployed"] });
       queryClient.invalidateQueries({ queryKey: ["/api/token-system/deployed"] });
     } catch (error: any) {
-      addConsoleLog(`> <span class='text-red-500'>[ERROR]</span> ${error.message}`);
+      const safeErrorMsg = escapeHtml(error.message || 'Unknown error');
+      addConsoleLog(`> <span class='text-red-500'>[ERROR]</span> ${safeErrorMsg}`);
       setIsDeploying(false);
       toast({
         title: t('tokenGenerator.deploymentFailed', 'Deployment Failed'),
-        description: error.message,
+        description: safeErrorMsg,
         variant: "destructive",
       });
     }
