@@ -371,7 +371,7 @@ export default function TokenDetails() {
           .td-header-icon { width: 28px; height: 28px; }
           .td-header-icon:nth-child(n+5) { display: none; }
           
-          .td-hero { padding: 80px 0 40px; }
+          .td-hero { padding: 140px 0 40px; }
           .td-hero h1 { font-size: 1.25rem; white-space: normal; line-height: 1.3; }
           .td-hero p { font-size: 0.95rem !important; }
           .td-hero-meta { gap: 12px; }

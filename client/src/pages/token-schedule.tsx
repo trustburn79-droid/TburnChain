@@ -379,7 +379,7 @@ export default function TokenSchedule() {
           .ts-header-icon { width: 28px; height: 28px; }
           .ts-header-icon:nth-child(n+5) { display: none; }
           
-          .ts-hero { padding: 80px 0 40px; }
+          .ts-hero { padding: 140px 0 40px; }
           .ts-hero h1 { font-size: 1.25rem; white-space: normal; line-height: 1.3; }
           .ts-hero p { font-size: 0.95rem !important; }
           .ts-hero-stats { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
