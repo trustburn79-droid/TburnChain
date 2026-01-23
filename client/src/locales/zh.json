@@ -14690,211 +14690,192 @@
     "legal": {
       "terms": {
         "title": "服务条款",
-        "subtitle": "使用TBurn Chain服务的条款和条件。",
-        "forumTitle": "社区论坛",
-        "viewAll": "查看全部",
-        "recentPosts": "最近帖子",
+        "subtitle": "使用TBurn Chain服务的条款和条件",
         "backToHome": "返回首页",
         "sections": {
           "acceptance": {
             "title": "1. 条款接受",
-            "content": "通过访问或使用TBurn Chain服务，您同意受这些服务条款（「条款」）的约束。如果您不同意这些条款，请勿使用我们的服务。这些条款构成您与TBurn Chain基金会之间具有法律约束力的协议。"
+            "content": "通过访问或使用TBurn Chain服务，您同意受本服务条款的约束。如果您不同意本条款，请勿使用我们的服务。"
           },
           "definitions": {
             "title": "2. 定义",
-            "tburnChain": "「TBurn Chain」指Layer 1区块链网络及相关服务。",
-            "services": "「服务」包括区块链网络、信任验证系统、API和平台功能。",
-            "user": "「用户」或「您」指使用TBurn Chain的任何个人或实体。",
-            "project": "「项目」指在TBurn Chain上寻求验证的区块链项目。",
-            "trustScore": "「信任评分」指通过我们的三阶段验证系统分配的可靠性评级。",
+            "tburnChain": "TBurn Chain指Layer 1区块链网络及相关服务。",
+            "services": "服务包括区块链网络、信任验证系统、API和平台功能。",
+            "user": "用户或您指使用TBurn Chain的任何个人或实体。",
+            "project": "项目指在TBurn Chain上寻求验证的区块链项目。",
+            "trustScore": "信任评分指通过3阶段验证系统分配的可靠性评级。",
             "items": {
               "tburnChain": {
-                "term": "T销毁 链",
-                "desc": "The Layer 1 blockchain network and associated services"
+                "term": "TBurn Chain",
+                "desc": "Layer 1区块链网络及相关服务"
               },
               "services": {
                 "term": "服务",
-                "desc": "The blockchain network, trust verification system, APIs, and platform features"
+                "desc": "区块链网络、信任验证系统、API和平台功能"
               },
               "user": {
                 "term": "用户",
-                "desc": "任何 individual or entity using T销毁 链"
+                "desc": "使用TBurn Chain的任何个人或实体"
               },
               "project": {
                 "term": "项目",
-                "desc": "区块chain projects seeking verification on T销毁 链"
+                "desc": "在TBurn Chain上寻求验证的区块链项目"
               },
               "trustScore": {
-                "term": "Trust Score",
-                "desc": "The reliability rating assigned through our 3-stage verification system"
+                "term": "信任评分",
+                "desc": "通过3阶段验证系统分配的可靠性评级"
               }
             }
           },
           "eligibility": {
             "title": "3. 资格要求",
-            "intro": "使用TBurn Chain，您必须：",
-            "age": "年满18岁（或您所在司法管辖区的法定年龄）。",
-            "legalCapacity": "具有签订具有约束力合同的法律能力。",
-            "notProhibited": "未被适用法律禁止使用我们的服务。",
-            "comply": "遵守有关在线行为和区块链技术的所有当地法律。",
+            "intro": "要使用TBurn Chain，您必须：",
+            "age": "年满18岁",
+            "legalCapacity": "具有签订合同的法律行为能力",
+            "notProhibited": "未被适用法律禁止使用我们的服务",
+            "comply": "遵守所有当地法律",
             "items": {
-              "age": "Be at least 18 years old (or legal age in your jurisdiction)",
-              "capacity": "Have the legal capacity to enter into binding contracts",
-              "comply": "Comply with all local laws regarding online conduct and blockchain technology",
-              "prohibited": "否t be prohibited from using our services under applicable laws"
+              "age": "年满18岁",
+              "capacity": "具有法律行为能力",
+              "comply": "遵守所有当地法律",
+              "prohibited": "未被法律禁止使用服务"
+            }
+          },
+          "account": {
+            "title": "4. 账户注册与安全",
+            "creation": {
+              "title": "4.1 账户创建",
+              "content": "您同意提供准确的信息并维护其机密性。"
+            },
+            "notifications": {
+              "enabled": "通知已启用",
+              "disabled": "通知已禁用",
+              "enabledDesc": "您将收到通知。",
+              "disabledDesc": "通知已关闭。"
+            },
+            "settings": {
+              "title": "设置",
+              "comingSoon": "设置功能即将推出。"
+            },
+            "wallet": {
+              "title": "4.2 钱包安全",
+              "content": "您全权负责保护您的私钥安全。",
+              "important": "重要提示：我们无法访问您的私钥。"
             }
           },
           "accountSecurity": {
             "title": "4. 账户注册与安全",
             "accountCreation": "4.1 账户创建",
-            "accountCreationContent": "您同意提供准确信息、保持其机密性，并在发现任何未经授权的访问时立即通知我们。",
+            "accountCreationContent": "您同意提供准确的信息。",
             "walletSecurity": "4.2 钱包安全",
-            "walletSecurityWarning": "重要提示：您有责任独自保护您的私钥。丢失的私钥无法恢复。我们无法访问您的私钥，也无法帮助恢复丢失的资金。"
+            "walletSecurityContent": "您负责保护私钥安全。",
+            "walletSecurityWarning": "重要：我们无法帮助恢复丢失的资金。"
           },
           "trustVerification": {
             "title": "5. 信任验证系统",
-            "threeStageProcess": "5.1 三阶段流程",
-            "stage1": "第一阶段：AI驱动的自动筛选（24小时）",
-            "stage2": "第二阶段：区块链开发者和审计师的专家验证（7-14天）",
-            "stage3": "第三阶段：TBURN代币持有者的社区投票（3-5天）",
-            "implications": {
-              "title": "5.2 Trust Score Implications",
-              "content": "Trust scores range from 0-100. Scores below 40 result in automatic token trading suspension. Scores are updated in real-time on-chain."
-            },
-            "implicationsContent": "信任评分范围为0-100。低于40的分数将导致代币交易自动暂停。评分在链上实时更新。",
+            "intro": "我们的3阶段验证流程：",
             "process": {
-              "title": "3-Stage 验证流程",
+              "title": "验证流程",
               "stage1": {
-                "label": "Stage 1: AI 分析",
-                "value": "AI-powered automatic filtering (24 hours)"
+                "label": "AI分析",
+                "value": "自动化模式识别和风险评估"
               },
               "stage2": {
-                "label": "Stage 2: 专家审核",
-                "value": "Expert validation by blockchain developers and auditors (7-14 days)"
+                "label": "专家审核",
+                "value": "由领域专家进行人工验证"
               },
               "stage3": {
-                "label": "Stage 3: 社区 Voting",
-                "value": "社区 voting by TBURN token holders (3-5 days)"
+                "label": "链上提交",
+                "value": "验证结果的不可变记录"
               }
-            }
-          },
-          "burnMechanism": {
-            "title": "6. 销毁机制",
-            "content": "项目必须存入等于其销毁承诺的抵押品。未能执行预定销毁将通过智能合约触发自动惩罚和抵押品销毁。"
-          },
-          "prohibitedActivities": {
-            "title": "7. 禁止活动",
-            "intro": "您同意不会：",
-            "items": {
-              "moneyLaundering": "使用平台进行洗钱或恐怖主义融资",
-              "falseInfo": "提交虚假或误导性的项目信息",
-              "manipulateTrustScores": "通过协调投票操纵信任评分",
-              "exploitVulnerabilities": "尝试利用智能合约漏洞",
-              "marketManipulation": "参与市场操纵或刷量交易"
-            }
-          },
-          "intellectualProperty": {
-            "title": "8. 知识产权",
-            "content": "TBurn Chain的所有知识产权，包括平台、协议和品牌，均归TBurn Chain基金会所有。您被授予使用我们服务的有限、非排他性许可。"
-          },
-          "disclaimers": {
-            "title": "9. 免责声明与限制",
-            "asIs": {
-              "title": "'As-Is' Basis",
-              "content": "服务 are provided 'AS IS' and 'AS 可用' without warranties of any kind, either express or implied."
             },
-            "asIsContent": "服务以「按现状」和「可用时」提供，不提供任何形式的明示或暗示担保。",
-            "noInvestmentAdvice": "无投资建议",
-            "noInvestmentAdviceContent": "TBurn Chain不提供投资、财务或法律建议。信任评分仅供参考。",
-            "limitationOfLiability": "责任限制",
-            "limitationOfLiabilityContent": "在法律允许的最大范围内，TBURN CHAIN不对任何间接、附带、特殊、后果性或惩罚性损害承担责任。",
-            "noAdvice": {
-              "title": "否 Investment Advice",
-              "content": "T销毁 链 does not provide investment, financial, or legal advice. Trust scores are informational only."
-            },
-            "limitation": {
-              "title": "Limitation of Liability",
-              "content": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES."
-            }
-          },
-          "governingLaw": {
-            "title": "10. 适用法律",
-            "content": "这些条款应受TBurn Chain基金会注册地司法管辖区法律的管辖和解释，不考虑法律冲突原则。"
-          },
-          "account": {
-            "title": "4. 账户 Registration & 安全",
-            "creation": {
-              "title": "4.1 账户 Creation",
-              "content": "You agree to provide accurate information, maintain its confidentiality, and notify us immediately of any unauthorized access."
-            },
-            "wallet": {
-              "title": "4.2 钱包 安全",
-              "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
-              "important": "重要: We do not have access to your private keys and cannot help recover lost funds."
-            },
-            "notifications": {
-              "disabled": "通知已关闭",
-              "disabledDesc": "通知已被关闭。",
-              "enabled": "通知已开启",
-              "enabledDesc": "您将收到通知。"
-            },
-            "settings": {
-              "comingSoon": "设置功能即将推出。",
-              "title": "设置"
+            "implications": {
+              "title": "评分含义",
+              "content": "信任评分不构成投资建议，仅供参考。"
             }
           },
           "burn": {
-            "title": "6. 销毁 Mechanism",
-            "content": "项目s must deposit collateral equal to their burn commitment. Failure to execute scheduled burns triggers automatic penalties and collateral burns through smart contracts."
+            "title": "6. 销毁机制",
+            "content": "TBurn Chain实施代币销毁机制以减少供应并稳定价值。"
           },
           "prohibited": {
-            "title": "7. 禁止活动",
-            "intro": "You agree not to:",
+            "title": "7. 禁止行为",
+            "intro": "使用TBurn Chain时禁止以下行为：",
+            "laundering": "洗钱或非法金融活动",
+            "falseInfo": "提供虚假信息",
+            "manipulate": "试图操纵信任评分",
+            "exploit": "利用系统漏洞",
+            "washTrading": "刷量交易或市场操纵",
             "items": {
-              "laundering": "Use the platform for money laundering or terrorist financing",
-              "falseInfo": "提交 false or misleading project information",
-              "manipulate": "Manipulate Trust Scores through coordinated voting",
-              "exploit": "Attempt to exploit smart contract vulnerabilities",
-              "washTrading": "Engage in market manipulation or wash trading"
+              "laundering": "洗钱或非法金融活动",
+              "falseInfo": "提供虚假信息",
+              "manipulate": "试图操纵信任评分",
+              "exploit": "利用系统漏洞",
+              "washTrading": "刷量交易或市场操纵"
             }
           },
           "ip": {
             "title": "8. 知识产权",
-            "content": "全部 intellectual property rights in T销毁 链, including the platform, protocols, and branding, are owned by T销毁 链 Foundation. You are granted a limited, non-exclusive license to use our services."
+            "content": "TBurn Chain、其徽标及所有相关内容均为TBurn Chain基金会的财产。"
+          },
+          "disclaimers": {
+            "title": "9. 免责声明与限制",
+            "asIs": {
+              "title": "按原样提供",
+              "content": "服务按原样和可用状态提供，不提供任何保证。"
+            },
+            "noAdvice": {
+              "title": "非投资建议",
+              "content": "TBurn Chain不提供投资、金融或法律建议。"
+            },
+            "limitation": {
+              "title": "责任限制",
+              "content": "在法律允许的最大范围内，不对任何损害承担责任。"
+            },
+            "noInvestmentAdvice": "非投资建议",
+            "noInvestmentAdviceContent": "TBurn Chain不提供投资建议。",
+            "limitationOfLiability": "责任限制",
+            "limitationOfLiabilityContent": "在法律允许的最大范围内不承担责任。",
+            "asIsContent": "服务按原样提供。"
           },
           "governing": {
-            "title": "10. 管辖法律",
-            "content": "These 条款 shall be governed by and construed in accordance with the laws of the jurisdiction where T销毁 链 Foundation is incorporated, without regard to conflict of law principles."
+            "title": "10. 准据法",
+            "content": "本条款应受TBurn Chain基金会注册地司法管辖区法律管辖。"
+          },
+          "governingLaw": {
+            "title": "10. 准据法",
+            "content": "本条款应受TBurn Chain基金会注册地司法管辖区法律管辖。"
           }
         },
         "contact": {
           "title": "联系信息",
           "legalInquiries": "法律咨询",
           "generalSupport": "一般支持",
-          "note": "注意：这些服务条款以英文提供。翻译版本可能仅供参考，如有冲突，以英文版本为准。",
+          "note": "注：本服务条款以英文提供。",
           "legal": {
             "label": "法律咨询"
           },
           "support": {
-            "label": "General 支持"
+            "label": "一般支持"
           }
         },
         "relatedDocuments": {
           "title": "相关法律文件",
           "privacyPolicy": "隐私政策",
-          "privacyPolicyDesc": "我们如何处理您的数据",
+          "privacyPolicyDesc": "数据处理方法",
           "disclaimer": "免责声明",
           "disclaimerDesc": "风险披露与通知"
         },
         "learnMore": {
           "title": "了解更多",
           "trustScoreSystem": "信任评分系统",
-          "trustScoreSystemDesc": "三阶段验证",
+          "trustScoreSystemDesc": "3阶段验证",
           "whatIsWallet": "什么是钱包？",
           "whatIsWalletDesc": "钱包安全基础",
           "whatIsTBurnChain": "什么是TBurn Chain？",
           "whatIsTBurnChainDesc": "平台概述"
-        }
+        },
+        "lastUpdated": "最后更新"
       },
       "privacy": {
         "title": "隐私政策",
@@ -15113,26 +15094,28 @@
       },
       "disclaimer": {
         "title": "免责声明",
-        "subtitle": "重要法律声明和风险披露。",
-        "forumTitle": "社区论坛",
-        "viewAll": "查看全部",
-        "recentPosts": "最近帖子",
+        "subtitle": "重要法律声明和风险披露",
         "backToHome": "返回首页",
         "importantNotice": {
           "title": "重要通知",
-          "content": "使用TBurn Chain服务前，请仔细阅读本免责声明。通过访问或使用我们的平台，您确认已阅读、理解并同意以下免责声明。"
+          "content": "在使用TBurn Chain服务之前，请仔细阅读本免责声明。通过访问或使用我们的平台，您确认已阅读、理解并同意以下免责声明。"
         },
         "sections": {
+          "noAdvice": {
+            "title": "1. 非投资建议",
+            "warning": "TBurn Chain不提供投资、金融、税务或法律建议。平台上提供的所有信息，包括信任评分，仅供参考，不应被视为任何形式的建议。",
+            "content": "在做出任何投资决定之前，您应咨询合格的专业人士。过去的表现不能预示未来的结果。"
+          },
           "noInvestmentAdvice": {
-            "title": "1. 无投资建议",
-            "warning": "TBurn Chain不提供投资、财务、税务或法律建议。我们平台上提供的所有信息，包括信任评分，仅供参考，不应被视为任何形式的建议。",
+            "title": "1. 非投资建议",
+            "warning": "TBurn Chain不提供投资、金融、税务或法律建议。平台上提供的所有信息，包括信任评分，仅供参考，不应被视为任何形式的建议。",
             "content": "在做出任何投资决定之前，您应咨询合格的专业人士。过去的表现不能预示未来的结果。"
           },
           "riskDisclosure": {
             "title": "2. 风险披露",
             "intro": "加密货币和区块链投资存在重大风险，包括：",
             "items": {
-              "marketVolatility": "市场波动：价格可能在短期内剧烈波动",
+              "marketVolatility": "市场波动：价格可能在短期内大幅波动",
               "regulatoryRisk": "监管风险：法律法规可能意外变化",
               "technicalRisk": "技术风险：智能合约可能包含漏洞或缺陷",
               "liquidityRisk": "流动性风险：您可能无法在需要时出售资产",
@@ -15140,95 +15123,94 @@
             },
             "risks": {
               "volatility": {
-                "label": "市场 Volatility",
-                "value": "价格s can fluctuate dramatically in short periods"
+                "label": "市场波动",
+                "value": "价格可能在短期内大幅波动"
               },
               "regulatory": {
-                "label": "Regulatory Risk",
-                "value": "Laws and regulations may change unexpectedly"
+                "label": "监管风险",
+                "value": "法律法规可能意外变化"
               },
               "technical": {
-                "label": "Technical Risk",
-                "value": "Smart contracts may contain bugs or vulnerabilities"
+                "label": "技术风险",
+                "value": "智能合约可能包含漏洞或缺陷"
               },
               "liquidity": {
-                "label": "流动性 Risk",
-                "value": "You may not be able to sell assets when desired"
+                "label": "流动性风险",
+                "value": "您可能无法在需要时出售资产"
               },
               "loss": {
-                "label": "Loss of Funds",
-                "value": "You may lose all or part of your investment"
+                "label": "资金损失",
+                "value": "您可能损失全部或部分投资"
               }
+            }
+          },
+          "trustScore": {
+            "title": "3. 信任评分限制",
+            "intro": "信任评分基于可用数据和我们的验证流程计算，但是：",
+            "items": {
+              "noGuarantee": "不保证任何项目的安全性或合法性",
+              "notAllFactors": "可能未反映所有相关因素",
+              "historical": "历史评分可能无法预测未来表现",
+              "dueDiligence": "应作为尽职调查中的众多因素之一"
             }
           },
           "trustScoreLimitations": {
             "title": "3. 信任评分限制",
-            "intro": "信任评分根据可用数据和我们的验证流程计算，但：",
+            "intro": "信任评分基于可用数据和我们的验证流程计算，但是：",
             "items": {
               "noGuarantee": "不保证任何项目的安全性或合法性",
-              "notAllFactors": "可能无法反映所有相关因素",
+              "notAllFactors": "可能未反映所有相关因素",
               "noPrediction": "历史评分可能无法预测未来表现",
-              "oneFactor": "应该只是您尽职调查中的众多因素之一"
-            }
-          },
-          "thirdPartyContent": {
-            "title": "4. 第三方内容",
-            "content": "我们的平台可能包含指向第三方网站、项目或内容的链接。我们不认可、控制或对任何第三方内容负责。访问第三方资源风险自负。"
-          },
-          "serviceAvailability": {
-            "title": "5. 服务可用性",
-            "content": "我们努力保持持续的服务可用性，但不保证不间断访问。由于维护、升级或不可预见的情况，服务可能暂时不可用。"
-          },
-          "limitationOfLiability": {
-            "title": "6. 责任限制",
-            "content": "在适用法律允许的最大范围内，TBURN CHAIN基金会及其关联公司、高管、董事、员工和代理人不对任何间接、附带、特殊、后果性、惩罚性或示范性损害承担责任，包括但不限于因您使用或无法使用我们的服务而导致的利润损失、商誉损失、使用损失、数据损失或其他无形损失。"
-          },
-          "geographicRestrictions": {
-            "title": "7. 地理限制",
-            "content": "我们的服务可能无法在所有司法管辖区使用。您有责任确保您使用TBurn Chain符合您所在司法管辖区的法律。我们保留限制某些地理位置访问我们服务的权利。"
-          },
-          "forwardLookingStatements": {
-            "title": "8. 前瞻性声明",
-            "content": "任何关于未来事件、计划或发展的声明都是前瞻性声明，受风险和不确定性影响。实际结果可能与此类声明中明示或暗示的结果存在重大差异。"
-          },
-          "noAdvice": {
-            "title": "1. 否 Investment Advice",
-            "warning": "T销毁 链 does not provide investment, financial, tax, or legal advice. 全部 information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
-            "content": "You should consult with qualified professionals before making any investment decisions. 过去 performance is not indicative of future results."
-          },
-          "trustScore": {
-            "title": "3. Trust Score Limitations",
-            "intro": "Trust Scores are calculated based on available data and our verification process, but:",
-            "items": {
-              "noGuarantee": "They do not guarantee the safety or legitimacy of any project",
-              "notAllFactors": "They may not reflect all relevant factors",
-              "historical": "Historical scores may not predict future performance",
-              "dueDiligence": "They should be one of many factors in your due diligence"
+              "oneFactor": "应作为尽职调查中的众多因素之一"
             }
           },
           "thirdParty": {
-            "title": "4. Third-Party Content",
-            "content": "Our platform may contain links to third-party websites, projects, or content. We do not endorse, control, or take responsibility for any third-party content. 访问 to third-party resources is at your own risk."
+            "title": "4. 第三方内容",
+            "content": "我们的平台可能包含第三方网站、项目或内容的链接。我们不认可、控制或对任何第三方内容负责。访问第三方资源需自担风险。"
+          },
+          "thirdPartyContent": {
+            "title": "4. 第三方内容",
+            "content": "我们的平台可能包含第三方网站、项目或内容的链接。我们不认可、控制或对任何第三方内容负责。访问第三方资源需自担风险。"
           },
           "availability": {
-            "title": "5. 服务 Availability",
-            "content": "We strive to maintain continuous service availability, but we do not guarantee uninterrupted access. 服务 may be temporarily unavailable due to maintenance, upgrades, or unforeseen circumstances."
+            "title": "5. 服务可用性",
+            "content": "我们致力于维持持续的服务可用性，但不保证不间断访问。由于维护、升级或不可预见的情况，服务可能暂时不可用。"
+          },
+          "serviceAvailability": {
+            "title": "5. 服务可用性",
+            "content": "我们致力于维持持续的服务可用性，但不保证不间断访问。由于维护、升级或不可预见的情况，服务可能暂时不可用。"
           },
           "limitation": {
-            "title": "6. Limitation of Liability",
-            "content": "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TBURN CHAIN FOUNDATION AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE OUR SERVICES."
+            "title": "6. 责任限制",
+            "content": "在适用法律允许的最大范围内，TBURN CHAIN基金会及其关联公司、高管、董事、员工和代理人不对因您使用或无法使用我们的服务而导致的任何间接、附带、特殊、后果性、惩罚性或惩戒性损害承担责任，包括但不限于利润损失、商誉损失、使用损失、数据损失或其他无形损失。"
+          },
+          "limitationOfLiability": {
+            "title": "6. 责任限制",
+            "content": "在适用法律允许的最大范围内，TBURN CHAIN基金会及其关联公司、高管、董事、员工和代理人不对因您使用或无法使用我们的服务而导致的任何间接、附带、特殊、后果性、惩罚性或惩戒性损害承担责任，包括但不限于利润损失、商誉损失、使用损失、数据损失或其他无形损失。"
           },
           "geographic": {
-            "title": "7. Geographic Restrictions",
-            "content": "Our services may not be available in all jurisdictions. It is your responsibility to ensure that your use of T销毁 链 complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain geographic locations."
+            "title": "7. 地域限制",
+            "content": "我们的服务可能并非在所有司法管辖区都可用。确保您使用TBurn Chain符合您所在司法管辖区的法律是您的责任。我们保留限制特定地理位置访问我们服务的权利。"
+          },
+          "geographicRestrictions": {
+            "title": "7. 地域限制",
+            "content": "我们的服务可能并非在所有司法管辖区都可用。确保您使用TBurn Chain符合您所在司法管辖区的法律是您的责任。我们保留限制特定地理位置访问我们服务的权利。"
           },
           "forwardLooking": {
-            "title": "8. Forward-Looking Statements",
-            "content": "任何 statements regarding future events, plans, or developments are forward-looking statements subject to risks and uncertainties. Actual results may differ materially from those expressed or implied in such statements."
+            "title": "8. 前瞻性陈述",
+            "content": "关于未来事件、计划或发展的任何陈述都是前瞻性陈述，存在风险和不确定性。实际结果可能与这些陈述中明示或暗示的结果存在重大差异。"
+          },
+          "forwardLookingStatements": {
+            "title": "8. 前瞻性陈述",
+            "content": "关于未来事件、计划或发展的任何陈述都是前瞻性陈述，存在风险和不确定性。实际结果可能与这些陈述中明示或暗示的结果存在重大差异。"
           }
         },
+        "contact": {
+          "title": "有问题吗？",
+          "label": "法律咨询"
+        },
         "questions": {
-          "title": "有疑问？",
+          "title": "有问题吗？",
           "legalInquiries": "法律咨询"
         },
         "relatedDocuments": {
@@ -15241,14 +15223,11 @@
         "learnMore": {
           "title": "了解更多",
           "trustScoreSystem": "信任评分系统",
-          "trustScoreSystemDesc": "评分工作原理",
+          "trustScoreSystemDesc": "评分机制",
           "introToDefi": "DeFi入门",
           "introToDefiDesc": "了解风险"
         },
-        "contact": {
-          "title": "有问题？",
-          "label": "法律咨询"
-        }
+        "lastUpdated": "最后更新"
       },
       "common": {
         "backToHome": "返回 to 首页",

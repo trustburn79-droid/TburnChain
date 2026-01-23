@@ -15493,208 +15493,188 @@
     "legal": {
       "terms": {
         "title": "利用規約",
-        "subtitle": "TBurn Chainサービスの利用条件",
-        "forumTitle": "コミュニティフォーラム",
-        "viewAll": "すべて表示",
-        "recentPosts": "最近の投稿",
+        "subtitle": "TBurn Chainサービスのご利用条件",
         "backToHome": "ホームに戻る",
         "sections": {
           "acceptance": {
             "title": "1. 規約の承諾",
-            "content": "TBurn Chainサービスにアクセスまたは使用することにより、この利用規約（「規約」）に拘束されることに同意します。これらの規約に同意しない場合は、サービスを使用しないでください。これらの規約は、お客様とTBurn Chain Foundationの間の法的拘束力のある契約を構成します。"
+            "content": "TBurn Chainサービスにアクセスまたは使用することにより、本利用規約（「規約」）に拘束されることに同意したものとみなされます。本規約に同意されない場合は、当社のサービスをご利用にならないでください。本規約は、お客様とTBurn Chain財団との間の法的拘束力のある契約を構成します。"
           },
           "definitions": {
             "title": "2. 定義",
             "tburnChain": "「TBurn Chain」とは、レイヤー1ブロックチェーンネットワークおよび関連サービスを指します。",
-            "services": "「サービス」には、ブロックチェーンネットワーク、トラスト検証システム、API、プラットフォーム機能が含まれます。",
-            "user": "「ユーザー」または「お客様」とは、TBurn Chainを使用する個人または団体を指します。",
+            "services": "「サービス」には、ブロックチェーンネットワーク、トラスト検証システム、API、およびプラットフォーム機能が含まれます。",
+            "user": "「ユーザー」または「お客様」とは、TBurn Chainを使用する個人または法人を指します。",
             "project": "「プロジェクト」とは、TBurn Chainでの検証を求めるブロックチェーンプロジェクトを指します。",
-            "trustScore": "「トラストスコア」とは、3段階検証システムを通じて割り当てられる信頼性評価を指します。",
+            "trustScore": "「トラストスコア」とは、3段階の検証システムを通じて割り当てられる信頼性評価を指します。",
             "items": {
               "tburnChain": {
                 "term": "TBurn Chain",
-                "desc": "The Layer 1 ブロックチェーン network and associated services"
+                "desc": "レイヤー1ブロックチェーンネットワークおよび関連サービス"
               },
               "services": {
-                "term": "Services",
-                "desc": "The ブロックチェーン network, trust 検証 system, APIs, and プラットフォーム機能"
+                "term": "サービス",
+                "desc": "ブロックチェーンネットワーク、トラスト検証システム、API、およびプラットフォーム機能"
               },
               "user": {
-                "term": "User",
-                "desc": "Any individual or entity using TBurn Chain"
+                "term": "ユーザー",
+                "desc": "TBurn Chainを使用する個人または法人"
               },
               "project": {
-                "term": "Project",
-                "desc": "ブロックチェーン projects seeking 検証 on TBurn Chain"
+                "term": "プロジェクト",
+                "desc": "TBurn Chainでの検証を求めるブロックチェーンプロジェクト"
               },
               "trustScore": {
                 "term": "トラストスコア",
-                "desc": "The reliability rating assigned through our 3-stage 検証 system"
+                "desc": "3段階の検証システムを通じて割り当てられる信頼性評価"
               }
             }
           },
           "eligibility": {
-            "title": "3. 資格",
-            "intro": "TBurn Chainを使用するには、以下の条件を満たす必要があります：",
-            "age": "18歳以上（または管轄区域の法定年齢以上）であること。",
-            "legalCapacity": "拘束力のある契約を締結する法的能力を有すること。",
-            "notProhibited": "適用法の下でサービスの使用を禁止されていないこと。",
-            "comply": "オンライン行為およびブロックチェーン技術に関するすべての現地法を遵守すること。",
+            "title": "3. 資格要件",
+            "intro": "TBurn Chainをご利用いただくには、以下の条件を満たす必要があります：",
+            "age": "18歳以上であること（またはお住まいの管轄区域での法定年齢に達していること）",
+            "legalCapacity": "拘束力のある契約を締結する法的能力を有すること",
+            "notProhibited": "適用法に基づいて当社のサービスの使用を禁止されていないこと",
+            "comply": "オンライン行為およびブロックチェーン技術に関するすべての地域法を遵守すること",
             "items": {
-              "age": "Be at least 18 年 old (or 法的情報 age in your jurisdiction)",
-              "capacity": "Have the 法的情報 capacity to enter into binding contracts",
-              "comply": "Comply with すべて local laws regarding オンライン conduct and ブロックチェーン technology",
-              "prohibited": "Not be prohibited from using our services under applicable laws"
+              "age": "18歳以上であること（またはお住まいの管轄区域での法定年齢に達していること）",
+              "capacity": "拘束力のある契約を締結する法的能力を有すること",
+              "comply": "オンライン行為およびブロックチェーン技術に関するすべての地域法を遵守すること",
+              "prohibited": "適用法に基づいて当社のサービスの使用を禁止されていないこと"
+            }
+          },
+          "account": {
+            "title": "4. アカウント登録とセキュリティ",
+            "creation": {
+              "title": "4.1 アカウントの作成",
+              "content": "正確な情報を提供し、その機密性を維持し、不正アクセスがあった場合は直ちに当社に通知することに同意するものとします。"
+            },
+            "notifications": {
+              "enabled": "通知が有効",
+              "disabled": "通知が無効",
+              "enabledDesc": "通知を受け取ります。",
+              "disabledDesc": "通知がオフになりました。"
+            },
+            "settings": {
+              "title": "設定",
+              "comingSoon": "設定機能は近日公開予定です。"
+            },
+            "wallet": {
+              "title": "4.2 ウォレットセキュリティ",
+              "content": "秘密鍵の安全な管理はお客様ご自身の責任です。紛失した秘密鍵は復旧できません。",
+              "important": "重要：当社はお客様の秘密鍵にアクセスできず、紛失した資金の回復をお手伝いすることはできません。"
             }
           },
           "accountSecurity": {
             "title": "4. アカウント登録とセキュリティ",
-            "accountCreation": "4.1 アカウント作成",
-            "accountCreationContent": "正確な情報を提供し、機密性を維持し、不正アクセスがあった場合は直ちに通知することに同意します。",
+            "accountCreation": "4.1 アカウントの作成",
+            "accountCreationContent": "正確な情報を提供し、その機密性を維持し、不正アクセスがあった場合は直ちに当社に通知することに同意するものとします。",
             "walletSecurity": "4.2 ウォレットセキュリティ",
-            "walletSecurityWarning": "重要：秘密鍵の保護はお客様の責任です。失われた秘密鍵は回復できません。私たちはお客様の秘密鍵にアクセスできず、失われた資金の回復を支援することはできません。"
+            "walletSecurityContent": "秘密鍵の安全な管理はお客様ご自身の責任です。紛失した秘密鍵は復旧できません。",
+            "walletSecurityWarning": "重要：当社はお客様の秘密鍵にアクセスできず、紛失した資金の回復をお手伝いすることはできません。"
           },
           "trustVerification": {
             "title": "5. トラスト検証システム",
-            "threeStageProcess": "5.1 3段階プロセス",
-            "stage1": "ステージ1：AI駆動自動フィルタリング（24時間）",
-            "stage2": "ステージ2：ブロックチェーン開発者と監査人によるエキスパート検証（7-14日）",
-            "stage3": "ステージ3：TBURNトークンホルダーによるコミュニティ投票（3-5日）",
-            "implications": {
-              "title": "5.2 トラストスコアの影響",
-              "content": "トラストスコアは0-100の範囲です。40未満のスコアは自動トークン取引停止につながります。スコアはオンチェーンでリアルタイム更新されます。"
-            },
-            "implicationsContent": "トラストスコアは0-100の範囲です。40未満のスコアは自動的にトークン取引停止となります。スコアはオンチェーンでリアルタイム更新されます。",
+            "intro": "当社の3段階検証プロセス：",
             "process": {
-              "title": "3-Stage 検証 Process",
+              "title": "検証プロセス",
               "stage1": {
-                "label": "Stage 1: AI Analysis",
-                "value": "AI-powered automatic filtering (24 時間)"
+                "label": "AI分析",
+                "value": "自動化されたパターン認識とリスク評価"
               },
               "stage2": {
-                "label": "Stage 2: Expert Review",
-                "value": "Expert validation by ブロックチェーン 開発者 and auditors (7-14 日)"
+                "label": "専門家レビュー",
+                "value": "ドメイン専門家による人的検証"
               },
               "stage3": {
-                "label": "Stage 3: コミュニティ 投票",
-                "value": "コミュニティ 投票 by TBURN token holders (3-5 日)"
+                "label": "オンチェーンコミット",
+                "value": "検証結果の不変記録"
               }
-            }
-          },
-          "burnMechanism": {
-            "title": "6. バーンメカニズム",
-            "content": "プロジェクトはバーンコミットメントと同等の担保を預ける必要があります。予定されたバーンの実行に失敗すると、スマートコントラクトを通じて自動ペナルティと担保バーンがトリガーされます。"
-          },
-          "prohibitedActivities": {
-            "title": "7. 禁止活動",
-            "intro": "以下の行為を行わないことに同意します：",
-            "items": {
-              "moneyLaundering": "マネーロンダリングやテロ資金調達のためのプラットフォーム使用",
-              "falseInfo": "虚偽または誤解を招くプロジェクト情報の提出",
-              "manipulateTrustScores": "協調投票によるトラストスコアの操作",
-              "exploitVulnerabilities": "スマートコントラクトの脆弱性の悪用の試み",
-              "marketManipulation": "市場操作またはウォッシュトレーディングへの関与"
-            }
-          },
-          "intellectualProperty": {
-            "title": "8. 知的財産",
-            "content": "TBurn Chainのすべての知的財産権（プラットフォーム、プロトコル、ブランディングを含む）はTBurn Chain Foundationが所有します。サービスを使用するための限定的、非独占的ライセンスが付与されます。"
-          },
-          "disclaimers": {
-            "title": "9. 免責事項と制限",
-            "asIs": {
-              "title": "'現状のまま' 提供",
-              "content": "サービスは明示的または黙示的を問わずいかなる保証もなく'現状のまま'および'利用可能な限り'提供されます。"
             },
-            "asIsContent": "サービスは、明示または黙示を問わず、いかなる種類の保証もなく「現状のまま」および「利用可能な状態で」提供されます。",
-            "noInvestmentAdvice": "投資アドバイスなし",
-            "noInvestmentAdviceContent": "TBurn Chainは投資、金融、法的アドバイスを提供しません。トラストスコアは情報提供のみを目的としています。",
-            "limitationOfLiability": "責任の制限",
-            "limitationOfLiabilityContent": "法律で許可される最大限の範囲において、TBURN CHAINは、間接的、付随的、特別、結果的、または懲罰的損害について責任を負いません。",
-            "noAdvice": {
-              "title": "No 投資 Advice",
-              "content": "TBurn Chain does not provide 投資, 金融, or 法的情報 advice. トラストスコアs are 情報rmational only."
-            },
-            "limitation": {
-              "title": "責任の制限",
-              "content": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHすべて NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES."
-            }
-          },
-          "governingLaw": {
-            "title": "10. 準拠法",
-            "content": "これらの規約は、抵触法の原則にかかわらず、TBurn Chain Foundationが設立された管轄区域の法律に準拠し、解釈されます。"
-          },
-          "account": {
-            "title": "4. Account Registration & セキュリティ",
-            "creation": {
-              "title": "4.1 Account Creation",
-              "content": "You agree to provide accurate 情報rmation, maintain its confidentiality, and notify us immediately of any unauthorized access."
-            },
-            "wallet": {
-              "title": "4.2 ウォレット セキュリティ",
-              "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
-              "important": "Important: We do not have access to your private keys and cannot help recover lost funds."
-            },
-            "notifications": {
-              "disabled": "通知オフ",
-              "disabledDesc": "通知がオフになりました。",
-              "enabled": "通知オン",
-              "enabledDesc": "通知を受け取ります。"
-            },
-            "settings": {
-              "comingSoon": "設定機能は近日公開予定です。",
-              "title": "設定"
+            "implications": {
+              "title": "スコアの影響",
+              "content": "トラストスコアは投資アドバイスではなく、情報提供のみを目的としています。すべての投資決定は自己責任で行ってください。"
             }
           },
           "burn": {
-            "title": "6. Burn Mechanism",
-            "content": "Projects must deposit collateral equal to their burn commitment. Failure to execute scheduled burns triggers automatic penalties and collateral burns through smart contracts."
+            "title": "6. バーンメカニズム",
+            "content": "TBurn Chainは、供給削減と価値安定化を目的としたトークンバーンメカニズムを実装しています。バーンされたトークンは永久に流通から除去され、復旧できません。"
           },
           "prohibited": {
-            "title": "7. Prohibited Activities",
-            "intro": "You agree not to:",
+            "title": "7. 禁止事項",
+            "intro": "TBurn Chainの使用において、以下の行為は禁止されています：",
+            "laundering": "マネーロンダリングまたは違法な金融活動",
+            "falseInfo": "虚偽または誤解を招く情報の提供",
+            "manipulate": "トラストスコアまたは検証結果の操作の試み",
+            "exploit": "システムの脆弱性またはバグの悪用",
+            "washTrading": "仮装売買またはその他の市場操作活動",
             "items": {
-              "laundering": "Use the platform for money laundering or tエラーist financing",
-              "falseInfo": "送信 false or misleading project 情報rmation",
-              "manipulate": "Manipulate トラストスコアs through coordinated 投票",
-              "exploit": "Attempt to exploit smart contract vulnerabilities",
-              "washTrading": "Engage in market manipulation or wash trading"
+              "laundering": "マネーロンダリングまたは違法な金融活動",
+              "falseInfo": "虚偽または誤解を招く情報の提供",
+              "manipulate": "トラストスコアまたは検証結果の操作の試み",
+              "exploit": "システムの脆弱性またはバグの悪用",
+              "washTrading": "仮装売買またはその他の市場操作活動"
             }
           },
           "ip": {
             "title": "8. 知的財産権",
-            "content": "すべて 知的財産権 rights in TBurn Chain, including the platform, プロトコルs, and branding, are owned by TBurn Chain Foundation. You are granted a limited, non-exclusive license to use our services."
+            "content": "TBurn Chain、そのロゴ、およびすべての関連コンテンツはTBurn Chain財団の財産です。明示的な書面による同意なしに、いかなる目的での複製、配布、または商業利用も禁止されています。"
+          },
+          "disclaimers": {
+            "title": "9. 免責事項と制限",
+            "asIs": {
+              "title": "現状有姿の提供",
+              "content": "サービスは、明示または黙示を問わず、いかなる種類の保証もなく、「現状有姿」および「利用可能な状態」で提供されます。"
+            },
+            "noAdvice": {
+              "title": "投資アドバイスではありません",
+              "content": "TBurn Chainは投資、金融、または法的アドバイスを提供しません。トラストスコアは情報提供のみを目的としています。"
+            },
+            "limitation": {
+              "title": "責任の制限",
+              "content": "法律で許容される最大限の範囲において、TBURN CHAINは、間接的、偶発的、特別、結果的、または懲罰的な損害について責任を負いません。"
+            },
+            "noInvestmentAdvice": "投資アドバイスではありません",
+            "noInvestmentAdviceContent": "TBurn Chainは投資、金融、または法的アドバイスを提供しません。トラストスコアは情報提供のみを目的としています。",
+            "limitationOfLiability": "責任の制限",
+            "limitationOfLiabilityContent": "法律で許容される最大限の範囲において、TBURN CHAINは、間接的、偶発的、特別、結果的、または懲罰的な損害について責任を負いません。",
+            "asIsContent": "サービスは、明示または黙示を問わず、いかなる種類の保証もなく、「現状有姿」および「利用可能な状態」で提供されます。"
           },
           "governing": {
             "title": "10. 準拠法",
-            "content": "These 利用規約 shすべて be governed by and construed in accordance with the laws of the jurisdiction where TBurn Chain Foundation is incorporated, without regard to conflict of law principles."
+            "content": "本規約は、法の抵触原則にかかわらず、TBurn Chain財団が設立された管轄区域の法律に準拠し、同法律に従って解釈されるものとします。"
+          },
+          "governingLaw": {
+            "title": "10. 準拠法",
+            "content": "本規約は、法の抵触原則にかかわらず、TBurn Chain財団が設立された管轄区域の法律に準拠し、同法律に従って解釈されるものとします。"
           }
         },
         "contact": {
-          "title": "連絡先情報",
-          "legalInquiries": "法的お問い合わせ",
+          "title": "お問い合わせ",
+          "legalInquiries": "法務に関するお問い合わせ",
           "generalSupport": "一般サポート",
-          "note": "注：この利用規約は英語で提供されます。便宜上、翻訳が利用可能な場合がありますが、矛盾がある場合は英語版が優先されます。",
+          "note": "注：本利用規約は英語で提供されます。便宜上翻訳版がご利用いただける場合がありますが、内容に矛盾がある場合は英語版が優先されます。",
           "legal": {
             "label": "法務に関するお問い合わせ"
           },
           "support": {
-            "label": "一般 Support"
+            "label": "一般サポート"
           }
         },
         "relatedDocuments": {
           "title": "関連法的文書",
           "privacyPolicy": "プライバシーポリシー",
-          "privacyPolicyDesc": "データの取り扱い方法",
+          "privacyPolicyDesc": "データの取り扱いについて",
           "disclaimer": "免責事項",
           "disclaimerDesc": "リスク開示と通知"
         },
         "learnMore": {
-          "title": "詳細を見る",
+          "title": "詳細を学ぶ",
           "trustScoreSystem": "トラストスコアシステム",
           "trustScoreSystemDesc": "3段階検証",
           "whatIsWallet": "ウォレットとは？",
-          "whatIsWalletDesc": "ウォレットセキュリティ基礎",
+          "whatIsWalletDesc": "ウォレットセキュリティの基本",
           "whatIsTBurnChain": "TBurn Chainとは？",
           "whatIsTBurnChainDesc": "プラットフォーム概要"
         },
@@ -15937,25 +15917,131 @@
       },
       "disclaimer": {
         "title": "免責事項",
-        "subtitle": "重要な法的開示",
-        "forumTitle": "コミュニティフォーラム",
-        "viewAll": "すべて表示",
-        "recentPosts": "最近の投稿",
+        "subtitle": "重要な法的通知とリスク開示",
         "backToHome": "ホームに戻る",
         "importantNotice": {
           "title": "重要なお知らせ",
-          "content": "Please read this 免責事項 carefully before using TBurn Chain services. By accessing or using our platform, you acknowledge that you have read, understood, and agree to the following 免責事項s."
+          "content": "TBurn Chainサービスをご利用になる前に、この免責事項をよくお読みください。当プラットフォームにアクセスまたは使用することにより、以下の免責事項を読み、理解し、同意したものとみなされます。"
+        },
+        "sections": {
+          "noAdvice": {
+            "title": "1. 投資アドバイスではありません",
+            "warning": "TBurn Chainは、投資、金融、税務、または法的なアドバイスを提供しません。トラストスコアを含む、当プラットフォームで提供されるすべての情報は、情報提供のみを目的としており、いかなる種類のアドバイスとしても解釈されるべきではありません。",
+            "content": "投資決定を行う前に、資格のある専門家にご相談ください。過去の実績は将来の結果を示すものではありません。"
+          },
+          "noInvestmentAdvice": {
+            "title": "1. 投資アドバイスではありません",
+            "warning": "TBurn Chainは、投資、金融、税務、または法的なアドバイスを提供しません。トラストスコアを含む、当プラットフォームで提供されるすべての情報は、情報提供のみを目的としており、いかなる種類のアドバイスとしても解釈されるべきではありません。",
+            "content": "投資決定を行う前に、資格のある専門家にご相談ください。過去の実績は将来の結果を示すものではありません。"
+          },
+          "riskDisclosure": {
+            "title": "2. リスク開示",
+            "intro": "暗号通貨およびブロックチェーン投資には、以下のような重大なリスクが伴います：",
+            "items": {
+              "marketVolatility": "市場変動性：価格は短期間で大幅に変動する可能性があります",
+              "regulatoryRisk": "規制リスク：法律や規制が予期せず変更される可能性があります",
+              "technicalRisk": "技術的リスク：スマートコントラクトにバグや脆弱性が含まれている可能性があります",
+              "liquidityRisk": "流動性リスク：希望時に資産を売却できない可能性があります",
+              "lossOfFunds": "資金の損失：投資の全部または一部を失う可能性があります"
+            },
+            "risks": {
+              "volatility": {
+                "label": "市場変動性",
+                "value": "価格は短期間で大幅に変動する可能性があります"
+              },
+              "regulatory": {
+                "label": "規制リスク",
+                "value": "法律や規制が予期せず変更される可能性があります"
+              },
+              "technical": {
+                "label": "技術的リスク",
+                "value": "スマートコントラクトにバグや脆弱性が含まれている可能性があります"
+              },
+              "liquidity": {
+                "label": "流動性リスク",
+                "value": "希望時に資産を売却できない可能性があります"
+              },
+              "loss": {
+                "label": "資金の損失",
+                "value": "投資の全部または一部を失う可能性があります"
+              }
+            }
+          },
+          "trustScore": {
+            "title": "3. トラストスコアの制限",
+            "intro": "トラストスコアは、利用可能なデータと当社の検証プロセスに基づいて計算されますが：",
+            "items": {
+              "noGuarantee": "いかなるプロジェクトの安全性や正当性も保証しません",
+              "notAllFactors": "すべての関連要因を反映していない可能性があります",
+              "historical": "過去のスコアは将来のパフォーマンスを予測しない可能性があります",
+              "dueDiligence": "デューデリジェンスにおける多くの要因の一つとして考慮されるべきです"
+            }
+          },
+          "trustScoreLimitations": {
+            "title": "3. トラストスコアの制限",
+            "intro": "トラストスコアは、利用可能なデータと当社の検証プロセスに基づいて計算されますが：",
+            "items": {
+              "noGuarantee": "いかなるプロジェクトの安全性や正当性も保証しません",
+              "notAllFactors": "すべての関連要因を反映していない可能性があります",
+              "noPrediction": "過去のスコアは将来のパフォーマンスを予測しない可能性があります",
+              "oneFactor": "デューデリジェンスにおける多くの要因の一つとして考慮されるべきです"
+            }
+          },
+          "thirdParty": {
+            "title": "4. サードパーティコンテンツ",
+            "content": "当プラットフォームには、サードパーティのウェブサイト、プロジェクト、またはコンテンツへのリンクが含まれる場合があります。当社は、サードパーティのコンテンツを推奨、管理、または責任を負いません。サードパーティリソースへのアクセスは、ご自身の責任で行ってください。"
+          },
+          "thirdPartyContent": {
+            "title": "4. サードパーティコンテンツ",
+            "content": "当プラットフォームには、サードパーティのウェブサイト、プロジェクト、またはコンテンツへのリンクが含まれる場合があります。当社は、サードパーティのコンテンツを推奨、管理、または責任を負いません。サードパーティリソースへのアクセスは、ご自身の責任で行ってください。"
+          },
+          "availability": {
+            "title": "5. サービスの可用性",
+            "content": "当社は継続的なサービス可用性の維持に努めていますが、中断のないアクセスを保証するものではありません。メンテナンス、アップグレード、または予期せぬ状況により、サービスが一時的に利用できなくなる場合があります。"
+          },
+          "serviceAvailability": {
+            "title": "5. サービスの可用性",
+            "content": "当社は継続的なサービス可用性の維持に努めていますが、中断のないアクセスを保証するものではありません。メンテナンス、アップグレード、または予期せぬ状況により、サービスが一時的に利用できなくなる場合があります。"
+          },
+          "limitation": {
+            "title": "6. 責任の制限",
+            "content": "適用法が許容する最大限の範囲において、TBURN CHAIN財団およびその関連会社、役員、取締役、従業員、代理人は、当社のサービスの使用または使用不能に起因する、利益、信用、使用、データ、その他の無形損失の損害を含むがこれに限定されない、間接的、偶発的、特別、結果的、懲罰的、または模範的な損害について責任を負いません。"
+          },
+          "limitationOfLiability": {
+            "title": "6. 責任の制限",
+            "content": "適用法が許容する最大限の範囲において、TBURN CHAIN財団およびその関連会社、役員、取締役、従業員、代理人は、当社のサービスの使用または使用不能に起因する、利益、信用、使用、データ、その他の無形損失の損害を含むがこれに限定されない、間接的、偶発的、特別、結果的、懲罰的、または模範的な損害について責任を負いません。"
+          },
+          "geographic": {
+            "title": "7. 地理的制限",
+            "content": "当社のサービスは、すべての管轄区域で利用できるとは限りません。TBurn Chainの使用がお住まいの管轄区域の法律に準拠していることを確認するのは、お客様の責任です。当社は、特定の地理的場所からのサービスへのアクセスを制限する権利を留保します。"
+          },
+          "geographicRestrictions": {
+            "title": "7. 地理的制限",
+            "content": "当社のサービスは、すべての管轄区域で利用できるとは限りません。TBurn Chainの使用がお住まいの管轄区域の法律に準拠していることを確認するのは、お客様の責任です。当社は、特定の地理的場所からのサービスへのアクセスを制限する権利を留保します。"
+          },
+          "forwardLooking": {
+            "title": "8. 将来予測に関する記述",
+            "content": "将来のイベント、計画、または開発に関するいかなる記述も、リスクと不確実性を伴う将来予測に関する記述です。実際の結果は、そのような記述で表明または暗示されたものと大きく異なる場合があります。"
+          },
+          "forwardLookingStatements": {
+            "title": "8. 将来予測に関する記述",
+            "content": "将来のイベント、計画、または開発に関するいかなる記述も、リスクと不確実性を伴う将来予測に関する記述です。実際の結果は、そのような記述で表明または暗示されたものと大きく異なる場合があります。"
+          }
+        },
+        "contact": {
+          "title": "ご質問はありますか？",
+          "label": "法務に関するお問い合わせ"
         },
         "questions": {
           "title": "ご質問はありますか？",
-          "legalInquiries": "法的お問い合わせ"
+          "legalInquiries": "法務に関するお問い合わせ"
         },
         "relatedDocuments": {
           "title": "関連法的文書",
           "termsOfService": "利用規約",
           "termsOfServiceDesc": "ユーザー契約",
           "privacyPolicy": "プライバシーポリシー",
-          "privacyPolicyDesc": "データ取扱い"
+          "privacyPolicyDesc": "データの取り扱い"
         },
         "learnMore": {
           "title": "詳細を学ぶ",
@@ -15963,115 +16049,6 @@
           "trustScoreSystemDesc": "スコアの仕組み",
           "introToDefi": "DeFi入門",
           "introToDefiDesc": "リスクの理解"
-        },
-        "sections": {
-          "noAdvice": {
-            "title": "1. No 投資 Advice",
-            "warning": "TBurn Chain does not provide 投資, 金融, tax, or 法的情報 advice. すべて 情報rmation provided on our platform, including トラストスコアs, is for 情報rmational purposes only and should not be construed as advice of any kind.",
-            "content": "You should consult with qualified professionals before making any 投資 decisions. Past performance is not indicative of future results."
-          },
-          "noInvestmentAdvice": {
-            "title": "1. No 投資 Advice",
-            "warning": "TBurn Chain does not provide 投資, 金融, tax, or 法的情報 advice. すべて 情報rmation provided on our platform, including トラストスコアs, is for 情報rmational purposes only and should not be construed as advice of any kind.",
-            "content": "You should consult with qualified professionals before making any 投資 decisions. Past performance is not indicative of future results."
-          },
-          "riskDisclosure": {
-            "title": "2. リスク開示",
-            "intro": "Cryptocurrency and ブロックチェーン 投資s carry significant リスク, including:",
-            "items": {
-              "marketVolatility": "Market Volatility: Prices can fluctuate dramaticすべてy in short periods",
-              "regulatoryRisk": "Regulatory Risk: Laws and regulations may change unexpectedly",
-              "technicalRisk": "技術 Risk: Smart contracts may contain bugs or vulnerabilities",
-              "liquidityRisk": "Liquidity Risk: You may not be able to sell assets when desired",
-              "lossOfFunds": "Loss of Funds: You may lose すべて or part of your 投資"
-            },
-            "risks": {
-              "volatility": {
-                "label": "Market Volatility",
-                "value": "Prices can fluctuate dramaticすべてy in short periods"
-              },
-              "regulatory": {
-                "label": "Regulatory Risk",
-                "value": "Laws and regulations may change unexpectedly"
-              },
-              "technical": {
-                "label": "技術 Risk",
-                "value": "Smart contracts may contain bugs or vulnerabilities"
-              },
-              "liquidity": {
-                "label": "Liquidity Risk",
-                "value": "You may not be able to sell assets when desired"
-              },
-              "loss": {
-                "label": "Loss of Funds",
-                "value": "You may lose すべて or part of your 投資"
-              }
-            }
-          },
-          "trustScore": {
-            "title": "3. トラストスコア 責任の制限s",
-            "intro": "トラストスコアs are calculated based on available data and our 検証 process, but:",
-            "items": {
-              "noGuarantee": "They do not guarantee the safety or legitimacy of any project",
-              "notAllFactors": "They may not reflect すべて relevant factors",
-              "historical": "Historical scores may not predict future performance",
-              "dueDiligence": "They should be one of many factors in your due diligence"
-            }
-          },
-          "trustScoreLimitations": {
-            "title": "3. トラストスコア 責任の制限s",
-            "intro": "トラストスコアs are calculated based on available data and our 検証 process, but:",
-            "items": {
-              "noGuarantee": "They do not guarantee the safety or legitimacy of any project",
-              "notAllFactors": "They may not reflect すべて relevant factors",
-              "noPrediction": "Historical scores may not predict future performance",
-              "oneFactor": "They should be one of many factors in your due diligence"
-            }
-          },
-          "thirdParty": {
-            "title": "4. サードパーティコンテンツ",
-            "content": "Our platform may contain links to third-party websites, projects, or コンテンツ. We do not endorse, control, or take responsibility for any サードパーティコンテンツ. Access to third-party resources is at your own risk."
-          },
-          "thirdPartyContent": {
-            "title": "4. サードパーティコンテンツ",
-            "content": "Our platform may contain links to third-party websites, projects, or コンテンツ. We do not endorse, control, or take responsibility for any サードパーティコンテンツ. Access to third-party resources is at your own risk."
-          },
-          "availability": {
-            "title": "5. サービスの可用性",
-            "content": "We strive to maintain continuous サービスの可用性, but we do not guarantee uninterrupted access. Services may be temporarily unavailable due to maintenance, upgrades, or unforeseen circumstances."
-          },
-          "serviceAvailability": {
-            "title": "5. サービスの可用性",
-            "content": "We strive to maintain continuous サービスの可用性, but we do not guarantee uninterrupted access. Services may be temporarily unavailable due to maintenance, upgrades, or unforeseen circumstances."
-          },
-          "limitation": {
-            "title": "6. 責任の制限",
-            "content": "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TBURN CHAIN FOUNDATION AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHすべて NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE OUR SERVICES."
-          },
-          "limitationOfLiability": {
-            "title": "6. 責任の制限",
-            "content": "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TBURN CHAIN FOUNDATION AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHすべて NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE OUR SERVICES."
-          },
-          "geographic": {
-            "title": "7. 地理的制限",
-            "content": "Our services may not be available in すべて jurisdictions. It is your responsibility to ensure that your use of TBurn Chain complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain 地理的 locations."
-          },
-          "geographicRestrictions": {
-            "title": "7. 地理的制限",
-            "content": "Our services may not be available in すべて jurisdictions. It is your responsibility to ensure that your use of TBurn Chain complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain 地理的 locations."
-          },
-          "forwardLooking": {
-            "title": "8. 将来の見通しに関する記述",
-            "content": "Any statements regarding future イベント, plans, or developments are 将来の見通しに関する記述 subject to リスク and uncertainties. Actual results may differ materiすべてy from those expressed or implied in such statements."
-          },
-          "forwardLookingStatements": {
-            "title": "8. 将来の見通しに関する記述",
-            "content": "Any statements regarding future イベント, plans, or developments are 将来の見通しに関する記述 subject to リスク and uncertainties. Actual results may differ materiすべてy from those expressed or implied in such statements."
-          }
-        },
-        "contact": {
-          "title": "ご質問は？",
-          "label": "法務に関するお問い合わせ"
         },
         "lastUpdated": "最終更新日"
       },

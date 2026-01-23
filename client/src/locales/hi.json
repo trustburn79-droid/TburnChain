@@ -14205,126 +14205,127 @@
       },
       "disclaimer": {
         "title": "अस्वीकरण",
-        "subtitle": "महत्वपूर्ण कानूनी नोटिस और जोखिम प्रकटीकरण।",
-        "forumTitle": "समुदाय मंच",
-        "viewAll": "सभी देखें",
-        "recentPosts": "हाल की पोस्ट",
-        "backToHome": "होम पर वापस",
+        "subtitle": "महत्वपूर्ण कानूनी सूचनाएं और जोखिम प्रकटीकरण",
+        "backToHome": "होम पर वापस जाएं",
         "importantNotice": {
-          "title": "महत्वपूर्ण नोटिस",
-          "content": "कृपया TBurn Chain सेवाओं का उपयोग करने से पहले इस अस्वीकरण को ध्यान से पढ़ें। हमारे प्लेटफॉर्म तक पहुंचने या उपयोग करके, आप स्वीकार करते हैं कि आपने निम्नलिखित अस्वीकरणों को पढ़ा, समझा और सहमत हैं।"
+          "title": "महत्वपूर्ण सूचना",
+          "content": "TBurn Chain सेवाओं का उपयोग करने से पहले कृपया इस अस्वीकरण को ध्यान से पढ़ें। हमारे प्लेटफॉर्म तक पहुंचने या उसका उपयोग करके, आप स्वीकार करते हैं कि आपने निम्नलिखित अस्वीकरण पढ़े, समझे और उनसे सहमत हैं।"
         },
         "sections": {
+          "noAdvice": {
+            "title": "1. निवेश सलाह नहीं है",
+            "warning": "TBurn Chain निवेश, वित्तीय, कर या कानूनी सलाह प्रदान नहीं करता है। ट्रस्ट स्कोर सहित, हमारे प्लेटफॉर्म पर प्रदान की गई सभी जानकारी केवल सूचनात्मक उद्देश्यों के लिए है और इसे किसी भी प्रकार की सलाह के रूप में नहीं समझा जाना चाहिए।",
+            "content": "कोई भी निवेश निर्णय लेने से पहले आपको योग्य पेशेवरों से परामर्श करना चाहिए। पिछला प्रदर्शन भविष्य के परिणामों का संकेत नहीं है।"
+          },
           "noInvestmentAdvice": {
-            "title": "1. कोई निवेश सलाह नहीं",
-            "warning": "TBurn Chain निवेश, वित्तीय, कर या कानूनी सलाह प्रदान नहीं करता है। हमारे प्लेटफॉर्म पर प्रदान की गई सभी जानकारी, जिसमें विश्वास स्कोर शामिल हैं, केवल सूचनात्मक उद्देश्यों के लिए है और इसे किसी भी प्रकार की सलाह नहीं माना जाना चाहिए।",
+            "title": "1. निवेश सलाह नहीं है",
+            "warning": "TBurn Chain निवेश, वित्तीय, कर या कानूनी सलाह प्रदान नहीं करता है। ट्रस्ट स्कोर सहित, हमारे प्लेटफॉर्म पर प्रदान की गई सभी जानकारी केवल सूचनात्मक उद्देश्यों के लिए है और इसे किसी भी प्रकार की सलाह के रूप में नहीं समझा जाना चाहिए।",
             "content": "कोई भी निवेश निर्णय लेने से पहले आपको योग्य पेशेवरों से परामर्श करना चाहिए। पिछला प्रदर्शन भविष्य के परिणामों का संकेत नहीं है।"
           },
           "riskDisclosure": {
             "title": "2. जोखिम प्रकटीकरण",
-            "intro": "क्रिप्टोकरेंसी और ब्लॉकचेन निवेश में महत्वपूर्ण जोखिम होते हैं, जिसमें शामिल हैं:",
+            "intro": "क्रिप्टोकरेंसी और ब्लॉकचेन निवेश में महत्वपूर्ण जोखिम शामिल हैं, जिनमें शामिल हैं:",
             "items": {
-              "marketVolatility": "बाजार अस्थिरता: कीमतें कम समय में नाटकीय रूप से उतार-चढ़ाव कर सकती हैं",
-              "regulatoryRisk": "नियामक जोखिम: कानून और विनियम अप्रत्याशित रूप से बदल सकते हैं",
-              "technicalRisk": "तकनीकी जोखिम: स्मार्ट कॉन्ट्रैक्ट्स में बग या कमजोरियां हो सकती हैं",
-              "liquidityRisk": "तरलता जोखिम: आप जब चाहें संपत्ति बेचने में सक्षम नहीं हो सकते",
-              "lossOfFunds": "फंड का नुकसान: आप अपने निवेश का सभी या हिस्सा खो सकते हैं"
+              "marketVolatility": "बाजार अस्थिरता: कीमतें छोटी अवधि में नाटकीय रूप से उतार-चढ़ाव कर सकती हैं",
+              "regulatoryRisk": "नियामक जोखिम: कानून और नियम अप्रत्याशित रूप से बदल सकते हैं",
+              "technicalRisk": "तकनीकी जोखिम: स्मार्ट कॉन्ट्रैक्ट में बग या कमजोरियां हो सकती हैं",
+              "liquidityRisk": "तरलता जोखिम: आप जब चाहें तब संपत्ति नहीं बेच पाएंगे",
+              "lossOfFunds": "धन की हानि: आप अपने निवेश का पूरा या कुछ हिस्सा खो सकते हैं"
             },
             "risks": {
               "volatility": {
-                "label": "Market Volatility",
-                "value": "Prices can fluctuate dramatically in short periods"
+                "label": "बाजार अस्थिरता",
+                "value": "कीमतें छोटी अवधि में नाटकीय रूप से उतार-चढ़ाव कर सकती हैं"
               },
               "regulatory": {
-                "label": "Regulatory जोखिम",
-                "value": "Laws and regulations may परिवर्तन unexpectedly"
+                "label": "नियामक जोखिम",
+                "value": "कानून और नियम अप्रत्याशित रूप से बदल सकते हैं"
               },
               "technical": {
-                "label": "Technical जोखिम",
-                "value": "Smart contracts may contain bugs or vulnerabilities"
+                "label": "तकनीकी जोखिम",
+                "value": "स्मार्ट कॉन्ट्रैक्ट में बग या कमजोरियां हो सकती हैं"
               },
               "liquidity": {
-                "label": "Liquidity जोखिम",
-                "value": "You may not be able to sell assets when desired"
+                "label": "तरलता जोखिम",
+                "value": "आप जब चाहें तब संपत्ति नहीं बेच पाएंगे"
               },
               "loss": {
-                "label": "Loss of Funds",
-                "value": "You may lose all or भाग of your investment"
+                "label": "धन की हानि",
+                "value": "आप अपने निवेश का पूरा या कुछ हिस्सा खो सकते हैं"
               }
             }
           },
-          "trustScoreLimitations": {
-            "title": "3. विश्वास स्कोर सीमाएं",
-            "intro": "विश्वास स्कोर उपलब्ध डेटा और हमारी सत्यापन प्रक्रिया के आधार पर गणना किए जाते हैं, लेकिन:",
+          "trustScore": {
+            "title": "3. ट्रस्ट स्कोर सीमाएं",
+            "intro": "ट्रस्ट स्कोर उपलब्ध डेटा और हमारी सत्यापन प्रक्रिया के आधार पर गणना की जाती है, लेकिन:",
             "items": {
-              "noGuarantee": "वे किसी भी प्रोजेक्ट की सुरक्षा या वैधता की गारंटी नहीं देते",
+              "noGuarantee": "वे किसी भी परियोजना की सुरक्षा या वैधता की गारंटी नहीं देते",
               "notAllFactors": "वे सभी प्रासंगिक कारकों को प्रतिबिंबित नहीं कर सकते",
-              "noPrediction": "ऐतिहासिक स्कोर भविष्य के प्रदर्शन की भविष्यवाणी नहीं कर सकते",
-              "oneFactor": "वे आपके ड्यू डिलिजेंस में कई कारकों में से एक होने चाहिए"
+              "historical": "ऐतिहासिक स्कोर भविष्य के प्रदर्शन की भविष्यवाणी नहीं कर सकते",
+              "dueDiligence": "उन्हें आपकी उचित सावधानी में कई कारकों में से एक होना चाहिए"
             }
           },
+          "trustScoreLimitations": {
+            "title": "3. ट्रस्ट स्कोर सीमाएं",
+            "intro": "ट्रस्ट स्कोर उपलब्ध डेटा और हमारी सत्यापन प्रक्रिया के आधार पर गणना की जाती है, लेकिन:",
+            "items": {
+              "noGuarantee": "वे किसी भी परियोजना की सुरक्षा या वैधता की गारंटी नहीं देते",
+              "notAllFactors": "वे सभी प्रासंगिक कारकों को प्रतिबिंबित नहीं कर सकते",
+              "noPrediction": "ऐतिहासिक स्कोर भविष्य के प्रदर्शन की भविष्यवाणी नहीं कर सकते",
+              "oneFactor": "उन्हें आपकी उचित सावधानी में कई कारकों में से एक होना चाहिए"
+            }
+          },
+          "thirdParty": {
+            "title": "4. तृतीय पक्ष सामग्री",
+            "content": "हमारे प्लेटफॉर्म में तृतीय पक्ष वेबसाइटों, परियोजनाओं या सामग्री के लिंक हो सकते हैं। हम किसी भी तृतीय पक्ष सामग्री का समर्थन, नियंत्रण या उसके लिए जिम्मेदारी नहीं लेते। तृतीय पक्ष संसाधनों तक पहुंच आपके अपने जोखिम पर है।"
+          },
           "thirdPartyContent": {
-            "title": "4. तृतीय-पक्ष सामग्री",
-            "content": "हमारे प्लेटफॉर्म में तृतीय-पक्ष वेबसाइटों, प्रोजेक्ट्स या सामग्री के लिंक हो सकते हैं। हम किसी भी तृतीय-पक्ष सामग्री का समर्थन, नियंत्रण या जिम्मेदारी नहीं लेते हैं। तृतीय-पक्ष संसाधनों तक पहुंच आपके अपने जोखिम पर है।"
+            "title": "4. तृतीय पक्ष सामग्री",
+            "content": "हमारे प्लेटफॉर्म में तृतीय पक्ष वेबसाइटों, परियोजनाओं या सामग्री के लिंक हो सकते हैं। हम किसी भी तृतीय पक्ष सामग्री का समर्थन, नियंत्रण या उसके लिए जिम्मेदारी नहीं लेते। तृतीय पक्ष संसाधनों तक पहुंच आपके अपने जोखिम पर है।"
+          },
+          "availability": {
+            "title": "5. सेवा उपलब्धता",
+            "content": "हम निरंतर सेवा उपलब्धता बनाए रखने का प्रयास करते हैं, लेकिन हम निर्बाध पहुंच की गारंटी नहीं देते। रखरखाव, अपग्रेड या अप्रत्याशित परिस्थितियों के कारण सेवाएं अस्थायी रूप से अनुपलब्ध हो सकती हैं।"
           },
           "serviceAvailability": {
             "title": "5. सेवा उपलब्धता",
-            "content": "हम निरंतर सेवा उपलब्धता बनाए रखने का प्रयास करते हैं, लेकिन हम निर्बाध पहुंच की गारंटी नहीं देते हैं। रखरखाव, अपग्रेड या अप्रत्याशित परिस्थितियों के कारण सेवाएं अस्थायी रूप से अनुपलब्ध हो सकती हैं।"
+            "content": "हम निरंतर सेवा उपलब्धता बनाए रखने का प्रयास करते हैं, लेकिन हम निर्बाध पहुंच की गारंटी नहीं देते। रखरखाव, अपग्रेड या अप्रत्याशित परिस्थितियों के कारण सेवाएं अस्थायी रूप से अनुपलब्ध हो सकती हैं।"
+          },
+          "limitation": {
+            "title": "6. दायित्व की सीमा",
+            "content": "लागू कानून द्वारा अनुमत अधिकतम सीमा तक, TBURN CHAIN फाउंडेशन और इसके सहयोगी, अधिकारी, निदेशक, कर्मचारी और एजेंट किसी भी अप्रत्यक्ष, आकस्मिक, विशेष, परिणामी, दंडात्मक या अनुकरणीय नुकसान के लिए उत्तरदायी नहीं होंगे, जिसमें लाभ, सद्भावना, उपयोग, डेटा या अन्य अमूर्त हानियों के लिए नुकसान शामिल है लेकिन इन्हीं तक सीमित नहीं है।"
           },
           "limitationOfLiability": {
             "title": "6. दायित्व की सीमा",
-            "content": "लागू कानून द्वारा अनुमत अधिकतम सीमा तक, TBURN CHAIN फाउंडेशन और उसके सहयोगी, अधिकारी, निदेशक, कर्मचारी और एजेंट किसी भी अप्रत्यक्ष, आकस्मिक, विशेष, परिणामी, दंडात्मक, या अनुकरणीय क्षति के लिए उत्तरदायी नहीं होंगे, जिसमें लाभ, सद्भावना, उपयोग, डेटा, या अन्य अमूर्त हानि के नुकसान के लिए क्षति शामिल है, लेकिन इन्हीं तक सीमित नहीं है, जो हमारी सेवाओं के आपके उपयोग या उपयोग करने में असमर्थता से उत्पन्न होती है।"
+            "content": "लागू कानून द्वारा अनुमत अधिकतम सीमा तक, TBURN CHAIN फाउंडेशन और इसके सहयोगी, अधिकारी, निदेशक, कर्मचारी और एजेंट किसी भी अप्रत्यक्ष, आकस्मिक, विशेष, परिणामी, दंडात्मक या अनुकरणीय नुकसान के लिए उत्तरदायी नहीं होंगे।"
+          },
+          "geographic": {
+            "title": "7. भौगोलिक प्रतिबंध",
+            "content": "हमारी सेवाएं सभी क्षेत्राधिकारों में उपलब्ध नहीं हो सकती हैं। यह सुनिश्चित करना आपकी जिम्मेदारी है कि TBurn Chain का आपका उपयोग आपके क्षेत्राधिकार के कानूनों का अनुपालन करता है। हम कुछ भौगोलिक स्थानों से हमारी सेवाओं तक पहुंच को प्रतिबंधित करने का अधिकार सुरक्षित रखते हैं।"
           },
           "geographicRestrictions": {
             "title": "7. भौगोलिक प्रतिबंध",
             "content": "हमारी सेवाएं सभी क्षेत्राधिकारों में उपलब्ध नहीं हो सकती हैं। यह सुनिश्चित करना आपकी जिम्मेदारी है कि TBurn Chain का आपका उपयोग आपके क्षेत्राधिकार के कानूनों का अनुपालन करता है। हम कुछ भौगोलिक स्थानों से हमारी सेवाओं तक पहुंच को प्रतिबंधित करने का अधिकार सुरक्षित रखते हैं।"
           },
-          "forwardLookingStatements": {
-            "title": "8. भविष्य-उन्मुख बयान",
-            "content": "भविष्य की घटनाओं, योजनाओं या विकास के संबंध में कोई भी बयान भविष्य-उन्मुख बयान हैं जो जोखिमों और अनिश्चितताओं के अधीन हैं। वास्तविक परिणाम ऐसे बयानों में व्यक्त या निहित परिणामों से भौतिक रूप से भिन्न हो सकते हैं।"
-          },
-          "noAdvice": {
-            "title": "1. No Investment Advice",
-            "warning": "TBurn चेन does not provide investment, financial, tax, or legal advice. All जानकारी provided on our प्लेटफॉर्म, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
-            "content": "You should consult with qualified professionals before making any investment decisions. Past प्रदर्शन is not indicative of future results."
-          },
-          "trustScore": {
-            "title": "3. Trust स्कोर Limitations",
-            "intro": "Trust Scores are calculated based on उपलब्ध डेटा and our सत्यापन प्रक्रिया, but:",
-            "items": {
-              "noGuarantee": "They do not guarantee the safety or legitimacy of any project",
-              "notAllFactors": "They may not reflect all relevant factors",
-              "historical": "Historical scores may not predict future प्रदर्शन",
-              "dueDiligence": "They should be one of many factors in your due diligence"
-            }
-          },
-          "thirdParty": {
-            "title": "4. Third-Party सामग्री",
-            "content": "Our प्लेटफॉर्म may contain links to third-party websites, projects, or सामग्री. We do not endorse, नियंत्रण, or take responsibility for any third-party सामग्री. एक्सेस to third-party संसाधन is at your own जोखिम."
-          },
-          "availability": {
-            "title": "5. Service उपलब्धता",
-            "content": "We strive to maintain continuous service उपलब्धता, but we do not guarantee uninterrupted एक्सेस. Services may be temporarily अनुपलब्ध due to रखरखाव, upgrades, or unforeseen circumstances."
-          },
-          "limitation": {
-            "title": "6. Limitation of Liability",
-            "content": "TO THE अधिकतम विस्तार PERMITTED BY APPLICABLE कानून, TBURN चेन FOUNDATION AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, डेटा, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE OUR SERVICES."
-          },
-          "geographic": {
-            "title": "7. Geographic Restrictions",
-            "content": "Our services may not be उपलब्ध in all jurisdictions. It is your responsibility to ensure that your use of TBurn चेन complies with the laws of your jurisdiction. We reserve the right to restrict एक्सेस to our services from certain geographic locations."
-          },
           "forwardLooking": {
-            "title": "8. Forward-Looking Statements",
-            "content": "Any statements regarding future events, plans, or developments are forward-looking statements subject to risks and uncertainties. Actual results may differ materially from those expressed or implied in such statements."
+            "title": "8. भविष्य-उन्मुख कथन",
+            "content": "भविष्य की घटनाओं, योजनाओं या विकास के संबंध में कोई भी कथन भविष्य-उन्मुख कथन हैं जो जोखिम और अनिश्चितताओं के अधीन हैं। वास्तविक परिणाम ऐसे कथनों में व्यक्त या निहित परिणामों से भौतिक रूप से भिन्न हो सकते हैं।"
+          },
+          "forwardLookingStatements": {
+            "title": "8. भविष्य-उन्मुख कथन",
+            "content": "भविष्य की घटनाओं, योजनाओं या विकास के संबंध में कोई भी कथन भविष्य-उन्मुख कथन हैं जो जोखिम और अनिश्चितताओं के अधीन हैं। वास्तविक परिणाम ऐसे कथनों में व्यक्त या निहित परिणामों से भौतिक रूप से भिन्न हो सकते हैं।"
           }
         },
+        "contact": {
+          "title": "प्रश्न?",
+          "label": "कानूनी पूछताछ"
+        },
         "questions": {
-          "title": "प्रश्न हैं?",
+          "title": "प्रश्न?",
           "legalInquiries": "कानूनी पूछताछ"
         },
         "relatedDocuments": {
-          "title": "संबंधित कानूनी दस्तावेज़",
+          "title": "संबंधित कानूनी दस्तावेज",
           "termsOfService": "सेवा की शर्तें",
           "termsOfServiceDesc": "उपयोगकर्ता समझौता",
           "privacyPolicy": "गोपनीयता नीति",
@@ -14332,15 +14333,12 @@
         },
         "learnMore": {
           "title": "और जानें",
-          "trustScoreSystem": "विश्वास स्कोर सिस्टम",
+          "trustScoreSystem": "ट्रस्ट स्कोर सिस्टम",
           "trustScoreSystemDesc": "स्कोर कैसे काम करते हैं",
           "introToDefi": "DeFi का परिचय",
-          "introToDefiDesc": "जोखिमों को समझें"
+          "introToDefiDesc": "जोखिमों को समझना"
         },
-        "contact": {
-          "title": "प्रश्न?",
-          "label": "Legal Inquiries"
-        }
+        "lastUpdated": "अंतिम अपडेट"
       },
       "common": {
         "backToHome": "वापस to Home",

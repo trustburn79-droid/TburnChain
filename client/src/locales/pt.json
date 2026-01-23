@@ -12771,143 +12771,141 @@
         }
       },
       "disclaimer": {
-        "title": "Aviso Legal",
-        "subtitle": "Avisos legais importantes e divulgações de risco.",
-        "forumTitle": "Fórum da Comunidade",
-        "viewAll": "Ver Tudo",
-        "recentPosts": "Postagens Recentes",
-        "backToHome": "Voltar ao Início",
+        "title": "Isenção de Responsabilidade",
+        "subtitle": "Avisos legais importantes e divulgação de riscos",
+        "backToHome": "Voltar ao início",
         "importantNotice": {
-          "title": "Aviso Importante",
-          "content": "Por favor, leia este aviso legal cuidadosamente antes de usar os serviços da TBurn Chain. Ao acessar ou usar nossa plataforma, você reconhece que leu, entendeu e concorda com os seguintes avisos."
+          "title": "Aviso importante",
+          "content": "Por favor, leia esta isenção de responsabilidade cuidadosamente antes de usar os serviços da TBurn Chain. Ao acessar ou usar nossa plataforma, você reconhece que leu, entendeu e concorda com as seguintes isenções de responsabilidade."
         },
         "sections": {
+          "noAdvice": {
+            "title": "1. Não é aconselhamento de investimento",
+            "warning": "A TBurn Chain não fornece aconselhamento de investimento, financeiro, fiscal ou jurídico. Todas as informações fornecidas em nossa plataforma, incluindo pontuações de confiança, são apenas para fins informativos e não devem ser interpretadas como aconselhamento de qualquer tipo.",
+            "content": "Você deve consultar profissionais qualificados antes de tomar qualquer decisão de investimento. O desempenho passado não indica resultados futuros."
+          },
           "noInvestmentAdvice": {
-            "title": "1. Sem Aconselhamento de Investimento",
-            "warning": "TBurn Chain não fornece aconselhamento de investimento, financeiro, tributário ou jurídico. Todas as informações fornecidas em nossa plataforma, incluindo Pontuações de Confiança, são apenas para fins informativos e não devem ser interpretadas como aconselhamento de qualquer tipo.",
-            "content": "Você deve consultar profissionais qualificados antes de tomar quaisquer decisões de investimento. Desempenho passado não é indicativo de resultados futuros."
+            "title": "1. Não é aconselhamento de investimento",
+            "warning": "A TBurn Chain não fornece aconselhamento de investimento, financeiro, fiscal ou jurídico. Todas as informações fornecidas em nossa plataforma, incluindo pontuações de confiança, são apenas para fins informativos e não devem ser interpretadas como aconselhamento de qualquer tipo.",
+            "content": "Você deve consultar profissionais qualificados antes de tomar qualquer decisão de investimento. O desempenho passado não indica resultados futuros."
           },
           "riskDisclosure": {
-            "title": "2. Divulgação de Riscos",
-            "intro": "Investimentos em criptomoedas e blockchain carregam riscos significativos, incluindo:",
+            "title": "2. Divulgação de riscos",
+            "intro": "Investimentos em criptomoedas e blockchain envolvem riscos significativos, incluindo:",
             "items": {
-              "marketVolatility": "Volatilidade de Mercado: Preços podem flutuar dramaticamente em curtos períodos",
-              "regulatoryRisk": "Risco Regulatório: Leis e regulamentações podem mudar inesperadamente",
-              "technicalRisk": "Risco Técnico: Contratos inteligentes podem conter bugs ou vulnerabilidades",
-              "liquidityRisk": "Risco de Liquidez: Você pode não conseguir vender ativos quando desejado",
-              "lossOfFunds": "Perda de Fundos: Você pode perder todo ou parte do seu investimento"
+              "marketVolatility": "Volatilidade do mercado: Os preços podem flutuar dramaticamente em curtos períodos",
+              "regulatoryRisk": "Risco regulatório: Leis e regulamentos podem mudar inesperadamente",
+              "technicalRisk": "Risco técnico: Contratos inteligentes podem conter bugs ou vulnerabilidades",
+              "liquidityRisk": "Risco de liquidez: Você pode não conseguir vender ativos quando desejar",
+              "lossOfFunds": "Perda de fundos: Você pode perder todo ou parte do seu investimento"
             },
             "risks": {
               "volatility": {
-                "label": "Mercado Volatility",
-                "value": "Preços can fluctuate dramatically in short periods"
+                "label": "Volatilidade do mercado",
+                "value": "Os preços podem flutuar dramaticamente em curtos períodos"
               },
               "regulatory": {
-                "label": "Regulatory Risco",
-                "value": "Laws and regulations may change unexpectedly"
+                "label": "Risco regulatório",
+                "value": "Leis e regulamentos podem mudar inesperadamente"
               },
               "technical": {
-                "label": "Técnico Risco",
-                "value": "Smart contracts may contain bugs or vulnerabilities"
+                "label": "Risco técnico",
+                "value": "Contratos inteligentes podem conter bugs ou vulnerabilidades"
               },
               "liquidity": {
-                "label": "Liquidez Risco",
-                "value": "You may not be able to sell assets when desired"
+                "label": "Risco de liquidez",
+                "value": "Você pode não conseguir vender ativos quando desejar"
               },
               "loss": {
-                "label": "Loss of Fundos",
-                "value": "You may lose all or part of your investment"
+                "label": "Perda de fundos",
+                "value": "Você pode perder todo ou parte do seu investimento"
               }
             }
           },
-          "trustScoreLimitations": {
-            "title": "3. Limitações da Pontuação de Confiança",
-            "intro": "Pontuações de Confiança são calculadas com base em dados disponíveis e nosso processo de verificação, mas:",
+          "trustScore": {
+            "title": "3. Limitações da pontuação de confiança",
+            "intro": "As pontuações de confiança são calculadas com base nos dados disponíveis e em nosso processo de verificação, mas:",
             "items": {
-              "noGuarantee": "Elas não garantem a segurança ou legitimidade de qualquer projeto",
-              "notAllFactors": "Elas podem não refletir todos os fatores relevantes",
-              "noPrediction": "Pontuações históricas podem não prever desempenho futuro",
-              "oneFactor": "Elas devem ser um dos muitos fatores em sua due diligence"
+              "noGuarantee": "Não garantem a segurança ou legitimidade de qualquer projeto",
+              "notAllFactors": "Podem não refletir todos os fatores relevantes",
+              "historical": "Pontuações históricas podem não prever o desempenho futuro",
+              "dueDiligence": "Devem ser um dos muitos fatores em sua devida diligência"
             }
           },
-          "thirdPartyContent": {
-            "title": "4. Conteúdo de Terceiros",
-            "content": "Nossa plataforma pode conter links para sites, projetos ou conteúdo de terceiros. Não endossamos, controlamos ou assumimos responsabilidade por qualquer conteúdo de terceiros. O acesso a recursos de terceiros é por sua conta e risco."
-          },
-          "serviceAvailability": {
-            "title": "5. Disponibilidade de Serviço",
-            "content": "Nos esforçamos para manter disponibilidade contínua do serviço, mas não garantimos acesso ininterrupto. Os serviços podem estar temporariamente indisponíveis devido a manutenção, atualizações ou circunstâncias imprevistas."
-          },
-          "limitationOfLiability": {
-            "title": "6. Limitação de Responsabilidade",
-            "content": "NA MÁXIMA EXTENSÃO PERMITIDA PELA LEI APLICÁVEL, A TBURN CHAIN FOUNDATION E SUAS AFILIADAS, DIRETORES, FUNCIONÁRIOS E AGENTES NÃO SERÃO RESPONSÁVEIS POR QUAISQUER DANOS INDIRETOS, INCIDENTAIS, ESPECIAIS, CONSEQUENCIAIS, PUNITIVOS OU EXEMPLARES, INCLUINDO, MAS NÃO LIMITADO A, DANOS POR PERDA DE LUCROS, GOODWILL, USO, DADOS OU OUTRAS PERDAS INTANGÍVEIS, RESULTANTES DO SEU USO OU INCAPACIDADE DE USAR NOSSOS SERVIÇOS."
-          },
-          "geographicRestrictions": {
-            "title": "7. Restrições Geográficas",
-            "content": "Nossos serviços podem não estar disponíveis em todas as jurisdições. É sua responsabilidade garantir que seu uso da TBurn Chain esteja em conformidade com as leis de sua jurisdição. Reservamo-nos o direito de restringir o acesso aos nossos serviços de certas localizações geográficas."
-          },
-          "forwardLookingStatements": {
-            "title": "8. Declarações Prospectivas",
-            "content": "Quaisquer declarações sobre eventos, planos ou desenvolvimentos futuros são declarações prospectivas sujeitas a riscos e incertezas. Os resultados reais podem diferir materialmente daqueles expressos ou implícitos em tais declarações."
-          },
-          "noAdvice": {
-            "title": "1. No Emvestimento Umdvice",
-            "warning": "TQueima Chain does not provide investment, financial, tax, or legal advice. Parados information provided on our platform, including Confiança Pontuaçãos, is for informational purposes only and should not be construed as advice of any kind.",
-            "content": "You should consult with qualified professionals before making any investment decisions. Past performance is not indicative of future results."
-          },
-          "trustScore": {
-            "title": "3. Confiança Pontuação Limitations",
-            "intro": "Confiança Pontuaçãos are calculated based on available data and our verification process, but:",
+          "trustScoreLimitations": {
+            "title": "3. Limitações da pontuação de confiança",
+            "intro": "As pontuações de confiança são calculadas com base nos dados disponíveis e em nosso processo de verificação, mas:",
             "items": {
-              "noGuarantee": "Oy do not guarantee the safety or legitimacy of any project",
-              "notAllFactors": "Oy may not reflect all relevant factors",
-              "historical": "Histórico scores may not predict future performance",
-              "dueDiligence": "Oy should be one of many factors in your due diligence"
+              "noGuarantee": "Não garantem a segurança ou legitimidade de qualquer projeto",
+              "notAllFactors": "Podem não refletir todos os fatores relevantes",
+              "noPrediction": "Pontuações históricas podem não prever o desempenho futuro",
+              "oneFactor": "Devem ser um dos muitos fatores em sua devida diligência"
             }
           },
           "thirdParty": {
-            "title": "4. Third-Party Content",
-            "content": "Nosso platform may contain links to third-party websites, projects, or content. We do not endorse, control, or take responsibility for any third-party content. Umccess to third-party resources is at your own risk."
+            "title": "4. Conteúdo de terceiros",
+            "content": "Nossa plataforma pode conter links para sites, projetos ou conteúdo de terceiros. Não endossamos, controlamos ou assumimos responsabilidade por qualquer conteúdo de terceiros. O acesso a recursos de terceiros é por sua conta e risco."
+          },
+          "thirdPartyContent": {
+            "title": "4. Conteúdo de terceiros",
+            "content": "Nossa plataforma pode conter links para sites, projetos ou conteúdo de terceiros. Não endossamos, controlamos ou assumimos responsabilidade por qualquer conteúdo de terceiros. O acesso a recursos de terceiros é por sua conta e risco."
           },
           "availability": {
-            "title": "5. Service Umvailability",
-            "content": "We strive to maintain continuous service availability, but we do not guarantee uninterrupted access. Serviços may be temporarily unavailable due to maintenance, upgrades, or unforeseen circumstances."
+            "title": "5. Disponibilidade do serviço",
+            "content": "Nos esforçamos para manter a disponibilidade contínua do serviço, mas não garantimos acesso ininterrupto. Os serviços podem estar temporariamente indisponíveis devido a manutenção, atualizações ou circunstâncias imprevistas."
+          },
+          "serviceAvailability": {
+            "title": "5. Disponibilidade do serviço",
+            "content": "Nos esforçamos para manter a disponibilidade contínua do serviço, mas não garantimos acesso ininterrupto. Os serviços podem estar temporariamente indisponíveis devido a manutenção, atualizações ou circunstâncias imprevistas."
           },
           "limitation": {
-            "title": "6. Limitation of Liability",
-            "content": "TO THE MUmXIMUM EXTENT PERMITTED BY UmPPLICUmBLE LUmW, TBURN CHUmIN FOUNDUmTION UmND ITS UmFFILIUmTES, OFFICERS, DIRECTORS, EMPLOYEES, UmND UmGENTS SHUmLL NOT BE LIUmBLE FOR UmNY INDIRECT, INCIDENTUmL, SPECIUmL, CONSEQUENTIUmL, PUNITIVE, OR EXEMPLUmRY DUmMUmGES, INCLUDING BUT NOT LIMITED TO DUmMUmGES FOR LOSS OF PROFITS, GOODWILL, USE, DUmTUm, OR OTHER INTUmNGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INUmBILITY TO USE OUR SERVICES."
+            "title": "6. Limitação de responsabilidade",
+            "content": "Na máxima extensão permitida pela lei aplicável, a Fundação TBURN CHAIN e suas afiliadas, diretores, administradores, funcionários e agentes não serão responsáveis por quaisquer danos indiretos, incidentais, especiais, consequenciais, punitivos ou exemplares, incluindo, mas não se limitando a, danos por perda de lucros, clientela, uso, dados ou outras perdas intangíveis resultantes do uso ou da incapacidade de usar nossos serviços."
+          },
+          "limitationOfLiability": {
+            "title": "6. Limitação de responsabilidade",
+            "content": "Na máxima extensão permitida pela lei aplicável, a Fundação TBURN CHAIN e suas afiliadas, diretores, administradores, funcionários e agentes não serão responsáveis por quaisquer danos indiretos, incidentais, especiais, consequenciais, punitivos ou exemplares."
           },
           "geographic": {
-            "title": "7. Geographic Restrictions",
-            "content": "Nosso services may not be available in all jurisdictions. It is your responsibility to ensure that your use of TQueima Chain complies with the laws of your jurisdiction. We reserve the right to restrict access to our services from certain geographic locations."
+            "title": "7. Restrições geográficas",
+            "content": "Nossos serviços podem não estar disponíveis em todas as jurisdições. É sua responsabilidade garantir que o uso da TBurn Chain esteja em conformidade com as leis de sua jurisdição. Reservamos o direito de restringir o acesso aos nossos serviços de determinadas localizações geográficas."
+          },
+          "geographicRestrictions": {
+            "title": "7. Restrições geográficas",
+            "content": "Nossos serviços podem não estar disponíveis em todas as jurisdições. É sua responsabilidade garantir que o uso da TBurn Chain esteja em conformidade com as leis de sua jurisdição. Reservamos o direito de restringir o acesso aos nossos serviços de determinadas localizações geográficas."
           },
           "forwardLooking": {
-            "title": "8. Paraward-Looking Estadoments",
-            "content": "Umny statements regarding future events, plans, or developments are forward-looking statements subject to risks and uncertainties. Umctual results may differ materially from those expressed or implied in such statements."
+            "title": "8. Declarações prospectivas",
+            "content": "Quaisquer declarações sobre eventos, planos ou desenvolvimentos futuros são declarações prospectivas sujeitas a riscos e incertezas. Os resultados reais podem diferir materialmente daqueles expressos ou implícitos em tais declarações."
+          },
+          "forwardLookingStatements": {
+            "title": "8. Declarações prospectivas",
+            "content": "Quaisquer declarações sobre eventos, planos ou desenvolvimentos futuros são declarações prospectivas sujeitas a riscos e incertezas. Os resultados reais podem diferir materialmente daqueles expressos ou implícitos em tais declarações."
           }
         },
+        "contact": {
+          "title": "Perguntas?",
+          "label": "Consultas jurídicas"
+        },
         "questions": {
-          "title": "Dúvidas?",
-          "legalInquiries": "Consultas Jurídicas"
+          "title": "Perguntas?",
+          "legalInquiries": "Consultas jurídicas"
         },
         "relatedDocuments": {
-          "title": "Documentos Legais Relacionados",
+          "title": "Documentos legais relacionados",
           "termsOfService": "Termos de Serviço",
           "termsOfServiceDesc": "Acordo do usuário",
           "privacyPolicy": "Política de Privacidade",
           "privacyPolicyDesc": "Tratamento de dados"
         },
         "learnMore": {
-          "title": "Saiba Mais",
-          "trustScoreSystem": "Sistema de Pontuação de Confiança",
-          "trustScoreSystemDesc": "Como as pontuações funcionam",
+          "title": "Saiba mais",
+          "trustScoreSystem": "Sistema de pontuação de confiança",
+          "trustScoreSystemDesc": "Como funcionam as pontuações",
           "introToDefi": "Introdução ao DeFi",
           "introToDefiDesc": "Entendendo os riscos"
         },
-        "contact": {
-          "title": "Questions?",
-          "label": "Legal Emquiries"
-        }
+        "lastUpdated": "Última atualização"
       }
     }
   },

@@ -12891,39 +12891,36 @@
       },
       "disclaimer": {
         "title": "إخلاء المسؤولية",
-        "subtitle": "Important legal notices and risk disclosures.",
-        "forumTitle": "منتدى المجتمع",
-        "viewAll": "عرض الكل",
-        "recentPosts": "المشاركات الأخيرة",
+        "subtitle": "إشعارات قانونية مهمة والإفصاح عن المخاطر",
         "backToHome": "العودة إلى الصفحة الرئيسية",
         "importantNotice": {
-          "title": "Important Notice",
-          "content": "Please read this disclaimer carefully before using TBurn Chain services. By accessing or using our platform, you acknowledge that you have read, understood, and agree to the following disclaimers."
+          "title": "إشعار مهم",
+          "content": "يرجى قراءة إخلاء المسؤولية هذا بعناية قبل استخدام خدمات TBurn Chain. من خلال الوصول إلى منصتنا أو استخدامها، فإنك تقر بأنك قد قرأت وفهمت ووافقت على إخلاءات المسؤولية التالية."
         },
         "sections": {
           "noAdvice": {
-            "title": "1. No Investment Advice",
-            "warning": "TBurn Chain does not provide investment, financial, tax, or legal advice. All information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
-            "content": "You should consult with qualified professionals before making any investment decisions. Past performance is not indicative of future results."
+            "title": "1. ليست نصيحة استثمارية",
+            "warning": "لا تقدم TBurn Chain نصائح استثمارية أو مالية أو ضريبية أو قانونية. جميع المعلومات المقدمة على منصتنا، بما في ذلك درجات الثقة، هي لأغراض إعلامية فقط ولا ينبغي تفسيرها على أنها نصيحة من أي نوع.",
+            "content": "يجب عليك استشارة متخصصين مؤهلين قبل اتخاذ أي قرارات استثمارية. الأداء السابق لا يشير إلى النتائج المستقبلية."
           },
           "noInvestmentAdvice": {
-            "title": "1. No Investment Advice",
-            "warning": "TBurn Chain does not provide investment, financial, tax, or legal advice. All information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
-            "content": "You should consult with qualified professionals before making any investment decisions. Past performance is not indicative of future results."
+            "title": "1. ليست نصيحة استثمارية",
+            "warning": "لا تقدم TBurn Chain نصائح استثمارية أو مالية أو ضريبية أو قانونية. جميع المعلومات المقدمة على منصتنا، بما في ذلك درجات الثقة، هي لأغراض إعلامية فقط ولا ينبغي تفسيرها على أنها نصيحة من أي نوع.",
+            "content": "يجب عليك استشارة متخصصين مؤهلين قبل اتخاذ أي قرارات استثمارية. الأداء السابق لا يشير إلى النتائج المستقبلية."
           },
           "riskDisclosure": {
-            "title": "2. Risk Disclosure",
-            "intro": "Cryptocurrency and blockchain investments carry significant risks, including:",
+            "title": "2. الإفصاح عن المخاطر",
+            "intro": "تحمل استثمارات العملات المشفرة والبلوكتشين مخاطر كبيرة، بما في ذلك:",
             "items": {
-              "marketVolatility": "Market Volatility: Prices can fluctuate dramatically in short periods",
-              "regulatoryRisk": "Regulatory Risk: Laws and regulations may change unexpectedly",
-              "technicalRisk": "Technical Risk: Smart contracts may contain bugs or vulnerabilities",
-              "liquidityRisk": "Liquidity Risk: You may not be able to sell assets when desired",
-              "lossOfFunds": "Loss of Funds: You may lose all or part of your investment"
+              "marketVolatility": "تقلبات السوق: يمكن أن تتقلب الأسعار بشكل كبير في فترات قصيرة",
+              "regulatoryRisk": "المخاطر التنظيمية: قد تتغير القوانين واللوائح بشكل غير متوقع",
+              "technicalRisk": "المخاطر التقنية: قد تحتوي العقود الذكية على أخطاء أو ثغرات",
+              "liquidityRisk": "مخاطر السيولة: قد لا تتمكن من بيع الأصول عند الرغبة",
+              "lossOfFunds": "خسارة الأموال: قد تخسر كل أو جزء من استثمارك"
             },
             "risks": {
               "volatility": {
-                "label": "تقلب السوق",
+                "label": "تقلبات السوق",
                 "value": "يمكن أن تتقلب الأسعار بشكل كبير في فترات قصيرة"
               },
               "regulatory": {
@@ -12932,7 +12929,7 @@
               },
               "technical": {
                 "label": "المخاطر التقنية",
-                "value": "قد تحتوي العقود الذكية على أخطاء برمجية أو ثغرات"
+                "value": "قد تحتوي العقود الذكية على أخطاء أو ثغرات"
               },
               "liquidity": {
                 "label": "مخاطر السيولة",
@@ -12945,64 +12942,64 @@
             }
           },
           "trustScore": {
-            "title": "3. Trust Score Limitations",
-            "intro": "Trust Scores are calculated based on available data and our verification process, but:",
+            "title": "3. قيود درجة الثقة",
+            "intro": "يتم حساب درجات الثقة بناءً على البيانات المتاحة وعملية التحقق لدينا، ولكن:",
             "items": {
-              "noGuarantee": "They do not guarantee the safety or legitimacy of any project",
-              "notAllFactors": "They may not reflect all relevant factors",
-              "historical": "Historical scores may not predict future performance",
-              "dueDiligence": "They should be one of many factors in your due diligence"
+              "noGuarantee": "لا تضمن سلامة أو شرعية أي مشروع",
+              "notAllFactors": "قد لا تعكس جميع العوامل ذات الصلة",
+              "historical": "قد لا تتنبأ الدرجات التاريخية بالأداء المستقبلي",
+              "dueDiligence": "يجب أن تكون أحد العوامل العديدة في العناية الواجبة الخاصة بك"
             }
           },
           "trustScoreLimitations": {
-            "title": "3. Trust Score Limitations",
-            "intro": "Trust Scores are calculated based on available data and our verification process, but:",
+            "title": "3. قيود درجة الثقة",
+            "intro": "يتم حساب درجات الثقة بناءً على البيانات المتاحة وعملية التحقق لدينا، ولكن:",
             "items": {
-              "noGuarantee": "They do not guarantee the safety or legitimacy of any project",
-              "notAllFactors": "They may not reflect all relevant factors",
-              "noPrediction": "Historical scores may not predict future performance",
-              "oneFactor": "They should be one of many factors in your due diligence"
+              "noGuarantee": "لا تضمن سلامة أو شرعية أي مشروع",
+              "notAllFactors": "قد لا تعكس جميع العوامل ذات الصلة",
+              "noPrediction": "قد لا تتنبأ الدرجات التاريخية بالأداء المستقبلي",
+              "oneFactor": "يجب أن تكون أحد العوامل العديدة في العناية الواجبة الخاصة بك"
             }
           },
           "thirdParty": {
-            "title": "4. Third-Party Content",
-            "content": "Our platform may contain links to third-party websites, projects, or content. We do not endorse, control, or take responsibility for any third-party content. Access to third-party resources is at your own risk."
+            "title": "4. محتوى الطرف الثالث",
+            "content": "قد تحتوي منصتنا على روابط لمواقع أو مشاريع أو محتوى تابع لأطراف ثالثة. نحن لا نؤيد أو نتحكم أو نتحمل المسؤولية عن أي محتوى تابع لطرف ثالث. الوصول إلى موارد الطرف الثالث على مسؤوليتك الخاصة."
           },
           "thirdPartyContent": {
-            "title": "4. Third-Party Content",
-            "content": "Our platform may contain links to third-party websites, projects, or content. We do not endorse, control, or take responsibility for any third-party content. Access to third-party resources is at your own risk."
+            "title": "4. محتوى الطرف الثالث",
+            "content": "قد تحتوي منصتنا على روابط لمواقع أو مشاريع أو محتوى تابع لأطراف ثالثة. نحن لا نؤيد أو نتحكم أو نتحمل المسؤولية عن أي محتوى تابع لطرف ثالث. الوصول إلى موارد الطرف الثالث على مسؤوليتك الخاصة."
           },
           "availability": {
-            "title": "5. Service Availability",
-            "content": "نسعى للحفاظ على توفر الخدمة المستمر، لكننا لا نضمن الوصول دون انقطاع. قد تكون الخدمات غير متاحة مؤقتاً بسبب الصيانة أو الترقيات أو الظروف غير المتوقعة."
+            "title": "5. توفر الخدمة",
+            "content": "نسعى جاهدين للحفاظ على توفر الخدمة المستمر، لكننا لا نضمن الوصول دون انقطاع. قد تكون الخدمات غير متاحة مؤقتًا بسبب الصيانة أو الترقيات أو ظروف غير متوقعة."
           },
           "serviceAvailability": {
-            "title": "5. Service Availability",
-            "content": "نسعى للحفاظ على توفر الخدمة المستمر، لكننا لا نضمن الوصول دون انقطاع. قد تكون الخدمات غير متاحة مؤقتاً بسبب الصيانة أو الترقيات أو الظروف غير المتوقعة."
+            "title": "5. توفر الخدمة",
+            "content": "نسعى جاهدين للحفاظ على توفر الخدمة المستمر، لكننا لا نضمن الوصول دون انقطاع. قد تكون الخدمات غير متاحة مؤقتًا بسبب الصيانة أو الترقيات أو ظروف غير متوقعة."
           },
           "limitation": {
-            "title": "6. حدود المسؤولية",
-            "content": "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TBURN CHAIN FOUNDATION AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE OUR SERVICES."
+            "title": "6. تحديد المسؤولية",
+            "content": "إلى أقصى حد يسمح به القانون المعمول به، لن تكون مؤسسة TBURN CHAIN والشركات التابعة لها والمسؤولون والمديرون والموظفون والوكلاء مسؤولين عن أي أضرار غير مباشرة أو عرضية أو خاصة أو تبعية أو عقابية أو تأديبية، بما في ذلك على سبيل المثال لا الحصر الأضرار الناتجة عن خسارة الأرباح أو السمعة أو الاستخدام أو البيانات أو الخسائر غير الملموسة الأخرى الناتجة عن استخدامك أو عدم قدرتك على استخدام خدماتنا."
           },
           "limitationOfLiability": {
-            "title": "6. حدود المسؤولية",
-            "content": "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TBURN CHAIN FOUNDATION AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF OR INABILITY TO USE OUR SERVICES."
+            "title": "6. تحديد المسؤولية",
+            "content": "إلى أقصى حد يسمح به القانون المعمول به، لن تكون مؤسسة TBURN CHAIN والشركات التابعة لها والمسؤولون والمديرون والموظفون والوكلاء مسؤولين عن أي أضرار غير مباشرة أو عرضية أو خاصة أو تبعية أو عقابية أو تأديبية."
           },
           "geographic": {
             "title": "7. القيود الجغرافية",
-            "content": "قد لا تكون خدماتنا متاحة في جميع الولايات القضائية. من مسؤوليتك التأكد من أن استخدامك لـ TBurn Chain يتوافق مع قوانين ولايتك القضائية. نحتفظ بالحق في تقييد الوصول إلى خدماتنا من مواقع جغرافية معينة."
+            "content": "قد لا تكون خدماتنا متاحة في جميع الولايات القضائية. تقع على عاتقك مسؤولية ضمان امتثال استخدامك لـ TBurn Chain لقوانين ولايتك القضائية. نحتفظ بالحق في تقييد الوصول إلى خدماتنا من مواقع جغرافية معينة."
           },
           "geographicRestrictions": {
             "title": "7. القيود الجغرافية",
-            "content": "قد لا تكون خدماتنا متاحة في جميع الولايات القضائية. من مسؤوليتك التأكد من أن استخدامك لـ TBurn Chain يتوافق مع قوانين ولايتك القضائية. نحتفظ بالحق في تقييد الوصول إلى خدماتنا من مواقع جغرافية معينة."
+            "content": "قد لا تكون خدماتنا متاحة في جميع الولايات القضائية. تقع على عاتقك مسؤولية ضمان امتثال استخدامك لـ TBurn Chain لقوانين ولايتك القضائية. نحتفظ بالحق في تقييد الوصول إلى خدماتنا من مواقع جغرافية معينة."
           },
           "forwardLooking": {
             "title": "8. البيانات التطلعية",
-            "content": "أي بيانات بخصوص الأحداث أو الخطط أو التطورات المستقبلية هي بيانات تطلعية خاضعة للمخاطر والشكوك. قد تختلف النتائج الفعلية جوهرياً عن تلك المعبر عنها أو الضمنية في هذه البيانات."
+            "content": "أي بيانات تتعلق بالأحداث أو الخطط أو التطورات المستقبلية هي بيانات تطلعية تخضع للمخاطر والشكوك. قد تختلف النتائج الفعلية ماديًا عن تلك المعبر عنها أو الضمنية في هذه البيانات."
           },
           "forwardLookingStatements": {
             "title": "8. البيانات التطلعية",
-            "content": "أي بيانات بخصوص الأحداث أو الخطط أو التطورات المستقبلية هي بيانات تطلعية خاضعة للمخاطر والشكوك. قد تختلف النتائج الفعلية جوهرياً عن تلك المعبر عنها أو الضمنية في هذه البيانات."
+            "content": "أي بيانات تتعلق بالأحداث أو الخطط أو التطورات المستقبلية هي بيانات تطلعية تخضع للمخاطر والشكوك. قد تختلف النتائج الفعلية ماديًا عن تلك المعبر عنها أو الضمنية في هذه البيانات."
           }
         },
         "contact": {
@@ -13014,19 +13011,20 @@
           "legalInquiries": "الاستفسارات القانونية"
         },
         "relatedDocuments": {
-          "title": "الوثائق القانونية ذات الصلة",
+          "title": "المستندات القانونية ذات الصلة",
           "termsOfService": "شروط الخدمة",
-          "termsOfServiceDesc": "User agreement",
+          "termsOfServiceDesc": "اتفاقية المستخدم",
           "privacyPolicy": "سياسة الخصوصية",
-          "privacyPolicyDesc": "Data handling"
+          "privacyPolicyDesc": "معالجة البيانات"
         },
         "learnMore": {
           "title": "اعرف المزيد",
           "trustScoreSystem": "نظام درجة الثقة",
-          "trustScoreSystemDesc": "How scores work",
-          "introToDefi": "Intro to DeFi",
-          "introToDefiDesc": "Understanding risks"
-        }
+          "trustScoreSystemDesc": "كيف تعمل الدرجات",
+          "introToDefi": "مقدمة في DeFi",
+          "introToDefiDesc": "فهم المخاطر"
+        },
+        "lastUpdated": "آخر تحديث"
       }
     }
   },

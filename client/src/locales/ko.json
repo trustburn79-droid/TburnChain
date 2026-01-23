@@ -193,13 +193,13 @@
     "nodeHealth": "노드 상태",
     "performance": "성능",
     "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+    "metaverse": "메타버스",
+    "businessAnalysis": "사업분석",
+    "businessPlanning": "사업기획",
+    "realMetaverse": "리얼메타버스",
+    "tradeExpert": "통상전문가",
+    "globalBroker": "글로벌브로커",
+    "internationalBusiness": "국제비즈니스",
     "apiKeys": "API 키",
     "operator": "운영자",
     "operatorPortal": "운영자 포털",
@@ -1686,13 +1686,13 @@
     "tokensFound": "개 토큰 발견",
     "price": "가격",
     "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+    "metaverse": "메타버스",
+    "businessAnalysis": "사업분석",
+    "businessPlanning": "사업기획",
+    "realMetaverse": "리얼메타버스",
+    "tradeExpert": "통상전문가",
+    "globalBroker": "글로벌브로커",
+    "internationalBusiness": "국제비즈니스",
     "verified": "검증됨",
     "adjustFilters": "검색 필터 또는 검색어를 조정해 보세요",
     "tokenInfo": "토큰 정보",
@@ -3783,13 +3783,13 @@
     },
     "categories": {
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "consensus": "합의",
       "execution": "실행",
       "genesisCreated": "제네시스 블록 생성됨",
@@ -4485,13 +4485,13 @@
       "apiKeys": "API 키",
       "operator": "운영자",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "whitepaper": "백서",
       "terms": "이용약관"
     },
@@ -4655,13 +4655,13 @@
       "overview": "개요",
       "system": "시스템",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "analytics": "분석",
       "liveFeed": "실시간 피드"
     },
@@ -6545,13 +6545,13 @@
     "performance": "성능",
     "governance": "거버넌스",
     "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+    "metaverse": "메타버스",
+    "businessAnalysis": "사업분석",
+    "businessPlanning": "사업기획",
+    "realMetaverse": "리얼메타버스",
+    "tradeExpert": "통상전문가",
+    "globalBroker": "글로벌브로커",
+    "internationalBusiness": "국제비즈니스",
     "activity": "활동",
     "accountOverview": "계정 개요",
     "profileInformation": "프로필 정보",
@@ -7779,13 +7779,13 @@
     "competitiveEdge": "경쟁 우위",
     "aiSystem": "Quad-Band AI 시스템",
     "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+    "metaverse": "메타버스",
+    "businessAnalysis": "사업분석",
+    "businessPlanning": "사업기획",
+    "realMetaverse": "리얼메타버스",
+    "tradeExpert": "통상전문가",
+    "globalBroker": "글로벌브로커",
+    "internationalBusiness": "국제비즈니스",
     "techStack": "기술 스택",
     "tabs": {
       "overview": "개요",
@@ -15601,219 +15601,193 @@
     },
     "legal": {
       "terms": {
-        "title": "이용약관",
-        "subtitle": "TBurn 체인 서비스 이용에 대한 약관.",
-        "forumTitle": "커뮤니티 포럼",
-        "viewAll": "전체 보기",
-        "recentPosts": "최근 게시물",
+        "title": "서비스 이용약관",
+        "subtitle": "TBurn Chain 서비스 이용 조건",
         "backToHome": "홈으로 돌아가기",
         "sections": {
           "acceptance": {
-            "title": "1. 약관 동의",
-            "content": "TBurn 체인 서비스에 접근하거나 사용함으로써 귀하는 본 이용약관('약관')에 구속되는 것에 동의합니다. 본 약관에 동의하지 않으시면 서비스를 사용하지 마십시오. 본 약관은 귀하와 TBurn 체인 재단 간의 법적 구속력 있는 계약을 구성합니다."
+            "title": "1. 약관의 동의",
+            "content": "TBurn Chain 서비스에 접속하거나 이용함으로써 귀하는 본 이용약관에 구속되는 것에 동의합니다. 본 약관에 동의하지 않는 경우 당사 서비스를 이용하지 마십시오."
           },
           "definitions": {
             "title": "2. 정의",
-            "tburnChain": "'TBurn 체인'은 레이어 1 블록체인 네트워크 및 관련 서비스를 의미합니다.",
-            "services": "'서비스'는 블록체인 네트워크, 신뢰 검증 시스템, API, 플랫폼 기능을 포함합니다.",
-            "user": "'사용자' 또는 '귀하'는 TBurn 체인을 사용하는 모든 개인 또는 법인을 의미합니다.",
-            "project": "'프로젝트'는 TBurn 체인에서 검증을 받고자 하는 블록체인 프로젝트를 의미합니다.",
-            "trustScore": "'신뢰도 점수'는 3단계 검증 시스템을 통해 부여되는 신뢰성 등급을 의미합니다.",
+            "tburnChain": "TBurn Chain은 레이어 1 블록체인 네트워크 및 관련 서비스를 의미합니다.",
+            "services": "서비스는 블록체인 네트워크, 트러스트 검증 시스템, API 및 플랫폼 기능을 포함합니다.",
+            "user": "사용자 또는 귀하는 TBurn Chain을 사용하는 개인 또는 법인을 의미합니다.",
+            "project": "프로젝트는 TBurn Chain에서 검증을 받고자 하는 블록체인 프로젝트를 의미합니다.",
+            "trustScore": "트러스트 스코어는 3단계 검증 시스템을 통해 부여되는 신뢰도 등급을 의미합니다.",
             "items": {
               "tburnChain": {
-                "term": "TBurn 체인",
-                "desc": "The Layer 1 blockchain network and associated services"
+                "term": "TBurn Chain",
+                "desc": "레이어 1 블록체인 네트워크 및 관련 서비스"
               },
               "services": {
-                "term": "Services",
-                "desc": "The blockchain network, trust verification system, APIs, and platform features"
+                "term": "서비스",
+                "desc": "블록체인 네트워크, 트러스트 검증 시스템, API 및 플랫폼 기능"
               },
               "user": {
                 "term": "사용자",
-                "desc": "Any individual or entity using TBurn 체인"
+                "desc": "TBurn Chain을 사용하는 개인 또는 법인"
               },
               "project": {
-                "term": "Project",
-                "desc": "블록체인 projects seeking verification on TBurn 체인"
+                "term": "프로젝트",
+                "desc": "TBurn Chain에서 검증을 받고자 하는 블록체인 프로젝트"
               },
               "trustScore": {
-                "term": "Trust 점수",
-                "desc": "The reliability rating assigned through our 3-stage verification system"
+                "term": "트러스트 스코어",
+                "desc": "3단계 검증 시스템을 통해 부여되는 신뢰도 등급"
               }
             }
           },
           "eligibility": {
             "title": "3. 자격 요건",
-            "intro": "TBurn 체인을 사용하려면 다음 조건을 충족해야 합니다:",
-            "age": "만 18세 이상(또는 관할권의 법정 연령)이어야 합니다.",
-            "legalCapacity": "구속력 있는 계약을 체결할 법적 능력이 있어야 합니다.",
-            "notProhibited": "해당 법률에 따라 서비스 사용이 금지되지 않아야 합니다.",
-            "comply": "온라인 행동 및 블록체인 기술에 관한 모든 현지 법률을 준수해야 합니다.",
+            "intro": "TBurn Chain을 이용하려면 다음 조건을 충족해야 합니다:",
+            "age": "만 18세 이상이어야 합니다",
+            "legalCapacity": "구속력 있는 계약을 체결할 법적 능력이 있어야 합니다",
+            "notProhibited": "관련 법률에 따라 당사 서비스 사용이 금지되지 않아야 합니다",
+            "comply": "온라인 행위 및 블록체인 기술에 관한 모든 지역 법률을 준수해야 합니다",
             "items": {
-              "age": "Be at least 18 years old (or legal age in your jurisdiction)",
-              "capacity": "Have the legal capacity to enter into binding contracts",
-              "comply": "Comply with all local laws regarding online conduct and blockchain technology",
-              "prohibited": "Not be prohibited from using our services under applicable laws"
+              "age": "만 18세 이상이어야 합니다",
+              "capacity": "구속력 있는 계약을 체결할 법적 능력이 있어야 합니다",
+              "comply": "온라인 행위 및 블록체인 기술에 관한 모든 지역 법률을 준수해야 합니다",
+              "prohibited": "관련 법률에 따라 당사 서비스 사용이 금지되지 않아야 합니다"
             }
-          },
-          "accountSecurity": {
-            "title": "4. 계정 등록 & 보안",
-            "accountCreation": "4.1 계정 생성",
-            "accountCreationContent": "귀하는 정확한 정보를 제공하고, 기밀성을 유지하며, 무단 접근이 있는 경우 즉시 당사에 통지하는 것에 동의합니다.",
-            "walletSecurity": "4.2 지갑 보안",
-            "walletSecurityWarning": "중요: 개인 키 보안은 전적으로 귀하의 책임입니다. 분실된 개인 키는 복구할 수 없습니다. 당사는 귀하의 개인 키에 접근할 수 없으며 분실된 자금을 복구하는 것을 도울 수 없습니다."
-          },
-          "trustVerification": {
-            "title": "5. 신뢰 검증 시스템",
-            "threeStageProcess": "5.1 3단계 프로세스",
-            "stage1": "1단계: AI 기반 자동 필터링 (24시간)",
-            "stage2": "2단계: 블록체인 개발자 및 감사자에 의한 전문가 검증 (7-14일)",
-            "stage3": "3단계: TBURN 토큰 보유자에 의한 커뮤니티 투표 (3-5일)",
-            "implications": {
-              "title": "5.2 신뢰 점수 함의",
-              "content": "신뢰 점수는 0-100 범위입니다. 40 미만의 점수는 자동 토큰 거래 중단을 초래합니다. 점수는 온체인에서 실시간으로 업데이트됩니다."
-            },
-            "implicationsContent": "신뢰도 점수는 0-100 범위입니다. 40 미만의 점수는 자동 토큰 거래 중지를 초래합니다. 점수는 온체인에서 실시간으로 업데이트됩니다.",
-            "process": {
-              "title": "3-스테이지 Verification Process",
-              "stage1": {
-                "label": "스테이지 1: AI Analysis",
-                "value": "AI-powered automatic filtering (24 hours)"
-              },
-              "stage2": {
-                "label": "스테이지 2: Expert 검토",
-                "value": "Expert validation by blockchain developers and auditors (7-14 days)"
-              },
-              "stage3": {
-                "label": "스테이지 3: 커뮤니티 투표",
-                "value": "커뮤니티 voting by TBURN token holders (3-5 days)"
-              }
-            }
-          },
-          "burnMechanism": {
-            "title": "6. 소각 메커니즘",
-            "content": "프로젝트는 소각 약정과 동일한 담보를 예치해야 합니다. 예정된 소각을 실행하지 못하면 스마트 컨트랙트를 통해 자동 패널티 및 담보 소각이 발생합니다."
-          },
-          "prohibitedActivities": {
-            "title": "7. 금지된 활동",
-            "intro": "귀하는 다음 행위를 하지 않는 것에 동의합니다:",
-            "items": {
-              "moneyLaundering": "자금 세탁 또는 테러 자금 조달에 플랫폼 사용",
-              "falseInfo": "허위 또는 오해의 소지가 있는 프로젝트 정보 제출",
-              "manipulateTrustScores": "조직적 투표를 통한 신뢰도 점수 조작",
-              "exploitVulnerabilities": "스마트 컨트랙트 취약점 악용 시도",
-              "marketManipulation": "시장 조작 또는 가장 매매 참여"
-            }
-          },
-          "intellectualProperty": {
-            "title": "8. 지적 재산권",
-            "content": "플랫폼, 프로토콜, 브랜딩을 포함한 TBurn 체인의 모든 지적 재산권은 TBurn 체인 재단이 소유합니다. 귀하는 서비스를 사용할 수 있는 제한적이고 비독점적인 라이선스를 부여받습니다."
-          },
-          "disclaimers": {
-            "title": "9. 면책 조항 & 제한",
-            "asIs": {
-              "title": "'있는 그대로' 기준",
-              "content": "서비스는 명시적이든 묵시적이든 어떠한 보증 없이 '있는 그대로' 및 '사용 가능한 대로' 제공됩니다."
-            },
-            "asIsContent": "서비스는 명시적이든 묵시적이든 어떠한 종류의 보증 없이 '있는 그대로' 및 '이용 가능한 대로' 제공됩니다.",
-            "noInvestmentAdvice": "투자 조언 없음",
-            "noInvestmentAdviceContent": "TBurn 체인은 투자, 재정 또는 법률 조언을 제공하지 않습니다. 신뢰도 점수는 정보 제공 목적으로만 사용됩니다.",
-            "limitationOfLiability": "책임 제한",
-            "limitationOfLiabilityContent": "법률이 허용하는 최대 범위 내에서 TBURN CHAIN은 간접적, 우발적, 특별, 결과적 또는 징벌적 손해에 대해 책임지지 않습니다.",
-            "noAdvice": {
-              "title": "투자 조언 없음",
-              "content": "TBurn 체인 does not provide investment, financial, or legal advice. Trust scores are informational only."
-            },
-            "limitation": {
-              "title": "책임 제한",
-              "content": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES."
-            }
-          },
-          "governingLaw": {
-            "title": "10. 준거법",
-            "content": "본 약관은 법률 충돌 원칙에 관계없이 TBurn 체인 재단이 설립된 관할권의 법률에 따라 규율되고 해석됩니다."
           },
           "account": {
-            "title": "4. 계정 Registration & 보안",
+            "title": "4. 계정 등록 및 보안",
             "creation": {
-              "title": "4.1 계정 Creation",
-              "content": "You agree to provide accurate information, maintain its confidentiality, and notify us immediately of any unauthorized access."
+              "title": "4.1 계정 생성",
+              "content": "정확한 정보를 제공하고, 기밀성을 유지하며, 무단 접근이 있는 경우 즉시 당사에 통보하는 데 동의합니다."
             },
             "notifications": {
-              "enabled": "알림 켜짐",
-              "disabled": "알림 꺼짐",
-              "enabledDesc": "알림이 활성화되었습니다.",
-              "disabledDesc": "알림이 비활성화되었습니다."
+              "enabled": "알림 활성화",
+              "disabled": "알림 비활성화",
+              "enabledDesc": "알림을 받게 됩니다.",
+              "disabledDesc": "알림이 해제되었습니다."
             },
             "settings": {
               "title": "설정",
-              "comingSoon": "설정 기능이 곧 추가됩니다."
+              "comingSoon": "설정 기능이 곧 제공될 예정입니다."
             },
             "wallet": {
               "title": "4.2 지갑 보안",
-              "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
-              "important": "Important: We do not have access to your private keys and cannot help recover lost funds."
+              "content": "개인 키의 안전한 관리는 전적으로 귀하의 책임입니다.",
+              "important": "중요: 당사는 귀하의 개인 키에 접근할 수 없습니다."
+            }
+          },
+          "accountSecurity": {
+            "title": "4. 계정 등록 및 보안",
+            "accountCreation": "4.1 계정 생성",
+            "accountCreationContent": "정확한 정보를 제공하고 기밀성을 유지하십시오.",
+            "walletSecurity": "4.2 지갑 보안",
+            "walletSecurityContent": "개인 키의 안전한 관리는 귀하의 책임입니다.",
+            "walletSecurityWarning": "중요: 분실된 자금 복구를 도와드릴 수 없습니다."
+          },
+          "trustVerification": {
+            "title": "5. 트러스트 검증 시스템",
+            "intro": "당사의 3단계 검증 프로세스:",
+            "process": {
+              "title": "검증 프로세스",
+              "stage1": {
+                "label": "AI 분석",
+                "value": "자동화된 패턴 인식 및 위험 평가"
+              },
+              "stage2": {
+                "label": "전문가 검토",
+                "value": "도메인 전문가에 의한 인적 검증"
+              },
+              "stage3": {
+                "label": "온체인 커밋",
+                "value": "검증 결과의 불변 기록"
+              }
+            },
+            "implications": {
+              "title": "점수의 의미",
+              "content": "트러스트 스코어는 투자 조언이 아닙니다."
             }
           },
           "burn": {
-            "title": "6. 소각 Mechanism",
-            "content": "Projects must deposit collateral equal to their burn commitment. Failure to execute scheduled burns triggers automatic penalties and collateral burns through smart contracts."
+            "title": "6. 소각 메커니즘",
+            "content": "TBurn Chain은 공급량 감소와 가치 안정화를 위한 토큰 소각 메커니즘을 구현합니다."
           },
           "prohibited": {
-            "title": "7. Prohibited Activities",
-            "intro": "You agree not to:",
+            "title": "7. 금지 행위",
+            "intro": "TBurn Chain 사용 시 다음 행위가 금지됩니다:",
+            "laundering": "자금 세탁 또는 불법 금융 활동",
+            "falseInfo": "허위 또는 오해의 소지가 있는 정보 제공",
+            "manipulate": "트러스트 스코어 조작 시도",
+            "exploit": "시스템 취약점 악용",
+            "washTrading": "가장 매매 또는 시장 조작",
             "items": {
-              "laundering": "Use the platform for money laundering or terrorist financing",
-              "falseInfo": "제출 false or misleading project information",
-              "manipulate": "Manipulate Trust Scores through coordinated voting",
-              "exploit": "Attempt to exploit smart contract vulnerabilities",
-              "washTrading": "Engage in market manipulation or wash trading"
+              "laundering": "자금 세탁 또는 불법 금융 활동",
+              "falseInfo": "허위 정보 제공",
+              "manipulate": "트러스트 스코어 조작 시도",
+              "exploit": "시스템 취약점 악용",
+              "washTrading": "가장 매매 또는 시장 조작"
             }
           },
           "ip": {
-            "title": "8. Intellectual Property",
-            "content": "All intellectual property rights in TBurn 체인, including the platform, protocols, and branding, are owned by TBurn 체인 재단. You are granted a limited, non-exclusive license to use our services."
+            "title": "8. 지적 재산권",
+            "content": "TBurn Chain, 로고 및 모든 관련 콘텐츠는 TBurn Chain 재단의 재산입니다."
+          },
+          "disclaimers": {
+            "title": "9. 면책 및 제한",
+            "asIs": {
+              "title": "현상 그대로 제공",
+              "content": "서비스는 어떠한 종류의 보증 없이 현상 그대로 제공됩니다."
+            },
+            "noAdvice": {
+              "title": "투자 조언 아님",
+              "content": "TBurn Chain은 투자, 금융 또는 법률 자문을 제공하지 않습니다."
+            },
+            "limitation": {
+              "title": "책임의 제한",
+              "content": "법이 허용하는 최대 범위 내에서 책임지지 않습니다."
+            },
+            "noInvestmentAdvice": "투자 조언 아님",
+            "noInvestmentAdviceContent": "TBurn Chain은 투자 자문을 제공하지 않습니다.",
+            "limitationOfLiability": "책임의 제한",
+            "limitationOfLiabilityContent": "법이 허용하는 최대 범위 내에서 책임지지 않습니다.",
+            "asIsContent": "서비스는 현상 그대로 제공됩니다."
           },
           "governing": {
-            "title": "10. Governing Law",
-            "content": "These 약관 shall be governed by and construed in accordance with the laws of the jurisdiction where TBurn 체인 재단 is incorporated, without regard to conflict of law principles."
+            "title": "10. 준거법",
+            "content": "본 약관은 TBurn Chain 재단이 설립된 관할권의 법률에 따라 규율됩니다."
+          },
+          "governingLaw": {
+            "title": "10. 준거법",
+            "content": "본 약관은 TBurn Chain 재단이 설립된 관할권의 법률에 따라 규율됩니다."
           }
         },
         "contact": {
-          "title": "연락처 정보",
-          "legalInquiries": "법적 문의",
+          "title": "연락처",
+          "legalInquiries": "법률 문의",
           "generalSupport": "일반 지원",
-          "note": "참고: 본 이용약관은 영어로 제공됩니다. 편의를 위해 번역본이 제공될 수 있으나, 충돌이 있는 경우 영어 버전이 우선합니다.",
-          "community": {
-            "title": "커뮤니티",
-            "blog": "블로그",
-            "ambassador": "앰배서더 프로그램",
-            "grants": "그랜트",
-            "support": "지원"
-          },
+          "note": "참고: 본 이용약관은 영어로 제공됩니다.",
           "legal": {
-            "label": "법적 고지 Inquiries"
+            "label": "법률 문의"
           },
           "support": {
-            "label": "General 지원"
+            "label": "일반 지원"
           }
         },
         "relatedDocuments": {
           "title": "관련 법적 문서",
-          "privacyPolicy": "개인정보처리방침",
+          "privacyPolicy": "개인정보 처리방침",
           "privacyPolicyDesc": "데이터 처리 방법",
           "disclaimer": "면책조항",
-          "disclaimerDesc": "위험 공개 & 고지"
+          "disclaimerDesc": "위험 공시 및 통지"
         },
         "learnMore": {
           "title": "더 알아보기",
-          "trustScoreSystem": "신뢰도 점수 시스템",
+          "trustScoreSystem": "트러스트 스코어 시스템",
           "trustScoreSystemDesc": "3단계 검증",
           "whatIsWallet": "지갑이란?",
           "whatIsWalletDesc": "지갑 보안 기초",
-          "whatIsTBurnChain": "TBurn 체인이란?",
+          "whatIsTBurnChain": "TBurn Chain이란?",
           "whatIsTBurnChainDesc": "플랫폼 개요"
-        }
+        },
+        "lastUpdated": "최종 업데이트"
       },
       "privacy": {
         "title": "개인정보처리방침",
@@ -16040,35 +16014,37 @@
       },
       "disclaimer": {
         "title": "면책조항",
-        "subtitle": "중요한 법적 고지 및 위험 공개.",
-        "forumTitle": "커뮤니티 포럼",
-        "viewAll": "전체 보기",
-        "recentPosts": "최근 게시물",
+        "subtitle": "중요한 법적 고지 및 위험 공시",
         "backToHome": "홈으로 돌아가기",
         "importantNotice": {
-          "title": "중요 고지",
-          "content": "TBurn 체인 서비스를 사용하기 전에 본 면책조항을 주의 깊게 읽으십시오. 당사 플랫폼에 접근하거나 사용함으로써 귀하는 다음 면책조항을 읽고, 이해하고, 동의함을 인정합니다."
+          "title": "중요 공지",
+          "content": "TBurn Chain 서비스를 이용하시기 전에 본 면책조항을 주의 깊게 읽어주시기 바랍니다. 플랫폼에 접속하거나 이용함으로써 귀하는 다음 면책조항을 읽고 이해하며 동의한 것으로 간주됩니다."
         },
         "sections": {
+          "noAdvice": {
+            "title": "1. 투자 조언 아님",
+            "warning": "TBurn Chain은 투자, 금융, 세무 또는 법률 자문을 제공하지 않습니다. 트러스트 스코어를 포함하여 플랫폼에서 제공되는 모든 정보는 정보 제공 목적으로만 제공되며, 어떤 종류의 조언으로도 해석되어서는 안 됩니다.",
+            "content": "투자 결정을 내리기 전에 자격을 갖춘 전문가와 상담하시기 바랍니다. 과거 실적이 미래 결과를 보장하지 않습니다."
+          },
           "noInvestmentAdvice": {
-            "title": "1. 투자 조언 없음",
-            "warning": "TBurn 체인은 투자, 재정, 세금 또는 법률 조언을 제공하지 않습니다. 신뢰도 점수를 포함하여 당사 플랫폼에서 제공하는 모든 정보는 정보 제공 목적으로만 사용되며 어떤 종류의 조언으로도 해석되어서는 안 됩니다.",
-            "content": "투자 결정을 내리기 전에 자격을 갖춘 전문가와 상담해야 합니다. 과거 실적이 미래 결과를 보장하지 않습니다."
+            "title": "1. 투자 조언 아님",
+            "warning": "TBurn Chain은 투자, 금융, 세무 또는 법률 자문을 제공하지 않습니다. 트러스트 스코어를 포함하여 플랫폼에서 제공되는 모든 정보는 정보 제공 목적으로만 제공되며, 어떤 종류의 조언으로도 해석되어서는 안 됩니다.",
+            "content": "투자 결정을 내리기 전에 자격을 갖춘 전문가와 상담하시기 바랍니다. 과거 실적이 미래 결과를 보장하지 않습니다."
           },
           "riskDisclosure": {
-            "title": "2. 위험 공개",
-            "intro": "암호화폐 및 블록체인 투자에는 다음을 포함한 상당한 위험이 있습니다:",
+            "title": "2. 위험 공시",
+            "intro": "암호화폐 및 블록체인 투자에는 다음과 같은 중대한 위험이 수반됩니다:",
             "items": {
               "marketVolatility": "시장 변동성: 가격이 단기간에 급격하게 변동할 수 있습니다",
               "regulatoryRisk": "규제 위험: 법률 및 규정이 예기치 않게 변경될 수 있습니다",
-              "technicalRisk": "기술적 위험: 스마트 컨트랙트에 버그나 취약점이 있을 수 있습니다",
-              "liquidityRisk": "유동성 위험: 원하는 때에 자산을 판매하지 못할 수 있습니다",
-              "lossOfFunds": "자금 손실: 투자금의 전부 또는 일부를 잃을 수 있습니다"
+              "technicalRisk": "기술적 위험: 스마트 컨트랙트에 버그나 취약점이 포함될 수 있습니다",
+              "liquidityRisk": "유동성 위험: 원하는 시점에 자산을 매각하지 못할 수 있습니다",
+              "lossOfFunds": "자금 손실: 투자금 전부 또는 일부를 잃을 수 있습니다"
             },
             "risks": {
               "volatility": {
                 "label": "시장 변동성",
-                "value": "Prices can fluctuate dramatically in short periods"
+                "value": "가격이 단기간에 급격하게 변동할 수 있습니다"
               },
               "regulatory": {
                 "label": "규제 위험",
@@ -16076,106 +16052,102 @@
               },
               "technical": {
                 "label": "기술적 위험",
-                "value": "Smart contracts may contain bugs or vulnerabilities"
+                "value": "스마트 컨트랙트에 버그나 취약점이 포함될 수 있습니다"
               },
               "liquidity": {
                 "label": "유동성 위험",
-                "value": "원하는 때에 자산을 판매하지 못할 수 있습니다"
+                "value": "원하는 시점에 자산을 매각하지 못할 수 있습니다"
               },
               "loss": {
-                "label": "손실 of 펀드",
-                "value": "투자금의 전부 또는 일부를 잃을 수 있습니다"
+                "label": "자금 손실",
+                "value": "투자금 전부 또는 일부를 잃을 수 있습니다"
               }
             }
           },
-          "trustScoreLimitations": {
-            "title": "3. 신뢰도 점수 제한",
-            "intro": "신뢰도 점수는 이용 가능한 데이터와 검증 프로세스를 기반으로 계산되지만:",
+          "trustScore": {
+            "title": "3. 트러스트 스코어 제한",
+            "intro": "트러스트 스코어는 가용 데이터와 당사의 검증 프로세스를 기반으로 계산되지만:",
             "items": {
-              "noGuarantee": "프로젝트의 안전성이나 적법성을 보장하지 않습니다",
-              "notAllFactors": "모든 관련 요소를 반영하지 못할 수 있습니다",
-              "noPrediction": "과거 점수가 미래 성과를 예측하지 못할 수 있습니다",
-              "oneFactor": "실사에서 여러 요소 중 하나로만 사용해야 합니다"
+              "noGuarantee": "어떤 프로젝트의 안전성이나 정당성도 보장하지 않습니다",
+              "notAllFactors": "모든 관련 요소를 반영하지 않을 수 있습니다",
+              "historical": "과거 점수가 미래 성과를 예측하지 못할 수 있습니다",
+              "dueDiligence": "실사 시 여러 요소 중 하나로 고려되어야 합니다"
             }
           },
-          "thirdPartyContent": {
-            "title": "4. 제3자 콘텐츠",
-            "content": "당사 플랫폼에는 제3자 웹사이트, 프로젝트 또는 콘텐츠에 대한 링크가 포함될 수 있습니다. 당사는 제3자 콘텐츠를 보증, 통제 또는 책임지지 않습니다. 제3자 리소스에 대한 접근은 귀하의 책임입니다."
-          },
-          "serviceAvailability": {
-            "title": "5. 서비스 가용성",
-            "content": "당사는 지속적인 서비스 가용성을 유지하기 위해 노력하지만, 중단 없는 접근을 보장하지 않습니다. 유지보수, 업그레이드 또는 예상치 못한 상황으로 인해 서비스가 일시적으로 사용 불가능할 수 있습니다."
-          },
-          "limitationOfLiability": {
-            "title": "6. 책임 제한",
-            "content": "적용 가능한 법률이 허용하는 최대 범위 내에서 TBURN CHAIN 재단과 그 계열사, 임원, 이사, 직원 및 에이전트는 귀하의 서비스 사용 또는 사용 불능으로 인한 이익, 영업권, 사용, 데이터 또는 기타 무형 손실에 대한 손해를 포함하되 이에 국한되지 않는 간접적, 우발적, 특별, 결과적, 징벌적 또는 예시적 손해에 대해 책임지지 않습니다."
-          },
-          "geographicRestrictions": {
-            "title": "7. 지리적 제한",
-            "content": "당사 서비스는 모든 관할권에서 이용 가능하지 않을 수 있습니다. TBurn 체인 사용이 귀하의 관할권 법률을 준수하는지 확인하는 것은 귀하의 책임입니다. 당사는 특정 지리적 위치에서 서비스 접근을 제한할 권리를 보유합니다."
-          },
-          "forwardLookingStatements": {
-            "title": "8. 미래 예측 진술",
-            "content": "미래 이벤트, 계획 또는 개발에 관한 모든 진술은 위험과 불확실성이 있는 미래 예측 진술입니다. 실제 결과는 해당 진술에서 표현되거나 암시된 것과 실질적으로 다를 수 있습니다."
-          },
-          "noAdvice": {
-            "title": "1. 투자 조언 없음",
-            "warning": "TBurn 체인 does not provide investment, financial, tax, or legal advice. All information provided on our platform, including Trust Scores, is for informational purposes only and should not be construed as advice of any kind.",
-            "content": "You should consult with qualified professionals before making any investment decisions. Past performance is not indicative of future results."
-          },
-          "trustScore": {
-            "title": "3. 신뢰도 점수 제한",
-            "intro": "신뢰도 점수는 이용 가능한 데이터와 검증 프로세스를 기반으로 계산되지만:",
+          "trustScoreLimitations": {
+            "title": "3. 트러스트 스코어 제한",
+            "intro": "트러스트 스코어는 가용 데이터와 당사의 검증 프로세스를 기반으로 계산되지만:",
             "items": {
-              "noGuarantee": "프로젝트의 안전성이나 적법성을 보장하지 않습니다",
-              "notAllFactors": "모든 관련 요소를 반영하지 못할 수 있습니다",
-              "historical": "과거 점수가 미래 성과를 예측하지 못할 수 있습니다",
-              "dueDiligence": "실사에서 여러 요소 중 하나로만 사용해야 합니다"
+              "noGuarantee": "어떤 프로젝트의 안전성이나 정당성도 보장하지 않습니다",
+              "notAllFactors": "모든 관련 요소를 반영하지 않을 수 있습니다",
+              "noPrediction": "과거 점수가 미래 성과를 예측하지 못할 수 있습니다",
+              "oneFactor": "실사 시 여러 요소 중 하나로 고려되어야 합니다"
             }
           },
           "thirdParty": {
             "title": "4. 제3자 콘텐츠",
-            "content": "Our platform may contain links to third-party websites, projects, or content. We do not endorse, control, or take responsibility for any third-party content. 접근 to third-party resources is at your own risk."
+            "content": "당사 플랫폼에는 제3자 웹사이트, 프로젝트 또는 콘텐츠에 대한 링크가 포함될 수 있습니다. 당사는 제3자 콘텐츠를 보증, 통제하거나 이에 대한 책임을 지지 않습니다. 제3자 리소스에 대한 접근은 귀하의 책임입니다."
+          },
+          "thirdPartyContent": {
+            "title": "4. 제3자 콘텐츠",
+            "content": "당사 플랫폼에는 제3자 웹사이트, 프로젝트 또는 콘텐츠에 대한 링크가 포함될 수 있습니다. 당사는 제3자 콘텐츠를 보증, 통제하거나 이에 대한 책임을 지지 않습니다. 제3자 리소스에 대한 접근은 귀하의 책임입니다."
           },
           "availability": {
             "title": "5. 서비스 가용성",
-            "content": "당사는 지속적인 서비스 가용성을 유지하기 위해 노력하지만, 중단 없는 접근을 보장하지 않습니다. 유지보수, 업그레이드 또는 예상치 못한 상황으로 인해 서비스가 일시적으로 사용 불가능할 수 있습니다."
+            "content": "당사는 지속적인 서비스 가용성 유지를 위해 노력하고 있으나, 중단 없는 접속을 보장하지 않습니다. 유지보수, 업그레이드 또는 예기치 않은 상황으로 인해 서비스가 일시적으로 중단될 수 있습니다."
+          },
+          "serviceAvailability": {
+            "title": "5. 서비스 가용성",
+            "content": "당사는 지속적인 서비스 가용성 유지를 위해 노력하고 있으나, 중단 없는 접속을 보장하지 않습니다. 유지보수, 업그레이드 또는 예기치 않은 상황으로 인해 서비스가 일시적으로 중단될 수 있습니다."
           },
           "limitation": {
-            "title": "6. 책임 제한",
-            "content": "적용 가능한 법률이 허용하는 최대 범위 내에서 TBURN CHAIN 재단과 그 계열사, 임원, 이사, 직원 및 에이전트는 귀하의 서비스 사용 또는 사용 불능으로 인한 이익, 영업권, 사용, 데이터 또는 기타 무형 손실에 대한 손해를 포함하되 이에 국한되지 않는 간접적, 우발적, 특별, 결과적, 징벌적 또는 예시적 손해에 대해 책임지지 않습니다."
+            "title": "6. 책임의 제한",
+            "content": "관련 법률이 허용하는 최대 범위 내에서, TBURN CHAIN 재단 및 그 계열사, 임원, 이사, 직원, 대리인은 당사 서비스 이용 또는 이용 불능으로 인해 발생하는 이익, 영업권, 사용, 데이터 또는 기타 무형적 손실에 대한 손해를 포함하되 이에 한정되지 않는 간접적, 우발적, 특별, 결과적, 징벌적 또는 모범적 손해에 대해 책임을 지지 않습니다."
+          },
+          "limitationOfLiability": {
+            "title": "6. 책임의 제한",
+            "content": "관련 법률이 허용하는 최대 범위 내에서, TBURN CHAIN 재단 및 그 계열사, 임원, 이사, 직원, 대리인은 당사 서비스 이용 또는 이용 불능으로 인해 발생하는 이익, 영업권, 사용, 데이터 또는 기타 무형적 손실에 대한 손해를 포함하되 이에 한정되지 않는 간접적, 우발적, 특별, 결과적, 징벌적 또는 모범적 손해에 대해 책임을 지지 않습니다."
           },
           "geographic": {
-            "title": "7. 지리적 제한",
-            "content": "당사 서비스는 모든 관할권에서 이용 가능하지 않을 수 있습니다. TBurn 체인 사용이 귀하의 관할권 법률을 준수하는지 확인하는 것은 귀하의 책임입니다. 당사는 특정 지리적 위치에서 서비스 접근을 제한할 권리를 보유합니다."
+            "title": "7. 지역적 제한",
+            "content": "당사 서비스는 모든 관할권에서 이용 가능하지 않을 수 있습니다. TBurn Chain 사용이 해당 관할권의 법률을 준수하는지 확인하는 것은 귀하의 책임입니다. 당사는 특정 지리적 위치에서의 서비스 접근을 제한할 권리를 보유합니다."
+          },
+          "geographicRestrictions": {
+            "title": "7. 지역적 제한",
+            "content": "당사 서비스는 모든 관할권에서 이용 가능하지 않을 수 있습니다. TBurn Chain 사용이 해당 관할권의 법률을 준수하는지 확인하는 것은 귀하의 책임입니다. 당사는 특정 지리적 위치에서의 서비스 접근을 제한할 권리를 보유합니다."
           },
           "forwardLooking": {
             "title": "8. 미래 예측 진술",
-            "content": "미래 이벤트, 계획 또는 개발에 관한 모든 진술은 위험과 불확실성이 있는 미래 예측 진술입니다. 실제 결과는 해당 진술에서 표현되거나 암시된 것과 실질적으로 다를 수 있습니다."
+            "content": "미래 이벤트, 계획 또는 개발에 관한 모든 진술은 위험과 불확실성이 수반되는 미래 예측 진술입니다. 실제 결과는 그러한 진술에서 표현되거나 암시된 것과 크게 다를 수 있습니다."
+          },
+          "forwardLookingStatements": {
+            "title": "8. 미래 예측 진술",
+            "content": "미래 이벤트, 계획 또는 개발에 관한 모든 진술은 위험과 불확실성이 수반되는 미래 예측 진술입니다. 실제 결과는 그러한 진술에서 표현되거나 암시된 것과 크게 다를 수 있습니다."
           }
+        },
+        "contact": {
+          "title": "질문이 있으신가요?",
+          "label": "법률 문의"
         },
         "questions": {
           "title": "질문이 있으신가요?",
-          "legalInquiries": "법적 문의"
+          "legalInquiries": "법률 문의"
         },
         "relatedDocuments": {
           "title": "관련 법적 문서",
-          "termsOfService": "이용약관",
+          "termsOfService": "서비스 이용약관",
           "termsOfServiceDesc": "사용자 계약",
-          "privacyPolicy": "개인정보처리방침",
+          "privacyPolicy": "개인정보 처리방침",
           "privacyPolicyDesc": "데이터 처리"
         },
         "learnMore": {
           "title": "더 알아보기",
-          "trustScoreSystem": "신뢰도 점수 시스템",
+          "trustScoreSystem": "트러스트 스코어 시스템",
           "trustScoreSystemDesc": "점수 작동 방식",
-          "introToDefi": "DeFi 입문",
+          "introToDefi": "DeFi 소개",
           "introToDefiDesc": "위험 이해하기"
         },
-        "contact": {
-          "title": "질문이 있으신가요?",
-          "label": "법적 고지 Inquiries"
-        }
+        "lastUpdated": "최종 업데이트"
       },
       "common": {
         "backToHome": "뒤로 to Home",
@@ -18532,13 +18504,13 @@
       "gettingStarted": "시작하기",
       "network": "네트워크",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "ai": "AI",
       "operations": "운영",
       "settings": "설정"
@@ -18875,17 +18847,17 @@
     "basicInfo": "기본 정보",
     "network": "네트워크",
     "blockchain": "블록체인",
-        "solidity": "Solidity",
-        "rust": "Rust",
-        "typescript": "TypeScript",
-        "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+    "solidity": "Solidity",
+    "rust": "Rust",
+    "typescript": "TypeScript",
+    "security": "보안",
+    "metaverse": "메타버스",
+    "businessAnalysis": "사업분석",
+    "businessPlanning": "사업기획",
+    "realMetaverse": "리얼메타버스",
+    "tradeExpert": "통상전문가",
+    "globalBroker": "글로벌브로커",
+    "internationalBusiness": "국제비즈니스",
     "ipAddress": "IP 주소",
     "version": "버전",
     "editNode": "노드 편집",
@@ -19226,17 +19198,17 @@
     "viewAll": "전체 보기",
     "recentPosts": "최근 게시물",
     "blockchain": "블록체인",
-        "solidity": "Solidity",
-        "rust": "Rust",
-        "typescript": "TypeScript",
-        "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+    "solidity": "Solidity",
+    "rust": "Rust",
+    "typescript": "TypeScript",
+    "security": "보안",
+    "metaverse": "메타버스",
+    "businessAnalysis": "사업분석",
+    "businessPlanning": "사업기획",
+    "realMetaverse": "리얼메타버스",
+    "tradeExpert": "통상전문가",
+    "globalBroker": "글로벌브로커",
+    "internationalBusiness": "국제비즈니스",
     "committee": "위원회",
     "blockchainParams": "블록체인 파라미터",
     "blockchainParamsDesc": "핵심 블록체인 설정 구성",
@@ -20171,13 +20143,13 @@
     "stats": {
       "overallScore": "전체 점수",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "dataProtection": "데이터 보호",
       "operationalRisk": "운영 리스크",
       "regulatory": "규제"
@@ -20495,13 +20467,13 @@
       "alerts": "알림",
       "documentation": "문서",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "uiux": "UI/UX",
       "bug": "버그",
       "feature": "기능",
@@ -20644,13 +20616,13 @@
       "configuration": "설정",
       "operations": "운영",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "userManagement": "사용자 관리",
       "development": "개발",
       "system": "시스템",
@@ -21641,13 +21613,13 @@
       "general": "일반",
       "network": "네트워크",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "notifications": "알림",
       "appearance": "외관"
     },
@@ -21857,13 +21829,13 @@
       "rateLimits": "요청 제한",
       "endpoints": "엔드포인트",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스"
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스"
     },
     "keys": {
       "title": "API 키",
@@ -21996,13 +21968,13 @@
       "analytics": "분석",
       "monitoring": "모니터링",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "communication": "통신",
       "storage": "스토리지"
     },
@@ -22460,13 +22432,13 @@
     "detail": {
       "accountInfo": "계정 정보",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스"
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스"
     },
     "confirm": {
       "deleteTitle": "계정 삭제",
@@ -22994,13 +22966,13 @@
       "delete": "삭제",
       "login": "로그인",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "settings": "설정",
       "update": "업데이트",
       "view": "조회"
@@ -23561,13 +23533,13 @@
     "executionSettings": "실행 설정",
     "executionSettingsDesc": "제안 실행 규칙 구성",
     "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+    "metaverse": "메타버스",
+    "businessAnalysis": "사업분석",
+    "businessPlanning": "사업기획",
+    "realMetaverse": "리얼메타버스",
+    "tradeExpert": "통상전문가",
+    "globalBroker": "글로벌브로커",
+    "internationalBusiness": "국제비즈니스",
     "securitySettings": "보안 설정",
     "securitySettingsDesc": "보안 파라미터 구성",
     "securityAlerts": "보안 알림",
@@ -23957,17 +23929,17 @@
     "all": "전체",
     "categories": {
       "blockchain": "블록체인",
-        "solidity": "Solidity",
-        "rust": "Rust",
-        "typescript": "TypeScript",
-        "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "solidity": "Solidity",
+      "rust": "Rust",
+      "typescript": "TypeScript",
+      "security": "보안",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "wallet": "지갑",
       "transaction": "트랜잭션",
       "token": "토큰",
@@ -25703,13 +25675,13 @@
       "development": "개발",
       "marketing": "마케팅",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "research": "연구개발",
       "legal": "법무",
       "hr": "인사",
@@ -25720,13 +25692,13 @@
       "engineering": "엔지니어링",
       "marketing": "마케팅",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "operations": "운영",
       "rd": "연구개발",
       "legal": "법무",
@@ -25957,13 +25929,13 @@
       "infrastructure": "인프라",
       "aiServices": "AI 서비스",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "operations": "운영",
       "other": "기타"
     },
@@ -26230,13 +26202,13 @@
       "validators": "검증자",
       "validatorsRegistered": "검증자 등록됨",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "aiConfig": "AI 설정"
     },
     "tabs": {
@@ -26260,13 +26232,13 @@
       "bridge": "브릿지",
       "governance": "거버넌스",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "troubleshooting": "문제 해결",
       "api": "API"
     },
@@ -27813,13 +27785,13 @@
       "solutions": "솔루션",
       "community": "커뮤니티",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "tokenomics": "토크노믹스"
     },
     "content": {
@@ -30099,13 +30071,13 @@
       "tokenStandards": "토큰 표준",
       "defi": "DeFi 스택",
       "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "governance": "거버넌스",
       "roadmap": "로드맵"
     },
@@ -31642,8 +31614,8 @@
   "tokenPrograms": {
     "ecosystemFund": {
       "loading": "로딩 중...",
-    "translating": "번역 중...",
-    "translated": "번역됨",
+      "translating": "번역 중...",
+      "translated": "번역됨",
       "wallet": {
         "connect": "지갑 연결",
         "connectWallet": "지갑 연결하기",
@@ -32622,8 +32594,8 @@
     },
     "validatorIncentives": {
       "loading": "로딩 중...",
-    "translating": "번역 중...",
-    "translated": "번역됨",
+      "translating": "번역 중...",
+      "translated": "번역됨",
       "hero": {
         "badge": "검증자 인센티브",
         "title": "검증자 인센티브",
@@ -33350,17 +33322,17 @@
       "advisorCount": "어드바이저 수",
       "expertise": "전문 분야",
       "blockchain": "블록체인",
-        "solidity": "Solidity",
-        "rust": "Rust",
-        "typescript": "TypeScript",
-        "security": "보안",
-        "metaverse": "메타버스",
-        "businessAnalysis": "사업분석",
-        "businessPlanning": "사업기획",
-        "realMetaverse": "리얼메타버스",
-        "tradeExpert": "통상전문가",
-        "globalBroker": "글로벌브로커",
-        "internationalBusiness": "국제비즈니스",
+      "solidity": "Solidity",
+      "rust": "Rust",
+      "typescript": "TypeScript",
+      "security": "보안",
+      "metaverse": "메타버스",
+      "businessAnalysis": "사업분석",
+      "businessPlanning": "사업기획",
+      "realMetaverse": "리얼메타버스",
+      "tradeExpert": "통상전문가",
+      "globalBroker": "글로벌브로커",
+      "internationalBusiness": "국제비즈니스",
       "finance": "금융",
       "legal": "법률 & 컴플라이언스",
       "marketing": "마케팅",
@@ -35139,8 +35111,8 @@
           }
         },
         "loading": "로딩 중...",
-    "translating": "번역 중...",
-    "translated": "번역됨",
+        "translating": "번역 중...",
+        "translated": "번역됨",
         "loadingDesc": "이벤트 데이터를 불러오는 중...",
         "noEvents": "이벤트 없음",
         "noEventsDesc": "해당 카테고리에 이벤트가 없습니다",
@@ -38666,7 +38638,6 @@
         "portfolio": "포트폴리오 관리",
         "blockchain": "블록체인",
         "solidity": "Solidity",
-        "rust": "Rust",
         "typescript": "TypeScript",
         "security": "보안",
         "metaverse": "메타버스",
