@@ -244,7 +244,7 @@ export class EnterpriseMerkleTree {
   build(txHashes: string[]): string {
     if (txHashes.length === 0) {
       this.root = '0'.repeat(64);
-      return '0x' + this.root;
+      return 'sr1' + this.root;
     }
 
     this.leaves = txHashes.map(h => h.startsWith('0x') ? h.substring(2) : h);
@@ -272,7 +272,7 @@ export class EnterpriseMerkleTree {
     }
 
     this.root = level[0];
-    return '0x' + this.root;
+    return 'sr1' + this.root;
   }
 
   buildParallel(txHashes: string[], batchSize: number = 1000): string {
@@ -313,7 +313,7 @@ export class EnterpriseMerkleTree {
     }
 
     this.root = level[0];
-    return '0x' + this.root;
+    return 'sr1' + this.root;
   }
 
   getProof(index: number): MerkleProof | null {
@@ -329,9 +329,9 @@ export class EnterpriseMerkleTree {
       const siblingIndex = currentIndex % 2 === 0 ? currentIndex + 1 : currentIndex - 1;
       
       if (siblingIndex < level.length) {
-        proof.push('0x' + level[siblingIndex]);
+        proof.push('sr1' + level[siblingIndex]);
       } else {
-        proof.push('0x' + level[currentIndex]);
+        proof.push('sr1' + level[currentIndex]);
       }
 
       const nextLevel: string[] = [];
@@ -346,10 +346,10 @@ export class EnterpriseMerkleTree {
     }
 
     return {
-      root: '0x' + this.root,
+      root: 'sr1' + this.root,
       proof,
       index,
-      leaf: '0x' + this.leaves[index],
+      leaf: 'sr1' + this.leaves[index],
     };
   }
 
@@ -375,11 +375,11 @@ export class EnterpriseMerkleTree {
     }
 
     this.leaves[index] = newHash.startsWith('0x') ? newHash.substring(2) : newHash;
-    return this.build(this.leaves.map(l => '0x' + l));
+    return this.build(this.leaves.map(l => 'sr1' + l));
   }
 
   getRoot(): string {
-    return '0x' + this.root;
+    return 'sr1' + this.root;
   }
 
   getCacheStats(): { hits: number; misses: number; hitRate: number } {
@@ -759,7 +759,7 @@ export class EnterpriseBlockVerifier {
       validatorAddress: validatorAddress.toLowerCase(),
     });
     
-    return '0x' + crypto.createHash('sha256').update(blockData).digest('hex');
+    return 'bh1' + crypto.createHash('sha256').update(blockData).digest('hex');
   }
 
   generateMerkleRoot(txHashes: string[]): string {

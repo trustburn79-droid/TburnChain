@@ -786,7 +786,7 @@ export class EnterpriseP2PNetwork extends EventEmitter {
       capabilities: ['eth', 'snap', 'tburn'],
       bestBlockNumber: this.bestBlockNumber,
       bestBlockHash: this.bestBlockHash,
-      genesisHash: '0x' + '0'.repeat(64), // Placeholder
+      genesisHash: 'bh1' + '0'.repeat(64), // Placeholder
       timestamp: Date.now(),
       nonce: crypto.randomBytes(8).toString('hex')
     };

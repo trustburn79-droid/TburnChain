@@ -313,7 +313,7 @@ class StateManager {
     // Update code hash
     const account = this.getAccount(normalizedAddress);
     if (account) {
-      const codeHash = '0x' + crypto.createHash('keccak256')
+      const codeHash = 'bc1' + crypto.createHash('keccak256')
         .update(Buffer.from(code.slice(2), 'hex'))
         .digest('hex');
       this.setAccount({ ...account, codeHash });
@@ -366,7 +366,7 @@ class StateManager {
       `${addr}:${acc.balance}:${acc.nonce}:${acc.codeHash}`
     ).join('|');
     
-    this.stateRoot = '0x' + crypto.createHash('sha256').update(data || 'empty').digest('hex');
+    this.stateRoot = 'sr1' + crypto.createHash('sha256').update(data || 'empty').digest('hex');
     return this.stateRoot;
   }
   
@@ -526,7 +526,7 @@ export class EnterpriseExecutionEngine extends EventEmitter {
         // Generate contract address
         const nonceHex = tx.nonce.toString(16).padStart(2, '0');
         const addressData = tx.from.toLowerCase() + nonceHex;
-        contractAddress = '0x' + crypto.createHash('sha256')
+        contractAddress = 'sr1' + crypto.createHash('sha256')
           .update(addressData)
           .digest('hex')
           .slice(24);
@@ -541,7 +541,7 @@ export class EnterpriseExecutionEngine extends EventEmitter {
           address: contractAddress,
           balance: tx.value,
           nonce: 0,
-          codeHash: '0x' + crypto.createHash('keccak256')
+          codeHash: 'bc1' + crypto.createHash('keccak256')
             .update(Buffer.from(tx.data.slice(2), 'hex'))
             .digest('hex'),
           storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
@@ -577,7 +577,7 @@ export class EnterpriseExecutionEngine extends EventEmitter {
           logs.push({
             address: tx.to,
             topics: [
-              '0x' + crypto.createHash('sha256').update('Transfer').digest('hex')
+              'sr1' + crypto.createHash('sha256').update('Transfer').digest('hex')
             ],
             data: tx.data,
             logIndex: 0,
@@ -805,7 +805,7 @@ export class EnterpriseExecutionEngine extends EventEmitter {
    */
   private computeLogsBloom(logs: Log[]): string {
     if (logs.length === 0) {
-      return '0x' + '0'.repeat(512);
+      return 'lb1' + '0'.repeat(512);
     }
     
     const bloom = new Uint8Array(256);
@@ -820,7 +820,7 @@ export class EnterpriseExecutionEngine extends EventEmitter {
       }
     }
     
-    return '0x' + Buffer.from(bloom).toString('hex');
+    return 'lb1' + Buffer.from(bloom).toString('hex');
   }
   
   private addToBloom(bloom: Uint8Array, value: string): void {
@@ -846,7 +846,7 @@ export class EnterpriseExecutionEngine extends EventEmitter {
       `${r.transactionHash}:${r.status}:${r.gasUsed}:${r.logs.length}`
     ).join('|');
     
-    return '0x' + crypto.createHash('sha256').update(data).digest('hex');
+    return 'sr1' + crypto.createHash('sha256').update(data).digest('hex');
   }
   
   // State access methods

@@ -286,7 +286,7 @@ class StateReconstructor {
     
     entries.sort();
     const data = entries.join('|');
-    this.stateRoot = '0x' + crypto.createHash('sha256').update(data || 'empty').digest('hex');
+    this.stateRoot = 'sr1' + crypto.createHash('sha256').update(data || 'empty').digest('hex');
   }
   
   getStateRoot(): string {
@@ -337,11 +337,11 @@ export class EnterpriseProductionBootstrap extends EventEmitter {
   // Finality state
   private finalityState: FinalityState = {
     justifiedEpoch: 0,
-    justifiedRoot: '0x' + '0'.repeat(64),
+    justifiedRoot: 'bh1' + '0'.repeat(64),
     finalizedEpoch: 0,
-    finalizedRoot: '0x' + '0'.repeat(64),
+    finalizedRoot: 'bh1' + '0'.repeat(64),
     headBlock: 0,
-    headHash: '0x' + '0'.repeat(64)
+    headHash: 'bh1' + '0'.repeat(64)
   };
   
   private constructor() {
@@ -462,7 +462,7 @@ export class EnterpriseProductionBootstrap extends EventEmitter {
       const result: BootstrapResult = {
         success: false,
         headBlock: 0,
-        headHash: '0x' + '0'.repeat(64),
+        headHash: 'bh1' + '0'.repeat(64),
         stateRoot: BOOTSTRAP_CONFIG.GENESIS_STATE_ROOT,
         finalityState: this.finalityState,
         elapsedMs: Date.now() - this.startedAt,
@@ -495,7 +495,7 @@ export class EnterpriseProductionBootstrap extends EventEmitter {
       throw new Error('Invalid genesis block number');
     }
     
-    if (this.genesisData.block.parentHash !== '0x' + '0'.repeat(64)) {
+    if (this.genesisData.block.parentHash !== 'bh1' + '0'.repeat(64)) {
       throw new Error('Invalid genesis parent hash');
     }
     

@@ -100,9 +100,9 @@ export class DrizzleStateStorageAdapter {
         .orderBy(desc(blocks.blockNumber))
         .limit(1);
       
-      return latestBlock[0]?.stateRoot || '0x' + '0'.repeat(64);
+      return latestBlock[0]?.stateRoot || 'sr1' + '0'.repeat(64);
     } catch (error) {
-      return '0x' + '0'.repeat(64);
+      return 'sr1' + '0'.repeat(64);
     }
   }
   
@@ -317,7 +317,7 @@ export class DrizzleBootstrapPersistenceAdapter {
         epoch: Math.floor(b.blockNumber / 1000),
         stateRoot: b.stateRoot,
         blockHash: b.hash,
-        signature: '0x' + '0'.repeat(192),
+        signature: 'sig1' + '0'.repeat(192),
         validatorSignatures: [],
         timestamp: b.timestamp
       }));

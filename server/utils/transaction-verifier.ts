@@ -353,7 +353,7 @@ export class BlockVerifier {
       timestamp,
     });
     
-    return '0x' + crypto.createHash('sha256').update(blockData).digest('hex');
+    return 'th1' + crypto.createHash('sha256').update(blockData).digest('hex');
   }
 
   /**
@@ -361,7 +361,7 @@ export class BlockVerifier {
    */
   static generateTransactionRoot(txHashes: string[]): string {
     if (txHashes.length === 0) {
-      return '0x' + '0'.repeat(64); // Empty root
+      return 'th1' + '0'.repeat(64); // Empty root
     }
     
     // Build Merkle tree
@@ -380,7 +380,7 @@ export class BlockVerifier {
       level = nextLevel;
     }
     
-    return '0x' + level[0];
+    return 'th1' + level[0];
   }
 
   /**
@@ -453,7 +453,7 @@ export class ValidatorSignatureGenerator {
       timestamp: Date.now(),
     });
     
-    return '0x' + crypto.createHash('sha256').update(signatureData).digest('hex');
+    return 'th1' + crypto.createHash('sha256').update(signatureData).digest('hex');
   }
 
   /**

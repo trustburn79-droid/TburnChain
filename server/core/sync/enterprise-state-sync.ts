@@ -301,9 +301,9 @@ class StateDownloader extends EventEmitter {
     // Generate mock chunk data
     return {
       path,
-      proof: ['0x' + crypto.randomBytes(32).toString('hex')],
-      keys: Array(10).fill(0).map(() => '0x' + crypto.randomBytes(32).toString('hex')),
-      values: Array(10).fill(0).map(() => '0x' + crypto.randomBytes(64).toString('hex')),
+      proof: ['th1' + crypto.randomBytes(32).toString('hex')],
+      keys: Array(10).fill(0).map(() => 'th1' + crypto.randomBytes(32).toString('hex')),
+      values: Array(10).fill(0).map(() => 'th1' + crypto.randomBytes(64).toString('hex')),
       continuation: path.length < 4 ? path + crypto.randomBytes(1).toString('hex')[0] : undefined
     };
   }
@@ -391,8 +391,8 @@ class BlockDownloader extends EventEmitter {
     
     return {
       number,
-      hash: '0x' + crypto.randomBytes(32).toString('hex'),
-      parentHash: '0x' + crypto.randomBytes(32).toString('hex'),
+      hash: 'th1' + crypto.randomBytes(32).toString('hex'),
+      parentHash: 'th1' + crypto.randomBytes(32).toString('hex'),
       timestamp: Date.now(),
       transactions: []
     };

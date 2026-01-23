@@ -4183,7 +4183,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       consensusType: 'ai_committee_bft',
     });
 
-    const genesisBlockHash = '0x' + crypto.createHash('sha256').update(genesisData).digest('hex');
+    const genesisBlockHash = 'bh1' + crypto.createHash('sha256').update(genesisData).digest('hex');
 
     const totalDistributed = params.distributions
       .reduce((sum, d) => sum + BigInt(d.amount), BigInt(0))
@@ -4200,9 +4200,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
       validatorCount: params.validators.length,
       distributionCount: params.distributions.length,
       totalDistributed,
-      stateRoot: '0x' + crypto.createHash('sha256').update(genesisData + 'state').digest('hex'),
-      receiptsRoot: '0x' + crypto.createHash('sha256').update(genesisData + 'receipts').digest('hex'),
-      transactionsRoot: '0x' + crypto.createHash('sha256').update(genesisData + 'txs').digest('hex'),
+      stateRoot: 'bh1' + crypto.createHash('sha256').update(genesisData + 'state').digest('hex'),
+      receiptsRoot: 'bh1' + crypto.createHash('sha256').update(genesisData + 'receipts').digest('hex'),
+      transactionsRoot: 'bh1' + crypto.createHash('sha256').update(genesisData + 'txs').digest('hex'),
     };
 
     const genesisMessage = JSON.stringify({

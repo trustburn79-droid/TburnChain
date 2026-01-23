@@ -1981,7 +1981,7 @@ router.post('/testnet/faucet/request', async (req: Request, res: Response) => {
         transactionCount: 1,
         gasUsed: 21000,
         gasLimit: 15000000,
-        validator: '0x' + 'F'.repeat(40),
+        validator: 'tb1' + 'f'.repeat(40),
         size: 1024
       });
     }
@@ -1990,7 +1990,7 @@ router.post('/testnet/faucet/request', async (req: Request, res: Response) => {
     const transaction = await storage.createTestnetTransaction({
       hash: txHash,
       blockNumber,
-      fromAddress: '0x' + 'F'.repeat(40), // Faucet address
+      fromAddress: 'tb1' + 'f'.repeat(40), // Faucet address
       toAddress: walletAddress.toLowerCase(),
       value: faucetAmount,
       gasPrice: "100",

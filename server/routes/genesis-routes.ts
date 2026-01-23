@@ -1037,7 +1037,7 @@ router.post('/execute', async (req: Request, res: Response) => {
     for (const dist of genesisDistributions) {
       dist.status = 'distributed';
       dist.distributedAt = new Date().toISOString();
-      dist.distributionTxHash = '0x' + crypto.randomBytes(32).toString('hex');
+      dist.distributionTxHash = 'th1' + crypto.randomBytes(32).toString('hex');
     }
     
     addExecutionLog(

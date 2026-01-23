@@ -643,7 +643,7 @@ export class BlockchainOrchestrator extends EventEmitter {
             gasLimit: 30000000,
             timestamp: new Date(),
             proposer: blockRequest.proposerValidatorId,
-            signature: '0x' + '0'.repeat(128),
+            signature: 'sig1' + '0'.repeat(128),
             transactionCount: transactions.length,
             size: 1024 + transactions.length * 256,
           });

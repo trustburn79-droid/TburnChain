@@ -126,7 +126,7 @@ class BLSAggregator {
    */
   aggregateSignatures(signatures: string[]): string {
     if (signatures.length === 0) {
-      return '0x' + '0'.repeat(192);
+      return 'sig1' + '0'.repeat(192);
     }
     
     if (signatures.length === 1) {
@@ -135,7 +135,7 @@ class BLSAggregator {
     
     // Simulate aggregation by hashing all signatures together
     const combined = signatures.join('');
-    return '0x' + crypto.createHash('sha384').update(combined).digest('hex');
+    return 'sig1' + crypto.createHash('sha384').update(combined).digest('hex');
   }
   
   /**
@@ -156,11 +156,11 @@ class BLSAggregator {
    */
   aggregatePublicKeys(publicKeys: string[]): string {
     if (publicKeys.length === 0) {
-      return '0x' + '0'.repeat(96);
+      return 'sig1' + '0'.repeat(96);
     }
     
     const combined = publicKeys.join('');
-    return '0x' + crypto.createHash('sha384').update(combined).digest('hex').slice(0, 96);
+    return 'sig1' + crypto.createHash('sha384').update(combined).digest('hex').slice(0, 96);
   }
 }
 
@@ -174,7 +174,7 @@ class BitfieldOps {
    */
   static createEmpty(size: number): string {
     const bytes = Math.ceil(size / 8);
-    return '0x' + '00'.repeat(bytes);
+    return 'sig1' + '00'.repeat(bytes);
   }
   
   /**
@@ -190,7 +190,7 @@ class BitfieldOps {
     }
     
     bytes[byteIndex] |= (1 << bitIndex);
-    return '0x' + bytes.toString('hex');
+    return 'sig1' + bytes.toString('hex');
   }
   
   /**
@@ -243,7 +243,7 @@ class BitfieldOps {
       result[i] = (bytesA[i] || 0) | (bytesB[i] || 0);
     }
     
-    return '0x' + result.toString('hex');
+    return 'sig1' + result.toString('hex');
   }
   
   /**

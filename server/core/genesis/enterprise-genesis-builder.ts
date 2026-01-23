@@ -193,13 +193,13 @@ class GenesisStateBuilder {
       return `${address}:${account.balance}:${account.nonce}:${account.code || ''}:${storageRoot}`;
     }).join('|');
     
-    return '0x' + crypto.createHash(GENESIS_BUILDER_CONFIG.HASH_ALGORITHM).update(stateData).digest('hex');
+    return 'sr1' + crypto.createHash(GENESIS_BUILDER_CONFIG.HASH_ALGORITHM).update(stateData).digest('hex');
   }
   
   private computeStorageRoot(storage: Record<string, string>): string {
     const sortedKeys = Object.keys(storage).sort();
     const data = sortedKeys.map(k => `${k}:${storage[k]}`).join('|');
-    return '0x' + crypto.createHash(GENESIS_BUILDER_CONFIG.HASH_ALGORITHM).update(data).digest('hex');
+    return 'sr1' + crypto.createHash(GENESIS_BUILDER_CONFIG.HASH_ALGORITHM).update(data).digest('hex');
   }
   
   private emptyStorageRoot(): string {
@@ -246,7 +246,7 @@ class ValidatorKeyGenerator {
     
     // Generate address from public key
     const publicKeyHash = crypto.createHash('sha256').update(publicKeyDer).digest('hex');
-    const address = '0x' + publicKeyHash.slice(24);
+    const address = 'tb1' + publicKeyHash.slice(24);
     
     // Generate BLS key pair (simulated)
     const blsPrivateKey = crypto.randomBytes(32).toString('hex');
@@ -470,15 +470,15 @@ export class EnterpriseGenesisBuilder extends EventEmitter {
       nonce: GENESIS_BUILDER_CONFIG.GENESIS_NONCE,
       timestamp: genesisTimestamp,
       extraData: this.encodeExtraData(GENESIS_BUILDER_CONFIG.GENESIS_EXTRA_DATA),
-      gasLimit: '0x' + GENESIS_BUILDER_CONFIG.GENESIS_GAS_LIMIT.toString(16),
-      difficulty: '0x' + GENESIS_BUILDER_CONFIG.GENESIS_DIFFICULTY.toString(16),
-      mixHash: '0x' + '0'.repeat(64),
-      coinbase: '0x' + '0'.repeat(40),
+      gasLimit: 'gl1' + GENESIS_BUILDER_CONFIG.GENESIS_GAS_LIMIT.toString(16),
+      difficulty: 'df1' + GENESIS_BUILDER_CONFIG.GENESIS_DIFFICULTY.toString(16),
+      mixHash: 'bh1' + '0'.repeat(64),
+      coinbase: 'tb1' + '0'.repeat(40),
       alloc: this.stateBuilder.toAlloc(),
       validators: this.validators,
       number: 0,
       gasUsed: '0x0',
-      parentHash: '0x' + '0'.repeat(64),
+      parentHash: 'bh1' + '0'.repeat(64),
       baseFeePerGas: '0x3b9aca00', // 1 Gwei
       stateRoot,
       transactionsRoot,
@@ -505,7 +505,7 @@ export class EnterpriseGenesisBuilder extends EventEmitter {
   
   private encodeExtraData(data: string): string {
     const hex = Buffer.from(data).toString('hex');
-    return '0x' + hex.padEnd(64, '0');
+    return 'sr1' + hex.padEnd(64, '0');
   }
   
   private computeBlockHash(block: GenesisBlock): string {
@@ -524,7 +524,7 @@ export class EnterpriseGenesisBuilder extends EventEmitter {
       block.nonce
     ].join('');
     
-    return '0x' + crypto.createHash(GENESIS_BUILDER_CONFIG.HASH_ALGORITHM).update(data).digest('hex');
+    return 'sr1' + crypto.createHash(GENESIS_BUILDER_CONFIG.HASH_ALGORITHM).update(data).digest('hex');
   }
   
   // ==================== Export/Import ====================

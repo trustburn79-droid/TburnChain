@@ -356,7 +356,7 @@ class LocalBlockBuilder {
     
     // Compute roots
     const txHashes = transactions.map(tx => tx.hash).join('');
-    const transactionsRoot = '0x' + crypto.createHash('sha256').update(txHashes || 'empty').digest('hex');
+    const transactionsRoot = 'bh1' + crypto.createHash('sha256').update(txHashes || 'empty').digest('hex');
     
     // Compute block hash
     const headerData = [
@@ -366,7 +366,7 @@ class LocalBlockBuilder {
       template.proposerAddress,
       gasUsed.toString()
     ].join(':');
-    const blockHash = '0x' + crypto.createHash('sha256').update(headerData).digest('hex');
+    const blockHash = 'bh1' + crypto.createHash('sha256').update(headerData).digest('hex');
     
     const header: BlockHeader = {
       number: template.parentNumber + 1,
@@ -375,7 +375,7 @@ class LocalBlockBuilder {
       stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
       transactionsRoot,
       receiptsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-      logsBloom: '0x' + '0'.repeat(512),
+      logsBloom: 'lb1' + '0'.repeat(512),
       difficulty: BigInt(0),
       gasLimit: template.gasLimit,
       gasUsed,
@@ -609,9 +609,9 @@ export class EnterpriseBlockProposalPipeline extends EventEmitter {
       hash: bid.blockHash,
       parentHash: bid.parentHash,
       stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-      transactionsRoot: '0x' + crypto.createHash('sha256').update(bid.transactions.join('')).digest('hex'),
+      transactionsRoot: 'bh1' + crypto.createHash('sha256').update(bid.transactions.join('')).digest('hex'),
       receiptsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-      logsBloom: '0x' + '0'.repeat(512),
+      logsBloom: 'lb1' + '0'.repeat(512),
       difficulty: BigInt(0),
       gasLimit: bid.gasLimit,
       gasUsed: bid.gasUsed,
@@ -647,7 +647,7 @@ export class EnterpriseBlockProposalPipeline extends EventEmitter {
       proposer
     ].join(':');
     
-    return '0x' + crypto.createHash('sha256').update(data).digest('hex');
+    return 'bh1' + crypto.createHash('sha256').update(data).digest('hex');
   }
   
   /**

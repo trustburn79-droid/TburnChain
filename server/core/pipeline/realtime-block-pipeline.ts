@@ -286,7 +286,7 @@ export class RealtimeBlockPipeline extends EventEmitter {
   }
   
   private generateHash(input: string): string {
-    return '0x' + crypto.createHash('sha256').update(input).digest('hex');
+    return 'bh1' + crypto.createHash('sha256').update(input).digest('hex');
   }
   
   // ==================== Stats Collection ====================

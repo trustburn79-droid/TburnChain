@@ -849,13 +849,13 @@ export class EnterpriseBFTEngine {
 
   private computeBlockHash(parentHash: string, stateRoot: string, txRoot: string, receiptsRoot: string, timestamp: number): string {
     const data = `${parentHash}${stateRoot}${txRoot}${receiptsRoot}${timestamp}`;
-    return '0x' + crypto.createHash('sha256').update(data).digest('hex');
+    return 'th1' + crypto.createHash('sha256').update(data).digest('hex');
   }
 
   private signMessage(address: string, message: string): string {
     // Simulated signing - in production would use actual key material
     const data = `${address}:${message}`;
-    return '0x' + crypto.createHash('sha256').update(data).digest('hex').substring(0, 128);
+    return 'th1' + crypto.createHash('sha256').update(data).digest('hex').substring(0, 128);
   }
 
   private verifySignature(address: string, message: string, signature: string): boolean {
@@ -867,7 +867,7 @@ export class EnterpriseBFTEngine {
   private aggregateSignatures(signatures: string[]): string {
     // Simulated BLS aggregation - in production would use actual BLS
     const combined = signatures.join('');
-    return '0x' + crypto.createHash('sha256').update(combined).digest('hex');
+    return 'th1' + crypto.createHash('sha256').update(combined).digest('hex');
   }
 
   // ============================================

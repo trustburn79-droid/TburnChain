@@ -393,12 +393,12 @@ export class ValidatorSimulationService {
     };
   }
 
-  // Generate deterministic validator address
+  // Generate deterministic validator address in tbv1 format
   private generateValidatorAddress(index: number): string {
     const hash = crypto.createHash('sha256')
       .update(`tburn-validator-${index}`)
       .digest('hex');
-    return `0x${hash.substring(0, 40)}`;
+    return `tbv1${hash.substring(0, 40)}`;
   }
 
   // Calculate voting power based on stake and delegations
@@ -783,8 +783,8 @@ export class ValidatorSimulationService {
     // ★ 메모리 최적화: 재사용 버퍼로 해시 생성
     const block = {
       blockNumber: blockHeight,
-      hash: `0x${this.generateHashHex()}`,
-      parentHash: `0x${this.generateHashHex()}`,
+      hash: `bh1${this.generateHashHex()}`,
+      parentHash: `bh1${this.generateHashHex()}`,
       timestamp: Math.floor(now / 1000),
       transactionCount: transactionCount,
       validatorAddress: producer.address,
@@ -792,8 +792,8 @@ export class ValidatorSimulationService {
       gasLimit: 30000000,
       size: 50000 + Math.floor(Math.random() * 100000),
       shardId: Math.floor(Math.random() * this.currentShardCount),
-      stateRoot: `0x${this.generateHashHex()}`,
-      receiptsRoot: `0x${this.generateHashHex()}`,
+      stateRoot: `sr1${this.generateHashHex()}`,
+      receiptsRoot: `rr1${this.generateHashHex()}`,
       executionClass: "parallel",
       latencyNs: BigInt(50000000 + Math.floor(Math.random() * 50000000)),
       parallelBatchId: this.generateHashHex().slice(0, 32),
@@ -857,14 +857,14 @@ export class ValidatorSimulationService {
         messageId: `csm-${Date.now()}-${this.crossShardMessageCounter.toString().padStart(6, '0')}`,
         fromShardId: fromShard.shardId,
         toShardId: toShard.shardId,
-        transactionHash: `0x${crypto.randomBytes(32).toString('hex')}`,
+        transactionHash: `th1${crypto.randomBytes(32).toString('hex')}`,
         status: status,
         messageType: messageType,
         payload: {
           blockHeight: this.currentBlockHeight,
           sender: this.validators[Math.floor(Math.random() * this.validators.length)].address,
           amount: (BigInt(1e18) * BigInt(1 + Math.floor(Math.random() * 1000))).toString(),
-          data: messageType === 'contract_call' ? `0x${crypto.randomBytes(32).toString('hex')}` : null,
+          data: messageType === 'contract_call' ? `cd1${crypto.randomBytes(32).toString('hex')}` : null,
           nonce: Math.floor(Math.random() * 1000000),
           timestamp: Date.now(),
         },

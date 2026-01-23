@@ -269,7 +269,7 @@ class BlockProductionPipeline {
     
     // Get parent block
     const head = this.forkChoice.getHead();
-    const parentHash = head?.hash || '0x' + '0'.repeat(64);
+    const parentHash = head?.hash || 'bh1' + '0'.repeat(64);
     const parentNumber = head?.number ?? -1;
     
     // Select transactions from mempool
@@ -370,7 +370,7 @@ class BlockProductionPipeline {
         contractAddress: null,
         logs: [],
         status: 1,
-        logsBloom: '0x' + '0'.repeat(512)
+        logsBloom: 'lb1' + '0'.repeat(512)
       };
       
       await this.stateStore.putReceipt(receipt);
@@ -403,7 +403,7 @@ class BlockProductionPipeline {
       proposer,
       ORCHESTRATOR_CONFIG.BLOCK_GAS_LIMIT.toString()
     ].join(':');
-    return '0x' + crypto.createHash('sha256').update(data).digest('hex');
+    return 'bh1' + crypto.createHash('sha256').update(data).digest('hex');
   }
   
   private computeTxRoot(transactions: ValidatedTransaction[]): string {
@@ -412,7 +412,7 @@ class BlockProductionPipeline {
     }
     
     const data = transactions.map(tx => tx.hash).join('');
-    return '0x' + crypto.createHash('sha256').update(data).digest('hex');
+    return 'bh1' + crypto.createHash('sha256').update(data).digest('hex');
   }
   
   getBlockNumber(): number {
@@ -626,8 +626,8 @@ export class ProductionBlockchainOrchestrator extends EventEmitter {
         
         // Re-initialize fork choice with existing chain
         const genesisBlock: BlockInfo = {
-          hash: '0x' + '0'.repeat(64),
-          parentHash: '0x' + '0'.repeat(64),
+          hash: 'bh1' + '0'.repeat(64),
+          parentHash: 'bh1' + '0'.repeat(64),
           number: 0,
           timestamp: 0,
           proposer: '',

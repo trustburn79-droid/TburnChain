@@ -41,7 +41,7 @@ function generateHash(data: string): string {
 }
 
 function generateMerkleRoot(hashes: string[]): string {
-  if (hashes.length === 0) return '0x' + '0'.repeat(64);
+  if (hashes.length === 0) return 'bh1' + '0'.repeat(64);
   if (hashes.length === 1) return hashes[0];
   
   const pairs: string[] = [];
@@ -77,12 +77,12 @@ function processBlock(request: BlockProcessRequest): BlockProcessResult {
     state.processedBlocks++;
     
     return {
-      blockHash: '0x' + blockHash,
+      blockHash: 'bh1' + blockHash,
       blockHeight: request.blockHeight,
       shardId: request.shardId,
-      stateRoot: '0x' + stateRoot,
-      transactionsRoot: '0x' + transactionsRoot,
-      receiptsRoot: '0x' + receiptsRoot,
+      stateRoot: 'sr1' + stateRoot,
+      transactionsRoot: 'th1' + transactionsRoot,
+      receiptsRoot: 'rr1' + receiptsRoot,
       gasUsed: totalGas,
       timestamp: Date.now(),
       success: true,
@@ -132,7 +132,7 @@ function processShardSnapshot(request: ShardSnapshotRequest): ShardSnapshotResul
   return {
     shardId: request.shardId,
     blockHeight: request.blockHeight,
-    stateRoot: '0x' + generateHash(`shard:${request.shardId}:${request.blockHeight}:${Date.now()}`),
+    stateRoot: 'sr1' + generateHash(`shard:${request.shardId}:${request.blockHeight}:${Date.now()}`),
     accountCount: baseAccounts + randomVariation,
     storageBytes: (baseAccounts + randomVariation) * 256,
     tps: 3000 + Math.floor(Math.random() * 500),

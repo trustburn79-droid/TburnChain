@@ -393,7 +393,7 @@ export class ConsensusCoordinator {
 
   private generateHash(data: string): string {
     const crypto = require('crypto');
-    return '0x' + crypto.createHash('sha256').update(data + Date.now()).digest('hex');
+    return 'th1' + crypto.createHash('sha256').update(data + Date.now()).digest('hex');
   }
 
   public isActive(): boolean {
