@@ -1,5 +1,4 @@
 /**
-import { validatorAddressFromString } from "../utils/tburn-address";
  * TBURN Enterprise Validator Management API Routes
  * Production-grade endpoints for validator orchestration
  */
@@ -13,6 +12,7 @@ import { db } from '../db';
 import { validators, genesisValidators } from '@shared/schema';
 import { sql } from 'drizzle-orm';
 import { normalizeToHex, hexToTb1 } from '../utils/tbc20-address-utils';
+import { generateTBurnAddress } from '../utils/tburn-address';
 
 const router = Router();
 
@@ -147,7 +147,7 @@ router.get('/:address', async (req: Request, res: Response) => {
     
     // Generate mock delegators
     const delegatorList = Array.from({ length: Math.min(v.delegators || 0, 10) }, (_, i) => ({
-      address: validatorAddressFromString(`validator-${Date.now()}`),
+      address: generateTBurnAddress(v.id + 5000, i),
       amount: ((Math.random() * 10000) + 1000).toFixed(0),
       timestamp: Date.now() - Math.floor(Math.random() * 30) * 86400000,
     }));

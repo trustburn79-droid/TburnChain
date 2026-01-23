@@ -6356,17 +6356,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     try {
       const address = req.params.address;
       
-      // First try to get from EnterpriseNode (same source as /api/validators list)
-      const enterpriseNode = getEnterpriseNode();
-      const allValidators = enterpriseNode.getValidators();
-      const validator = allValidators.find(v => v.address.toLowerCase() === address.toLowerCase());
-      
-      if (validator) {
-        res.json(validator);
-        return;
-      }
-      
-      // Fallback to database if not found in EnterpriseNode
+      // [2026-01-23 FIX] Database is the source of truth for individual validator lookups
+      // This ensures consistency even when cache is stale or empty
+      // The getValidatorDetails function returns full validator data with history
       const validatorDetails = await storage.getValidatorDetails(address);
       res.json(validatorDetails);
     } catch (error) {
