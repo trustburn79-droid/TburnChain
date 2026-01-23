@@ -538,7 +538,6 @@ curl -X POST https://mainnet.tburn.io/api/v8/transactions/send \\
                       </div>
                     </div>
                   </div>
-                  </div>
                 </div>
               </section>
 
@@ -2430,45 +2429,7 @@ curl "https://mainnet.tburn.io/api/v8/blocks?limit=100&cursor=tb1cursor_block_20
   }
 }`} />
                 </div>
-                </div>
-                        <tr className="border-b border-gray-200 dark:border-white/5">
-                          <td className="py-3 font-mono text-[#ff0055]">404</td>
-                          <td className="py-3">Not Found</td>
-                          <td className="py-3 text-gray-600 dark:text-gray-400">Resource not found (block, transaction, address)</td>
-                        </tr>
-                        <tr className="border-b border-gray-200 dark:border-white/5">
-                          <td className="py-3 font-mono text-[#ff0055]">429</td>
-                          <td className="py-3">Too Many Requests</td>
-                          <td className="py-3 text-gray-600 dark:text-gray-400">Rate limit exceeded</td>
-                        </tr>
-                        <tr className="border-b border-gray-200 dark:border-white/5">
-                          <td className="py-3 font-mono text-[#ff0055]">500</td>
-                          <td className="py-3">Internal Error</td>
-                          <td className="py-3 text-gray-600 dark:text-gray-400">Server error - contact support if persistent</td>
-                        </tr>
-                        <tr className="border-b border-gray-200 dark:border-white/5">
-                          <td className="py-3 font-mono text-[#ff0055]">503</td>
-                          <td className="py-3">Service Unavailable</td>
-                          <td className="py-3 text-gray-600 dark:text-gray-400">API temporarily unavailable for maintenance</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Error Response Format</h4>
-                  <CodeBlock code={`{
-  "success": false,
-  "error": {
-    "code": "INVALID_ADDRESS",
-    "message": "The provided address is not a valid TBURN address",
-    "details": {
-      "field": "address",
-      "value": "invalid-address",
-      "expected": "0x-prefixed 40 character hex string"
-    }
-  }
-}`} />
-                </div>
+              </div>
               </section>
             </div>
           </div>
