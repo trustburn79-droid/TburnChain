@@ -105,8 +105,10 @@ export const app = express();
 app.set('trust proxy', 1);
 
 // ★ [2026-01-23] Security: Helmet middleware with CSP headers
+// CSP is disabled in development mode to allow Vite HMR and module loading
+const isDevelopment = process.env.NODE_ENV === 'development';
 app.use(helmet({
-  contentSecurityPolicy: {
+  contentSecurityPolicy: isDevelopment ? false : {
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
