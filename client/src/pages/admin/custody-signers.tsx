@@ -545,97 +545,190 @@ export default function CustodySignersAdmin() {
       </Tabs>
 
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent className="max-w-md" data-testid="dialog-add-signer">
+        <DialogContent className="max-w-lg" data-testid="dialog-add-signer">
           <DialogHeader>
-            <DialogTitle>새 서명자 추가</DialogTitle>
-            <DialogDescription>재단 커스터디 월렛의 새로운 서명자를 등록합니다.</DialogDescription>
+            <DialogTitle className="flex items-center gap-2">
+              <Key className="h-5 w-5" />
+              새 서명자 추가
+            </DialogTitle>
+            <DialogDescription>
+              재단 커스터디 월렛의 새로운 멀티시그 서명자를 등록합니다. 
+              등록된 서명자는 트랜잭션 승인 시 서명 권한을 갖습니다.
+            </DialogDescription>
           </DialogHeader>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="wallet">월렛</Label>
-              <Select 
-                value={formData.walletId} 
-                onValueChange={(v) => setFormData({...formData, walletId: v})}
-              >
-                <SelectTrigger id="wallet" data-testid="select-wallet">
-                  <SelectValue placeholder="월렛 선택" />
-                </SelectTrigger>
-                <SelectContent>
-                  {wallets.map((w) => (
-                    <SelectItem key={w.walletId} value={w.walletId}>{w.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+          <ScrollArea className="max-h-[60vh]">
+            <div className="space-y-5 pr-4">
+              <div className="space-y-2">
+                <Label htmlFor="wallet" className="flex items-center gap-1">
+                  <Wallet className="h-3.5 w-3.5" />
+                  대상 월렛 *
+                </Label>
+                <Select 
+                  value={formData.walletId} 
+                  onValueChange={(v) => setFormData({...formData, walletId: v})}
+                >
+                  <SelectTrigger id="wallet" data-testid="select-wallet">
+                    <SelectValue placeholder="월렛 선택" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {wallets.length === 0 ? (
+                      <SelectItem value="foundation-custody-main">Foundation Custody Main (기본)</SelectItem>
+                    ) : (
+                      wallets.map((w) => (
+                        <SelectItem key={w.walletId} value={w.walletId}>
+                          <div className="flex flex-col">
+                            <span>{w.name}</span>
+                            <span className="text-xs text-muted-foreground">
+                              {w.signaturesRequired}/{w.totalSigners} 서명 · {w.purpose}
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))
+                    )}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">서명자를 추가할 멀티시그 월렛을 선택합니다.</p>
+              </div>
+
+              <div className="border-t pt-4">
+                <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  서명자 정보
+                </h4>
+                
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">성명 (Full Name) *</Label>
+                    <Input 
+                      id="name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      placeholder="예: 홍길동 (Gildong Hong)"
+                      data-testid="input-name"
+                    />
+                    <p className="text-xs text-muted-foreground">공식 서명자 명단에 표시될 실명을 입력합니다.</p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="role">역할 (Role) *</Label>
+                    <Select 
+                      value={formData.role} 
+                      onValueChange={(v) => setFormData({...formData, role: v})}
+                    >
+                      <SelectTrigger id="role" data-testid="select-role">
+                        <SelectValue placeholder="역할 선택" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {roles.length === 0 ? (
+                          <>
+                            <SelectItem value="board_member">이사회 멤버 (Board Member)</SelectItem>
+                            <SelectItem value="foundation_officer">재단 임원 (Foundation Officer)</SelectItem>
+                            <SelectItem value="technical_lead">기술 책임자 (Technical Lead)</SelectItem>
+                            <SelectItem value="legal_officer">법무 담당 (Legal Officer)</SelectItem>
+                            <SelectItem value="community_representative">커뮤니티 대표 (Community Rep)</SelectItem>
+                            <SelectItem value="security_expert">보안 전문가 (Security Expert)</SelectItem>
+                            <SelectItem value="strategic_partner">전략적 파트너 (Strategic Partner)</SelectItem>
+                          </>
+                        ) : (
+                          roles.map((r) => {
+                            const RoleIcon = roleIcons[r.id] || Users;
+                            return (
+                              <SelectItem key={r.id} value={r.id}>
+                                <div className="flex items-center gap-2">
+                                  <RoleIcon className="h-3.5 w-3.5" />
+                                  <span>{r.name}</span>
+                                </div>
+                              </SelectItem>
+                            );
+                          })
+                        )}
+                      </SelectContent>
+                    </Select>
+                    <p className="text-xs text-muted-foreground">서명자의 조직 내 역할을 선택합니다. 역할에 따라 권한이 달라질 수 있습니다.</p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email">업무 이메일 (Business Email)</Label>
+                    <Input 
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      placeholder="예: signer@tburn.foundation"
+                      data-testid="input-email"
+                    />
+                    <p className="text-xs text-muted-foreground">트랜잭션 알림 및 승인 요청을 받을 이메일 주소입니다.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t pt-4">
+                <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
+                  <Key className="h-4 w-4" />
+                  서명 자격 증명
+                </h4>
+                
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="address">TBURN 서명 주소 *</Label>
+                    <Input 
+                      id="address"
+                      value={formData.signerAddress}
+                      onChange={(e) => setFormData({...formData, signerAddress: e.target.value})}
+                      placeholder="tb1q8z7n5d..."
+                      className="font-mono text-sm"
+                      data-testid="input-address"
+                    />
+                    <div className="text-xs text-muted-foreground space-y-1">
+                      <p>TBURN 메인넷 Bech32m 주소 형식 (tb1으로 시작, 42-62자)</p>
+                      <p className="text-yellow-600 dark:text-yellow-400">
+                        이 주소의 개인키로 트랜잭션 서명이 이루어집니다. 정확히 입력하세요.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="publicKey">공개 키 (Public Key)</Label>
+                    <Input 
+                      id="publicKey"
+                      value={formData.publicKey}
+                      onChange={(e) => setFormData({...formData, publicKey: e.target.value})}
+                      placeholder="pk1q8z7n5d4f6g7h8j9k0..."
+                      className="font-mono text-sm"
+                      data-testid="input-public-key"
+                    />
+                    <div className="text-xs text-muted-foreground space-y-1">
+                      <p>서명 검증용 공개 키 (pk1 형식, 66자 이상)</p>
+                      <p>지원 알고리즘: secp256k1, Ed25519, SPHINCS+ (양자내성)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t pt-4">
+                <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
+                  <Shield className="h-4 w-4" />
+                  권한 설정
+                </h4>
+                
+                <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
+                  <Switch
+                    checked={formData.canApproveEmergency}
+                    onCheckedChange={(v) => setFormData({...formData, canApproveEmergency: v})}
+                    data-testid="switch-emergency"
+                  />
+                  <div>
+                    <Label className="font-medium">비상 승인 권한</Label>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      활성화 시 4시간 단축 타임락으로 비상 트랜잭션을 승인할 수 있습니다.
+                      보안상 신뢰도가 높은 핵심 인원에게만 부여하세요.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="name">이름 *</Label>
-              <Input 
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                placeholder="서명자 이름"
-                data-testid="input-name"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="role">역할 *</Label>
-              <Select 
-                value={formData.role} 
-                onValueChange={(v) => setFormData({...formData, role: v})}
-              >
-                <SelectTrigger id="role" data-testid="select-role">
-                  <SelectValue placeholder="역할 선택" />
-                </SelectTrigger>
-                <SelectContent>
-                  {roles.map((r) => (
-                    <SelectItem key={r.id} value={r.id}>{r.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="address">서명 주소 (tb1...) *</Label>
-              <Input 
-                id="address"
-                value={formData.signerAddress}
-                onChange={(e) => setFormData({...formData, signerAddress: e.target.value})}
-                placeholder="tb1..."
-                className="font-mono"
-                data-testid="input-address"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">이메일</Label>
-              <Input 
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                placeholder="signer@example.com"
-                data-testid="input-email"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="publicKey">공개 키</Label>
-              <Input 
-                id="publicKey"
-                value={formData.publicKey}
-                onChange={(e) => setFormData({...formData, publicKey: e.target.value})}
-                placeholder="공개 키 (선택)"
-                className="font-mono"
-                data-testid="input-public-key"
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <Switch
-                checked={formData.canApproveEmergency}
-                onCheckedChange={(v) => setFormData({...formData, canApproveEmergency: v})}
-                data-testid="switch-emergency"
-              />
-              <Label>비상 승인 권한</Label>
-            </div>
-          </div>
-          <DialogFooter>
+          </ScrollArea>
+          <DialogFooter className="border-t pt-4">
             <Button variant="outline" onClick={() => setIsAddDialogOpen(false)} data-testid="button-cancel-add">
               취소
             </Button>
@@ -645,74 +738,142 @@ export default function CustodySignersAdmin() {
               data-testid="button-confirm-add"
             >
               {addSignerMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-              추가
+              서명자 등록
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-md" data-testid="dialog-edit-signer">
+        <DialogContent className="max-w-lg" data-testid="dialog-edit-signer">
           <DialogHeader>
-            <DialogTitle>서명자 수정</DialogTitle>
-            <DialogDescription>서명자 정보를 수정합니다.</DialogDescription>
+            <DialogTitle className="flex items-center gap-2">
+              <Edit className="h-5 w-5" />
+              서명자 정보 수정
+            </DialogTitle>
+            <DialogDescription>
+              {selectedSigner?.name} 서명자의 정보를 수정합니다. 서명 주소는 보안상 변경할 수 없습니다.
+            </DialogDescription>
           </DialogHeader>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="edit-name">이름 *</Label>
-              <Input 
-                id="edit-name"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                data-testid="input-edit-name"
-              />
+          <ScrollArea className="max-h-[60vh]">
+            <div className="space-y-5 pr-4">
+              <div className="p-3 rounded-lg bg-muted/50 border">
+                <p className="text-xs text-muted-foreground mb-1">서명 주소 (변경 불가)</p>
+                <p className="font-mono text-sm">{selectedSigner?.signerAddress}</p>
+              </div>
+
+              <div className="border-t pt-4">
+                <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  서명자 정보
+                </h4>
+                
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-name">성명 (Full Name) *</Label>
+                    <Input 
+                      id="edit-name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      placeholder="예: 홍길동 (Gildong Hong)"
+                      data-testid="input-edit-name"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-role">역할 (Role) *</Label>
+                    <Select 
+                      value={formData.role} 
+                      onValueChange={(v) => setFormData({...formData, role: v})}
+                    >
+                      <SelectTrigger id="edit-role" data-testid="select-edit-role">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {roles.length === 0 ? (
+                          <>
+                            <SelectItem value="board_member">이사회 멤버 (Board Member)</SelectItem>
+                            <SelectItem value="foundation_officer">재단 임원 (Foundation Officer)</SelectItem>
+                            <SelectItem value="technical_lead">기술 책임자 (Technical Lead)</SelectItem>
+                            <SelectItem value="legal_officer">법무 담당 (Legal Officer)</SelectItem>
+                            <SelectItem value="community_representative">커뮤니티 대표 (Community Rep)</SelectItem>
+                            <SelectItem value="security_expert">보안 전문가 (Security Expert)</SelectItem>
+                            <SelectItem value="strategic_partner">전략적 파트너 (Strategic Partner)</SelectItem>
+                          </>
+                        ) : (
+                          roles.map((r) => {
+                            const RoleIcon = roleIcons[r.id] || Users;
+                            return (
+                              <SelectItem key={r.id} value={r.id}>
+                                <div className="flex items-center gap-2">
+                                  <RoleIcon className="h-3.5 w-3.5" />
+                                  <span>{r.name}</span>
+                                </div>
+                              </SelectItem>
+                            );
+                          })
+                        )}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-email">업무 이메일</Label>
+                    <Input 
+                      id="edit-email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      placeholder="예: signer@tburn.foundation"
+                      data-testid="input-edit-email"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t pt-4">
+                <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
+                  <Key className="h-4 w-4" />
+                  서명 자격 증명
+                </h4>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="edit-publicKey">공개 키 (Public Key)</Label>
+                  <Input 
+                    id="edit-publicKey"
+                    value={formData.publicKey}
+                    onChange={(e) => setFormData({...formData, publicKey: e.target.value})}
+                    placeholder="pk1q8z7n5d4f6g7h8j9k0..."
+                    className="font-mono text-sm"
+                    data-testid="input-edit-public-key"
+                  />
+                  <p className="text-xs text-muted-foreground">서명 검증용 공개 키 (pk1 형식)</p>
+                </div>
+              </div>
+
+              <div className="border-t pt-4">
+                <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
+                  <Shield className="h-4 w-4" />
+                  권한 설정
+                </h4>
+                
+                <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
+                  <Switch
+                    checked={formData.canApproveEmergency}
+                    onCheckedChange={(v) => setFormData({...formData, canApproveEmergency: v})}
+                    data-testid="switch-edit-emergency"
+                  />
+                  <div>
+                    <Label className="font-medium">비상 승인 권한</Label>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      4시간 단축 타임락으로 비상 트랜잭션 승인 가능
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="edit-role">역할 *</Label>
-              <Select 
-                value={formData.role} 
-                onValueChange={(v) => setFormData({...formData, role: v})}
-              >
-                <SelectTrigger id="edit-role" data-testid="select-edit-role">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {roles.map((r) => (
-                    <SelectItem key={r.id} value={r.id}>{r.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="edit-email">이메일</Label>
-              <Input 
-                id="edit-email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                data-testid="input-edit-email"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="edit-publicKey">공개 키</Label>
-              <Input 
-                id="edit-publicKey"
-                value={formData.publicKey}
-                onChange={(e) => setFormData({...formData, publicKey: e.target.value})}
-                className="font-mono"
-                data-testid="input-edit-public-key"
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <Switch
-                checked={formData.canApproveEmergency}
-                onCheckedChange={(v) => setFormData({...formData, canApproveEmergency: v})}
-                data-testid="switch-edit-emergency"
-              />
-              <Label>비상 승인 권한</Label>
-            </div>
-          </div>
-          <DialogFooter>
+          </ScrollArea>
+          <DialogFooter className="border-t pt-4">
             <Button variant="outline" onClick={() => setIsEditDialogOpen(false)} data-testid="button-cancel-edit">
               취소
             </Button>
@@ -725,7 +886,7 @@ export default function CustodySignersAdmin() {
               data-testid="button-confirm-edit"
             >
               {updateSignerMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-              저장
+              변경사항 저장
             </Button>
           </DialogFooter>
         </DialogContent>
