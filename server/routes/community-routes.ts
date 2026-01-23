@@ -1245,6 +1245,50 @@ router.post("/ambassador-application", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/translate", async (req: Request, res: Response) => {
+  try {
+    const { text, targetLang, sourceLang = "en" } = req.body;
+    
+    if (!text || !targetLang) {
+      return res.status(400).json({ error: "Missing text or targetLang" });
+    }
+    
+    const { translationService } = await import("../services/translation-service");
+    const translatedText = await translationService.translate(text, targetLang, sourceLang);
+    
+    res.json({ 
+      translatedText,
+      sourceLang,
+      targetLang
+    });
+  } catch (error) {
+    console.error("[Community] Translation error:", error);
+    res.status(500).json({ error: "Translation failed" });
+  }
+});
+
+router.post("/translate-batch", async (req: Request, res: Response) => {
+  try {
+    const { items, targetLang, sourceLang = "en" } = req.body;
+    
+    if (!items || !Array.isArray(items) || !targetLang) {
+      return res.status(400).json({ error: "Missing items array or targetLang" });
+    }
+    
+    const { translationService } = await import("../services/translation-service");
+    const translations = await translationService.translateBatch(items, targetLang, sourceLang);
+    
+    res.json({ 
+      translations,
+      sourceLang,
+      targetLang
+    });
+  } catch (error) {
+    console.error("[Community] Batch translation error:", error);
+    res.status(500).json({ error: "Translation failed" });
+  }
+});
+
 export function registerCommunityRoutes(app: any) {
   app.use("/api/community", router);
   console.log("[Community] Routes registered with database persistence");
