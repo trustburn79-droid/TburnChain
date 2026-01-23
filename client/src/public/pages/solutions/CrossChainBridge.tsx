@@ -13,20 +13,22 @@ export default function CrossChainBridge() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const heroStats = [
-    { value: "8+", label: t('publicPages.solutions.crossChainBridge.heroStats.chains'), color: "#00f0ff" },
+    { value: "9+", label: t('publicPages.solutions.crossChainBridge.heroStats.chains'), color: "#00f0ff" },
     { value: "$2.5B+", label: t('publicPages.solutions.crossChainBridge.heroStats.volume'), color: "#ffffff" },
     { value: "4.2M+", label: t('publicPages.solutions.crossChainBridge.heroStats.txns'), color: "#00f0ff" },
     { value: "~45s", label: t('publicPages.solutions.crossChainBridge.heroStats.avgTime'), color: "#ffffff" }
   ];
 
   const supportedNetworks = [
+    { name: "TBurn Chain", color: "#7000ff", chainId: "5800" },
     { name: "Ethereum", color: "#3b82f6" },
     { name: "BNB Chain", color: "#f59e0b" },
     { name: "Polygon", color: "#8b5cf6" },
     { name: "Arbitrum", color: "#93c5fd" },
     { name: "Optimism", color: "#ef4444" },
     { name: "Avalanche", color: "#dc2626" },
-    { name: "Solana", color: "#a855f7" }
+    { name: "Solana", color: "#a855f7" },
+    { name: "Bitcoin (via BTCfi)", color: "#f7931a" }
   ];
 
   const coreFeatures = [

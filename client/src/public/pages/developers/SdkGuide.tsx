@@ -26,24 +26,28 @@ export default defineConfig({
 
 const coreExample = `import { TBurnClient } from '@tburn/sdk';
 
-// 1. Initialize Client
-const client = new TBurnClient({ apiKey: 'YOUR_KEY' });
+// 1. Initialize Client for TBURN Mainnet (Chain ID: 5800)
+const client = new TBurnClient({
+  apiKey: 'YOUR_API_KEY',
+  network: 'mainnet'  // 24 shards, 587 validators, 100K TPS
+});
 
-// 2. Get Balance
-const balance = await client.getBalance('0xYourAddress...');
+// 2. Get Balance (tb1 Bech32m address format)
+const balance = await client.getBalance('tb1qyouraddress7x2e5d4c6b8a7n9m0...');
 console.log(\`Balance: \${balance.formatted} TBURN\`);
 
-// 3. Query Trust Score (AI)
-const score = await client.ai.getTrustScore('0xProjectAddress...');
+// 3. Query AI Trust Score (Gemini + Claude fallback)
+const score = await client.ai.getTrustScore('tb1qcontract7x2e5d4c6b8...');
 console.log(\`Score: \${score.value}/100 (Grade: \${score.grade})\`);
 
-// 4. Send Transaction
+// 4. Send Transaction (auto shard assignment)
 const tx = await client.transfer({
-  to: '0xRecipient...',
+  to: 'tb1qrecipient7x2e5d4c6b8a7n9m0...',
   amount: '100', // TBURN
   gasLimit: 'auto'
 });
-console.log(\`Transaction Hash: \${tx.hash}\`);`;
+console.log(\`Transaction Hash: \${tx.hash}\`);
+console.log(\`Assigned Shard: \${tx.shardId}\`);`;
 
 const defiExample = `import { TBurnClient, DeFi } from '@tburn/sdk';
 
@@ -145,25 +149,27 @@ const validatorsExample = `import { TBurnClient } from '@tburn/sdk';
 
 const client = new TBurnClient({ apiKey: 'YOUR_KEY', network: 'mainnet' });
 
-// 1. Get all validators (125 genesis validators)
+// 1. Get all validators (587 genesis validators)
 const { validators, summary } = await client.validators.list({
   status: 'active',
   sortBy: 'performance',
-  limit: 125
+  limit: 100
 });
-console.log(\`Active validators: \${summary.activeValidators}/\${summary.totalValidators}\`);
+console.log(\`Active validators: \${summary.activeValidators}/\${summary.totalValidators}\`);  // 587
 console.log(\`Total stake: \${summary.totalStake} TBURN\`);
 
-// 2. Get validator performance metrics
+// 2. Get validator performance metrics (5 tiers)
 for (const validator of validators.slice(0, 5)) {
-  console.log(\`\${validator.moniker}: uptime=\${validator.uptime}%, tier=\${validator.performanceTier}\`);
+  console.log(\`\${validator.moniker}: uptime=\${validator.uptime}%, tier=\${validator.tier}\`);
+  // Tiers: Elite, Professional, Standard, Basic, Provisional
 }
 
-// 3. Get validator rewards breakdown
-const rewards = await client.validators.getRewards('0x742d35Cc6634C0532...');
+// 3. Get validator rewards breakdown (40% proposer, 50% verifier, 10% burn)
+const rewards = await client.validators.getRewards('tb1validator7x2e5d4c6b8a7...');
 console.log(\`Total rewards: \${rewards.totalRewards} TBURN\`);
-console.log(\`Proposer: \${rewards.rewardBreakdown.proposerRewards}\`);
-console.log(\`Verifier: \${rewards.rewardBreakdown.verifierRewards}\`);
+console.log(\`Proposer share (40%): \${rewards.proposerRewards}\`);
+console.log(\`Verifier share (50%): \${rewards.verifierRewards}\`);
+console.log(\`Burn share (10%): \${rewards.burnedAmount}\`);
 
 // 4. Subscribe to validator status changes
 client.ws.subscribeValidators((update) => {
@@ -174,16 +180,18 @@ const shardingExample = `import { TBurnClient } from '@tburn/sdk';
 
 const client = new TBurnClient({ apiKey: 'YOUR_KEY', network: 'mainnet' });
 
-// 1. Get shard overview (64 shards for ~210K TPS)
+// 1. Get shard overview (24 active shards, scalable to 64)
 const shards = await client.shards.list();
-console.log(\`Total shards: \${shards.totalShards}\`);  // 64
-console.log(\`Global TPS: \${shards.globalTPS}\`);       // ~185,420
-console.log(\`Target TPS: \${shards.targetTPS}\`);       // 210,000
+console.log(\`Active shards: \${shards.activeShards}\`);  // 24
+console.log(\`Max shards: \${shards.maxShards}\`);        // 64
+console.log(\`Global TPS: \${shards.globalTPS}\`);        // ~100,000
+console.log(\`Block time: \${shards.blockTimeMs}ms\`);    // 100ms
 
 // 2. Get specific shard info
 const shard = await client.shards.get(12);
-console.log(\`Shard #\${shard.id}: TPS=\${shard.currentTPS}, validators=\${shard.validators}\`);
-console.log(\`Cross-shard messages: in=\${shard.crossShardMessages.incoming}, out=\${shard.crossShardMessages.outgoing}\`);
+console.log(\`Shard #\${shard.id}: TPS=\${shard.currentTPS}, validators=\${shard.validatorCount}\`);
+console.log(\`Pending txs: \${shard.pendingTransactions}\`);
+console.log(\`Cross-shard: in=\${shard.crossShard.incoming}, out=\${shard.crossShard.outgoing}\`);
 
 // 3. Track cross-shard message
 const message = await client.shards.trackMessage('csm_8a7b6c5d4e3f2a1b');
@@ -231,21 +239,25 @@ client.ws.subscribeAIDecisions((decision) => {
 const pythonExample = `from tburn_sdk import TBurnClient
 from tburn_sdk.exceptions import TBurnError, RateLimitError
 
-# Initialize client
-client = TBurnClient(api_key="YOUR_API_KEY")
+# Initialize client for TBURN Mainnet (Chain ID: 5800)
+client = TBurnClient(
+    api_key="YOUR_API_KEY",
+    network="mainnet"  # 24 shards, 587 validators, 100K TPS
+)
 
-# Get balance
-balance = client.get_balance("0xYourAddress...")
+# Get balance (tb1 Bech32m address format)
+balance = client.get_balance("tb1qyouraddress7x2e5d4c6b8a7n9m0...")
 print(f"Balance: {balance.formatted} TBURN")
 
 # Send transaction with error handling
 try:
     tx = client.transfer(
-        to="0xRecipient...",
+        to="tb1qrecipient7x2e5d4c6b8a7n9m0...",
         amount="100",
         gas_limit="auto"
     )
     print(f"Transaction Hash: {tx.hash}")
+    print(f"Assigned Shard: {tx.shard_id}")
 except RateLimitError as e:
     print(f"Rate limited. Retry after {e.retry_after} seconds")
 except TBurnError as e:
@@ -255,10 +267,10 @@ except TBurnError as e:
 pool = client.defi.get_pool("TBURN-USDT")
 print(f"TVL: {pool.tvl}, APY: {pool.apy}%")
 
-# WebSocket streaming
+# WebSocket streaming (100ms block time)
 @client.ws.on_block
 def handle_block(block):
-    print(f"New block: #{block.number}")
+    print(f"New block: #{block.number}, shard: {block.shard_id}")
 
 client.ws.connect()`;
 
@@ -271,17 +283,17 @@ import (
 )
 
 func main() {
-    // Initialize client
+    // Initialize client for TBURN Mainnet (Chain ID: 5800)
     client, err := tburn.NewClient(tburn.Config{
         APIKey:  "YOUR_API_KEY",
-        Network: tburn.Mainnet,
+        Network: tburn.Mainnet,  // 24 shards, 587 validators
     })
     if err != nil {
         log.Fatalf("Failed to create client: %v", err)
     }
 
-    // Get balance with error handling
-    balance, err := client.GetBalance("0xYourAddress...")
+    // Get balance (tb1 Bech32m address format)
+    balance, err := client.GetBalance("tb1qyouraddress7x2e5d4c6b8a7n9m0...")
     if err != nil {
         switch e := err.(type) {
         case *tburn.RateLimitError:
@@ -295,9 +307,9 @@ func main() {
     }
     fmt.Printf("Balance: %s TBURN\\n", balance.Formatted)
 
-    // Send transaction
+    // Send transaction (auto shard assignment)
     tx, err := client.Transfer(tburn.TransferRequest{
-        To:       "0xRecipient...",
+        To:       "tb1qrecipient7x2e5d4c6b8a7n9m0...",
         Amount:   "100",
         GasLimit: "auto",
     })

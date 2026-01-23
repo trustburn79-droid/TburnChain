@@ -248,7 +248,7 @@ export default function Permissioned() {
                 
                 <div className="bg-black/40 p-4 rounded-lg border border-gray-300 dark:border-white/10 inline-block">
                   <span className="text-xs font-mono text-gray-500">{t('publicPages.solutions.permissioned.diagram.anchoringHash')}</span>
-                  <div className="text-[#7000ff] font-mono text-sm mt-1">0x7f...3a9b</div>
+                  <div className="text-[#7000ff] font-mono text-sm mt-1">tb1q7f...3a9b</div>
                 </div>
                 
                 <div className="my-4 border-l-2 border-dashed border-white/20 h-12 mx-auto w-0" />

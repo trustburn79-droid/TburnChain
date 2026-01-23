@@ -49,20 +49,31 @@ export default function Gaming() {
 
   const metrics = [
     {
-      value: "150K+",
+      value: "100K TPS",
       label: t('publicPages.useCases.gaming.metrics.dailyActivePlayers'),
       iconColor: "#ff0055"
     },
     {
-      value: "$120M",
+      value: "100ms",
       label: t('publicPages.useCases.gaming.metrics.nftVolume'),
       iconColor: "#7000ff"
     },
     {
-      value: "450+",
+      value: "24 Shards",
       label: t('publicPages.useCases.gaming.metrics.gamesApps'),
       iconColor: "#00f0ff"
     }
+  ];
+
+  const mainnetSpecs = [
+    { label: "Chain ID", value: "5800" },
+    { label: "Active Shards", value: "24 (scalable to 64)" },
+    { label: "Genesis Validators", value: "587" },
+    { label: "Target TPS", value: "100,000" },
+    { label: "Block Time", value: "100ms" },
+    { label: "Address Format", value: "tb1 (Bech32m)" },
+    { label: "Total Supply", value: "100B TBURN" },
+    { label: "Custody", value: "7/11 multisig (48h-30d timelocks)" }
   ];
 
   const features = [
@@ -229,6 +240,40 @@ export default function Gaming() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-6">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 text-center">TBURN Mainnet Specifications</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-center mb-12">Production-ready infrastructure for Web3 gaming</p>
+          
+          <div className="grid md:grid-cols-4 gap-4">
+            {mainnetSpecs.map((spec, idx) => (
+              <div 
+                key={idx}
+                className="spotlight-card rounded-xl p-4 border border-gray-300 dark:border-white/10 text-center"
+                data-testid={`card-spec-${idx}`}
+              >
+                <div className="text-xs text-gray-500 dark:text-gray-500 mb-1 font-mono">{spec.label}</div>
+                <div className="text-lg font-bold text-gray-900 dark:text-white font-mono">{spec.value}</div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-8 spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Example: Game Asset Transfer (tb1 Format)</h3>
+            <pre className="bg-gray-900 text-green-400 p-4 rounded-lg text-sm overflow-x-auto font-mono">
+{`// TBURN Gaming Asset Transfer
+const transfer = {
+  from: "tb1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+  to: "tb1q0ht9tyks4vh7p5p904t340cr9nvahy7u3re7zg",
+  asset: "SWORD_OF_VALOR_NFT",
+  chainId: 5800,
+  shard: 12
+};`}
+            </pre>
           </div>
         </div>
       </section>

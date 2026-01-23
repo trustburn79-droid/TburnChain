@@ -21,41 +21,62 @@ const step1Code = {
 
 const step2Code = `import { TBurnSDK } from '@tburn/sdk';
 
-// Initialize the SDK
+// Initialize the SDK for TBURN Mainnet
 const sdk = new TBurnSDK({
   apiKey: process.env.TBURN_API_KEY,
-  network: 'testnet', // or 'mainnet'
+  network: 'mainnet',  // Chain ID: 5800
   options: {
     timeout: 30000,
-    retries: 3
+    retries: 3,
+    rpcEndpoint: 'https://mainnet.tburn.io/rpc'
   }
 });
 
-// Verify connection
+// Verify connection to TBURN Mainnet
 const info = await sdk.getNetworkInfo();
-console.log('Connected to Chain ID:', info.chainId);`;
+console.log('Connected to:', info.name);      // TBURN Mainnet
+console.log('Chain ID:', info.chainId);       // 5800
+console.log('Active Shards:', info.shards);   // 24
+console.log('Validators:', info.validators);  // 587
+console.log('Current TPS:', info.tps);        // ~100,000`;
 
 const step3Code = `// Connect Wallet (Private Key should be in .env)
 const wallet = sdk.connectWallet({
-  privateKey: process.env.PRIVATE_KEY
+  privateKey: process.env.TBURN_PRIVATE_KEY
 });
 
-// Send TBURN
+console.log('Wallet Address:', wallet.address);
+// Example: tb1q8f3kq9z7x2e5d4c6b8a7...
+
+// Send TBURN to another tb1 address
 const tx = await sdk.sendTransaction({
-  to: '0x742d35...',
-  value: sdk.utils.parseEther('10'), // 10 TBURN
+  to: 'tb1qrecipient7x2e5d4c6b8a7n9m0...',
+  value: sdk.utils.parseUnits('10', 18), // 10 TBURN
   gasLimit: 21000
 });
 
 console.log('Tx Hash:', tx.hash);
+console.log('Shard:', tx.shardId);  // Auto-assigned shard (0-23)
+
 const receipt = await tx.wait();
-console.log('Confirmed in block:', receipt.blockNumber);`;
+console.log('Confirmed in block:', receipt.blockNumber);
+console.log('Finality:', receipt.finalized ? 'Finalized' : 'Pending');`;
 
-const step4Code = `const score = await sdk.getTrustScore('0x1234...');
+const step4Code = `// Get AI Trust Score for any TBURN address
+const score = await sdk.getTrustScore('tb1qcontract7x2e5d4c6b8...');
 
-console.log('Trust Score:', score.total); // 0-100
-console.log('Grade:', score.grade); // S, A, B, C, D, F
-console.log('AI Summary:', score.aiAnalysis.summary);`;
+console.log('Trust Score:', score.total);     // 0-100
+console.log('Grade:', score.grade);           // S, A, B, C, D, F
+console.log('Risk Level:', score.riskLevel); // low, medium, high
+
+// AI-powered analysis (Gemini + Claude fallback)
+console.log('AI Summary:', score.aiAnalysis.summary);
+console.log('Recommendations:', score.aiAnalysis.recommendations);
+
+// Factor breakdown
+console.log('Code Quality:', score.factors.codeQuality);
+console.log('Liquidity:', score.factors.liquidity);
+console.log('Community:', score.factors.community);`;
 
 const troubleshootingItems = [
   {
@@ -98,11 +119,12 @@ console.log('API Key exists:', !!process.env.TBURN_API_KEY);
     solution: "Check network status and RPC endpoint. Use fallback endpoints if primary is down.",
     code: `const sdk = new TBurnSDK({
   apiKey: process.env.TBURN_API_KEY,
-  network: 'mainnet',
+  network: 'mainnet',  // Chain ID: 5800
   options: {
     rpcEndpoints: [
-      'https://tburn.io/rpc',
-      'https://eu.tburn.io/rpc',  // Fallback
+      'https://mainnet.tburn.io/rpc',      // Primary
+      'https://rpc-eu.tburn.io',           // EU fallback
+      'https://rpc-asia.tburn.io',         // Asia fallback
     ],
     timeout: 30000
   }

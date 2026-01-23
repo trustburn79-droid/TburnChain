@@ -103,11 +103,12 @@ export default function Wallets() {
       borderColor: "#00ff9d",
       indicatorColor: "#00ff9d",
       config: [
-        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.networkName'), value: "TBurn Chain" },
-        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.rpcUrl'), value: "https://tburn.io/rpc" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.networkName'), value: "TBurn Chain Mainnet" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.rpcUrl'), value: "https://mainnet.tburn.io/rpc" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.chainId'), value: "5800" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.symbol'), value: "TBURN" },
-        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.explorer'), value: "https://tburn.io/scan" }
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.explorer'), value: "https://mainnet.tburn.io/scan" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.wsUrl') || "WebSocket", value: "wss://mainnet.tburn.io/ws" }
       ]
     },
     {
@@ -116,10 +117,10 @@ export default function Wallets() {
       indicatorColor: "#ffd700",
       config: [
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.networkName'), value: "TBurn Testnet" },
-        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.rpcUrl'), value: "https://tburn.io/testnet-rpc" },
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.rpcUrl'), value: "https://testnet.tburn.io/rpc" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.chainId'), value: "5900" },
         { label: t('publicPages.solutions.wallets.addNetwork.mainnet.symbol'), value: "TBURN" },
-        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.explorer'), value: "https://tburn.io/testnet-scan" }
+        { label: t('publicPages.solutions.wallets.addNetwork.mainnet.explorer'), value: "https://testnet.tburn.io/scan" }
       ]
     }
   ];

@@ -49,20 +49,31 @@ export default function Institutional() {
 
   const metrics = [
     {
-      value: "$25B+",
+      value: "100K TPS",
       label: t('publicPages.useCases.institutional.metrics.dailyVolume'),
       iconColor: "#ffd700"
     },
     {
-      value: "0.01%",
+      value: "100ms",
       label: t('publicPages.useCases.institutional.metrics.transactionFee'),
       iconColor: "#00f0ff"
     },
     {
-      value: "99.99%",
+      value: "587 Validators",
       label: t('publicPages.useCases.institutional.metrics.uptimeSla'),
       iconColor: "#00ff9d"
     }
+  ];
+
+  const mainnetSpecs = [
+    { label: "Chain ID", value: "5800" },
+    { label: "Active Shards", value: "24 (scalable to 64)" },
+    { label: "Genesis Validators", value: "587" },
+    { label: "Target TPS", value: "100,000" },
+    { label: "Block Time", value: "100ms" },
+    { label: "Address Format", value: "tb1 (Bech32m)" },
+    { label: "Total Supply", value: "100B TBURN" },
+    { label: "Custody", value: "7/11 multisig (48h-30d timelocks)" }
   ];
 
   const integrations = [
@@ -226,6 +237,42 @@ export default function Institutional() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-6">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 text-center">TBURN Mainnet Specifications</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-center mb-12">Institutional-grade payment infrastructure</p>
+          
+          <div className="grid md:grid-cols-4 gap-4">
+            {mainnetSpecs.map((spec, idx) => (
+              <div 
+                key={idx}
+                className="spotlight-card rounded-xl p-4 border border-gray-300 dark:border-white/10 text-center"
+                data-testid={`card-spec-${idx}`}
+              >
+                <div className="text-xs text-gray-500 dark:text-gray-500 mb-1 font-mono">{spec.label}</div>
+                <div className="text-lg font-bold text-gray-900 dark:text-white font-mono">{spec.value}</div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-8 spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Example: RTGS Payment (tb1 Format)</h3>
+            <pre className="bg-gray-900 text-green-400 p-4 rounded-lg text-sm overflow-x-auto font-mono">
+{`// TBURN Institutional Payment
+const rtgsPayment = {
+  sender: "tb1qbank8skdf3njfkw8ehjfk3nfkw8sdfj9m",
+  receiver: "tb1qcorrespondent3kjf8w3nfksd8fjkw8n",
+  amount: "25000000.00",
+  currency: "USD",
+  chainId: 5800,
+  custody: "7/11 multisig",
+  timelock: "48h"
+};`}
+            </pre>
           </div>
         </div>
       </section>

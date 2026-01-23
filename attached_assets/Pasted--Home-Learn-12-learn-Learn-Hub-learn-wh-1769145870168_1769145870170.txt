@@ -1,0 +1,51 @@
+📁 / (Home)
+│
+├── 📂 Learn (12개)
+│   ├── /learn                    → Learn Hub
+│   ├── /learn/what-is-burn-chain → What is Burn Chain?
+│   ├── /learn/trust-score        → Trust Score System
+│   ├── /learn/wallet             → What is a Wallet?
+│   ├── /learn/blockchain-basics  → Blockchain Basics
+│   ├── /learn/defi-mastery       → DeFi Mastery
+│   ├── /learn/developer-course   → Developer Course
+│   ├── /learn/intro-to-defi      → Intro to DeFi
+│   ├── /learn/education-programs → Education Programs
+│   ├── /learn/whitepaper         → Technical Whitepaper
+│   ├── /learn/tokenomics         → Tokenomics
+│   └── /learn/roadmap            → Roadmap
+│
+├── 📂 Developers (11개)
+│   ├── /developers               → Developer Hub
+│   ├── /developers/docs          → Documentation
+│   ├── /developers/api           → API Reference
+│   ├── /developers/cli           → CLI Reference
+│   ├── /developers/sdk           → SDK Guide
+│   ├── /developers/contracts     → Smart Contracts
+│   ├── /developers/websocket     → WebSocket API
+│   ├── /developers/examples      → Code Examples
+│   ├── /developers/quickstart    → Quick Start
+│   ├── /developers/installation  → Installation Guide
+│   └── /developers/evm-migration → EVM Migration
+│
+├── 📂 Solutions (13개)
+│   ├── /solutions/token-extensions   → Token Extensions
+│   ├── /solutions/actions-blinks     → Actions & Blinks
+│   ├── /solutions/wallets            → Wallets
+│   ├── /solutions/permissioned       → Permissioned Environments
+│   ├── /solutions/game-tooling       → Game Tooling
+│   ├── /solutions/payments           → Payments
+│   ├── /solutions/commerce           → Commerce
+│   ├── /solutions/financial          → Financial Infrastructure
+│   ├── /solutions/ai-features        → AI Features
+│   ├── /solutions/artists-creators   → Artists & Creators
+│   ├── /solutions/btcfi              → BTCfi
+│   ├── /solutions/cross-chain-bridge → Cross-Chain Bridge
+│   └── /solutions/defi-hub           → DeFi Hub
+│
+├── 📂 Use Cases (6개)
+│   ├── /use-cases/tokenization           → Tokenization
+│   ├── /use-cases/depin                  → DePIN
+│   ├── /use-cases/stablecoins            → Stablecoins
+│   ├── /use-cases/institutional-payments → Institutional Payments
+│   ├── /use-cases/enterprise             → Enterprise
+│   └── /use-cases/gaming                 → Gaming & Entertainment

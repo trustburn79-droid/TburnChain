@@ -49,20 +49,31 @@ export default function Enterprise() {
 
   const metrics = [
     {
-      value: "850+",
+      value: "587",
       label: t('publicPages.useCases.enterprise.metrics.enterpriseClients'),
       iconColor: "#7000ff"
     },
     {
-      value: "99.97%",
+      value: "100K TPS",
       label: t('publicPages.useCases.enterprise.metrics.uptimeGuarantee'),
       iconColor: "#00f0ff"
     },
     {
-      value: "24/7",
+      value: "24 Shards",
       label: t('publicPages.useCases.enterprise.metrics.dedicatedSupport'),
       iconColor: "#00ff9d"
     }
+  ];
+
+  const mainnetSpecs = [
+    { label: "Chain ID", value: "5800" },
+    { label: "Active Shards", value: "24 (scalable to 64)" },
+    { label: "Genesis Validators", value: "587" },
+    { label: "Target TPS", value: "100,000" },
+    { label: "Block Time", value: "100ms" },
+    { label: "Address Format", value: "tb1 (Bech32m)" },
+    { label: "Total Supply", value: "100B TBURN" },
+    { label: "Custody", value: "7/11 multisig (48h-30d timelocks)" }
   ];
 
   const features = [
@@ -228,6 +239,40 @@ export default function Enterprise() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-6">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 text-center">TBURN Mainnet Specifications</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-center mb-12">Enterprise-grade blockchain infrastructure</p>
+          
+          <div className="grid md:grid-cols-4 gap-4">
+            {mainnetSpecs.map((spec, idx) => (
+              <div 
+                key={idx}
+                className="spotlight-card rounded-xl p-4 border border-gray-300 dark:border-white/10 text-center"
+                data-testid={`card-spec-${idx}`}
+              >
+                <div className="text-xs text-gray-500 dark:text-gray-500 mb-1 font-mono">{spec.label}</div>
+                <div className="text-lg font-bold text-gray-900 dark:text-white font-mono">{spec.value}</div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-8 spotlight-card rounded-xl p-6 border border-gray-300 dark:border-white/10">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Example: Enterprise Identity Verification (tb1 Format)</h3>
+            <pre className="bg-gray-900 text-green-400 p-4 rounded-lg text-sm overflow-x-auto font-mono">
+{`// TBURN Enterprise Identity
+const verification = {
+  enterprise: "tb1qenterprise8dh7n9kfjw0djrfhw8ehk3sjy6m",
+  verifier: "tb1qverify3kx8djf9wjfksd8fhwejkf8shd7fmx",
+  credential: "ISO27001_CERTIFIED",
+  chainId: 5800,
+  timestamp: Date.now()
+};`}
+            </pre>
           </div>
         </div>
       </section>

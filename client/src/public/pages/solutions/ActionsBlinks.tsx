@@ -104,8 +104,8 @@ export default function ActionsBlinks() {
   ];
 
   const devQuickStart = {
-    step1: { title: t('publicPages.solutions.actionsBlinks.developerQuickStart.step1.title'), code: "https://tburn.io/action?type=swap&from=TBURN&to=USDC&amount=100" },
-    step2: { title: t('publicPages.solutions.actionsBlinks.developerQuickStart.step2.title'), code: '<meta property="bc:action" content="swap" />\n<meta property="bc:chain" content="tburn-mainnet" />' },
+    step1: { title: t('publicPages.solutions.actionsBlinks.developerQuickStart.step1.title'), code: "https://mainnet.tburn.io/action?type=swap&from=TBURN&to=USDC&amount=100" },
+    step2: { title: t('publicPages.solutions.actionsBlinks.developerQuickStart.step2.title'), code: '<meta property="bc:action" content="swap" />\n<meta property="bc:chain" content="tburn-mainnet-5800" />' },
     step3: { title: t('publicPages.solutions.actionsBlinks.developerQuickStart.step3.title'), desc: t('publicPages.solutions.actionsBlinks.developerQuickStart.step3.description') }
   };
 

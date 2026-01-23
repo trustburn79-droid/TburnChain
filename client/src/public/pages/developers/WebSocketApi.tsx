@@ -6,13 +6,15 @@ import {
   RefreshCw, Download, Server, Book, Copy, ExternalLink
 } from "lucide-react";
 
-const authCode = `const ws = new WebSocket('wss://tburn.io/ws');
+const authCode = `// Connect to TBURN Mainnet WebSocket (Chain ID: 5800)
+const ws = new WebSocket('wss://mainnet.tburn.io/ws');
 
 ws.onopen = () => {
-  // Authenticate instantly
+  // Authenticate with your API key
   ws.send(JSON.stringify({
     type: 'auth',
-    apiKey: 'tb_live_xxxxxxxx'
+    apiKey: 'YOUR_API_KEY',
+    network: 'mainnet'  // 24 shards, 587 validators
   }));
 };`;
 
@@ -33,16 +35,18 @@ const implementationCode = `class TBurnWebSocket {
   }
 
   connect() {
-    this.ws = new WebSocket('wss://tburn.io/ws');
+    // TBURN Mainnet WebSocket (100ms block time)
+    this.ws = new WebSocket('wss://mainnet.tburn.io/ws');
     
     this.ws.onopen = () => {
-      console.log('Connected to Trust Network');
+      console.log('Connected to TBURN Mainnet');
+      console.log('Active shards: 24, Validators: 587');
       this.reconnectAttempts = 0;
       this.authenticate();
     };
 
     this.ws.onclose = () => {
-      // Exponential backoff
+      // Exponential backoff reconnection
       const delay = Math.min(1000 * Math.pow(2, this.reconnectAttempts), 30000);
       setTimeout(() => this.connect(), delay);
       this.reconnectAttempts++;
@@ -70,8 +74,8 @@ export default function WebSocketApi() {
   const endpoints = [
     { 
       type: t('publicPages.developers.websocket.endpoints.mainnet.type'), 
-      desc: t('publicPages.developers.websocket.endpoints.mainnet.desc'), 
-      url: "wss://tburn.io/ws",
+      desc: "Chain ID: 5800 | 24 Shards | 587 Validators | 100K TPS", 
+      url: "wss://mainnet.tburn.io/ws",
       color: "#00ff9d",
       bgColor: "bg-[#00ff9d]/10",
       borderColor: "border-[#00ff9d]/20"
@@ -79,7 +83,7 @@ export default function WebSocketApi() {
     { 
       type: t('publicPages.developers.websocket.endpoints.testnet.type'), 
       desc: t('publicPages.developers.websocket.endpoints.testnet.desc'), 
-      url: "wss://tburn.io/testnet-ws",
+      url: "wss://testnet.tburn.io/ws",
       color: "#ffd700",
       bgColor: "bg-yellow-500/10",
       borderColor: "border-yellow-500/20"
@@ -105,12 +109,12 @@ export default function WebSocketApi() {
       icon: ArrowRightLeft,
       color: "#7000ff",
       borderColor: "border-l-[#7000ff]",
-      methods: ["tx.pending", "tx.confirmed"],
+      methods: ["tx.pending", "tx.confirmed", "tx.finalized"],
       desc: t('publicPages.developers.websocket.channels.transactions.description'),
       code: `{
   "type": "subscribe",
   "channel": "transactions",
-  "params": { "address": "0xUser..." }
+  "params": { "address": "tb1qyouraddress7x2e5d4c6b8a7n9m0..." }
 }`
     },
     {
@@ -118,12 +122,12 @@ export default function WebSocketApi() {
       icon: LineChart,
       color: "#00ff9d",
       borderColor: "border-l-[#00ff9d]",
-      methods: ["score.updated"],
+      methods: ["score.updated", "score.factors"],
       desc: t('publicPages.developers.websocket.channels.trustScore.description'),
       code: `{
   "type": "subscribe",
   "channel": "trust-score",
-  "params": { "projects": ["0x..."] }
+  "params": { "addresses": ["tb1qcontract7x2e5d4c6b8..."] }
 }`
     },
     {
