@@ -158,7 +158,7 @@ console.log(\`TPS: \${state.metrics.currentTPS}\`);  // ~185,420
 // 2. Monitor consensus rounds in real-time
 client.ws.subscribeConsensus((round) => {
   console.log(\`Round \${round.number}: \${round.phase} (proposer: \${round.proposer})\`);
-  console.log(\`Votes: \${round.votes.prevote.count}/125 validators\`);
+  console.log(\`Votes: \${round.votes.prevote.count}/587 validators\`);
 });
 
 // 3. Get detailed round info for a specific height
