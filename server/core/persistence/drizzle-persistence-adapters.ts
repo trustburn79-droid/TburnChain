@@ -287,7 +287,7 @@ export class DrizzleBootstrapPersistenceAdapter {
           id: v.id,
           address: v.address,
           stake: BigInt(v.stake),
-          publicKey: `0x${v.address.slice(2).padEnd(96, '0')}`,
+          publicKey: `pk1${v.address.slice(2).padEnd(96, '0')}`,
           active: v.status === 'active'
         })),
         allocations: accountList.map(a => ({

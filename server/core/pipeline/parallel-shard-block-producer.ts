@@ -1,4 +1,5 @@
 /**
+import { validatorAddressFromString } from "../../utils/tburn-address";
  * TBURN Parallel Shard Block Producer
  * 
  * Each shard produces blocks independently in parallel,
@@ -102,7 +103,7 @@ export class ParallelShardBlockProducer extends EventEmitter {
         const hash = crypto.createHash('sha256')
           .update(`shard-${shardId}-validator-${i}`)
           .digest('hex');
-        validators.push(`0x${hash.slice(0, 40)}`);
+        validators.push(validatorAddressFromString(`validator-${hash.slice(0, 20)}`));
       }
       
       this.shards.set(shardId, {

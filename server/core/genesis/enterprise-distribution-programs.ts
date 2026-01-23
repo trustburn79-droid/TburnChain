@@ -1,4 +1,5 @@
 /**
+import { generateTxHash } from "../../utils/tburn-address";
  * TBURN Enterprise Distribution Programs Engine
  * Production-grade implementation for 8 token distribution programs
  * 
@@ -1054,7 +1055,7 @@ export class EnterpriseDistributionProgramsEngine extends EventEmitter {
 
     claim.status = ClaimStatus.COMPLETED;
     claim.completedAt = Date.now();
-    claim.txHash = `0x${crypto.randomBytes(32).toString("hex")}`;
+    claim.txHash = generateTxHash();
     claim.blockNumber = Math.floor(Math.random() * 1000000) + 1000000;
 
     claim.auditLog.push({

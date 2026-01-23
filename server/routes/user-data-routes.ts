@@ -1,4 +1,5 @@
 /**
+import { generateTxHash } from "../utils/tburn-address";
  * TBURN User Data API Routes
  * Endpoints for user-specific rewards, staking positions, and activities
  * Provides detailed user-centric data for the /user page
@@ -60,7 +61,7 @@ function generateTxHash(seed: number, index: number): string {
     segments.push(current.toString(16).padStart(8, '0').slice(-8));
   }
   
-  return `0x${segments.join('')}`;
+  return `th1${segments.join('')}`;
 }
 
 // Generate realistic mining rewards for a user
@@ -595,7 +596,7 @@ router.post('/:address/delegations', async (req: Request, res: Response) => {
     // Generate a delegation record
     const now = new Date();
     const delegationId = `del-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    const txHash = generateTxHash();
     
     // Simulate processing (in production, this would be blockchain transaction)
     const delegation = {
@@ -708,7 +709,7 @@ router.post('/:address/claim-all', async (req: Request, res: Response) => {
     const totalClaimed = (unclaimedMining + pendingStaking + unclaimedStakingRewards + claimableEvents).toFixed(4);
     
     // Generate claim transaction hash
-    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    const txHash = generateTxHash();
     
     res.json({
       success: true,
@@ -740,7 +741,7 @@ router.post('/:address/claim/:rewardId', async (req: Request, res: Response) => 
     }
     
     // Simulate claiming a specific reward
-    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    const txHash = generateTxHash();
     
     res.json({
       success: true,
@@ -779,7 +780,7 @@ router.post('/:address/transfer', async (req: Request, res: Response) => {
     }
     
     // Generate transaction hash
-    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    const txHash = generateTxHash();
     
     // Calculate total
     const totalDeducted = amountNum + parseFloat(burnFee || '0') + parseFloat(networkFee || '0');
@@ -918,7 +919,7 @@ router.post('/:address/undelegate', async (req: Request, res: Response) => {
     
     const now = new Date();
     const completesAt = new Date(now.getTime() + 21 * 24 * 60 * 60 * 1000);
-    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    const txHash = generateTxHash();
     
     res.json({
       success: true,
@@ -958,7 +959,7 @@ router.post('/:address/emergency-unstake', async (req: Request, res: Response) =
       });
     }
     
-    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    const txHash = generateTxHash();
     
     res.json({
       success: true,
@@ -997,7 +998,7 @@ router.post('/:address/claim-staking', async (req: Request, res: Response) => {
     }
     
     const totalClaimed = claimablePositions.reduce((sum, p) => sum + parseFloat(p.pendingRewards || '0'), 0);
-    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    const txHash = generateTxHash();
     
     const claimDetails = claimablePositions.map(p => ({
       validatorId: p.validatorId,
@@ -1075,7 +1076,7 @@ router.post('/:address/redelegate', async (req: Request, res: Response) => {
       return res.status(400).json({ success: false, error: 'Minimum redelegation amount is 100 TBURN' });
     }
     
-    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    const txHash = generateTxHash();
     
     res.json({
       success: true,

@@ -1,4 +1,5 @@
 /**
+import { addressFromString } from "../utils/tburn-address";
  * TBURN Enterprise Verification API Routes
  * 
  * Monitoring and control endpoints for the verification pipeline

@@ -1,4 +1,5 @@
 import type { Express, Request, Response } from "express";
+import { addressFromString } from "../utils/tburn-address";
 import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { z } from "zod";
 import { dexService } from "../services/DexService";
@@ -180,7 +181,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       }
       
       const data = validation.data;
-      const contractAddress = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2, 18)}`.slice(0, 42);
+      const contractAddress = addressFromString(`dex-contract-${Date.now()}`);
       
       const poolData = {
         name: data.name,

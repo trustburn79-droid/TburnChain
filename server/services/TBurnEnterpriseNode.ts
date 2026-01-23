@@ -3334,7 +3334,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       
       res.json({
         id: messageId,
-        messageId: messageId.startsWith('0x') ? messageId : `0x${messageId}`,
+        messageId: messageId.startsWith('msg1') ? messageId : `msg1${messageId}`,
         fromShard: Math.floor(Math.random() * shardCount),
         toShard: Math.floor(Math.random() * shardCount),
         type: 'transfer',
@@ -5717,7 +5717,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       const voteSeed = parseInt(memberHash.slice(8, 12), 16) % 100;
       
       return {
-        address: `0x${memberHash.slice(0, 8)}...${memberHash.slice(36, 40)}`,
+        address: `tb1${memberHash.slice(0, 8)}...${memberHash.slice(36, 40)}`,
         votingPower,
         voted,
         vote: (voteSeed < 98 ? 'approve' : 'reject') as 'approve' | 'reject'
@@ -5746,7 +5746,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       currentRound: {
         roundNumber,
         phase: phase as 'propose' | 'prevote' | 'precommit' | 'commit' | 'finalize',
-        proposer: `0x${proposerHash.slice(0, 8)}...${proposerHash.slice(36, 40)}`,
+        proposer: `tb1${proposerHash.slice(0, 8)}...${proposerHash.slice(36, 40)}`,
         votesReceived,
         votesRequired: quorum,
         startTime: new Date(Date.now() - blockAge).toISOString(),
@@ -6128,7 +6128,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         id: i + 1,
         type: types[i % 4],
         amount: this.formatNumber(amount),
-        txHash: `0x${eventSeed.slice(0, 4)}...${eventSeed.slice(60, 64)}`,
+        txHash: `th1${eventSeed.slice(0, 4)}...${eventSeed.slice(60, 64)}`,
         timestamp: new Date(Date.now() - hours * 3600000).toISOString().replace('T', ' ').slice(0, 19)
       };
     });
@@ -6638,7 +6638,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       const duration = `${1 + (parseInt(txSeed.slice(16, 18), 16) % 15)}m ${parseInt(txSeed.slice(18, 20), 16) % 60}s`;
       
       return {
-        id: `0x${txSeed.slice(0, 8)}...${txSeed.slice(56, 64)}`,
+        id: `tx1${txSeed.slice(0, 8)}...${txSeed.slice(56, 64)}`,
         from: { chain: fromChain, address: `0x${txSeed.slice(20, 60)}` },
         to: { chain: toChain, address: `0x${txSeed.slice(60, 100) || txSeed.slice(0, 40)}` },
         amount: `${amount} ${token}`,

@@ -1,4 +1,5 @@
 import type { Express, Request, Response } from "express";
+import { generateTxHash } from "../utils/tburn-address";
 import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { z } from "zod";
 import { storage } from "../storage";
@@ -381,7 +382,7 @@ export function registerWalletDashboardRoutes(
 
       setTimeout(async () => {
         try {
-          const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
+          const txHash = generateTxHash();
           const blockNumber = enterpriseNode.getStatus().currentBlock;
           
           await db.update(walletActionLog)
@@ -479,7 +480,7 @@ export function registerWalletDashboardRoutes(
       }).returning();
 
       setTimeout(async () => {
-        const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
+        const txHash = generateTxHash();
         await db.update(walletActionLog)
           .set({
             status: "confirmed",

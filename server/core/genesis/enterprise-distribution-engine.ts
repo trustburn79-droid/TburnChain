@@ -1,4 +1,5 @@
 /**
+import { generateTxHash } from "../../utils/tburn-address";
  * TBURN Enterprise Genesis Distribution Engine
  * Production-grade token distribution system for 6 allocation categories
  * 
@@ -666,7 +667,7 @@ export class EnterpriseDistributionEngine extends EventEmitter {
 
     task.status = DistributionStatus.COMPLETED;
     task.completedAt = Date.now();
-    task.txHash = `0x${crypto.randomBytes(32).toString("hex")}`;
+    task.txHash = generateTxHash();
     task.blockNumber = Math.floor(Math.random() * 1000000) + 41000000;
     
     const latency = task.completedAt - startTime;
@@ -781,7 +782,7 @@ export class EnterpriseDistributionEngine extends EventEmitter {
       .update(`${category}-${subcategory}`)
       .digest("hex")
       .slice(0, 40);
-    return `0x${hash}`;
+    return `th1${hash}`;
   }
 
   getMetrics(): DistributionMetrics {

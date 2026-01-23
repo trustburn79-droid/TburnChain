@@ -1113,7 +1113,7 @@ export class EnterpriseRewardDistributionEngine {
     await new Promise(resolve => setTimeout(resolve, 10));
     
     // Generate mock tx hash
-    const txHash = `0x${this.generateHash(batch.batchId)}`;
+    const txHash = `th1${this.generateHash(batch.batchId)}`;
     batch.txHashes.push(txHash);
   }
 

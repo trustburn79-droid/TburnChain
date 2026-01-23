@@ -430,7 +430,7 @@ export class EnterpriseValidatorOrchestrator {
 
   private generateValidatorAddress(index: number): string {
     const hash = this.hashString(`genesis-validator-${index}-${CHAIN_CONFIG.CHAIN_ID}`);
-    return `0x${hash.slice(0, 40)}`;
+    return `tbv1${hash.slice(0, 32)}`;
   }
 
   private generateValidatorName(index: number, region: string, category: string): string {

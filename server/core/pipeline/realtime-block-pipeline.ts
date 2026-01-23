@@ -1,4 +1,5 @@
 /**
+import { validatorAddressFromString } from "../../utils/tburn-address";
  * TBURN Realtime Block Production Pipeline
  * Lightweight pipeline for real-time block production data
  * Compatible with DEV_SAFE_MODE for production stability
@@ -123,7 +124,7 @@ export class RealtimeBlockPipeline extends EventEmitter {
       const hash = crypto.createHash('sha256')
         .update(`validator-${i}-genesis`)
         .digest('hex');
-      this.validators.push(`0x${hash.slice(0, 40)}`);
+      this.validators.push(validatorAddressFromString(`validator-${hash.slice(0, 20)}`));
     }
   }
   

@@ -1,4 +1,5 @@
 import type { Express, Request, Response } from "express";
+import { generateTxHash } from "../utils/tburn-address";
 import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { createHash } from "crypto";
 
@@ -187,7 +188,7 @@ export function registerLaunchEventRoutes(app: Express): void {
       res.json({
         success: true,
         amount: airdropAmount.toString(),
-        txHash: `0x${createHash("sha256").update(address + Date.now()).digest("hex")}`
+        txHash: generateTxHash(`launch-${address}-${Date.now()}`)
       });
     } catch (error: any) {
       console.error("[Launch Event] Claim airdrop error:", error.message);
@@ -227,7 +228,7 @@ export function registerLaunchEventRoutes(app: Express): void {
         success: true,
         tier,
         tokenId: statsCache.nftsMinted,
-        txHash: `0x${createHash("sha256").update(address + "nft" + Date.now()).digest("hex")}`
+        txHash: generateTxHash(`nft-${address}-${Date.now()}`)
       });
     } catch (error: any) {
       console.error("[Launch Event] Mint NFT error:", error.message);

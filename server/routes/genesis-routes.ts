@@ -384,7 +384,7 @@ function initializeDefaultValidators(configId: string): GenesisValidator[] {
       description: `Genesis validator node ${validatorNumber} for TBURN mainnet launch`,
       initialStake: baseStake.toString(),
       commission: 500 + ((i % 21) * 50), // 5% - 15% commission rotating
-      nodePublicKey: `0x${crypto.randomBytes(64).toString('hex')}`,
+      nodePublicKey: `pk1${crypto.randomBytes(64).toString('hex')}`,
       tier: "genesis",
       priority: 125 - i,
       isVerified: true, // All genesis validators are pre-verified

@@ -101,7 +101,7 @@ export class TransactionVerifier {
     
     return {
       ...tx,
-      hash: `0x${hash}`,
+      hash: `th1${hash}`,
       signature,
       publicKey: wallet.signingKey.publicKey,
     };
@@ -123,7 +123,7 @@ export class TransactionVerifier {
     
     return {
       ...tx,
-      hash: `0x${hash}`,
+      hash: `th1${hash}`,
       signature,
       publicKey: wallet.signingKey.publicKey,
     };
@@ -138,7 +138,7 @@ export class TransactionVerifier {
     
     try {
       // 1. Verify hash integrity
-      const computedHash = `0x${this.generateTransactionHash(signedTx)}`;
+      const computedHash = `th1${this.generateTransactionHash(signedTx)}`;
       const hashValid = computedHash === signedTx.hash;
       
       if (!hashValid) {

@@ -13,6 +13,7 @@
  */
 
 import { Router, Request, Response, NextFunction } from 'express';
+import { validatorAddressFromString } from "../utils/tburn-address";
 import nodeCrypto from 'crypto';
 import { 
   externalValidatorEngine, 
@@ -857,7 +858,7 @@ for (let i = 0; i < 50; i++) {
     id: `audit-${Date.now()}-${i}`,
     timestamp: new Date(Date.now() - i * 60000 * Math.random() * 10),
     action: actions[Math.floor(Math.random() * actions.length)],
-    validatorAddress: `0x${Math.random().toString(16).slice(2, 42)}`,
+    validatorAddress: validatorAddressFromString(`ext-validator-${Date.now()}`),
     details: `Operation completed successfully`,
     severity: severities[Math.floor(Math.random() * severities.length)],
     verified: true,
@@ -871,7 +872,7 @@ for (let i = 0; i < 5; i++) {
     id: `alert-${Date.now()}-${i}`,
     timestamp: new Date(Date.now() - i * 3600000),
     type: anomalyTypes[Math.floor(Math.random() * anomalyTypes.length)],
-    validatorAddress: `0x${Math.random().toString(16).slice(2, 42)}`,
+    validatorAddress: validatorAddressFromString(`ext-validator-${Date.now()}`),
     description: `Potential security anomaly detected`,
     severity: ['low', 'medium', 'high', 'critical'][Math.floor(Math.random() * 4)] as any,
     status: ['active', 'acknowledged', 'resolved'][Math.floor(Math.random() * 3)] as any,

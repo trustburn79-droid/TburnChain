@@ -449,7 +449,7 @@ export class EnterpriseTransactionVerifier {
     }
     
     try {
-      const computedHash = `0x${this.generateTransactionHash(signedTx)}`;
+      const computedHash = `th1${this.generateTransactionHash(signedTx)}`;
       const hashValid = computedHash === signedTx.hash;
       
       if (!hashValid) {

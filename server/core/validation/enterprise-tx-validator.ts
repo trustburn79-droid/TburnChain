@@ -208,7 +208,7 @@ export class SignatureVerifier {
     // This generates a deterministic address from the signature for simulation
     const combined = `${txHash}${signature.r}${signature.s}${signature.v}`;
     const hash = crypto.createHash('keccak256').update(combined).digest('hex');
-    return `0x${hash.slice(24, 64)}`;
+    return `tb1${hash.slice(24, 56)}`;
   }
   
   private cleanupCache(): void {

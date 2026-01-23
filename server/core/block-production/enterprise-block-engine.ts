@@ -1,4 +1,5 @@
 /**
+import { validatorAddressFromString, generateEmptyHash } from "../../utils/tburn-address";
  * TBURN Enterprise Block Production Engine
  * Production-grade 100ms block time with high-performance state transitions
  * 
@@ -285,7 +286,7 @@ export class EnterpriseBlockEngine extends EventEmitter {
     } else {
       // Default 125 genesis validators with 1M TBURN each
       for (let i = 0; i < 125; i++) {
-        const address = `0x${crypto.createHash('sha256').update(`genesis-validator-${i}`).digest('hex').slice(0, 40)}`;
+        const address = validatorAddressFromString(`genesis-validator-${i}`);
         const power = BigInt('1000000000000000000000000'); // 1M TBURN
         this.activeValidators.set(address, { address, votingPower: power });
         this.totalVotingPower += power;
@@ -671,19 +672,19 @@ export class EnterpriseBlockEngine extends EventEmitter {
 
   // Helper methods
   private generateBlockHash(height: number, parentHash: string, timestamp: number): string {
-    return `0x${crypto.createHash('sha256').update(`${height}${parentHash}${timestamp}`).digest('hex')}`;
+    return `bh1${crypto.createHash('sha256').update(`${height}${parentHash}${timestamp}`).digest('hex')}`;
   }
 
   private generateStateRoot(height: number): string {
-    return `0x${crypto.createHash('sha256').update(`state-${height}`).digest('hex')}`;
+    return `sr1${crypto.createHash('sha256').update(`state-${height}`).digest('hex')}`;
   }
 
   private generateReceiptsRoot(height: number): string {
-    return `0x${crypto.createHash('sha256').update(`receipts-${height}`).digest('hex')}`;
+    return `rr1${crypto.createHash('sha256').update(`receipts-${height}`).digest('hex')}`;
   }
 
   private generateSignature(validator: string, blockHash: string): string {
-    return `0x${crypto.createHash('sha256').update(`${validator}${blockHash}`).digest('hex')}`;
+    return `sig1${crypto.createHash('sha256').update(`${validator}${blockHash}`).digest('hex')}`;
   }
 
   private selectProposer(): string {

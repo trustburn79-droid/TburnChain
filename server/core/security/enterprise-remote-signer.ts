@@ -298,7 +298,7 @@ class SigningEngine {
       .update(messageHash)
       .digest('hex');
     
-    return `0x${signature}`;
+    return `sig1${signature}`;
   }
 
   private signBLS(_privateKey: string, messageHash: Buffer): string {
@@ -307,7 +307,7 @@ class SigningEngine {
       .digest('hex')
       .slice(0, 192);
     
-    return `0x${signature}`;
+    return `sig1${signature}`;
   }
 
   private signED25519(_privateKey: string, messageHash: Buffer): string {
@@ -316,7 +316,7 @@ class SigningEngine {
       .digest('hex')
       .slice(0, 128);
     
-    return `0x${signature}`;
+    return `sig1${signature}`;
   }
 
   private constructBlockMessage(payload: SigningPayload): string {
@@ -363,12 +363,49 @@ class SigningEngine {
 
   derivePublicKey(privateKey: string): string {
     const hash = crypto.createHash('sha256').update(privateKey).digest('hex');
-    return `0x${hash.slice(0, 64)}`;
+    return `pk1${hash.slice(0, 64)}`;
   }
 
   deriveAddress(publicKey: string): string {
-    const hash = crypto.createHash('keccak256').update(publicKey).digest('hex');
-    return `0x${hash.slice(-40)}`;
+    const hash = crypto.createHash('sha256').update(publicKey).digest('hex');
+    const addressData = Buffer.from(hash.slice(-40), 'hex');
+    const CHARSET = 'qpzry9x8gf2tvdw0s3jn54khce6mua7l';
+    const BECH32M_CONST = 0x2bc830a3;
+    const GEN = [0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3];
+    
+    function polymod(values: number[]): number {
+      let chk = 1;
+      for (const v of values) {
+        const top = chk >> 25;
+        chk = ((chk & 0x1ffffff) << 5) ^ v;
+        for (let i = 0; i < 5; i++) {
+          if ((top >> i) & 1) chk ^= GEN[i];
+        }
+      }
+      return chk;
+    }
+    
+    const hrp = 'tb';
+    const hrpExpand = [...hrp].map(c => c.charCodeAt(0) >> 5).concat([0]).concat([...hrp].map(c => c.charCodeAt(0) & 31));
+    
+    let acc = 0, bits = 0;
+    const data5bit: number[] = [];
+    for (const byte of addressData) {
+      acc = (acc << 8) | byte;
+      bits += 8;
+      while (bits >= 5) {
+        bits -= 5;
+        data5bit.push((acc >> bits) & 31);
+      }
+    }
+    if (bits > 0) data5bit.push((acc << (5 - bits)) & 31);
+    
+    const values = hrpExpand.concat(data5bit).concat([0, 0, 0, 0, 0, 0]);
+    const mod = polymod(values) ^ BECH32M_CONST;
+    const checksum: number[] = [];
+    for (let i = 0; i < 6; i++) checksum.push((mod >> (5 * (5 - i))) & 31);
+    
+    return 'tb1' + data5bit.concat(checksum).map(v => CHARSET[v]).join('');
   }
 }
 

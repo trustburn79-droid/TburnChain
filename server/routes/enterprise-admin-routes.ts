@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { generateTxHash, validatorAddressFromString } from "../utils/tburn-address";
 import nodeCrypto from 'crypto';
 import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { storage } from '../storage';
@@ -772,7 +773,7 @@ router.get('/developer/contracts', (_req: Request, res: Response) => {
 });
 
 router.post('/developer/contracts/deploy', (req: Request, res: Response) => {
-  res.json({ success: true, txHash: `0x${Date.now().toString(16)}`, status: 'pending' });
+  res.json({ success: true, txHash: generateTxHash(), status: 'pending' });
 });
 
 // ============================================
@@ -799,7 +800,7 @@ router.get('/testnet', (_req: Request, res: Response) => {
 });
 
 router.post('/testnet/faucet', (req: Request, res: Response) => {
-  res.json({ success: true, txHash: `0x${Date.now().toString(16)}`, amount: 1000 });
+  res.json({ success: true, txHash: generateTxHash(), amount: 1000 });
 });
 
 // ============================================
@@ -1295,7 +1296,7 @@ for (let i = 0; i < 100; i++) {
   const action = auditActions[Math.floor(Math.random() * auditActions.length)];
   const severity: 'info' | 'warning' | 'critical' = i % 20 === 0 ? 'critical' : i % 7 === 0 ? 'warning' : 'info';
   const timestamp = new Date(Date.now() - i * 60000 * (1 + Math.random() * 5));
-  const validatorAddress = `0x${nodeCrypto.randomBytes(20).toString('hex')}`;
+  const validatorAddress = validatorAddressFromString(`validator-${Date.now()}`);
   const sourceIP = `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
   const data = `${prevHmac}:${timestamp.toISOString()}:${action}:${validatorAddress}`;
   const hmacChain = nodeCrypto.createHmac('sha256', 'tburn_audit_key').update(data).digest('hex').slice(0, 16);
@@ -1333,7 +1334,7 @@ for (let i = 0; i < 15; i++) {
     id: `alert-${Date.now()}-${i}`,
     timestamp: new Date(Date.now() - i * 3600000 * (1 + Math.random() * 3)),
     type: anomaly.type,
-    validatorAddress: `0x${nodeCrypto.randomBytes(20).toString('hex')}`,
+    validatorAddress: validatorAddressFromString(`validator-reg-${Date.now()}`),
     description: anomaly.desc,
     severity: anomaly.severity,
     status,

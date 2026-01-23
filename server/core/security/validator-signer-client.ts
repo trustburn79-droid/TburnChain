@@ -400,7 +400,7 @@ export class ValidatorSignerClient extends EventEmitter {
     this.stats.totalRequests++;
     this.stats.lastRequestTime = Date.now();
 
-    const mockSignature = `0x${crypto.createHash('sha256')
+    const mockSignature = `sig1${crypto.createHash('sha256')
       .update(JSON.stringify(request))
       .digest('hex')}`;
 
@@ -409,7 +409,7 @@ export class ValidatorSignerClient extends EventEmitter {
       success: true,
       signature: mockSignature,
       signatureType: request.operation.includes('ATTESTATION') ? 'bls' : 'ecdsa',
-      publicKey: `0x${crypto.randomBytes(32).toString('hex')}`,
+      publicKey: `pk1${crypto.randomBytes(32).toString('hex')}`,
       timestamp: Date.now(),
       auditId: crypto.randomUUID()
     };

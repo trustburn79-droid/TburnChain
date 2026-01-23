@@ -502,6 +502,32 @@ export function generateSignature(length: number = 128): string {
 }
 
 /**
+ * Generate bytecode in bc1 format
+ * @param length - Length of bytecode hex (default 200)
+ */
+export function generateBytecode(length: number = 200): string {
+  const bytecode = crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
+  return `${HASH_PREFIX_BYTECODE}${bytecode}`;
+}
+
+/**
+ * Generate calldata in cd1 format
+ * @param length - Length of calldata hex (default 128)
+ */
+export function generateCalldata(length: number = 128): string {
+  const calldata = crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
+  return `${HASH_PREFIX_CALLDATA}${calldata}`;
+}
+
+/**
+ * Generate a validator address from a string hash (deterministic) in tbv1 format
+ */
+export function validatorAddressFromString(str: string): string {
+  const hash = crypto.createHash('sha256').update(str).digest();
+  return encodeBech32m(HRP_VALIDATOR, hash.slice(0, 20));
+}
+
+/**
  * Generate empty hash with prefix (for default/null states)
  * @param prefix - Hash prefix
  * @param length - Length of zeros (default 64)

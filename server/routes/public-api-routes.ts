@@ -58,7 +58,7 @@ function generateConsistentBlockHash(blockNumber: number): string {
   const hash = createHash('sha256')
     .update(`tburn-block-${blockNumber}`)
     .digest('hex');
-  return `0x${hash}`;
+  return `th1${hash}`;
 }
 
 /**
@@ -69,7 +69,7 @@ function generateConsistentTxHash(blockNumber: number, index: number): string {
   const hash = createHash('sha256')
     .update(`tburn-tx-${blockNumber}-${index}`)
     .digest('hex');
-  return `0x${hash}`;
+  return `th1${hash}`;
 }
 
 /**

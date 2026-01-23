@@ -1,4 +1,5 @@
 /**
+import { generateTxHash } from "../utils/tburn-address";
  * TBURN Custody Admin Routes
  * Manage multisig signers, wallets, and custody operations
  */
@@ -872,7 +873,7 @@ router.post("/transactions/:transactionId/execute", requireAdmin, async (req: Re
     const adminEmail = (req as any).session?.user?.email || "system";
     
     // Mark as executed (in real implementation, this would trigger on-chain transfer)
-    const executedTxHash = `0x${crypto.randomBytes(32).toString("hex")}`;
+    const executedTxHash = generateTxHash();
     
     // Calculate new balances with underflow protection
     const newRemaining = (currentBalance - transactionAmount).toString();

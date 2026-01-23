@@ -1,4 +1,5 @@
 /**
+import { validatorAddressFromString } from "../utils/tburn-address";
  * TBURN Enterprise Validator Management API Routes
  * Production-grade endpoints for validator orchestration
  */
@@ -146,7 +147,7 @@ router.get('/:address', async (req: Request, res: Response) => {
     
     // Generate mock delegators
     const delegatorList = Array.from({ length: Math.min(v.delegators || 0, 10) }, (_, i) => ({
-      address: `0x${Math.random().toString(16).slice(2, 42)}`,
+      address: validatorAddressFromString(`validator-${Date.now()}`),
       amount: ((Math.random() * 10000) + 1000).toFixed(0),
       timestamp: Date.now() - Math.floor(Math.random() * 30) * 86400000,
     }));

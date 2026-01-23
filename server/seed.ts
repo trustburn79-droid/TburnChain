@@ -13,6 +13,16 @@ import {
   type InsertAiModel,
   type InsertShard,
 } from "@shared/schema";
+import { 
+  addressFromString, 
+  validatorAddressFromString,
+  generateTxHash,
+  generateBlockHash,
+  generateStateRoot,
+  generateReceiptsRoot,
+  generateBytecode,
+  generateCalldata
+} from "./utils/tburn-address";
 
 async function seedDatabase() {
   console.log("Starting database seed...");
@@ -129,7 +139,7 @@ async function seedDatabase() {
   const validatorStatuses = ["active", "active", "active", "active", "active", "active", "active", "active", "inactive", "jailed"];
   for (let i = 0; i < 10; i++) {
     const validator: InsertValidator = {
-      address: `0x${Math.random().toString(16).substr(2, 40)}`,
+      address: validatorAddressFromString(`validator-seed-${i}`),
       name: `Validator ${i + 1}`,
       stake: (Math.floor(Math.random() * 5000000) + 1000000).toString(),
       commission: Math.floor(Math.random() * 10) + 5,
@@ -148,10 +158,10 @@ async function seedDatabase() {
   const contractNames = ["DEX Protocol", "NFT Marketplace", "Lending Platform", "Staking Contract", "DAO Governance"];
   for (let i = 0; i < contractNames.length; i++) {
     const contract: InsertSmartContract = {
-      address: `0x${Math.random().toString(16).substr(2, 40)}`,
+      address: addressFromString(`contract-seed-${i}`),
       name: contractNames[i],
-      creator: `0x${Math.random().toString(16).substr(2, 40)}`,
-      bytecode: `0x${Math.random().toString(16).substr(2, 200)}`,
+      creator: addressFromString(`contract-creator-${i}`),
+      bytecode: generateBytecode(200),
       abi: [],
       sourceCode: null,
       transactionCount: Math.floor(Math.random() * 10000) + 100,
@@ -167,17 +177,17 @@ async function seedDatabase() {
     const blockNumber = 1245678 - i;
     const block: InsertBlock = {
       blockNumber: blockNumber,
-      hash: `0x${Math.random().toString(16).substr(2, 64)}`,
-      parentHash: `0x${Math.random().toString(16).substr(2, 64)}`,
+      hash: generateBlockHash(`block-seed-${blockNumber}`),
+      parentHash: generateBlockHash(`block-seed-${blockNumber - 1}`),
       timestamp: now - i * 2,
       transactionCount: Math.floor(Math.random() * 150) + 50,
-      validatorAddress: `0x${Math.random().toString(16).substr(2, 40)}`,
+      validatorAddress: validatorAddressFromString(`block-validator-${i}`),
       gasUsed: Math.floor(Math.random() * 8000000) + 2000000,
       gasLimit: 10000000,
       size: Math.floor(Math.random() * 50000) + 10000,
       shardId: Math.floor(Math.random() * 5),
-      stateRoot: `0x${Math.random().toString(16).substr(2, 64)}`,
-      receiptsRoot: `0x${Math.random().toString(16).substr(2, 64)}`,
+      stateRoot: generateStateRoot(`state-seed-${blockNumber}`),
+      receiptsRoot: generateReceiptsRoot(`receipts-seed-${blockNumber}`),
     };
     await db.insert(blocks).values(block);
   }
@@ -189,13 +199,14 @@ async function seedDatabase() {
     const valueInWei = (BigInt(Math.floor(valueNum * 1e18))).toString();
     const gasPriceNum = Math.random() * 50 + 10;
     const gasPriceInWei = (BigInt(Math.floor(gasPriceNum * 1e9))).toString();
+    const blockNum = 1245678 - Math.floor(i / 5);
 
     const tx: InsertTransaction = {
-      hash: `0x${Math.random().toString(16).substr(2, 64)}`,
-      blockNumber: 1245678 - Math.floor(i / 5),
-      blockHash: `0x${Math.random().toString(16).substr(2, 64)}`,
-      from: `0x${Math.random().toString(16).substr(2, 40)}`,
-      to: Math.random() > 0.1 ? `0x${Math.random().toString(16).substr(2, 40)}` : null,
+      hash: generateTxHash(`tx-seed-${i}`),
+      blockNumber: blockNum,
+      blockHash: generateBlockHash(`block-seed-${blockNum}`),
+      from: addressFromString(`tx-from-${i}`),
+      to: Math.random() > 0.1 ? addressFromString(`tx-to-${i}`) : null,
       value: valueInWei,
       gas: Math.floor(Math.random() * 200000) + 21000,
       gasPrice: gasPriceInWei,
@@ -203,8 +214,8 @@ async function seedDatabase() {
       nonce: Math.floor(Math.random() * 100),
       timestamp: now - Math.floor(i / 2) * 2,
       status: Math.random() > 0.05 ? "success" : Math.random() > 0.5 ? "failed" : "pending",
-      input: Math.random() > 0.5 ? `0x${Math.random().toString(16).substr(2, 128)}` : null,
-      contractAddress: Math.random() > 0.9 ? `0x${Math.random().toString(16).substr(2, 40)}` : null,
+      input: Math.random() > 0.5 ? generateCalldata(128) : null,
+      contractAddress: Math.random() > 0.9 ? addressFromString(`contract-${i}`) : null,
       shardId: Math.floor(Math.random() * 5),
     };
     await db.insert(transactions).values(tx);
