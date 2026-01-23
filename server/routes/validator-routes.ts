@@ -11,7 +11,7 @@ import {
 import { db } from '../db';
 import { validators, genesisValidators } from '@shared/schema';
 import { sql } from 'drizzle-orm';
-import { normalizeToHex, hexToTb1 } from '../utils/tbc20-address-utils';
+import { normalizeToHex, hexToTb1, tb1ToHex } from '../utils/tbc20-address-utils';
 import { generateTBurnAddress } from '../utils/tburn-address';
 
 const router = Router();
@@ -97,6 +97,7 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 // ★ [2026-01-21] Validator detail by address (supports both tb1 and 0x formats)
+// ★ [2026-01-23] Fixed: Now searches both tb1 AND 0x formats to handle dev/prod DB differences
 router.get('/:address', async (req: Request, res: Response) => {
   try {
     const { address } = req.params;
@@ -112,9 +113,27 @@ router.get('/:address', async (req: Request, res: Response) => {
       });
     }
     
-    // Query validator by address directly (database stores tb1 for TBURN)
+    // Prepare both address formats for searching
+    // Dev DB uses tb1, Prod DB may use 0x - search both formats
+    let searchAddresses: string[] = [address.toLowerCase()];
+    
+    if (isTb1) {
+      // Convert tb1 to 0x for searching in legacy data
+      const hexAddr = tb1ToHex(address);
+      if (hexAddr) {
+        searchAddresses.push(hexAddr.toLowerCase());
+      }
+    } else if (isHex) {
+      // Convert 0x to tb1 for searching in new data
+      const tb1Addr = hexToTb1(address);
+      if (tb1Addr) {
+        searchAddresses.push(tb1Addr.toLowerCase());
+      }
+    }
+    
+    // Query validator by address (search both formats)
     const validatorList = await db.select().from(validators).where(
-      sql`LOWER(${validators.address}) = ${address.toLowerCase()}`
+      sql`LOWER(${validators.address}) IN (${sql.join(searchAddresses.map(a => sql`${a}`), sql`, `)})`
     );
     
     if (validatorList.length === 0) {
