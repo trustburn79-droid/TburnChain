@@ -228,7 +228,7 @@ export default function YieldFarming() {
   const [selectedPosition, setSelectedPosition] = useState<YieldPosition | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const userAddress = "0xTBURNEnterprise0001234567890abcdef";
+  const userAddress = "tb1enterprise0001234567890abcdef";
 
   const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useQuery<YieldStats>({
     queryKey: ["/api/yield/stats"],

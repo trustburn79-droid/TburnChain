@@ -1323,11 +1323,11 @@ export default function EventsPage() {
             </thead>
             <tbody>
               {[
-                { rank: 1, badge: "gold", initials: "TB", address: "0x1a2B...3c4D", missions: "12/12", score: "98,500", reward: "50,000" },
-                { rank: 2, badge: "silver", initials: "CK", address: "0x5e6F...7g8H", missions: "12/12", score: "87,200", reward: "30,000" },
-                { rank: 3, badge: "bronze", initials: "MJ", address: "0x9i0J...1k2L", missions: "11/12", score: "76,800", reward: "20,000" },
-                { rank: 4, badge: "normal", initials: "AS", address: "0x3m4N...5o6P", missions: "11/12", score: "65,400", reward: "10,000" },
-                { rank: 5, badge: "normal", initials: "KL", address: "0x7q8R...9s0T", missions: "10/12", score: "54,200", reward: "10,000" },
+                { rank: 1, badge: "gold", initials: "TB", address: "tb11a2b...3c4d", missions: "12/12", score: "98,500", reward: "50,000" },
+                { rank: 2, badge: "silver", initials: "CK", address: "tb15e6f...7g8h", missions: "12/12", score: "87,200", reward: "30,000" },
+                { rank: 3, badge: "bronze", initials: "MJ", address: "tb19i0j...1k2l", missions: "11/12", score: "76,800", reward: "20,000" },
+                { rank: 4, badge: "normal", initials: "AS", address: "tb13m4n...5o6p", missions: "11/12", score: "65,400", reward: "10,000" },
+                { rank: 5, badge: "normal", initials: "KL", address: "tb17q8r...9s0t", missions: "10/12", score: "54,200", reward: "10,000" },
               ].map(row => (
                 <tr key={row.rank}>
                   <td><div className={`rank-badge ${row.badge}`}>{row.rank}</div></td>

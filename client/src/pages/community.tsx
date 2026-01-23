@@ -653,16 +653,16 @@ export default function Community() {
   };
 
   const mockLeaderboard: LeaderboardMember[] = [
-    { id: "1", rank: 1, address: "0x1234...5678", username: "CryptoWhale", reputation: 98500, contributions: 1250, badges: ["early_adopter", "whale", "governance"], level: 45, tburnStaked: "500000", joinedDate: 1672531200, isOnline: true },
-    { id: "2", rank: 2, address: "0x2345...6789", username: "ValidatorKing", reputation: 87200, contributions: 980, badges: ["validator", "contributor"], level: 42, tburnStaked: "350000", joinedDate: 1675209600, isOnline: true },
-    { id: "3", rank: 3, address: "0x3456...7890", username: "TBURNMaster", reputation: 76800, contributions: 850, badges: ["early_adopter", "community"], level: 39, tburnStaked: "280000", joinedDate: 1677628800, isOnline: false },
-    { id: "4", rank: 4, address: "0x4567...8901", username: "DeFiExpert", reputation: 65400, contributions: 720, badges: ["contributor", "governance"], level: 36, tburnStaked: "220000", joinedDate: 1680307200, isOnline: true },
-    { id: "5", rank: 5, address: "0x5678...9012", username: "BlockchainDev", reputation: 54200, contributions: 650, badges: ["contributor"], level: 33, tburnStaked: "180000", joinedDate: 1682899200, isOnline: false },
-    { id: "6", rank: 6, address: "0x6789...0123", username: "StakingPro", reputation: 48900, contributions: 580, badges: ["validator", "community"], level: 31, tburnStaked: "150000", joinedDate: 1685577600, isOnline: true },
-    { id: "7", rank: 7, address: "0x7890...1234", username: "TokenHolder", reputation: 42500, contributions: 510, badges: ["whale"], level: 28, tburnStaked: "120000", joinedDate: 1688169600, isOnline: false },
-    { id: "8", rank: 8, address: "0x8901...2345", username: "GovernanceGuru", reputation: 38700, contributions: 460, badges: ["governance", "early_adopter"], level: 26, tburnStaked: "95000", joinedDate: 1690848000, isOnline: true },
-    { id: "9", rank: 9, address: "0x9012...3456", username: "CommunityBuilder", reputation: 34200, contributions: 420, badges: ["community", "contributor"], level: 24, tburnStaked: "75000", joinedDate: 1693526400, isOnline: false },
-    { id: "10", rank: 10, address: "0x0123...4567", username: "TBURNEnthusiast", reputation: 31500, contributions: 380, badges: ["early_adopter"], level: 22, tburnStaked: "60000", joinedDate: 1696118400, isOnline: true },
+    { id: "1", rank: 1, address: "tb11234...5678", username: "CryptoWhale", reputation: 98500, contributions: 1250, badges: ["early_adopter", "whale", "governance"], level: 45, tburnStaked: "500000", joinedDate: 1672531200, isOnline: true },
+    { id: "2", rank: 2, address: "tb12345...6789", username: "ValidatorKing", reputation: 87200, contributions: 980, badges: ["validator", "contributor"], level: 42, tburnStaked: "350000", joinedDate: 1675209600, isOnline: true },
+    { id: "3", rank: 3, address: "tb13456...7890", username: "TBURNMaster", reputation: 76800, contributions: 850, badges: ["early_adopter", "community"], level: 39, tburnStaked: "280000", joinedDate: 1677628800, isOnline: false },
+    { id: "4", rank: 4, address: "tb14567...8901", username: "DeFiExpert", reputation: 65400, contributions: 720, badges: ["contributor", "governance"], level: 36, tburnStaked: "220000", joinedDate: 1680307200, isOnline: true },
+    { id: "5", rank: 5, address: "tb15678...9012", username: "BlockchainDev", reputation: 54200, contributions: 650, badges: ["contributor"], level: 33, tburnStaked: "180000", joinedDate: 1682899200, isOnline: false },
+    { id: "6", rank: 6, address: "tb16789...0123", username: "StakingPro", reputation: 48900, contributions: 580, badges: ["validator", "community"], level: 31, tburnStaked: "150000", joinedDate: 1685577600, isOnline: true },
+    { id: "7", rank: 7, address: "tb17890...1234", username: "TokenHolder", reputation: 42500, contributions: 510, badges: ["whale"], level: 28, tburnStaked: "120000", joinedDate: 1688169600, isOnline: false },
+    { id: "8", rank: 8, address: "tb18901...2345", username: "GovernanceGuru", reputation: 38700, contributions: 460, badges: ["governance", "early_adopter"], level: 26, tburnStaked: "95000", joinedDate: 1690848000, isOnline: true },
+    { id: "9", rank: 9, address: "tb19012...3456", username: "CommunityBuilder", reputation: 34200, contributions: 420, badges: ["community", "contributor"], level: 24, tburnStaked: "75000", joinedDate: 1693526400, isOnline: false },
+    { id: "10", rank: 10, address: "tb10123...4567", username: "TBURNEnthusiast", reputation: 31500, contributions: 380, badges: ["early_adopter"], level: 22, tburnStaked: "60000", joinedDate: 1696118400, isOnline: true },
   ];
 
   const mockPosts: ForumPost[] = [

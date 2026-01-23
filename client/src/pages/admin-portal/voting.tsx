@@ -238,13 +238,13 @@ export default function VotingMonitor() {
   ];
 
   const recentVoters: VoterRecord[] = [
-    { address: "0xTBURN_Validator_Pool_Alpha_001", vote: "for", power: 25000000, timestamp: "2024-12-07 23:55:00" },
-    { address: "0xTBURN_Staking_DAO_Treasury_01", vote: "for", power: 18500000, timestamp: "2024-12-07 23:50:00" },
-    { address: "0xTBURN_Foundation_Reserve_Main", vote: "for", power: 15000000, timestamp: "2024-12-07 23:45:00" },
-    { address: "0xTBURN_Enterprise_Partner_A01", vote: "for", power: 8500000, timestamp: "2024-12-07 23:40:00" },
-    { address: "0xTBURN_Community_Pool_Voting", vote: "for", power: 5200000, timestamp: "2024-12-07 23:35:00" },
-    { address: "0xTBURN_DeFi_Protocol_Partner", vote: "for", power: 3800000, timestamp: "2024-12-07 23:30:00" },
-    { address: "0xTBURN_Institutional_Investor", vote: "for", power: 2500000, timestamp: "2024-12-07 23:25:00" },
+    { address: "tb1validatorpoolalpha001", vote: "for", power: 25000000, timestamp: "2024-12-07 23:55:00" },
+    { address: "tb1stakingdaotreasury01", vote: "for", power: 18500000, timestamp: "2024-12-07 23:50:00" },
+    { address: "tb1foundationreservemain", vote: "for", power: 15000000, timestamp: "2024-12-07 23:45:00" },
+    { address: "tb1enterprisepartnera01", vote: "for", power: 8500000, timestamp: "2024-12-07 23:40:00" },
+    { address: "tb1communitypoolvotin01", vote: "for", power: 5200000, timestamp: "2024-12-07 23:35:00" },
+    { address: "tb1defiprotocolpartner", vote: "for", power: 3800000, timestamp: "2024-12-07 23:30:00" },
+    { address: "tb1institutionalinvstr", vote: "for", power: 2500000, timestamp: "2024-12-07 23:25:00" },
   ];
 
   const getVoteIcon = (vote: string) => {

@@ -63,7 +63,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const ENTERPRISE_WALLET = "0xTBURNEnterprise742d35Cc6634C0532925a3b8";
+const ENTERPRISE_WALLET = "tb1enterprise742d35cc6634c0532925a3b8";
 
 interface LendingMarket {
   id: string;

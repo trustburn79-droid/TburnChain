@@ -331,7 +331,7 @@ export default function Proposals() {
       title: "TBURN Mainnet v8.0 Launch Parameters",
       description: "Finalize network parameters for December 8th mainnet launch: 100K+ TPS capacity, 1.0s block time, 8 shards, AI-optimized consensus",
       category: "Network",
-      proposer: "0xTBURN8a4b7c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4",
+      proposer: "tb18a4b7c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4",
       status: "executed",
       votesFor: 850000000,
       votesAgainst: 12000000,

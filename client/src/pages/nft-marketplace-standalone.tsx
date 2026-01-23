@@ -85,7 +85,7 @@ import { WalletConnectModal } from "@/components/wallet-connect-modal";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useTheme } from "@/components/theme-provider";
 
-const ENTERPRISE_WALLET = "0xTBURNEnterprise7a3b4c5d6e7f8901234567890abcdef";
+const ENTERPRISE_WALLET = "tb1enterprise7a3b4c5d6e7f8901234567890abcdef";
 
 interface NftCollection {
   id: string;

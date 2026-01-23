@@ -115,12 +115,12 @@ export default function ContractTools() {
   });
 
   const defaultContracts: Contract[] = [
-    { address: "0xTBURN_Token_Genesis_Mainnet_v8_2024", name: "TBURN Token (TBC-20)", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
-    { address: "0xTBURN_Staking_Pool_3Tier_System", name: "3-Tier Validator Staking", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
-    { address: "0xTBURN_Bridge_MultiChain_v2", name: "Multi-Chain Bridge v2.0", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
-    { address: "0xTBURN_DEX_Router_AI_Optimized", name: "AI-Optimized DEX Router", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
-    { address: "0xTBURN_Governance_MultiSig", name: "Governance Multi-Sig", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
-    { address: "0xTBURN_Treasury_Reserve", name: "Treasury Reserve Contract", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "tb1tokengenesismainnetv82024", name: "TBURN Token (TBC-20)", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "tb1stakingpool3tiersystem", name: "3-Tier Validator Staking", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "tb1bridgemultichainv2", name: "Multi-Chain Bridge v2.0", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "tb1dexrouteraioptimized", name: "AI-Optimized DEX Router", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "tb1governancemultisig", name: "Governance Multi-Sig", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
+    { address: "tb1treasuryreserve", name: "Treasury Reserve Contract", verified: true, compiler: "solidity 0.8.24", deployedAt: "2024-12-08", transactions: 0 },
   ];
 
   const contracts = contractsData?.contracts || defaultContracts;

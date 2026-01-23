@@ -50,7 +50,7 @@ import {
   Eye,
 } from "lucide-react";
 
-const ENTERPRISE_WALLET = "0xTBURNEnterprise7890abcdef1234567890abcdef";
+const ENTERPRISE_WALLET = "tb1enterprise7890abcdef1234567890abcdef";
 
 interface GamefiProject {
   id: string;

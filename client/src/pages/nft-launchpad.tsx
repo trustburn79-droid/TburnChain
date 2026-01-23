@@ -56,7 +56,7 @@ import {
 } from "lucide-react";
 import { SiDiscord } from "react-icons/si";
 
-const ENTERPRISE_WALLET = "0xTBURNEnterprise00000000000000000000000001";
+const ENTERPRISE_WALLET = "tb1enterprise00000000000000000000000001";
 
 interface LaunchpadProject {
   id: string;

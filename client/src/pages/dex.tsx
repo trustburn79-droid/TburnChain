@@ -53,16 +53,16 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const ENTERPRISE_WALLET_ADDRESS = "0xTBURN1234567890abcdef1234567890abcdef12";
+const ENTERPRISE_WALLET_ADDRESS = "tb11234567890abcdef1234567890abcdef12";
 
 // Default tokens available for swapping
 const DEFAULT_TOKENS = [
-  { address: "0xTBURN0000000000000000000000000000000001", symbol: "TBURN", name: "TBURN Native Token" },
-  { address: "0xUSDT00000000000000000000000000000000001", symbol: "USDT", name: "Tether USD" },
-  { address: "0xUSDC00000000000000000000000000000000001", symbol: "USDC", name: "USD Coin" },
-  { address: "0xWETH00000000000000000000000000000000001", symbol: "WETH", name: "Wrapped Ether" },
-  { address: "0xWBTC00000000000000000000000000000000001", symbol: "WBTC", name: "Wrapped Bitcoin" },
-  { address: "0xDAI000000000000000000000000000000000001", symbol: "DAI", name: "Dai Stablecoin" },
+  { address: "tb1tburn0000000000000000000000000000001", symbol: "TBURN", name: "TBURN Native Token" },
+  { address: "tb1usdt000000000000000000000000000000001", symbol: "USDT", name: "Tether USD" },
+  { address: "tb1usdc000000000000000000000000000000001", symbol: "USDC", name: "USD Coin" },
+  { address: "tb1weth000000000000000000000000000000001", symbol: "WETH", name: "Wrapped Ether" },
+  { address: "tb1wbtc000000000000000000000000000000001", symbol: "WBTC", name: "Wrapped Bitcoin" },
+  { address: "tb1dai0000000000000000000000000000000001", symbol: "DAI", name: "Dai Stablecoin" },
 ];
 
 interface DexPool {

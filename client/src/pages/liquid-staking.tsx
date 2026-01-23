@@ -166,7 +166,7 @@ export default function LiquidStaking() {
   const [redeemDialogOpen, setRedeemDialogOpen] = useState(false);
   const [dialogPool, setDialogPool] = useState<LiquidStakingPool | null>(null);
 
-  const userAddress = "0xTBURNEnterprise7f3a9c4d2e1b8f6a0c3d5e9b4a2f8c1d7e0b3a6f";
+  const userAddress = "tb1enterprise7f3a9c4d2e1b8f6a0c3d5e9b4a2f8c1d7e0b";
 
   const { data: stats, isLoading: statsLoading } = useQuery<LstStats>({
     queryKey: ["/api/liquid-staking/stats"],

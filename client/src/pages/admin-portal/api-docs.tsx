@@ -367,10 +367,10 @@ export default function ApiDocs() {
                   <div className="bg-muted rounded-lg p-4 font-mono text-sm">
                     <pre>{`{
   "height": 1,
-  "hash": "0xTBURN_Genesis_Block_v8_Mainnet_Dec8_2024",
+  "hash": "bh1genesisblockv8mainnetdec82024",
   "timestamp": 1733644800,
   "transactions": 0,
-  "validator": "0xTBURN_Genesis_Validator_Pool",
+  "validator": "tbv1genesisvalidatorpool",
   "network": "mainnet-v8.0",
   "tps_capacity": 100000,
   "block_time_ms": 1000,

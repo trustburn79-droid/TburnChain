@@ -261,8 +261,8 @@ export default function Execution() {
       progress: 100,
       startTime: "2024-12-02 14:00:00",
       endTime: "2024-12-02 14:08:45",
-      executedBy: "0xTBURN_Multi_Sig_Governance",
-      txHash: "0xTBURN_Genesis_Config_v8_Mainnet",
+      executedBy: "tb1multisiggovernance",
+      txHash: "th1genesisconfigv8mainnet",
     },
     {
       id: "EXE-002",
