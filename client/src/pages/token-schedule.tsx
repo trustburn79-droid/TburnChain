@@ -186,6 +186,7 @@ export default function TokenSchedule() {
         .ts-nav-wrapper {
           position: sticky;
           top: 80px;
+          margin-top: 80px;
           z-index: 900;
           background: rgba(5, 5, 9, 0.9);
           border-bottom: 1px solid var(--ts-border-glass);
@@ -370,8 +371,8 @@ export default function TokenSchedule() {
         /* Responsive - Mobile */
         @media (max-width: 768px) {
           .ts-container { padding: 0 16px; }
-          .ts-header { height: 64px; }
-          .ts-nav-wrapper { top: 64px; padding: 8px 0; }
+          .ts-header { height: 56px; }
+          .ts-nav-wrapper { top: 56px; margin-top: 56px; padding: 8px 0; }
           .ts-nav-item { padding: 6px 12px; font-size: 0.8rem; }
           
           .ts-header-left .ts-logo-text { font-size: 1.2rem; }
@@ -379,7 +380,7 @@ export default function TokenSchedule() {
           .ts-header-icon { width: 28px; height: 28px; }
           .ts-header-icon:nth-child(n+5) { display: none; }
           
-          .ts-hero { padding: 140px 0 40px; }
+          .ts-hero { padding: 120px 0 40px; min-height: auto; }
           .ts-hero h1 { font-size: 1.25rem; white-space: normal; line-height: 1.3; }
           .ts-hero p { font-size: 0.95rem !important; }
           .ts-hero-stats { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
