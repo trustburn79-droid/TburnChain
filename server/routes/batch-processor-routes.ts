@@ -9,7 +9,7 @@
  * - POST endpoints (insert, benchmark) require authentication
  */
 
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response } from 'express';
 import {
   getEnterpriseBatchProcessor,
   createEnterpriseBatchProcessor,
@@ -20,28 +20,9 @@ import {
   BATCH_CONFIG,
 } from '../core/messaging/enterprise-batch-processor';
 import { getEnterpriseCrossShardRouter } from '../core/messaging/enterprise-cross-shard-router';
+import { requireAdmin } from '../middleware/auth';
 
 const router = Router();
-
-/**
- * Admin authentication middleware for mutation endpoints
- */
-function requireAdmin(req: Request, res: Response, next: NextFunction) {
-  if (req.session?.authenticated || req.session?.isAdmin) {
-    return next();
-  }
-  
-  const adminPassword = process.env.ADMIN_PASSWORD;
-  const providedPassword = req.headers['x-admin-password'];
-  if (adminPassword && providedPassword === adminPassword) {
-    return next();
-  }
-  
-  return res.status(401).json({ 
-    success: false, 
-    error: 'Authentication required for batch operations' 
-  });
-}
 
 // ============================================================================
 // Status & Monitoring (Public)

@@ -26,6 +26,7 @@ import { rpcValidatorIntegration } from '../core/validators/rpc-validator-integr
 import { validatorRegistrationService } from '../services/validator-registration-service';
 import { validatorRegistrationRequestSchema, keyRotationRequestSchema } from '@shared/schema';
 import { redisSecurityService, initializeSecurityService } from '../services/redis-security-service';
+import { requireAdmin } from '../middleware/auth';
 
 const router = Router();
 
@@ -2109,20 +2110,9 @@ router.post('/heartbeat/record', validateValidatorApiKey, async (req: Request, r
 // ADMIN REGISTRATION MANAGEMENT ENDPOINTS
 // ============================================
 
-// Admin authentication middleware for registration management
-function requireAdminAuth(req: Request, res: Response, next: Function) {
-  const session = (req as any).session;
-  if (session && session.adminAuthenticated) {
-    return next();
-  }
-  return res.status(401).json({ 
-    error: 'Unauthorized', 
-    message: 'Admin authentication required. Please login via /api/admin/auth/login',
-    code: 'ADMIN_AUTH_REQUIRED' 
-  });
-}
+// Use centralized requireAdmin middleware from ../middleware/auth
 
-router.get('/admin/registrations', requireAdminAuth, async (req: Request, res: Response) => {
+router.get('/admin/registrations', requireAdmin, async (req: Request, res: Response) => {
   try {
     const { status } = req.query;
     const registrations = externalValidatorEngine.getPendingRegistrations(
@@ -2162,7 +2152,7 @@ router.get('/admin/registrations', requireAdminAuth, async (req: Request, res: R
   }
 });
 
-router.get('/admin/registrations/:id', requireAdminAuth, async (req: Request, res: Response) => {
+router.get('/admin/registrations/:id', requireAdmin, async (req: Request, res: Response) => {
   try {
     const registration = externalValidatorEngine.getPendingRegistrationById(req.params.id);
     
@@ -2180,7 +2170,7 @@ router.get('/admin/registrations/:id', requireAdminAuth, async (req: Request, re
   }
 });
 
-router.post('/admin/registrations/:id/approve', requireAdminAuth, async (req: Request, res: Response) => {
+router.post('/admin/registrations/:id/approve', requireAdmin, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const reviewedBy = (req as any).user?.username || 'admin';
@@ -2205,7 +2195,7 @@ router.post('/admin/registrations/:id/approve', requireAdminAuth, async (req: Re
   }
 });
 
-router.post('/admin/registrations/:id/reject', requireAdminAuth, async (req: Request, res: Response) => {
+router.post('/admin/registrations/:id/reject', requireAdmin, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { reason } = req.body;
@@ -2249,7 +2239,7 @@ router.get('/rpc-integration/stats', async (_req: Request, res: Response) => {
   }
 });
 
-router.get('/rpc-integration/allowlist', requireAdminAuth, async (_req: Request, res: Response) => {
+router.get('/rpc-integration/allowlist', requireAdmin, async (_req: Request, res: Response) => {
   try {
     const allowlist = rpcValidatorIntegration.getAllowlist();
     
@@ -2273,7 +2263,7 @@ router.get('/rpc-integration/allowlist', requireAdminAuth, async (_req: Request,
   }
 });
 
-router.get('/rpc-integration/allowlist/export', requireAdminAuth, async (_req: Request, res: Response) => {
+router.get('/rpc-integration/allowlist/export', requireAdmin, async (_req: Request, res: Response) => {
   try {
     const exported = rpcValidatorIntegration.exportAllowlistForRPC();
     
@@ -2312,7 +2302,7 @@ router.get('/rpc-integration/check/:address', async (req: Request, res: Response
   }
 });
 
-router.get('/rpc-integration/endpoints/:region', requireAdminAuth, async (req: Request, res: Response) => {
+router.get('/rpc-integration/endpoints/:region', requireAdmin, async (req: Request, res: Response) => {
   try {
     const { region } = req.params;
     const endpoints = rpcValidatorIntegration.getRPCEndpointsForRegion(region as ValidatorRegion);
@@ -2337,7 +2327,7 @@ router.get('/rpc-integration/endpoints/:region', requireAdminAuth, async (req: R
   }
 });
 
-router.post('/rpc-integration/sync', requireAdminAuth, async (_req: Request, res: Response) => {
+router.post('/rpc-integration/sync', requireAdmin, async (_req: Request, res: Response) => {
   try {
     await rpcValidatorIntegration.forceSync();
     const stats = rpcValidatorIntegration.getIntegrationStats();

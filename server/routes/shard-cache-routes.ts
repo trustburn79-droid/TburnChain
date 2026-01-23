@@ -8,38 +8,16 @@
  * POST endpoints (warm, invalidate, benchmark) require authentication
  */
 
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response } from 'express';
 import { 
   getEnterpriseShardCache, 
   shutdownEnterpriseShardCache,
   type ShardData,
   type ShardPair 
 } from '../core/caching/enterprise-shard-cache';
+import { requireAdmin } from '../middleware/auth';
 
 const router = Router();
-
-/**
- * Admin authentication middleware for mutation endpoints
- * Checks for authenticated session or admin password
- */
-function requireAdmin(req: Request, res: Response, next: NextFunction) {
-  // Check session authentication
-  if (req.session?.authenticated || req.session?.isAdmin) {
-    return next();
-  }
-  
-  // Check admin password in header
-  const adminPassword = process.env.ADMIN_PASSWORD;
-  const providedPassword = req.headers['x-admin-password'];
-  if (adminPassword && providedPassword === adminPassword) {
-    return next();
-  }
-  
-  return res.status(401).json({ 
-    success: false, 
-    error: 'Authentication required for cache mutation operations' 
-  });
-}
 
 /**
  * GET /api/shard-cache/status

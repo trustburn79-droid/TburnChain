@@ -24,6 +24,7 @@ import {
 import { aiOrchestrator } from '../services/AIOrchestrator';
 import { aiDecisionExecutor } from '../services/AIDecisionExecutor';
 import { getDataCache } from '../services/DataCacheService';
+import { requireAdmin } from '../middleware/auth';
 
 const router = Router();
 
@@ -31,15 +32,10 @@ const router = Router();
 // SECURITY: Authentication & Authorization Middleware
 // ============================================
 
-// SECURITY: Admin password must be set via environment variable - no fallback
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-if (!ADMIN_PASSWORD) {
-  console.error('[CRITICAL] ADMIN_PASSWORD environment variable is not set. Admin features disabled.');
-}
-
 /**
  * Enterprise Admin Authentication Middleware
  * Required for all mutating operations (POST, PUT, DELETE, PATCH)
+ * Uses centralized requireAdmin from middleware/auth for session-based auth
  */
 function requireEnterpriseAuth(req: Request, res: Response, next: NextFunction) {
   // Allow read-only operations without auth for monitoring
@@ -47,23 +43,13 @@ function requireEnterpriseAuth(req: Request, res: Response, next: NextFunction) 
     return next();
   }
   
-  // Mutating operations require admin session
-  if (!req.session?.adminAuthenticated) {
-    console.warn(`[Enterprise Security] Unauthorized mutating request: ${req.method} ${req.path}`);
-    return res.status(401).json({
-      success: false,
-      error: 'Authentication required',
-      code: 'UNAUTHORIZED'
-    });
-  }
-  
-  // Log authorized access for audit
-  console.log(`[Enterprise Audit] Admin action: ${req.method} ${req.path} by session ${req.sessionID}`);
-  next();
+  // Use centralized admin authentication for mutating operations
+  return requireAdmin(req, res, next);
 }
 
 /**
  * Critical Operations require additional admin password verification
+ * Uses environment variable directly - no hardcoded fallback
  */
 function requireCriticalAuth(req: Request, res: Response, next: NextFunction) {
   if (!req.session?.adminAuthenticated) {
@@ -74,8 +60,18 @@ function requireCriticalAuth(req: Request, res: Response, next: NextFunction) {
     });
   }
   
-  const adminPassword = req.headers['x-admin-password'] as string;
-  if (!adminPassword || adminPassword !== ADMIN_PASSWORD) {
+  const envAdminPassword = process.env.ADMIN_PASSWORD;
+  if (!envAdminPassword) {
+    console.error('[Enterprise Security] ADMIN_PASSWORD not configured');
+    return res.status(500).json({
+      success: false,
+      error: 'Critical auth not configured',
+      code: 'CONFIG_ERROR'
+    });
+  }
+  
+  const providedPassword = req.headers['x-admin-password'] as string;
+  if (!providedPassword || providedPassword !== envAdminPassword) {
     console.warn(`[Enterprise Security] Critical operation rejected: missing/invalid admin password`);
     return res.status(403).json({
       success: false,
