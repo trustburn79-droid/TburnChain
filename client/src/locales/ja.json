@@ -15716,8 +15716,8 @@
               "detectingFraud": "詐欺、悪用、セキュリティ脅威の検出。",
               "improving": "分析を通じたサービスの改善。",
               "legalCompliance": "法的コンプライアンス義務の履行。",
-              "compliance": "Meeting 法的情報 and 規制コンプライアンス obligations",
-              "fraud": "Detecting and preventing fraud, abuse, and セキュリティ threats"
+              "compliance": "法的および規制コンプライアンス義務の履行",
+              "fraud": "詐欺、悪用、セキュリティ脅威の検出と防止"
             }
           },
           "informationSharing": {
@@ -15764,8 +15764,8 @@
               "preferences": "設定の記憶",
               "analyzeSite": "サイト使用状況の分析",
               "improveExperience": "ユーザーエクスペリエンスの向上",
-              "analytics": "Analyzing site 使用法 patterns",
-              "experience": "Improving your user experience"
+              "analytics": "サイト使用パターンの分析",
+              "experience": "ユーザーエクスペリエンスの向上"
             },
             "manage": "ブラウザ設定でCookie設定を管理できます。",
             "content": "サービス向上のためにCookieを使用します。"
@@ -15775,89 +15775,89 @@
             "content": "お客様の情報は、お客様の国以外の国で転送および処理される場合があります。適用されるデータ保護法に準拠して、そのような転送に適切な保護措置を確保します。"
           },
           "informationCollect": {
-            "title": "2. 情報rmation We Collect",
+            "title": "2. 収集する情報",
             "provided": {
-              "title": "2.1 情報rmation You Provide",
+              "title": "2.1 お客様が提供する情報",
               "account": {
-                "label": "Account 情報rmation",
-                "value": "メールアドレス, username, ウォレット addresses"
+                "label": "アカウント情報",
+                "value": "メールアドレス、ユーザー名、ウォレットアドレス"
               },
               "project": {
-                "label": "Project 検証",
-                "value": "Business registration documents, KYC 情報rmation, 金融 statements"
+                "label": "プロジェクト検証",
+                "value": "事業登録書類、KYC情報、財務諸表"
               },
               "communication": {
-                "label": "Communication Data",
-                "value": "Messages, support tickets, feed戻る"
+                "label": "コミュニケーションデータ",
+                "value": "メッセージ、サポートチケット、フィードバック"
               }
             },
             "automatic": {
-              "title": "2.2 Automaticすべてy Collected 情報rmation",
+              "title": "2.2 自動的に収集される情報",
               "blockchain": {
-                "label": "ブロックチェーン Data",
-                "value": "Public ウォレット addresses, transaction hashes, smart contract interアクション"
+                "label": "ブロックチェーンデータ",
+                "value": "公開ウォレットアドレス、トランザクションハッシュ、スマートコントラクトインタラクション"
               },
               "device": {
-                "label": "Device 情報rmation",
-                "value": "IP address, ブラウザ type, オペレーティングシステム"
+                "label": "デバイス情報",
+                "value": "IPアドレス、ブラウザタイプ、オペレーティングシステム"
               },
               "usage": {
-                "label": "使用法 Data",
-                "value": "Pages viewed, navigation patterns, session duration"
+                "label": "使用データ",
+                "value": "閲覧ページ、ナビゲーションパターン、セッション時間"
               }
             }
           },
           "sharing": {
-            "title": "4. 情報rmation Sharing",
-            "intro": "We 共有 情報rmation with:",
+            "title": "4. 情報の共有",
+            "intro": "以下と情報を共有します：",
             "validators": {
               "label": "バリデーター",
-              "value": "For decentralized 検証 processes"
+              "value": "分散型検証プロセスのため"
             },
             "providers": {
-              "label": "Service Providers",
-              "value": "Infrastructure and support パートナー"
+              "label": "サービスプロバイダー",
+              "value": "インフラおよびサポートパートナー"
             },
             "legal": {
-              "label": "法的情報 Authorities",
-              "value": "When 必須 by law"
+              "label": "法的機関",
+              "value": "法律で要求される場合"
             },
-            "noSell": "We do NOT sell your personal data to third parties for marketing purposes.",
+            "noSell": "マーケティング目的で第三者にお客様の個人データを販売することはありません。",
             "content": "当社は、法的要件を除き、お客様の情報を第三者と共有しません。"
           },
           "blockchain": {
-            "title": "5. ブロックチェーン-Specific プライバシー",
+            "title": "5. ブロックチェーン固有のプライバシー",
             "publicData": {
-              "title": "Public Data",
-              "content": "トランザクション and smart contract interアクション on TBurn Chain are publicly visible and immutable. This data cannot be deleted or modified."
+              "title": "公開データ",
+              "content": "TBurn Chain上のトランザクションとスマートコントラクトインタラクションは公開され、不変です。このデータは削除または変更できません。"
             },
             "pseudonymity": {
-              "title": "Pseudonymity",
-              "content": "ウォレット addresses are pseudonymous. However, if you link your real-world identity to a ウォレット address, that connection may become public."
+              "title": "匿名性",
+              "content": "ウォレットアドレスは仮名です。ただし、実世界のアイデンティティをウォレットアドレスにリンクすると、その接続が公開される可能性があります。"
             }
           },
           "security": {
-            "title": "6. セキュリティ & Rights",
-            "intro": "We implement appropriate セキュリティ measures including:",
+            "title": "6. セキュリティと権利",
+            "intro": "以下の適切なセキュリティ対策を実施しています：",
             "measures": {
-              "ssl": "SSL/TLS encryption for data in transit",
-              "encrypted": "Encrypted storage for sensitive data",
-              "mfa": "Multi-factor authentication",
-              "audits": "Regular セキュリティ audits and penetration testing"
+              "ssl": "転送中データのSSL/TLS暗号化",
+              "encrypted": "機密データの暗号化ストレージ",
+              "mfa": "多要素認証",
+              "audits": "定期的なセキュリティ監査と侵入テスト"
             },
-            "rightsIntro": "De保留中 on your location, you may have the right to:",
+            "rightsIntro": "所在地に応じて、以下の権利を有する場合があります：",
             "rights": {
-              "access": "Access your personal 情報rmation",
-              "correct": "Correct inaccurate data",
-              "delete": "Delete your off-chain data",
-              "object": "Object to data processing",
-              "portability": "Data portability"
+              "access": "個人情報へのアクセス",
+              "correct": "不正確なデータの訂正",
+              "delete": "オフチェーンデータの削除",
+              "object": "データ処理への異議",
+              "portability": "データポータビリティ"
             },
             "content": "当社は、お客様の情報を保護するために適切な措置を講じています。"
           },
           "international": {
-            "title": "8. International Data Transfers",
-            "content": "Your 情報rmation may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers in コンプライアンス with applicable data protection laws."
+            "title": "8. 国際データ転送",
+            "content": "お客様の情報は、お客様の居住国以外の国に転送され、処理される場合があります。当社は、適用されるデータ保護法に準拠し、そのような転送に適切な保護措置が講じられていることを確認します。"
           },
           "collection": {
             "title": "情報の収集",
@@ -15884,10 +15884,10 @@
           },
           "responseTime": "応答時間",
           "responseTimeValue": "30日以内",
-          "description": "If you have questions about this プライバシーポリシー, please お問い合わせ our プライバシー Office.",
+          "description": "このプライバシーポリシーについてご質問がございましたら、プライバシーオフィスまでお問い合わせください。",
           "response": {
-            "label": "Response Time",
-            "value": "Within 30 日"
+            "label": "応答時間",
+            "value": "30日以内"
           }
         },
         "relatedDocuments": {
@@ -15895,16 +15895,16 @@
           "termsOfService": "利用規約",
           "termsOfServiceDesc": "ユーザー契約",
           "disclaimer": "免責事項",
-          "disclaimerDesc": "リスク開示s"
+          "disclaimerDesc": "リスク開示"
         },
         "learnMore": {
           "title": "詳しく見る",
-          "whatIsWallet": "What is a ウォレット?",
-          "whatIsWalletDesc": "Secure your keys",
-          "trustScoreSystem": "トラストスコア System",
-          "trustScoreSystemDesc": "検証 process",
-          "blockchainBasics": "ブロックチェーン ベーシックs",
-          "blockchainBasicsDesc": "Data on-chain"
+          "whatIsWallet": "ウォレットとは？",
+          "whatIsWalletDesc": "キーの安全な保管",
+          "trustScoreSystem": "トラストスコアシステム",
+          "trustScoreSystemDesc": "検証プロセス",
+          "blockchainBasics": "ブロックチェーン基礎",
+          "blockchainBasicsDesc": "オンチェーンデータ"
         },
         "securitySolutions": {
           "title": "セキュリティソリューション",
@@ -16055,39 +16055,39 @@
       "common": {
         "backToHome": "ホームに戻る",
         "learnMore": "詳しく見る",
-        "relatedDocs": "Related Documents",
+        "relatedDocs": "関連文書",
         "securitySolutions": "セキュリティソリューション",
         "links": {
           "privacy": {
             "title": "プライバシーポリシー",
-            "subtitle": "How we handle your data",
+            "subtitle": "データの取り扱いについて",
             "forumTitle": "コミュニティフォーラム",
             "viewAll": "すべて表示",
             "recentPosts": "最近の投稿",
-            "subtitleData": "Your data protection rights"
+            "subtitleData": "お客様のデータ保護権"
           },
           "terms": {
             "title": "利用規約",
-            "subtitle": "User agreement and conditions"
+            "subtitle": "ユーザー契約と利用条件"
           },
           "disclaimer": {
             "title": "免責事項",
-            "subtitle": "法的情報 notices",
+            "subtitle": "法的通知",
             "forumTitle": "コミュニティフォーラム",
             "viewAll": "すべて表示",
             "recentPosts": "最近の投稿",
-            "subtitleRisk": "リスク開示s"
+            "subtitleRisk": "リスク開示"
           }
         },
         "learn": {
           "trustScore": {
-            "title": "トラストスコア System",
-            "subtitle": "3-stage 検証 process",
+            "title": "トラストスコアシステム",
+            "subtitle": "3段階検証プロセス",
             "forumTitle": "コミュニティフォーラム",
             "viewAll": "すべて表示",
             "recentPosts": "最近の投稿",
-            "subtitleHow": "How トラストスコアs work",
-            "subtitleVerification": "検証 methodology",
+            "subtitleHow": "トラストスコアの仕組み",
+            "subtitleVerification": "検証方法論",
             "components": {
               "financial": {
                 "items": {
@@ -16185,24 +16185,24 @@
             "verificationProcessDescription": "4ステップ検証ワークフロー"
           },
           "wallet": {
-            "title": "What is a ウォレット?",
-            "subtitle": "ウォレット ベーシックs",
+            "title": "ウォレットとは？",
+            "subtitle": "ウォレット基礎",
             "forumTitle": "コミュニティフォーラム",
             "viewAll": "すべて表示",
             "recentPosts": "最近の投稿",
-            "subtitleSecurity": "Securing your assets"
+            "subtitleSecurity": "資産の保護"
           },
           "blockchain": {
-            "title": "ブロックチェーン ベーシックs",
-            "subtitle": "Understanding ブロックチェーン technology"
+            "title": "ブロックチェーン基礎",
+            "subtitle": "ブロックチェーン技術の理解"
           },
           "burnChain": {
-            "title": "What is TBurn Chain?",
-            "subtitle": "Platform overview"
+            "title": "TBurn Chainとは？",
+            "subtitle": "プラットフォーム概要"
           },
           "defi": {
-            "title": "Intro to DeFi",
-            "subtitle": "Decentralized finance fundamentals"
+            "title": "DeFi入門",
+            "subtitle": "分散型金融の基礎"
           },
           "notifications": {
             "disabled": "通知オフ",
@@ -22420,7 +22420,7 @@
         "applyPrivate": "プライベート投資申請",
         "viewDeck": "投資資料を見る",
         "inquire": "Submit Inquiry",
-        "learnMore": "Learn More",
+        "learnMore": "詳細を見る",
         "viewVesting": "View Vesting"
       },
       "comparison": {
@@ -22762,7 +22762,7 @@
         "joinNow": "今すぐ参加",
         "viewGuide": "セールガイドを見る",
         "register": "Register Now",
-        "learnMore": "Learn More",
+        "learnMore": "詳細を見る",
         "viewVesting": "View Vesting"
       },
       "comparison": {
