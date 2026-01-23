@@ -3,7 +3,16 @@ import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import rateLimit from "express-rate-limit";
 import { getSafeSortColumn, getSafeSortOrder, getSafeNumber, sanitizeSearchString } from './utils/sql-security';
-import { addressFromString } from './utils/tburn-address';
+import { addressFromString, generateRandomTBurnAddress, generateTBurnAddress, generateValidatorAddress } from './utils/tburn-address';
+
+// Helper functions for generating tb1 format hashes
+function generateMockTxHash(): string {
+  return `th1${randomBytes(32).toString('hex').slice(0, 58)}`;
+}
+
+function generateMockBlockHash(): string {
+  return `bh1${randomBytes(32).toString('hex').slice(0, 58)}`;
+}
 import bcrypt from "bcryptjs";
 import { randomBytes, createHash } from "crypto";
 import { Resend } from "resend";
@@ -4476,12 +4485,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const randomBytes = Array.from({ length: 20 }, () => 
         Math.floor(Math.random() * 256).toString(16).padStart(2, '0')
       ).join('');
-      const contractAddress = `0x${randomBytes}`;
+      const contractAddress = generateRandomTBurnAddress();
       
       const txRandomBytes = Array.from({ length: 32 }, () => 
         Math.floor(Math.random() * 256).toString(16).padStart(2, '0')
       ).join('');
-      const deploymentTxHash = `0x${txRandomBytes}`;
+      const deploymentTxHash = generateMockTxHash();
 
       // Create deployed token record
       const deployedToken = {
@@ -4971,7 +4980,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         amountReceived: null,
         feeAmount,
         status: "pending",
-        sourceTxHash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
+        sourceTxHash: generateMockTxHash(),
         destinationTxHash: null,
         confirmations: 0,
         requiredConfirmations: sourceChain.confirmationsRequired,
@@ -5019,7 +5028,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         amountReceived,
         feeAmount,
         status: "completed",
-        destinationTxHash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
+        destinationTxHash: generateMockTxHash(),
         claimedAt: new Date().toISOString()
       };
       
@@ -5221,7 +5230,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
       
       // Generate transaction hash
-      const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+      const txHash = generateMockTxHash();
       
       res.json({
         success: true,
@@ -5818,9 +5827,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             const toAddr2 = createHash('sha256').update(`to-page-${txBlockNumber}-${i}`).digest('hex').slice(0, 40);
             realtimeTransactions.push({
               id: `rt-tx-${Date.now()}-${i}`,
-              hash: `0x${txHash2}`,
+              hash: generateMockTxHash(),
               blockNumber: txBlockNumber,
-              blockHash: `0x${blockHash2}`,
+              blockHash: generateMockBlockHash(),
               from: `tburn${fromAddr2}`,
               to: `tburn${toAddr2}`,
               value: (Math.random() * 100 * 1e18).toFixed(0),
@@ -5830,7 +5839,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
               nonce: Math.floor(Math.random() * 1000),
               timestamp: txTimestamp,
               status: statusOptions[Math.floor(Math.random() * statusOptions.length)],
-              input: Math.random() > 0.7 ? `0x${randomBytes(10).toString('hex')}` : null,
+              input: Math.random() > 0.7 ? `cd1${randomBytes(10).toString('hex')}` : null,
               contractAddress: null,
               shardId: Math.floor(Math.random() * 16),
               executionClass: Math.random() > 0.3 ? 'parallel' : 'standard',
@@ -5939,9 +5948,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             const toAddr = createHash('sha256').update(`to-${txBlockNumber}-${i}`).digest('hex').slice(0, 40);
             realtimeTransactions.push({
               id: `rt-tx-${Date.now()}-${i}`,
-              hash: `0x${txHash}`,
+              hash: generateMockTxHash(),
               blockNumber: txBlockNumber,
-              blockHash: `0x${blockHash}`,
+              blockHash: generateMockBlockHash(),
               from: `tburn${fromAddr}`,
               to: `tburn${toAddr}`,
               value: (Math.random() * 100 * 1e18).toFixed(0),
@@ -5951,7 +5960,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
               nonce: Math.floor(Math.random() * 1000),
               timestamp: txTimestamp,
               status: statusOptions[Math.floor(Math.random() * statusOptions.length)],
-              input: Math.random() > 0.7 ? `0x${randomBytes(10).toString('hex')}` : null,
+              input: Math.random() > 0.7 ? `cd1${randomBytes(10).toString('hex')}` : null,
               contractAddress: null,
               shardId: Math.floor(Math.random() * 16),
               executionClass: Math.random() > 0.3 ? 'parallel' : 'standard',
@@ -6061,7 +6070,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       id: `tx-${hash.slice(2, 18)}`,
       hash,
       blockNumber,
-      blockHash: `0x${createHash('sha256').update(hash + 'block').digest('hex')}`,
+      blockHash: generateMockBlockHash(),
       from: `tb1${fromAddr.slice(0, 38)}`,
       to: `tb1${toAddr.slice(0, 38)}`,
       value: (BigInt(valueMultiplier) * BigInt('1000000000000000000')).toString(),
@@ -6071,7 +6080,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       nonce,
       timestamp: Math.floor(timestamp / 1000),
       status,
-      input: seededRandom(7) > 0.7 ? `0x${createHash('sha256').update(hash + 'input').digest('hex').slice(0, 20)}` : '0x',
+      input: seededRandom(7) > 0.7 ? `cd1${createHash('sha256').update(hash + 'input').digest('hex').slice(0, 20)}` : '0x',
       contractAddress: null,
       shardId: Math.floor(seededRandom(8) * 24),
       executionClass: seededRandom(9) > 0.3 ? 'parallel' : 'standard',
@@ -6197,7 +6206,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       const simulationResult = {
         id: `sim-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
-        txHash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
+        txHash: generateMockTxHash(),
         from,
         to: to || null,
         value: valueNum.toString(),
@@ -6213,7 +6222,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         logs: txType === 'transfer' ? 1 : Math.floor(Math.random() * 8),
         errorMessage,
         type: txType,
-        contractAddress: isContractCreation ? `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}` : null,
+        contractAddress: isContractCreation ? generateRandomTBurnAddress() : null,
         aiAnalysis: {
           securityScore,
           gasOptimized: true,
@@ -6401,7 +6410,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
 
       // Mock delegator address (in production, this would come from auth context)
-      const delegatorAddress = `0x${Math.random().toString(16).slice(2, 42)}`;
+      const delegatorAddress = generateRandomTBurnAddress();
       
       await storage.delegateToValidator(address, amount, delegatorAddress);
       res.json({ success: true, message: `Delegated ${amount} TBURN to validator` });
@@ -6421,7 +6430,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
 
       // Mock delegator address (in production, this would come from auth context)
-      const delegatorAddress = `0x${Math.random().toString(16).slice(2, 42)}`;
+      const delegatorAddress = generateRandomTBurnAddress();
       
       await storage.undelegateFromValidator(address, amount, delegatorAddress);
       res.json({ success: true, message: `Undelegated ${amount} TBURN from validator` });
@@ -6824,7 +6833,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       let validatorId = member.validator_id;
       if (validatorTiers.includes(tier) && !member.validator_id) {
         // Create new validator record
-        const validatorAddress = member.account_address || `0x${require('crypto').randomBytes(20).toString('hex')}`;
+        const validatorAddress = member.account_address || generateRandomTBurnAddress();
         const validatorName = member.display_name || `Validator-${id.slice(0, 8)}`;
         const validatorStatus = statusMap[tier] || 'standby';
         const defaultStake = stakingRequirements[tier]?.toString() || '5000000';
@@ -11008,11 +11017,11 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   app.post("/api/admin/tokens/mint", requireAdmin, async (req, res) => {
-    res.json({ success: true, message: "Mint transaction submitted", txHash: `0x${Date.now().toString(16)}` });
+    res.json({ success: true, message: "Mint transaction submitted", txHash: generateMockTxHash() });
   });
 
   app.post("/api/admin/tokens/burn", requireAdmin, async (req, res) => {
-    res.json({ success: true, message: "Burn transaction submitted", txHash: `0x${Date.now().toString(16)}` });
+    res.json({ success: true, message: "Burn transaction submitted", txHash: generateMockTxHash() });
   });
 
   app.post("/api/admin/tokens/:tokenId/:action", requireAdmin, async (req, res) => {
@@ -12020,7 +12029,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   app.post("/api/admin/treasury/transfer", requireAdmin, async (req, res) => {
-    res.json({ success: true, message: "Transfer submitted for multi-sig approval", txId: `0x${Date.now().toString(16)}` });
+    res.json({ success: true, message: "Transfer submitted for multi-sig approval", txId: generateMockTxHash() });
   });
 
   app.post("/api/admin/treasury/transactions/:transactionId/cancel", requireAdmin, async (req, res) => {
@@ -13624,7 +13633,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       for (const claim of claimsToProcess) {
         try {
-          const txHash = `0x${createHash("sha256").update(claim.id + Date.now().toString()).digest("hex")}`;
+          const txHash = generateMockTxHash();
           
           await storage.updateAirdropClaim(claim.id, {
             status: 'claimed',
@@ -13644,7 +13653,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         processedCount,
         failedCount,
         completedAt: new Date(),
-        executionTxHash: `0x${createHash("sha256").update(distribution.id + Date.now().toString()).digest("hex")}`,
+        executionTxHash: generateMockTxHash(),
       });
 
       res.json({
@@ -13675,7 +13684,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         return res.status(400).json({ error: `Cannot process claim with status: ${claim.status}` });
       }
 
-      const txHash = `0x${createHash("sha256").update(claim.id + Date.now().toString()).digest("hex")}`;
+      const txHash = generateMockTxHash();
       
       await storage.updateAirdropClaim(claim.id, {
         status: 'claimed',
@@ -13796,7 +13805,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         return res.status(400).json({ error: `Cannot claim with status: ${claim.status}` });
       }
 
-      const txHash = `0x${createHash("sha256").update(claim.id + walletAddress + Date.now().toString()).digest("hex")}`;
+      const txHash = generateMockTxHash();
       const blockNumber = Math.floor(Date.now() / 100);
 
       await storage.updateAirdropClaim(claim.id, {
@@ -13973,7 +13982,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         return res.status(400).json({ error: 'Valid reward amount is required' });
       }
       const results = { distributed: 0, failed: 0 };
-      const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).substring(2, 10)}`;
+      const txHash = generateMockTxHash();
       for (const accountId of accountIds) {
         try {
           const account = await storage.getReferralAccountById(accountId);
@@ -14095,7 +14104,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         ? registrations.filter(r => recipientIds.includes(r.id))
         : registrations;
       
-      const txHash = `0x${[...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+      const txHash = generateMockTxHash();
       let distributed = 0;
       
       for (const reg of targets) {
@@ -16148,7 +16157,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
       
       // Process claim
-      const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).substring(2, 10)}`;
+      const txHash = generateMockTxHash();
       
       // Update account
       const currentEarnings = BigInt(account.totalEarnings || '0');
@@ -16348,7 +16357,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         return res.status(400).json({ error: 'No rewards to claim' });
       }
       
-      const txHash = `0x${[...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+      const txHash = generateMockTxHash();
       
       await storage.updateEventRegistration(registration.id, {
         rewardClaimed: true,
@@ -17578,7 +17587,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       proposalId: id,
       vote,
       votingPower: votingPower || 100000,
-      txHash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
+      txHash: generateMockTxHash(),
       timestamp: new Date().toISOString(),
       message: `Vote '${vote}' successfully cast for proposal ${id}`
     };
@@ -17594,7 +17603,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       executionId: `exec-${Date.now()}`,
       proposalId: id,
       status: "completed",
-      txHash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
+      txHash: generateMockTxHash(),
       executedAt: new Date().toISOString(),
       executedBy: req.user?.id ? `tb1admin${req.user.id.substring(0, 20)}` : "tb1genesis0multisig000000000001",
       message: `Proposal ${id} executed successfully`
@@ -17680,7 +17689,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       success: true,
       executionId: id,
       status: "in_progress",
-      txHash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
+      txHash: generateMockTxHash(),
       startedAt: new Date().toISOString(),
       message: `Execution ${id} started successfully`
     });
@@ -20117,7 +20126,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       // Generate unique wallet ID and address
       const walletId = `demo-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      const address = `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+      const address = generateRandomTBurnAddress();
       
       const wallet = await storage.createDemoWallet({
         walletId,
@@ -21289,7 +21298,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       poolType: pool.poolType || "public",
       tier: pool.tier || "bronze",
       validatorId: pool.validatorId,
-      validatorAddress: pool.validatorAddress || `0x${Math.random().toString(16).slice(2, 42)}`,
+      validatorAddress: pool.validatorAddress || generateRandomTBurnAddress(),
       validatorName: pool.validatorName || `TBURN Validator ${pool.id?.slice(0, 4)}`,
       minStake: pool.minStake || "1000000000000000000",
       maxStake: pool.maxStake,
@@ -22477,9 +22486,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({
         success: true,
         receiptToken,
-        transactionHash: `0x${Array.from({ length: 64 }, () => 
-          Math.floor(Math.random() * 16).toString(16)
-        ).join('')}`,
+        transactionHash: generateMockTxHash(),
         gasUsed: 85000,
         blockNumber: Math.floor(Date.now() / 1000),
       });
@@ -22825,9 +22832,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           to: "0xSTAKE000000000000000000000000000000001",
           amount,
           tokenSymbol: "TBURN",
-          transactionHash: `0x${Array.from({ length: 64 }, () => 
-            Math.floor(Math.random() * 16).toString(16)
-          ).join('')}`,
+          transactionHash: generateMockTxHash(),
           blockNumber: Math.floor(Date.now() / 1000),
           gasUsed: 125000,
         },
@@ -23667,7 +23672,7 @@ Provide JSON portfolio analysis:
         // Ethereum-compatible eth_subscribe and TBURN-specific tburn_subscribe
         // ============================================
         if (data.jsonrpc === '2.0' && data.method) {
-          const subscriptionId = `0x${Math.random().toString(16).slice(2, 18)}`;
+          const subscriptionId = generateMockTxHash().slice(0, 18);
           
           // eth_subscribe - Standard Ethereum subscriptions
           if (data.method === 'eth_subscribe') {
