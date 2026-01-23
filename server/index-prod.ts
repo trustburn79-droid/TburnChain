@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { type Server, createServer } from "node:http";
 import express, { type Express } from "express";
+import { generateNonce, injectNonceIntoHtml, getCspDirectivesWithNonce } from "./middleware/csp-nonce";
 
 // Service readiness state - APIs can check this before responding
 export let servicesReady = false;
@@ -97,14 +98,47 @@ app.use('/assets', (req, res) => {
 // This allows index.html to be served instantly on first visit
 // ============================================
 
-// Helper function to serve index.html with proper headers
+// Cache the base HTML template for performance
+let cachedHtmlTemplate: string | null = null;
+
+// Helper function to serve index.html with nonce-based CSP
 function serveIndexHtml(res: express.Response) {
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
-  res.setHeader('Surrogate-Control', 'no-store');
-  res.setHeader('X-Content-Version', '2026.01.02.v3');
-  res.sendFile(path.resolve(distPath, "index.html"));
+  try {
+    // Generate unique nonce for this request
+    const nonce = generateNonce();
+    
+    // Read or use cached HTML template
+    if (!cachedHtmlTemplate) {
+      cachedHtmlTemplate = fs.readFileSync(path.resolve(distPath, "index.html"), 'utf-8');
+    }
+    
+    // Inject nonce into script tags
+    const htmlWithNonce = injectNonceIntoHtml(cachedHtmlTemplate, nonce);
+    
+    // Build CSP header with nonce
+    const cspDirectives = getCspDirectivesWithNonce(nonce);
+    const cspHeader = Object.entries(cspDirectives)
+      .map(([key, values]) => {
+        const directive = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+        return `${directive} ${Array.isArray(values) ? values.join(' ') : values}`;
+      })
+      .join('; ');
+    
+    // Set security and cache headers
+    res.setHeader('Content-Security-Policy', cspHeader);
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Surrogate-Control', 'no-store');
+    res.setHeader('X-Content-Version', '2026.01.02.v3');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    
+    res.send(htmlWithNonce);
+  } catch (error) {
+    console.error('[CSP] Error serving index.html with nonce:', error);
+    // Fallback to static file if nonce injection fails
+    res.sendFile(path.resolve(distPath, "index.html"));
+  }
 }
 
 // ★ [2026-01-16] CRITICAL FIX: Provide fast responses during cold start

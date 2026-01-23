@@ -105,33 +105,13 @@ export const app = express();
 app.set('trust proxy', 1);
 
 // ★ [2026-01-23] Security: Helmet middleware with CSP headers
-// CSP is disabled in development mode to allow Vite HMR and module loading
-// 
-// SECURITY NOTE: unsafe-inline/unsafe-eval in production are used for:
-// - Vite bundled React app compatibility
-// - TanStack Query and certain library internals
-// FUTURE HARDENING: Migrate to nonce-based CSP when time permits:
-// 1. Generate nonces per-request and inject into script tags
-// 2. Remove unsafe-inline from scriptSrc, use nonce-{value} instead
-// 3. Audit third-party scripts for eval() usage before removing unsafe-eval
-const isDevelopment = process.env.NODE_ENV === 'development';
+// CSP is disabled here because:
+// - Development: Vite HMR requires inline scripts
+// - Production: index-prod.ts handles nonce-based CSP at HTML serving level
+// This provides per-request unique nonces for maximum XSS protection
 app.use(helmet({
-  contentSecurityPolicy: isDevelopment ? false : {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
-      imgSrc: ["'self'", "data:", "https:", "blob:"],
-      connectSrc: ["'self'", "wss:", "ws:", "https:"],
-      frameSrc: ["'none'"],
-      objectSrc: ["'none'"],
-      baseUri: ["'self'"],
-      formAction: ["'self'"],
-      frameAncestors: ["'none'"],
-      upgradeInsecureRequests: [],
-    },
-  },
+  // CSP disabled in Helmet - production uses nonce-based CSP in index-prod.ts
+  contentSecurityPolicy: false,
   crossOriginEmbedderPolicy: false,
   crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" },
   crossOriginResourcePolicy: { policy: "cross-origin" },
