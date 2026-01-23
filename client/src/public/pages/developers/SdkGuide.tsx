@@ -82,22 +82,22 @@ client.ws.subscribeBlocks((block) => {
   console.log(\`New block: #\${block.number}\`);
 });
 
-// 2. Watch Address Transactions
-client.ws.watchAddress('0xYourAddress...', (tx) => {
-  console.log(\`New tx: \${tx.hash}\`);
+// 2. Watch Address Transactions (tb1 Bech32m format)
+client.ws.watchAddress('tb1qyouraddress7x2e5d4c6b8a7n9m0...', (tx) => {
+  console.log(\`New tx: \${tx.hash}, shard: \${tx.shardId}\`);
 });
 
 // 3. Listen to Trust Score Updates
-client.ws.subscribeTrustScores(['0xProject1...'], (update) => {
+client.ws.subscribeTrustScores(['tb1qcontract7x2e5d4c6b8...'], (update) => {
   console.log(\`Score changed: \${update.oldScore} → \${update.newScore}\`);
 });`;
 
 const errorHandlingExample = `import { TBurnClient, TBurnError, RateLimitError, NetworkError } from '@tburn/sdk';
 
-const client = new TBurnClient({ apiKey: 'YOUR_KEY' });
+const client = new TBurnClient({ apiKey: 'YOUR_KEY', network: 'mainnet' });
 
 try {
-  const balance = await client.getBalance('0xAddress...');
+  const balance = await client.getBalance('tb1qyouraddress7x2e5d4c6b8a7n9m0...');
 } catch (error) {
   if (error instanceof RateLimitError) {
     // Handle rate limiting - wait and retry
@@ -206,8 +206,8 @@ const aiDecisionsExample = `import { TBurnClient } from '@tburn/sdk';
 
 const client = new TBurnClient({ apiKey: 'YOUR_KEY', network: 'mainnet' });
 
-// 1. Get AI trust score for a contract
-const trustScore = await client.ai.getTrustScore('0x742d35Cc6634C0532...');
+// 1. Get AI trust score for a contract (tb1 Bech32m format)
+const trustScore = await client.ai.getTrustScore('tb1qcontract7x2e5d4c6b8a7...');
 console.log(\`Trust Score: \${trustScore.trustScore}/100 (Grade: \${trustScore.grade})\`);
 console.log(\`Factors:\`);
 for (const [factor, data] of Object.entries(trustScore.factors)) {
@@ -322,15 +322,15 @@ const rustExample = `use tburn_sdk::{TBurnClient, Config, Error};
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    // Initialize client
+    // Initialize client for TBURN Mainnet (Chain ID: 5800)
     let client = TBurnClient::new(Config {
         api_key: "YOUR_API_KEY".to_string(),
-        network: Network::Mainnet,
+        network: Network::Mainnet,  // 24 shards, 587 validators
         ..Default::default()
     })?;
 
-    // Get balance with pattern matching error handling
-    match client.get_balance("0xYourAddress...").await {
+    // Get balance (tb1 Bech32m address format)
+    match client.get_balance("tb1qyouraddress7x2e5d4c6b8a7n9m0...").await {
         Ok(balance) => {
             println!("Balance: {} TBURN", balance.formatted);
         }
@@ -345,14 +345,15 @@ async fn main() -> Result<(), Error> {
         }
     }
 
-    // Send transaction
+    // Send transaction to tb1 address
     let tx = client.transfer(TransferRequest {
-        to: "0xRecipient...".to_string(),
+        to: "tb1qrecipient7x2e5d4c6b8a7n9m0...".to_string(),
         amount: "100".to_string(),
         gas_limit: GasLimit::Auto,
     }).await?;
     
     println!("Transaction Hash: {}", tx.hash);
+    println!("Assigned Shard: {}", tx.shard_id);
     Ok(())
 }`;
 

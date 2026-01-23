@@ -168,8 +168,8 @@ export default function WebSocketApi() {
     "height": 25847392,
     "round": 0,
     "phase": "PRECOMMIT",
-    "proposer": "0x742d35Cc...",
-    "votes": { "count": 124, "power": "99.2%" },
+    "proposer": "tb1qvalidator7x2e5d4c6b8...",
+    "votes": { "count": 587, "power": "99.2%" },
     "phaseTimeMs": 22,
     "timestamp": 1735689600000
   }
@@ -181,12 +181,12 @@ export default function WebSocketApi() {
       color: "#00ff9d",
       borderColor: "border-l-[#00ff9d]",
       methods: ["status.change", "block.proposed", "reward.distributed", "slashing"],
-      desc: "Monitor 125 validators in real-time. Track status changes, rewards, and performance metrics.",
+      desc: "Monitor 587 validators in real-time. Track status changes, rewards, and performance metrics.",
       code: `{
   "type": "subscribe",
   "channel": "validators",
   "params": { 
-    "addresses": ["0x742d35Cc..."],
+    "addresses": ["tb1qvalidator7x2e5d4c6b8..."],
     "events": ["status.change", "reward.distributed"]
   }
 }
@@ -196,7 +196,7 @@ export default function WebSocketApi() {
   "channel": "validators",
   "event": "reward.distributed",
   "data": {
-    "validator": "0x742d35Cc...",
+    "validator": "tb1qvalidator7x2e5d4c6b8...",
     "epoch": 2584,
     "proposerReward": "842319600000000000000",
     "verifierReward": "421209800000000000000",
@@ -211,7 +211,7 @@ export default function WebSocketApi() {
       color: "#ffd700",
       borderColor: "border-l-[#ffd700]",
       methods: ["load.update", "message.routed", "rebalance.started", "rebalance.completed"],
-      desc: "Monitor 64 shards for cross-shard messaging and load balancing events.",
+      desc: "Monitor 24 active shards (scalable to 64) for cross-shard messaging and load balancing events.",
       code: `{
   "type": "subscribe",
   "channel": "shards",
