@@ -511,9 +511,33 @@ import {
   type InsertInvestmentInquiry,
   investmentInquiries,
 } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { randomUUID, randomBytes } from "crypto";
 import { db } from "./db";
 import { eq, desc, isNull, and, sql, inArray } from "drizzle-orm";
+import { generateRandomTBurnAddress, generateTBurnAddress, generateValidatorAddress } from "./utils/tburn-address";
+
+// Helper functions for generating tb1 format addresses and hashes
+function generateMockTb1Address(seed?: number): string {
+  if (seed !== undefined) {
+    return generateTBurnAddress(seed);
+  }
+  return generateRandomTBurnAddress();
+}
+
+function generateMockTxHash(): string {
+  // Transaction hashes use 'th1' prefix for TBURN chain
+  return `th1${randomBytes(32).toString('hex').slice(0, 58)}`;
+}
+
+function generateMockBlockHash(): string {
+  // Block hashes use 'bh1' prefix for TBURN chain
+  return `bh1${randomBytes(32).toString('hex').slice(0, 58)}`;
+}
+
+function generateMockStateRoot(): string {
+  // State roots use 'sr1' prefix for TBURN chain
+  return `sr1${randomBytes(32).toString('hex').slice(0, 58)}`;
+}
 
 export interface IStorage {
   // Network Stats
@@ -1940,7 +1964,7 @@ export class MemStorage implements IStorage {
       
       const validator: Validator = {
         id: randomUUID(),
-        address: `0x${i.toString(16).padStart(4, '0')}${Math.random().toString(16).substr(2, 36)}`,
+        address: generateValidatorAddress(i),
         name: tier1Names[i % tier1Names.length] + (i >= tier1Names.length ? ` ${Math.floor(i / tier1Names.length) + 1}` : ''),
         stake: baseStake.toString(),
         delegatedStake: delegatedStake.toString(),
@@ -1976,8 +2000,8 @@ export class MemStorage implements IStorage {
       const block: Block = {
         id: randomUUID(),
         blockNumber: blockNumber,
-        hash: `0x${Math.random().toString(16).substr(2, 64)}`,
-        parentHash: `0x${Math.random().toString(16).substr(2, 64)}`,
+        hash: generateMockBlockHash(),
+        parentHash: generateMockBlockHash(),
         timestamp: now - i * 2,
         transactionCount: Math.floor(Math.random() * 150) + 50,
         validatorAddress: Array.from(this.validators.values())[Math.floor(Math.random() * 10)].address,
@@ -1985,8 +2009,8 @@ export class MemStorage implements IStorage {
         gasLimit: 10000000,
         size: Math.floor(Math.random() * 50000) + 10000,
         shardId: Math.floor(Math.random() * 5),
-        stateRoot: `0x${Math.random().toString(16).substr(2, 64)}`,
-        receiptsRoot: `0x${Math.random().toString(16).substr(2, 64)}`,
+        stateRoot: generateMockStateRoot(),
+        receiptsRoot: generateMockStateRoot(),
         executionClass: executionClasses[Math.floor(Math.random() * executionClasses.length)],
         latencyNs: 5000000 + Math.floor(Math.random() * 20000000), // 5-25ms enterprise-grade
         parallelBatchId: Math.random() > 0.3 ? `batch-${Math.floor(Math.random() * 100)}` : null,
@@ -2007,11 +2031,11 @@ export class MemStorage implements IStorage {
       
       const tx: Transaction = {
         id: randomUUID(),
-        hash: `0x${Math.random().toString(16).substr(2, 64)}`,
+        hash: generateMockTxHash(),
         blockNumber: 1245678 - Math.floor(i / 5),
-        blockHash: `0x${Math.random().toString(16).substr(2, 64)}`,
-        from: `0x${Math.random().toString(16).substr(2, 40)}`,
-        to: Math.random() > 0.1 ? `0x${Math.random().toString(16).substr(2, 40)}` : null,
+        blockHash: generateMockBlockHash(),
+        from: generateMockTb1Address(1000 + i),
+        to: Math.random() > 0.1 ? generateMockTb1Address(2000 + i) : null,
         value: valueInWei,
         gas: Math.floor(Math.random() * 200000) + 21000,
         gasPrice: gasPriceInWei,
@@ -2019,8 +2043,8 @@ export class MemStorage implements IStorage {
         nonce: Math.floor(Math.random() * 100),
         timestamp: now - Math.floor(i / 2) * 2,
         status: Math.random() > 0.05 ? "success" : Math.random() > 0.5 ? "failed" : "pending",
-        input: Math.random() > 0.5 ? `0x${Math.random().toString(16).substr(2, 128)}` : null,
-        contractAddress: Math.random() > 0.9 ? `0x${Math.random().toString(16).substr(2, 40)}` : null,
+        input: Math.random() > 0.5 ? `cd1${randomBytes(64).toString('hex').slice(0, 125)}` : null,
+        contractAddress: Math.random() > 0.9 ? generateMockTb1Address(3000 + i) : null,
         shardId: Math.floor(Math.random() * 5),
         executionClass: executionClasses[Math.floor(Math.random() * executionClasses.length)],
         latencyNs: 5000000 + Math.floor(Math.random() * 20000000), // 5-25ms enterprise-grade
@@ -2044,10 +2068,10 @@ export class MemStorage implements IStorage {
       
       const contract: SmartContract = {
         id: randomUUID(),
-        address: `0x${Math.random().toString(16).substr(2, 40)}`,
+        address: generateMockTb1Address(4000 + i),
         name: contractNames[i],
-        creator: `0x${Math.random().toString(16).substr(2, 40)}`,
-        bytecode: `0x${Math.random().toString(16).substr(2, 1000)}`,
+        creator: generateMockTb1Address(5000 + i),
+        bytecode: `bc1${randomBytes(500).toString('hex').slice(0, 997)}`,
         abi: null,
         sourceCode: null,
         deployedAt: new Date(Date.now() - Math.random() * 180 * 24 * 60 * 60 * 1000),
@@ -2289,7 +2313,7 @@ export class MemStorage implements IStorage {
       const tburnAmount = Math.random() * 49900 + 100; // 100 to 50,000 TBURN
       const weiAmount = BigInt(Math.floor(tburnAmount * 1e18)); // Convert to Wei
       delegators.push({
-        address: `0x${Math.random().toString(16).slice(2, 42)}`,
+        address: generateMockTb1Address(6000 + i),
         amount: weiAmount.toString(),
         timestamp: Math.floor(Date.now() / 1000) - Math.floor(Math.random() * 30 * 24 * 60 * 60)
       });
@@ -2326,14 +2350,14 @@ export class MemStorage implements IStorage {
         timestamp: Math.floor(Date.now() / 1000) - 86400,
         type: 'activated',
         description: 'Validator activated',
-        txHash: `0x${Math.random().toString(16).slice(2, 66)}`
+        txHash: generateMockTxHash()
       },
       {
         id: randomUUID(),
         timestamp: Math.floor(Date.now() / 1000) - 172800,
         type: 'reward',
         description: 'Claimed rewards: 1,234.56 TBURN',
-        txHash: `0x${Math.random().toString(16).slice(2, 66)}`
+        txHash: generateMockTxHash()
       }
     ];
 
@@ -3299,7 +3323,7 @@ export class DbStorage implements IStorage {
       const tburnAmount = Math.random() * 49900 + 100; // 100 to 50,000 TBURN
       const weiAmount = BigInt(Math.floor(tburnAmount * 1e18)); // Convert to Wei
       delegators.push({
-        address: `0x${Math.random().toString(16).slice(2, 42)}`,
+        address: generateMockTb1Address(6000 + i),
         amount: weiAmount.toString(),
         timestamp: Math.floor(Date.now() / 1000) - Math.floor(Math.random() * 30 * 24 * 60 * 60)
       });
@@ -3336,14 +3360,14 @@ export class DbStorage implements IStorage {
         timestamp: Math.floor(Date.now() / 1000) - 86400,
         type: 'activated',
         description: 'Validator activated',
-        txHash: `0x${Math.random().toString(16).slice(2, 66)}`
+        txHash: generateMockTxHash()
       },
       {
         id: randomUUID(),
         timestamp: Math.floor(Date.now() / 1000) - 172800,
         type: 'reward',
         description: 'Claimed rewards: 1,234.56 TBURN',
-        txHash: `0x${Math.random().toString(16).slice(2, 66)}`
+        txHash: generateMockTxHash()
       }
     ];
 

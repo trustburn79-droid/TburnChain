@@ -145,8 +145,9 @@ export class TBurnWalletService {
     return wallets;
   }
 
-  deriveAddressFromPublicKey(publicKey: string): string {
-    return ethers.computeAddress(publicKey);
+  deriveAddressFromPublicKeyToTb1(publicKey: string): string {
+    // Use TBURN's native Bech32m address derivation
+    return deriveAddressFromPublicKey(publicKey);
   }
 
   signMessage(privateKey: string, message: string): Promise<string> {
