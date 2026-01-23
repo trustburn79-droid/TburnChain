@@ -44,7 +44,7 @@ export class AttestationService extends EventEmitter {
   private attesting = false;
   private attestationsMade = 0;
   private lastSourceEpoch = 0;
-  private lastSourceRoot = '0x' + '0'.repeat(64);
+  private lastSourceRoot = 'sr1' + '0'.repeat(64);
 
   constructor(config: AttestationServiceConfig) {
     super();
@@ -146,7 +146,7 @@ export class AttestationService extends EventEmitter {
   }
 
   private generateHash(data: string): string {
-    return '0x' + crypto.createHash('sha256').update(data).digest('hex');
+    return 'sr1' + crypto.createHash('sha256').update(data).digest('hex');
   }
 
   private generateAggregationBits(): string {
@@ -154,6 +154,6 @@ export class AttestationService extends EventEmitter {
     for (let i = 0; i < bits.length; i++) {
       bits[i] = Math.random() > 0.3 ? 1 : 0;
     }
-    return '0x' + Buffer.from(bits).toString('hex');
+    return 'ab1' + Buffer.from(bits).toString('hex');
   }
 }

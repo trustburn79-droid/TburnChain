@@ -356,7 +356,7 @@ export class RemoteSignerClient extends EventEmitter {
       .update(String(request.timestamp))
       .digest();
 
-    const signature = '0x' + crypto.createHmac('sha256', this.clientKey)
+    const signature = 'sig1' + crypto.createHmac('sha256', this.clientKey)
       .update(messageHash)
       .digest('hex');
 
@@ -367,7 +367,7 @@ export class RemoteSignerClient extends EventEmitter {
       success: true,
       signature,
       signatureType: operation.includes('ATTESTATION') || operation.includes('AGGREGATE') ? 'bls' : 'ecdsa',
-      publicKey: `0x${crypto.createHash('sha256').update(this.config.validatorAddress).digest('hex').slice(0, 64)}`,
+      publicKey: `pk1${crypto.createHash('sha256').update(this.config.validatorAddress).digest('hex').slice(0, 64)}`,
       timestamp: Date.now(),
       auditId: crypto.randomUUID()
     };

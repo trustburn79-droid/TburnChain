@@ -392,7 +392,7 @@ router.get('/benchmark', async (req: Request, res: Response) => {
     for (let i = 0; i < count; i++) {
       const tx = TransactionVerifier.generateTestTransaction(
         `test-seed-${i}`,
-        `0x${'1'.repeat(40)}`,
+        addressFromString('verification-test-1'),
         '1000000000000000000',
         i
       );

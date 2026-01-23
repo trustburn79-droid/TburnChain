@@ -42,7 +42,7 @@ export class BlockProducer extends EventEmitter {
   private blockTimeMs: number;
   private maxTxPerBlock: number;
   private producing = false;
-  private lastBlockHash = '0x' + '0'.repeat(64);
+  private lastBlockHash = 'bh1' + '0'.repeat(64);
   private blocksProduced = 0;
 
   constructor(config: BlockProducerConfig) {
@@ -133,7 +133,7 @@ export class BlockProducer extends EventEmitter {
   }
 
   private generateHash(data: string): string {
-    return '0x' + crypto.createHash('sha256').update(data).digest('hex');
+    return 'bh1' + crypto.createHash('sha256').update(data).digest('hex');
   }
 
   private getProposerIndex(): number {

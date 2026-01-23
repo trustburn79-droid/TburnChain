@@ -363,7 +363,7 @@ export class EnterpriseBlockEngine extends EventEmitter {
     try {
       this.currentHeight++;
       const parentBlock = this.blockBuffer.getLatest(1)[0];
-      const parentHash = parentBlock?.hash || `0x${'0'.repeat(64)}`;
+      const parentHash = parentBlock?.hash || 'bh1' + '0'.repeat(64);
 
       // Generate block data
       const txCount = Math.floor(500 + Math.random() * 200); // 500-700 tx per block

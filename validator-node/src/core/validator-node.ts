@@ -362,7 +362,7 @@ export class ValidatorNode extends EventEmitter {
       round: 0,
       proposer: this.config.validator.address,
       parentHash: parentBlock.hash,
-      blockHash: `0x${blockHash}`,
+      blockHash: `bh1${blockHash}`,
       stateRoot,
       transactionsRoot,
       timestamp: Date.now(),

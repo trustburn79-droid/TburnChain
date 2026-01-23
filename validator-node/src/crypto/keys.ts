@@ -50,12 +50,12 @@ export class CryptoManager {
 
   static hashTransaction(tx: object): string {
     const serialized = JSON.stringify(tx, Object.keys(tx).sort());
-    return `0x${crypto.createHash('sha256').update(serialized).digest('hex')}`;
+    return `sr1${crypto.createHash('sha256').update(serialized).digest('hex')}`;
   }
 
   static generateMerkleRoot(hashes: string[]): string {
     if (hashes.length === 0) {
-      return '0x' + '0'.repeat(64);
+      return 'sr1' + '0'.repeat(64);
     }
     
     if (hashes.length === 1) {
@@ -74,7 +74,7 @@ export class CryptoManager {
         const combined = crypto.createHash('sha256')
           .update(left + right)
           .digest('hex');
-        newLayer.push(`0x${combined}`);
+        newLayer.push(`sr1${combined}`);
       }
       
       layers.push(newLayer);
