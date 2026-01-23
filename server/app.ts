@@ -106,6 +106,14 @@ app.set('trust proxy', 1);
 
 // ★ [2026-01-23] Security: Helmet middleware with CSP headers
 // CSP is disabled in development mode to allow Vite HMR and module loading
+// 
+// SECURITY NOTE: unsafe-inline/unsafe-eval in production are used for:
+// - Vite bundled React app compatibility
+// - TanStack Query and certain library internals
+// FUTURE HARDENING: Migrate to nonce-based CSP when time permits:
+// 1. Generate nonces per-request and inject into script tags
+// 2. Remove unsafe-inline from scriptSrc, use nonce-{value} instead
+// 3. Audit third-party scripts for eval() usage before removing unsafe-eval
 const isDevelopment = process.env.NODE_ENV === 'development';
 app.use(helmet({
   contentSecurityPolicy: isDevelopment ? false : {
