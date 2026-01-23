@@ -105,12 +105,12 @@ function generateMockActivities(): ContractActivity[] {
       type,
       contractAddress: contract.address,
       contractName: contract.name,
-      caller: `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`,
+      caller: `tb1${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`,
       method: type === 'call' ? methods[Math.floor(Math.random() * methods.length)] : undefined,
       gasUsed: Math.floor(Math.random() * 500000) + 21000,
       status,
       timestamp: new Date(Date.now() - Math.random() * 86400000 * 7),
-      txHash: `0x${Math.random().toString(16).slice(2, 66)}`,
+      txHash: `th1${Math.random().toString(16).slice(2, 66)}`,
     };
   }).sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
 }

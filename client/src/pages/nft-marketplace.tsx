@@ -1583,7 +1583,7 @@ export default function NftMarketplacePage() {
 
   const buyNowMutation = useMutation({
     mutationFn: async (listingId: string) => {
-      const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2, 10)}`;
+      const txHash = `th1${Date.now().toString(16)}${Math.random().toString(16).slice(2, 10)}`;
       const response = await apiRequest("POST", `/api/nft/listings/${listingId}/buy`, {
         buyerAddress: ENTERPRISE_WALLET,
         txHash,

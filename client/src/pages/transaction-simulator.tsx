@@ -97,11 +97,11 @@ function generateRandomHex(length: number): string {
 }
 
 function generateTxHash(): string {
-  return `0x${generateRandomHex(64)}`;
+  return `th1${generateRandomHex(64)}`;
 }
 
 function generateAddress(): string {
-  return `0x${generateRandomHex(40)}`;
+  return `tb1${generateRandomHex(38)}`;
 }
 
 function generateMockSimulations(): SimulationResult[] {
@@ -151,7 +151,7 @@ function generateMockTraces(): ExecutionTrace[] {
     gas: 100000 - i * 1000,
     gasCost: Math.floor(Math.random() * 100) + 3,
     depth: Math.min(Math.floor(i / 5), 3),
-    stack: Array.from({ length: Math.min(i + 1, 5) }, () => `0x${Math.random().toString(16).slice(2, 10)}`),
+    stack: Array.from({ length: Math.min(i + 1, 5) }, () => `cd1${Math.random().toString(16).slice(2, 10)}`),
   }));
 }
 
@@ -793,7 +793,7 @@ export default function TransactionSimulator() {
       gas: String(Math.floor(Math.random() * 100000) + 21000),
       gasPrice: String(Math.floor(Math.random() * 45) + 5),
       shardId: String(Math.floor(Math.random() * 5)),
-      data: Math.random() > 0.7 ? `0x${Math.random().toString(16).substr(2, 64)}` : "",
+      data: Math.random() > 0.7 ? `cd1${Math.random().toString(16).substr(2, 64)}` : "",
     });
   };
 
@@ -1406,7 +1406,7 @@ export default function TransactionSimulator() {
                         gas: "500000",
                         gasPrice: "25",
                         shardId: "0",
-                        data: `0x${Math.random().toString(16).substr(2, 256)}`,
+                        data: `cd1${Math.random().toString(16).substr(2, 256)}`,
                       });
                     }}
                   >
