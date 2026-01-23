@@ -2,11 +2,12 @@ import {
   CalendarDays, Filter, Rocket, Code, Calendar, Clock, Bell, 
   Mic, Video, MapPin, GraduationCap, Presentation, Loader2, AlertTriangle, Users, Gift, Trophy
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslationApi } from "@/hooks/use-translation-api";
 
 interface EventData {
   id: string;
@@ -86,15 +87,22 @@ export default function Events() {
     refetchInterval: 30000,
   });
 
+  const translationItems = useMemo(() => {
+    if (!events) return [];
+    return events.flatMap(event => [
+      { id: `${event.id}-title`, text: event.title },
+      { id: `${event.id}-description`, text: event.description }
+    ]);
+  }, [events]);
+
+  const { getTranslation, isTranslating } = useTranslationApi(translationItems, {
+    enabled: !!events && events.length > 0
+  });
+
   const getLocalizedContent = (event: EventData, field: 'title' | 'description') => {
-    if (event.translationKey) {
-      const translationPath = `publicPages.community.events.items.${event.translationKey}.${field}`;
-      const translated = t(translationPath);
-      if (translated !== translationPath) {
-        return translated;
-      }
-    }
-    return field === 'title' ? event.title : event.description;
+    const originalText = field === 'title' ? event.title : event.description;
+    const koText = field === 'title' ? event.titleKo : event.descriptionKo;
+    return getTranslation(`${event.id}-${field}`, originalText, koText);
   };
 
   const getLocaleForDate = () => {

@@ -105,18 +105,18 @@ ${text}`;
     }
   }
   
-  async translateBatch(items: { text: string; field: string }[], targetLang: string, sourceLang: string = "en"): Promise<Record<string, string>> {
+  async translateBatch(items: { text: string; id: string }[], targetLang: string, sourceLang: string = "en"): Promise<Record<string, string>> {
     const results: Record<string, string> = {};
     
     const translations = await Promise.all(
       items.map(async (item) => {
         const translated = await this.translate(item.text, targetLang, sourceLang);
-        return { field: item.field, text: translated };
+        return { id: item.id, text: translated };
       })
     );
     
-    translations.forEach(({ field, text }) => {
-      results[field] = text;
+    translations.forEach(({ id, text }) => {
+      results[id] = text;
     });
     
     return results;

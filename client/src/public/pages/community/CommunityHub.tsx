@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { 
   Users, TrendingUp, Crown, GitBranch, ArrowRight, Trophy, Medal,
   CheckCircle, Code, Book, Shield, Megaphone, Vote, MessageSquare,
@@ -8,6 +8,7 @@ import { SiDiscord, SiTelegram, SiX, SiGithub } from "react-icons/si";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslationApi } from "@/hooks/use-translation-api";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -113,15 +114,22 @@ export default function CommunityHub() {
     refetchInterval: 60000,
   });
 
+  const translationItems = useMemo(() => {
+    if (!posts) return [];
+    return posts.flatMap(post => [
+      { id: `${post.id}-title`, text: post.title },
+      { id: `${post.id}-content`, text: post.content }
+    ]);
+  }, [posts]);
+
+  const { getTranslation, isTranslating } = useTranslationApi(translationItems, {
+    enabled: !!posts && posts.length > 0
+  });
+
   const getLocalizedContent = (post: PostData, field: 'title' | 'content') => {
-    if (post.translationKey) {
-      const translationPath = `publicPages.community.posts.${post.translationKey}.${field}`;
-      const translated = t(translationPath);
-      if (translated !== translationPath) {
-        return translated;
-      }
-    }
-    return field === 'title' ? post.title : post.content;
+    const originalText = field === 'title' ? post.title : post.content;
+    const koText = field === 'title' ? post.titleKo : post.contentKo;
+    return getTranslation(`${post.id}-${field}`, originalText, koText);
   };
 
   const getLocaleForDate = () => {

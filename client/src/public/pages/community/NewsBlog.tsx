@@ -2,12 +2,13 @@ import {
   Newspaper, Search, Star, Calendar, Clock, Eye, ArrowRight,
   Megaphone, Cpu, Handshake, Coins, Shield, Code, Lock, LineChart, Mail, Loader2, AlertTriangle
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslationApi } from "@/hooks/use-translation-api";
 
 interface AnnouncementData {
   id: string;
@@ -76,15 +77,22 @@ export default function NewsBlog() {
     refetchInterval: 30000,
   });
 
+  const translationItems = useMemo(() => {
+    if (!announcements) return [];
+    return announcements.flatMap(ann => [
+      { id: `${ann.id}-title`, text: ann.title },
+      { id: `${ann.id}-content`, text: ann.content }
+    ]);
+  }, [announcements]);
+
+  const { getTranslation, isTranslating } = useTranslationApi(translationItems, {
+    enabled: !!announcements && announcements.length > 0
+  });
+
   const getLocalizedContent = (ann: AnnouncementData, field: 'title' | 'content') => {
-    if (ann.translationKey) {
-      const translationPath = `publicPages.community.announcements.${ann.translationKey}.${field}`;
-      const translated = t(translationPath);
-      if (translated !== translationPath) {
-        return translated;
-      }
-    }
-    return field === 'title' ? ann.title : ann.content;
+    const originalText = field === 'title' ? ann.title : ann.content;
+    const koText = field === 'title' ? ann.titleKo : ann.contentKo;
+    return getTranslation(`${ann.id}-${field}`, originalText, koText);
   };
 
   const categories = [
