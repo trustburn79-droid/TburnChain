@@ -181,6 +181,34 @@ const shardConfigSchema = z.object({
   rebalanceThreshold: z.number().min(0).max(100).optional()
 });
 
+// Critical admin operation schemas
+const tokenMintSchema = z.object({
+  tokenSymbol: z.string().min(1).max(20),
+  amount: z.string().regex(/^\d+(\.\d+)?$/, "Invalid amount format"),
+  recipient: z.string().regex(/^(0x[a-fA-F0-9]{40}|tb1[a-zA-Z0-9]{39,59})$/, "Invalid address"),
+  reason: z.string().max(500).optional()
+});
+
+const tokenBurnSchema = z.object({
+  tokenSymbol: z.string().min(1).max(20),
+  amount: z.string().regex(/^\d+(\.\d+)?$/, "Invalid amount format"),
+  reason: z.string().max(500).optional()
+});
+
+const treasuryTransferSchema = z.object({
+  assetType: z.enum(["TBURN", "STBURN", "BURN_CREDITS", "TBC20", "NFT"]),
+  amount: z.string().regex(/^\d+(\.\d+)?$/, "Invalid amount format"),
+  recipient: z.string().regex(/^(0x[a-fA-F0-9]{40}|tb1[a-zA-Z0-9]{39,59})$/, "Invalid address"),
+  reason: z.string().max(500),
+  priority: z.enum(["low", "medium", "high", "critical"]).optional()
+});
+
+const adminSettingsSchema = z.object({
+  key: z.string().min(1).max(100),
+  value: z.unknown(),
+  category: z.string().max(50).optional()
+});
+
 /**
  * Validation middleware factory
  */
@@ -1763,7 +1791,7 @@ router.get('/admin/token/issuance', async (req: Request, res: Response) => {
  * POST /api/enterprise/admin/token/mint
  * Mint new tokens (requires multi-sig)
  */
-router.post('/admin/token/mint', async (req: Request, res: Response) => {
+router.post('/admin/token/mint', requireAdmin, validateBody(tokenMintSchema), async (req: Request, res: Response) => {
   try {
     const { tokenSymbol, amount, recipient, reason } = req.body;
     
@@ -1801,7 +1829,7 @@ router.post('/admin/token/mint', async (req: Request, res: Response) => {
  * POST /api/enterprise/admin/token/burn-manual
  * Initiate manual burn (requires multi-sig)
  */
-router.post('/admin/token/burn-manual', async (req: Request, res: Response) => {
+router.post('/admin/token/burn-manual', requireAdmin, validateBody(tokenBurnSchema), async (req: Request, res: Response) => {
   try {
     const { tokenSymbol, amount, reason } = req.body;
     
@@ -2124,7 +2152,7 @@ router.get('/admin/treasury', async (req: Request, res: Response) => {
  * POST /api/enterprise/admin/treasury/transfer
  * Initiate treasury transfer (requires multi-sig)
  */
-router.post('/admin/treasury/transfer', async (req: Request, res: Response) => {
+router.post('/admin/treasury/transfer', requireAdmin, validateBody(treasuryTransferSchema), async (req: Request, res: Response) => {
   try {
     const { fromPool, toAddress, amount, reason } = req.body;
     
@@ -2884,7 +2912,7 @@ router.get('/admin/settings', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/admin/settings', async (req: Request, res: Response) => {
+router.post('/admin/settings', requireAdmin, validateBody(adminSettingsSchema), async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Settings saved successfully' });
   } catch (error) {
