@@ -37,6 +37,19 @@ const RATE_LIMIT_MAX_REQUESTS = 10;
 const HEARTBEAT_RATE_LIMIT = 60;
 const NONCE_TTL_SECONDS = 300;
 const TIMESTAMP_DRIFT_TOLERANCE_MS = 60 * 1000;
+const NONCE_WINDOW_MS = 60 * 1000; // 1 minute nonce window
+
+// In-memory nonce tracking for replay attack prevention
+const usedNonces = new Map<string, number>();
+
+// Cleanup expired nonces every minute
+setInterval(() => {
+  const now = Date.now();
+  const entries = Array.from(usedNonces.entries());
+  for (const [key, expiry] of entries) {
+    if (expiry < now) usedNonces.delete(key);
+  }
+}, 60000);
 
 function getClientIP(req: Request): string {
   const forwarded = req.headers['x-forwarded-for'];
@@ -175,7 +188,8 @@ function isValidEthereumAddress(address: string): boolean {
   return /^0x[a-fA-F0-9]{40}$/.test(address);
 }
 
-const WEI_PER_TBURN = BigInt(10) ** BigInt(18);
+// 10^18 wei per TBURN (avoiding ** operator for ES compatibility)
+const WEI_PER_TBURN = BigInt("1000000000000000000");
 
 function formatValidatorResponse(validator: any) {
   return {
@@ -432,7 +446,7 @@ router.post('/heartbeat', heartbeatRateLimiter, validateSecurityHeaders, async (
     
     // Additional address rate limiting per operator
     const operatorKey = `hb:op:${apiKey?.slice(0, 16) || 'unknown'}`;
-    const opLimit = checkRateLimit(operatorKey, HEARTBEAT_RATE_LIMIT);
+    const opLimit = await redisSecurityService.checkRateLimit(operatorKey, HEARTBEAT_RATE_LIMIT, RATE_LIMIT_WINDOW_MS);
     if (!opLimit.allowed) {
       console.warn(`[Security] Heartbeat rate limit exceeded for operator key: ${apiKey?.slice(0, 8)}...`);
       return res.status(429).json({ 
@@ -1019,10 +1033,10 @@ router.post('/security/rate-limits/unblock/:address', async (req: Request, res: 
 // Get IP whitelist
 router.get('/security/ip-whitelist', async (_req: Request, res: Response) => {
   try {
-    const entries = Array.from(validatorSecurityState.ipWhitelist.entries()).map(([ip, info]) => ({
-      ip,
-      ...info,
-    }));
+    const entries = Array.from(validatorSecurityState.ipWhitelist.entries()).map(([ipAddr, info]) => {
+      const { ip: _unused, ...rest } = info as any;
+      return { ip: ipAddr, ...rest };
+    });
     
     res.json({ success: true, data: entries });
   } catch (error) {
@@ -1157,10 +1171,9 @@ const validatorRateLimits = new Map<string, {
 }>();
 
 // Nonce tracking to prevent replay attacks (TTL-based with persistence)
-// Note: Uses shared usedNonces Map from top-level security module
-const NONCE_WINDOW_MS = 300000; // 5 minute window for nonces
+// Note: Uses shared usedNonces Map and NONCE_WINDOW_MS from top-level security module
 const TIMESTAMP_DRIFT_MS = 60000; // 1 minute clock drift tolerance
-// RATE_LIMIT_WINDOW_MS defined at top of file
+// RATE_LIMIT_WINDOW_MS and NONCE_WINDOW_MS defined at top of file
 const MAX_REQUESTS_PER_MINUTE = 100;
 
 // Hash API key with pepper before bcrypt (double-layer protection)
