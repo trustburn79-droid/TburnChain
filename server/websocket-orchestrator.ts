@@ -435,7 +435,7 @@ export class WebSocketOrchestrator {
   }
 
   private generateSubscriptionId(): string {
-    return `0x${crypto.randomBytes(16).toString('hex')}`;
+    return `sub1${crypto.randomBytes(16).toString('hex')}`;
   }
 
   private hashToken(token: string): string {

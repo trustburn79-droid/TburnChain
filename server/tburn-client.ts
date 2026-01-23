@@ -508,8 +508,8 @@ export class TBurnClient {
     if (this.isEnterpriseMode && this.enterpriseNode) {
       const transactions: TransactionData[] = [];
       for (let i = 0; i < limit; i++) {
-        // Use SHA-256 for full 64-char hex hashes without trailing zeros
-        const txHash = `0x${createHash('sha256').update(`tx-recent-${Date.now()}-${i}`).digest('hex')}`;
+        // Use th1 prefix for TBURN transaction hashes
+        const txHash = `th1${createHash('sha256').update(`tx-recent-${Date.now()}-${i}`).digest('hex')}`;
         const tx = await this.enterpriseNode.getTransaction(txHash);
         transactions.push(tx);
       }

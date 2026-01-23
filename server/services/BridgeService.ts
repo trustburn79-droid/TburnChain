@@ -1,6 +1,6 @@
 import { db } from "../db";
 import { eq, and, desc, gte, lte, sql, or } from "drizzle-orm";
-import { addressFromString } from '../utils/tburn-address';
+import { addressFromString, generateTxHash as generateTxHashUtil } from '../utils/tburn-address';
 import {
   bridgeChains,
   bridgeRoutes,
@@ -55,7 +55,10 @@ function generateAddress(chainId?: number): string {
   ).join("");
 }
 
-function generateTxHash(): string {
+function generateTxHash(isTburn: boolean = true): string {
+  if (isTburn) {
+    return generateTxHashUtil();
+  }
   return "0x" + Array.from({ length: 64 }, () => 
     Math.floor(Math.random() * 16).toString(16)
   ).join("");

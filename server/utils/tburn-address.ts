@@ -419,11 +419,145 @@ export const SIGNER_ADDRESSES = {
   LEGAL: generateSystemAddress('tburn-signer-legal'),
 } as const;
 
+// ============================================
+// TBURN Hash Generation Utilities
+// ============================================
+
+// Hash prefixes for TBURN blockchain
+const HASH_PREFIX_TX = 'th1';        // Transaction hash
+const HASH_PREFIX_BLOCK = 'bh1';     // Block hash
+const HASH_PREFIX_STATE = 'sr1';     // State root
+const HASH_PREFIX_RECEIPT = 'rr1';   // Receipts root
+const HASH_PREFIX_BYTECODE = 'bc1';  // Contract bytecode
+const HASH_PREFIX_CALLDATA = 'cd1';  // Calldata
+const HASH_PREFIX_SIGNATURE = 'sig1'; // Signature
+
+/**
+ * Generate a transaction hash in th1 format
+ * @param input - Optional input data to hash (uses random if not provided)
+ */
+export function generateTxHash(input?: string): string {
+  const data = input || `tx-${Date.now()}-${crypto.randomBytes(8).toString('hex')}`;
+  const hash = crypto.createHash('sha256').update(data).digest('hex');
+  return `${HASH_PREFIX_TX}${hash}`;
+}
+
+/**
+ * Generate a block hash in bh1 format
+ * @param input - Optional input data to hash (uses random if not provided)
+ */
+export function generateBlockHash(input?: string): string {
+  const data = input || `block-${Date.now()}-${crypto.randomBytes(8).toString('hex')}`;
+  const hash = crypto.createHash('sha256').update(data).digest('hex');
+  return `${HASH_PREFIX_BLOCK}${hash}`;
+}
+
+/**
+ * Generate a state root in sr1 format
+ * @param input - Optional input data to hash (uses random if not provided)
+ */
+export function generateStateRoot(input?: string): string {
+  const data = input || `state-${Date.now()}-${crypto.randomBytes(8).toString('hex')}`;
+  const hash = crypto.createHash('sha256').update(data).digest('hex');
+  return `${HASH_PREFIX_STATE}${hash}`;
+}
+
+/**
+ * Generate a receipts root in rr1 format
+ * @param input - Optional input data to hash (uses random if not provided)
+ */
+export function generateReceiptsRoot(input?: string): string {
+  const data = input || `receipts-${Date.now()}-${crypto.randomBytes(8).toString('hex')}`;
+  const hash = crypto.createHash('sha256').update(data).digest('hex');
+  return `${HASH_PREFIX_RECEIPT}${hash}`;
+}
+
+/**
+ * Generate a random hash with specified prefix
+ * @param prefix - Hash prefix (th1, bh1, sr1, etc.)
+ * @param length - Length of hex portion (default 64)
+ */
+export function generateHash(prefix: string, length: number = 64): string {
+  const hash = crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
+  return `${prefix}${hash}`;
+}
+
+/**
+ * Generate a deterministic hash from input with specified prefix
+ * @param prefix - Hash prefix (th1, bh1, sr1, etc.)
+ * @param input - Input data to hash
+ */
+export function generateHashFromInput(prefix: string, input: string): string {
+  const hash = crypto.createHash('sha256').update(input).digest('hex');
+  return `${prefix}${hash}`;
+}
+
+/**
+ * Generate a mock signature in sig1 format
+ * @param length - Length of signature hex (default 128)
+ */
+export function generateSignature(length: number = 128): string {
+  const sig = crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
+  return `${HASH_PREFIX_SIGNATURE}${sig}`;
+}
+
+/**
+ * Generate empty hash with prefix (for default/null states)
+ * @param prefix - Hash prefix
+ * @param length - Length of zeros (default 64)
+ */
+export function generateEmptyHash(prefix: string, length: number = 64): string {
+  return `${prefix}${'0'.repeat(length)}`;
+}
+
+/**
+ * Check if a hash is in valid TBURN format (th1, bh1, sr1, etc.)
+ */
+export function isValidTBurnHash(hash: string): boolean {
+  const validPrefixes = ['th1', 'bh1', 'sr1', 'rr1', 'bc1', 'cd1', 'sig1'];
+  return validPrefixes.some(prefix => hash.startsWith(prefix));
+}
+
+/**
+ * Convert 0x hash to TBURN format
+ * @param hash0x - Hash in 0x format
+ * @param type - Type of hash ('tx', 'block', 'state', 'receipt')
+ */
+export function convertFromEthHash(hash0x: string, type: 'tx' | 'block' | 'state' | 'receipt' = 'tx'): string {
+  const hex = hash0x.startsWith('0x') ? hash0x.slice(2) : hash0x;
+  const prefixMap = {
+    tx: HASH_PREFIX_TX,
+    block: HASH_PREFIX_BLOCK,
+    state: HASH_PREFIX_STATE,
+    receipt: HASH_PREFIX_RECEIPT
+  };
+  return `${prefixMap[type]}${hex}`;
+}
+
+/**
+ * Convert TBURN hash back to 0x format (for external chain compatibility)
+ * @param tburnHash - Hash in TBURN format (th1, bh1, etc.)
+ */
+export function convertToEthHash(tburnHash: string): string {
+  const prefixes = ['th1', 'bh1', 'sr1', 'rr1', 'bc1', 'cd1', 'sig1'];
+  for (const prefix of prefixes) {
+    if (tburnHash.startsWith(prefix)) {
+      return `0x${tburnHash.slice(prefix.length)}`;
+    }
+  }
+  return tburnHash; // Return as-is if not in TBURN format
+}
+
 // Export constants
 export const TBURN_PREFIX = LEGACY_PREFIX; // Legacy compatibility
 export const VALIDATOR_PREFIX = LEGACY_VALIDATOR_PREFIX; // Legacy compatibility
 export const TB1_PREFIX = HRP_WALLET;
 export const TBV1_PREFIX = HRP_VALIDATOR;
+export const TX_HASH_PREFIX = HASH_PREFIX_TX;
+export const BLOCK_HASH_PREFIX = HASH_PREFIX_BLOCK;
+export const STATE_ROOT_PREFIX = HASH_PREFIX_STATE;
+export const RECEIPTS_ROOT_PREFIX = HASH_PREFIX_RECEIPT;
+export const SIGNATURE_PREFIX = HASH_PREFIX_SIGNATURE;
 
 export default {
   // Bech32m functions
@@ -439,6 +573,21 @@ export default {
   generateSystemAddress,
   generateValidatorAddress,
   addressFromString,
+  
+  // Hash generation functions
+  generateTxHash,
+  generateBlockHash,
+  generateStateRoot,
+  generateReceiptsRoot,
+  generateHash,
+  generateHashFromInput,
+  generateSignature,
+  generateEmptyHash,
+  
+  // Hash validation and conversion
+  isValidTBurnHash,
+  convertFromEthHash,
+  convertToEthHash,
   
   // Migration and formatting
   migrateLegacyAddress,
@@ -461,4 +610,9 @@ export default {
   VALIDATOR_PREFIX,
   TB1_PREFIX,
   TBV1_PREFIX,
+  TX_HASH_PREFIX,
+  BLOCK_HASH_PREFIX,
+  STATE_ROOT_PREFIX,
+  RECEIPTS_ROOT_PREFIX,
+  SIGNATURE_PREFIX,
 };
