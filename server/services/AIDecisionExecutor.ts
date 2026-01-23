@@ -492,7 +492,7 @@ class AIDecisionExecutor extends EventEmitter {
       }
     }
 
-    const txHash = `0x${Date.now().toString(16)}${'ai_rebalance'.split('').map(c => c.charCodeAt(0).toString(16)).join('')}`;
+    const txHash = `th1${Date.now().toString(36)}airebalance${Math.random().toString(36).slice(2,30)}`;
 
     return {
       executionId: logId,
@@ -532,7 +532,7 @@ class AIDecisionExecutor extends EventEmitter {
 
     console.log(`[AIDecisionExecutor] Scaling shards from ${currentCount} to ${newCount}`);
 
-    const txHash = `0x${Date.now().toString(16)}${'ai_scale'.split('').map(c => c.charCodeAt(0).toString(16)).join('')}`;
+    const txHash = `th1${Date.now().toString(36)}aiscale${Math.random().toString(36).slice(2,30)}`;
 
     return {
       executionId: logId,
@@ -584,7 +584,7 @@ class AIDecisionExecutor extends EventEmitter {
       avgBlockTime: Math.floor(adjustedTarget),
     });
 
-    const txHash = `0x${Date.now().toString(16)}${'ai_blocktime'.split('').map(c => c.charCodeAt(0).toString(16)).join('')}`;
+    const txHash = `th1${Date.now().toString(36)}aiblocktime${Math.random().toString(36).slice(2,20)}`;
 
     return {
       executionId: logId,
@@ -632,7 +632,7 @@ class AIDecisionExecutor extends EventEmitter {
       });
     }
 
-    const txHash = `0x${Date.now().toString(16)}${'ai_tps'.split('').map(c => c.charCodeAt(0).toString(16)).join('')}`;
+    const txHash = `th1${Date.now().toString(36)}aitps${Math.random().toString(36).slice(2,30)}`;
 
     return {
       executionId: logId,
@@ -690,7 +690,7 @@ class AIDecisionExecutor extends EventEmitter {
       }
     }
 
-    const txHash = `0x${Date.now().toString(16)}${'ai_validator'.split('').map(c => c.charCodeAt(0).toString(16)).join('')}`;
+    const txHash = `th1${Date.now().toString(36)}aivalidator${Math.random().toString(36).slice(2,20)}`;
 
     return {
       executionId: logId,

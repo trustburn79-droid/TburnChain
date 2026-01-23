@@ -584,7 +584,7 @@ class LendingService {
 
     await this.updateUserPosition(userAddress);
 
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2, 10)}`;
+    const txHash = `th1${Array.from({length:52},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`;
     const transaction = await storage.createLendingTransaction({
       txHash,
       userAddress,
@@ -647,7 +647,7 @@ class LendingService {
     await this.updateUserPosition(userAddress);
 
     const position = await storage.getLendingPositionByUser(userAddress);
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2, 10)}`;
+    const txHash = `th1${Array.from({length:52},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`;
     const transaction = await storage.createLendingTransaction({
       txHash,
       userAddress,
@@ -740,7 +740,7 @@ class LendingService {
 
     await this.updateUserPosition(userAddress);
 
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2, 10)}`;
+    const txHash = `th1${Array.from({length:52},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`;
     const transaction = await storage.createLendingTransaction({
       txHash,
       userAddress,
@@ -802,7 +802,7 @@ class LendingService {
     await this.updateUserPosition(userAddress);
 
     const position = await storage.getLendingPositionByUser(userAddress);
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2, 10)}`;
+    const txHash = `th1${Array.from({length:52},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`;
     const transaction = await storage.createLendingTransaction({
       txHash,
       userAddress,
@@ -894,7 +894,7 @@ class LendingService {
     const liquidationBonus = (collateralSeized * BigInt(collateralMarket.liquidationPenalty)) / BigInt(BASIS_POINTS);
     const healthFactorBefore = await this.calculateHealthFactor(borrowerAddress);
 
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2, 10)}`;
+    const txHash = `th1${Array.from({length:52},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`;
     
     const borrowerPosition = await storage.getLendingPositionByUser(borrowerAddress);
     

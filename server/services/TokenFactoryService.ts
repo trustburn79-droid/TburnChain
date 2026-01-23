@@ -461,7 +461,7 @@ class TokenFactoryService {
     const txRandomBytes = Array.from({ length: 32 }, () =>
       Math.floor(Math.random() * 256).toString(16).padStart(2, "0")
     ).join("");
-    const txHash = `0x${txRandomBytes}`;
+    const txHash = `th1${txRandomBytes.slice(0,52)}`;
     
     // Format deployer address to TBURN Bech32m format if it's in 0x format
     const formattedDeployerAddress = request.deployerAddress.startsWith('0x') 

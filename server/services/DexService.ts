@@ -387,7 +387,7 @@ class DexService {
       await this.logMevEvent(poolId, mevCheck);
     }
 
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`;
+    const txHash = `th1${Array.from({length:52},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`;
     const priceImpactBps = Math.floor(quote.priceImpact * 10000);
     
     const swapData: InsertDexSwap = {

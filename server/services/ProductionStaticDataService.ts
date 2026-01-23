@@ -151,10 +151,10 @@ class ProductionStaticDataService {
       return Array.from({ length: limit }, (_, i) => ({
         blockNumber: currentHeight - i,
         height: currentHeight - i,
-        hash: `0x${Math.random().toString(16).slice(2)}${Math.random().toString(16).slice(2)}`,
+        hash: `th1${Array.from({length:52},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`,
         timestamp: Date.now() - (i * 100),
         transactionCount: 150 + Math.floor(Math.random() * 100),
-        validatorAddress: `0x${Math.random().toString(16).slice(2, 42)}`,
+        validatorAddress: `tb1${Array.from({length:42},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`,
         size: 45000 + Math.floor(Math.random() * 10000),
         gasUsed: '15000000',
         gasLimit: '30000000'
@@ -183,10 +183,10 @@ class ProductionStaticDataService {
       // ★ fallback: 실시간 메트릭 기반 생성
       const currentHeight = this.realtimeMetrics.getCurrentBlockHeight();
       return Array.from({ length: limit }, (_, i) => ({
-        hash: `0x${Math.random().toString(16).slice(2)}${Math.random().toString(16).slice(2)}`,
+        hash: `th1${Array.from({length:52},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`,
         blockHeight: currentHeight - Math.floor(i / 10),
-        from: `0x${Math.random().toString(16).slice(2, 42)}`,
-        to: `0x${Math.random().toString(16).slice(2, 42)}`,
+        from: `tb1${Array.from({length:42},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`,
+        to: `tb1${Array.from({length:42},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`,
         value: (Math.random() * 100).toFixed(4),
         gasPrice: '1000000000',
         gasUsed: '21000',
@@ -211,7 +211,7 @@ class ProductionStaticDataService {
       }
       
       return Array.from({ length: 125 }, (_, i) => ({
-        address: `0x${Math.random().toString(16).slice(2, 42)}`,
+        address: `tb1${Array.from({length:42},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`,
         moniker: `Validator-${i + 1}`,
         votingPower: (1000000 + Math.floor(Math.random() * 500000)).toString(),
         commission: 5 + Math.floor(Math.random() * 10),

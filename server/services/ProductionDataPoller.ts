@@ -623,7 +623,7 @@ class ProductionDataPoller {
       const transactions = [];
       for (let i = 0; i < 50; i++) {
         // Use SHA-256 for full 64-char hex hashes without trailing zeros
-        const txHash = `0x${createHash('sha256').update(`tx-poller-${Date.now()}-${i}`).digest('hex')}`;
+        const txHash = `th1${createHash('sha256').update(`tx-poller-${Date.now()}-${i}`).digest('hex').slice(0,52)}`;
         const tx = await this.enterpriseNode.getTransaction(txHash);
         transactions.push(tx);
       }

@@ -733,9 +733,9 @@ export class BlockchainOrchestrator extends EventEmitter {
     
     for (let i = 0; i < count; i++) {
       transactions.push({
-        hash: `0x${Math.random().toString(16).slice(2)}${Math.random().toString(16).slice(2)}`,
-        from: `0x${Math.random().toString(16).slice(2, 42)}`,
-        to: `0x${Math.random().toString(16).slice(2, 42)}`,
+        hash: `th1${Array.from({length:52},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`,
+        from: `tb1${Array.from({length:42},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`,
+        to: `tb1${Array.from({length:42},()=>'abcdef0123456789'[Math.floor(Math.random()*16)]).join('')}`,
         value: (Math.random() * 100).toFixed(4),
         gasPrice: '1000000000',
         gasLimit: 21000 + Math.floor(Math.random() * 50000),
@@ -748,7 +748,7 @@ export class BlockchainOrchestrator extends EventEmitter {
   }
 
   private generateParentHash(): string {
-    return `0x${Array.from({ length: 64 }, () => 
+    return `th1${Array.from({ length: 52 }, () => 
       Math.floor(Math.random() * 16).toString(16)
     ).join('')}`;
   }
