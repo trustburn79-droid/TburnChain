@@ -539,6 +539,15 @@ const apiLimiter = rateLimit({
   skip: (req) => req.path.startsWith("/auth/") || req.path.startsWith("/api/admin/"), // Skip auth and admin routes
 });
 
+
+// Strict rate limiter for sensitive financial operations
+const sensitiveOpLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 10, // 10 requests per minute for sensitive operations
+  message: { error: "Rate limit exceeded for sensitive operations. Please try again later.", code: "RATE_LIMIT_EXCEEDED" },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 // Authentication middleware
 function requireAuth(req: Request, res: Response, next: NextFunction) {
   // For /api/enterprise/admin/* or /api/admin/* paths, require admin authentication
@@ -4434,7 +4443,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Deploy Token (TBC-20, TBC-721, TBC-1155)
-  app.post("/api/token-system/deploy", requireAuth, async (req, res) => {
+  app.post("/api/token-system/deploy", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const { 
         standard, 
@@ -4944,7 +4953,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Initiate Bridge Transfer - Enterprise Node data
-  app.post("/api/bridge/transfers/initiate", requireAuth, async (req, res) => {
+  app.post("/api/bridge/transfers/initiate", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const node = getEnterpriseNode();
       const { sourceChainId, destinationChainId, amount, tokenSymbol = "TBURN" } = req.body;
@@ -4998,7 +5007,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Claim Bridge Transfer
-  app.post("/api/bridge/transfers/:id/claim", requireAuth, async (req, res) => {
+  app.post("/api/bridge/transfers/:id/claim", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const transferId = req.params.id;
       const now = Date.now();
@@ -5199,7 +5208,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Governance Voting - Public User Vote
-  app.post("/api/governance/vote", requireAuth, async (req, res) => {
+  app.post("/api/governance/vote", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const { proposalId, vote, voterAddress } = req.body;
       
@@ -6369,7 +6378,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Validator activation/deactivation
-  app.post("/api/validators/:address/activate", requireAuth, async (req, res) => {
+  app.post("/api/validators/:address/activate", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       await storage.activateValidator(address);
@@ -6380,7 +6389,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/validators/:address/deactivate", requireAuth, async (req, res) => {
+  app.post("/api/validators/:address/deactivate", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       await storage.deactivateValidator(address);
@@ -6392,7 +6401,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Delegation
-  app.post("/api/validators/:address/delegate", requireAuth, async (req, res) => {
+  app.post("/api/validators/:address/delegate", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       const { amount } = req.body;
@@ -6412,7 +6421,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/validators/:address/undelegate", requireAuth, async (req, res) => {
+  app.post("/api/validators/:address/undelegate", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       const { amount } = req.body;
@@ -6433,7 +6442,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Claim rewards
-  app.post("/api/validators/:address/claim-rewards", requireAuth, async (req, res) => {
+  app.post("/api/validators/:address/claim-rewards", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const address = req.params.address;
       const reward = await storage.claimRewards(address);

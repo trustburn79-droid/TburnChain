@@ -57,7 +57,18 @@ export function registerWalletDashboardRoutes(
 
   app.get("/api/wallet/balance", async (req: Request, res: Response) => {
     try {
-      const address = (req.query.address as string) || addressFromString('tburn-default-wallet');
+      const rawAddress = req.query.address as string | undefined;
+      
+      // Input validation: address must be valid TBURN format (tb1...) or empty
+      const addressRegex = /^tb1[a-z0-9]{30,50}$/i;
+      if (rawAddress && !addressRegex.test(rawAddress)) {
+        return res.status(400).json({ 
+          error: "Invalid address format", 
+          message: "Address must be a valid TBURN address starting with 'tb1'" 
+        });
+      }
+      
+      const address = rawAddress || addressFromString('tburn-default-wallet');
       
       const nodeStatus = enterpriseNode.getStatus();
       const tokenEconomics = enterpriseNode.getTokenEconomics();
