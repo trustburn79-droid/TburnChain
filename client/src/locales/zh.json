@@ -14971,87 +14971,87 @@
             "content": "您的信息可能被转移到并在您所在国家/地区以外的国家/地区进行处理。我们确保根据适用的数据保护法律为此类传输提供适当的保障措施。"
           },
           "informationCollect": {
-            "title": "2. Information We Collect",
+            "title": "2. 我们收集的信息",
             "provided": {
-              "title": "2.1 Information You 专业vide",
+              "title": "2.1 您提供的信息",
               "account": {
-                "label": "账户 Information",
-                "value": "电子邮件 address, username, wallet addresses"
+                "label": "账户信息",
+                "value": "电子邮件地址、用户名、钱包地址"
               },
               "project": {
-                "label": "项目 验证",
-                "value": "业务 registration documents, KYC information, financial statements"
+                "label": "项目验证",
+                "value": "营业执照、KYC信息、财务报表"
               },
               "communication": {
-                "label": "Communication 数据",
-                "value": "消息, support tickets, feedback"
+                "label": "通信数据",
+                "value": "消息、支持工单、反馈"
               }
             },
             "automatic": {
-              "title": "2.2 Automatically Collected Information",
+              "title": "2.2 自动收集的信息",
               "blockchain": {
-                "label": "区块chain 数据",
-                "value": "公开 wallet addresses, transaction hashes, smart contract interactions"
+                "label": "区块链数据",
+                "value": "公开钱包地址、交易哈希、智能合约交互"
               },
               "device": {
-                "label": "Device Information",
-                "value": "IP address, browser type, operating system"
+                "label": "设备信息",
+                "value": "IP地址、浏览器类型、操作系统"
               },
               "usage": {
-                "label": "使用方法 数据",
-                "value": "Pages viewed, navigation patterns, session duration"
+                "label": "使用数据",
+                "value": "浏览页面、导航模式、会话时长"
               }
             }
           },
           "sharing": {
-            "title": "4. Information Sharing",
-            "intro": "We share information with:",
+            "title": "4. 信息共享",
+            "intro": "我们与以下方共享信息：",
             "validators": {
               "label": "验证者",
-              "value": "For decentralized verification processes"
+              "value": "用于去中心化验证流程"
             },
             "providers": {
-              "label": "服务 专业viders",
-              "value": "基础设施 and support partners"
+              "label": "服务提供商",
+              "value": "基础设施和支持合作伙伴"
             },
             "legal": {
-              "label": "Legal Authorities",
-              "value": "When required by law"
+              "label": "法律机关",
+              "value": "法律要求时"
             },
-            "noSell": "We do NOT sell your personal data to third parties for marketing purposes."
+            "noSell": "我们不会为营销目的将您的个人数据出售给第三方。"
           },
           "blockchain": {
-            "title": "5. 区块chain-Specific 隐私",
+            "title": "5. 区块链特定隐私",
             "publicData": {
-              "title": "公开 数据",
-              "content": "交易s and smart contract interactions on T销毁 链 are publicly visible and immutable. This data cannot be deleted or modified."
+              "title": "公开数据",
+              "content": "TBurn Chain上的交易和智能合约交互是公开可见且不可变的。此数据无法删除或修改。"
             },
             "pseudonymity": {
-              "title": "Pseudonymity",
-              "content": "钱包 addresses are pseudonymous. However, if you link your real-world identity to a wallet address, that connection may become public."
+              "title": "匿名性",
+              "content": "钱包地址是匿名的。但是，如果您将真实身份与钱包地址关联，该关联可能会变为公开。"
             }
           },
           "security": {
-            "title": "6. 安全 & 右s",
-            "intro": "We implement appropriate security measures including:",
+            "title": "6. 安全与权利",
+            "intro": "我们实施以下适当的安全措施：",
             "measures": {
-              "ssl": "SSL/TLS encryption for data in transit",
-              "encrypted": "加密ed storage for sensitive data",
-              "mfa": "Multi-factor authentication",
-              "audits": "Regular security audits and penetration testing"
+              "ssl": "传输中数据的SSL/TLS加密",
+              "encrypted": "敏感数据的加密存储",
+              "mfa": "多因素身份验证",
+              "audits": "定期安全审计和渗透测试"
             },
-            "rightsIntro": "Depending on your location, you may have the right to:",
+            "rightsIntro": "根据您的所在地，您可能有权：",
             "rights": {
-              "access": "访问 your personal information",
-              "correct": "正确 inaccurate data",
-              "delete": "删除 your off-chain data",
-              "object": "对象 to data processing",
-              "portability": "数据 portability"
+              "access": "访问您的个人信息",
+              "correct": "更正不准确的数据",
+              "delete": "删除您的链下数据",
+              "object": "反对数据处理",
+              "portability": "数据可携带性"
             }
           },
           "international": {
-            "title": "8. International 数据 转账s",
-            "content": "Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers in compliance with applicable data protection laws."
+            "title": "8. 国际数据传输",
+            "content": "您的信息可能会被转移到您所在国家/地区以外的国家/地区进行处理。我们确保此类传输符合适用的数据保护法律，并采取适当的保护措施。"
           }
         },
         "contact": {
@@ -15062,10 +15062,10 @@
           },
           "responseTime": "响应时间",
           "responseTimeValue": "30天内",
-          "description": "If you have questions about this 隐私政策, please contact our 隐私 关ice.",
+          "description": "如果您对本隐私政策有疑问，请联系我们的隐私办公室。",
           "response": {
-            "label": "Response 时间",
-            "value": "在内 30 days"
+            "label": "响应时间",
+            "value": "30天内"
           }
         },
         "relatedDocuments": {
@@ -15245,15 +15245,15 @@
           },
           "terms": {
             "title": "服务条款",
-            "subtitle": "用户 agreement and conditions"
+            "subtitle": "用户协议和条款"
           },
           "disclaimer": {
             "title": "免责声明",
-            "subtitle": "Legal notices",
+            "subtitle": "法律通知",
             "forumTitle": "社区论坛",
             "viewAll": "查看全部",
             "recentPosts": "最近帖子",
-            "subtitleRisk": "Risk disclosures"
+            "subtitleRisk": "风险披露"
           }
         },
         "learn": {
@@ -15359,8 +15359,8 @@
             "verificationProcessDescription": "我们的4步验证工作流程"
           },
           "wallet": {
-            "title": "What is a 钱包?",
-            "subtitle": "钱包 basics",
+            "title": "什么是钱包？",
+            "subtitle": "钱包基础",
             "forumTitle": "社区论坛",
             "viewAll": "查看全部",
             "recentPosts": "最近帖子",
@@ -15368,7 +15368,7 @@
           },
           "blockchain": {
             "title": "区块链基础",
-            "subtitle": "Understanding blockchain technology"
+            "subtitle": "区块链技术理解"
           },
           "burnChain": {
             "title": "What is T销毁 链?",
