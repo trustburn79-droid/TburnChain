@@ -2,6 +2,8 @@
   "common": {
     "id": "ID",
     "loading": "로딩 중...",
+    "translating": "번역 중...",
+    "translated": "번역됨",
     "error": "오류",
     "success": "성공",
     "live": "라이브",
@@ -31638,6 +31640,8 @@
   "tokenPrograms": {
     "ecosystemFund": {
       "loading": "로딩 중...",
+    "translating": "번역 중...",
+    "translated": "번역됨",
       "wallet": {
         "connect": "지갑 연결",
         "connectWallet": "지갑 연결하기",
@@ -32616,6 +32620,8 @@
     },
     "validatorIncentives": {
       "loading": "로딩 중...",
+    "translating": "번역 중...",
+    "translated": "번역됨",
       "hero": {
         "badge": "검증자 인센티브",
         "title": "검증자 인센티브",
@@ -35131,6 +35137,8 @@
           }
         },
         "loading": "로딩 중...",
+    "translating": "번역 중...",
+    "translated": "번역됨",
         "loadingDesc": "이벤트 데이터를 불러오는 중...",
         "noEvents": "이벤트 없음",
         "noEventsDesc": "해당 카테고리에 이벤트가 없습니다",
@@ -38548,6 +38556,8 @@
   },
   "foundersPage": {
     "loading": "로딩 중...",
+    "translating": "번역 중...",
+    "translated": "번역됨",
     "nav": {
       "home": "홈",
       "founders": "파운더",

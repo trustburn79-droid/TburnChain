@@ -6,8 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslationApi } from "@/hooks/use-translation-api";
 
 interface EventData {
   id: string;
@@ -63,15 +64,23 @@ export default function EventDetail() {
 
   const event = events?.find(e => e.id === eventId);
 
+  const translationItems = useMemo(() => {
+    if (!event) return [];
+    return [
+      { id: `${event.id}-title`, text: event.title },
+      { id: `${event.id}-description`, text: event.description }
+    ];
+  }, [event]);
+
+  const { getTranslation, isTranslating } = useTranslationApi(translationItems, {
+    enabled: !!event
+  });
+
   const getLocalizedContent = (evt: EventData, field: 'title' | 'description') => {
-    if (evt.translationKey) {
-      const translationPath = `publicPages.community.events.items.${evt.translationKey}.${field}`;
-      const translated = t(translationPath);
-      if (translated !== translationPath) {
-        return translated;
-      }
-    }
-    return field === 'title' ? evt.title : evt.description;
+    const id = `${evt.id}-${field}`;
+    const originalText = field === 'title' ? evt.title : evt.description;
+    const koText = field === 'title' ? evt.titleKo : evt.descriptionKo;
+    return getTranslation(id, originalText, koText);
   };
 
   const handleRegister = () => {
@@ -130,6 +139,7 @@ export default function EventDetail() {
   const title = getLocalizedContent(event, 'title');
   const description = getLocalizedContent(event, 'description');
   const gradient = eventGradients[event.type] || "from-purple-600 to-blue-600";
+  const showTranslationBadge = currentLang !== 'en' && currentLang !== 'ko';
   const buttonColor = eventButtonColors[event.type] || "bg-purple-600 hover:bg-purple-700";
   const isKorean = currentLang === 'ko';
   const capacity = { current: event.participants, max: event.maxParticipants || 1000 };
@@ -182,6 +192,12 @@ export default function EventDetail() {
             <Badge className="bg-green-500/90 text-white capitalize">{locationType}</Badge>
             {event.status === 'upcoming' && (
               <Badge className="bg-blue-500/90 text-white">{t('publicPages.community.events.detail.upcoming')}</Badge>
+            )}
+            {showTranslationBadge && (
+              <Badge className="bg-cyan-500/90 text-white flex items-center gap-1">
+                <Globe className="w-3 h-3" />
+                {isTranslating ? t('common.translating') : t('common.translated')}
+              </Badge>
             )}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h1>

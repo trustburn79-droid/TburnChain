@@ -1,11 +1,13 @@
 import { Link, useRoute, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Calendar, User, MessageCircle, Heart, Eye, Share2, Bookmark, Tag, Loader2 } from "lucide-react";
+import { ArrowLeft, Calendar, User, MessageCircle, Heart, Eye, Share2, Bookmark, Tag, Loader2, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { useTranslationApi } from "@/hooks/use-translation-api";
 
 interface PostData {
   id: string;
@@ -55,15 +57,23 @@ export default function PostDetail() {
 
   const post = posts?.find(p => p.id === postId);
 
+  const translationItems = useMemo(() => {
+    if (!post) return [];
+    return [
+      { id: `${post.id}-title`, text: post.title },
+      { id: `${post.id}-content`, text: post.content }
+    ];
+  }, [post]);
+
+  const { getTranslation, isTranslating } = useTranslationApi(translationItems, {
+    enabled: !!post
+  });
+
   const getLocalizedContent = (item: PostData, field: 'title' | 'content') => {
-    if (item.translationKey) {
-      const translationPath = `publicPages.community.posts.${item.translationKey}.${field}`;
-      const translated = t(translationPath);
-      if (translated !== translationPath) {
-        return translated;
-      }
-    }
-    return field === 'title' ? item.title : item.content;
+    const id = `${item.id}-${field}`;
+    const originalText = field === 'title' ? item.title : item.content;
+    const koText = field === 'title' ? item.titleKo : item.contentKo;
+    return getTranslation(id, originalText, koText);
   };
 
   const getLocaleForDate = () => {
@@ -130,6 +140,7 @@ export default function PostDetail() {
   const title = getLocalizedContent(post, 'title');
   const content = getLocalizedContent(post, 'content');
   const gradient = categoryGradients[post.category] || "from-purple-600 to-blue-600";
+  const showTranslationBadge = currentLang !== 'en' && currentLang !== 'ko';
   const categoryColor = categoryColors[post.category] || "bg-purple-500/20 text-purple-400";
 
   const formatDate = (timestamp: number) => {
@@ -158,6 +169,12 @@ export default function PostDetail() {
             <Badge className={categoryColor}>{categoryLabel}</Badge>
             {post.isPinned && (
               <Badge className="bg-yellow-500/90 text-black">{t('publicPages.community.pinned')}</Badge>
+            )}
+            {showTranslationBadge && (
+              <Badge className="bg-blue-500/90 text-white flex items-center gap-1">
+                <Globe className="w-3 h-3" />
+                {isTranslating ? t('common.translating') : t('common.translated')}
+              </Badge>
             )}
           </div>
           <h1 className="text-2xl md:text-3xl font-bold text-white">{title}</h1>

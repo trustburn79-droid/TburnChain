@@ -2,6 +2,8 @@
   "common": {
     "id": "ID",
     "loading": "Loading...",
+    "translating": "Translating...",
+    "translated": "Translated",
     "error": "Error",
     "success": "Success",
     "live": "Live",
@@ -31259,6 +31261,8 @@
         "titleEnd": "Opportunity",
         "subtitle": "Up to 70% discount early investment opportunity for Blockchain VCs, Crypto Funds, and Angel Investors.",
         "loading": "Loading...",
+    "translating": "Translating...",
+    "translated": "Translated",
         "seedAllocation": "Seed Allocation",
         "tokenPriceLabel": "Token Price",
         "hardcap": "Hardcap",
@@ -32279,6 +32283,8 @@
           }
         },
         "loading": "Loading...",
+    "translating": "Translating...",
+    "translated": "Translated",
         "loadingDesc": "Loading event data...",
         "noEvents": "No Events",
         "noEventsDesc": "No events in this category",
@@ -33338,6 +33344,8 @@
   },
   "foundersPage": {
     "loading": "Loading...",
+    "translating": "Translating...",
+    "translated": "Translated",
     "nav": {
       "home": "Home",
       "founders": "Founders",

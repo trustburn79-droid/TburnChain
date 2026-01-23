@@ -1,11 +1,13 @@
 import { Link, useRoute, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Calendar, Clock, Eye, User, Share2, Bookmark, Tag, Loader2 } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Eye, User, Share2, Bookmark, Tag, Loader2, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { useTranslationApi } from "@/hooks/use-translation-api";
 
 interface AnnouncementData {
   id: string;
@@ -42,15 +44,23 @@ export default function NewsDetail() {
 
   const announcement = announcements?.find(a => a.id === slug);
 
+  const translationItems = useMemo(() => {
+    if (!announcement) return [];
+    return [
+      { id: `${announcement.id}-title`, text: announcement.title },
+      { id: `${announcement.id}-content`, text: announcement.content }
+    ];
+  }, [announcement]);
+
+  const { getTranslation, isTranslating } = useTranslationApi(translationItems, {
+    enabled: !!announcement
+  });
+
   const getLocalizedContent = (ann: AnnouncementData, field: 'title' | 'content') => {
-    if (ann.translationKey) {
-      const translationPath = `publicPages.community.announcements.${ann.translationKey}.${field}`;
-      const translated = t(translationPath);
-      if (translated !== translationPath) {
-        return translated;
-      }
-    }
-    return field === 'title' ? ann.title : ann.content;
+    const id = `${ann.id}-${field}`;
+    const originalText = field === 'title' ? ann.title : ann.content;
+    const koText = field === 'title' ? ann.titleKo : ann.contentKo;
+    return getTranslation(id, originalText, koText);
   };
 
   const handleShare = () => {
@@ -101,6 +111,7 @@ export default function NewsDetail() {
   const title = getLocalizedContent(announcement, 'title');
   const content = getLocalizedContent(announcement, 'content');
   const gradient = typeGradients[announcement.type] || "from-purple-600 to-blue-600";
+  const showTranslationBadge = currentLang !== 'en' && currentLang !== 'ko';
 
   const getLocaleForDate = () => {
     const localeMap: Record<string, string> = {
@@ -137,6 +148,12 @@ export default function NewsDetail() {
             <Badge className="bg-white/90 text-black">{category}</Badge>
             {announcement.isImportant && (
               <Badge className="bg-red-500/90 text-white">{t('publicPages.community.news.detail.important')}</Badge>
+            )}
+            {showTranslationBadge && (
+              <Badge className="bg-blue-500/90 text-white flex items-center gap-1">
+                <Globe className="w-3 h-3" />
+                {isTranslating ? t('common.translating') : t('common.translated')}
+              </Badge>
             )}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h1>
