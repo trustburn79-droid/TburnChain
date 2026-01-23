@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TBurnLogo } from "@/components/tburn-logo";
 import { LanguageSelector } from "@/components/LanguageSelector";
-import { Home, ScanLine, User, Bug, Shield, Coins, ImageIcon, HelpCircle } from "lucide-react";
+import { ScanLine, User, Bug, Shield, Coins, ImageIcon, HelpCircle } from "lucide-react";
 
 export default function TokenSchedule() {
   const { t } = useTranslation();
@@ -460,12 +460,11 @@ export default function TokenSchedule() {
       <div className="ts-root">
         <header className="ts-header">
           <div className="ts-container ts-flex ts-justify-between ts-items-center">
-            <div className="ts-header-left">
+            <a href="/" className="ts-header-left" style={{ textDecoration: 'none' }}>
               <TBurnLogo className="w-10 h-10" showText={false} />
               <div className="ts-logo-text ts-font-orbitron">TBURN</div>
-            </div>
+            </a>
             <div className="ts-header-right">
-              <a href="/" className="ts-header-icon" title="Home"><Home size={18} /></a>
               <a href="/scan" className="ts-header-icon" title="Scan"><ScanLine size={18} /></a>
               <a href="/user" className="ts-header-icon" title="User"><User size={18} /></a>
               <a href="/bug-bounty" className="ts-header-icon" title="Bug Bounty"><Bug size={18} /></a>
