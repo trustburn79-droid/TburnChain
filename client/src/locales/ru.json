@@ -12156,6 +12156,16 @@
               "title": "4.2 Безопасность кошелька",
               "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
               "important": "Important: We do not have access to your private keys and cannot help recover lost funds."
+            },
+            "notifications": {
+              "disabled": "Уведомления отключены",
+              "disabledDesc": "Уведомления были отключены.",
+              "enabled": "Уведомления включены",
+              "enabledDesc": "Вы будете получать уведомления."
+            },
+            "settings": {
+              "comingSoon": "Функция настроек скоро появится.",
+              "title": "Настройки"
             }
           },
           "burn": {
@@ -12600,7 +12610,102 @@
             "viewAll": "Смотреть все",
             "recentPosts": "Недавние записи",
             "subtitleHow": "How Trust Scores work",
-            "subtitleVerification": "Verification methodology"
+            "subtitleVerification": "Verification methodology",
+            "components": {
+              "financial": {
+                "items": {
+                  "accountingAudit": "Статус бухгалтерского аудита",
+                  "distributionData": "Данные о распределении токенов",
+                  "fundingReport": "Доступность отчёта о финансировании",
+                  "walletDisclosure": "Раскрытие адреса кошелька"
+                },
+                "title": "Финансовая прозрачность"
+              },
+              "teamTransparency": {
+                "items": {
+                  "communication": "Оценка коммуникации с сообществом",
+                  "experience": "Проверка профессионального опыта",
+                  "kyc": "KYC-верификация завершена",
+                  "realName": "Проверка настоящего имени"
+                },
+                "title": "Прозрачность команды"
+              },
+              "technical": {
+                "items": {
+                  "codeQuality": "Анализ качества кода",
+                  "documentation": "Качество документации",
+                  "securityAudit": "Завершение аудита безопасности",
+                  "testCoverage": "Процент покрытия тестами"
+                },
+                "title": "Техническая оценка"
+              }
+            },
+            "evaluationPhilosophy": "Методология оценки",
+            "gradeSystem": "Система оценок",
+            "gradeSystemDescription": "Проекты классифицируются на основе уровня доверия",
+            "grades": {
+              "a": {
+                "description": "Сильная верификация с незначительными областями для улучшения",
+                "title": "Высокое доверие"
+              },
+              "b": {
+                "description": "Базовая верификация завершена с некоторыми замечаниями",
+                "title": "Умеренное доверие"
+              },
+              "c": {
+                "description": "Неполная верификация со значительными замечаниями",
+                "title": "Ограниченное доверие"
+              },
+              "f": {
+                "description": "Верификация не пройдена или недостаточно данных",
+                "title": "Не верифицирован"
+              },
+              "s": {
+                "description": "Высший уровень верификации с полной прозрачностью",
+                "title": "Исключительное доверие"
+              }
+            },
+            "philosophy": {
+              "comprehensive": {
+                "description": "Многомерный анализ команды, технологий, финансов и возможностей реализации",
+                "title": "Комплексная проверка"
+              },
+              "objective": {
+                "description": "Оценка на основе данных, исключающая человеческую предвзятость через стандартизированные метрики и ИИ-анализ",
+                "title": "Объективный анализ"
+              },
+              "realtime": {
+                "description": "Непрерывный мониторинг с мгновенной корректировкой оценок на основе изменений поведения проекта",
+                "title": "Обновления в реальном времени"
+              },
+              "transparent": {
+                "description": "Все факторы оценки и методологии публично задокументированы и верифицируемы в блокчейне",
+                "title": "Полная прозрачность"
+              }
+            },
+            "process": {
+              "aiAnalysis": {
+                "description": "Автоматическое распознавание паттернов и оценка рисков",
+                "title": "ИИ-анализ"
+              },
+              "dataCollection": {
+                "description": "Сбор информации о проекте из множества источников",
+                "title": "Сбор данных"
+              },
+              "expertReview": {
+                "description": "Человеческая верификация доменными специалистами",
+                "title": "Экспертная проверка"
+              },
+              "onchainCommit": {
+                "description": "Неизменяемая запись результатов верификации",
+                "title": "Запись в блокчейн"
+              }
+            },
+            "scoreComponents": "Компоненты оценки",
+            "scoreComponentsStatus": "Отслеживание компонентов в реальном времени",
+            "tag": "Система верификации",
+            "verificationProcess": "Процесс верификации",
+            "verificationProcessDescription": "Наш 4-шаговый процесс верификации"
           },
           "wallet": {
             "title": "What is a Wallet?",
@@ -12621,6 +12726,16 @@
           "defi": {
             "title": "Intro to DeFi",
             "subtitle": "Decentralized finance fundamentals"
+          },
+          "notifications": {
+            "disabled": "Уведомления отключены",
+            "disabledDesc": "Уведомления были отключены.",
+            "enabled": "Уведомления включены",
+            "enabledDesc": "Вы будете получать уведомления."
+          },
+          "settings": {
+            "comingSoon": "Функция настроек скоро появится.",
+            "title": "Настройки"
           }
         },
         "solutions": {

@@ -12332,6 +12332,16 @@
               "title": "4.2 Wایکllet Security",
               "content": "You ہیں solely respپرsible کے لیے securمیںg آپ کا privپرe keys. Lost privپرe keys cایکnot be recovered.",
               "important": "اہم: We do not ہیں ایکccess کی طرف آپ کا privپرe keys اور cایکnot help recover lost funds."
+            },
+            "notifications": {
+              "disabled": "اطلاعات بند",
+              "disabledDesc": "اطلاعات بند کر دی گئی ہیں۔",
+              "enabled": "اطلاعات فعال",
+              "enabledDesc": "آپ کو اطلاعات موصول ہوں گی۔"
+            },
+            "settings": {
+              "comingSoon": "ترتیبات کی خصوصیت جلد آ رہی ہے۔",
+              "title": "ترتیبات"
             }
           },
           "burn": {
@@ -12776,7 +12786,102 @@
             "viewAll": "سب دیکھیں",
             "recentPosts": "حالیہ پوسٹس",
             "subtitleHow": "How Trust Scیاes wیاk",
-            "subtitleVerification": "تصدیق methodology"
+            "subtitleVerification": "تصدیق methodology",
+            "components": {
+              "financial": {
+                "items": {
+                  "accountingAudit": "اکاؤنٹنگ آڈٹ کی حیثیت",
+                  "distributionData": "ٹوکن تقسیم ڈیٹا",
+                  "fundingReport": "فنڈنگ رپورٹ کی دستیابی",
+                  "walletDisclosure": "والٹ ایڈریس کا انکشاف"
+                },
+                "title": "مالیاتی شفافیت"
+              },
+              "teamTransparency": {
+                "items": {
+                  "communication": "کمیونٹی کمیونیکیشن اسکور",
+                  "experience": "پیشہ ورانہ تجربے کی تصدیق",
+                  "kyc": "KYC تصدیق مکمل",
+                  "realName": "اصل نام کی تصدیق"
+                },
+                "title": "ٹیم شفافیت"
+              },
+              "technical": {
+                "items": {
+                  "codeQuality": "کوڈ کوالٹی تجزیہ",
+                  "documentation": "دستاویزات کی کوالٹی",
+                  "securityAudit": "سیکیورٹی آڈٹ مکمل",
+                  "testCoverage": "ٹیسٹ کوریج فیصد"
+                },
+                "title": "تکنیکی جائزہ"
+              }
+            },
+            "evaluationPhilosophy": "تشخیص کا طریقہ کار",
+            "gradeSystem": "گریڈ سسٹم",
+            "gradeSystemDescription": "پراجیکٹس کو ان کے اعتماد کے اسکور کی بنیاد پر درجہ بندی کیا جاتا ہے",
+            "grades": {
+              "a": {
+                "description": "معمولی بہتری کے شعبوں کے ساتھ مضبوط تصدیق",
+                "title": "اعلی اعتماد"
+              },
+              "b": {
+                "description": "کچھ خدشات کے ساتھ بنیادی تصدیق مکمل",
+                "title": "معتدل اعتماد"
+              },
+              "c": {
+                "description": "اہم خدشات کے ساتھ نامکمل تصدیق",
+                "title": "محدود اعتماد"
+              },
+              "f": {
+                "description": "تصدیق ناکام یا ناکافی ڈیٹا",
+                "title": "غیر تصدیق شدہ"
+              },
+              "s": {
+                "description": "مکمل شفافیت کے ساتھ اعلی ترین تصدیقی سطح",
+                "title": "غیر معمولی اعتماد"
+              }
+            },
+            "philosophy": {
+              "comprehensive": {
+                "description": "ٹیم، ٹیکنالوجی، مالیات اور عمل درآمد کی صلاحیتوں کا احاطہ کرنے والا کثیر جہتی تجزیہ",
+                "title": "جامع جائزہ"
+              },
+              "objective": {
+                "description": "معیاری میٹرکس اور AI تشخیص کے ذریعے انسانی تعصب کو ختم کرنے والی ڈیٹا پر مبنی تشخیص",
+                "title": "معروضی تجزیہ"
+              },
+              "realtime": {
+                "description": "پراجیکٹ کے رویے کی تبدیلیوں کی بنیاد پر فوری اسکور ایڈجسٹمنٹ کے ساتھ مسلسل نگرانی",
+                "title": "ریئل ٹائم اپڈیٹس"
+              },
+              "transparent": {
+                "description": "تمام اسکورنگ عوامل اور طریقہ کار عوامی طور پر دستاویزی اور آن چین قابل تصدیق ہیں",
+                "title": "مکمل شفافیت"
+              }
+            },
+            "process": {
+              "aiAnalysis": {
+                "description": "خودکار پیٹرن کی شناخت اور خطرے کا جائزہ",
+                "title": "AI تجزیہ"
+              },
+              "dataCollection": {
+                "description": "متعدد ذرائع سے پراجیکٹ کی معلومات جمع کرنا",
+                "title": "ڈیٹا اکٹھا کرنا"
+              },
+              "expertReview": {
+                "description": "ڈومین ماہرین کی طرف سے انسانی تصدیق",
+                "title": "ماہر جائزہ"
+              },
+              "onchainCommit": {
+                "description": "تصدیقی نتائج کا ناقابل تغیر ریکارڈ",
+                "title": "آن چین کمٹ"
+              }
+            },
+            "scoreComponents": "اسکور اجزاء",
+            "scoreComponentsStatus": "ریئل ٹائم اجزاء کی ٹریکنگ",
+            "tag": "تصدیقی نظام",
+            "verificationProcess": "تصدیق کا عمل",
+            "verificationProcessDescription": "ہمارا 4 مرحلہ تصدیقی ورک فلو"
           },
           "wallet": {
             "title": "Whپر ہے ایک Wایکllet?",
@@ -12797,6 +12902,16 @@
           "defi": {
             "title": "Intro to DeFi",
             "subtitle": "Decentrایکlized fمیںایکce fundایکmentایکls"
+          },
+          "notifications": {
+            "disabled": "اطلاعات بند",
+            "disabledDesc": "اطلاعات بند کر دی گئی ہیں۔",
+            "enabled": "اطلاعات فعال",
+            "enabledDesc": "آپ کو اطلاعات موصول ہوں گی۔"
+          },
+          "settings": {
+            "comingSoon": "ترتیبات کی خصوصیت جلد آ رہی ہے۔",
+            "title": "ترتیبات"
           }
         },
         "solutions": {

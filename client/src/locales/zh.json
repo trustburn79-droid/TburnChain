@@ -15279,6 +15279,10 @@
         },
         "learn": {
           "trustScore": {
+            "subtitle": "我们的评估方法将自动分析与人工专业知识相结合，提供全面的项目评估。",
+            "subtitleHow": "信任评分如何运作",
+            "subtitleVerification": "验证方法论",
+            "title": "信任评分系统",
             "components": {
               "financial": {
                 "items": {

@@ -12633,7 +12633,8 @@
             "noInvestmentAdvice": "No Investment Advice",
             "noInvestmentAdviceContent": "TBurn Chain does not provide investment, financial, or legal advice. Trust scores are informational only.",
             "limitationOfLiability": "Limitation of Liability",
-            "limitationOfLiabilityContent": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES."
+            "limitationOfLiabilityContent": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, TBURN CHAIN SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.",
+            "asIsContent": "يتم تقديم الخدمات 'كما هي' و'كما هي متاحة' دون أي ضمانات من أي نوع، سواء كانت صريحة أو ضمنية."
           },
           "governing": {
             "title": "10. Governing Law",

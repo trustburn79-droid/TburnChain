@@ -14388,6 +14388,16 @@
               "title": "4.2 Wallet Seguridad",
               "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
               "important": "Important: We do not have access to your private keys and cannot help recover lost funds."
+            },
+            "notifications": {
+              "disabled": "Notificaciones desactivadas",
+              "disabledDesc": "Las notificaciones han sido desactivadas.",
+              "enabled": "Notificaciones activadas",
+              "enabledDesc": "Recibirás notificaciones."
+            },
+            "settings": {
+              "comingSoon": "Función de configuración próximamente disponible.",
+              "title": "Configuración"
             }
           },
           "burn": {
@@ -14917,7 +14927,102 @@
             "viewAll": "Ver Todo",
             "recentPosts": "Publicaciones Recientes",
             "subtitleHow": "Cómo Trust Scores work",
-            "subtitleVerification": "Verificación methodology"
+            "subtitleVerification": "Verificación methodology",
+            "components": {
+              "financial": {
+                "items": {
+                  "accountingAudit": "Estado de auditoría contable",
+                  "distributionData": "Datos de distribución de tokens",
+                  "fundingReport": "Disponibilidad del informe de financiación",
+                  "walletDisclosure": "Divulgación de dirección de billetera"
+                },
+                "title": "Transparencia financiera"
+              },
+              "teamTransparency": {
+                "items": {
+                  "communication": "Puntuación de comunicación comunitaria",
+                  "experience": "Validación de experiencia profesional",
+                  "kyc": "Verificación KYC completada",
+                  "realName": "Verificación de nombre real"
+                },
+                "title": "Transparencia del equipo"
+              },
+              "technical": {
+                "items": {
+                  "codeQuality": "Análisis de calidad de código",
+                  "documentation": "Calidad de documentación",
+                  "securityAudit": "Auditoría de seguridad completada",
+                  "testCoverage": "Porcentaje de cobertura de pruebas"
+                },
+                "title": "Evaluación técnica"
+              }
+            },
+            "evaluationPhilosophy": "Metodología de evaluación",
+            "gradeSystem": "Sistema de calificación",
+            "gradeSystemDescription": "Los proyectos se clasifican según su puntuación de confianza",
+            "grades": {
+              "a": {
+                "description": "Verificación sólida con áreas menores de mejora",
+                "title": "Alta confianza"
+              },
+              "b": {
+                "description": "Verificación básica completada con algunas preocupaciones",
+                "title": "Confianza moderada"
+              },
+              "c": {
+                "description": "Verificación incompleta con preocupaciones significativas",
+                "title": "Confianza limitada"
+              },
+              "f": {
+                "description": "Verificación fallida o datos insuficientes",
+                "title": "No verificado"
+              },
+              "s": {
+                "description": "Nivel más alto de verificación con transparencia total",
+                "title": "Confianza excepcional"
+              }
+            },
+            "philosophy": {
+              "comprehensive": {
+                "description": "Análisis multidimensional que cubre equipo, tecnología, finanzas y capacidades de ejecución",
+                "title": "Revisión integral"
+              },
+              "objective": {
+                "description": "Evaluación basada en datos que elimina sesgos humanos mediante métricas estandarizadas y evaluación por IA",
+                "title": "Análisis objetivo"
+              },
+              "realtime": {
+                "description": "Monitoreo continuo con ajustes instantáneos de puntuación basados en cambios de comportamiento del proyecto",
+                "title": "Actualizaciones en tiempo real"
+              },
+              "transparent": {
+                "description": "Todos los factores de puntuación y metodologías están documentados públicamente y verificables on-chain",
+                "title": "Transparencia total"
+              }
+            },
+            "process": {
+              "aiAnalysis": {
+                "description": "Reconocimiento automático de patrones y evaluación de riesgos",
+                "title": "Análisis de IA"
+              },
+              "dataCollection": {
+                "description": "Recopilación de información del proyecto de múltiples fuentes",
+                "title": "Recopilación de datos"
+              },
+              "expertReview": {
+                "description": "Verificación humana por especialistas del dominio",
+                "title": "Revisión de expertos"
+              },
+              "onchainCommit": {
+                "description": "Registro inmutable de resultados de verificación",
+                "title": "Compromiso on-chain"
+              }
+            },
+            "scoreComponents": "Componentes de la puntuación",
+            "scoreComponentsStatus": "Seguimiento de componentes en tiempo real",
+            "tag": "Sistema de verificación",
+            "verificationProcess": "Proceso de verificación",
+            "verificationProcessDescription": "Nuestro flujo de trabajo de verificación de 4 pasos"
           },
           "wallet": {
             "title": "Qué is a Wallet?",
@@ -14938,6 +15043,16 @@
           "defi": {
             "title": "Intro to DeFi",
             "subtitle": "Decentralized finance fundamentals"
+          },
+          "notifications": {
+            "disabled": "Notificaciones desactivadas",
+            "disabledDesc": "Las notificaciones han sido desactivadas.",
+            "enabled": "Notificaciones activadas",
+            "enabledDesc": "Recibirás notificaciones."
+          },
+          "settings": {
+            "comingSoon": "Función de configuración próximamente disponible.",
+            "title": "Configuración"
           }
         },
         "solutions": {

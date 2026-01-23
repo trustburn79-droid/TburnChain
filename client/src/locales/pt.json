@@ -12173,6 +12173,180 @@
       }
     },
     "legal": {
+      "common": {
+        "backToHome": "Voltar to Emício",
+        "learnMore": "Saiba Mais",
+        "relatedDocs": "Relacionado Documentos",
+        "securitySolutions": "Segurança Soluções",
+        "links": {
+          "privacy": {
+            "title": "Privacidade Política",
+            "subtitle": "How we handle your data",
+            "forumTitle": "Fórum da Comunidade",
+            "viewAll": "Ver Tudo",
+            "recentPosts": "Postagens Recentes",
+            "subtitleData": "Seu data protection rights"
+          },
+          "terms": {
+            "title": "Termos of Service",
+            "subtitle": "Usuário agreement and conditions"
+          },
+          "disclaimer": {
+            "title": "Umviso Legal",
+            "subtitle": "Legal notices",
+            "forumTitle": "Fórum da Comunidade",
+            "viewAll": "Ver Tudo",
+            "recentPosts": "Postagens Recentes",
+            "subtitleRisk": "Risco disclosures"
+          }
+        },
+        "learn": {
+          "trustScore": {
+            "title": "Sistema de Pontuação de Confiança",
+            "subtitle": "3-stage verification process",
+            "forumTitle": "Fórum da Comunidade",
+            "viewAll": "Ver Tudo",
+            "recentPosts": "Postagens Recentes",
+            "subtitleHow": "How Confiança Pontuaçãos work",
+            "subtitleVerification": "Verificação methodology",
+            "components": {
+              "financial": {
+                "items": {
+                  "accountingAudit": "Status de auditoria contábil",
+                  "distributionData": "Dados de distribuição de tokens",
+                  "fundingReport": "Disponibilidade de relatório de financiamento",
+                  "walletDisclosure": "Divulgação de endereço da carteira"
+                },
+                "title": "Transparência financeira"
+              },
+              "teamTransparency": {
+                "items": {
+                  "communication": "Pontuação de comunicação comunitária",
+                  "experience": "Validação de experiência profissional",
+                  "kyc": "Verificação KYC concluída",
+                  "realName": "Verificação de nome real"
+                },
+                "title": "Transparência da equipe"
+              },
+              "technical": {
+                "items": {
+                  "codeQuality": "Análise de qualidade de código",
+                  "documentation": "Qualidade da documentação",
+                  "securityAudit": "Auditoria de segurança concluída",
+                  "testCoverage": "Porcentagem de cobertura de testes"
+                },
+                "title": "Avaliação técnica"
+              }
+            },
+            "evaluationPhilosophy": "Metodologia de avaliação",
+            "gradeSystem": "Sistema de classificação",
+            "gradeSystemDescription": "Os projetos são classificados com base em sua pontuação de confiança",
+            "grades": {
+              "a": {
+                "description": "Verificação sólida com áreas menores para melhoria",
+                "title": "Alta confiança"
+              },
+              "b": {
+                "description": "Verificação básica concluída com algumas preocupações",
+                "title": "Confiança moderada"
+              },
+              "c": {
+                "description": "Verificação incompleta com preocupações significativas",
+                "title": "Confiança limitada"
+              },
+              "f": {
+                "description": "Verificação falhou ou dados insuficientes",
+                "title": "Não verificado"
+              },
+              "s": {
+                "description": "Nível mais alto de verificação com transparência total",
+                "title": "Confiança excepcional"
+              }
+            },
+            "philosophy": {
+              "comprehensive": {
+                "description": "Análise multidimensional cobrindo equipe, tecnologia, finanças e capacidades de execução",
+                "title": "Revisão abrangente"
+              },
+              "objective": {
+                "description": "Avaliação baseada em dados eliminando viés humano através de métricas padronizadas e avaliação por IA",
+                "title": "Análise objetiva"
+              },
+              "realtime": {
+                "description": "Monitoramento contínuo com ajustes instantâneos de pontuação baseados em mudanças de comportamento do projeto",
+                "title": "Atualizações em tempo real"
+              },
+              "transparent": {
+                "description": "Todos os fatores de pontuação e metodologias são documentados publicamente e verificáveis on-chain",
+                "title": "Transparência total"
+              }
+            },
+            "process": {
+              "aiAnalysis": {
+                "description": "Reconhecimento automático de padrões e avaliação de riscos",
+                "title": "Análise de IA"
+              },
+              "dataCollection": {
+                "description": "Coleta de informações do projeto de múltiplas fontes",
+                "title": "Coleta de dados"
+              },
+              "expertReview": {
+                "description": "Verificação humana por especialistas do domínio",
+                "title": "Revisão de especialistas"
+              },
+              "onchainCommit": {
+                "description": "Registro imutável de resultados de verificação",
+                "title": "Compromisso on-chain"
+              }
+            },
+            "scoreComponents": "Componentes da pontuação",
+            "scoreComponentsStatus": "Rastreamento de componentes em tempo real",
+            "tag": "Sistema de verificação",
+            "verificationProcess": "Processo de verificação",
+            "verificationProcessDescription": "Nosso fluxo de trabalho de verificação de 4 etapas"
+          },
+          "wallet": {
+            "title": "What is a Carteira?",
+            "subtitle": "Carteira basics",
+            "forumTitle": "Fórum da Comunidade",
+            "viewAll": "Ver Tudo",
+            "recentPosts": "Postagens Recentes",
+            "subtitleSecurity": "Securing your assets"
+          },
+          "blockchain": {
+            "title": "Fundamentos de Blockchain",
+            "subtitle": "Entendendo blockchain technology"
+          },
+          "burnChain": {
+            "title": "What is TQueima Chain?",
+            "subtitle": "Plataforma overview"
+          },
+          "defi": {
+            "title": "Emtro to DeFi",
+            "subtitle": "Descentralizado finance fundamentals"
+          },
+          "notifications": {
+            "disabled": "Notificações desativadas",
+            "disabledDesc": "As notificações foram desativadas.",
+            "enabled": "Notificações ativadas",
+            "enabledDesc": "Você receberá notificações."
+          },
+          "settings": {
+            "comingSoon": "Funcionalidade de configurações em breve.",
+            "title": "Configurações"
+          }
+        },
+        "solutions": {
+          "wallets": {
+            "title": "Carteiras",
+            "subtitle": "Seguro wallet solutions"
+          },
+          "permissioned": {
+            "title": "Permissioned Environments",
+            "subtitle": "Empresarial privacy solutions"
+          }
+        }
+      },
       "terms": {
         "title": "Termos de Serviço",
         "subtitle": "Termos e condições para usar os serviços da TBurn Chain.",
@@ -12316,6 +12490,16 @@
               "title": "4.2 Carteira Segurança",
               "content": "You are solely responsible for securing your private keys. Lost private keys cannot be recovered.",
               "important": "Importarante: We do not have access to your private keys and cannot help recover lost funds."
+            },
+            "notifications": {
+              "disabled": "Notificações desativadas",
+              "disabledDesc": "As notificações foram desativadas.",
+              "enabled": "Notificações ativadas",
+              "enabledDesc": "Você receberá notificações."
+            },
+            "settings": {
+              "comingSoon": "Funcionalidade de configurações em breve.",
+              "title": "Configurações"
             }
           },
           "burn": {
@@ -12723,75 +12907,6 @@
         "contact": {
           "title": "Questions?",
           "label": "Legal Emquiries"
-        }
-      },
-      "common": {
-        "backToHome": "Voltar to Emício",
-        "learnMore": "Saiba Mais",
-        "relatedDocs": "Relacionado Documentos",
-        "securitySolutions": "Segurança Soluções",
-        "links": {
-          "privacy": {
-            "title": "Privacidade Política",
-            "subtitle": "How we handle your data",
-            "forumTitle": "Fórum da Comunidade",
-            "viewAll": "Ver Tudo",
-            "recentPosts": "Postagens Recentes",
-            "subtitleData": "Seu data protection rights"
-          },
-          "terms": {
-            "title": "Termos of Service",
-            "subtitle": "Usuário agreement and conditions"
-          },
-          "disclaimer": {
-            "title": "Umviso Legal",
-            "subtitle": "Legal notices",
-            "forumTitle": "Fórum da Comunidade",
-            "viewAll": "Ver Tudo",
-            "recentPosts": "Postagens Recentes",
-            "subtitleRisk": "Risco disclosures"
-          }
-        },
-        "learn": {
-          "trustScore": {
-            "title": "Sistema de Pontuação de Confiança",
-            "subtitle": "3-stage verification process",
-            "forumTitle": "Fórum da Comunidade",
-            "viewAll": "Ver Tudo",
-            "recentPosts": "Postagens Recentes",
-            "subtitleHow": "How Confiança Pontuaçãos work",
-            "subtitleVerification": "Verificação methodology"
-          },
-          "wallet": {
-            "title": "What is a Carteira?",
-            "subtitle": "Carteira basics",
-            "forumTitle": "Fórum da Comunidade",
-            "viewAll": "Ver Tudo",
-            "recentPosts": "Postagens Recentes",
-            "subtitleSecurity": "Securing your assets"
-          },
-          "blockchain": {
-            "title": "Fundamentos de Blockchain",
-            "subtitle": "Entendendo blockchain technology"
-          },
-          "burnChain": {
-            "title": "What is TQueima Chain?",
-            "subtitle": "Plataforma overview"
-          },
-          "defi": {
-            "title": "Emtro to DeFi",
-            "subtitle": "Descentralizado finance fundamentals"
-          }
-        },
-        "solutions": {
-          "wallets": {
-            "title": "Carteiras",
-            "subtitle": "Seguro wallet solutions"
-          },
-          "permissioned": {
-            "title": "Permissioned Environments",
-            "subtitle": "Empresarial privacy solutions"
-          }
         }
       }
     }
