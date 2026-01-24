@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { Flame, Activity, Box, TrendingUp, Shield, Clock, Zap, Server, Globe, BarChart3 } from "lucide-react";
+import { Activity, Box, TrendingUp, Shield, Clock, Zap, Server, Globe, BarChart3 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Area, AreaChart, Legend } from "recharts";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 interface BlockData {
   height: number;
@@ -37,12 +38,27 @@ function formatNumber(num: number): string {
 
 function formatTime(): string {
   const now = new Date();
-  return now.toTimeString().slice(0, 8);
+  return now.toLocaleTimeString("en-US", { 
+    timeZone: "America/New_York",
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
 }
 
 function formatTimestamp(): string {
   const now = new Date();
-  return now.toISOString().replace("T", " ").slice(0, 19);
+  return now.toLocaleString("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).replace(",", "");
 }
 
 function HealthRing({ value, max, color, label, status, statusType }: {
@@ -328,9 +344,9 @@ export default function NetworkDashboard() {
         {/* Header */}
         <header className="flex justify-between items-center p-5 bg-[rgba(12,12,20,0.6)] backdrop-blur-[20px] border border-[rgba(0,255,204,0.1)] rounded-[20px] mb-6">
           <div className="flex items-center gap-5">
-            <div className="relative w-14 h-14 bg-gradient-to-br from-[#f0b90b] to-[#ff8c00] rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(240,185,11,0.4),0_0_60px_rgba(240,185,11,0.2)]">
+            <div className="relative w-14 h-14 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(240,185,11,0.4),0_0_60px_rgba(240,185,11,0.2)]">
               <div className="absolute -inset-[3px] bg-gradient-to-br from-[#f0b90b] to-[#00ffcc] rounded-[18px] -z-10 opacity-50 logo-glow" />
-              <Flame className="w-7 h-7 text-white" />
+              <TBurnLogo className="w-14 h-14" showText={false} />
             </div>
             <div>
               <h1 className="font-['Orbitron'] text-xl font-bold bg-gradient-to-r from-[#f0b90b] to-[#00ffcc] bg-clip-text text-transparent">
@@ -727,7 +743,7 @@ export default function NetworkDashboard() {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <span className="text-xs text-[#6b7280]">Chain ID:</span>
-              <span className="font-['JetBrains_Mono'] text-xs text-[#00ffcc]">tburn-mainnet-1</span>
+              <span className="font-['JetBrains_Mono'] text-xs text-[#00ffcc]">5800</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-[#6b7280]">Node Version:</span>
