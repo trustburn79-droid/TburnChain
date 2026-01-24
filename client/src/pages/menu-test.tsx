@@ -363,7 +363,7 @@ const menuStyles = `
 
 .mega-menu {
   width: 920px;
-  background: #150332;
+  background: #080411;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   overflow: hidden;
