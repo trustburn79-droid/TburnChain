@@ -1919,7 +1919,7 @@ function CreateTokenContent({
             </div>
             <div className="p-4 font-mono text-sm text-slate-300 space-y-1 h-48 overflow-y-auto" data-testid="console-logs">
               {consoleLogs.map((log: string, index: number) => (
-                <div key={index} dangerouslySetInnerHTML={{ __html: log }} />
+                <div key={index}>{log}</div>
               ))}
             </div>
           </div>

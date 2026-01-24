@@ -7,10 +7,15 @@ interface TextScrambleProps {
   speed?: number;
 }
 
+interface CharElement {
+  char: string;
+  isScramble: boolean;
+}
+
 const chars = "!<>-_\\/[]{}—=+*^?#_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 export function TextScramble({ text, className = "", delay = 0, speed = 30 }: TextScrambleProps) {
-  const [displayText, setDisplayText] = useState("");
+  const [displayElements, setDisplayElements] = useState<CharElement[]>([]);
   const [isComplete, setIsComplete] = useState(false);
   const frameRef = useRef<number>();
   const queueRef = useRef<Array<{ from: string; to: string; start: number; end: number; char?: string }>>([]);
@@ -37,7 +42,7 @@ export function TextScramble({ text, className = "", delay = 0, speed = 30 }: Te
     };
 
     const update = () => {
-      let output = "";
+      const output: CharElement[] = [];
       let complete = 0;
 
       for (let i = 0; i < queueRef.current.length; i++) {
@@ -46,18 +51,18 @@ export function TextScramble({ text, className = "", delay = 0, speed = 30 }: Te
 
         if (frameCountRef.current >= end) {
           complete++;
-          output += to;
+          output.push({ char: to, isScramble: false });
         } else if (frameCountRef.current >= start) {
           if (!item.char || Math.random() < 0.28) {
             item.char = chars[Math.floor(Math.random() * chars.length)];
           }
-          output += `<span class="text-cyan-400/70">${item.char}</span>`;
+          output.push({ char: item.char, isScramble: true });
         } else {
-          output += from;
+          output.push({ char: from, isScramble: false });
         }
       }
 
-      setDisplayText(output);
+      setDisplayElements(output);
 
       if (complete === queueRef.current.length) {
         setIsComplete(true);
@@ -80,11 +85,15 @@ export function TextScramble({ text, className = "", delay = 0, speed = 30 }: Te
   }, [text, delay, speed]);
 
   return (
-    <span
-      className={className}
-      dangerouslySetInnerHTML={{ __html: displayText }}
-      data-text={text}
-    />
+    <span className={className} data-text={text}>
+      {displayElements.map((el, i) => (
+        el.isScramble ? (
+          <span key={i} className="text-cyan-400/70">{el.char}</span>
+        ) : (
+          <span key={i}>{el.char}</span>
+        )
+      ))}
+    </span>
   );
 }
 
