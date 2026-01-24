@@ -456,6 +456,16 @@ const menuStyles = `
   transform: translateY(-3px);
 }
 
+.mega-section:first-child {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.15);
+}
+
+.mega-section:first-child::before {
+  transform: scaleX(1);
+}
+
 .mega-section-header {
   display: flex;
   align-items: center;
