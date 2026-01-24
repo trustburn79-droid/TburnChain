@@ -236,7 +236,9 @@ export default function NetworkDashboard() {
     avgBlockTime: 100,
     failedRounds: 2296,
     timeoutRate: 0.2,
-    earlyTerminations: 89.3
+    earlyTerminations: 89.3,
+    quorum: 67,
+    finalityTime: 2.0
   });
   
   // Animate metrics in real-time (200ms updates for visible changes)
@@ -262,7 +264,11 @@ export default function NetworkDashboard() {
         // Timeout Rate: 0.15-0.25% fluctuation
         timeoutRate: 0.15 + Math.sin(now / 4000) * 0.05 + Math.random() * 0.05,
         // Early Terminations: 88.5-90.5% fluctuation
-        earlyTerminations: 89.5 + Math.sin(now / 5000) * 1
+        earlyTerminations: 89.5 + Math.sin(now / 5000) * 1,
+        // Quorum: 65-69 votes fluctuation (2f+1 where f varies slightly)
+        quorum: Math.round(67 + Math.sin(now / 6000) * 2),
+        // Finality Time: 1.8-2.2s fluctuation
+        finalityTime: 2.0 + Math.sin(now / 3500) * 0.2
       }));
     }, 200);
     
@@ -939,7 +945,7 @@ export default function NetworkDashboard() {
                     </div>
                     <div>
                       <div className="text-[#6b7280] mb-1">Quorum (2f+1)</div>
-                      <div className="font-bold text-white">{requiredQuorum} votes</div>
+                      <div className="font-bold text-white">{animatedMetrics.quorum} votes</div>
                     </div>
                   </div>
                 </div>
@@ -995,7 +1001,7 @@ export default function NetworkDashboard() {
         {/* Health Metrics */}
         <div className="grid grid-cols-5 gap-4 mb-6">
           <HealthRing
-            value={`${state.finality.toFixed(1)}s`}
+            value={`${animatedMetrics.finalityTime.toFixed(1)}s`}
             max={3}
             color="#00ffcc"
             label="Finality Time"
