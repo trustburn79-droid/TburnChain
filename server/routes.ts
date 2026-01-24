@@ -543,11 +543,81 @@ const apiLimiter = rateLimit({
 
 // Strict rate limiter for sensitive financial operations
 const sensitiveOpLimiter = rateLimit({
+
+// Rate limiter for custody admin operations (stricter for financial operations)
+const custodyAdminLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 10, // 10 requests per minute for sensitive operations
-  message: { error: "Rate limit exceeded for sensitive operations. Please try again later.", code: "RATE_LIMIT_EXCEEDED" },
+  max: 20, // 20 requests per minute for custody admin operations
+  message: { error: "요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.", code: "CUSTODY_RATE_LIMIT" },
   standardHeaders: true,
   legacyHeaders: false,
+  keyGenerator: (req) => req.session?.user?.email || req.ip || "anonymous",
+});
+  windowMs: 1 * 60 * 1000, // 1 minute
+
+// Rate limiter for custody admin operations (stricter for financial operations)
+const custodyAdminLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20, // 20 requests per minute for custody admin operations
+  message: { error: "요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.", code: "CUSTODY_RATE_LIMIT" },
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => req.session?.user?.email || req.ip || "anonymous",
+});
+  max: 10, // 10 requests per minute for sensitive operations
+
+// Rate limiter for custody admin operations (stricter for financial operations)
+const custodyAdminLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20, // 20 requests per minute for custody admin operations
+  message: { error: "요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.", code: "CUSTODY_RATE_LIMIT" },
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => req.session?.user?.email || req.ip || "anonymous",
+});
+  message: { error: "Rate limit exceeded for sensitive operations. Please try again later.", code: "RATE_LIMIT_EXCEEDED" },
+
+// Rate limiter for custody admin operations (stricter for financial operations)
+const custodyAdminLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20, // 20 requests per minute for custody admin operations
+  message: { error: "요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.", code: "CUSTODY_RATE_LIMIT" },
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => req.session?.user?.email || req.ip || "anonymous",
+});
+  standardHeaders: true,
+
+// Rate limiter for custody admin operations (stricter for financial operations)
+const custodyAdminLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20, // 20 requests per minute for custody admin operations
+  message: { error: "요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.", code: "CUSTODY_RATE_LIMIT" },
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => req.session?.user?.email || req.ip || "anonymous",
+});
+  legacyHeaders: false,
+
+// Rate limiter for custody admin operations (stricter for financial operations)
+const custodyAdminLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20, // 20 requests per minute for custody admin operations
+  message: { error: "요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.", code: "CUSTODY_RATE_LIMIT" },
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => req.session?.user?.email || req.ip || "anonymous",
+});
+});
+
+// Rate limiter for custody admin operations (stricter for financial operations)
+const custodyAdminLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20, // 20 requests per minute for custody admin operations
+  message: { error: "요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.", code: "CUSTODY_RATE_LIMIT" },
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => req.session?.user?.email || req.ip || "anonymous",
 });
 // Authentication middleware
 function requireAuth(req: Request, res: Response, next: NextFunction) {
