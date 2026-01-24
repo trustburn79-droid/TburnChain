@@ -25921,7 +25921,7 @@ Provide JSON portfolio analysis:
   });
   
   // Admin: Get all subscribers
-  app.get("/api/admin/newsletter/subscribers", requireAuth, async (req, res) => {
+  app.get("/api/admin/newsletter/subscribers", requireAdmin, async (req, res) => {
     const cache = getDataCache();
     try {
       const { status, limit = 100, offset = 0 } = req.query;
@@ -25963,7 +25963,7 @@ Provide JSON portfolio analysis:
   });
   
   // Admin: Update subscriber status
-  app.patch("/api/admin/newsletter/subscribers/:id", requireAuth, async (req, res) => {
+  app.patch("/api/admin/newsletter/subscribers/:id", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -25996,7 +25996,7 @@ Provide JSON portfolio analysis:
   });
   
   // Admin: Delete subscriber
-  app.delete("/api/admin/newsletter/subscribers/:id", requireAuth, async (req, res) => {
+  app.delete("/api/admin/newsletter/subscribers/:id", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -26019,7 +26019,7 @@ Provide JSON portfolio analysis:
   });
   
   // Admin: Export subscribers (CSV)
-  app.get("/api/admin/newsletter/export", requireAuth, async (req, res) => {
+  app.get("/api/admin/newsletter/export", requireAdmin, async (req, res) => {
     try {
       const subscribers = await db.select().from(newsletterSubscribers).orderBy(desc(newsletterSubscribers.subscribedAt));
       
