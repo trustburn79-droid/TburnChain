@@ -510,6 +510,7 @@ export default function NetworkDashboard() {
                     interval={9}
                   />
                   <YAxis 
+                    orientation="right"
                     stroke="rgba(255,255,255,0.2)" 
                     tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
                     tickLine={false}
