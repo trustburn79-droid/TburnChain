@@ -14,7 +14,7 @@ function generateMockBlockHash(): string {
   return `bh1${randomBytes(32).toString('hex').slice(0, 58)}`;
 }
 import bcrypt from "bcryptjs";
-import { randomBytes, createHash } from "crypto";
+import { randomBytes, createHash, timingSafeEqual } from "crypto";
 import { Resend } from "resend";
 import cookieSignature from "cookie-signature";
 import passport from "passport";
@@ -119,6 +119,18 @@ import { safeErrorResponse, safe503 } from "./core/safe-error-response";
 const ADMIN_PASSWORD = "Kk9090!@#"; // Force admin password
 const ADMIN_EMAIL = "tburnceo@gmail.com"; // Force admin email
 const SITE_PASSWORD = ADMIN_PASSWORD;
+
+// Secure password comparison helper to prevent timing attacks
+function secureCompare(a: string | undefined, b: string | undefined): boolean {
+  if (!a || !b) return false;
+  if (a.length !== b.length) {
+    // Compare against itself to maintain constant time
+    const buf = Buffer.from(a);
+    timingSafeEqual(buf, buf);
+    return false;
+  }
+  return timingSafeEqual(Buffer.from(a), Buffer.from(b));
+}
 
 // Initialize Resend email service
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -603,7 +615,7 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
       });
     }
     
-    if (adminPassword && adminPassword === ADMIN_PASSWORD) {
+    if (adminPassword && secureCompare(adminPassword, ADMIN_PASSWORD)) {
       console.log('[Admin] ✅ Admin access granted via password header for session:', req.sessionID);
       return next();
     }
@@ -1868,7 +1880,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
     
     console.log('[Admin Auth] Comparing email:', email, 'with stored:', ADMIN_EMAIL ? ADMIN_EMAIL.substring(0,5) + '***' : 'NOT SET');
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    if (secureCompare(email, ADMIN_EMAIL) && secureCompare(password, ADMIN_PASSWORD)) {
       // Set both user session and admin authentication
       req.session.user = { email, isAdmin: true };
       req.session.adminAuthenticated = true;
@@ -1907,7 +1919,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       return res.status(503).json({ error: "Admin authentication not configured" });
     }
     
-    if (password === ADMIN_PASSWORD) {
+    if (secureCompare(password, ADMIN_PASSWORD)) {
       req.session.adminAuthenticated = true;
       
       // Explicitly save session before responding to ensure persistence
