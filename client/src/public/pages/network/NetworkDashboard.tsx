@@ -12,6 +12,72 @@ interface BlockData {
   age: number;
 }
 
+interface PhaseData {
+  number: number;
+  label: string;
+  status: string;
+  time: string;
+}
+
+// PhaseCard component with its own progress animation (same as /app/consensus)
+function PhaseCard({ phase }: { phase: PhaseData }) {
+  const [progress, setProgress] = useState(0);
+  const phaseTimeMs = parseInt(phase.time.replace('ms', '')) || 20;
+  
+  // Animate progress bar when phase is active (same logic as /app/consensus)
+  useEffect(() => {
+    if (phase.status === "active") {
+      setProgress(0);
+      const startTime = Date.now();
+      const interval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const newProgress = Math.min((elapsed / phaseTimeMs) * 100, 100);
+        setProgress(newProgress);
+        if (newProgress >= 100) {
+          clearInterval(interval);
+        }
+      }, 10); // Update every 10ms for smooth animation
+      return () => clearInterval(interval);
+    } else if (phase.status === "completed") {
+      setProgress(100);
+    } else {
+      setProgress(0);
+    }
+  }, [phase.status, phaseTimeMs]);
+  
+  return (
+    <div 
+      className={`relative p-4 rounded-xl text-center transition-all duration-200 overflow-hidden ${
+        phase.status === 'completed' 
+          ? 'bg-[rgba(34,197,94,0.15)] border border-[rgba(34,197,94,0.3)]' 
+          : phase.status === 'active'
+          ? 'bg-[#f97316] border border-[#f97316]'
+          : 'bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)]'
+      }`}
+    >
+      <div className="flex justify-center mb-2">
+        {phase.status === 'completed' ? (
+          <Check className="w-5 h-5 text-[#22c55e]" />
+        ) : phase.status === 'active' ? (
+          <Clock className="w-5 h-5 text-white animate-pulse" />
+        ) : (
+          <div className="w-5 h-5 border-2 border-[#6b7280] rounded-full" />
+        )}
+      </div>
+      <div className={`text-sm font-semibold mb-1 ${phase.status === 'active' ? 'text-white' : phase.status === 'completed' ? 'text-[#22c55e]' : 'text-[#a1a1aa]'}`}>
+        {phase.number}. {phase.label}
+      </div>
+      <div className={`text-xs ${phase.status === 'active' ? 'text-white/80' : 'text-[#6b7280]'}`}>{phase.time}</div>
+      {phase.status === 'active' && (
+        <div 
+          className="absolute bottom-0 left-0 h-1 bg-white/50 transition-all duration-75" 
+          style={{ width: `${progress}%` }} 
+        />
+      )}
+    </div>
+  );
+}
+
 interface ValidatorData {
   name: string;
   region: string;
@@ -147,11 +213,47 @@ export default function NetworkDashboard() {
   const [tpsHistory, setTpsHistory] = useState<{ time: string; tps: number; peak: number }[]>([]);
   const [latencyHistory, setLatencyHistory] = useState<{ time: string; finality: number; rpc: number }[]>([]);
 
-  // Consensus animation state
-  const [consensusPhase, setConsensusPhase] = useState(0); // 0-4 for 5 phases
-  const [phaseProgress, setPhaseProgress] = useState(0); // 0-100 for current phase progress
-  const [prevoteCount, setPrevoteCount] = useState({ current: 89, total: 95 });
-  const [precommitCount, setPrecommitCount] = useState({ current: 85, total: 95 });
+  // Consensus state from real API (same as /app/consensus page)
+  const { data: consensusData } = useQuery<any>({
+    queryKey: ["/api/consensus/current"],
+    refetchInterval: 50, // 50ms for real-time phase visualization (same as consensus page)
+    staleTime: 0,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    refetchIntervalInBackground: true,
+  });
+  
+  // Derive consensus values from real API data (same as /app/consensus page)
+  const currentRound = consensusData?.blockHeight || 45929351;
+  const totalValidators = consensusData?.totalValidators || 95;
+  const prevoteCount = {
+    current: consensusData?.prevoteCount || 0,
+    total: totalValidators
+  };
+  const precommitCount = {
+    current: consensusData?.precommitCount || 0,
+    total: totalValidators
+  };
+  const requiredQuorum = consensusData?.requiredQuorum || 64;
+  
+  // Get phases from API (same structure as /app/consensus)
+  const phases: { number: number; label: string; status: string; time: string }[] = useMemo(() => {
+    const rawPhases = consensusData?.phases || [];
+    if (rawPhases.length === 0) {
+      // Default phases when no data
+      return [
+        { number: 1, label: "Propose", status: "pending", time: "20ms" },
+        { number: 2, label: "Pre-vote", status: "pending", time: "20ms" },
+        { number: 3, label: "Pre-commit", status: "pending", time: "20ms" },
+        { number: 4, label: "Commit", status: "pending", time: "20ms" },
+        { number: 5, label: "Finalize", status: "pending", time: "20ms" },
+      ];
+    }
+    return rawPhases;
+  }, [consensusData?.phases]);
+  
+  const activePhase = phases.find(p => p.status === "active");
+  const completedPhases = phases.filter(p => p.status === "completed").length;
 
   // Fetch network stats from real API (1 second updates for real-time feel)
   const { data: networkData, refetch: refetchNetwork } = useQuery({
@@ -297,58 +399,6 @@ export default function NetworkDashboard() {
   }, [validatorsData]);
 
   const activeValidatorCount = validators.filter(v => v.status === "active").length;
-
-  // Consensus round animation - cycles through phases every 100ms (simulating 100ms block time)
-  useEffect(() => {
-    const phaseInterval = setInterval(() => {
-      setPhaseProgress(prev => {
-        const newProgress = prev + 5; // 5% per tick = 20 ticks per phase
-        if (newProgress >= 100) {
-          // Move to next phase
-          setConsensusPhase(p => (p + 1) % 5);
-          return 0;
-        }
-        return newProgress;
-      });
-    }, 100); // Update every 100ms for smooth animation
-
-    return () => clearInterval(phaseInterval);
-  }, []);
-
-  // Vote count animation - simulates votes coming in
-  useEffect(() => {
-    const voteInterval = setInterval(() => {
-      // Animate prevote count
-      setPrevoteCount(prev => {
-        const target = prev.total;
-        const variation = Math.sin(Date.now() / 500) * 3;
-        const newCurrent = Math.max(target - 6, Math.min(target, Math.round(target - 2 + variation)));
-        return { ...prev, current: newCurrent };
-      });
-      
-      // Animate precommit count
-      setPrecommitCount(prev => {
-        const target = prev.total;
-        const variation = Math.cos(Date.now() / 600) * 4;
-        const newCurrent = Math.max(target - 8, Math.min(target - 1, Math.round(target - 4 + variation)));
-        return { ...prev, current: newCurrent };
-      });
-    }, 200);
-
-    return () => clearInterval(voteInterval);
-  }, []);
-
-  // Compute phase statuses based on current phase
-  const phases = useMemo(() => [
-    { num: 1, label: 'Propose', time: '20ms', status: consensusPhase > 0 ? 'completed' : consensusPhase === 0 ? 'active' : 'pending' },
-    { num: 2, label: 'Pre-vote', time: '20ms', status: consensusPhase > 1 ? 'completed' : consensusPhase === 1 ? 'active' : 'pending' },
-    { num: 3, label: 'Pre-commit', time: '20ms', status: consensusPhase > 2 ? 'completed' : consensusPhase === 2 ? 'active' : 'pending' },
-    { num: 4, label: 'Commit', time: '20ms', status: consensusPhase > 3 ? 'completed' : consensusPhase === 3 ? 'active' : 'pending' },
-    { num: 5, label: 'Finalize', time: '20ms', status: consensusPhase === 4 ? 'active' : 'pending' }
-  ], [consensusPhase]);
-
-  const activePhaseLabel = phases[consensusPhase]?.label || 'Propose';
-  const completedPhasesCount = consensusPhase;
 
   return (
     <div className="min-h-screen font-['Rajdhani'] text-white overflow-x-hidden" style={{ background: "#030308" }}>
@@ -772,47 +822,18 @@ export default function NetworkDashboard() {
               </div>
               <div>
                 <div className="font-['Orbitron'] text-lg font-semibold text-white">
-                  Current Round #{state.blockHeight.toLocaleString()} In Progress
+                  Current Round #{currentRound.toLocaleString()} In Progress
                 </div>
                 <div className="text-xs text-[#a1a1aa]">
-                  Phase: {activePhaseLabel} | {completedPhasesCount} of 5 phases completed | Target: 100ms
+                  Phase: {activePhase?.label || 'Propose'} | {completedPhases} of 5 phases completed | Target: 100ms
                 </div>
               </div>
             </div>
 
-            {/* Phase Cards */}
+            {/* Phase Cards - using PhaseCard component with individual progress animations (same as /app/consensus) */}
             <div className="grid grid-cols-5 gap-3 relative">
               {phases.map((phase) => (
-                <div 
-                  key={phase.num}
-                  className={`relative p-4 rounded-xl text-center transition-all duration-200 overflow-hidden ${
-                    phase.status === 'completed' 
-                      ? 'bg-[rgba(34,197,94,0.15)] border border-[rgba(34,197,94,0.3)]' 
-                      : phase.status === 'active'
-                      ? 'bg-[#f97316] border border-[#f97316]'
-                      : 'bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)]'
-                  }`}
-                >
-                  <div className="flex justify-center mb-2">
-                    {phase.status === 'completed' ? (
-                      <Check className="w-5 h-5 text-[#22c55e]" />
-                    ) : phase.status === 'active' ? (
-                      <Clock className="w-5 h-5 text-white animate-pulse" />
-                    ) : (
-                      <div className="w-5 h-5 border-2 border-[#6b7280] rounded-full" />
-                    )}
-                  </div>
-                  <div className={`text-sm font-semibold mb-1 ${phase.status === 'active' ? 'text-white' : phase.status === 'completed' ? 'text-[#22c55e]' : 'text-[#a1a1aa]'}`}>
-                    {phase.num}. {phase.label}
-                  </div>
-                  <div className={`text-xs ${phase.status === 'active' ? 'text-white/80' : 'text-[#6b7280]'}`}>{phase.time}</div>
-                  {phase.status === 'active' && (
-                    <div 
-                      className="absolute bottom-0 left-0 h-1 bg-white/50 transition-all duration-100" 
-                      style={{ width: `${phaseProgress}%` }} 
-                    />
-                  )}
-                </div>
+                <PhaseCard key={phase.number} phase={phase} />
               ))}
             </div>
           </div>
