@@ -363,11 +363,11 @@ const menuStyles = `
 
 .mega-menu {
   width: 920px;
-  background: linear-gradient(180deg, #0d0d12 0%, #111118 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0f4c5d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8), 0 0 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(15, 76, 93, 0.3);
   transform: translateY(10px) scale(0.98);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
