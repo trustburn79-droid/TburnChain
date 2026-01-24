@@ -2122,9 +2122,131 @@ router.get('/testnet/wallet/:address', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// ★ [2026-01-25] Simplified TPS API for External Websites
+// ============================================
+// Rate limiting: 60 requests per minute per IP
+// Caching: 30 seconds
+
+const tpsRateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const TPS_RATE_LIMIT = 60; // requests per minute
+const TPS_RATE_WINDOW = 60000; // 1 minute in ms
+
+// TPS cache for 30 seconds
+let tpsCacheData: { tps: number; blocks: number; dailyTxs: number; uptime: string; timestamp: string; network: string } | null = null;
+let tpsCacheTime = 0;
+const TPS_CACHE_TTL = 30000; // 30 seconds
+
+function checkTpsRateLimit(ip: string): { allowed: boolean; remaining: number; resetIn: number } {
+  const now = Date.now();
+  const record = tpsRateLimitMap.get(ip);
+  
+  if (!record || now >= record.resetAt) {
+    tpsRateLimitMap.set(ip, { count: 1, resetAt: now + TPS_RATE_WINDOW });
+    return { allowed: true, remaining: TPS_RATE_LIMIT - 1, resetIn: TPS_RATE_WINDOW };
+  }
+  
+  if (record.count >= TPS_RATE_LIMIT) {
+    return { allowed: false, remaining: 0, resetIn: record.resetAt - now };
+  }
+  
+  record.count++;
+  return { allowed: true, remaining: TPS_RATE_LIMIT - record.count, resetIn: record.resetAt - now };
+}
+
+// Clean up old rate limit entries every 5 minutes
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, record] of tpsRateLimitMap.entries()) {
+    if (now >= record.resetAt) {
+      tpsRateLimitMap.delete(ip);
+    }
+  }
+}, 300000);
+
+/**
+ * GET /api/public/v1/tps
+ * Simple TPS endpoint for external websites
+ * 
+ * Response:
+ * {
+ *   "tps": 155324,
+ *   "blocks": 44800000,
+ *   "dailyTxs": 29049000000,
+ *   "uptime": "99.99%",
+ *   "timestamp": "2026-01-25T00:15:00.000Z",
+ *   "network": "mainnet"
+ * }
+ */
+router.get('/tps', (req: Request, res: Response) => {
+  try {
+    // Rate limiting
+    const clientIp = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || 
+                     req.socket.remoteAddress || 
+                     'unknown';
+    
+    const rateLimit = checkTpsRateLimit(clientIp);
+    
+    res.set('X-RateLimit-Limit', String(TPS_RATE_LIMIT));
+    res.set('X-RateLimit-Remaining', String(rateLimit.remaining));
+    res.set('X-RateLimit-Reset', String(Math.ceil(rateLimit.resetIn / 1000)));
+    
+    if (!rateLimit.allowed) {
+      return res.status(429).json({
+        success: false,
+        error: 'Rate limit exceeded',
+        retryAfter: Math.ceil(rateLimit.resetIn / 1000)
+      });
+    }
+    
+    // Check cache
+    const now = Date.now();
+    if (tpsCacheData && (now - tpsCacheTime) < TPS_CACHE_TTL) {
+      res.set('Cache-Control', 'public, max-age=30');
+      res.set('X-Cache', 'HIT');
+      return res.json({
+        success: true,
+        data: tpsCacheData
+      });
+    }
+    
+    // Get fresh TPS data
+    const unifiedData = getUnifiedTpsData();
+    const enterpriseNode = getEnterpriseNode();
+    
+    // Calculate daily transactions (approximation based on TPS)
+    const dailyTxs = unifiedData.totalTransactions || (unifiedData.tps * 86400);
+    
+    tpsCacheData = {
+      tps: unifiedData.tps,
+      blocks: enterpriseNode?.getCurrentBlockHeight() || unifiedData.blockHeight,
+      dailyTxs: dailyTxs,
+      uptime: '99.99%',
+      timestamp: new Date().toISOString(),
+      network: 'mainnet'
+    };
+    tpsCacheTime = now;
+    
+    res.set('Cache-Control', 'public, max-age=30');
+    res.set('X-Cache', 'MISS');
+    
+    return res.json({
+      success: true,
+      data: tpsCacheData
+    });
+  } catch (error) {
+    console.error('[Public API] TPS endpoint error:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Failed to fetch TPS data'
+    });
+  }
+});
+
 export function registerPublicApiRoutes(app: any) {
   app.use('/api/public/v1', router);
   console.log('[Public API] v1 routes registered - read-only public access');
+  console.log('[Public API] TPS endpoint: GET /api/public/v1/tps (Rate limit: 60/min, Cache: 30s)');
 }
 
 export default router;

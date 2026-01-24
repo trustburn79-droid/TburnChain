@@ -6,6 +6,7 @@ import express, {
   NextFunction,
 } from "express";
 import helmet from "helmet";
+import cors from "cors";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import createMemoryStore from "memorystore";
@@ -115,6 +116,15 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false,
   crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" },
   crossOriginResourcePolicy: { policy: "cross-origin" },
+}));
+
+// ★ [2026-01-25] CORS configuration for public API endpoints
+// Allows external websites to access public APIs like /api/public/*
+app.use('/api/public', cors({
+  origin: '*',  // Allow all domains for ecosystem building
+  methods: ['GET'],
+  allowedHeaders: ['Content-Type'],
+  maxAge: 86400,  // Cache preflight for 24 hours
 }));
 
 // ============================================================================
