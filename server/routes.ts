@@ -1867,6 +1867,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       return res.status(400).json({ error: "이메일과 비밀번호를 입력해주세요." });
     }
     
+    console.log('[Admin Auth] Comparing email:', email, 'with stored:', ADMIN_EMAIL ? ADMIN_EMAIL.substring(0,5) + '***' : 'NOT SET');
     if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       // Set both user session and admin authentication
       req.session.user = { email, isAdmin: true };
