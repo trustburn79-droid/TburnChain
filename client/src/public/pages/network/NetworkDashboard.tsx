@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { Flame, Activity, Box, TrendingUp, Shield, Clock, Zap, Server, Globe } from "lucide-react";
+import { Flame, Activity, Box, TrendingUp, Shield, Clock, Zap, Server, Globe, BarChart3 } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Area, AreaChart, Legend } from "recharts";
 
 interface BlockData {
   height: number;
@@ -116,6 +117,22 @@ export default function NetworkDashboard() {
   const [currentTime, setCurrentTime] = useState(formatTime());
   const [lastUpdate, setLastUpdate] = useState(formatTimestamp());
   const [blockRate, setBlockRate] = useState("+2/s");
+  
+  const [tpsHistory, setTpsHistory] = useState<{ time: string; tps: number; peak: number }[]>(() => {
+    return Array.from({ length: 60 }, (_, i) => ({
+      time: `${60 - i}s`,
+      tps: 140000 + Math.random() * 30000,
+      peak: 155000 + Math.random() * 10000
+    }));
+  });
+  
+  const [latencyHistory, setLatencyHistory] = useState<{ time: string; finality: number; rpc: number }[]>(() => {
+    return Array.from({ length: 60 }, (_, i) => ({
+      time: `${60 - i}s`,
+      finality: 1.8 + Math.random() * 0.6,
+      rpc: 35 + Math.random() * 30
+    }));
+  });
 
   const producers = useMemo(() => ["val-kr-seoul-01", "val-us-east-03", "val-eu-frank-02", "val-ap-tokyo-05", "val-sg-west-04"], []);
   const regions = useMemo(() => ["Korea", "US East", "EU West", "Singapore", "Japan", "Australia"], []);
@@ -152,17 +169,40 @@ export default function NetworkDashboard() {
 
     const interval = setInterval(() => {
       const tpsBase = 150000 + Math.sin(Date.now() / 5000) * 10000;
+      const newTps = Math.floor(tpsBase + (Math.random() * 10000 - 5000));
+      const newFinality = 1.8 + Math.random() * 0.5;
+      const newRpcLatency = 35 + Math.random() * 25;
+      
       setState(prev => ({
-        tps: Math.floor(tpsBase + (Math.random() * 10000 - 5000)),
+        tps: newTps,
         blockHeight: prev.blockHeight + Math.floor(1 + Math.random() * 3),
         dailyTxs: prev.dailyTxs + Math.floor(prev.tps * (0.3 + Math.random() * 0.5)),
         uptime: 99.99,
-        finality: 1.8 + Math.random() * 0.5,
-        rpcLatency: 35 + Math.random() * 25,
+        finality: newFinality,
+        rpcLatency: newRpcLatency,
         crossShard: 90 + Math.random() * 8,
         memEfficiency: 85 + Math.random() * 10,
         activePeers: 2800 + Math.floor(Math.random() * 100)
       }));
+      
+      setTpsHistory(prev => {
+        const newData = [...prev.slice(1), {
+          time: "0s",
+          tps: newTps,
+          peak: 155000 + Math.random() * 10000
+        }];
+        return newData.map((d, i) => ({ ...d, time: `${60 - i}s` }));
+      });
+      
+      setLatencyHistory(prev => {
+        const newData = [...prev.slice(1), {
+          time: "0s",
+          finality: newFinality,
+          rpc: newRpcLatency
+        }];
+        return newData.map((d, i) => ({ ...d, time: `${60 - i}s` }));
+      });
+      
       generateBlocks();
       setCurrentTime(formatTime());
       setLastUpdate(formatTimestamp());
@@ -398,6 +438,181 @@ export default function NetworkDashboard() {
               <Clock className="w-4 h-4" />
               <span>No downtime</span>
               <span className="text-[#6b7280]">this month</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Charts Section */}
+        <div className="grid grid-cols-[1.5fr_1fr] gap-5 mb-6">
+          {/* TPS Chart */}
+          <div className="relative p-6 bg-[rgba(12,12,20,0.8)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.06)] rounded-[20px] overflow-hidden">
+            <div 
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `
+                  radial-gradient(ellipse at 20% 20%, rgba(0, 255, 204, 0.05), transparent 50%),
+                  radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.05), transparent 50%)
+                `
+              }}
+            />
+            <div className="flex items-center justify-between mb-5 relative">
+              <div className="flex items-center gap-3">
+                <h3 className="font-['Orbitron'] text-base font-semibold">TPS Performance</h3>
+                <span className="font-['JetBrains_Mono'] text-[0.65rem] px-2 py-1 bg-[rgba(0,255,204,0.15)] text-[#00ffcc] rounded">LIVE</span>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[#00ffcc]" />
+                  <span className="text-xs text-[#a1a1aa]">TPS</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[#a855f7]" />
+                  <span className="text-xs text-[#a1a1aa]">Peak</span>
+                </div>
+              </div>
+            </div>
+            <div className="h-[280px] relative">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={tpsHistory}>
+                  <defs>
+                    <linearGradient id="tpsGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#00ffcc" stopOpacity={0.3} />
+                      <stop offset="100%" stopColor="#00ffcc" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis 
+                    dataKey="time" 
+                    stroke="rgba(255,255,255,0.2)" 
+                    tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
+                    tickLine={false}
+                    interval={9}
+                  />
+                  <YAxis 
+                    stroke="rgba(255,255,255,0.2)" 
+                    tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
+                    tickLine={false}
+                    tickFormatter={(value) => formatNumber(value)}
+                    domain={[120000, 170000]}
+                  />
+                  <Tooltip 
+                    contentStyle={{ 
+                      background: 'rgba(12, 12, 20, 0.95)', 
+                      border: '1px solid rgba(0, 255, 204, 0.3)',
+                      borderRadius: '8px',
+                      fontFamily: 'JetBrains Mono'
+                    }}
+                    labelStyle={{ color: '#a1a1aa' }}
+                    formatter={(value: number) => [formatNumber(value), '']}
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="tps" 
+                    stroke="#00ffcc" 
+                    strokeWidth={2}
+                    fill="url(#tpsGradient)"
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="peak" 
+                    stroke="#a855f7" 
+                    strokeWidth={1}
+                    strokeDasharray="5 5"
+                    dot={false}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Latency Chart */}
+          <div className="relative p-6 bg-[rgba(12,12,20,0.8)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.06)] rounded-[20px] overflow-hidden">
+            <div 
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `
+                  radial-gradient(ellipse at 20% 20%, rgba(34, 197, 94, 0.05), transparent 50%),
+                  radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.05), transparent 50%)
+                `
+              }}
+            />
+            <div className="flex items-center justify-between mb-5 relative">
+              <div className="flex items-center gap-3">
+                <h3 className="font-['Orbitron'] text-base font-semibold">Latency Metrics</h3>
+              </div>
+            </div>
+            <div className="h-[280px] relative">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={latencyHistory}>
+                  <defs>
+                    <linearGradient id="finalityGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#22c55e" stopOpacity={0.3} />
+                      <stop offset="100%" stopColor="#22c55e" stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="rpcGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#a855f7" stopOpacity={0.3} />
+                      <stop offset="100%" stopColor="#a855f7" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis 
+                    dataKey="time" 
+                    stroke="rgba(255,255,255,0.2)" 
+                    tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
+                    tickLine={false}
+                    interval={14}
+                  />
+                  <YAxis 
+                    yAxisId="left"
+                    stroke="rgba(34, 197, 94, 0.6)" 
+                    tick={{ fill: 'rgba(34, 197, 94, 0.8)', fontSize: 11 }}
+                    tickLine={false}
+                    domain={[0, 4]}
+                    tickFormatter={(value) => `${value}s`}
+                  />
+                  <YAxis 
+                    yAxisId="right"
+                    orientation="right"
+                    stroke="rgba(168, 85, 247, 0.6)" 
+                    tick={{ fill: 'rgba(168, 85, 247, 0.8)', fontSize: 11 }}
+                    tickLine={false}
+                    domain={[0, 100]}
+                    tickFormatter={(value) => `${value}ms`}
+                  />
+                  <Tooltip 
+                    contentStyle={{ 
+                      background: 'rgba(12, 12, 20, 0.95)', 
+                      border: '1px solid rgba(34, 197, 94, 0.3)',
+                      borderRadius: '8px',
+                      fontFamily: 'JetBrains Mono'
+                    }}
+                    labelStyle={{ color: '#a1a1aa' }}
+                  />
+                  <Legend 
+                    verticalAlign="top" 
+                    align="right"
+                    iconType="circle"
+                    wrapperStyle={{ paddingBottom: '10px' }}
+                    formatter={(value) => <span style={{ color: '#a1a1aa', fontSize: '11px' }}>{value}</span>}
+                  />
+                  <Line 
+                    yAxisId="left"
+                    type="monotone" 
+                    dataKey="finality" 
+                    name="Finality (s)"
+                    stroke="#22c55e" 
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                  <Line 
+                    yAxisId="right"
+                    type="monotone" 
+                    dataKey="rpc" 
+                    name="RPC (ms)"
+                    stroke="#a855f7" 
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
