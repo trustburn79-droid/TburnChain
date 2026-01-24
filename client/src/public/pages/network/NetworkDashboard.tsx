@@ -346,7 +346,7 @@ export default function NetworkDashboard() {
           <div className="flex items-center gap-5">
             <div className="relative w-14 h-14 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(240,185,11,0.4),0_0_60px_rgba(240,185,11,0.2)]">
               <div className="absolute -inset-[3px] bg-gradient-to-br from-[#f0b90b] to-[#00ffcc] rounded-[18px] -z-10 opacity-50 logo-glow" />
-              <TBurnLogo className="w-14 h-14" showText={false} />
+              <TBurnLogo className="w-14 h-14" showText={true} textColor="#ffffff" />
             </div>
             <div>
               <h1 className="font-['Orbitron'] text-xl font-bold bg-gradient-to-r from-[#f0b90b] to-[#00ffcc] bg-clip-text text-transparent">
