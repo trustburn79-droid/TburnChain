@@ -117,7 +117,7 @@ import { GENESIS_ALLOCATION, TOKEN_CONSTANTS, TOKEN_PRICING } from "@shared/toke
 import { safeErrorResponse, safe503 } from "./core/safe-error-response";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 const SITE_PASSWORD = ADMIN_PASSWORD;
 
 // Initialize Resend email service
