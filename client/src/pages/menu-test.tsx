@@ -22,15 +22,20 @@ import "@/public/styles/public.css";
 
 const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#";
 
+interface CharElement {
+  char: string;
+  isScramble: boolean;
+}
+
 class TextScramble {
   private chars: string;
   private queue: Array<{ from: string; to: string; start: number; end: number; char?: string }>;
   private frame: number;
   private frameRequest: number | null;
   private resolve: (() => void) | null;
-  private onUpdate: (text: string) => void;
+  private onUpdate: (elements: CharElement[]) => void;
 
-  constructor(onUpdate: (text: string) => void) {
+  constructor(onUpdate: (elements: CharElement[]) => void) {
     this.chars = SCRAMBLE_CHARS;
     this.queue = [];
     this.frame = 0;
@@ -63,21 +68,21 @@ class TextScramble {
   }
 
   private update = () => {
-    let output = "";
+    const output: CharElement[] = [];
     let complete = 0;
 
     for (let i = 0; i < this.queue.length; i++) {
       const item = this.queue[i];
       if (this.frame >= item.end) {
         complete++;
-        output += item.to;
+        output.push({ char: item.to, isScramble: false });
       } else if (this.frame >= item.start) {
         if (!item.char || Math.random() < 0.28) {
           item.char = this.chars[Math.floor(Math.random() * this.chars.length)];
         }
-        output += `<span class="scramble-char">${item.char}</span>`;
+        output.push({ char: item.char, isScramble: true });
       } else {
-        output += item.from;
+        output.push({ char: item.from, isScramble: false });
       }
     }
 
@@ -99,7 +104,9 @@ class TextScramble {
 }
 
 function useRotatingScramble(words: string[], intervalMs: number = 3000) {
-  const [displayHtml, setDisplayHtml] = useState(() => words?.[0] || "");
+  const [displayElements, setDisplayElements] = useState<CharElement[]>(() => 
+    (words?.[0] || "").split("").map(char => ({ char, isScramble: false }))
+  );
   const scrambleRef = useRef<TextScramble | null>(null);
   const indexRef = useRef(0);
   const isMountedRef = useRef(true);
@@ -112,9 +119,9 @@ function useRotatingScramble(words: string[], intervalMs: number = 3000) {
       return;
     }
 
-    scrambleRef.current = new TextScramble((html) => {
+    scrambleRef.current = new TextScramble((elements) => {
       if (isMountedRef.current) {
-        setDisplayHtml(html);
+        setDisplayElements(elements);
       }
     });
 
@@ -161,7 +168,9 @@ function useRotatingScramble(words: string[], intervalMs: number = 3000) {
     };
   }, []);
 
-  return displayHtml || words?.[0] || "";
+  return displayElements.length > 0 
+    ? displayElements 
+    : (words?.[0] || "").split("").map(char => ({ char, isScramble: false }));
 }
 
 const getIconStyle = (color: string) => {
@@ -204,13 +213,18 @@ function RotatingTitle({ keywords }: { keywords: string[] }) {
   const safeKeywords = Array.isArray(keywords) && keywords.length > 0 
     ? keywords 
     : ["Trust-Based"];
-  const displayHtml = useRotatingScramble(safeKeywords, 3000);
+  const displayElements = useRotatingScramble(safeKeywords, 3000);
   
   return (
-    <span 
-      className="text-gradient inline-block"
-      dangerouslySetInnerHTML={{ __html: displayHtml }}
-    />
+    <span className="text-gradient inline-block">
+      {displayElements.map((el, i) => (
+        el.isScramble ? (
+          <span key={i} className="scramble-char">{el.char}</span>
+        ) : (
+          <span key={i}>{el.char}</span>
+        )
+      ))}
+    </span>
   );
 }
 
