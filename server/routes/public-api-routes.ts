@@ -275,9 +275,9 @@ router.get('/network/stats', async (req: Request, res: Response) => {
     }
     console.log('[Public API] network/stats: CACHE MISS - building fresh data');
     
-    // Cache miss - build fresh data and cache it
+    // Cache miss - build fresh data and cache it (1s TTL for real-time dashboard)
     const data = await buildPublicNetworkStats();
-    cache.set(PUBLIC_CACHE_KEYS.NETWORK_STATS, data, CACHE_MEDIUM * 1000);
+    cache.set(PUBLIC_CACHE_KEYS.NETWORK_STATS, data, 1000);
     
     res.json({ success: true, data });
   } catch (error: any) {

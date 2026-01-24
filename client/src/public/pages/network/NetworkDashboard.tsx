@@ -147,22 +147,22 @@ export default function NetworkDashboard() {
   const [tpsHistory, setTpsHistory] = useState<{ time: string; tps: number; peak: number }[]>([]);
   const [latencyHistory, setLatencyHistory] = useState<{ time: string; finality: number; rpc: number }[]>([]);
 
-  // Fetch network stats from real API
+  // Fetch network stats from real API (1 second updates for real-time feel)
   const { data: networkData, refetch: refetchNetwork } = useQuery({
     queryKey: ["/api/public/v1/network/stats"],
-    refetchInterval: 3000
+    refetchInterval: 1000
   });
 
-  // Fetch recent blocks from real API
+  // Fetch recent blocks from real API (1 second updates)
   const { data: blocksData, refetch: refetchBlocks } = useQuery({
     queryKey: ["/api/public/v1/network/blocks/recent?limit=8"],
-    refetchInterval: 3000
+    refetchInterval: 1000
   });
 
-  // Fetch validators from real API
+  // Fetch validators from real API (5 second updates - less frequent)
   const { data: validatorsData } = useQuery({
     queryKey: ["/api/public/v1/validators"],
-    refetchInterval: 10000
+    refetchInterval: 5000
   });
 
   // Update state when network data changes
