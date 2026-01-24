@@ -33672,7 +33672,7 @@
       "badge": "DAO Governance",
       "title": "500M TBURN",
       "subtitle": "Governance Allocation",
-      "description": "Participate in governance to shape the future of TBURN Chain. Create proposals, vote, and delegate to contribute to ecosystem development.",
+      "description": "Participate in governance to shape the future of TBURN Chain.",
       "title1": "300M TBURN",
       "title2": "DAO",
       "title3": "Governance"
@@ -33786,6 +33786,7 @@
       "against": "Against",
       "abstain": "Abstain",
       "quorum": "Quorum",
+      "quorumRate": "Quorum Rate",
       "status": "Status"
     },
     "committees": {
@@ -33793,7 +33794,8 @@
       "title": "Governance Committees",
       "subtitle": "Specialized groups managing different aspects of the protocol",
       "members": "Members",
-      "proposalsHandled": "Proposals Handled"
+      "proposalsHandled": "Proposals Handled",
+      "processedProposals": "Processed Proposals"
     },
     "committeesData": [
       {
@@ -33844,39 +33846,73 @@
         "amount": "10,000 TBURN/month"
       }
     ],
-    "faq": {
-      "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about TBURN DAO governance",
-      "items": [
-        {
-          "question": "How do I participate in governance?",
-          "answer": "Connect your wallet and stake TBURN tokens to receive vTBURN voting power."
-        },
-        {
-          "question": "What is the minimum stake required?",
-          "answer": "You need at least 100 TBURN to participate in voting."
-        },
-        {
-          "question": "How long is the voting period?",
-          "answer": "Standard proposals have a 5-day voting period."
-        },
-        {
-          "question": "Can I delegate my voting power?",
-          "answer": "Yes, you can delegate to any address without transferring your tokens."
-        }
-      ]
+    "delegation": {
+      "badge": "DELEGATION",
+      "title": "Delegate Your Voting Power",
+      "subtitle": "Delegate your votes to trusted community members",
+      "topDelegates": "Top Delegates",
+      "votingPower": "Voting Power"
     },
     "cta": {
       "title": "Ready to Shape the Future?",
       "subtitle": "Join the TBURN governance community today",
       "primary": "Submit Proposal",
-      "secondary": "Learn More"
+      "secondary": "Learn More",
+      "activeProposals": "Active Proposals",
+      "activeProposalsDesc": "View and vote on active proposals",
+      "comingSoon": "Coming Soon",
+      "submitProposal": "Submit Proposal",
+      "vote": "Vote Now"
+    },
+    "ctaSection": {
+      "title": "Ready to Participate?",
+      "subtitle1": "Join the TBURN governance community",
+      "subtitle2": "and help shape the future of decentralized finance",
+      "button": "Get Started"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Common questions about TBURN DAO governance",
+      "q1": "What is TBURN DAO Governance?",
+      "a1": "TBURN DAO Governance is a decentralized decision-making system where token holders can propose and vote on protocol changes.",
+      "q2": "How do I participate in governance?",
+      "a2": "Connect your wallet and stake TBURN tokens to receive vTBURN voting power. Then you can vote on proposals or create new ones.",
+      "q3": "What is the minimum stake required?",
+      "a3": "You need at least 100 TBURN to participate in voting and 10,000 vTBURN to create proposals.",
+      "q4": "How long is the voting period?",
+      "a4": "Standard proposals have a 5-day voting period after a 3-day discussion period.",
+      "q5": "Can I delegate my voting power?",
+      "a5": "Yes, you can delegate your voting power to any address without transferring your tokens.",
+      "q6": "What happens after a proposal passes?",
+      "a6": "Passed proposals enter a 2-day timelock period before automatic on-chain execution.",
+      "q7": "How are governance rewards distributed?",
+      "a7": "Rewards are distributed based on participation in voting, proposal creation, and committee service.",
+      "q8": "What is the quorum requirement?",
+      "a8": "Proposals require at least 40% of total voting power to participate for the vote to be valid."
     },
     "footer": {
       "brand": "TBurn Chain",
       "tagline": "The future of decentralized governance",
-      "copyright": "© 2026 TBurn Chain. All rights reserved."
+      "tagline1": "Building the future of",
+      "tagline2": "decentralized finance",
+      "copyright": "© 2026 TBurn Chain. All rights reserved.",
+      "product": "Product",
+      "mainnet": "Mainnet",
+      "explorer": "Explorer",
+      "bridge": "Bridge",
+      "staking": "Staking",
+      "resources": "Resources",
+      "docs": "Documentation",
+      "whitepaper": "Whitepaper",
+      "audit": "Security Audit",
+      "blog": "Blog",
+      "community": "Community",
+      "ambassador": "Ambassador",
+      "grants": "Grants",
+      "support": "Support",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
     }
   }
 }
