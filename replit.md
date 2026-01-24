@@ -53,6 +53,13 @@ Key architectural decisions and features include:
 - **CSRF Protection for Admin Routes**: Session-bound CSRF token validation for custody-admin mutating operations (POST/PUT/PATCH/DELETE). Tokens expire after 1 hour with automatic retry on expiry.
 
 ## Recent Changes (2026-01-24)
+- **Two-Step Admin Authentication**: Implemented two-step authentication for /admin page:
+  1. User login required first (via Google OAuth or username/password)
+  2. Admin password verification second (separate admin password)
+- Server-side enforcement: `/api/admin/auth/login` and `/api/admin/auth/verify-password` both require `req.session.user`
+- AdminPasswordPrompt now uses apiRequest for consistent error handling with CSRF token support
+- USER_AUTH_REQUIRED error code triggers user re-login when session expires during admin auth
+- Session-based rate limiting (email primary, sessionID fallback) instead of IP-based for better accuracy
 - Implemented CSRF protection for custody-admin routes with session-bound tokens
 - Added automatic CSRF token retry on expiry in client-side API requests
 - Fixed timingSafeEqual length check to prevent potential crashes
