@@ -150,19 +150,31 @@ export default function NetworkDashboard() {
   // Fetch network stats from real API (1 second updates for real-time feel)
   const { data: networkData, refetch: refetchNetwork } = useQuery({
     queryKey: ["/api/public/v1/network/stats"],
-    refetchInterval: 1000
+    refetchInterval: 1000,
+    staleTime: 0, // Always consider data stale for real-time updates
+    gcTime: 1000, // Garbage collect quickly for memory efficiency
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true
   });
 
   // Fetch recent blocks from real API (1 second updates)
   const { data: blocksData, refetch: refetchBlocks } = useQuery({
     queryKey: ["/api/public/v1/network/blocks/recent?limit=8"],
-    refetchInterval: 1000
+    refetchInterval: 1000,
+    staleTime: 0,
+    gcTime: 1000,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true
   });
 
   // Fetch validators from real API (5 second updates - less frequent)
   const { data: validatorsData } = useQuery({
     queryKey: ["/api/public/v1/validators"],
-    refetchInterval: 5000
+    refetchInterval: 5000,
+    staleTime: 0,
+    gcTime: 5000,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true
   });
 
   // Update state when network data changes
