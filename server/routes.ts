@@ -2343,7 +2343,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // GC 트리거
-  app.post("/api/memory/gc", requireAdmin, async (_req, res) => {
+  app.post("/api/memory/gc", requireAdmin, validateCsrf, async (_req, res) => {
     try {
       const modules = await getMemoryModules();
       const beforeUsage = process.memoryUsage();
@@ -2447,7 +2447,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // ★ [v2.0] Manual Cleanup Trigger
-  app.post("/api/memory/guardian/cleanup", requireAdmin, async (req, res) => {
+  app.post("/api/memory/guardian/cleanup", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { memoryGuardian } = await import('./services/memory-guardian');
       const level = (req.body?.level || 'soft') as 'soft' | 'aggressive' | 'emergency';
@@ -2555,7 +2555,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // ★ [v2.0] Pool Prewarm
-  app.post("/api/memory/pools/prewarm", requireAdmin, async (req, res) => {
+  app.post("/api/memory/pools/prewarm", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { blockPool, txPool } = await import('./utils/object-pool');
       const blockCount = parseInt(req.body?.blockCount) || 50;
@@ -3022,9 +3022,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Protected by requireAdmin middleware for session-based admin authentication
   // IMPORTANT: Must be registered BEFORE enterpriseRoutes to ensure admin auth is enforced
   // ============================================
-  app.use("/api/enterprise/admin", requireAdmin, enterpriseAdminRoutes);
-  app.use("/api/admin", requireAdmin, enterpriseAdminRoutes); // Also mount at /api/admin for backwards compatibility
-  console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints, admin auth required)");
+  app.use("/api/enterprise/admin", requireAdmin, validateCsrf, enterpriseAdminRoutes);
+  app.use("/api/admin", requireAdmin, validateCsrf, enterpriseAdminRoutes); // Also mount at /api/admin for backwards compatibility
+  console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints, admin auth + CSRF required)");
   app.use("/api/custody-admin", custodyAdminLimiter, requireAdmin, validateCsrf, custodyAdminRoutes);
   console.log("[CustodyAdmin] ✅ Custody admin routes registered (multisig signer management)");
 
@@ -6807,7 +6807,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Initialize missing profiles for all existing members (admin migration endpoint)
-  app.post("/api/admin/migrate-member-profiles", requireAdmin, async (req, res) => {
+  app.post("/api/admin/migrate-member-profiles", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const members = await storage.getAllMembers(1000);
       let created = 0;
@@ -6846,7 +6846,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Update member tier (Enterprise-grade with Admin authentication and transactional integrity)
-  app.post("/api/members/:id/tier", requireAdmin, async (req, res) => {
+  app.post("/api/members/:id/tier", requireAdmin, validateCsrf, async (req, res) => {
     const { id } = req.params;
     const { tier, reason } = req.body;
     
@@ -7043,7 +7043,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Update member KYC level
-  app.post("/api/members/:id/kyc", requireAdmin, async (req, res) => {
+  app.post("/api/members/:id/kyc", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { kycLevel } = req.body;
       if (!['none', 'basic', 'advanced', 'institutional'].includes(kycLevel)) {
@@ -7058,7 +7058,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Delete member
-  app.delete("/api/members/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/members/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.deleteMember(req.params.id);
       res.json({ success: true });
@@ -7464,7 +7464,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Update member status (optimized with shared pool and cache invalidation)
-  app.patch("/api/operator/members/:id/status", requireAdmin, operatorLimiter, async (req, res) => {
+  app.patch("/api/operator/members/:id/status", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const cache = getDataCache();
       const { id } = req.params;
@@ -7513,7 +7513,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Update member tier (optimized with shared pool and cache invalidation)
-  app.patch("/api/operator/members/:id/tier", requireAdmin, operatorLimiter, async (req, res) => {
+  app.patch("/api/operator/members/:id/tier", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const cache = getDataCache();
       const { id } = req.params;
@@ -7567,7 +7567,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Update KYC status (optimized with shared pool and cache invalidation)
-  app.patch("/api/operator/members/:id/kyc", requireAdmin, operatorLimiter, async (req, res) => {
+  app.patch("/api/operator/members/:id/kyc", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const cache = getDataCache();
       const { id } = req.params;
@@ -7853,7 +7853,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Review validator application (with transaction for approval flow)
-  app.patch("/api/operator/validator-applications/:id", requireAdmin, operatorLimiter, async (req, res) => {
+  app.patch("/api/operator/validator-applications/:id", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     // Using shared pool from db.ts for better performance
     let client: ReturnType<typeof sharedPool.connect> extends Promise<infer T> ? T : never;
     let transactionStarted = false;
@@ -8056,7 +8056,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Slash validator
-  app.post("/api/operator/validators/:address/slash", requireAdmin, operatorLimiter, async (req, res) => {
+  app.post("/api/operator/validators/:address/slash", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { address } = req.params;
       const { slashType, amount, reason, evidenceHash } = req.body;
@@ -8304,7 +8304,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Admin: Update bug bounty report
-  app.patch("/api/admin/bug-bounty/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/bug-bounty/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { id } = req.params;
       const { status, confirmedSeverity, rewardUsd, rewardTokenAmount, rewardTxHash, adminNotes, assignedTo } = req.body;
@@ -8453,7 +8453,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Create security event
-  app.post("/api/operator/security-events", requireAdmin, operatorLimiter, async (req, res) => {
+  app.post("/api/operator/security-events", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { eventType, severity, targetType, targetId, targetAddress, description, evidence } = req.body;
 
@@ -8490,7 +8490,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Resolve security event
-  app.patch("/api/operator/security-events/:id/resolve", requireAdmin, operatorLimiter, async (req, res) => {
+  app.patch("/api/operator/security-events/:id/resolve", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
       const { resolution, status } = req.body;
@@ -8616,7 +8616,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     duration: z.enum(['1h', '24h', '7d', '30d', 'permanent']).default('permanent'),
   });
 
-  app.post("/api/operator/ip-blocklist", requireAdmin, operatorLimiter, async (req, res) => {
+  app.post("/api/operator/ip-blocklist", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const validationResult = ipBlockSchema.safeParse(req.body);
       if (!validationResult.success) {
@@ -8669,7 +8669,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Unblock IP address
-  app.delete("/api/operator/ip-blocklist/:id", requireAdmin, operatorLimiter, async (req, res) => {
+  app.delete("/api/operator/ip-blocklist/:id", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
       // Using shared pool from db.ts for better performance
@@ -8760,7 +8760,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Generate compliance report
-  app.post("/api/operator/reports", requireAdmin, operatorLimiter, async (req, res) => {
+  app.post("/api/operator/reports", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { reportType, reportPeriod, periodStart, periodEnd, jurisdiction, regulatoryBody } = req.body;
 
@@ -8826,7 +8826,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Update compliance report status
-  app.patch("/api/operator/reports/:id", requireAdmin, operatorLimiter, async (req, res) => {
+  app.patch("/api/operator/reports/:id", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
       const { status, reviewNotes } = req.body;
@@ -8902,7 +8902,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Verify member document
-  app.patch("/api/operator/documents/:id/verify", requireAdmin, operatorLimiter, async (req, res) => {
+  app.patch("/api/operator/documents/:id/verify", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
       const { verificationStatus, rejectionReason } = req.body;
@@ -9095,7 +9095,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Create new alert
-  app.post("/api/operator/alerts", requireAdmin, operatorLimiter, async (req, res) => {
+  app.post("/api/operator/alerts", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { alertType, severity, title, message, sourceType, sourceId, targetType, targetId, priority, requiresImmediateAction } = req.body;
       // Using shared pool from db.ts for better performance
@@ -9116,7 +9116,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Acknowledge/resolve alert
-  app.patch("/api/operator/alerts/:id", requireAdmin, operatorLimiter, async (req, res) => {
+  app.patch("/api/operator/alerts/:id", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
       const { action, resolution } = req.body; // action: acknowledge, resolve, dismiss
@@ -9178,7 +9178,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Create member note
-  app.post("/api/operator/members/:id/notes", requireAdmin, operatorLimiter, async (req, res) => {
+  app.post("/api/operator/members/:id/notes", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { id: memberId } = req.params;
       const { noteType, title, content, priority, isPrivate, isPinned, requiresFollowUp, followUpDate } = req.body;
@@ -9224,7 +9224,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Update member note
-  app.patch("/api/operator/notes/:id", requireAdmin, operatorLimiter, async (req, res) => {
+  app.patch("/api/operator/notes/:id", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
       const { title, content, priority, isPinned, followUpCompleted } = req.body;
@@ -9253,7 +9253,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Delete member note
-  app.delete("/api/operator/notes/:id", requireAdmin, operatorLimiter, async (req, res) => {
+  app.delete("/api/operator/notes/:id", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
       // Using shared pool from db.ts for better performance
@@ -9299,7 +9299,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Add IP to blocklist
-  app.post("/api/operator/ip-blocklist", requireAdmin, operatorLimiter, async (req, res) => {
+  app.post("/api/operator/ip-blocklist", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { ipAddress, ipRange, reason, blockType, severity, relatedSecurityEventId, relatedMemberId, expiresAt } = req.body;
       // Using shared pool from db.ts for better performance
@@ -9325,7 +9325,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Unblock IP
-  app.patch("/api/operator/ip-blocklist/:id/unblock", requireAdmin, operatorLimiter, async (req, res) => {
+  app.patch("/api/operator/ip-blocklist/:id/unblock", requireAdmin, validateCsrf, operatorLimiter, async (req, res) => {
     try {
       const { id } = req.params;
       const { reason } = req.body;
@@ -9977,7 +9977,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/restart-mainnet", requireAdmin, async (req, res) => {
+  app.post("/api/admin/restart-mainnet", requireAdmin, validateCsrf, async (req, res) => {
     try {
       console.log('═══════════════════════════════════════════');
       console.log('[Admin] 🔄 MAINNET RESTART REQUESTED');
@@ -10123,7 +10123,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/check-health", requireAdmin, async (req, res) => {
+  app.post("/api/admin/check-health", requireAdmin, validateCsrf, async (req, res) => {
     try {
       console.log('[Admin] 🏥 Health check requested');
       
@@ -10227,7 +10227,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
   
-  app.post("/api/admin/ai/reset-provider", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai/reset-provider", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { provider } = req.body;
       
@@ -10253,7 +10253,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
   
-  app.post("/api/admin/ai/test", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai/test", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { prompt = "Hello, this is a test. Please respond with OK." } = req.body;
       
@@ -10318,7 +10318,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
   
-  app.post("/api/admin/ai-usage/switch-provider", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai-usage/switch-provider", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { provider } = req.body;
       
@@ -10345,7 +10345,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
   
-  app.post("/api/admin/ai-usage/reset-limits", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai-usage/reset-limits", requireAdmin, validateCsrf, async (req, res) => {
     try {
       console.log('[Admin] 🔄 Resetting all AI provider limits');
       
@@ -10773,7 +10773,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Update shard configuration
-  app.post("/api/admin/shards/config", requireAdmin, async (req, res) => {
+  app.post("/api/admin/shards/config", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const enterpriseNode = getEnterpriseNode();
       if (!enterpriseNode) {
@@ -10902,7 +10902,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
 
   // Validate configuration (dry run)
-  app.post("/api/admin/shards/config/validate", requireAdmin, async (req, res) => {
+  app.post("/api/admin/shards/config/validate", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const response = await fetch('http://localhost:8545/api/admin/shards/config/validate', {
         method: 'POST',
@@ -10918,7 +10918,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Rollback configuration
-  app.post("/api/admin/shards/config/rollback", requireAdmin, async (req, res) => {
+  app.post("/api/admin/shards/config/rollback", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const response = await fetch('http://localhost:8545/api/admin/shards/config/rollback', {
         method: 'POST',
@@ -11039,7 +11039,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/network/params", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/network/params", requireAdmin, validateCsrf, async (req, res) => {
     res.json({ success: true, message: "Parameters updated successfully", params: req.body });
   });
 
@@ -11097,7 +11097,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
   
   // Pause/resume user-deployed token
-  app.post("/api/admin/tokens/registry/:address/:action", requireAdmin, async (req, res) => {
+  app.post("/api/admin/tokens/registry/:address/:action", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { tokenRegistry } = await import("./services/TokenRegistry");
       const { address, action } = req.params;
@@ -11123,15 +11123,15 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/tokens/mint", requireAdmin, async (req, res) => {
+  app.post("/api/admin/tokens/mint", requireAdmin, validateCsrf, async (req, res) => {
     res.json({ success: true, message: "Mint transaction submitted", txHash: generateMockTxHash() });
   });
 
-  app.post("/api/admin/tokens/burn", requireAdmin, async (req, res) => {
+  app.post("/api/admin/tokens/burn", requireAdmin, validateCsrf, async (req, res) => {
     res.json({ success: true, message: "Burn transaction submitted", txHash: generateMockTxHash() });
   });
 
-  app.post("/api/admin/tokens/:tokenId/:action", requireAdmin, async (req, res) => {
+  app.post("/api/admin/tokens/:tokenId/:action", requireAdmin, validateCsrf, async (req, res) => {
     res.json({ success: true, message: `Action ${req.params.action} executed`, tokenId: req.params.tokenId });
   });
 
@@ -11155,11 +11155,11 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/burn/rates", requireAdmin, async (req, res) => {
+  app.post("/api/admin/burn/rates", requireAdmin, validateCsrf, async (req, res) => {
     res.json({ success: true, message: "Burn rate updated", newRate: req.body.rate });
   });
   
-  app.post("/api/admin/burn/scheduled/:burnId/:action", requireAdmin, async (req, res) => {
+  app.post("/api/admin/burn/scheduled/:burnId/:action", requireAdmin, validateCsrf, async (req, res) => {
     res.json({ success: true, message: `Burn schedule ${req.params.action}d`, burnId: req.params.burnId });
   });
 
@@ -11665,7 +11665,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // AI Training Job Actions
-  app.post("/api/admin/ai/training/:jobId/pause", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai/training/:jobId/pause", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { jobId } = req.params;
       res.json({ success: true, jobId, message: `Training job ${jobId} paused` });
@@ -11674,7 +11674,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/ai/training/:jobId/resume", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai/training/:jobId/resume", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { jobId } = req.params;
       res.json({ success: true, jobId, message: `Training job ${jobId} resumed` });
@@ -11683,7 +11683,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/ai/training/:jobId/cancel", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai/training/:jobId/cancel", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { jobId } = req.params;
       res.json({ success: true, jobId, message: `Training job ${jobId} cancelled` });
@@ -11693,7 +11693,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Enterprise AI Training - Create New Job
-  app.post("/api/admin/ai/training/jobs", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai/training/jobs", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { name, model, epochs, learningRate, batchSize, datasetName, datasetSize, dataPoints } = req.body;
       
@@ -11874,7 +11874,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Enterprise AI Training - Deploy Model
-  app.post("/api/admin/ai/training/deployments", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai/training/deployments", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { jobId, modelName, version, environment, trafficPercent, isCanary } = req.body;
       
@@ -11905,7 +11905,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Enterprise AI Training - Rollback Deployment
-  app.post("/api/admin/ai/training/deployments/:deploymentId/rollback", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai/training/deployments/:deploymentId/rollback", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { deploymentId } = req.params;
       console.log('[AI Training] Rolling back deployment:', deploymentId);
@@ -11931,7 +11931,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Enterprise AI Training - Hyperparameter Optimization
-  app.post("/api/admin/ai/training/hyperparameter-search", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai/training/hyperparameter-search", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { jobId, searchSpace, maxTrials } = req.body;
       
@@ -11960,7 +11960,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // AI Parameter Management
-  app.put("/api/admin/ai/params", requireAdmin, async (req, res) => {
+  app.put("/api/admin/ai/params", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const params = req.body;
       console.log("[AI Params] Saving AI parameters:", JSON.stringify(params, null, 2).slice(0, 200));
@@ -11975,7 +11975,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // AI Model Sync
-  app.post("/api/admin/ai/sync-models", requireAdmin, async (req, res) => {
+  app.post("/api/admin/ai/sync-models", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const stats = aiService.getAllUsageStats();
       res.json({ 
@@ -12112,7 +12112,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/economics/parameters", requireAdmin, async (req, res) => {
+  app.post("/api/admin/economics/parameters", requireAdmin, validateCsrf, async (req, res) => {
     res.json({ success: true, message: "Economics parameters updated", params: req.body });
   });
 
@@ -12135,11 +12135,11 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/treasury/transfer", requireAdmin, async (req, res) => {
+  app.post("/api/admin/treasury/transfer", requireAdmin, validateCsrf, async (req, res) => {
     res.json({ success: true, message: "Transfer submitted for multi-sig approval", txId: generateMockTxHash() });
   });
 
-  app.post("/api/admin/treasury/transactions/:transactionId/cancel", requireAdmin, async (req, res) => {
+  app.post("/api/admin/treasury/transactions/:transactionId/cancel", requireAdmin, validateCsrf, async (req, res) => {
     res.json({ success: true, message: "Transaction cancelled", transactionId: req.params.transactionId });
   });
 
@@ -12608,7 +12608,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.post("/api/admin/governance/votes", requireAdmin, async (req, res) => {
+  app.post("/api/admin/governance/votes", requireAdmin, validateCsrf, async (req, res) => {
     const { proposalId, vote } = req.body;
     res.json({ success: true, proposalId, vote, message: "Vote cast successfully" });
   });
@@ -12715,7 +12715,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // News/Announcements CRUD
-  app.post("/api/admin/community/news", requireAdmin, async (req, res) => {
+  app.post("/api/admin/community/news", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const data = req.body;
@@ -12735,7 +12735,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/community/news/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/community/news/:id", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12752,7 +12752,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.delete("/api/admin/community/news/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/community/news/:id", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12766,7 +12766,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Events CRUD
-  app.post("/api/admin/community/events", requireAdmin, async (req, res) => {
+  app.post("/api/admin/community/events", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const data = req.body;
@@ -12793,7 +12793,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/community/events/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/community/events/:id", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12810,7 +12810,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.delete("/api/admin/community/events/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/community/events/:id", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12824,7 +12824,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Hub Posts CRUD
-  app.post("/api/admin/community/hub", requireAdmin, async (req, res) => {
+  app.post("/api/admin/community/hub", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const data = req.body;
@@ -12849,7 +12849,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/community/hub/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/community/hub/:id", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -12866,7 +12866,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.delete("/api/admin/community/hub/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/community/hub/:id", requireAdmin, validateCsrf, async (req, res) => {
     const cache = getDataCache();
     try {
       const { id } = req.params;
@@ -13386,7 +13386,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Enterprise Compliance Assessment
-  app.post("/api/admin/compliance/assessment", requireAdmin, async (_req, res) => {
+  app.post("/api/admin/compliance/assessment", requireAdmin, validateCsrf, async (_req, res) => {
     try {
       console.log('[Compliance] Running compliance assessment...');
       
@@ -13592,7 +13592,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Create token program
-  app.post("/api/admin/token-programs", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const program = await storage.createTokenProgram(req.body);
       res.json({ success: true, data: program });
@@ -13603,7 +13603,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Update token program
-  app.patch("/api/admin/token-programs/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateTokenProgram(req.params.id, req.body);
       const program = await storage.getTokenProgramById(req.params.id);
@@ -13637,7 +13637,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/airdrop/claims", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/airdrop/claims", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const claim = await storage.createAirdropClaim(req.body);
       res.json({ success: true, data: claim });
@@ -13647,7 +13647,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/airdrop/claims/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/airdrop/claims/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateAirdropClaim(req.params.id, req.body);
       const claim = await storage.getAirdropClaimById(req.params.id);
@@ -13659,7 +13659,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Bulk Import Airdrop Claims
-  app.post("/api/admin/token-programs/airdrop/claims/bulk", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/airdrop/claims/bulk", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { claims } = req.body;
       if (!Array.isArray(claims) || claims.length === 0) {
@@ -13700,7 +13700,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Execute Batch Distribution
-  app.post("/api/admin/token-programs/airdrop/distribute", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/airdrop/distribute", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { claimIds, batchName } = req.body;
       
@@ -13780,7 +13780,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Approve/Process single claim (admin action)
-  app.post("/api/admin/token-programs/airdrop/claims/:id/process", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/airdrop/claims/:id/process", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const claim = await storage.getAirdropClaimById(req.params.id);
       if (!claim) {
@@ -13809,7 +13809,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Delete claim (admin action)
-  app.delete("/api/admin/token-programs/airdrop/claims/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/token-programs/airdrop/claims/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const claim = await storage.getAirdropClaimById(req.params.id);
       if (!claim) {
@@ -14006,7 +14006,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Create new referral account (admin)
-  app.post("/api/admin/token-programs/referral/accounts", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/referral/accounts", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { walletAddress, tier = 'bronze' } = req.body;
       if (!walletAddress) {
@@ -14031,7 +14031,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Update referral account (admin)
-  app.patch("/api/admin/token-programs/referral/accounts/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/referral/accounts/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateReferralAccount(req.params.id, req.body);
       const account = await storage.getReferralAccountById(req.params.id);
@@ -14043,7 +14043,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Bulk import referral accounts (admin)
-  app.post("/api/admin/token-programs/referral/bulk-import", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/referral/bulk-import", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { accounts } = req.body;
       if (!Array.isArray(accounts) || accounts.length === 0) {
@@ -14079,7 +14079,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Distribute referral rewards (admin)
-  app.post("/api/admin/token-programs/referral/distribute", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/referral/distribute", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { accountIds, rewardAmount, rewardType = 'bonus' } = req.body;
       if (!Array.isArray(accountIds) || accountIds.length === 0) {
@@ -14148,7 +14148,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/events", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/events", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { startDate, endDate, ...rest } = req.body;
       const eventData = {
@@ -14164,7 +14164,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/events/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/events/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateEvent(req.params.id, req.body);
       const event = await storage.getEventById(req.params.id);
@@ -14176,7 +14176,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Delete event
-  app.delete("/api/admin/token-programs/events/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/token-programs/events/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateEvent(req.params.id, { status: 'cancelled' });
       res.json({ success: true, message: 'Event cancelled' });
@@ -14199,7 +14199,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Distribute rewards to event participants
-  app.post("/api/admin/token-programs/events/:id/distribute", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/events/:id/distribute", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const event = await storage.getEventById(req.params.id);
       if (!event) {
@@ -14259,7 +14259,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/community/tasks", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/community/tasks", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const task = await storage.createCommunityTask(req.body);
       res.json({ success: true, data: task });
@@ -14269,7 +14269,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/community/tasks/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/community/tasks/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateCommunityTask(req.params.id, req.body);
       const task = await storage.getCommunityTaskById(req.params.id);
@@ -14281,7 +14281,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Delete Community Task
-  app.delete("/api/admin/token-programs/community/tasks/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/token-programs/community/tasks/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.deleteCommunityTask(req.params.id);
       res.json({ success: true });
@@ -14292,7 +14292,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Community Contribution Approval
-  app.patch("/api/admin/token-programs/community/contributions/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/community/contributions/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { status } = req.body;
       if (!status || !['approved', 'rejected', 'pending'].includes(status)) {
@@ -14337,7 +14337,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/dao/proposals", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/dao/proposals", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const proposal = await storage.createDaoProposal(req.body);
       res.json({ success: true, data: proposal });
@@ -14347,7 +14347,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/dao/proposals/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/dao/proposals/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateDaoProposal(req.params.id, req.body);
       const proposal = await storage.getDaoProposalById(req.params.id);
@@ -14358,7 +14358,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.delete("/api/admin/token-programs/dao/proposals/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/token-programs/dao/proposals/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.deleteDaoProposal(req.params.id);
       res.json({ success: true, message: 'Proposal deleted successfully' });
@@ -14378,7 +14378,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/dao/proposals/:id/votes", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/dao/proposals/:id/votes", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const vote = await storage.createDaoVote({
         ...req.body,
@@ -14409,7 +14409,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.delete("/api/admin/token-programs/dao/votes/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/token-programs/dao/votes/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.deleteDaoVote(req.params.id);
       res.json({ success: true, message: 'Vote deleted successfully' });
@@ -14455,7 +14455,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/block-rewards/cycles", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/block-rewards/cycles", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const cycle = await storage.createBlockRewardCycle(req.body);
       res.json({ success: true, data: cycle });
@@ -14465,7 +14465,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/block-rewards/cycles/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/block-rewards/cycles/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateBlockRewardCycle(req.params.id, req.body);
       const cycle = await storage.getBlockRewardCycleById(req.params.id);
@@ -14476,7 +14476,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/block-rewards/cycles/:id/payouts", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/block-rewards/cycles/:id/payouts", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const payout = await storage.createBlockRewardPayout({
         ...req.body,
@@ -14489,7 +14489,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/block-rewards/payouts/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/block-rewards/payouts/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateBlockRewardPayout(req.params.id, req.body);
       res.json({ success: true, message: 'Payout updated successfully' });
@@ -14522,7 +14522,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/validator-incentives", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/validator-incentives", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const payout = await storage.createValidatorIncentivePayout(req.body);
       res.json({ success: true, data: payout });
@@ -14532,7 +14532,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/validator-incentives/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/validator-incentives/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateValidatorIncentivePayout(req.params.id, req.body);
       res.json({ success: true, message: 'Payout updated successfully' });
@@ -14569,7 +14569,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/ecosystem-grants", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/ecosystem-grants", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       // Convert empty date strings to null, or parse to Date objects
@@ -14601,7 +14601,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/ecosystem-grants/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/ecosystem-grants/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       // Convert empty date strings to null, or parse to Date objects
@@ -14622,7 +14622,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/ecosystem-grants/:id/milestones", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/ecosystem-grants/:id/milestones", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, grantId: req.params.id };
       // Convert date fields
@@ -14642,7 +14642,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/ecosystem-grants/milestones/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/ecosystem-grants/milestones/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateGrantMilestone(req.params.id, req.body);
       const milestone = await storage.getGrantMilestoneById(req.params.id);
@@ -14680,7 +14680,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/partnerships", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/partnerships", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       // Convert date fields
@@ -14700,7 +14700,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/partnerships/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/partnerships/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       // Convert date fields
@@ -14721,7 +14721,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/partnerships/:id/payouts", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/partnerships/:id/payouts", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, partnershipId: req.params.id };
       if (data.paidAt === '' || data.paidAt === undefined) {
@@ -14737,7 +14737,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/partnerships/payouts/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/partnerships/payouts/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       if (data.paidAt === '' || data.paidAt === undefined) {
@@ -14780,7 +14780,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/launchpad/projects", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/launchpad/projects", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['startDate', 'endDate', 'listingDate'];
@@ -14799,7 +14799,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/launchpad/projects/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/launchpad/projects/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['startDate', 'endDate', 'listingDate'];
@@ -14819,7 +14819,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/launchpad/projects/:projectId/participants", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/launchpad/projects/:projectId/participants", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, projectId: req.params.projectId };
       const participant = await storage.createIdoLaunchpadParticipant(data);
@@ -14830,7 +14830,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/launchpad/participants/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/launchpad/participants/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       await storage.updateIdoLaunchpadParticipant(req.params.id, data);
@@ -14869,7 +14869,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/coinlist/sales", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/coinlist/sales", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['registrationStart', 'registrationEnd', 'saleStart', 'saleEnd'];
@@ -14888,7 +14888,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/coinlist/sales/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/coinlist/sales/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['registrationStart', 'registrationEnd', 'saleStart', 'saleEnd'];
@@ -14908,7 +14908,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/coinlist/sales/:saleId/participants", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/coinlist/sales/:saleId/participants", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, saleId: req.params.saleId };
       const dateFields = ['kycVerifiedDate', 'winnerSelectedDate', 'paymentReceivedDate'];
@@ -14927,7 +14927,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/coinlist/participants/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/coinlist/participants/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['kycVerifiedDate', 'winnerSelectedDate', 'paymentReceivedDate'];
@@ -14947,7 +14947,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/coinlist/sales/:saleId/select-winners", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/coinlist/sales/:saleId/select-winners", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { count } = req.body;
       const winnersSelected = await storage.selectCoinlistWinners(req.params.saleId, count);
@@ -14985,7 +14985,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/dao-maker/shos", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/dao-maker/shos", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['registrationStart', 'registrationEnd', 'saleStart', 'saleEnd'];
@@ -15004,7 +15004,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/dao-maker/shos/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/dao-maker/shos/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['registrationStart', 'registrationEnd', 'saleStart', 'saleEnd'];
@@ -15024,7 +15024,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/dao-maker/shos/:shoId/participants", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/dao-maker/shos/:shoId/participants", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, shoId: req.params.shoId };
       const dateFields = ['kycVerifiedDate', 'winnerSelectedDate', 'paymentReceivedDate'];
@@ -15043,7 +15043,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/dao-maker/participants/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/dao-maker/participants/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['kycVerifiedDate', 'winnerSelectedDate', 'paymentReceivedDate'];
@@ -15063,7 +15063,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/dao-maker/shos/:shoId/select-winners", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/dao-maker/shos/:shoId/select-winners", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { count } = req.body;
       const winnersSelected = await storage.selectDaoMakerWinners(req.params.shoId, count);
@@ -15101,7 +15101,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/public-round/participants", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/public-round/participants", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['kycVerifiedDate', 'paymentReceivedDate'];
@@ -15120,7 +15120,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/public-round/participants/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/public-round/participants/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['kycVerifiedDate', 'paymentReceivedDate'];
@@ -15140,7 +15140,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/public-round/participants/:id/payouts", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/public-round/participants/:id/payouts", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, participantId: req.params.id };
       if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
@@ -15155,7 +15155,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/public-round/payouts/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/public-round/payouts/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
@@ -15197,7 +15197,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/private-round/investors", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/private-round/investors", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['vestingStartDate', 'vestingEndDate', 'saftSignedDate', 'kycVerifiedDate', 'paymentReceivedDate'];
@@ -15216,7 +15216,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/private-round/investors/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/private-round/investors/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['vestingStartDate', 'vestingEndDate', 'saftSignedDate', 'kycVerifiedDate', 'paymentReceivedDate'];
@@ -15236,7 +15236,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/private-round/investors/:id/payouts", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/private-round/investors/:id/payouts", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, investorId: req.params.id };
       if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
@@ -15251,7 +15251,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/private-round/payouts/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/private-round/payouts/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
@@ -15293,7 +15293,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/seed-round/investors", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/seed-round/investors", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['vestingStartDate', 'vestingEndDate', 'saftSignedDate', 'kycVerifiedDate', 'paymentReceivedDate'];
@@ -15312,7 +15312,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/seed-round/investors/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/seed-round/investors/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['vestingStartDate', 'vestingEndDate', 'saftSignedDate', 'kycVerifiedDate', 'paymentReceivedDate'];
@@ -15332,7 +15332,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/seed-round/investors/:id/payouts", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/seed-round/investors/:id/payouts", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, investorId: req.params.id };
       if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
@@ -15347,7 +15347,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/seed-round/payouts/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/seed-round/payouts/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
@@ -15390,7 +15390,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/advisor/advisors", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/advisor/advisors", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['vestingStartDate', 'vestingEndDate', 'contractStartDate', 'contractEndDate'];
@@ -15409,7 +15409,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/advisor/advisors/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/advisor/advisors/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['vestingStartDate', 'vestingEndDate', 'contractStartDate', 'contractEndDate'];
@@ -15429,7 +15429,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/advisor/advisors/:id/payouts", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/advisor/advisors/:id/payouts", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, advisorId: req.params.id };
       if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
@@ -15444,7 +15444,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/advisor/payouts/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/advisor/payouts/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
@@ -15459,7 +15459,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/advisor/advisors/:id/contributions", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/advisor/advisors/:id/contributions", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, advisorId: req.params.id };
       if (data.completedDate === '' || data.completedDate === undefined) data.completedDate = null;
@@ -15472,7 +15472,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/advisor/contributions/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/advisor/contributions/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       if (data.completedDate === '' || data.completedDate === undefined) data.completedDate = null;
@@ -15513,7 +15513,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/strategic/partners", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/strategic/partners", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['vestingStartDate', 'vestingEndDate', 'contractSignedDate', 'partnerSince'];
@@ -15532,7 +15532,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/strategic/partners/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/strategic/partners/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['vestingStartDate', 'vestingEndDate', 'contractSignedDate', 'partnerSince'];
@@ -15552,7 +15552,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/strategic/partners/:id/payouts", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/strategic/partners/:id/payouts", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, partnerId: req.params.id };
       if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
@@ -15567,7 +15567,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/strategic/payouts/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/strategic/payouts/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
@@ -15582,7 +15582,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/strategic/partners/:id/milestones", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/strategic/partners/:id/milestones", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, partnerId: req.params.id };
       if (data.targetDate === '' || data.targetDate === undefined) data.targetDate = null;
@@ -15597,7 +15597,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/strategic/milestones/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/strategic/milestones/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       if (data.targetDate === '' || data.targetDate === undefined) data.targetDate = null;
@@ -15640,7 +15640,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/marketing/campaigns", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/marketing/campaigns", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['startDate', 'endDate'];
@@ -15659,7 +15659,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/marketing/campaigns/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/marketing/campaigns/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       const dateFields = ['startDate', 'endDate'];
@@ -15679,7 +15679,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/marketing/campaigns/:id/participants", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/marketing/campaigns/:id/participants", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, campaignId: req.params.id };
       const participant = await storage.createMarketingParticipant(data);
@@ -15690,7 +15690,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/marketing/participants/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/marketing/participants/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.updateMarketingParticipant(req.params.id, req.body);
       res.json({ success: true, message: 'Participant updated' });
@@ -15700,7 +15700,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.post("/api/admin/token-programs/marketing/campaigns/:id/rewards", requireAdmin, async (req, res) => {
+  app.post("/api/admin/token-programs/marketing/campaigns/:id/rewards", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body, campaignId: req.params.id };
       if (data.verifiedAt === '' || data.verifiedAt === undefined) data.verifiedAt = null;
@@ -15715,7 +15715,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/token-programs/marketing/rewards/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/token-programs/marketing/rewards/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const data = { ...req.body };
       if (data.verifiedAt === '' || data.verifiedAt === undefined) data.verifiedAt = null;
@@ -15811,7 +15811,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.patch("/api/admin/investment-inquiries/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/investment-inquiries/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       const { status, adminNotes, processedBy } = req.body;
       const updateData: any = {};
@@ -15833,7 +15833,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  app.delete("/api/admin/investment-inquiries/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/investment-inquiries/:id", requireAdmin, validateCsrf, async (req, res) => {
     try {
       await storage.deleteInvestmentInquiry(parseInt(req.params.id));
       res.json({ success: true, message: 'Inquiry deleted' });
@@ -19420,12 +19420,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     });
   });
 
-  app.post("/api/admin/training/courses/:courseId/enroll", requireAdmin, async (req, res) => {
+  app.post("/api/admin/training/courses/:courseId/enroll", requireAdmin, validateCsrf, async (req, res) => {
     const { courseId } = req.params;
     res.json({ success: true, courseId, message: "Successfully enrolled in course" });
   });
 
-  app.post("/api/admin/training/courses/:courseId/modules/:moduleId/complete", requireAdmin, async (req, res) => {
+  app.post("/api/admin/training/courses/:courseId/modules/:moduleId/complete", requireAdmin, validateCsrf, async (req, res) => {
     const { courseId, moduleId } = req.params;
     res.json({ success: true, courseId, moduleId, message: "Module marked as complete" });
   });

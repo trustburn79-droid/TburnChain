@@ -113,9 +113,11 @@ Emails are hardcoded in `server/routes.ts` (lines 119, 121). Passwords are store
 - Timing-safe password comparison using crypto.timingSafeEqual()
 - Session-based authentication with explicit save
 - Strict two-step enforcement (1차 인증 required before 2차 인증)
-- CSRF protection for admin routes
+- **CSRF protection for ALL 156 admin routes** (validateCsrf middleware)
 - Rate limiting on authentication endpoints
 - Member login bypass blocked (only 1차 인증 grants firstFactorVerified)
+- SQL injection safe (Drizzle ORM parameterized queries only)
+- XSS safe (React auto-escaping, no user-controlled dangerouslySetInnerHTML)
 
 ### Authentication Flow
 1. User navigates to /admin
