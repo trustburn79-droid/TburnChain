@@ -4,11 +4,18 @@ import { AdminPortalSidebar } from "@/components/admin-portal-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSelector } from "@/components/language-selector";
 import { ProfileBadge } from "@/components/profile-badge";
-import { Shield, Loader2 } from "lucide-react";
+import { Shield, Loader2, Lock, AlertCircle } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 // Lazy load Login component
 const Login = lazy(() => import("@/pages/login"));
@@ -253,14 +260,170 @@ function AdminRouter() {
   );
 }
 
+interface AdminPasswordPromptProps {
+  userEmail: string;
+  onSuccess: () => void;
+  onLogout: () => void;
+}
+
+function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPromptProps) {
+  const { t } = useTranslation();
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
+
+
+    try {
+      const response = await apiRequest("POST", "/api/admin/auth/verify-password", { password });
+      
+      if (response.ok) {
+        // Invalidate and refetch instead of optimistic update for security
+        await queryClient.invalidateQueries({ queryKey: ["/api/admin/auth/check"] });
+        onSuccess();
+      } else {
+        const data = await response.json().catch(() => ({}));
+        
+        // Handle USER_AUTH_REQUIRED - user session expired, force re-login
+        if (data.code === "USER_AUTH_REQUIRED") {
+          queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+          onLogout();
+          return;
+        }
+        
+        setError(data.error || t("admin.auth.invalidPassword", "관리자 비밀번호가 올바르지 않습니다."));
+        setPassword("");
+      }
+    } catch (err) {
+      setError(t("admin.auth.verifyError", "인증 중 오류가 발생했습니다."));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20 p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center space-y-4">
+          <div className="flex justify-center">
+            <div className="p-3 rounded-full bg-primary/10">
+              <TBurnLogo className="h-12 w-12" />
+            </div>
+          </div>
+          <div>
+            <CardTitle className="text-2xl flex items-center justify-center gap-2">
+              <Shield className="h-6 w-6 text-red-500" />
+              {t("admin.auth.adminVerification", "관리자 인증")}
+            </CardTitle>
+            <CardDescription className="mt-2">
+              {t("admin.auth.step2Description", "관리자 포털에 접근하려면 관리자 비밀번호를 입력하세요.")}
+            </CardDescription>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="p-3 rounded-lg bg-muted/50 border">
+            <p className="text-sm text-muted-foreground">
+              {t("admin.auth.loggedInAs", "로그인 계정")}:
+            </p>
+            <p className="font-medium text-foreground">{userEmail}</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+
+            <div className="space-y-2">
+              <Label htmlFor="admin-password">
+                {t("admin.auth.adminPassword", "관리자 비밀번호")}
+              </Label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="admin-password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder={t("admin.auth.enterAdminPassword", "관리자 비밀번호를 입력하세요")}
+                  className="pl-10"
+                  disabled={isLoading}
+                  autoFocus
+                  data-testid="input-admin-password"
+                />
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isLoading || !password}
+              data-testid="button-verify-admin"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  {t("admin.auth.verifying", "인증 중...")}
+                </>
+              ) : (
+                <>
+                  <Shield className="h-4 w-4 mr-2" />
+                  {t("admin.auth.verifyAccess", "관리자 인증")}
+                </>
+              )}
+            </Button>
+          </form>
+
+          <div className="pt-4 border-t">
+            <Button
+              variant="ghost"
+              className="w-full text-muted-foreground"
+              onClick={onLogout}
+              data-testid="button-logout-from-admin"
+            >
+              {t("admin.auth.useAnotherAccount", "다른 계정으로 로그인")}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 export function AdminPortalLayout() {
   const [, setLocation] = useLocation();
-  const { data: authData, isLoading, refetch } = useQuery<{ authenticated: boolean }>({
-    queryKey: ["/api/admin/auth/check"],
+  
+  const { data: userAuthData, isLoading: isUserAuthLoading, refetch: refetchUserAuth } = useQuery<{ 
+    authenticated: boolean;
+    user?: { email: string; name?: string };
+  }>({
+    queryKey: ["/api/auth/check"],
     refetchInterval: 60000,
   });
 
-  const logoutMutation = useMutation({
+  const { data: adminAuthData, isLoading: isAdminAuthLoading, refetch: refetchAdminAuth } = useQuery<{ authenticated: boolean }>({
+    queryKey: ["/api/admin/auth/check"],
+    refetchInterval: 60000,
+    enabled: !!userAuthData?.authenticated,
+  });
+
+  const userLogoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/auth/logout");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/auth/check"] });
+    },
+  });
+
+  const adminLogoutMutation = useMutation({
     mutationFn: async () => {
       await apiRequest("POST", "/api/admin/auth/logout");
     },
@@ -275,18 +438,18 @@ export function AdminPortalLayout() {
     "--sidebar-width-icon": "4rem",
   };
 
-  if (isLoading) {
+  if (isUserAuthLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-4">
           <Shield className="h-12 w-12 text-primary animate-pulse" />
-          <p className="text-muted-foreground">Loading Admin Portal...</p>
+          <p className="text-muted-foreground">Loading...</p>
         </div>
       </div>
     );
   }
 
-  if (!authData?.authenticated) {
+  if (!userAuthData?.authenticated) {
     return (
       <Suspense fallback={
         <div className="min-h-screen flex items-center justify-center bg-background">
@@ -296,8 +459,34 @@ export function AdminPortalLayout() {
           </div>
         </div>
       }>
-        <Login onLoginSuccess={() => refetch()} isAdminLogin={true} />
+        <Login 
+          onLoginSuccess={() => {
+            refetchUserAuth();
+          }} 
+          isAdminLogin={false} 
+        />
       </Suspense>
+    );
+  }
+
+  if (isAdminAuthLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="flex flex-col items-center gap-4">
+          <Shield className="h-12 w-12 text-primary animate-pulse" />
+          <p className="text-muted-foreground">Verifying admin access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!adminAuthData?.authenticated) {
+    return (
+      <AdminPasswordPrompt
+        userEmail={userAuthData.user?.email || "user@example.com"}
+        onSuccess={() => refetchAdminAuth()}
+        onLogout={() => userLogoutMutation.mutate()}
+      />
     );
   }
 
@@ -319,8 +508,7 @@ export function AdminPortalLayout() {
                 <LanguageSelector />
                 <ThemeToggle />
                 <ProfileBadge onLogout={() => {
-                  queryClient.invalidateQueries({ queryKey: ["/api/admin/auth/check"] });
-                  setLocation("/");
+                  adminLogoutMutation.mutate();
                 }} />
               </div>
             </header>

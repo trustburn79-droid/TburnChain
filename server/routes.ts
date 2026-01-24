@@ -1854,8 +1854,18 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   // Admin Portal Authentication (Separate from /app)
   // ============================================
+  // Two-step admin auth: Step 1 + Step 2 combined (legacy endpoint, now requires user session)
   app.post("/api/admin/auth/login", loginLimiter, (req, res) => {
     const { email, password } = req.body;
+    
+    // SECURITY: Two-step auth enforcement - user must be logged in first
+    if (!req.session.user) {
+      console.warn('[Admin Auth] /api/admin/auth/login called without user session - two-step auth required');
+      return res.status(401).json({ 
+        error: "사용자 로그인이 필요합니다. 먼저 로그인 후 관리자 인증을 진행하세요.", 
+        code: "USER_AUTH_REQUIRED" 
+      });
+    }
     
     if (!ADMIN_PASSWORD || !ADMIN_EMAIL) {
       console.error('[Admin Auth] ADMIN_PASSWORD or ADMIN_EMAIL not configured');
@@ -1871,12 +1881,49 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           console.error('[Admin Auth] Session save error:', err);
           return res.status(503).json({ error: "Failed to save session" });
         }
-        console.log('[Admin Auth] Admin login successful, session saved:', req.sessionID);
+        console.log('[Admin Auth] Admin login successful for user:', req.session.user?.email, 'session:', req.sessionID);
         res.json({ success: true });
       });
     } else {
-      console.warn('[Admin Auth] Invalid admin credentials attempt');
+      console.warn('[Admin Auth] Invalid admin credentials attempt by user:', req.session.user?.email);
       res.status(401).json({ error: "Invalid admin credentials" });
+    }
+  });
+
+  // Two-step admin auth: Step 2 - Verify admin password after user login
+  app.post("/api/admin/auth/verify-password", loginLimiter, (req, res) => {
+    const { password } = req.body;
+    
+    // Step 1: Verify user is already logged in
+    if (!req.session.user) {
+      console.warn('[Admin Auth] verify-password called without user session');
+      return res.status(401).json({ 
+        error: "User authentication required", 
+        code: "USER_AUTH_REQUIRED" 
+      });
+    }
+    
+    // Step 2: Check admin password
+    if (!ADMIN_PASSWORD) {
+      console.error('[Admin Auth] ADMIN_PASSWORD not configured');
+      return res.status(503).json({ error: "Admin authentication not configured" });
+    }
+    
+    if (password === ADMIN_PASSWORD) {
+      req.session.adminAuthenticated = true;
+      
+      // Explicitly save session before responding to ensure persistence
+      req.session.save((err) => {
+        if (err) {
+          console.error('[Admin Auth] Session save error:', err);
+          return res.status(503).json({ error: "Failed to save session" });
+        }
+        console.log('[Admin Auth] Admin password verified for user:', req.session.user?.email, 'session:', req.sessionID);
+        res.json({ success: true });
+      });
+    } else {
+      console.warn('[Admin Auth] Invalid admin password attempt by user:', req.session.user?.email);
+      res.status(401).json({ error: "관리자 비밀번호가 올바르지 않습니다." });
     }
   });
 
