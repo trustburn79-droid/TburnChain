@@ -506,6 +506,16 @@ export function PublicRouter() {
     );
   }
 
+  if (location === "/network") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <NetworkRoutes />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
   // /validator/infrastructure and /validator-governance are handled by RootRouter in App.tsx
   if (location === "/validator/infrastructure" || location === "/validator-governance") {
     return null;
