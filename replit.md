@@ -90,32 +90,42 @@ Key architectural decisions and features include:
 - **Authentication**: `express-session`, `bcryptjs`
 - **Internationalization**: `react-i18next`
 - **Session Management**: `redis`, `connect-redis`
-## Two-Step Admin Authentication (2중 인증) - 2026-01-24
-The admin portal (/admin) now requires two-step authentication for enhanced security:
+## Two-Step Admin Authentication (2중 인증) - 2026-01-24 (LOCKED)
+⚠️ **이 설정은 강제 적용되어 있습니다. 변경하지 마세요.**
+
+The admin portal (/admin) requires two-step authentication for enhanced security.
+Credentials are hardcoded in `server/routes.ts` (lines 119-122).
 
 ### 1차 인증 (First Authentication)
 - **Email**: trustburn79@gmail.com
-- **Password**: (ADMIN_PASSWORD 시크릿 참조)
+- **Password**: admin7979
 - **Endpoint**: POST /api/auth/login
-- Users must complete this step first before accessing admin verification
+- Sets `session.firstFactorVerified = true`
 
 ### 2차 인증 (Second Authentication)
 - **Admin Email**: tburnceo@gmail.com
-- **Admin Password**: (ADMIN_PASSWORD 시크릿 참조)
+- **Admin Password**: Kk9090!@#
 - **Endpoint**: POST /api/admin/auth/verify-password
-- After user login, this step verifies administrator identity with different credentials
+- Requires `session.firstFactorVerified = true` from 1차 인증
+- Sets `session.adminAuthenticated = true`
 
 ### Security Features
 - Timing-safe password comparison using crypto.timingSafeEqual()
 - Session-based authentication with explicit save
-- SITE_PASSWORD fallback removed for strict two-step enforcement
+- Strict two-step enforcement (1차 인증 required before 2차 인증)
 - CSRF protection for admin routes
 - Rate limiting on authentication endpoints
+- Member login bypass blocked (only 1차 인증 grants firstFactorVerified)
 
 ### Authentication Flow
 1. User navigates to /admin
-2. If not logged in → Redirect to user login page
-3. User completes 1차 인증 with trustburn79@gmail.com
-4. After successful login → 2차 인증 page displayed
-5. User enters admin credentials (tburnceo@gmail.com)
+2. If not logged in → Redirect to login page
+3. User completes 1차 인증 (trustburn79@gmail.com / admin7979)
+4. After successful login → Redirected to /admin with 2차 인증 prompt
+5. User enters admin credentials (tburnceo@gmail.com / Kk9090!@#)
 6. After successful 2차 인증 → Admin dashboard accessible
+
+### Code Location
+- Credentials: `server/routes.ts` lines 119-122
+- Login handler: `/api/auth/login` route
+- Admin verify: `/api/admin/auth/verify-password` route
