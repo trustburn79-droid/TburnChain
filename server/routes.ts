@@ -116,10 +116,10 @@ import { tokenomicsDataService, type TokenProgram } from "./services/tokenomics-
 import { GENESIS_ALLOCATION, TOKEN_CONSTANTS, TOKEN_PRICING } from "@shared/tokenomics-config";
 import { safeErrorResponse, safe503 } from "./core/safe-error-response";
 
-const USER_EMAIL = process.env.USER_EMAIL || "trustburn79@gmail.com"; // 1차 인증용 사용자 이메일
-const USER_PASSWORD = process.env.USER_PASSWORD || ""; // 1차 인증용 사용자 비밀번호
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "tburnceo@gmail.com"; // 2차 인증용 관리자 이메일
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || ""; // 2차 인증용 관리자 비밀번호
+const USER_EMAIL = "trustburn79@gmail.com"; // 1차 인증용 사용자 이메일
+const USER_PASSWORD = "admin7979"; // 1차 인증용 사용자 비밀번호
+const ADMIN_EMAIL = "tburnceo@gmail.com"; // 2차 인증용 관리자 이메일
+const ADMIN_PASSWORD = "Kk9090!@#"; // 2차 인증용 관리자 비밀번호
 const SITE_PASSWORD = ADMIN_PASSWORD;
 
 // Secure password comparison helper to prevent timing attacks
