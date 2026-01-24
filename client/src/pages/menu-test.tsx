@@ -466,6 +466,7 @@ const menuTestStyles = `
   gap: 0.6rem;
   border-radius: 8px;
   position: relative;
+  text-decoration: none;
 }
 
 .menu-test-page .mega-link::before {
@@ -593,6 +594,7 @@ const menuTestStyles = `
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+  text-decoration: none;
 }
 
 .menu-test-page .mega-quick-btn::before {
@@ -683,6 +685,7 @@ const menuTestStyles = `
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .menu-test-page .mega-featured-btn:hover {
@@ -1119,13 +1122,14 @@ const menuTestHtml = `
                                     <div class="mega-section">
                                         <div class="mega-section-header">
                                             <div class="mega-section-icon gold">🔍</div>
-                                            <div class="mega-section-title">Blockchain</div>
+                                            <div class="mega-section-title">TBURNScan</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">TBurn Scan <span class="badge core">Core</span> <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Transactions <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Blocks <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Accounts <span class="arrow-icon">→</span></div>
+                                            <a href="/scan" class="mega-link">Mainnet Scan <span class="badge core">Core</span> <span class="arrow-icon">→</span></a>
+                                            <a href="/scan/blocks" class="mega-link">Blocks <span class="arrow-icon">→</span></a>
+                                            <a href="/scan/txs" class="mega-link">Transactions <span class="arrow-icon">→</span></a>
+                                            <a href="/scan/validators" class="mega-link">Validators <span class="arrow-icon">→</span></a>
+                                            <a href="/scan/tokens" class="mega-link">Tokens <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                     <div class="mega-section">
@@ -1134,22 +1138,23 @@ const menuTestHtml = `
                                             <div class="mega-section-title">Network</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">Validators <span class="badge core">Core</span> <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Staking <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Governance <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Node Map <span class="arrow-icon">→</span></div>
+                                            <a href="/network/validators" class="mega-link">Validators <span class="badge core">Core</span> <span class="arrow-icon">→</span></a>
+                                            <a href="/network/rpc" class="mega-link">RPC Providers <span class="arrow-icon">→</span></a>
+                                            <a href="/network/status" class="mega-link">Network Status <span class="arrow-icon">→</span></a>
+                                            <a href="/network/ramp" class="mega-link">On/Off Ramp <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                     <div class="mega-section">
                                         <div class="mega-section-header">
-                                            <div class="mega-section-icon purple">💰</div>
-                                            <div class="mega-section-title">Assets</div>
+                                            <div class="mega-section-icon purple">📚</div>
+                                            <div class="mega-section-title">Learn</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">TBURN Token <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Bridge <span class="badge core">Core</span> <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Token List <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">NFT Gallery <span class="arrow-icon">→</span></div>
+                                            <a href="/learn/what-is-burn-chain" class="mega-link">What is TBURN Chain <span class="arrow-icon">→</span></a>
+                                            <a href="/learn/trust-score" class="mega-link">Trust Score System <span class="arrow-icon">→</span></a>
+                                            <a href="/learn/whitepaper" class="mega-link">Whitepaper <span class="arrow-icon">→</span></a>
+                                            <a href="/learn/tokenomics" class="mega-link">Tokenomics <span class="arrow-icon">→</span></a>
+                                            <a href="/learn/roadmap" class="mega-link">Roadmap <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                     <div class="mega-section">
@@ -1158,10 +1163,11 @@ const menuTestHtml = `
                                             <div class="mega-section-title">DeFi Hub</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">DEX <span class="badge hot">Hot</span> <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Lending <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Yield Farming <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">NFT Marketplace <span class="arrow-icon">→</span></div>
+                                            <a href="/app/dex" class="mega-link">DEX <span class="badge hot">Hot</span> <span class="arrow-icon">→</span></a>
+                                            <a href="/app/lending" class="mega-link">Lending <span class="arrow-icon">→</span></a>
+                                            <a href="/app/yield-farming" class="mega-link">Yield Farming <span class="arrow-icon">→</span></a>
+                                            <a href="/app/bridge" class="mega-link">Bridge <span class="arrow-icon">→</span></a>
+                                            <a href="/app/staking" class="mega-link">Staking <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -1169,11 +1175,11 @@ const menuTestHtml = `
                                 <div class="mega-quick-access">
                                     <div class="mega-quick-label"><span class="icon">⚡</span> Quick Access</div>
                                     <div class="mega-quick-items">
-                                        <div class="mega-quick-btn"><span class="icon">🔍</span> TBurn Scan</div>
-                                        <div class="mega-quick-btn"><span class="icon">📊</span> Validators</div>
-                                        <div class="mega-quick-btn"><span class="icon">🔗</span> Bridge</div>
-                                        <div class="mega-quick-btn"><span class="icon">📡</span> RPC Endpoint</div>
-                                        <div class="mega-quick-btn"><span class="icon">🗳️</span> Governance</div>
+                                        <a href="/scan" class="mega-quick-btn"><span class="icon">🔍</span> TBurn Scan</a>
+                                        <a href="/network/validators" class="mega-quick-btn"><span class="icon">📊</span> Validators</a>
+                                        <a href="/app/bridge" class="mega-quick-btn"><span class="icon">🔗</span> Bridge</a>
+                                        <a href="/network/rpc" class="mega-quick-btn"><span class="icon">📡</span> RPC Endpoint</a>
+                                        <a href="/app/governance" class="mega-quick-btn"><span class="icon">🗳️</span> Governance</a>
                                     </div>
                                 </div>
 
@@ -1185,7 +1191,7 @@ const menuTestHtml = `
                                             <p>World's fastest AI-powered blockchain is live</p>
                                         </div>
                                     </div>
-                                    <div class="mega-featured-btn">View Stats →</div>
+                                    <a href="/scan/stats" class="mega-featured-btn">View Stats →</a>
                                 </div>
                             </div>
                         </div>
@@ -1212,10 +1218,11 @@ const menuTestHtml = `
                                             <div class="mega-section-title">Documentation</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">Getting Started <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">API Reference <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">SDK Guide <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Smart Contracts <span class="arrow-icon">→</span></div>
+                                            <a href="/developers/quickstart" class="mega-link">Quick Start <span class="badge core">Core</span> <span class="arrow-icon">→</span></a>
+                                            <a href="/developers/docs" class="mega-link">Documentation <span class="arrow-icon">→</span></a>
+                                            <a href="/developers/api" class="mega-link">API Reference <span class="arrow-icon">→</span></a>
+                                            <a href="/developers/sdk" class="mega-link">SDK Guide <span class="arrow-icon">→</span></a>
+                                            <a href="/developers/contracts" class="mega-link">Smart Contracts <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                     <div class="mega-section">
@@ -1224,10 +1231,10 @@ const menuTestHtml = `
                                             <div class="mega-section-title">Developer Tools</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">RPC Endpoints <span class="badge core">Core</span> <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">WebSocket API <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">CLI Tools <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">GitHub <span class="arrow-icon">→</span></div>
+                                            <a href="/developers/cli" class="mega-link">CLI Reference <span class="arrow-icon">→</span></a>
+                                            <a href="/developers/websocket" class="mega-link">WebSocket API <span class="arrow-icon">→</span></a>
+                                            <a href="/developers/examples" class="mega-link">Code Examples <span class="arrow-icon">→</span></a>
+                                            <a href="/developers/evm-migration" class="mega-link">EVM Migration <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                     <div class="mega-section">
@@ -1236,22 +1243,22 @@ const menuTestHtml = `
                                             <div class="mega-section-title">Testnet</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">Faucet <span class="badge new">New</span> <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Testnet Scan <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Testnet RPC <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Deploy Guide <span class="arrow-icon">→</span></div>
+                                            <a href="/testnet-scan/faucet" class="mega-link">Faucet <span class="badge new">New</span> <span class="arrow-icon">→</span></a>
+                                            <a href="/testnet-scan" class="mega-link">Testnet Scan <span class="arrow-icon">→</span></a>
+                                            <a href="/testnet-scan/blocks" class="mega-link">Testnet Blocks <span class="arrow-icon">→</span></a>
+                                            <a href="/network/testnet-rpc" class="mega-link">Testnet RPC <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                     <div class="mega-section">
                                         <div class="mega-section-header">
-                                            <div class="mega-section-icon pink">🎓</div>
-                                            <div class="mega-section-title">Resources</div>
+                                            <div class="mega-section-icon pink">💡</div>
+                                            <div class="mega-section-title">Solutions</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">Whitepaper <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Tokenomics <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Roadmap <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Education <span class="arrow-icon">→</span></div>
+                                            <a href="/solutions/token-extensions" class="mega-link">Token Extensions <span class="arrow-icon">→</span></a>
+                                            <a href="/solutions/wallets" class="mega-link">Wallets <span class="arrow-icon">→</span></a>
+                                            <a href="/solutions/game-tooling" class="mega-link">Game Tooling <span class="arrow-icon">→</span></a>
+                                            <a href="/solutions/ai-features" class="mega-link">AI Features <span class="badge hot">Hot</span> <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -1259,10 +1266,10 @@ const menuTestHtml = `
                                 <div class="mega-quick-access">
                                     <div class="mega-quick-label"><span class="icon">⚡</span> Quick Access</div>
                                     <div class="mega-quick-items">
-                                        <div class="mega-quick-btn"><span class="icon">💧</span> Faucet</div>
-                                        <div class="mega-quick-btn"><span class="icon">📡</span> Testnet RPC</div>
-                                        <div class="mega-quick-btn"><span class="icon">📄</span> API Docs</div>
-                                        <div class="mega-quick-btn"><span class="icon">🐙</span> GitHub</div>
+                                        <a href="/testnet-scan/faucet" class="mega-quick-btn"><span class="icon">💧</span> Faucet</a>
+                                        <a href="/network/testnet-rpc" class="mega-quick-btn"><span class="icon">📡</span> Testnet RPC</a>
+                                        <a href="/developers/api" class="mega-quick-btn"><span class="icon">📄</span> API Docs</a>
+                                        <a href="/token-generator" class="mega-quick-btn"><span class="icon">🪙</span> Token Generator</a>
                                     </div>
                                 </div>
 
@@ -1274,7 +1281,7 @@ const menuTestHtml = `
                                             <p>Deploy intelligent contracts in minutes</p>
                                         </div>
                                     </div>
-                                    <div class="mega-featured-btn">Get Started →</div>
+                                    <a href="/developers/contracts" class="mega-featured-btn">Get Started →</a>
                                 </div>
                             </div>
                         </div>
@@ -1298,37 +1305,37 @@ const menuTestHtml = `
                                     <div class="mega-section">
                                         <div class="mega-section-header">
                                             <div class="mega-section-icon gold">💬</div>
-                                            <div class="mega-section-title">Social</div>
+                                            <div class="mega-section-title">Community Hub</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">Discord <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Telegram <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Twitter <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Reddit <span class="arrow-icon">→</span></div>
+                                            <a href="/community/news" class="mega-link">News & Blog <span class="arrow-icon">→</span></a>
+                                            <a href="/community/events" class="mega-link">Events <span class="arrow-icon">→</span></a>
+                                            <a href="/community/hub" class="mega-link">Community Hub <span class="arrow-icon">→</span></a>
+                                            <a href="/official-channels" class="mega-link">Official Channels <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                     <div class="mega-section">
                                         <div class="mega-section-header">
-                                            <div class="mega-section-icon cyan">📅</div>
-                                            <div class="mega-section-title">Events</div>
+                                            <div class="mega-section-icon cyan">🎁</div>
+                                            <div class="mega-section-title">Token Programs</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">Upcoming Events <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Hackathons <span class="badge new">New</span> <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Meetups <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Webinars <span class="arrow-icon">→</span></div>
+                                            <a href="/airdrop" class="mega-link">Airdrop Program <span class="badge hot">Hot</span> <span class="arrow-icon">→</span></a>
+                                            <a href="/referral" class="mega-link">Referral Program <span class="arrow-icon">→</span></a>
+                                            <a href="/community-program" class="mega-link">Community Program <span class="arrow-icon">→</span></a>
+                                            <a href="/events" class="mega-link">Event Center <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                     <div class="mega-section">
                                         <div class="mega-section-header">
-                                            <div class="mega-section-icon purple">🏆</div>
-                                            <div class="mega-section-title">Programs</div>
+                                            <div class="mega-section-icon purple">🏛️</div>
+                                            <div class="mega-section-title">Governance</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">Ambassador <span class="badge new">New</span> <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Grants <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Bug Bounty <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Partners <span class="arrow-icon">→</span></div>
+                                            <a href="/dao-governance" class="mega-link">DAO Governance <span class="badge new">New</span> <span class="arrow-icon">→</span></a>
+                                            <a href="/validator-incentives" class="mega-link">Validator Incentives <span class="arrow-icon">→</span></a>
+                                            <a href="/ecosystem-fund" class="mega-link">Ecosystem Fund <span class="arrow-icon">→</span></a>
+                                            <a href="/bug-bounty" class="mega-link">Bug Bounty <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -1337,11 +1344,11 @@ const menuTestHtml = `
                                     <div class="mega-featured-text">
                                         <div class="mega-featured-icon">🎯</div>
                                         <div class="mega-featured-info">
-                                            <h4>Ambassador Program Open!</h4>
-                                            <p>Join our global community leaders</p>
+                                            <h4>Airdrop Program Now Live!</h4>
+                                            <p>Join and earn TBURN tokens</p>
                                         </div>
                                     </div>
-                                    <div class="mega-featured-btn">Apply Now →</div>
+                                    <a href="/airdrop" class="mega-featured-btn">Apply Now →</a>
                                 </div>
                             </div>
                         </div>
@@ -1352,7 +1359,7 @@ const menuTestHtml = `
                 <div class="nav-item">
                     More <span class="arrow">▾</span>
                     <div class="mega-menu-wrapper">
-                        <div class="mega-menu" style="width: 500px;">
+                        <div class="mega-menu" style="width: 720px;">
                             <div class="mega-menu-header">
                                 <div class="mega-menu-title">
                                     <span class="icon">🔗</span>
@@ -1360,29 +1367,41 @@ const menuTestHtml = `
                                 </div>
                             </div>
                             <div class="mega-menu-body">
-                                <div class="mega-menu-grid" style="grid-template-columns: repeat(2, 1fr);">
+                                <div class="mega-menu-grid" style="grid-template-columns: repeat(3, 1fr);">
                                     <div class="mega-section">
                                         <div class="mega-section-header">
                                             <div class="mega-section-icon gold">🏢</div>
                                             <div class="mega-section-title">About</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">About Us <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Team <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Careers <span class="badge new">Hiring</span> <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Press Kit <span class="arrow-icon">→</span></div>
+                                            <a href="/vision" class="mega-link">Vision <span class="arrow-icon">→</span></a>
+                                            <a href="/founders" class="mega-link">Team <span class="arrow-icon">→</span></a>
+                                            <a href="/brand" class="mega-link">Brand <span class="arrow-icon">→</span></a>
+                                            <a href="/qna" class="mega-link">Q&A <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                     <div class="mega-section">
                                         <div class="mega-section-header">
-                                            <div class="mega-section-icon cyan">📜</div>
+                                            <div class="mega-section-icon cyan">🛡️</div>
+                                            <div class="mega-section-title">Validators</div>
+                                        </div>
+                                        <div class="mega-links">
+                                            <a href="/validator" class="mega-link">Command Center <span class="arrow-icon">→</span></a>
+                                            <a href="/external-validator-program" class="mega-link">External Validator <span class="arrow-icon">→</span></a>
+                                            <a href="/validator-governance" class="mega-link">Governance & Rewards <span class="arrow-icon">→</span></a>
+                                            <a href="/security-audit" class="mega-link">Security Audit <span class="arrow-icon">→</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="mega-section">
+                                        <div class="mega-section-header">
+                                            <div class="mega-section-icon purple">📜</div>
                                             <div class="mega-section-title">Legal</div>
                                         </div>
                                         <div class="mega-links">
-                                            <div class="mega-link">Terms of Service <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Privacy Policy <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Cookie Policy <span class="arrow-icon">→</span></div>
-                                            <div class="mega-link">Disclaimers <span class="arrow-icon">→</span></div>
+                                            <a href="/legal/terms-of-service" class="mega-link">Terms of Service <span class="arrow-icon">→</span></a>
+                                            <a href="/legal/privacy-policy" class="mega-link">Privacy Policy <span class="arrow-icon">→</span></a>
+                                            <a href="/legal/disclaimer" class="mega-link">Disclaimer <span class="arrow-icon">→</span></a>
+                                            <a href="/nft-marketplace" class="mega-link">NFT Marketplace <span class="arrow-icon">→</span></a>
                                         </div>
                                     </div>
                                 </div>
