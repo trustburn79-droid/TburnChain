@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { Activity, Box, TrendingUp, Shield, Clock, Zap, Server, Globe, BarChart3, Home } from "lucide-react";
+import { Activity, Box, TrendingUp, Shield, Clock, Zap, Server, Globe, BarChart3, Home, Vote, Check } from "lucide-react";
 import { Link } from "wouter";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Area, AreaChart, Legend } from "recharts";
 import { TBurnLogo } from "@/components/tburn-logo";
@@ -697,6 +697,173 @@ export default function NetworkDashboard() {
                   />
                 </LineChart>
               </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+
+        {/* Consensus Section */}
+        <div className="mb-6">
+          {/* Current Round Status */}
+          <div className="relative p-6 bg-[rgba(12,12,20,0.8)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.06)] rounded-[20px] overflow-hidden mb-5">
+            <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(34, 197, 94, 0.08), transparent 60%)' }} />
+            
+            {/* Round Header */}
+            <div className="flex items-center gap-3 mb-4 relative">
+              <div className="w-8 h-8 bg-[rgba(34,197,94,0.2)] rounded-full flex items-center justify-center animate-pulse">
+                <Zap className="w-4 h-4 text-[#22c55e]" />
+              </div>
+              <div>
+                <div className="font-['Orbitron'] text-lg font-semibold text-white">
+                  Current Round #{state.blockHeight.toLocaleString()} In Progress
+                </div>
+                <div className="text-xs text-[#a1a1aa]">
+                  Phase: Commit | 3 of 5 phases completed | Target: 100ms
+                </div>
+              </div>
+            </div>
+
+            {/* Phase Cards */}
+            <div className="grid grid-cols-5 gap-3 relative">
+              {[
+                { num: 1, label: 'Propose', time: '20ms', status: 'completed' },
+                { num: 2, label: 'Pre-vote', time: '20ms', status: 'completed' },
+                { num: 3, label: 'Pre-commit', time: '20ms', status: 'completed' },
+                { num: 4, label: 'Commit', time: '20ms', status: 'active' },
+                { num: 5, label: 'Finalize', time: '20ms', status: 'pending' }
+              ].map((phase) => (
+                <div 
+                  key={phase.num}
+                  className={`relative p-4 rounded-xl text-center transition-all overflow-hidden ${
+                    phase.status === 'completed' 
+                      ? 'bg-[rgba(34,197,94,0.15)] border border-[rgba(34,197,94,0.3)]' 
+                      : phase.status === 'active'
+                      ? 'bg-[#f97316] border border-[#f97316]'
+                      : 'bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)]'
+                  }`}
+                >
+                  <div className="flex justify-center mb-2">
+                    {phase.status === 'completed' ? (
+                      <Check className={`w-5 h-5 ${phase.status === 'completed' ? 'text-[#22c55e]' : 'text-white'}`} />
+                    ) : phase.status === 'active' ? (
+                      <Clock className="w-5 h-5 text-white animate-pulse" />
+                    ) : (
+                      <div className="w-5 h-5 border-2 border-[#6b7280] rounded-full" />
+                    )}
+                  </div>
+                  <div className={`text-sm font-semibold mb-1 ${phase.status === 'active' ? 'text-white' : phase.status === 'completed' ? 'text-[#22c55e]' : 'text-[#a1a1aa]'}`}>
+                    {phase.num}. {phase.label}
+                  </div>
+                  <div className={`text-xs ${phase.status === 'active' ? 'text-white/80' : 'text-[#6b7280]'}`}>{phase.time}</div>
+                  {phase.status === 'active' && (
+                    <div className="absolute bottom-0 left-0 h-1 bg-white/30 animate-pulse" style={{ width: '60%' }} />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Voting & Performance Grid */}
+          <div className="grid grid-cols-2 gap-5">
+            {/* Current Round Votes */}
+            <div className="relative p-6 bg-[rgba(12,12,20,0.8)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.06)] rounded-[20px] overflow-hidden">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-9 h-9 bg-[rgba(34,197,94,0.15)] rounded-xl flex items-center justify-center">
+                  <Vote className="w-4 h-4 text-[#22c55e]" />
+                </div>
+                <h3 className="font-['Orbitron'] text-base font-semibold">Current Round Votes</h3>
+              </div>
+
+              <div className="space-y-5">
+                {/* Pre-Votes Progress */}
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-semibold text-white">Pre-Votes (2f+1 required)</span>
+                    <span className="text-sm font-semibold text-[#22c55e] flex items-center gap-1">
+                      93/95 <Check className="w-4 h-4" />
+                    </span>
+                  </div>
+                  <div className="h-8 bg-[rgba(255,255,255,0.05)] rounded-lg overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-[#f97316] to-[#fb923c] rounded-lg transition-all duration-500"
+                      style={{ width: '97.9%' }}
+                    />
+                  </div>
+                  <div className="text-center mt-2 text-sm text-[#a1a1aa]">97.9% (0 more needed)</div>
+                </div>
+
+                {/* Pre-Commits Progress */}
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-semibold text-white">Pre-Commits (2f+1 required)</span>
+                    <span className="text-sm font-semibold text-[#3b82f6]">91/95</span>
+                  </div>
+                  <div className="h-8 bg-[rgba(255,255,255,0.05)] rounded-lg overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-[#f97316] to-[#fb923c] rounded-lg transition-all duration-500"
+                      style={{ width: '95.8%' }}
+                    />
+                  </div>
+                  <div className="text-center mt-2 text-sm text-[#3b82f6]">95.8% (0 more needed)</div>
+                </div>
+
+                {/* Round Info */}
+                <div className="p-4 bg-[rgba(255,255,255,0.03)] rounded-xl">
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <div className="text-[#6b7280] mb-1">Total Validators</div>
+                      <div className="font-bold text-white">{state.activeValidators} validators</div>
+                    </div>
+                    <div>
+                      <div className="text-[#6b7280] mb-1">Quorum (2f+1)</div>
+                      <div className="font-bold text-white">64 votes</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Performance Metrics */}
+            <div className="relative p-6 bg-[rgba(12,12,20,0.8)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.06)] rounded-[20px] overflow-hidden">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-9 h-9 bg-[rgba(168,85,247,0.15)] rounded-xl flex items-center justify-center">
+                  <TrendingUp className="w-4 h-4 text-[#a855f7]" />
+                </div>
+                <h3 className="font-['Orbitron'] text-base font-semibold">Performance Metrics</h3>
+              </div>
+
+              {/* Success Rate & Avg Time Cards */}
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="p-4 bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.2)] rounded-xl text-center">
+                  <div className="text-xs text-[#22c55e] mb-1">Success Rate</div>
+                  <div className="font-['Orbitron'] text-3xl font-bold text-[#22c55e]">99.8%</div>
+                  <div className="text-xs text-[#22c55e]/70 mt-1">Last 10000 rounds</div>
+                </div>
+                <div className="p-4 bg-[rgba(59,130,246,0.1)] border border-[rgba(59,130,246,0.2)] rounded-xl text-center">
+                  <div className="text-xs text-[#3b82f6] mb-1">Avg Time</div>
+                  <div className="font-['Orbitron'] text-3xl font-bold text-[#3b82f6]">100ms</div>
+                  <div className="text-xs text-[#3b82f6]/70 mt-1">Target: 100ms</div>
+                </div>
+              </div>
+
+              {/* Stats List */}
+              <div className="p-4 bg-[rgba(255,255,255,0.03)] rounded-xl space-y-3">
+                <div className="flex justify-between pb-2 border-b border-[rgba(255,255,255,0.06)]">
+                  <span className="text-sm text-[#a1a1aa]">Rounds Completed</span>
+                  <span className="text-sm font-semibold text-white">{state.blockHeight.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between pb-2 border-b border-[rgba(255,255,255,0.06)]">
+                  <span className="text-sm text-[#a1a1aa]">Failed Rounds</span>
+                  <span className="text-sm font-semibold text-[#ef4444]">2,468</span>
+                </div>
+                <div className="flex justify-between pb-2 border-b border-[rgba(255,255,255,0.06)]">
+                  <span className="text-sm text-[#a1a1aa]">Timeout Rate</span>
+                  <span className="text-sm font-semibold text-[#f0b90b]">0.2%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-[#a1a1aa]">Early Terminations</span>
+                  <span className="text-sm font-semibold text-[#22c55e]">89.3%</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
