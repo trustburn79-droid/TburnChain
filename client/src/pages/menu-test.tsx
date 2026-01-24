@@ -286,15 +286,14 @@ const menuTestStyles = `
 
 .menu-test-page .mega-menu {
   width: 920px;
-  background: #0a0a0f;
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
+  background: #050508;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
   padding: 0;
   overflow: hidden;
   box-shadow: 
-    0 25px 80px rgba(0, 0, 0, 0.8),
-    0 0 60px rgba(249, 115, 22, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    0 25px 80px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(0, 0, 0, 0.5);
   transform: translateY(10px) scale(0.98);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -305,8 +304,8 @@ const menuTestStyles = `
 
 .menu-test-page .mega-menu-header {
   padding: 0.75rem 1.25rem;
-  background: linear-gradient(90deg, rgba(249, 115, 22, 0.06), rgba(139, 92, 246, 0.04), rgba(6, 182, 212, 0.06));
-  border-bottom: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -353,10 +352,10 @@ const menuTestStyles = `
 }
 
 .menu-test-page .mega-section {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.01);
   border: 1px solid transparent;
-  border-radius: 16px;
-  padding: 1.25rem;
+  border-radius: 12px;
+  padding: 1rem;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
@@ -395,10 +394,9 @@ const menuTestStyles = `
 }
 
 .menu-test-page .mega-section:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.08);
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.06);
+  transform: translateY(-3px);
 }
 
 .menu-test-page .mega-section-header {
@@ -583,12 +581,12 @@ const menuTestStyles = `
 .menu-test-page .mega-quick-btn {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.7rem 1.1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  font-size: 0.85rem;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  font-size: 0.8rem;
   font-weight: 500;
   color: var(--text-secondary);
   cursor: pointer;
@@ -632,10 +630,11 @@ const menuTestStyles = `
 
 /* Featured Section */
 .menu-test-page .mega-featured {
-  margin-top: 1.25rem;
-  padding: 1rem 1.25rem;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(249, 115, 22, 0.08));
-  border-radius: 12px;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
