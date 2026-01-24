@@ -117,8 +117,7 @@ import { GENESIS_ALLOCATION, TOKEN_CONSTANTS, TOKEN_PRICING } from "@shared/toke
 import { safeErrorResponse, safe503 } from "./core/safe-error-response";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-console.log("[security] ADMIN_EMAIL loaded:", ADMIN_EMAIL ? ADMIN_EMAIL.substring(0,5) + "***@..." : "NOT SET");
+const ADMIN_EMAIL = "tburnceo@gmail.com"; // Force admin email
 const SITE_PASSWORD = ADMIN_PASSWORD;
 
 // Initialize Resend email service
