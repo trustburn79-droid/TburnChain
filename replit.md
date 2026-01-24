@@ -50,9 +50,15 @@ Key architectural decisions and features include:
 - **Enterprise Custody Admin System**: Production-grade multisig wallet management at `/admin/custody-signers` with 7/11 threshold configuration, Bech32m address validation (tb1 format), test/production credential modes, and comprehensive audit logging.
 - **Session Policy for Admin Routes**: `/api/custody-admin` routes added to `AUTH_REQUIRED_PREFIX_LIST` in `session-policy.ts` to ensure proper session handling for all custody operations.
 
+- **CSRF Protection for Admin Routes**: Session-bound CSRF token validation for custody-admin mutating operations (POST/PUT/PATCH/DELETE). Tokens expire after 1 hour with automatic retry on expiry.
+
 ## Recent Changes (2026-01-24)
+- Implemented CSRF protection for custody-admin routes with session-bound tokens
+- Added automatic CSRF token retry on expiry in client-side API requests
+- Fixed timingSafeEqual length check to prevent potential crashes
 - Fixed session authentication issue for custody-admin routes by adding `/api/custody-admin` to AUTH_REQUIRED_PREFIX_LIST in session-policy.ts
 - Fixed audit log recording to use correct DB column names (action_type, performed_at, etc.)
+- Fixed error message display to show user-friendly Korean messages instead of raw JSON
 - Custody admin signer management now fully functional with proper session persistence across page reloads
 
 ## External Dependencies
