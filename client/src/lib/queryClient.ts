@@ -29,7 +29,17 @@ async function throwIfResNotOk(res: Response) {
       throw new ServerError(`Server error: ${res.status}`, res.status);
     }
     const text = (await res.text()) || res.statusText;
-    throw new Error(`${res.status}: ${text}`);
+    let errorMessage = text;
+    try {
+      const jsonError = JSON.parse(text);
+      if (jsonError.error) {
+        errorMessage = jsonError.error;
+      } else if (jsonError.message) {
+        errorMessage = jsonError.message;
+      }
+    } catch {
+    }
+    throw new Error(errorMessage);
   }
 }
 

@@ -392,9 +392,10 @@ router.delete("/signers/:signerId", requireAdmin, async (req: Request, res: Resp
       ));
     
     if (activeSigners.length <= (wallet?.signaturesRequired || 7)) {
+      const minRequired = wallet?.signaturesRequired || 7;
       return res.status(400).json({ 
         success: false, 
-        error: `Cannot remove signer. Minimum ${wallet?.signaturesRequired || 7} signers required for threshold.` 
+        error: `서명자를 삭제할 수 없습니다. 최소 ${minRequired}명의 서명자가 필요합니다. (현재: ${activeSigners.length}명)` 
       });
     }
     
