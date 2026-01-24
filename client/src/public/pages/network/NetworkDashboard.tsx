@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { Activity, Box, TrendingUp, Shield, Clock, Zap, Server, Globe, BarChart3 } from "lucide-react";
+import { Activity, Box, TrendingUp, Shield, Clock, Zap, Server, Globe, BarChart3, Home } from "lucide-react";
+import { Link } from "wouter";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Area, AreaChart, Legend } from "recharts";
 import { TBurnLogo } from "@/components/tburn-logo";
 
@@ -368,6 +369,11 @@ export default function NetworkDashboard() {
             <div className="font-['JetBrains_Mono'] text-sm text-[#a1a1aa] px-4 py-2.5 bg-[rgba(255,255,255,0.05)] rounded-xl">
               {currentTime}
             </div>
+            <Link href="/">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] cursor-pointer transition-all hover:bg-[rgba(255,255,255,0.1)] hover:border-[rgba(0,255,204,0.3)]" data-testid="button-home">
+                <Home className="w-5 h-5 text-[#a1a1aa] hover:text-[#00ffcc]" />
+              </div>
+            </Link>
           </div>
         </header>
 
