@@ -116,20 +116,29 @@ import { tokenomicsDataService, type TokenProgram } from "./services/tokenomics-
 import { GENESIS_ALLOCATION, TOKEN_CONSTANTS, TOKEN_PRICING } from "@shared/tokenomics-config";
 import { safeErrorResponse, safe503 } from "./core/safe-error-response";
 
-const ADMIN_PASSWORD = "Kk9090!@#"; // Force admin password
-const ADMIN_EMAIL = "tburnceo@gmail.com"; // Force admin email
+const USER_EMAIL = "trustburn79@gmail.com"; // 1차 인증용 사용자 이메일
+const USER_PASSWORD = "Kk9090!@#"; // 1차 인증용 사용자 비밀번호
+const ADMIN_EMAIL = "tburnceo@gmail.com"; // 2차 인증용 관리자 이메일
+const ADMIN_PASSWORD = "Kk9090!@#"; // 2차 인증용 관리자 비밀번호
 const SITE_PASSWORD = ADMIN_PASSWORD;
 
 // Secure password comparison helper to prevent timing attacks
 function secureCompare(a: string | undefined, b: string | undefined): boolean {
   if (!a || !b) return false;
-  if (a.length !== b.length) {
-    // Compare against itself to maintain constant time
-    const buf = Buffer.from(a);
-    timingSafeEqual(buf, buf);
+  
+  // Convert to buffers - use hashing to ensure equal length for timing-safe comparison
+  const bufA = Buffer.from(a, 'utf-8');
+  const bufB = Buffer.from(b, 'utf-8');
+  
+  if (bufA.length !== bufB.length) {
+    // Different lengths - still do a constant-time operation to prevent timing attacks
+    // Compare hash of 'a' with itself to maintain constant time
+    const hashA = createHash('sha256').update(bufA).digest();
+    timingSafeEqual(hashA, hashA);
     return false;
   }
-  return timingSafeEqual(Buffer.from(a), Buffer.from(b));
+  
+  return timingSafeEqual(bufA, bufB);
 }
 
 // Initialize Resend email service
@@ -1187,22 +1196,25 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
     }
     
-    // Fallback to site password (works for both admin7979 and member login fallback)
-    // Support both env-based password and hardcoded admin7979 for reliability
-    const isAdminPassword = password === SITE_PASSWORD || password === "admin7979";
-    const isAdminEmail = email === ADMIN_EMAIL || email === "trustburn79@gmail.com";
+    // 1차 인증: 사용자 이메일과 비밀번호로 로그인 (trustburn79@gmail.com)
+    const isUserPassword = secureCompare(password || "", USER_PASSWORD);
+    const isUserEmail = secureCompare(email || "", USER_EMAIL);
     
-    if (isAdminPassword && isAdminEmail) {
+    if (isUserEmail && isUserPassword) {
       req.session.authenticated = true;
+      req.session.user = { email: email, isAdmin: false };
       req.session.memberEmail = email;
-      console.log(`[Login] Admin login successful for ${email}`);
-      res.json({ success: true });
-    } else if (password === SITE_PASSWORD) {
-      req.session.authenticated = true;
-      console.log(`[Login] Site password login successful`);
-      res.json({ success: true });
+      
+      req.session.save((err) => {
+        if (err) {
+          console.error('[Login] Session save error:', err);
+          return res.status(503).json({ error: "세션 저장에 실패했습니다." });
+        }
+        console.log(`[Login] ✅ 1차 인증 성공 - User login for ${email}`);
+        res.json({ success: true });
+      });
     } else {
-      console.log(`[Login] Failed - email: ${email ? email.replace(/(.{2}).*(@.*)/, '$1***$2') : 'unknown'}, auth failed`);
+      console.log(`[Login] ❌ 1차 인증 실패 - email: ${email ? email.replace(/(.{2}).*(@.*)/, '$1***$2') : 'unknown'}, auth failed`);
       res.status(401).json({ error: "이메일 또는 비밀번호가 올바르지 않습니다." });
     }
   });
@@ -1900,40 +1912,46 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Two-step admin auth: Step 2 - Verify admin password after user login
+  // Two-step admin auth: Step 2 - Verify admin email and password after user login (2차 인증)
   app.post("/api/admin/auth/verify-password", loginLimiter, (req, res) => {
-    const { password } = req.body;
+    const { email, password } = req.body;
     
-    // Step 1: Verify user is already logged in
+    // Step 1: Verify user is already logged in (1차 인증 필요)
     if (!req.session.user) {
       console.warn('[Admin Auth] verify-password called without user session');
       return res.status(401).json({ 
-        error: "User authentication required", 
+        error: "먼저 사용자 로그인이 필요합니다.", 
         code: "USER_AUTH_REQUIRED" 
       });
     }
     
-    // Step 2: Check admin password
-    if (!ADMIN_PASSWORD) {
-      console.error('[Admin Auth] ADMIN_PASSWORD not configured');
-      return res.status(503).json({ error: "Admin authentication not configured" });
+    // Step 2: Check admin email and password (2차 인증)
+    if (!ADMIN_PASSWORD || !ADMIN_EMAIL) {
+      console.error('[Admin Auth] ADMIN_PASSWORD or ADMIN_EMAIL not configured');
+      return res.status(503).json({ error: "관리자 인증이 설정되지 않았습니다." });
     }
     
-    if (secureCompare(password, ADMIN_PASSWORD)) {
+    if (!email || !password) {
+      return res.status(400).json({ error: "관리자 이메일과 비밀번호를 입력해주세요." });
+    }
+    
+    console.log('[Admin Auth] 2차 인증 - Comparing admin email:', email, 'with stored:', ADMIN_EMAIL.substring(0,5) + '***');
+    
+    if (secureCompare(email, ADMIN_EMAIL) && secureCompare(password, ADMIN_PASSWORD)) {
       req.session.adminAuthenticated = true;
       
       // Explicitly save session before responding to ensure persistence
       req.session.save((err) => {
         if (err) {
           console.error('[Admin Auth] Session save error:', err);
-          return res.status(503).json({ error: "Failed to save session" });
+          return res.status(503).json({ error: "세션 저장에 실패했습니다." });
         }
-        console.log('[Admin Auth] Admin password verified for user:', req.session.user?.email, 'session:', req.sessionID);
+        console.log('[Admin Auth] ✅ 2차 인증 성공 - Admin verified for user:', req.session.user?.email, 'session:', req.sessionID);
         res.json({ success: true });
       });
     } else {
-      console.warn('[Admin Auth] Invalid admin password attempt by user:', req.session.user?.email);
-      res.status(401).json({ error: "관리자 비밀번호가 올바르지 않습니다." });
+      console.warn('[Admin Auth] ❌ 2차 인증 실패 - Invalid admin credentials for user:', req.session.user?.email);
+      res.status(401).json({ error: "관리자 이메일 또는 비밀번호가 올바르지 않습니다." });
     }
   });
 

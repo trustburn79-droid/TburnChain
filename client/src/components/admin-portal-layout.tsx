@@ -279,15 +279,15 @@ function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPr
     setIsLoading(true);
 
     try {
-      const response = await apiRequest("POST", "/api/admin/auth/login", { email, password });
+      // 2차 인증: 관리자 이메일과 비밀번호 확인
+      const response = await apiRequest("POST", "/api/admin/auth/verify-password", { email, password });
       
       if (response.ok) {
         await queryClient.invalidateQueries({ queryKey: ["/api/admin/auth/check"] });
-        await queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
         onSuccess();
       } else {
         const data = await response.json().catch(() => ({}));
-        setError(data.error || t("admin.auth.invalidCredentials", "이메일 또는 비밀번호가 올바르지 않습니다."));
+        setError(data.error || t("admin.auth.invalidCredentials", "관리자 이메일 또는 비밀번호가 올바르지 않습니다."));
         setPassword("");
       }
     } catch (err) {
@@ -309,10 +309,13 @@ function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPr
           <div>
             <CardTitle className="text-2xl flex items-center justify-center gap-2">
               <Shield className="h-6 w-6 text-red-500" />
-              {t("admin.auth.adminVerification", "관리자 인증")}
+              {t("admin.auth.secondAuth", "2차 인증 - 관리자 확인")}
             </CardTitle>
             <CardDescription className="mt-2">
-              {t("admin.auth.loginDescription", "관리자 이메일과 비밀번호를 입력하세요.")}
+              <span className="block text-green-600 dark:text-green-400 font-medium mb-1">
+                1차 인증 완료: {userEmail}
+              </span>
+              {t("admin.auth.secondAuthDescription", "관리자 이메일과 비밀번호를 입력하세요.")}
             </CardDescription>
           </div>
         </CardHeader>
@@ -327,7 +330,7 @@ function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPr
 
             <div className="space-y-2">
               <Label htmlFor="admin-email">
-                {t("admin.auth.adminEmail", "관리자 이메일")}
+                {t("admin.auth.adminEmail", "관리자 이메일 (2차 인증)")}
               </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -373,16 +376,27 @@ function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPr
               {isLoading ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  {t("admin.auth.verifying", "인증 중...")}
+                  {t("admin.auth.verifying", "2차 인증 중...")}
                 </>
               ) : (
                 <>
                   <Shield className="h-4 w-4 mr-2" />
-                  {t("admin.auth.verifyAccess", "관리자 인증")}
+                  {t("admin.auth.verifyAccess", "2차 인증 완료")}
                 </>
               )}
             </Button>
           </form>
+
+          <div className="text-center">
+            <Button
+              variant="ghost"
+              onClick={onLogout}
+              className="text-sm text-muted-foreground"
+              data-testid="button-user-logout"
+            >
+              다른 계정으로 로그인
+            </Button>
+          </div>
         </CardContent>
 
       </Card>
