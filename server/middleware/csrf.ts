@@ -1,6 +1,9 @@
 /**
  * CSRF Protection Middleware for TBURN Admin Routes
- * Implements double-submit cookie pattern with session-bound tokens
+ * Implements session-bound token pattern with header validation
+ * - Tokens are stored in server-side session (not cookies)
+ * - Client sends token via X-CSRF-Token header
+ * - Server validates against session-stored token
  */
 
 import { Request, Response, NextFunction } from "express";
@@ -115,10 +118,20 @@ export function validateCsrf(req: Request, res: Response, next: NextFunction): v
     return;
   }
 
-  if (!crypto.timingSafeEqual(
-    Buffer.from(headerToken, "utf8"),
-    Buffer.from(sessionToken, "utf8")
-  )) {
+  const headerBuffer = Buffer.from(headerToken, "utf8");
+  const sessionBuffer = Buffer.from(sessionToken, "utf8");
+
+  if (headerBuffer.length !== sessionBuffer.length) {
+    console.warn(`[CSRF] Token length mismatch for session. IP: ${req.ip}`);
+    res.status(403).json({ 
+      success: false, 
+      error: "CSRF 토큰이 유효하지 않습니다. 페이지를 새로고침 후 다시 시도해주세요.",
+      code: "CSRF_INVALID_TOKEN" 
+    });
+    return;
+  }
+
+  if (!crypto.timingSafeEqual(headerBuffer, sessionBuffer)) {
     console.warn(`[CSRF] Token mismatch for session. IP: ${req.ip}`);
     res.status(403).json({ 
       success: false, 

@@ -77,6 +77,7 @@ export async function apiRequest(
   method: string,
   url: string,
   data?: unknown | undefined,
+  retryOnCsrf = true,
 ): Promise<Response> {
   const headers: Record<string, string> = data ? { "Content-Type": "application/json" } : {};
   
@@ -95,10 +96,11 @@ export async function apiRequest(
     credentials: "include",
   });
 
-  if (res.status === 403 && needsCsrf) {
+  if (res.status === 403 && needsCsrf && retryOnCsrf) {
     const text = await res.clone().text();
     if (text.includes("CSRF")) {
       invalidateCsrfToken();
+      return apiRequest(method, url, data, false);
     }
   }
 
