@@ -114,32 +114,28 @@ const menuTestStyles = `
 }
 
 .menu-test-page .logo-icon {
-  width: 42px;
-  height: 42px;
-  background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  box-shadow: 0 4px 20px var(--glow-gold);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
 }
 
 .menu-test-page .logo:hover .logo-icon {
-  transform: rotate(-10deg) scale(1.05);
-  box-shadow: 0 6px 30px var(--glow-gold);
+  transform: scale(1.1);
+}
+
+.menu-test-page .logo-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .menu-test-page .logo-text {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.4rem;
   font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
 }
 
-.menu-test-page .logo-text .t { color: var(--accent-gold); }
-.menu-test-page .logo-text .burn { color: var(--text-primary); }
-.menu-test-page .logo-text .chain { color: var(--accent-cyan); }
+.menu-test-page .logo-text .tburn { color: var(--text-primary); }
+.menu-test-page .logo-text .chain { color: var(--accent-cyan); font-weight: 300; }
 
 .menu-test-page .main-nav {
   display: flex;
@@ -199,79 +195,76 @@ const menuTestStyles = `
 }
 
 .menu-test-page .header-icon-btn {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  color: var(--text-secondary);
+  padding: 0.5rem;
+  color: #9ca3af;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1rem;
+  transition: color 0.2s ease;
+  background: none;
+  border: none;
 }
 
 .menu-test-page .header-icon-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
   color: var(--text-primary);
-  transform: translateY(-2px);
+}
+
+.menu-test-page .header-icon-btn.tree:hover {
+  color: #22c55e;
+}
+
+.menu-test-page .header-icon-btn svg {
+  width: 20px;
+  height: 20px;
 }
 
 .menu-test-page .lang-selector {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.85rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  gap: 0.375rem;
+  padding: 0.5rem;
+  color: #9ca3af;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: color 0.2s ease;
+  background: none;
+  border: none;
 }
 
 .menu-test-page .lang-selector:hover {
-  background: rgba(255, 255, 255, 0.08);
   color: var(--text-primary);
 }
 
-.menu-test-page .connect-wallet-btn {
-  padding: 0.65rem 1.4rem;
-  background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
-  color: #000;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.9rem;
+.menu-test-page .lang-selector svg {
+  width: 20px;
+  height: 20px;
+}
+
+.menu-test-page .lang-selector .lang-code {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.menu-test-page .lang-selector .chevron {
+  width: 12px;
+  height: 12px;
+}
+
+.menu-test-page .login-btn {
+  background: rgba(10, 10, 15, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: var(--accent-cyan);
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px var(--glow-gold);
-  position: relative;
-  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+  white-space: nowrap;
 }
 
-.menu-test-page .connect-wallet-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.5s ease;
-}
-
-.menu-test-page .connect-wallet-btn:hover::before {
-  left: 100%;
-}
-
-.menu-test-page .connect-wallet-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px var(--glow-gold);
+.menu-test-page .login-btn:hover {
+  background: rgba(6, 182, 212, 0.1);
 }
 
 /* MEGA MENU */
@@ -899,8 +892,6 @@ const menuTestStyles = `
 .menu-test-page .footer-logo-icon {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1078,10 +1069,29 @@ const menuTestHtml = `
     <header class="main-header">
         <div class="header-content">
             <!-- Logo -->
-            <a href="#" class="logo">
-                <div class="logo-icon">🔥</div>
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="flameGradient" x1="50%" y1="100%" x2="50%" y2="0%">
+                                <stop offset="0%" stop-color="#FF6B35" />
+                                <stop offset="50%" stop-color="#F7931E" />
+                                <stop offset="100%" stop-color="#FFD700" />
+                            </linearGradient>
+                            <linearGradient id="outerGlow" x1="50%" y1="100%" x2="50%" y2="0%">
+                                <stop offset="0%" stop-color="#FF4500" stop-opacity="0.8" />
+                                <stop offset="100%" stop-color="#FFD700" stop-opacity="0.2" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="50" cy="50" r="45" fill="url(#outerGlow)" opacity="0.3" />
+                        <circle cx="50" cy="50" r="40" stroke="url(#flameGradient)" stroke-width="2" fill="none" />
+                        <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#flameGradient)" />
+                        <path d="M50 35 C42 45, 38 55, 42 65 C45 72, 48 75, 50 75 C52 75, 55 72, 58 65 C62 55, 58 45, 50 35" fill="#FFD700" opacity="0.8" />
+                        <text x="50" y="58" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e" font-family="sans-serif">T</text>
+                    </svg>
+                </div>
                 <div class="logo-text">
-                    <span class="t">T</span><span class="burn">Burn</span> <span class="chain">Chain</span>
+                    <span class="tburn">TBurn</span> <span class="chain">Chain</span>
                 </div>
             </a>
 
@@ -1353,10 +1363,26 @@ const menuTestHtml = `
 
             <!-- Header Right -->
             <div class="header-right">
-                <div class="header-icon-btn">🔔</div>
-                <div class="header-icon-btn">🔍</div>
-                <div class="lang-selector">🌐 EN ▾</div>
-                <button class="connect-wallet-btn">Connect Wallet</button>
+                <a href="/tree" class="header-icon-btn tree" title="Site Map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/>
+                    </svg>
+                </a>
+                <button class="lang-selector">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>
+                    </svg>
+                    <span class="lang-code">KO</span>
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6"/>
+                    </svg>
+                </button>
+                <button class="header-icon-btn" title="Theme Toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+                    </svg>
+                </button>
+                <button class="login-btn">로그인</button>
             </div>
         </div>
     </header>
@@ -1410,7 +1436,19 @@ const menuTestHtml = `
         <div class="footer-main">
             <div class="footer-brand">
                 <div class="footer-logo">
-                    <div class="footer-logo-icon">🔥</div>
+                    <div class="footer-logo-icon">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+                            <defs>
+                                <linearGradient id="footerFlame" x1="50%" y1="100%" x2="50%" y2="0%">
+                                    <stop offset="0%" stop-color="#FF6B35" />
+                                    <stop offset="50%" stop-color="#F7931E" />
+                                    <stop offset="100%" stop-color="#FFD700" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#footerFlame)" />
+                            <path d="M50 35 C42 45, 38 55, 42 65 C45 72, 48 75, 50 75 C52 75, 55 72, 58 65 C62 55, 58 45, 50 35" fill="#FFD700" opacity="0.8" />
+                        </svg>
+                    </div>
                     <div class="footer-logo-text">TBurn Chain</div>
                 </div>
                 <p class="footer-desc">
