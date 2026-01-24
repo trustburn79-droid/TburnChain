@@ -560,6 +560,7 @@ const custodyAdminLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: (req) => req.session?.user?.email || req.ip || "anonymous",
+  validate: false, // Disable validation warnings (user email is primary key)
 });
 
 function requireAuth(req: Request, res: Response, next: NextFunction) {
