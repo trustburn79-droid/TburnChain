@@ -1153,7 +1153,28 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   app.post("/api/auth/login", loginLimiter, async (req, res) => {
     const { password, email } = req.body;
     
-    // Check if member login (email + password)
+    // 1차 인증 체크를 먼저 수행 (USER_EMAIL/USER_PASSWORD 우선)
+    const isUserPassword = secureCompare(password || "", USER_PASSWORD);
+    const isUserEmail = secureCompare(email || "", USER_EMAIL);
+    
+    if (isUserEmail && isUserPassword) {
+      req.session.authenticated = true;
+      req.session.user = { email: email, isAdmin: false };
+      req.session.memberEmail = email;
+      req.session.firstFactorVerified = true; // 1차 인증 전용 플래그
+      
+      req.session.save((err) => {
+        if (err) {
+          console.error('[Login] Session save error:', err);
+          return res.status(503).json({ error: "세션 저장에 실패했습니다." });
+        }
+        console.log(`[Login] ✅ 1차 인증 성공 - User login for ${email}`);
+        res.json({ success: true });
+      });
+      return;
+    }
+    
+    // 멤버 로그인 체크 (데이터베이스 기반)
     if (email && password) {
       try {
         const member = await storage.getMemberByEmail(email);
@@ -1165,7 +1186,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             req.session.memberEmail = email;
             req.session.memberAddress = member.accountAddress;
             
-            // Ensure all profile records exist for this member (for users who registered before profile initialization was added)
+            // Ensure all profile records exist for this member
             await ensureMemberProfiles(member.id);
             
             // Update login metrics
@@ -1189,35 +1210,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             });
           }
         }
-        // Member auth failed, fall through to site password check
       } catch (error) {
         console.error("Member login error:", error);
-        // Continue to site password fallback
       }
     }
     
-    // 1차 인증: 사용자 이메일과 비밀번호로 로그인 (trustburn79@gmail.com)
-    const isUserPassword = secureCompare(password || "", USER_PASSWORD);
-    const isUserEmail = secureCompare(email || "", USER_EMAIL);
-    
-    if (isUserEmail && isUserPassword) {
-      req.session.authenticated = true;
-      req.session.user = { email: email, isAdmin: false };
-      req.session.memberEmail = email;
-      req.session.firstFactorVerified = true; // 1차 인증 전용 플래그
-      
-      req.session.save((err) => {
-        if (err) {
-          console.error('[Login] Session save error:', err);
-          return res.status(503).json({ error: "세션 저장에 실패했습니다." });
-        }
-        console.log(`[Login] ✅ 1차 인증 성공 - User login for ${email}`);
-        res.json({ success: true });
-      });
-    } else {
-      console.log(`[Login] ❌ 1차 인증 실패 - email: ${email ? email.replace(/(.{2}).*(@.*)/, '$1***$2') : 'unknown'}, auth failed`);
-      res.status(401).json({ error: "이메일 또는 비밀번호가 올바르지 않습니다." });
-    }
+    // 모든 인증 실패
+    console.log(`[Login] ❌ 로그인 실패 - email: ${email ? email.replace(/(.{2}).*(@.*)/, '$1***$2') : 'unknown'}`);
+    res.status(401).json({ error: "이메일 또는 비밀번호가 올바르지 않습니다." });
   });
 
   // Signup route
