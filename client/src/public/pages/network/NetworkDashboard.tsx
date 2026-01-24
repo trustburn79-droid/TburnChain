@@ -155,7 +155,7 @@ export default function NetworkDashboard() {
 
   // Fetch recent blocks from real API
   const { data: blocksData, refetch: refetchBlocks } = useQuery({
-    queryKey: ["/api/public/v1/network/blocks/recent", { limit: 8 }],
+    queryKey: ["/api/public/v1/network/blocks/recent?limit=8"],
     refetchInterval: 3000
   });
 
