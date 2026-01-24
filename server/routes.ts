@@ -553,14 +553,15 @@ const sensitiveOpLimiter = rateLimit({
 });
 
 // Rate limiter for custody admin operations
+
 const custodyAdminLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
   max: 20, // 20 requests per minute for custody admin operations
   message: { error: "요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.", code: "CUSTODY_RATE_LIMIT" },
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: (req) => req.session?.user?.email || req.ip || "anonymous",
-  validate: false, // Disable validation warnings (user email is primary key)
+  // Custody routes require admin auth - use session email or session ID (no IP fallback)
+  keyGenerator: (req) => req.session?.user?.email || req.sessionID || "anonymous",
 });
 
 function requireAuth(req: Request, res: Response, next: NextFunction) {
