@@ -96,6 +96,7 @@ const ValidatorInfrastructure = lazyWithRetry(() => import("@/pages/validator-in
 const ValidatorIntelligence = lazyWithRetry(() => import("@/pages/validator-intelligence"));
 const ValidatorGovernance = lazyWithRetry(() => import("@/pages/validator-governance"));
 const BusinessCard = lazyWithRetry(() => import("@/pages/businesscard"));
+const MenuTest = lazyWithRetry(() => import("@/pages/menu-test"));
 
 const OperatorDashboard = lazyWithRetry(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazyWithRetry(() => import("@/pages/operator/members"));
@@ -525,6 +526,15 @@ function RootRouter() {
     return (
       <Suspense fallback={<PageLoading />}>
         <TokenDetails />
+      </Suspense>
+    );
+  }
+  
+  if (location === "/menu") {
+    // Menu test page for menu structure improvement
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <MenuTest />
       </Suspense>
     );
   }

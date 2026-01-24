@@ -53,6 +53,13 @@ Key architectural decisions and features include:
 - **CSRF Protection for Admin Routes**: Session-bound CSRF token validation for custody-admin mutating operations (POST/PUT/PATCH/DELETE). Tokens expire after 1 hour with automatic retry on expiry.
 
 ## Recent Changes (2026-01-24)
+- **Menu Test Page**: Added /menu route for menu structure improvement testing
+  - Standalone test page with premium mega menu navigation design
+  - TBurn Chain branding with gold/cyan/purple color scheme
+  - Responsive design with hover dropdowns and backdrop blur effects
+  - Hero section with network stats (TPS, Uptime, Shards, Validators)
+
+
 - **Direct Admin Authentication**: Simplified admin login to direct email + password authentication
   - Single-step login at `/api/admin/auth/login` with email and password
   - Admin credentials: tburnceo@gmail.com (hardcoded for stability)
