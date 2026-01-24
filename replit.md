@@ -47,6 +47,13 @@ Key architectural decisions and features include:
 - **TypeScript Validator SDK**: Comprehensive SDK for programmatic validator management (`external-validator-program/src/sdk/tburn-validator-sdk.ts`).
 - **Security Hardening**: Implemented mandatory HMAC-SHA256 signature verification, timestamp/nonce validation, rate limiting, mTLS client certificate validation, sensitive data masking, Helmet middleware with Content-Security-Policy headers, and HTML escaping for user-facing error messages.
 - **Genesis Validator Key Generation System**: Production-grade 125 validator key generation with tiered distribution and secure database storage.
+- **Enterprise Custody Admin System**: Production-grade multisig wallet management at `/admin/custody-signers` with 7/11 threshold configuration, Bech32m address validation (tb1 format), test/production credential modes, and comprehensive audit logging.
+- **Session Policy for Admin Routes**: `/api/custody-admin` routes added to `AUTH_REQUIRED_PREFIX_LIST` in `session-policy.ts` to ensure proper session handling for all custody operations.
+
+## Recent Changes (2026-01-24)
+- Fixed session authentication issue for custody-admin routes by adding `/api/custody-admin` to AUTH_REQUIRED_PREFIX_LIST in session-policy.ts
+- Fixed audit log recording to use correct DB column names (action_type, performed_at, etc.)
+- Custody admin signer management now fully functional with proper session persistence across page reloads
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

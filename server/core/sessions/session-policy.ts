@@ -121,6 +121,7 @@ const AUTH_REQUIRED_PREFIX_LIST = [
   '/api/session',
   '/api/user',
   '/api/admin',
+  '/api/custody-admin',       // ★ [2026-01-23] Custody admin requires session for multisig management
   '/api/enterprise/admin',
   '/api/wallet',
   '/api/transaction',

@@ -2592,6 +2592,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/admin/")) {
       return next();
     }
+    // Skip auth check for custody admin routes (admin auth handled by requireAdmin middleware on route registration)
+    if (req.path.startsWith("/custody-admin/")) {
+      return next();
+    }
     // Skip auth check for community routes (public access)
     if (req.path.startsWith("/community/")) {
       return next();

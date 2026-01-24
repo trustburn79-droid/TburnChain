@@ -210,6 +210,7 @@ const AUTH_REQUIRED_PATHS = [
   '/api/session',
   '/api/user',
   '/api/admin',
+  '/api/custody-admin',     // ★ [2026-01-23] Custody admin requires session for all operations
   '/api/enterprise/admin',  // ★ [2026-01-06] Enterprise admin portal routes require authentication
   '/api/wallet',
   '/api/transaction',

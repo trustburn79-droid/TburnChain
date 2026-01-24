@@ -76,18 +76,11 @@ interface AuditLogData {
 
 async function recordAuditLog(data: AuditLogData): Promise<void> {
   try {
-    const logId = `audit-${Date.now()}-${crypto.randomBytes(4).toString("hex")}`;
-    await db.insert(custodyAuditLogs).values({
-      logId,
-      action: data.action,
-      entityType: data.entityType,
-      entityId: data.entityId,
-      walletId: data.walletId || null,
-      performedBy: data.performedBy,
-      details: JSON.stringify(data.details),
-      ipAddress: data.ipAddress || null,
-      createdAt: new Date(),
-    });
+    // Use raw SQL to match existing DB column names (action_type vs action, etc.)
+    await db.execute(sql`
+      INSERT INTO custody_audit_logs (action_type, entity_type, entity_id, performed_by, performed_at, ip_address, details, severity, created_at)
+      VALUES (${data.action}, ${data.entityType}, ${data.entityId}, ${data.performedBy}, NOW(), ${data.ipAddress || null}, ${JSON.stringify(data.details)}::jsonb, 'info', NOW())
+    `);
     console.log(`[Audit] ${data.action}: ${data.entityType}/${data.entityId} by ${data.performedBy}`);
   } catch (error) {
     // Audit log failures should not break main operations

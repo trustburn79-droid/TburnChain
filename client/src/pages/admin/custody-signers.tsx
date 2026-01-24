@@ -190,31 +190,62 @@ export default function CustodySignersAdmin() {
   });
   const [isTestCredential, setIsTestCredential] = useState(false);
 
-  const { data: statsData, isLoading: statsLoading } = useQuery<{ success: boolean; stats: CustodyStats }>({
+  const adminQueryFn = async (url: string) => {
+    const res = await fetch(url, { credentials: "include" });
+    if (res.status === 401) {
+      return null;
+    }
+    if (!res.ok) {
+      throw new Error(`${res.status}: ${res.statusText}`);
+    }
+    return res.json();
+  };
+
+  const { data: statsData, isLoading: statsLoading } = useQuery<{ success: boolean; stats: CustodyStats } | null>({
     queryKey: ["/api/custody-admin/stats"],
+    queryFn: () => adminQueryFn("/api/custody-admin/stats"),
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    staleTime: 5000,
+    retry: 3,
+    retryDelay: 1000,
   });
 
-  const { data: signersData, isLoading: signersLoading, refetch: refetchSigners } = useQuery<{ success: boolean; signers: Signer[] }>({
+  const { data: signersData, isLoading: signersLoading, refetch: refetchSigners } = useQuery<{ success: boolean; signers: Signer[] } | null>({
     queryKey: ["/api/custody-admin/signers"],
+    queryFn: () => adminQueryFn("/api/custody-admin/signers"),
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    staleTime: 5000,
+    retry: 3,
+    retryDelay: 1000,
   });
 
-  const { data: walletsData } = useQuery<{ success: boolean; wallets: CustodyWallet[] }>({
+  const { data: walletsData } = useQuery<{ success: boolean; wallets: CustodyWallet[] } | null>({
     queryKey: ["/api/custody-admin/wallets"],
+    queryFn: () => adminQueryFn("/api/custody-admin/wallets"),
+    refetchOnMount: true,
+    staleTime: 30000,
   });
 
-  const { data: rolesData } = useQuery<{ success: boolean; roles: SignerRole[] }>({
+  const { data: rolesData } = useQuery<{ success: boolean; roles: SignerRole[] } | null>({
     queryKey: ["/api/custody-admin/signer-roles"],
+    queryFn: () => adminQueryFn("/api/custody-admin/signer-roles"),
+    refetchOnMount: true,
+    staleTime: 60000,
   });
 
   const addSignerMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      return apiRequest("POST", "/api/custody-admin/signers", data);
+      const res = await apiRequest("POST", "/api/custody-admin/signers", data);
+      return res.json();
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast({ title: "서명자 추가 완료", description: "새로운 서명자가 등록되었습니다." });
       setIsAddDialogOpen(false);
       resetForm();
-      queryClient.invalidateQueries({ queryKey: ["/api/custody-admin/signers"] });
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await refetchSigners();
       queryClient.invalidateQueries({ queryKey: ["/api/custody-admin/stats"] });
     },
     onError: (error: any) => {
