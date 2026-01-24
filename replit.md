@@ -94,17 +94,17 @@ Key architectural decisions and features include:
 ⚠️ **이 설정은 강제 적용되어 있습니다. 변경하지 마세요.**
 
 The admin portal (/admin) requires two-step authentication for enhanced security.
-Credentials are hardcoded in `server/routes.ts` (lines 119-122).
+Emails are hardcoded in `server/routes.ts` (lines 119, 121). Passwords are stored in Replit Secrets.
 
 ### 1차 인증 (First Authentication)
-- **Email**: trustburn79@gmail.com
-- **Password**: admin7979
+- **Email**: trustburn79@gmail.com (hardcoded)
+- **Password**: USER_PASSWORD (Replit Secret)
 - **Endpoint**: POST /api/auth/login
 - Sets `session.firstFactorVerified = true`
 
 ### 2차 인증 (Second Authentication)
-- **Admin Email**: tburnceo@gmail.com
-- **Admin Password**: Kk9090!@#
+- **Admin Email**: tburnceo@gmail.com (hardcoded)
+- **Admin Password**: ADMIN_PASSWORD (Replit Secret)
 - **Endpoint**: POST /api/admin/auth/verify-password
 - Requires `session.firstFactorVerified = true` from 1차 인증
 - Sets `session.adminAuthenticated = true`
