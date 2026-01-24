@@ -82,7 +82,13 @@ export async function apiRequest(
   const headers: Record<string, string> = data ? { "Content-Type": "application/json" } : {};
   
   const needsCsrf = ["POST", "PUT", "PATCH", "DELETE"].includes(method.toUpperCase());
-  if (needsCsrf && url.includes("/api/custody-admin")) {
+  // Apply CSRF token to all admin endpoints (not just custody-admin)
+  const isAdminEndpoint = url.includes("/api/admin") || 
+                          url.includes("/api/custody-admin") || 
+                          url.includes("/api/operator") ||
+                          url.includes("/api/enterprise/admin") ||
+                          url.includes("/api/memory");
+  if (needsCsrf && isAdminEndpoint) {
     const csrfToken = await getCsrfToken();
     if (csrfToken) {
       headers["x-csrf-token"] = csrfToken;
