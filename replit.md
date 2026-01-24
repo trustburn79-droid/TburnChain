@@ -90,3 +90,32 @@ Key architectural decisions and features include:
 - **Authentication**: `express-session`, `bcryptjs`
 - **Internationalization**: `react-i18next`
 - **Session Management**: `redis`, `connect-redis`
+## Two-Step Admin Authentication (2중 인증) - 2026-01-24
+The admin portal (/admin) now requires two-step authentication for enhanced security:
+
+### 1차 인증 (First Authentication)
+- **Email**: trustburn79@gmail.com
+- **Password**: Kk9090!@#
+- **Endpoint**: POST /api/auth/login
+- Users must complete this step first before accessing admin verification
+
+### 2차 인증 (Second Authentication)
+- **Admin Email**: tburnceo@gmail.com
+- **Admin Password**: Kk9090!@#
+- **Endpoint**: POST /api/admin/auth/verify-password
+- After user login, this step verifies administrator identity with different credentials
+
+### Security Features
+- Timing-safe password comparison using crypto.timingSafeEqual()
+- Session-based authentication with explicit save
+- SITE_PASSWORD fallback removed for strict two-step enforcement
+- CSRF protection for admin routes
+- Rate limiting on authentication endpoints
+
+### Authentication Flow
+1. User navigates to /admin
+2. If not logged in → Redirect to user login page
+3. User completes 1차 인증 with trustburn79@gmail.com
+4. After successful login → 2차 인증 page displayed
+5. User enters admin credentials (tburnceo@gmail.com)
+6. After successful 2차 인증 → Admin dashboard accessible
