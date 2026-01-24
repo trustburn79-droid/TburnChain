@@ -36,7 +36,7 @@ const menuTestStyles = `
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
   --border-color: rgba(255, 255, 255, 0.06);
-  --glass-bg: rgba(10, 10, 15, 0.95);
+  --glass-bg: #0a0a0f;
   --glass-border: rgba(255, 255, 255, 0.08);
   --glow-gold: rgba(249, 115, 22, 0.4);
   --glow-cyan: rgba(6, 182, 212, 0.4);
@@ -293,14 +293,13 @@ const menuTestStyles = `
 
 .menu-test-page .mega-menu {
   width: 920px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(30px);
+  background: #0a0a0f;
   border: 1px solid var(--glass-border);
   border-radius: 24px;
   padding: 0;
   overflow: hidden;
   box-shadow: 
-    0 25px 80px rgba(0, 0, 0, 0.6),
+    0 25px 80px rgba(0, 0, 0, 0.8),
     0 0 60px rgba(249, 115, 22, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   transform: translateY(10px) scale(0.98);
