@@ -363,11 +363,11 @@ const menuStyles = `
 
 .mega-menu {
   width: 920px;
-  background: #050508;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: linear-gradient(135deg, #0a2e38 0%, #0d3d4a 50%, #0f4a58 100%);
+  border: 1px solid rgba(6, 182, 212, 0.2);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 25px 80px rgba(6, 182, 212, 0.15), 0 10px 40px rgba(0, 0, 0, 0.5);
   transform: translateY(10px) scale(0.98);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -378,8 +378,8 @@ const menuStyles = `
 
 .mega-menu-header {
   padding: 0.75rem 1.25rem;
-  background: rgba(255, 255, 255, 0.02);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(6, 182, 212, 0.08);
+  border-bottom: 1px solid rgba(6, 182, 212, 0.15);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -424,8 +424,8 @@ const menuStyles = `
 }
 
 .mega-section {
-  background: rgba(255, 255, 255, 0.01);
-  border: 1px solid transparent;
+  background: rgba(6, 182, 212, 0.05);
+  border: 1px solid rgba(6, 182, 212, 0.1);
   border-radius: 12px;
   padding: 1rem;
   transition: all 0.4s ease;
@@ -451,8 +451,8 @@ const menuStyles = `
 }
 
 .mega-section:hover {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.06);
+  background: rgba(6, 182, 212, 0.12);
+  border-color: rgba(6, 182, 212, 0.25);
   transform: translateY(-3px);
 }
 
