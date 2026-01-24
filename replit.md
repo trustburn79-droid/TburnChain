@@ -95,13 +95,13 @@ The admin portal (/admin) now requires two-step authentication for enhanced secu
 
 ### 1차 인증 (First Authentication)
 - **Email**: trustburn79@gmail.com
-- **Password**: Kk9090!@#
+- **Password**: (ADMIN_PASSWORD 시크릿 참조)
 - **Endpoint**: POST /api/auth/login
 - Users must complete this step first before accessing admin verification
 
 ### 2차 인증 (Second Authentication)
 - **Admin Email**: tburnceo@gmail.com
-- **Admin Password**: Kk9090!@#
+- **Admin Password**: (ADMIN_PASSWORD 시크릿 참조)
 - **Endpoint**: POST /api/admin/auth/verify-password
 - After user login, this step verifies administrator identity with different credentials
 
