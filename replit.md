@@ -120,9 +120,9 @@ Emails are hardcoded in `server/routes.ts` (lines 119, 121). Passwords are store
 ### Authentication Flow
 1. User navigates to /admin
 2. If not logged in → Redirect to login page
-3. User completes 1차 인증 (trustburn79@gmail.com / admin7979)
+3. User completes 1차 인증 (trustburn79@gmail.com + USER_PASSWORD secret)
 4. After successful login → Redirected to /admin with 2차 인증 prompt
-5. User enters admin credentials (tburnceo@gmail.com / Kk9090!@#)
+5. User enters admin credentials (tburnceo@gmail.com + ADMIN_PASSWORD secret)
 6. After successful 2차 인증 → Admin dashboard accessible
 
 ### Code Location
