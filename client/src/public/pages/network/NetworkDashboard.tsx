@@ -178,9 +178,9 @@ export default function NetworkDashboard() {
         dailyTxs: data.totalTransactions || prev.dailyTxs,
         uptime: parseFloat(data.uptime?.replace('%', '') || '99.99'),
         finality: parseFloat(data.finality?.replace('<', '').replace('s', '') || '2.0'),
-        rpcLatency: 35 + Math.random() * 25,
-        crossShard: 90 + Math.random() * 8,
-        memEfficiency: 85 + Math.random() * 10,
+        rpcLatency: 45, // Enterprise-grade RPC latency (ms)
+        crossShard: 94, // Cross-shard efficiency (%)
+        memEfficiency: 92, // Memory efficiency (%)
         activePeers: data.nodeCount || 1247,
         peakTps: currentPeakTps,
         totalStaked: data.totalStaked || "$847.6M",
@@ -191,14 +191,16 @@ export default function NetworkDashboard() {
       // Update TPS history with real data - initialize with 60 points on first load
       setTpsHistory(prev => {
         if (prev.length === 0) {
-          // First load: Generate 60 data points with realistic variation
+          // First load: Generate 60 data points with deterministic variation
           const initialData = [];
           for (let i = 59; i >= 0; i--) {
-            const variation = (Math.random() - 0.5) * currentTps * 0.08;
+            // Use sine wave for smooth, deterministic variation
+            const variation = Math.sin(i * 0.2) * currentTps * 0.02;
+            const peakVariation = Math.cos(i * 0.15) * currentPeakTps * 0.01;
             initialData.push({
               time: `${i}s`,
               tps: Math.round(currentTps + variation),
-              peak: Math.round(currentPeakTps + (Math.random() - 0.5) * currentPeakTps * 0.05)
+              peak: Math.round(currentPeakTps + peakVariation)
             });
           }
           return initialData;
@@ -217,13 +219,16 @@ export default function NetworkDashboard() {
       setLatencyHistory(prev => {
         const baseFinality = parseFloat(data.finality?.replace('<', '').replace('s', '') || '2.0');
         if (prev.length === 0) {
-          // First load: Generate 60 data points with realistic variation
+          // First load: Generate 60 data points with stable baseline values
           const initialData = [];
           for (let i = 59; i >= 0; i--) {
+            // Use deterministic variation based on index for consistent initial display
+            const variation = Math.sin(i * 0.2) * 0.2;
+            const rpcVariation = Math.cos(i * 0.15) * 5;
             initialData.push({
               time: `${i}s`,
-              finality: baseFinality + (Math.random() - 0.5) * 0.5,
-              rpc: 35 + Math.random() * 25
+              finality: baseFinality + variation,
+              rpc: 45 + rpcVariation // Enterprise RPC latency ~45ms
             });
           }
           return initialData;
@@ -232,7 +237,7 @@ export default function NetworkDashboard() {
         const newEntry = {
           time: "0s",
           finality: baseFinality,
-          rpc: 35 + Math.random() * 25
+          rpc: 45 // Enterprise RPC latency
         };
         const updated = [...prev.slice(-59), newEntry];
         return updated.map((d, i) => ({ ...d, time: `${updated.length - 1 - i}s` }));
@@ -240,7 +245,7 @@ export default function NetworkDashboard() {
 
       setCurrentTime(formatTime());
       setLastUpdate(formatTimestamp());
-      setBlockRate(`+${1 + Math.floor(Math.random() * 3)}/s`);
+      setBlockRate("+10/s"); // 100ms block time = 10 blocks/second
     }
   }, [networkData]);
 
