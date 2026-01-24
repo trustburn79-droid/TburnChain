@@ -695,19 +695,77 @@ const menuTestStyles = `
 
 /* Hero Section */
 .menu-test-page .hero-section {
-  padding: 6rem 2rem 4rem;
+  padding: 5rem 2rem 3rem;
   text-align: center;
   position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu-test-page .live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  letter-spacing: 0.5px;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.menu-test-page .pulse-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+}
+
+.menu-test-page .pulse-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.menu-test-page .pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(6, 182, 212, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
 }
 
 .menu-test-page .hero-title {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 4rem;
+  font-family: 'Orbitron', 'Rajdhani', sans-serif;
+  font-size: 3.5rem;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.15;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, var(--text-primary), var(--accent-gold), var(--accent-cyan));
-  background-size: 200% 200%;
+  color: var(--text-primary);
+}
+
+.menu-test-page .text-gradient-animated {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-cyan), var(--accent-purple), var(--accent-gold));
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -720,157 +778,307 @@ const menuTestStyles = `
 }
 
 .menu-test-page .hero-subtitle {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto 2rem;
-  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
 }
 
 .menu-test-page .hero-buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
-  margin-bottom: 4rem;
+  flex-wrap: wrap;
 }
 
 .menu-test-page .hero-btn {
-  padding: 0.9rem 2rem;
-  border-radius: 14px;
+  padding: 1rem 2rem;
+  border-radius: 12px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .menu-test-page .hero-btn.primary {
-  background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
-  color: #000;
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  color: #fff;
   border: none;
-  box-shadow: 0 4px 25px var(--glow-gold);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
 }
 
 .menu-test-page .hero-btn.primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 40px var(--glow-gold);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
 }
 
 .menu-test-page .hero-btn.secondary {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.03);
   color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-
-.menu-test-page .hero-btn.secondary:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* Hero Stats */
-.menu-test-page .hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.menu-test-page .stat-card {
-  background: rgba(10, 10, 15, 0.6);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 1.75rem 2.5rem;
-  min-width: 180px;
-  text-align: center;
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
 }
 
-.menu-test-page .stat-card:hover {
-  border-color: rgba(249, 115, 22, 0.3);
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+.menu-test-page .hero-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Stats Section */
+.menu-test-page .stats-section {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+}
+
+.menu-test-page .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.menu-test-page .stat-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.menu-test-page .stat-card:hover,
+.menu-test-page .stat-card.highlight {
+  border-color: rgba(6, 182, 212, 0.4);
+  transform: scale(1.03);
+  box-shadow: 0 10px 40px rgba(6, 182, 212, 0.15);
 }
 
 .menu-test-page .stat-value {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Orbitron', monospace;
   font-size: 2rem;
   font-weight: 700;
-  color: var(--accent-cyan);
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .menu-test-page .stat-card:hover .stat-value {
-  color: var(--accent-gold);
-  text-shadow: 0 0 30px var(--glow-gold);
+  color: var(--accent-cyan);
 }
 
 .menu-test-page .stat-label {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Solutions Section */
+.menu-test-page .solutions-section {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+}
+
+.menu-test-page .section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.menu-test-page .section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.menu-test-page .section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+.menu-test-page .solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.menu-test-page .solution-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  display: block;
+}
+
+.menu-test-page .solution-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-5px);
+}
+
+.menu-test-page .solution-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.menu-test-page .solution-card:hover .solution-icon {
+  transform: scale(1.1);
+}
+
+.menu-test-page .solution-icon.pink {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(244, 114, 182, 0.2));
+  box-shadow: 0 8px 25px rgba(236, 72, 153, 0.2);
+  color: #ec4899;
+}
+
+.menu-test-page .solution-icon.cyan {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(34, 211, 238, 0.2));
+  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.2);
+  color: #06b6d4;
+}
+
+.menu-test-page .solution-icon.blue {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.2));
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+}
+
+.menu-test-page .solution-icon.rose {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(251, 113, 133, 0.2));
+  box-shadow: 0 8px 25px rgba(244, 63, 94, 0.2);
+  color: #f43f5e;
+}
+
+.menu-test-page .solution-icon.green {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(52, 211, 153, 0.2));
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.menu-test-page .solution-icon.purple {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(167, 139, 250, 0.2));
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+  color: #8b5cf6;
+}
+
+.menu-test-page .solution-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+.menu-test-page .solution-card:hover .solution-title {
+  color: var(--accent-cyan);
+}
+
+.menu-test-page .solution-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 /* CTA Section */
 .menu-test-page .cta-section {
-  padding: 5rem 2rem;
-  text-align: center;
-  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.06), transparent 60%);
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
 }
 
 .menu-test-page .cta-box {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 3rem;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.06), rgba(249, 115, 22, 0.06));
-  border: 1px solid var(--border-color);
+  position: relative;
+  padding: 4rem 3rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.menu-test-page .cta-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
+  pointer-events: none;
 }
 
 .menu-test-page .cta-title {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.menu-test-page .cta-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .menu-test-page .cta-buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
 }
 
 .menu-test-page .cta-btn {
-  padding: 0.8rem 1.75rem;
+  padding: 0.9rem 2rem;
   border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
 }
 
 .menu-test-page .cta-btn.primary {
-  background: var(--accent-gold);
+  background: var(--accent-cyan);
   color: #000;
   border: none;
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
 }
 
 .menu-test-page .cta-btn.primary:hover {
-  background: var(--accent-orange);
+  background: #22d3ee;
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px var(--glow-gold);
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
 }
 
 .menu-test-page .cta-btn.secondary {
   background: transparent;
   color: var(--text-primary);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .menu-test-page .cta-btn.secondary:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Footer */
@@ -1042,17 +1250,40 @@ const menuTestStyles = `
 @media (max-width: 1200px) {
   .menu-test-page .mega-menu { width: 95vw; }
   .menu-test-page .mega-menu-grid { grid-template-columns: repeat(2, 1fr); }
+  .menu-test-page .solutions-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 992px) {
   .menu-test-page .main-nav { display: none; }
   .menu-test-page .hero-title { font-size: 2.5rem; }
+  .menu-test-page .section-title { font-size: 2rem; }
   .menu-test-page .footer-main { grid-template-columns: repeat(2, 1fr); }
+  .menu-test-page .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-  .menu-test-page .hero-stats { flex-direction: column; align-items: center; }
-  .menu-test-page .stat-card { width: 100%; max-width: 300px; }
+  .menu-test-page .hero-section { padding: 3rem 1.5rem 2rem; }
+  .menu-test-page .hero-title { font-size: 2rem; }
+  .menu-test-page .hero-subtitle { font-size: 1rem; }
+  .menu-test-page .hero-buttons { flex-direction: column; align-items: center; }
+  .menu-test-page .hero-btn { width: 100%; max-width: 280px; justify-content: center; }
+  
+  .menu-test-page .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .menu-test-page .stat-card { padding: 1rem; }
+  .menu-test-page .stat-value { font-size: 1.5rem; }
+  
+  .menu-test-page .solutions-section { padding: 0 1rem; }
+  .menu-test-page .solutions-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .menu-test-page .solution-card { padding: 1.5rem; }
+  .menu-test-page .section-title { font-size: 1.75rem; }
+  .menu-test-page .section-subtitle { font-size: 0.95rem; }
+  
+  .menu-test-page .cta-section { padding: 0 1rem; }
+  .menu-test-page .cta-box { padding: 2.5rem 1.5rem; }
+  .menu-test-page .cta-title { font-size: 1.5rem; }
+  .menu-test-page .cta-buttons { flex-direction: column; align-items: center; }
+  .menu-test-page .cta-btn { width: 100%; max-width: 280px; text-align: center; }
+  
   .menu-test-page .footer-main { grid-template-columns: 1fr; gap: 2rem; }
   .menu-test-page .footer-newsletter { flex-direction: column; gap: 1rem; text-align: center; }
   .menu-test-page .newsletter-form { flex-direction: column; width: 100%; }
@@ -1439,44 +1670,122 @@ const menuTestHtml = `
 
     <!-- Hero Section -->
     <section class="hero-section">
+        <!-- Live Badge -->
+        <div class="live-badge">
+            <span class="pulse-dot"></span>
+            <span>TBURN MAINNET IS LIVE</span>
+        </div>
+        
         <h1 class="hero-title">
-            The Future of<br>AI-Powered Blockchain
+            The World's <span class="text-gradient-animated">Trust-Based</span><br>
+            AI Blockchain
         </h1>
         <p class="hero-subtitle">
-            Experience the world's fastest blockchain with 155,324 TPS, 
-            powered by advanced AI consensus and quantum-resistant security.
+            Experience next-generation blockchain technology with 155,324 TPS, 
+            powered by Triple-Band AI consensus, quantum-resistant security, 
+            and enterprise-grade reliability.
         </p>
         <div class="hero-buttons">
-            <button class="hero-btn primary">Launch App</button>
-            <button class="hero-btn secondary">Read Docs</button>
+            <a href="/scan" class="hero-btn primary">
+                <span>TBURN Scan</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="/learn/whitepaper" class="hero-btn secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                <span>Read Whitepaper</span>
+            </a>
         </div>
-        <div class="hero-stats">
-            <div class="stat-card">
-                <div class="stat-value">155,324</div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card" data-highlight="0">
+                <div class="stat-value">97,000</div>
                 <div class="stat-label">TPS</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" data-highlight="1">
+                <div class="stat-value">40.2M</div>
+                <div class="stat-label">BLOCKS</div>
+            </div>
+            <div class="stat-card" data-highlight="2">
+                <div class="stat-value">298.5M</div>
+                <div class="stat-label">DAILY TXS</div>
+            </div>
+            <div class="stat-card" data-highlight="3">
                 <div class="stat-value">99.99%</div>
-                <div class="stat-label">Uptime</div>
+                <div class="stat-label">UPTIME</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-value">24</div>
-                <div class="stat-label">Shards</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">125</div>
-                <div class="stat-label">Validators</div>
-            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions-section">
+        <div class="section-header">
+            <h2 class="section-title">Complete Blockchain Solutions</h2>
+            <p class="section-subtitle">Enterprise-grade infrastructure for the next generation of decentralized applications</p>
+        </div>
+        
+        <div class="solutions-grid">
+            <a href="/solutions/ai-features" class="solution-card">
+                <div class="solution-icon pink">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg>
+                </div>
+                <h3 class="solution-title">Triple-Band AI</h3>
+                <p class="solution-desc">Advanced consensus mechanism powered by three AI layers for ultra-fast transaction processing and intelligent network optimization</p>
+            </a>
+            
+            <a href="/solutions/token-extensions" class="solution-card">
+                <div class="solution-icon cyan">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                </div>
+                <h3 class="solution-title">Quantum Security</h3>
+                <p class="solution-desc">Future-proof cryptography with lattice-based algorithms protecting your assets against quantum computing threats</p>
+            </a>
+            
+            <a href="/solutions/defi-hub" class="solution-card">
+                <div class="solution-icon blue">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
+                </div>
+                <h3 class="solution-title">DeFi Hub</h3>
+                <p class="solution-desc">Complete suite of decentralized financial services including DEX, lending, yield farming, and cross-chain bridges</p>
+            </a>
+            
+            <a href="/use-cases/gaming" class="solution-card">
+                <div class="solution-icon rose">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></svg>
+                </div>
+                <h3 class="solution-title">GameFi Platform</h3>
+                <p class="solution-desc">High-performance gaming infrastructure with instant finality, NFT marketplace integration, and player-owned economies</p>
+            </a>
+            
+            <a href="/learn/tokenomics" class="solution-card">
+                <div class="solution-icon green">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                </div>
+                <h3 class="solution-title">Auto-Burn Mechanism</h3>
+                <p class="solution-desc">Deflationary tokenomics with automatic token burning on every transaction, ensuring long-term value appreciation</p>
+            </a>
+            
+            <a href="/solutions/cross-chain-bridge" class="solution-card">
+                <div class="solution-icon purple">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </div>
+                <h3 class="solution-title">Cross-Chain Bridge</h3>
+                <p class="solution-desc">Seamless asset transfers across multiple blockchain networks with enterprise-grade security and near-instant settlement</p>
+            </a>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="cta-box">
+            <div class="cta-glow"></div>
             <h2 class="cta-title">Ready to Build the Future?</h2>
+            <p class="cta-subtitle">Join thousands of developers building on TBURN Chain</p>
             <div class="cta-buttons">
-                <button class="cta-btn primary">Start Building</button>
-                <button class="cta-btn secondary">Contact Sales</button>
+                <a href="/learn" class="cta-btn primary">Explore Ecosystem</a>
+                <a href="/community/hub" class="cta-btn secondary">Join Community</a>
             </div>
         </div>
     </section>
