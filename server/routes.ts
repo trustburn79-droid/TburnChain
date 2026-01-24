@@ -1154,8 +1154,15 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     const { password, email } = req.body;
     
     // 1차 인증 체크를 먼저 수행 (USER_EMAIL/USER_PASSWORD 우선)
+    console.log('[Login Debug] 1차 인증 체크 시작');
+    console.log('[Login Debug] 입력된 email:', email ? email.substring(0, 5) + '***' : 'EMPTY');
+    console.log('[Login Debug] USER_EMAIL 설정됨:', USER_EMAIL ? 'YES (' + USER_EMAIL.substring(0, 5) + '***)' : 'NO (empty)');
+    console.log('[Login Debug] USER_PASSWORD 설정됨:', USER_PASSWORD ? 'YES (length: ' + USER_PASSWORD.length + ')' : 'NO (empty)');
+    
     const isUserPassword = secureCompare(password || "", USER_PASSWORD);
     const isUserEmail = secureCompare(email || "", USER_EMAIL);
+    
+    console.log('[Login Debug] isUserEmail:', isUserEmail, ', isUserPassword:', isUserPassword);
     
     if (isUserEmail && isUserPassword) {
       req.session.authenticated = true;
