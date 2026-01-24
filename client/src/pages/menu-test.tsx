@@ -36,7 +36,7 @@ const menuTestStyles = `
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
   --border-color: rgba(255, 255, 255, 0.06);
-  --glass-bg: rgba(18, 18, 28, 0.95);
+  --glass-bg: rgb(18, 18, 28);
   --glass-border: rgba(255, 255, 255, 0.08);
   --glow-gold: rgba(240, 185, 11, 0.4);
   --glow-cyan: rgba(0, 212, 170, 0.4);
@@ -54,21 +54,7 @@ const menuTestStyles = `
 }
 
 .menu-test-page .bg-stars {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(2px 2px at 20px 30px, rgba(0, 212, 170, 0.2), transparent),
-    radial-gradient(2px 2px at 40px 70px, rgba(240, 185, 11, 0.15), transparent),
-    radial-gradient(1px 1px at 90px 40px, rgba(139, 92, 246, 0.25), transparent),
-    radial-gradient(2px 2px at 130px 80px, rgba(0, 212, 170, 0.15), transparent);
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.2;
+  display: none;
 }
 
 .menu-test-page .container {
@@ -92,7 +78,7 @@ const menuTestStyles = `
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(6, 6, 11, 0.97);
+  background: rgb(6, 6, 11);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-color);
 }
