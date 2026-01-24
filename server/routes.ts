@@ -1917,8 +1917,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     const { email, password } = req.body;
     
     // Step 1: Verify user is already logged in (1차 인증 필요)
-    if (!req.session.user) {
-      console.warn('[Admin Auth] verify-password called without user session');
+    // Accept either req.session.user (1차 인증 path) or req.session.memberId (member login path)
+    if (!req.session.user && !req.session.memberId) {
+      console.warn('[Admin Auth] verify-password called without user session or memberId');
       return res.status(401).json({ 
         error: "먼저 사용자 로그인이 필요합니다.", 
         code: "USER_AUTH_REQUIRED" 
