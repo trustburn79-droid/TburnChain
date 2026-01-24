@@ -95,6 +95,8 @@ export default function ApiDocs() {
     { id: "rate-limits", label: t("apiDocs.sidebar.rateLimits", "Rate Limits"), icon: Clock },
     { id: "pagination", label: "Pagination", icon: Filter },
     { id: "error-codes", label: "Error Codes", icon: AlertTriangle },
+    { section: "PUBLIC API" },
+    { id: "public-tps", label: "TPS (Public)", icon: Zap },
     { section: t("apiDocs.sidebar.endpoints", "ENDPOINTS") },
     { id: "block", label: t("apiDocs.sidebar.block", "Block"), icon: Box },
     { id: "transaction", label: t("apiDocs.sidebar.transaction", "Transaction"), icon: Activity },
@@ -537,6 +539,96 @@ curl -X POST https://mainnet.tburn.io/api/v8/transactions/send \\
                         <span><strong>Monitor headers</strong> - Check X-RateLimit-Remaining and throttle before hitting limits.</span>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Public TPS API Section */}
+              <section id="public-tps" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <Zap className="w-8 h-8 text-[#ffd700]" /> Public TPS API
+                </h2>
+                
+                <div className="bg-gradient-to-r from-[#ffd700]/10 to-[#00ff9d]/10 border border-[#ffd700]/20 rounded-xl p-6 mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Globe className="w-5 h-5 text-[#ffd700]" />
+                    <span className="text-[#ffd700] font-semibold">Open Access API</span>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    This public API requires <strong>no authentication</strong> and is designed for external websites to display TBURN network statistics. 
+                    CORS is enabled for all domains to support ecosystem development.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  {/* GET /api/public/v1/tps */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/api/public/v1/tps</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      Returns real-time TPS (Transactions Per Second) and network statistics. Optimized for external website integration.
+                    </p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                      <div className="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4">
+                        <div className="text-sm text-gray-500 mb-1">Rate Limit</div>
+                        <div className="text-lg font-bold text-gray-900 dark:text-white">60 req/min</div>
+                      </div>
+                      <div className="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4">
+                        <div className="text-sm text-gray-500 mb-1">Cache TTL</div>
+                        <div className="text-lg font-bold text-gray-900 dark:text-white">30 seconds</div>
+                      </div>
+                      <div className="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-4">
+                        <div className="text-sm text-gray-500 mb-1">Auth Required</div>
+                        <div className="text-lg font-bold text-[#00ff9d]">No</div>
+                      </div>
+                    </div>
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "tps": 155324,
+    "blocks": 45929351,
+    "dailyTxs": 6428339717,
+    "uptime": "99.99%",
+    "timestamp": "2026-01-25T00:15:00.000Z",
+    "network": "mainnet"
+  }
+}`} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mt-6 mb-3">Response Headers</h4>
+                    <ParamTable params={[
+                      { name: "X-RateLimit-Limit", type: "number", desc: "Maximum requests per minute (60)" },
+                      { name: "X-RateLimit-Remaining", type: "number", desc: "Remaining requests in current window" },
+                      { name: "X-RateLimit-Reset", type: "number", desc: "Seconds until rate limit resets" },
+                      { name: "X-Cache", type: "string", desc: "HIT or MISS - indicates cache status" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mt-6 mb-3">Usage Example</h4>
+                    <CodeBlock language="javascript" code={`// Fetch TPS data from external website
+async function getTBurnTPS() {
+  const response = await fetch('https://tburn-blockchain-mainnet-explorer.replit.app/api/public/v1/tps');
+  const json = await response.json();
+  
+  if (json.success) {
+    console.log('Current TPS:', json.data.tps);
+    console.log('Block Height:', json.data.blocks);
+  }
+}
+
+// Update every 30 seconds
+getTBurnTPS();
+setInterval(getTBurnTPS, 30000);`} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mt-6 mb-3">Rate Limit Error (429)</h4>
+                    <CodeBlock code={`{
+  "success": false,
+  "error": "Rate limit exceeded",
+  "retryAfter": 45
+}`} />
                   </div>
                 </div>
               </section>
