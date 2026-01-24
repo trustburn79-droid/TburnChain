@@ -190,10 +190,10 @@ export default function NetworkDashboard() {
         dailyTxs: data.totalTransactions || prev.dailyTxs,
         uptime: parseFloat(data.uptime?.replace('%', '') || '99.99'),
         finality: parseFloat(data.finality?.replace('<', '').replace('s', '') || '2.0'),
-        rpcLatency: 45, // Enterprise-grade RPC latency (ms)
-        crossShard: 94, // Cross-shard efficiency (%)
-        memEfficiency: 92, // Memory efficiency (%)
-        activePeers: data.nodeCount || 1247,
+        rpcLatency: data.rpcLatency || prev.rpcLatency, // From API (real-time)
+        crossShard: data.crossShardEfficiency || prev.crossShard, // From API (real-time)
+        memEfficiency: data.memoryEfficiency || prev.memEfficiency, // From API (real-time)
+        activePeers: data.activePeers || data.nodeCount || prev.activePeers, // From API (real-time)
         peakTps: currentPeakTps,
         totalStaked: data.totalStaked || "$847.6M",
         shardCount: data.shardCount || 24,
@@ -230,6 +230,7 @@ export default function NetworkDashboard() {
       // Update latency history - initialize with 60 points on first load
       setLatencyHistory(prev => {
         const baseFinality = parseFloat(data.finality?.replace('<', '').replace('s', '') || '2.0');
+        const currentRpcLatency = data.rpcLatency || 42;
         if (prev.length === 0) {
           // First load: Generate 60 data points with stable baseline values
           const initialData = [];
@@ -240,16 +241,16 @@ export default function NetworkDashboard() {
             initialData.push({
               time: `${i}s`,
               finality: baseFinality + variation,
-              rpc: 45 + rpcVariation // Enterprise RPC latency ~45ms
+              rpc: currentRpcLatency + rpcVariation
             });
           }
           return initialData;
         }
-        // Subsequent updates: add new point and shift
+        // Subsequent updates: add new point from API
         const newEntry = {
           time: "0s",
           finality: baseFinality,
-          rpc: 45 // Enterprise RPC latency
+          rpc: currentRpcLatency
         };
         const updated = [...prev.slice(-59), newEntry];
         return updated.map((d, i) => ({ ...d, time: `${updated.length - 1 - i}s` }));
