@@ -455,7 +455,7 @@ const menuTestStyles = `
 }
 
 .menu-test-page .mega-link {
-  font-size: 0.9rem;
+  font-size: 0.84rem;
   color: var(--text-secondary);
   padding: 0.5rem 0.75rem;
   margin: 0 -0.75rem;
