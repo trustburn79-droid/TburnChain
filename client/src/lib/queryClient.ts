@@ -4,6 +4,36 @@ import { QueryClient, QueryFunction } from "@tanstack/react-query";
 let consecutiveServerErrors = 0;
 const MAX_CONSECUTIVE_ERRORS_BEFORE_REFRESH = 5;
 
+// ★ CSRF Token Management
+let cachedCsrfToken: string | null = null;
+let csrfTokenFetchPromise: Promise<string | null> | null = null;
+
+async function fetchCsrfToken(): Promise<string | null> {
+  try {
+    const res = await fetch("/api/csrf", { credentials: "include" });
+    if (res.ok) {
+      const data = await res.json();
+      cachedCsrfToken = data.token;
+      return data.token;
+    }
+  } catch {
+  }
+  return null;
+}
+
+async function getCsrfToken(): Promise<string | null> {
+  if (cachedCsrfToken) return cachedCsrfToken;
+  if (csrfTokenFetchPromise) return csrfTokenFetchPromise;
+  csrfTokenFetchPromise = fetchCsrfToken();
+  const token = await csrfTokenFetchPromise;
+  csrfTokenFetchPromise = null;
+  return token;
+}
+
+export function invalidateCsrfToken(): void {
+  cachedCsrfToken = null;
+}
+
 class ServiceInitializingError extends Error {
   constructor(message: string) {
     super(message);
@@ -48,12 +78,29 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
+  const headers: Record<string, string> = data ? { "Content-Type": "application/json" } : {};
+  
+  const needsCsrf = ["POST", "PUT", "PATCH", "DELETE"].includes(method.toUpperCase());
+  if (needsCsrf && url.includes("/api/custody-admin")) {
+    const csrfToken = await getCsrfToken();
+    if (csrfToken) {
+      headers["x-csrf-token"] = csrfToken;
+    }
+  }
+  
   const res = await fetch(url, {
     method,
-    headers: data ? { "Content-Type": "application/json" } : {},
+    headers,
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
   });
+
+  if (res.status === 403 && needsCsrf) {
+    const text = await res.clone().text();
+    if (text.includes("CSRF")) {
+      invalidateCsrfToken();
+    }
+  }
 
   await throwIfResNotOk(res);
   return res;
