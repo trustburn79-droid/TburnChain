@@ -147,6 +147,12 @@ export default function NetworkDashboard() {
   const [tpsHistory, setTpsHistory] = useState<{ time: string; tps: number; peak: number }[]>([]);
   const [latencyHistory, setLatencyHistory] = useState<{ time: string; finality: number; rpc: number }[]>([]);
 
+  // Consensus animation state
+  const [consensusPhase, setConsensusPhase] = useState(0); // 0-4 for 5 phases
+  const [phaseProgress, setPhaseProgress] = useState(0); // 0-100 for current phase progress
+  const [prevoteCount, setPrevoteCount] = useState({ current: 89, total: 95 });
+  const [precommitCount, setPrecommitCount] = useState({ current: 85, total: 95 });
+
   // Fetch network stats from real API (1 second updates for real-time feel)
   const { data: networkData, refetch: refetchNetwork } = useQuery({
     queryKey: ["/api/public/v1/network/stats"],
@@ -291,6 +297,58 @@ export default function NetworkDashboard() {
   }, [validatorsData]);
 
   const activeValidatorCount = validators.filter(v => v.status === "active").length;
+
+  // Consensus round animation - cycles through phases every 100ms (simulating 100ms block time)
+  useEffect(() => {
+    const phaseInterval = setInterval(() => {
+      setPhaseProgress(prev => {
+        const newProgress = prev + 5; // 5% per tick = 20 ticks per phase
+        if (newProgress >= 100) {
+          // Move to next phase
+          setConsensusPhase(p => (p + 1) % 5);
+          return 0;
+        }
+        return newProgress;
+      });
+    }, 100); // Update every 100ms for smooth animation
+
+    return () => clearInterval(phaseInterval);
+  }, []);
+
+  // Vote count animation - simulates votes coming in
+  useEffect(() => {
+    const voteInterval = setInterval(() => {
+      // Animate prevote count
+      setPrevoteCount(prev => {
+        const target = prev.total;
+        const variation = Math.sin(Date.now() / 500) * 3;
+        const newCurrent = Math.max(target - 6, Math.min(target, Math.round(target - 2 + variation)));
+        return { ...prev, current: newCurrent };
+      });
+      
+      // Animate precommit count
+      setPrecommitCount(prev => {
+        const target = prev.total;
+        const variation = Math.cos(Date.now() / 600) * 4;
+        const newCurrent = Math.max(target - 8, Math.min(target - 1, Math.round(target - 4 + variation)));
+        return { ...prev, current: newCurrent };
+      });
+    }, 200);
+
+    return () => clearInterval(voteInterval);
+  }, []);
+
+  // Compute phase statuses based on current phase
+  const phases = useMemo(() => [
+    { num: 1, label: 'Propose', time: '20ms', status: consensusPhase > 0 ? 'completed' : consensusPhase === 0 ? 'active' : 'pending' },
+    { num: 2, label: 'Pre-vote', time: '20ms', status: consensusPhase > 1 ? 'completed' : consensusPhase === 1 ? 'active' : 'pending' },
+    { num: 3, label: 'Pre-commit', time: '20ms', status: consensusPhase > 2 ? 'completed' : consensusPhase === 2 ? 'active' : 'pending' },
+    { num: 4, label: 'Commit', time: '20ms', status: consensusPhase > 3 ? 'completed' : consensusPhase === 3 ? 'active' : 'pending' },
+    { num: 5, label: 'Finalize', time: '20ms', status: consensusPhase === 4 ? 'active' : 'pending' }
+  ], [consensusPhase]);
+
+  const activePhaseLabel = phases[consensusPhase]?.label || 'Propose';
+  const completedPhasesCount = consensusPhase;
 
   return (
     <div className="min-h-screen font-['Rajdhani'] text-white overflow-x-hidden" style={{ background: "#030308" }}>
@@ -717,23 +775,17 @@ export default function NetworkDashboard() {
                   Current Round #{state.blockHeight.toLocaleString()} In Progress
                 </div>
                 <div className="text-xs text-[#a1a1aa]">
-                  Phase: Commit | 3 of 5 phases completed | Target: 100ms
+                  Phase: {activePhaseLabel} | {completedPhasesCount} of 5 phases completed | Target: 100ms
                 </div>
               </div>
             </div>
 
             {/* Phase Cards */}
             <div className="grid grid-cols-5 gap-3 relative">
-              {[
-                { num: 1, label: 'Propose', time: '20ms', status: 'completed' },
-                { num: 2, label: 'Pre-vote', time: '20ms', status: 'completed' },
-                { num: 3, label: 'Pre-commit', time: '20ms', status: 'completed' },
-                { num: 4, label: 'Commit', time: '20ms', status: 'active' },
-                { num: 5, label: 'Finalize', time: '20ms', status: 'pending' }
-              ].map((phase) => (
+              {phases.map((phase) => (
                 <div 
                   key={phase.num}
-                  className={`relative p-4 rounded-xl text-center transition-all overflow-hidden ${
+                  className={`relative p-4 rounded-xl text-center transition-all duration-200 overflow-hidden ${
                     phase.status === 'completed' 
                       ? 'bg-[rgba(34,197,94,0.15)] border border-[rgba(34,197,94,0.3)]' 
                       : phase.status === 'active'
@@ -743,7 +795,7 @@ export default function NetworkDashboard() {
                 >
                   <div className="flex justify-center mb-2">
                     {phase.status === 'completed' ? (
-                      <Check className={`w-5 h-5 ${phase.status === 'completed' ? 'text-[#22c55e]' : 'text-white'}`} />
+                      <Check className="w-5 h-5 text-[#22c55e]" />
                     ) : phase.status === 'active' ? (
                       <Clock className="w-5 h-5 text-white animate-pulse" />
                     ) : (
@@ -755,7 +807,10 @@ export default function NetworkDashboard() {
                   </div>
                   <div className={`text-xs ${phase.status === 'active' ? 'text-white/80' : 'text-[#6b7280]'}`}>{phase.time}</div>
                   {phase.status === 'active' && (
-                    <div className="absolute bottom-0 left-0 h-1 bg-white/30 animate-pulse" style={{ width: '60%' }} />
+                    <div 
+                      className="absolute bottom-0 left-0 h-1 bg-white/50 transition-all duration-100" 
+                      style={{ width: `${phaseProgress}%` }} 
+                    />
                   )}
                 </div>
               ))}
@@ -779,31 +834,37 @@ export default function NetworkDashboard() {
                   <div className="flex justify-between mb-2">
                     <span className="text-sm font-semibold text-white">Pre-Votes (2f+1 required)</span>
                     <span className="text-sm font-semibold text-[#22c55e] flex items-center gap-1">
-                      93/95 <Check className="w-4 h-4" />
+                      {prevoteCount.current}/{prevoteCount.total} {prevoteCount.current >= 64 && <Check className="w-4 h-4" />}
                     </span>
                   </div>
                   <div className="h-8 bg-[rgba(255,255,255,0.05)] rounded-lg overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-[#f97316] to-[#fb923c] rounded-lg transition-all duration-500"
-                      style={{ width: '97.9%' }}
+                      className="h-full bg-gradient-to-r from-[#f97316] to-[#fb923c] rounded-lg transition-all duration-200"
+                      style={{ width: `${(prevoteCount.current / prevoteCount.total) * 100}%` }}
                     />
                   </div>
-                  <div className="text-center mt-2 text-sm text-[#a1a1aa]">97.9% (0 more needed)</div>
+                  <div className="text-center mt-2 text-sm text-[#a1a1aa]">
+                    {((prevoteCount.current / prevoteCount.total) * 100).toFixed(1)}% ({Math.max(0, 64 - prevoteCount.current)} more needed)
+                  </div>
                 </div>
 
                 {/* Pre-Commits Progress */}
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="text-sm font-semibold text-white">Pre-Commits (2f+1 required)</span>
-                    <span className="text-sm font-semibold text-[#3b82f6]">91/95</span>
+                    <span className="text-sm font-semibold text-[#3b82f6]">
+                      {precommitCount.current}/{precommitCount.total}
+                    </span>
                   </div>
                   <div className="h-8 bg-[rgba(255,255,255,0.05)] rounded-lg overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-[#f97316] to-[#fb923c] rounded-lg transition-all duration-500"
-                      style={{ width: '95.8%' }}
+                      className="h-full bg-gradient-to-r from-[#f97316] to-[#fb923c] rounded-lg transition-all duration-200"
+                      style={{ width: `${(precommitCount.current / precommitCount.total) * 100}%` }}
                     />
                   </div>
-                  <div className="text-center mt-2 text-sm text-[#3b82f6]">95.8% (0 more needed)</div>
+                  <div className="text-center mt-2 text-sm text-[#3b82f6]">
+                    {((precommitCount.current / precommitCount.total) * 100).toFixed(1)}% ({Math.max(0, 64 - precommitCount.current)} more needed)
+                  </div>
                 </div>
 
                 {/* Round Info */}
@@ -811,7 +872,7 @@ export default function NetworkDashboard() {
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                       <div className="text-[#6b7280] mb-1">Total Validators</div>
-                      <div className="font-bold text-white">{state.activeValidators} validators</div>
+                      <div className="font-bold text-white">{prevoteCount.total} validators</div>
                     </div>
                     <div>
                       <div className="text-[#6b7280] mb-1">Quorum (2f+1)</div>
