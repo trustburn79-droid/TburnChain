@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
-import { ChevronDown, Search, Bell, Globe } from 'lucide-react';
-import { TBurnLogo } from "@/components/tburn-logo";
+import { useEffect } from 'react';
 
 export default function MenuTest() {
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
-
   useEffect(() => {
     const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
     
@@ -16,947 +12,1478 @@ export default function MenuTest() {
     };
   }, []);
 
-  const menuStructure = [
-    {
-      key: "explore",
-      title: "Explore",
-      sections: [
-        {
-          title: "Blockchain",
-          items: [
-            { title: "TBurn Scan", href: "/scan", badge: "Core" },
-            { title: "Transactions", href: "/transactions" },
-            { title: "Blocks", href: "/blocks" },
-            { title: "Accounts", href: "/accounts" },
-          ],
-        },
-        {
-          title: "Network",
-          items: [
-            { title: "Validators", href: "/validators", badge: "Core" },
-            { title: "Staking", href: "/staking" },
-            { title: "Governance", href: "/governance" },
-            { title: "Node Map", href: "/node-map" },
-          ],
-        },
-        {
-          title: "Assets",
-          items: [
-            { title: "TBURN Token", href: "/token" },
-            { title: "Bridge", href: "/bridge", badge: "Core" },
-            { title: "Token List", href: "/tokens" },
-            { title: "NFT Gallery", href: "/nft" },
-          ],
-        },
-        {
-          title: "DeFi Hub",
-          items: [
-            { title: "Swap", href: "/swap", badge: "New" },
-            { title: "Liquidity Pools", href: "/pools" },
-            { title: "Yield Farming", href: "/farming" },
-            { title: "Analytics", href: "/analytics" },
-          ],
-        },
-      ],
-    },
-    {
-      key: "build",
-      title: "Build",
-      sections: [
-        {
-          title: "Start Building",
-          items: [
-            { title: "Documentation", href: "/docs" },
-            { title: "Quick Start", href: "/quickstart", badge: "Hot" },
-            { title: "Tutorials", href: "/tutorials" },
-            { title: "Examples", href: "/examples" },
-          ],
-        },
-        {
-          title: "APIs & SDKs",
-          items: [
-            { title: "REST API", href: "/api" },
-            { title: "GraphQL", href: "/graphql", badge: "New" },
-            { title: "WebSocket", href: "/websocket" },
-            { title: "SDK Libraries", href: "/sdk" },
-          ],
-        },
-        {
-          title: "Resources",
-          items: [
-            { title: "RPC Endpoints", href: "/rpc", badge: "Core" },
-            { title: "Faucet", href: "/faucet" },
-            { title: "Testnet", href: "/testnet" },
-            { title: "Status Page", href: "/status" },
-          ],
-        },
-        {
-          title: "Tooling",
-          items: [
-            { title: "CLI Tools", href: "/cli" },
-            { title: "Smart Contracts", href: "/contracts" },
-            { title: "Debugging", href: "/debug" },
-            { title: "GitHub", href: "/github" },
-          ],
-        },
-      ],
-    },
-    {
-      key: "community",
-      title: "Community",
-      highlight: true,
-      sections: [
-        {
-          title: "Social",
-          items: [
-            { title: "Discord", href: "/discord" },
-            { title: "Telegram", href: "/telegram" },
-            { title: "Twitter", href: "/twitter" },
-            { title: "Forum", href: "/forum" },
-          ],
-        },
-        {
-          title: "Events",
-          items: [
-            { title: "Upcoming Events", href: "/events" },
-            { title: "Hackathons", href: "/hackathons", badge: "New" },
-            { title: "Meetups", href: "/meetups" },
-            { title: "Webinars", href: "/webinars" },
-          ],
-        },
-        {
-          title: "Programs",
-          items: [
-            { title: "Ambassador", href: "/ambassador", badge: "New" },
-            { title: "Grants", href: "/grants" },
-            { title: "Bug Bounty", href: "/bounty" },
-            { title: "Partners", href: "/partners" },
-          ],
-        },
-      ],
-    },
-    {
-      key: "more",
-      title: "More",
-      sections: [
-        {
-          title: "About",
-          items: [
-            { title: "About Us", href: "/about" },
-            { title: "Team", href: "/team" },
-            { title: "Careers", href: "/careers", badge: "Hiring" },
-            { title: "Press Kit", href: "/press" },
-          ],
-        },
-        {
-          title: "Legal",
-          items: [
-            { title: "Terms of Service", href: "/terms" },
-            { title: "Privacy Policy", href: "/privacy" },
-            { title: "Cookie Policy", href: "/cookies" },
-            { title: "Disclaimers", href: "/disclaimers" },
-          ],
-        },
-      ],
-    },
-  ];
-
   return (
-    <div className="menu-test-wrapper">
-      <style>{menuTestStyles}</style>
-      
-      {/* Announcement Bar */}
-      <div className="menu-announcement">
-        <span className="menu-announcement-icon">🎉</span>
-        TBURN Mainnet is LIVE! 155,324 TPS achieved with 99.99% uptime.
-        <a href="#" className="menu-announcement-link">Learn more →</a>
-      </div>
-      
-      {/* Navigation */}
-      <nav className="menu-nav">
-        <div className="menu-nav-content">
-          {/* Logo */}
-          <a href="/" className="menu-logo">
-            <div className="menu-logo-icon">
-              <TBurnLogo className="w-10 h-10" />
-            </div>
-            <span className="menu-logo-text">
-              TBurn <span className="menu-logo-chain">Chain</span>
-            </span>
-          </a>
-
-          {/* Navigation Items */}
-          <div className="menu-nav-items">
-            {menuStructure.map((menu) => (
-              <div
-                key={menu.key}
-                className="menu-nav-item-wrapper"
-                onMouseEnter={() => setActiveMenu(menu.key)}
-                onMouseLeave={() => setActiveMenu(null)}
-              >
-                <button
-                  className={`menu-nav-button ${menu.highlight ? 'highlight' : ''} ${activeMenu === menu.key ? 'active' : ''}`}
-                  data-testid={`menu-${menu.key}`}
-                >
-                  {menu.title}
-                  <ChevronDown className={`menu-chevron ${activeMenu === menu.key ? 'rotated' : ''}`} />
-                </button>
-
-                {activeMenu === menu.key && (
-                  <div className="menu-dropdown-wrapper">
-                    <div className={`menu-dropdown ${menu.sections.length <= 2 ? 'compact' : ''}`}>
-                      <div className="menu-dropdown-grid" style={{ gridTemplateColumns: `repeat(${Math.min(menu.sections.length, 4)}, 1fr)` }}>
-                        {menu.sections.map((section) => (
-                          <div key={section.title} className="menu-dropdown-section">
-                            <div className="menu-section-title">{section.title}</div>
-                            <div className="menu-section-items">
-                              {section.items.map((item) => (
-                                <a
-                                  key={item.href}
-                                  href={item.href}
-                                  className="menu-dropdown-item"
-                                  data-testid={`link-${item.href.replace(/\//g, '-').slice(1)}`}
-                                >
-                                  <span className="menu-item-title">{item.title}</span>
-                                  {item.badge && (
-                                    <span className={`menu-badge ${item.badge.toLowerCase()}`}>
-                                      {item.badge}
-                                    </span>
-                                  )}
-                                </a>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Right Side */}
-          <div className="menu-nav-right">
-            <button className="menu-icon-btn" data-testid="button-search">
-              <Search className="w-5 h-5" />
-            </button>
-            <button className="menu-icon-btn" data-testid="button-notifications">
-              <Bell className="w-5 h-5" />
-            </button>
-            <button className="menu-lang-btn" data-testid="button-language">
-              <Globe className="w-5 h-5" />
-              <span>EN</span>
-              <ChevronDown className="w-3 h-3" />
-            </button>
-            <button className="menu-connect-btn" data-testid="button-connect-wallet">
-              Connect Wallet
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="menu-hero">
-        <h1 className="menu-hero-title">
-          The Future of<br />
-          <span className="menu-hero-gradient">AI-Powered Blockchain</span>
-        </h1>
-        <p className="menu-hero-subtitle">
-          Experience the world's fastest blockchain with 155,324 TPS, 
-          powered by advanced AI consensus and quantum-resistant security.
-        </p>
-        <div className="menu-hero-buttons">
-          <button className="menu-btn-primary">Launch App</button>
-          <button className="menu-btn-secondary">Read Docs</button>
-        </div>
-        <div className="menu-hero-stats">
-          <div className="menu-stat-card">
-            <div className="menu-stat-value">155,324</div>
-            <div className="menu-stat-label">TPS</div>
-          </div>
-          <div className="menu-stat-card">
-            <div className="menu-stat-value">99.99%</div>
-            <div className="menu-stat-label">Uptime</div>
-          </div>
-          <div className="menu-stat-card">
-            <div className="menu-stat-value">24</div>
-            <div className="menu-stat-label">Shards</div>
-          </div>
-          <div className="menu-stat-card">
-            <div className="menu-stat-value">125</div>
-            <div className="menu-stat-label">Validators</div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="menu-cta">
-        <div className="menu-cta-box">
-          <h2 className="menu-cta-title">Ready to Build the Future?</h2>
-          <div className="menu-cta-buttons">
-            <button className="menu-btn-primary">Start Building</button>
-            <button className="menu-btn-secondary">Contact Sales</button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="menu-footer">
-        <div className="menu-footer-main">
-          <div className="menu-footer-brand">
-            <div className="menu-footer-logo">
-              <div className="menu-footer-logo-icon">
-                <TBurnLogo className="w-8 h-8" />
-              </div>
-              <span className="menu-footer-logo-text">TBurn Chain</span>
-            </div>
-            <p className="menu-footer-desc">
-              The world's fastest AI-powered blockchain. Building the future of decentralized finance with quantum-resistant security.
-            </p>
-          </div>
-          <div className="menu-footer-column">
-            <h4>Explore</h4>
-            <div className="menu-footer-links">
-              <a href="/scan">TBurn Scan</a>
-              <a href="/validators">Validators</a>
-              <a href="/governance">Governance</a>
-              <a href="/bridge">Bridge</a>
-            </div>
-          </div>
-          <div className="menu-footer-column">
-            <h4>Build</h4>
-            <div className="menu-footer-links">
-              <a href="/docs">Documentation</a>
-              <a href="/api">API Reference</a>
-              <a href="/github">GitHub</a>
-              <a href="/faucet">Faucet</a>
-            </div>
-          </div>
-          <div className="menu-footer-column">
-            <h4>Community</h4>
-            <div className="menu-footer-links">
-              <a href="/discord">Discord</a>
-              <a href="/telegram">Telegram</a>
-              <a href="/ambassador">Ambassador</a>
-              <a href="/events">Events</a>
-            </div>
-          </div>
-          <div className="menu-footer-column">
-            <h4>Company</h4>
-            <div className="menu-footer-links">
-              <a href="/about">About</a>
-              <a href="/careers">Careers</a>
-              <a href="/press">Press</a>
-              <a href="/contact">Contact</a>
-            </div>
-          </div>
-        </div>
-        <div className="menu-footer-bottom">
-          <div className="menu-footer-copyright">© 2026 TBurn Chain. All rights reserved.</div>
-          <div className="menu-footer-legal">
-            <a href="/terms">Terms</a>
-            <a href="/privacy">Privacy</a>
-            <a href="/cookies">Cookies</a>
-          </div>
-        </div>
-      </footer>
-    </div>
+    <div 
+      className="menu-test-page"
+      dangerouslySetInnerHTML={{ __html: menuTestHtml }}
+    />
   );
 }
 
 const menuTestStyles = `
-.menu-test-wrapper {
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #030407;
-  color: #f5f5f5;
-  min-height: 100vh;
+:root {
+  --bg-primary: #030407;
+  --bg-secondary: #0a0a0f;
+  --bg-card: #121218;
+  --bg-hover: #1a1a22;
+  --accent-gold: #f97316;
+  --accent-orange: #ea580c;
+  --accent-cyan: #06b6d4;
+  --accent-purple: #8b5cf6;
+  --accent-blue: #3b82f6;
+  --accent-pink: #ec4899;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --border-color: rgba(255, 255, 255, 0.06);
+  --glass-bg: rgba(10, 10, 15, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glow-gold: rgba(249, 115, 22, 0.4);
+  --glow-cyan: rgba(6, 182, 212, 0.4);
+  --glow-purple: rgba(139, 92, 246, 0.4);
 }
 
-/* Announcement Bar */
-.menu-announcement {
-  background: linear-gradient(90deg, rgba(249, 115, 22, 0.08), rgba(6, 182, 212, 0.08));
+.menu-test-page * { margin: 0; padding: 0; box-sizing: border-box; }
+
+.menu-test-page {
+  font-family: 'Inter', 'Rajdhani', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.menu-test-page .bg-stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(2px 2px at 20px 30px, rgba(249, 115, 22, 0.3), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(6, 182, 212, 0.2), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(139, 92, 246, 0.3), transparent),
+    radial-gradient(2px 2px at 130px 80px, rgba(249, 115, 22, 0.2), transparent);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.menu-test-page .container {
+  position: relative;
+  z-index: 1;
+}
+
+.menu-test-page .announcement-bar {
+  background: linear-gradient(90deg, rgba(249, 115, 22, 0.08), rgba(139, 92, 246, 0.06), rgba(6, 182, 212, 0.08));
   padding: 0.6rem 1rem;
   text-align: center;
   font-size: 0.85rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: #a1a1aa;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.menu-announcement-icon {
-  margin-right: 0.5rem;
-}
+.menu-test-page .announcement-bar span { color: var(--accent-gold); margin-right: 0.5rem; }
+.menu-test-page .announcement-bar a { color: var(--accent-cyan); text-decoration: none; margin-left: 0.5rem; }
+.menu-test-page .announcement-bar a:hover { text-decoration: underline; }
 
-.menu-announcement-link {
-  color: #06b6d4;
-  text-decoration: none;
-  margin-left: 0.5rem;
-}
-
-.menu-announcement-link:hover {
-  text-decoration: underline;
-}
-
-/* Navigation */
-.menu-nav {
+.menu-test-page .main-header {
   position: sticky;
   top: 0;
-  z-index: 50;
-  background: rgba(3, 4, 7, 0.85);
+  z-index: 1000;
+  background: rgba(3, 4, 7, 0.9);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border-color);
 }
 
-.menu-nav-content {
+.menu-test-page .header-content {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
-  height: 72px;
+  padding: 0.75rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* Logo */
-.menu-logo {
+.menu-test-page .logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   text-decoration: none;
-  cursor: pointer;
 }
 
-.menu-logo:hover .menu-logo-icon {
-  transform: scale(1.1);
-}
-
-.menu-logo-icon {
-  transition: transform 0.3s ease;
-}
-
-.menu-logo-text {
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: white;
-  letter-spacing: -0.02em;
-}
-
-.menu-logo-chain {
-  color: #00f0ff;
-  font-weight: 300;
-}
-
-/* Navigation Items */
-.menu-nav-items {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.menu-nav-item-wrapper {
-  position: relative;
-}
-
-.menu-nav-button {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #a1a1aa;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  border-radius: 0.5rem;
-}
-
-.menu-nav-button:hover,
-.menu-nav-button.active {
-  color: white;
-}
-
-.menu-nav-button.highlight {
-  padding: 0.375rem 1rem;
-  border-radius: 9999px;
-  background: linear-gradient(135deg, #7c3aed, #06b6d4);
-  color: white;
-}
-
-.menu-nav-button.highlight:hover {
-  opacity: 0.9;
-}
-
-.menu-chevron {
-  width: 1rem;
-  height: 1rem;
-  transition: transform 0.2s ease;
-}
-
-.menu-chevron.rotated {
-  transform: rotate(180deg);
-}
-
-/* Dropdown */
-.menu-dropdown-wrapper {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 100%;
-  padding-top: 0.5rem;
-  z-index: 50;
-}
-
-.menu-dropdown {
-  min-width: 600px;
-  padding: 1.25rem;
-  background: rgba(10, 10, 15, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0.75rem;
-  box-shadow: 
-    0 4px 30px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.menu-dropdown.compact {
-  min-width: 400px;
-}
-
-.menu-dropdown-grid {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.menu-dropdown-section {
-  min-width: 0;
-}
-
-.menu-section-title {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #71717a;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.75rem;
-  padding-left: 0.5rem;
-}
-
-.menu-section-items {
-  display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
-}
-
-.menu-dropdown-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem;
-  border-radius: 0.375rem;
-  text-decoration: none;
-  transition: all 0.15s ease;
-}
-
-.menu-dropdown-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.menu-item-title {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #e5e5e5;
-}
-
-.menu-dropdown-item:hover .menu-item-title {
-  color: white;
-}
-
-.menu-badge {
-  font-size: 0.6rem;
-  font-weight: 600;
-  padding: 0.125rem 0.375rem;
-  border-radius: 0.25rem;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
-}
-
-.menu-badge.core {
-  background: rgba(249, 115, 22, 0.15);
-  color: #f97316;
-}
-
-.menu-badge.new {
-  background: rgba(6, 182, 212, 0.15);
-  color: #06b6d4;
-}
-
-.menu-badge.hot {
-  background: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-}
-
-.menu-badge.hiring {
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-}
-
-/* Right Side */
-.menu-nav-right {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.menu-icon-btn {
+.menu-test-page .logo-icon {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: transparent;
-  border: none;
-  color: #a1a1aa;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  border-radius: 0.5rem;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 20px var(--glow-gold);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.menu-icon-btn:hover {
-  color: white;
+.menu-test-page .logo:hover .logo-icon {
+  transform: rotate(-10deg) scale(1.05);
+  box-shadow: 0 6px 30px var(--glow-gold);
 }
 
-.menu-lang-btn {
+.menu-test-page .logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.menu-test-page .logo-text .t { color: var(--accent-gold); }
+.menu-test-page .logo-text .burn { color: var(--text-primary); }
+.menu-test-page .logo-text .chain { color: var(--accent-cyan); }
+
+.menu-test-page .main-nav {
   display: flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.5rem 0.75rem;
-  background: transparent;
-  border: none;
-  color: #a1a1aa;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  font-size: 0.75rem;
+  gap: 0.25rem;
+}
+
+.menu-test-page .nav-item {
+  position: relative;
+  padding: 0.7rem 1.25rem;
+  font-size: 0.95rem;
   font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.menu-test-page .nav-item:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.menu-test-page .nav-item .arrow {
+  font-size: 0.65rem;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-test-page .nav-item:hover .arrow {
+  transform: rotate(180deg);
+}
+
+.menu-test-page .nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-cyan));
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.menu-test-page .nav-item:hover::after {
+  width: calc(100% - 2rem);
+}
+
+.menu-test-page .header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.menu-test-page .header-icon-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.menu-test-page .header-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.menu-test-page .lang-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.menu-test-page .lang-selector:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+.menu-test-page .connect-wallet-btn {
+  padding: 0.65rem 1.4rem;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px var(--glow-gold);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-test-page .connect-wallet-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.menu-test-page .connect-wallet-btn:hover::before {
+  left: 100%;
+}
+
+.menu-test-page .connect-wallet-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--glow-gold);
+}
+
+/* MEGA MENU */
+.menu-test-page .mega-menu-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-top: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.menu-test-page .nav-item:hover .mega-menu-wrapper {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-test-page .mega-menu {
+  width: 920px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(30px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 
+    0 25px 80px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(249, 115, 22, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transform: translateY(10px) scale(0.98);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-test-page .nav-item:hover .mega-menu {
+  transform: translateY(0) scale(1);
+}
+
+.menu-test-page .mega-menu-header {
+  padding: 1.25rem 1.75rem;
+  background: linear-gradient(90deg, rgba(249, 115, 22, 0.08), rgba(139, 92, 246, 0.06), rgba(6, 182, 212, 0.08));
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-test-page .mega-menu-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.menu-test-page .mega-menu-title .icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.menu-test-page .mega-menu-badge {
+  font-size: 0.7rem;
+  padding: 0.3rem 0.7rem;
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--accent-cyan);
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.menu-test-page .mega-menu-body {
+  padding: 1.5rem;
+}
+
+.menu-test-page .mega-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.menu-test-page .mega-section {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: 1.25rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: sectionFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.menu-test-page .nav-item:hover .mega-section:nth-child(1) { animation-delay: 0.05s; }
+.menu-test-page .nav-item:hover .mega-section:nth-child(2) { animation-delay: 0.1s; }
+.menu-test-page .nav-item:hover .mega-section:nth-child(3) { animation-delay: 0.15s; }
+.menu-test-page .nav-item:hover .mega-section:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes sectionFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-test-page .mega-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-cyan));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-test-page .mega-section:hover::before {
+  transform: scaleX(1);
+}
+
+.menu-test-page .mega-section:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.menu-test-page .mega-section-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-test-page .mega-section:hover .mega-section-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.menu-test-page .mega-section-icon.gold { 
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2)); 
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.2);
+}
+.menu-test-page .mega-section-icon.cyan { 
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(8, 145, 178, 0.2)); 
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.2);
+}
+.menu-test-page .mega-section-icon.purple { 
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.2)); 
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
+}
+.menu-test-page .mega-section-icon.pink { 
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(244, 114, 182, 0.2)); 
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.2);
+}
+
+.menu-test-page .mega-section-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.9rem;
+}
+
+.menu-test-page .mega-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.menu-test-page .mega-link {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding: 0.5rem 0.75rem;
+  margin: 0 -0.75rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+.menu-test-page .mega-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: var(--accent-gold);
+  border-radius: 2px;
+  transition: height 0.3s ease;
+}
+
+.menu-test-page .mega-link:hover::before {
+  height: 60%;
+}
+
+.menu-test-page .mega-link:hover {
+  color: var(--text-primary);
+  background: rgba(249, 115, 22, 0.08);
+  padding-left: 1rem;
+}
+
+.menu-test-page .mega-link .arrow-icon {
+  margin-left: auto;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+}
+
+.menu-test-page .mega-link:hover .arrow-icon {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menu-test-page .badge {
+  font-size: 0.6rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
-.menu-lang-btn:hover {
-  color: white;
+.menu-test-page .badge.core { 
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2)); 
+  color: var(--accent-gold); 
+}
+.menu-test-page .badge.new { 
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(8, 145, 178, 0.2)); 
+  color: var(--accent-cyan);
+  animation: pulse-badge 2s infinite;
+}
+.menu-test-page .badge.hot { 
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(248, 113, 113, 0.2)); 
+  color: #ef4444; 
 }
 
-.menu-connect-btn {
-  padding: 0.5rem 1.5rem;
-  background: transparent;
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  border-radius: 0.5rem;
-  color: #06b6d4;
-  font-size: 0.875rem;
+@keyframes pulse-badge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Quick Access */
+.menu-test-page .mega-quick-access {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  opacity: 0;
+  transform: translateY(15px);
+  animation: quickFadeIn 0.5s 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes quickFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-test-page .mega-quick-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.menu-test-page .mega-quick-label .icon {
+  color: var(--accent-gold);
+  animation: flash 2s infinite;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.menu-test-page .mega-quick-items {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.menu-test-page .mega-quick-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-test-page .mega-quick-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-cyan));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.menu-test-page .mega-quick-btn:hover::before {
+  opacity: 0.1;
+}
+
+.menu-test-page .mega-quick-btn:hover {
+  border-color: var(--accent-gold);
+  color: var(--text-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(249, 115, 22, 0.15);
+}
+
+.menu-test-page .mega-quick-btn .icon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.menu-test-page .mega-quick-btn:hover .icon {
+  transform: scale(1.2);
+}
+
+/* Featured Section */
+.menu-test-page .mega-featured {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(249, 115, 22, 0.08));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0;
+  animation: featuredFadeIn 0.5s 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes featuredFadeIn {
+  to { opacity: 1; }
+}
+
+.menu-test-page .mega-featured-text {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.menu-test-page .mega-featured-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.menu-test-page .mega-featured-info h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.menu-test-page .mega-featured-info p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.menu-test-page .mega-featured-btn {
+  padding: 0.6rem 1.2rem;
+  background: var(--accent-gold);
+  color: #000;
+  border-radius: 10px;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+  transition: all 0.3s ease;
 }
 
-.menu-connect-btn:hover {
-  background: rgba(6, 182, 212, 0.1);
+.menu-test-page .mega-featured-btn:hover {
+  background: var(--accent-orange);
+  transform: translateY(-2px);
 }
 
 /* Hero Section */
-.menu-hero {
-  padding: 6rem 2rem;
+.menu-test-page .hero-section {
+  padding: 6rem 2rem 4rem;
   text-align: center;
-  max-width: 1280px;
-  margin: 0 auto;
+  position: relative;
 }
 
-.menu-hero-title {
-  font-size: 3.5rem;
+.menu-test-page .hero-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 4rem;
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.03em;
-}
-
-.menu-hero-gradient {
-  background: linear-gradient(135deg, #00f0ff 0%, #7000ff 50%, #00f0ff 100%);
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-gold), var(--accent-cyan));
   background-size: 200% 200%;
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradient-shift 3s ease infinite;
+  background-clip: text;
+  animation: gradientShift 5s ease infinite;
 }
 
-@keyframes gradient-shift {
+@keyframes gradientShift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
 
-.menu-hero-subtitle {
-  font-size: 1.125rem;
-  color: #a1a1aa;
+.menu-test-page .hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
   max-width: 600px;
-  margin: 0 auto 3rem;
-  line-height: 1.6;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
 }
 
-.menu-hero-buttons {
+.menu-test-page .hero-buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
   margin-bottom: 4rem;
 }
 
-.menu-btn-primary {
-  padding: 0.75rem 2rem;
-  background: linear-gradient(135deg, #f97316, #ea580c);
-  color: white;
+.menu-test-page .hero-btn {
+  padding: 0.9rem 2rem;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.menu-test-page .hero-btn.primary {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+  color: #000;
   border: none;
-  border-radius: 0.5rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
+  box-shadow: 0 4px 25px var(--glow-gold);
 }
 
-.menu-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(249, 115, 22, 0.4);
+.menu-test-page .hero-btn.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px var(--glow-gold);
 }
 
-.menu-btn-secondary {
-  padding: 0.75rem 2rem;
+.menu-test-page .hero-btn.secondary {
   background: transparent;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
-.menu-btn-secondary:hover {
+.menu-test-page .hero-btn.secondary:hover {
   background: rgba(255, 255, 255, 0.05);
 }
 
-/* Stats */
-.menu-hero-stats {
+/* Hero Stats */
+.menu-test-page .hero-stats {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 2rem;
   flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.menu-stat-card {
+.menu-test-page .stat-card {
   background: rgba(10, 10, 15, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 0.75rem;
-  padding: 1.5rem 2rem;
-  min-width: 140px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 1.75rem 2.5rem;
+  min-width: 180px;
   text-align: center;
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
-.menu-stat-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(6, 182, 212, 0.3);
+.menu-test-page .stat-card:hover {
+  border-color: rgba(249, 115, 22, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
-.menu-stat-value {
-  font-size: 1.75rem;
+.menu-test-page .stat-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
   font-weight: 700;
-  color: #06b6d4;
-  margin-bottom: 0.25rem;
-  letter-spacing: -0.02em;
+  color: var(--accent-cyan);
+  margin-bottom: 0.5rem;
 }
 
-.menu-stat-card:hover .menu-stat-value {
-  text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+.menu-test-page .stat-card:hover .stat-value {
+  color: var(--accent-gold);
+  text-shadow: 0 0 30px var(--glow-gold);
 }
 
-.menu-stat-label {
-  font-size: 0.875rem;
-  color: #71717a;
+.menu-test-page .stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
 /* CTA Section */
-.menu-cta {
-  padding: 4rem 2rem;
-}
-
-.menu-cta-box {
-  max-width: 800px;
-  margin: 0 auto;
+.menu-test-page .cta-section {
+  padding: 5rem 2rem;
   text-align: center;
-  padding: 3rem;
-  background: rgba(10, 10, 15, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 1rem;
+  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.06), transparent 60%);
 }
 
-.menu-cta-title {
+.menu-test-page .cta-box {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 3rem;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.06), rgba(249, 115, 22, 0.06));
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+}
+
+.menu-test-page .cta-title {
+  font-family: 'Rajdhani', sans-serif;
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
 }
 
-.menu-cta-buttons {
+.menu-test-page .cta-buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
 }
 
-/* Footer */
-.menu-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 4rem 2rem 2rem;
+.menu-test-page .cta-btn {
+  padding: 0.8rem 1.75rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
 }
 
-.menu-footer-main {
+.menu-test-page .cta-btn.primary {
+  background: var(--accent-gold);
+  color: #000;
+  border: none;
+}
+
+.menu-test-page .cta-btn.primary:hover {
+  background: var(--accent-orange);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px var(--glow-gold);
+}
+
+.menu-test-page .cta-btn.secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.menu-test-page .cta-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Footer */
+.menu-test-page .footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+.menu-test-page .footer-main {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 4rem 2rem;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
   gap: 3rem;
-  padding-bottom: 3rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.menu-footer-brand {
-  max-width: 280px;
+.menu-test-page .footer-brand { padding-right: 2rem; }
+
+.menu-test-page .footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-.menu-footer-logo {
+.menu-test-page .footer-logo-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-test-page .footer-logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.menu-test-page .footer-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.menu-test-page .footer-social {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.menu-test-page .social-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.menu-test-page .social-icon:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-3px);
+}
+
+.menu-test-page .footer-column h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
 }
 
-.menu-footer-logo-text {
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.menu-footer-desc {
-  font-size: 0.875rem;
-  color: #71717a;
-  line-height: 1.6;
-}
-
-.menu-footer-column h4 {
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #f5f5f5;
-}
-
-.menu-footer-links {
+.menu-test-page .footer-links {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
-.menu-footer-links a {
-  font-size: 0.875rem;
-  color: #71717a;
-  text-decoration: none;
-  transition: color 0.2s ease;
+.menu-test-page .footer-link {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
-.menu-footer-links a:hover {
-  color: #f5f5f5;
-}
+.menu-test-page .footer-link:hover { color: var(--accent-gold); }
 
-.menu-footer-bottom {
+.menu-test-page .footer-newsletter {
   max-width: 1400px;
   margin: 0 auto;
-  padding-top: 2rem;
+  padding: 2rem;
+  border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.menu-footer-copyright {
-  font-size: 0.875rem;
-  color: #71717a;
+.menu-test-page .newsletter-text h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+.menu-test-page .newsletter-text p { font-size: 0.85rem; color: var(--text-muted); }
+
+.menu-test-page .newsletter-form { display: flex; gap: 0.75rem; }
+
+.menu-test-page .newsletter-input {
+  padding: 0.7rem 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  width: 280px;
 }
 
-.menu-footer-legal {
+.menu-test-page .newsletter-input::placeholder { color: var(--text-muted); }
+
+.menu-test-page .newsletter-btn {
+  padding: 0.7rem 1.5rem;
+  background: var(--accent-gold);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.menu-test-page .newsletter-btn:hover {
+  background: var(--accent-orange);
+  transform: translateY(-2px);
+}
+
+.menu-test-page .footer-bottom {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border-color);
   display: flex;
-  gap: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.menu-footer-legal a {
-  font-size: 0.875rem;
-  color: #71717a;
-  text-decoration: none;
+.menu-test-page .footer-copyright { font-size: 0.8rem; color: var(--text-muted); }
+
+.menu-test-page .footer-quick-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+.menu-test-page .footer-quick-link {
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
-.menu-footer-legal a:hover {
-  color: #f5f5f5;
-}
+.menu-test-page .footer-quick-link:hover { color: var(--accent-cyan); }
+
+.menu-test-page .footer-legal { display: flex; gap: 1.5rem; }
+.menu-test-page .footer-legal a { font-size: 0.8rem; color: var(--text-muted); text-decoration: none; }
+.menu-test-page .footer-legal a:hover { color: var(--text-secondary); }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .menu-nav-items {
-    display: none;
-  }
-  
-  .menu-hero-title {
-    font-size: 2.5rem;
-  }
-  
-  .menu-footer-main {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  
-  .menu-footer-brand {
-    grid-column: 1 / -1;
-    max-width: none;
-  }
+@media (max-width: 1200px) {
+  .menu-test-page .mega-menu { width: 95vw; }
+  .menu-test-page .mega-menu-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 640px) {
-  .menu-hero-stats {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .menu-stat-card {
-    width: 100%;
-    max-width: 280px;
-  }
-  
-  .menu-hero-buttons,
-  .menu-cta-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .menu-btn-primary,
-  .menu-btn-secondary {
-    width: 100%;
-    max-width: 280px;
-  }
-  
-  .menu-footer-main {
-    grid-template-columns: 1fr;
-  }
-  
-  .menu-footer-bottom {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
+@media (max-width: 992px) {
+  .menu-test-page .main-nav { display: none; }
+  .menu-test-page .hero-title { font-size: 2.5rem; }
+  .menu-test-page .footer-main { grid-template-columns: repeat(2, 1fr); }
 }
+
+@media (max-width: 768px) {
+  .menu-test-page .hero-stats { flex-direction: column; align-items: center; }
+  .menu-test-page .stat-card { width: 100%; max-width: 300px; }
+  .menu-test-page .footer-main { grid-template-columns: 1fr; gap: 2rem; }
+  .menu-test-page .footer-newsletter { flex-direction: column; gap: 1rem; text-align: center; }
+  .menu-test-page .newsletter-form { flex-direction: column; width: 100%; }
+  .menu-test-page .newsletter-input { width: 100%; }
+  .menu-test-page .footer-bottom { flex-direction: column; text-align: center; }
+}
+`;
+
+const menuTestHtml = `
+<style>${menuTestStyles}</style>
+<div class="bg-stars"></div>
+
+<div class="container">
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        <span>🎉</span>
+        TBURN Mainnet is LIVE! 155,324 TPS achieved with 99.99% uptime.
+        <a href="#">Learn more →</a>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <div class="logo-icon">🔥</div>
+                <div class="logo-text">
+                    <span class="t">T</span><span class="burn">Burn</span> <span class="chain">Chain</span>
+                </div>
+            </a>
+
+            <!-- Main Navigation -->
+            <nav class="main-nav">
+                <!-- Explore Menu -->
+                <div class="nav-item">
+                    Explore <span class="arrow">▾</span>
+                    <div class="mega-menu-wrapper">
+                        <div class="mega-menu">
+                            <div class="mega-menu-header">
+                                <div class="mega-menu-title">
+                                    <span class="icon">🔍</span>
+                                    Explore TBurn Chain
+                                </div>
+                                <div class="mega-menu-badge">Mainnet Live</div>
+                            </div>
+                            <div class="mega-menu-body">
+                                <div class="mega-menu-grid">
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon gold">🔍</div>
+                                        <div class="mega-section-title">Blockchain</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">TBurn Scan <span class="badge core">Core</span> <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Transactions <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Blocks <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Accounts <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon cyan">📊</div>
+                                        <div class="mega-section-title">Network</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">Validators <span class="badge core">Core</span> <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Staking <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Governance <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Node Map <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon purple">💰</div>
+                                        <div class="mega-section-title">Assets</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">TBURN Token <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Bridge <span class="badge core">Core</span> <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Token List <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">NFT Gallery <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon pink">📈</div>
+                                        <div class="mega-section-title">DeFi Hub</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">DEX <span class="badge hot">Hot</span> <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Lending <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Yield Farming <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">NFT Marketplace <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mega-quick-access">
+                                    <div class="mega-quick-label"><span class="icon">⚡</span> Quick Access</div>
+                                    <div class="mega-quick-items">
+                                        <div class="mega-quick-btn"><span class="icon">🔍</span> TBurn Scan</div>
+                                        <div class="mega-quick-btn"><span class="icon">📊</span> Validators</div>
+                                        <div class="mega-quick-btn"><span class="icon">🔗</span> Bridge</div>
+                                        <div class="mega-quick-btn"><span class="icon">📡</span> RPC Endpoint</div>
+                                        <div class="mega-quick-btn"><span class="icon">🗳️</span> Governance</div>
+                                    </div>
+                                </div>
+
+                                <div class="mega-featured">
+                                    <div class="mega-featured-text">
+                                        <div class="mega-featured-icon">🚀</div>
+                                        <div class="mega-featured-info">
+                                            <h4>155,324 TPS Achieved!</h4>
+                                            <p>World's fastest AI-powered blockchain is live</p>
+                                        </div>
+                                    </div>
+                                    <div class="mega-featured-btn">View Stats →</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Build Menu -->
+                <div class="nav-item">
+                    Build <span class="arrow">▾</span>
+                    <div class="mega-menu-wrapper">
+                        <div class="mega-menu">
+                            <div class="mega-menu-header">
+                                <div class="mega-menu-title">
+                                    <span class="icon">🛠️</span>
+                                    Build on TBurn
+                                </div>
+                                <div class="mega-menu-badge">Developer Portal</div>
+                            </div>
+                            <div class="mega-menu-body">
+                                <div class="mega-menu-grid">
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon gold">📖</div>
+                                        <div class="mega-section-title">Documentation</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">Getting Started <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">API Reference <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">SDK Guide <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Smart Contracts <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon cyan">🛠️</div>
+                                        <div class="mega-section-title">Developer Tools</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">RPC Endpoints <span class="badge core">Core</span> <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">WebSocket API <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">CLI Tools <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">GitHub <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon purple">🧪</div>
+                                        <div class="mega-section-title">Testnet</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">Faucet <span class="badge new">New</span> <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Testnet Scan <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Testnet RPC <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Deploy Guide <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon pink">🎓</div>
+                                        <div class="mega-section-title">Resources</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">Whitepaper <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Tokenomics <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Roadmap <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Education <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mega-quick-access">
+                                    <div class="mega-quick-label"><span class="icon">⚡</span> Quick Access</div>
+                                    <div class="mega-quick-items">
+                                        <div class="mega-quick-btn"><span class="icon">💧</span> Faucet</div>
+                                        <div class="mega-quick-btn"><span class="icon">📡</span> Testnet RPC</div>
+                                        <div class="mega-quick-btn"><span class="icon">📄</span> API Docs</div>
+                                        <div class="mega-quick-btn"><span class="icon">🐙</span> GitHub</div>
+                                    </div>
+                                </div>
+
+                                <div class="mega-featured">
+                                    <div class="mega-featured-text">
+                                        <div class="mega-featured-icon">🧠</div>
+                                        <div class="mega-featured-info">
+                                            <h4>AI Smart Contract Templates</h4>
+                                            <p>Deploy intelligent contracts in minutes</p>
+                                        </div>
+                                    </div>
+                                    <div class="mega-featured-btn">Get Started →</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Menu -->
+                <div class="nav-item">
+                    Community <span class="arrow">▾</span>
+                    <div class="mega-menu-wrapper">
+                        <div class="mega-menu" style="width: 720px;">
+                            <div class="mega-menu-header">
+                                <div class="mega-menu-title">
+                                    <span class="icon">👥</span>
+                                    Join Our Community
+                                </div>
+                                <div class="mega-menu-badge">50K+ Members</div>
+                            </div>
+                            <div class="mega-menu-body">
+                                <div class="mega-menu-grid" style="grid-template-columns: repeat(3, 1fr);">
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon gold">💬</div>
+                                        <div class="mega-section-title">Social</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">Discord <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Telegram <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Twitter <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Reddit <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon cyan">📅</div>
+                                        <div class="mega-section-title">Events</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">Upcoming Events <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Hackathons <span class="badge new">New</span> <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Meetups <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Webinars <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon purple">🏆</div>
+                                        <div class="mega-section-title">Programs</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">Ambassador <span class="badge new">New</span> <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Grants <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Bug Bounty <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Partners <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mega-featured">
+                                    <div class="mega-featured-text">
+                                        <div class="mega-featured-icon">🎯</div>
+                                        <div class="mega-featured-info">
+                                            <h4>Ambassador Program Open!</h4>
+                                            <p>Join our global community leaders</p>
+                                        </div>
+                                    </div>
+                                    <div class="mega-featured-btn">Apply Now →</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More Menu -->
+                <div class="nav-item">
+                    More <span class="arrow">▾</span>
+                    <div class="mega-menu-wrapper">
+                        <div class="mega-menu" style="width: 500px;">
+                            <div class="mega-menu-header">
+                                <div class="mega-menu-title">
+                                    <span class="icon">🔗</span>
+                                    More Resources
+                                </div>
+                            </div>
+                            <div class="mega-menu-body">
+                                <div class="mega-menu-grid" style="grid-template-columns: repeat(2, 1fr);">
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon gold">🏢</div>
+                                        <div class="mega-section-title">About</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">About Us <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Team <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Careers <span class="badge new">Hiring</span> <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Press Kit <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mega-section">
+                                        <div class="mega-section-icon cyan">📜</div>
+                                        <div class="mega-section-title">Legal</div>
+                                        <div class="mega-links">
+                                            <div class="mega-link">Terms of Service <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Privacy Policy <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Cookie Policy <span class="arrow-icon">→</span></div>
+                                            <div class="mega-link">Disclaimers <span class="arrow-icon">→</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Header Right -->
+            <div class="header-right">
+                <div class="header-icon-btn">🔔</div>
+                <div class="header-icon-btn">🔍</div>
+                <div class="lang-selector">🌐 EN ▾</div>
+                <button class="connect-wallet-btn">Connect Wallet</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">
+            The Future of<br>AI-Powered Blockchain
+        </h1>
+        <p class="hero-subtitle">
+            Experience the world's fastest blockchain with 155,324 TPS, 
+            powered by advanced AI consensus and quantum-resistant security.
+        </p>
+        <div class="hero-buttons">
+            <button class="hero-btn primary">Launch App</button>
+            <button class="hero-btn secondary">Read Docs</button>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-value">155,324</div>
+                <div class="stat-label">TPS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">99.99%</div>
+                <div class="stat-label">Uptime</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">24</div>
+                <div class="stat-label">Shards</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">125</div>
+                <div class="stat-label">Validators</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <h2 class="cta-title">Ready to Build the Future?</h2>
+            <div class="cta-buttons">
+                <button class="cta-btn primary">Start Building</button>
+                <button class="cta-btn secondary">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">🔥</div>
+                    <div class="footer-logo-text">TBurn Chain</div>
+                </div>
+                <p class="footer-desc">
+                    The world's fastest AI-powered blockchain. Building the future of decentralized finance with quantum-resistant security.
+                </p>
+                <div class="footer-social">
+                    <div class="social-icon">𝕏</div>
+                    <div class="social-icon">💬</div>
+                    <div class="social-icon">💾</div>
+                    <div class="social-icon">✉️</div>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>🔍 Explore</h4>
+                <div class="footer-links">
+                    <div class="footer-link">TBurn Scan</div>
+                    <div class="footer-link">Validators</div>
+                    <div class="footer-link">Governance</div>
+                    <div class="footer-link">Bridge</div>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>🛠️ Build</h4>
+                <div class="footer-links">
+                    <div class="footer-link">Documentation</div>
+                    <div class="footer-link">API Reference</div>
+                    <div class="footer-link">GitHub</div>
+                    <div class="footer-link">Faucet</div>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>👥 Community</h4>
+                <div class="footer-links">
+                    <div class="footer-link">Discord</div>
+                    <div class="footer-link">Telegram</div>
+                    <div class="footer-link">Ambassador</div>
+                    <div class="footer-link">Events</div>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>🏢 Company</h4>
+                <div class="footer-links">
+                    <div class="footer-link">About</div>
+                    <div class="footer-link">Careers</div>
+                    <div class="footer-link">Press</div>
+                    <div class="footer-link">Contact</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-newsletter">
+            <div class="newsletter-text">
+                <h4>Subscribe to our newsletter</h4>
+                <p>Get the latest updates and news directly to your inbox</p>
+            </div>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Enter your email" />
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copyright">© 2026 TBurn Chain. All rights reserved.</div>
+            <div class="footer-quick-links">
+                <div class="footer-quick-link">Status</div>
+                <div class="footer-quick-link">Support</div>
+                <div class="footer-quick-link">Blog</div>
+            </div>
+            <div class="footer-legal">
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+                <a href="#">Cookies</a>
+            </div>
+        </div>
+    </footer>
+</div>
 `;
