@@ -4,7 +4,7 @@ import { AdminPortalSidebar } from "@/components/admin-portal-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSelector } from "@/components/language-selector";
 import { ProfileBadge } from "@/components/profile-badge";
-import { Shield, Loader2, Lock, AlertCircle } from "lucide-react";
+import { Shield, Loader2, Lock, AlertCircle, Mail } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -268,6 +268,7 @@ interface AdminPasswordPromptProps {
 
 function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPromptProps) {
   const { t } = useTranslation();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -277,25 +278,16 @@ function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPr
     setError("");
     setIsLoading(true);
 
-
     try {
-      const response = await apiRequest("POST", "/api/admin/auth/verify-password", { password });
+      const response = await apiRequest("POST", "/api/admin/auth/login", { email, password });
       
       if (response.ok) {
-        // Invalidate and refetch instead of optimistic update for security
         await queryClient.invalidateQueries({ queryKey: ["/api/admin/auth/check"] });
+        await queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
         onSuccess();
       } else {
         const data = await response.json().catch(() => ({}));
-        
-        // Handle USER_AUTH_REQUIRED - user session expired, force re-login
-        if (data.code === "USER_AUTH_REQUIRED") {
-          queryClient.invalidateQueries({ queryKey: ["/api/auth/check"] });
-          onLogout();
-          return;
-        }
-        
-        setError(data.error || t("admin.auth.invalidPassword", "관리자 비밀번호가 올바르지 않습니다."));
+        setError(data.error || t("admin.auth.invalidCredentials", "이메일 또는 비밀번호가 올바르지 않습니다."));
         setPassword("");
       }
     } catch (err) {
@@ -320,18 +312,11 @@ function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPr
               {t("admin.auth.adminVerification", "관리자 인증")}
             </CardTitle>
             <CardDescription className="mt-2">
-              {t("admin.auth.step2Description", "관리자 포털에 접근하려면 관리자 비밀번호를 입력하세요.")}
+              {t("admin.auth.loginDescription", "관리자 이메일과 비밀번호를 입력하세요.")}
             </CardDescription>
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="p-3 rounded-lg bg-muted/50 border">
-            <p className="text-sm text-muted-foreground">
-              {t("admin.auth.loggedInAs", "로그인 계정")}:
-            </p>
-            <p className="font-medium text-foreground">{userEmail}</p>
-          </div>
-
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <Alert variant="destructive">
@@ -339,6 +324,26 @@ function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPr
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
+
+            <div className="space-y-2">
+              <Label htmlFor="admin-email">
+                {t("admin.auth.adminEmail", "관리자 이메일")}
+              </Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="admin-email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t("admin.auth.enterAdminEmail", "관리자 이메일을 입력하세요")}
+                  className="pl-10"
+                  disabled={isLoading}
+                  autoFocus
+                  data-testid="input-admin-email"
+                />
+              </div>
+            </div>
 
             <div className="space-y-2">
               <Label htmlFor="admin-password">
@@ -354,7 +359,6 @@ function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPr
                   placeholder={t("admin.auth.enterAdminPassword", "관리자 비밀번호를 입력하세요")}
                   className="pl-10"
                   disabled={isLoading}
-                  autoFocus
                   data-testid="input-admin-password"
                 />
               </div>
@@ -363,7 +367,7 @@ function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPr
             <Button
               type="submit"
               className="w-full"
-              disabled={isLoading || !password}
+              disabled={isLoading || !email || !password}
               data-testid="button-verify-admin"
             >
               {isLoading ? (
@@ -379,18 +383,8 @@ function AdminPasswordPrompt({ userEmail, onSuccess, onLogout }: AdminPasswordPr
               )}
             </Button>
           </form>
-
-          <div className="pt-4 border-t">
-            <Button
-              variant="ghost"
-              className="w-full text-muted-foreground"
-              onClick={onLogout}
-              data-testid="button-logout-from-admin"
-            >
-              {t("admin.auth.useAnotherAccount", "다른 계정으로 로그인")}
-            </Button>
-          </div>
         </CardContent>
+
       </Card>
     </div>
   );

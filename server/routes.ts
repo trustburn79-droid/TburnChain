@@ -1854,39 +1854,36 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   // Admin Portal Authentication (Separate from /app)
   // ============================================
-  // Two-step admin auth: Step 1 + Step 2 combined (legacy endpoint, now requires user session)
+  // Direct admin login with email and password
   app.post("/api/admin/auth/login", loginLimiter, (req, res) => {
     const { email, password } = req.body;
     
-    // SECURITY: Two-step auth enforcement - user must be logged in first
-    if (!req.session.user) {
-      console.warn('[Admin Auth] /api/admin/auth/login called without user session - two-step auth required');
-      return res.status(401).json({ 
-        error: "사용자 로그인이 필요합니다. 먼저 로그인 후 관리자 인증을 진행하세요.", 
-        code: "USER_AUTH_REQUIRED" 
-      });
-    }
-    
     if (!ADMIN_PASSWORD || !ADMIN_EMAIL) {
       console.error('[Admin Auth] ADMIN_PASSWORD or ADMIN_EMAIL not configured');
-      return res.status(503).json({ error: "Admin authentication not configured" });
+      return res.status(503).json({ error: "관리자 인증이 설정되지 않았습니다." });
+    }
+    
+    if (!email || !password) {
+      return res.status(400).json({ error: "이메일과 비밀번호를 입력해주세요." });
     }
     
     if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      // Set both user session and admin authentication
+      req.session.user = { email, isAdmin: true };
       req.session.adminAuthenticated = true;
       
       // Explicitly save session before responding to ensure persistence
       req.session.save((err) => {
         if (err) {
           console.error('[Admin Auth] Session save error:', err);
-          return res.status(503).json({ error: "Failed to save session" });
+          return res.status(503).json({ error: "세션 저장에 실패했습니다." });
         }
-        console.log('[Admin Auth] Admin login successful for user:', req.session.user?.email, 'session:', req.sessionID);
+        console.log('[Admin Auth] Admin login successful:', email, 'session:', req.sessionID);
         res.json({ success: true });
       });
     } else {
-      console.warn('[Admin Auth] Invalid admin credentials attempt by user:', req.session.user?.email);
-      res.status(401).json({ error: "Invalid admin credentials" });
+      console.warn('[Admin Auth] Invalid admin credentials attempt for email:', email);
+      res.status(401).json({ error: "이메일 또는 비밀번호가 올바르지 않습니다." });
     }
   });
 
