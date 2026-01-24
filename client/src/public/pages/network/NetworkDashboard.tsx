@@ -228,10 +228,9 @@ export default function NetworkDashboard() {
   const totalValidators = consensusData?.totalValidators || 95;
   const requiredQuorum = consensusData?.requiredQuorum || 64;
   
-  // Real-time animated metrics state
+  // Real-time animated metrics state (Performance Metrics section only)
+  // Vote counts come directly from API with 50ms polling (same as /app/consensus)
   const [animatedMetrics, setAnimatedMetrics] = useState({
-    prevoteCurrent: 0,
-    precommitCurrent: 0,
     successRate: 99.8,
     avgBlockTime: 100,
     failedRounds: 2296,
@@ -241,28 +240,16 @@ export default function NetworkDashboard() {
     finalityTime: 2.0
   });
   
-  // Animate metrics in real-time using deterministic time-based calculations (NO Math.random)
-  // All variations are derived from Date.now() using sine/cosine waves for reproducible animations
+  // Animate Performance Metrics using deterministic time-based calculations
+  // Vote counts are NOT animated here - they come directly from API (50ms polling)
   useEffect(() => {
     const animationInterval = setInterval(() => {
       const now = Date.now();
-      const basePrevote = consensusData?.prevoteCount || 85;
-      const basePrecommit = consensusData?.precommitCount || 80;
       const baseSuccessRate = consensusData?.participationRate || 99.7;
       const baseAvgTime = consensusData?.avgBlockTimeMs || 100;
       const baseQuorum = consensusData?.requiredQuorum || 67;
       
-      // Deterministic pseudo-random using time-based hash
-      const timeHash = Math.sin(now * 0.001) * 10000;
-      const deterministicVariation = (timeHash - Math.floor(timeHash)); // 0-1 range, deterministic
-      
       setAnimatedMetrics(prev => ({
-        // Prevote: fluctuates around API value ±5 using sine wave
-        prevoteCurrent: Math.max(60, Math.min(totalValidators, 
-          Math.round(basePrevote + Math.sin(now / 400) * 5))),
-        // Precommit: fluctuates around API value ±6 using cosine wave
-        precommitCurrent: Math.max(55, Math.min(totalValidators - 1, 
-          Math.round(basePrecommit + Math.cos(now / 500) * 6))),
         // Success Rate: deterministic fluctuation using combined sine waves
         successRate: baseSuccessRate + Math.sin(now / 3000) * 0.2 + Math.cos(now / 1500) * 0.1,
         // Avg Block Time: 98-102ms using sine wave
@@ -281,14 +268,15 @@ export default function NetworkDashboard() {
     }, 200);
     
     return () => clearInterval(animationInterval);
-  }, [consensusData, totalValidators]);
+  }, [consensusData]);
   
+  // Use API data directly for vote counts (same as /app/consensus - 50ms polling)
   const prevoteCount = {
-    current: animatedMetrics.prevoteCurrent,
+    current: consensusData?.prevoteCount || 0,
     total: totalValidators
   };
   const precommitCount = {
-    current: animatedMetrics.precommitCurrent,
+    current: consensusData?.precommitCount || 0,
     total: totalValidators
   };
   
