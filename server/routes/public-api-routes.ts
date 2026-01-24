@@ -263,19 +263,16 @@ router.get('/network/stats', async (req: Request, res: Response) => {
   try {
     setCacheHeaders(res, CACHE_SHORT);
     
-    // OPTIMIZED: Check cache first to prevent 4-5 second response times
+    // REALTIME: Check cache with strict TTL (no stale data for real-time dashboard)
     const cache = getDataCache();
-    const cachedData = cache.get<any>(PUBLIC_CACHE_KEYS.NETWORK_STATS, true);
+    const cachedData = cache.get<any>(PUBLIC_CACHE_KEYS.NETWORK_STATS, false); // false = no stale data
     
     if (cachedData) {
-      // Return cached data immediately for fast page loads
-      console.log('[Public API] network/stats: CACHE HIT - returning immediately');
       res.json({ success: true, data: cachedData });
       return;
     }
-    console.log('[Public API] network/stats: CACHE MISS - building fresh data');
     
-    // Cache miss - build fresh data and cache it (1s TTL for real-time dashboard)
+    // Cache miss or expired - build fresh data (1s TTL for real-time dashboard)
     const data = await buildPublicNetworkStats();
     cache.set(PUBLIC_CACHE_KEYS.NETWORK_STATS, data, 1000);
     
