@@ -10,6 +10,7 @@ function Loading() {
   );
 }
 
+const NetworkDashboard = lazy(() => import("../pages/network/NetworkDashboard"));
 const Validators = lazy(() => import("../pages/network/Validators"));
 const RpcProviders = lazy(() => import("../pages/network/RpcProviders"));
 const TestnetRpcProviders = lazy(() => import("../pages/network/TestnetRpcProviders"));
@@ -31,6 +32,7 @@ export default function NetworkRoutes() {
         <Route path="/validator/infrastructure" component={ValidatorInfrastructure} />
         <Route path="/validator/:id" component={ValidatorIntelligence} />
         <Route path="/validator-governance" component={ValidatorGovernance} />
+        <Route path="/network" component={NetworkDashboard} />
         <Route path="/network/validators" component={Validators} />
         <Route path="/network/rpc" component={RpcProviders} />
         <Route path="/rpc" component={RpcProviders} />

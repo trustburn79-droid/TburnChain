@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBURN Chain · Network Status Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #030308;
+            --bg-secondary: #08080f;
+            --bg-card: rgba(12, 12, 20, 0.8);
+            --bg-card-solid: #0c0c14;
+            --accent-gold: #f0b90b;
+            --accent-orange: #ff8c00;
+            --accent-cyan: #00ffcc;
+            --accent-blue: #00a8ff;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-muted: #6b7280;
+            --border-glow: rgba(0, 255, 204, 0.15);
+            --glow-cyan: 0 0 30px rgba(0, 255, 204, 0.4), 0 0 60px rgba(0, 255, 204, 0.2);
+            --glow-gold: 0 0 30px rgba(240, 185, 11, 0.4), 0 0 60px rgba(240, 185, 11, 0.2);
+            --glow-purple: 0 0 30px rgba(168, 85, 247, 0.4), 0 0 60px rgba(168, 85, 247, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           ANIMATED BACKGROUND
+        ═══════════════════════════════════════════════════════════════ */
+        .bg-container {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 255, 204, 0.08), transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 30%, rgba(168, 85, 247, 0.08), transparent 50%),
+                radial-gradient(ellipse 70% 50% at 50% 80%, rgba(240, 185, 11, 0.06), transparent 50%);
+        }
+
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 70%);
+        }
+
+        .bg-particles {
+            position: absolute;
+            inset: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-particle 8s infinite ease-in-out;
+        }
+
+        @keyframes float-particle {
+            0%, 100% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { opacity: 0; transform: translateY(-100px) scale(1); }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: orb-float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(0, 255, 204, 0.1);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: rgba(168, 85, 247, 0.1);
+            top: 50%;
+            right: 10%;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: rgba(240, 185, 11, 0.08);
+            bottom: 10%;
+            left: 30%;
+            animation-delay: -14s;
+        }
+
+        @keyframes orb-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -30px) scale(1.1); }
+            50% { transform: translate(-30px, 50px) scale(0.95); }
+            75% { transform: translate(30px, 30px) scale(1.05); }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           MAIN CONTAINER
+        ═══════════════════════════════════════════════════════════════ */
+        .main-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           HEADER
+        ═══════════════════════════════════════════════════════════════ */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: rgba(12, 12, 20, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 204, 0.1);
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .logo {
+            position: relative;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--glow-gold);
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-cyan));
+            border-radius: 18px;
+            z-index: -1;
+            opacity: 0.5;
+            animation: logo-pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes logo-pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .header-title h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 1.25rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 50px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-green), 0 0 20px var(--accent-green);
+            animation: status-pulse 2s infinite;
+        }
+
+        @keyframes status-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        .status-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 50px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .live-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+        }
+
+        .clock {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 0.6rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           MAIN STATS GRID
+        ═══════════════════════════════════════════════════════════════ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            position: relative;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--card-accent, var(--accent-cyan)), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .stat-card .glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover .glow {
+            opacity: 0.5;
+        }
+
+        .stat-card.tps { --card-accent: var(--accent-cyan); }
+        .stat-card.tps .glow { background: var(--accent-cyan); top: -50px; right: -50px; }
+
+        .stat-card.blocks { --card-accent: var(--accent-purple); }
+        .stat-card.blocks .glow { background: var(--accent-purple); top: -50px; right: -50px; }
+
+        .stat-card.txs { --card-accent: var(--accent-gold); }
+        .stat-card.txs .glow { background: var(--accent-gold); top: -50px; right: -50px; }
+
+        .stat-card.uptime { --card-accent: var(--accent-green); }
+        .stat-card.uptime .glow { background: var(--accent-green); top: -50px; right: -50px; }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .stat-card.tps .stat-icon { background: rgba(0, 255, 204, 0.15); }
+        .stat-card.blocks .stat-icon { background: rgba(168, 85, 247, 0.15); }
+        .stat-card.txs .stat-icon { background: rgba(240, 185, 11, 0.15); }
+        .stat-card.uptime .stat-icon { background: rgba(34, 197, 94, 0.15); }
+
+        .stat-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            padding: 0.3rem 0.6rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            color: var(--text-muted);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .stat-card.tps .stat-value { color: var(--accent-cyan); text-shadow: 0 0 30px rgba(0, 255, 204, 0.5); }
+        .stat-card.blocks .stat-value { color: var(--accent-purple); text-shadow: 0 0 30px rgba(168, 85, 247, 0.5); }
+        .stat-card.txs .stat-value { color: var(--accent-gold); text-shadow: 0 0 30px rgba(240, 185, 11, 0.5); }
+        .stat-card.uptime .stat-value { color: var(--accent-green); text-shadow: 0 0 30px rgba(34, 197, 94, 0.5); }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            position: relative;
+        }
+
+        .trend-up { color: var(--accent-green); }
+        .trend-down { color: var(--accent-red); }
+        .trend-flat { color: var(--text-muted); }
+
+        .stat-mini-chart {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            opacity: 0.3;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           CHARTS SECTION
+        ═══════════════════════════════════════════════════════════════ */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-card {
+            position: relative;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 255, 204, 0.05), transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.05), transparent 50%);
+            pointer-events: none;
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .chart-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chart-title h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .chart-title .badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(0, 255, 204, 0.15);
+            color: var(--accent-cyan);
+            border-radius: 4px;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 280px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           HEALTH METRICS
+        ═══════════════════════════════════════════════════════════════ */
+        .health-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .health-card {
+            position: relative;
+            padding: 1.25rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            text-align: center;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .health-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px);
+        }
+
+        .health-ring {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+        }
+
+        .health-ring svg {
+            transform: rotate(-90deg);
+        }
+
+        .health-ring-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.08);
+            stroke-width: 6;
+        }
+
+        .health-ring-progress {
+            fill: none;
+            stroke-width: 6;
+            stroke-linecap: round;
+            transition: stroke-dasharray 1s ease;
+        }
+
+        .health-ring-value {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .health-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .health-status {
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .health-status.good { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
+        .health-status.warning { background: rgba(240, 185, 11, 0.15); color: var(--accent-gold); }
+        .health-status.critical { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+
+        /* ═══════════════════════════════════════════════════════════════
+           BOTTOM SECTION
+        ═══════════════════════════════════════════════════════════════ */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .blocks-card, .validators-card {
+            position: relative;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .section-title .icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 255, 204, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        /* Blocks Table */
+        .blocks-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .blocks-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .blocks-table td {
+            padding: 0.875rem 1rem;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .blocks-table tr {
+            transition: background 0.2s ease;
+        }
+
+        .blocks-table tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .block-height {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .block-txs {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-gold);
+        }
+
+        .block-producer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .block-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Validators */
+        .validators-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .validator-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .validator-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 255, 204, 0.2);
+        }
+
+        .validator-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .validator-status.active {
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        .validator-status.syncing {
+            background: var(--accent-gold);
+            box-shadow: 0 0 8px var(--accent-gold);
+            animation: blink 1s infinite;
+        }
+
+        .validator-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .validator-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .validator-region {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .validator-stake {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            text-align: right;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           FOOTER
+        ═══════════════════════════════════════════════════════════════ */
+        .footer {
+            margin-top: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(12, 12, 20, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-item .label {
+            color: var(--text-muted);
+        }
+
+        .footer-item .value {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+        }
+
+        .footer-right {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           RESPONSIVE
+        ═══════════════════════════════════════════════════════════════ */
+        @media (max-width: 1400px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .health-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 1100px) {
+            .charts-grid { grid-template-columns: 1fr; }
+            .bottom-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 1rem; }
+            .header-right { flex-wrap: wrap; justify-content: center; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .health-grid { grid-template-columns: repeat(2, 1fr); }
+            .validators-grid { grid-template-columns: 1fr; }
+            .footer { flex-direction: column; gap: 1rem; text-align: center; }
+            .footer-left { flex-wrap: wrap; justify-content: center; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           ANIMATIONS
+        ═══════════════════════════════════════════════════════════════ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stat-card, .chart-card, .health-card, .blocks-card, .validators-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .health-card:nth-child(1) { animation-delay: 0.15s; }
+        .health-card:nth-child(2) { animation-delay: 0.2s; }
+        .health-card:nth-child(3) { animation-delay: 0.25s; }
+        .health-card:nth-child(4) { animation-delay: 0.3s; }
+        .health-card:nth-child(5) { animation-delay: 0.35s; }
+
+        /* Number counter animation */
+        .counting {
+            animation: countPulse 0.3s ease;
+        }
+
+        @keyframes countPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-container">
+        <div class="bg-gradient"></div>
+        <div class="bg-grid"></div>
+        <div class="bg-particles" id="particles"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="main-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">🔥</span>
+                </div>
+                <div class="header-title">
+                    <h1>TBURN Chain · Network Status</h1>
+                    <p>Real-time mainnet monitoring dashboard</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span class="status-text">HEALTHY</span>
+                </div>
+                <div class="live-badge">
+                    <span class="live-dot"></span>
+                    <span class="live-text">LIVE</span>
+                </div>
+                <div class="clock" id="clock">--:--:--</div>
+            </div>
+        </header>
+
+        <!-- Main Stats -->
+        <div class="stats-grid">
+            <div class="stat-card tps">
+                <div class="glow"></div>
+                <div class="stat-header">
+                    <div class="stat-icon">⚡</div>
+                    <span class="stat-badge">avg 10s</span>
+                </div>
+                <div class="stat-label">Current TPS</div>
+                <div class="stat-value" id="tps-value">0</div>
+                <div class="stat-trend trend-up">
+                    <span id="tps-trend">▲</span>
+                    <span id="tps-hint">Processing at peak capacity</span>
+                </div>
+            </div>
+
+            <div class="stat-card blocks">
+                <div class="glow"></div>
+                <div class="stat-header">
+                    <div class="stat-icon">📦</div>
+                    <span class="stat-badge" id="block-rate">+3/s</span>
+                </div>
+                <div class="stat-label">Block Height</div>
+                <div class="stat-value" id="block-value">0</div>
+                <div class="stat-trend trend-flat">
+                    <span>●</span>
+                    <span>Stable block production</span>
+                </div>
+            </div>
+
+            <div class="stat-card txs">
+                <div class="glow"></div>
+                <div class="stat-header">
+                    <div class="stat-icon">📊</div>
+                    <span class="stat-badge">24h rolling</span>
+                </div>
+                <div class="stat-label">Daily Transactions</div>
+                <div class="stat-value" id="tx-value">0</div>
+                <div class="stat-trend trend-up">
+                    <span id="tx-trend">▲</span>
+                    <span id="tx-hint">+12.5% vs yesterday</span>
+                </div>
+            </div>
+
+            <div class="stat-card uptime">
+                <div class="glow"></div>
+                <div class="stat-header">
+                    <div class="stat-icon">✓</div>
+                    <span class="stat-badge">30 days</span>
+                </div>
+                <div class="stat-label">Network Uptime</div>
+                <div class="stat-value" id="uptime-value">0%</div>
+                <div class="stat-trend trend-up">
+                    <span>✓</span>
+                    <span>Enterprise-grade SLA</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <h3>TPS Performance</h3>
+                        <span class="badge">REAL-TIME</span>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--accent-cyan);"></span>
+                            <span>TPS</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--accent-purple);"></span>
+                            <span>Peak</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="tpsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <h3>Finality & Latency</h3>
+                        <span class="badge">ms / sec</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="latencyChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Metrics -->
+        <div class="health-grid">
+            <div class="health-card">
+                <div class="health-ring">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                        <circle class="health-ring-bg" cx="40" cy="40" r="34"/>
+                        <circle class="health-ring-progress" cx="40" cy="40" r="34" 
+                                stroke="var(--accent-cyan)" 
+                                stroke-dasharray="0 214"
+                                id="health-finality"/>
+                    </svg>
+                    <div class="health-ring-value" id="finality-value">0s</div>
+                </div>
+                <div class="health-label">Finality Time</div>
+                <div class="health-status good">Excellent</div>
+            </div>
+
+            <div class="health-card">
+                <div class="health-ring">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                        <circle class="health-ring-bg" cx="40" cy="40" r="34"/>
+                        <circle class="health-ring-progress" cx="40" cy="40" r="34" 
+                                stroke="var(--accent-purple)" 
+                                stroke-dasharray="0 214"
+                                id="health-rpc"/>
+                    </svg>
+                    <div class="health-ring-value" id="rpc-value">0ms</div>
+                </div>
+                <div class="health-label">RPC Latency</div>
+                <div class="health-status good">Optimal</div>
+            </div>
+
+            <div class="health-card">
+                <div class="health-ring">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                        <circle class="health-ring-bg" cx="40" cy="40" r="34"/>
+                        <circle class="health-ring-progress" cx="40" cy="40" r="34" 
+                                stroke="var(--accent-gold)" 
+                                stroke-dasharray="0 214"
+                                id="health-shard"/>
+                    </svg>
+                    <div class="health-ring-value" id="shard-value">0%</div>
+                </div>
+                <div class="health-label">Cross-Shard</div>
+                <div class="health-status good">Efficient</div>
+            </div>
+
+            <div class="health-card">
+                <div class="health-ring">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                        <circle class="health-ring-bg" cx="40" cy="40" r="34"/>
+                        <circle class="health-ring-progress" cx="40" cy="40" r="34" 
+                                stroke="var(--accent-green)" 
+                                stroke-dasharray="0 214"
+                                id="health-mem"/>
+                    </svg>
+                    <div class="health-ring-value" id="mem-value">0%</div>
+                </div>
+                <div class="health-label">Memory Efficiency</div>
+                <div class="health-status good">Healthy</div>
+            </div>
+
+            <div class="health-card">
+                <div class="health-ring">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                        <circle class="health-ring-bg" cx="40" cy="40" r="34"/>
+                        <circle class="health-ring-progress" cx="40" cy="40" r="34" 
+                                stroke="var(--accent-pink)" 
+                                stroke-dasharray="0 214"
+                                id="health-peer"/>
+                    </svg>
+                    <div class="health-ring-value" id="peer-value">0</div>
+                </div>
+                <div class="health-label">Active Peers</div>
+                <div class="health-status good">Connected</div>
+            </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="bottom-grid">
+            <!-- Recent Blocks -->
+            <div class="blocks-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="icon">📦</div>
+                        <h3>Recent Blocks</h3>
+                    </div>
+                    <span class="stat-badge">Latest 8</span>
+                </div>
+                <table class="blocks-table">
+                    <thead>
+                        <tr>
+                            <th>Height</th>
+                            <th>Transactions</th>
+                            <th>Producer</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blocks-table-body">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Active Validators -->
+            <div class="validators-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="icon">🛡️</div>
+                        <h3>Active Validators</h3>
+                    </div>
+                    <span class="stat-badge" id="validator-count">0 Active</span>
+                </div>
+                <div class="validators-grid" id="validators-grid">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-left">
+                <div class="footer-item">
+                    <span class="label">Chain ID:</span>
+                    <span class="value">tburn-mainnet-1</span>
+                </div>
+                <div class="footer-item">
+                    <span class="label">Node Version:</span>
+                    <span class="value">v7.2.1</span>
+                </div>
+                <div class="footer-item">
+                    <span class="label">Last Update:</span>
+                    <span class="value" id="last-update">--</span>
+                </div>
+            </div>
+            <div class="footer-right">
+                © 2025 TBurn Chain Foundation. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════
+        // STATE & CONFIG
+        // ═══════════════════════════════════════════════════════════════
+        const state = {
+            tps: 155324,
+            blockHeight: 44823591,
+            dailyTxs: 29049000000,
+            uptime: 99.99,
+            finality: 2.1,
+            rpcLatency: 45,
+            crossShard: 94,
+            memEfficiency: 88,
+            activePeers: 2847,
+            blocks: [],
+            validators: []
+        };
+
+        // ═══════════════════════════════════════════════════════════════
+        // UTILITIES
+        // ═══════════════════════════════════════════════════════════════
+        const $ = id => document.getElementById(id);
+        
+        function formatNumber(num) {
+            if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+            if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+            if (num >= 1e3) return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return num.toString();
+        }
+
+        function formatTime() {
+            const now = new Date();
+            return now.toTimeString().slice(0, 8);
+        }
+
+        function formatTimestamp() {
+            const now = new Date();
+            return now.toISOString().replace('T', ' ').slice(0, 19);
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // PARTICLES
+        // ═══════════════════════════════════════════════════════════════
+        function createParticles() {
+            const container = $('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+                
+                const colors = ['var(--accent-cyan)', 'var(--accent-purple)', 'var(--accent-gold)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // CHARTS
+        // ═══════════════════════════════════════════════════════════════
+        const tpsData = Array.from({length: 60}, () => 140000 + Math.random() * 30000);
+        const peakData = Array.from({length: 60}, () => 155000 + Math.random() * 10000);
+        const finalityData = Array.from({length: 60}, () => 1.8 + Math.random() * 0.6);
+        const rpcData = Array.from({length: 60}, () => 35 + Math.random() * 30);
+        const labels = Array.from({length: 60}, (_, i) => `${60-i}s`).reverse();
+
+        let tpsChart, latencyChart;
+
+        function initCharts() {
+            // TPS Chart
+            const tpsCtx = $('tpsChart').getContext('2d');
+            tpsChart = new Chart(tpsCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'TPS',
+                            data: tpsData,
+                            borderColor: 'rgba(0, 255, 204, 0.9)',
+                            backgroundColor: 'rgba(0, 255, 204, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        },
+                        {
+                            label: 'Peak',
+                            data: peakData,
+                            borderColor: 'rgba(168, 85, 247, 0.7)',
+                            borderWidth: 1,
+                            borderDash: [5, 5],
+                            tension: 0.4,
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(12, 12, 20, 0.9)',
+                            borderColor: 'rgba(0, 255, 204, 0.3)',
+                            borderWidth: 1,
+                            titleFont: { family: 'Orbitron' },
+                            bodyFont: { family: 'JetBrains Mono' },
+                            callbacks: {
+                                label: ctx => ` ${ctx.dataset.label}: ${formatNumber(ctx.raw)}`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+                            ticks: { color: 'rgba(255, 255, 255, 0.4)', maxTicksLimit: 8 }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+                            ticks: { 
+                                color: 'rgba(255, 255, 255, 0.4)',
+                                callback: v => formatNumber(v)
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Latency Chart
+            const latCtx = $('latencyChart').getContext('2d');
+            latencyChart = new Chart(latCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Finality (s)',
+                            data: finalityData,
+                            borderColor: 'rgba(34, 197, 94, 0.9)',
+                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'RPC (ms)',
+                            data: rpcData,
+                            borderColor: 'rgba(168, 85, 247, 0.9)',
+                            backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            align: 'end',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.6)',
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                padding: 15,
+                                font: { size: 11 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(12, 12, 20, 0.9)',
+                            borderColor: 'rgba(34, 197, 94, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+                            ticks: { color: 'rgba(255, 255, 255, 0.4)', maxTicksLimit: 8 }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'left',
+                            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+                            ticks: { color: 'rgba(34, 197, 94, 0.8)' },
+                            title: { display: true, text: 'Finality (s)', color: 'rgba(34, 197, 94, 0.8)' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            grid: { display: false },
+                            ticks: { color: 'rgba(168, 85, 247, 0.8)' },
+                            title: { display: true, text: 'RPC (ms)', color: 'rgba(168, 85, 247, 0.8)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // HEALTH RINGS
+        // ═══════════════════════════════════════════════════════════════
+        function updateHealthRing(id, value, max) {
+            const circumference = 2 * Math.PI * 34; // r=34
+            const percent = Math.min(value / max, 1);
+            const dashArray = `${percent * circumference} ${circumference}`;
+            $(id).setAttribute('stroke-dasharray', dashArray);
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // BLOCKS TABLE
+        // ═══════════════════════════════════════════════════════════════
+        function generateBlocks() {
+            const producers = ['val-kr-seoul-01', 'val-us-east-03', 'val-eu-frank-02', 'val-ap-tokyo-05', 'val-sg-west-04'];
+            state.blocks = [];
+            for (let i = 0; i < 8; i++) {
+                state.blocks.push({
+                    height: state.blockHeight - i,
+                    txs: Math.floor(2000 + Math.random() * 5000),
+                    producer: producers[i % producers.length],
+                    age: i * 3 + Math.floor(Math.random() * 2)
+                });
+            }
+        }
+
+        function renderBlocks() {
+            const tbody = $('blocks-table-body');
+            tbody.innerHTML = state.blocks.map(b => `
+                <tr>
+                    <td class="block-height">#${formatNumber(b.height)}</td>
+                    <td class="block-txs">${formatNumber(b.txs)}</td>
+                    <td class="block-producer">${b.producer}</td>
+                    <td class="block-time">${b.age}s ago</td>
+                </tr>
+            `).join('');
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // VALIDATORS
+        // ═══════════════════════════════════════════════════════════════
+        function generateValidators() {
+            const regions = ['Korea', 'US East', 'EU West', 'Singapore', 'Japan', 'Australia'];
+            state.validators = [];
+            for (let i = 0; i < 8; i++) {
+                state.validators.push({
+                    name: `validator-${String(i + 1).padStart(2, '0')}`,
+                    region: regions[i % regions.length],
+                    stake: (500000 + Math.random() * 2000000).toFixed(0),
+                    status: Math.random() > 0.1 ? 'active' : 'syncing'
+                });
+            }
+        }
+
+        function renderValidators() {
+            const grid = $('validators-grid');
+            const activeCount = state.validators.filter(v => v.status === 'active').length;
+            $('validator-count').textContent = `${activeCount} Active`;
+            
+            grid.innerHTML = state.validators.map(v => `
+                <div class="validator-item">
+                    <div class="validator-status ${v.status}"></div>
+                    <div class="validator-info">
+                        <div class="validator-name">${v.name}</div>
+                        <div class="validator-region">${v.region}</div>
+                    </div>
+                    <div class="validator-stake">${formatNumber(parseInt(v.stake))} TBURN</div>
+                </div>
+            `).join('');
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // UPDATE LOOP
+        // ═══════════════════════════════════════════════════════════════
+        function updateStats() {
+            // Simulate data changes
+            const tpsBase = 150000 + Math.sin(Date.now() / 5000) * 10000;
+            state.tps = Math.floor(tpsBase + (Math.random() * 10000 - 5000));
+            state.blockHeight += Math.floor(1 + Math.random() * 3);
+            state.dailyTxs += Math.floor(state.tps * (0.3 + Math.random() * 0.5));
+            state.finality = 1.8 + Math.random() * 0.5;
+            state.rpcLatency = 35 + Math.random() * 25;
+            state.crossShard = 90 + Math.random() * 8;
+            state.memEfficiency = 85 + Math.random() * 10;
+            state.activePeers = 2800 + Math.floor(Math.random() * 100);
+
+            // Update DOM
+            $('tps-value').textContent = formatNumber(state.tps);
+            $('block-value').textContent = formatNumber(state.blockHeight);
+            $('tx-value').textContent = formatNumber(state.dailyTxs);
+            $('uptime-value').textContent = state.uptime.toFixed(2) + '%';
+
+            // Update health metrics
+            $('finality-value').textContent = state.finality.toFixed(1) + 's';
+            $('rpc-value').textContent = Math.floor(state.rpcLatency) + 'ms';
+            $('shard-value').textContent = Math.floor(state.crossShard) + '%';
+            $('mem-value').textContent = Math.floor(state.memEfficiency) + '%';
+            $('peer-value').textContent = formatNumber(state.activePeers);
+
+            // Update health rings (normalized to 100)
+            updateHealthRing('health-finality', (3 - state.finality) / 3 * 100, 100);
+            updateHealthRing('health-rpc', (100 - state.rpcLatency) / 100 * 100, 100);
+            updateHealthRing('health-shard', state.crossShard, 100);
+            updateHealthRing('health-mem', state.memEfficiency, 100);
+            updateHealthRing('health-peer', Math.min(state.activePeers / 30, 100), 100);
+
+            // Update charts
+            tpsData.push(state.tps);
+            tpsData.shift();
+            peakData.push(155000 + Math.random() * 10000);
+            peakData.shift();
+            finalityData.push(state.finality);
+            finalityData.shift();
+            rpcData.push(state.rpcLatency);
+            rpcData.shift();
+
+            tpsChart.update('none');
+            latencyChart.update('none');
+
+            // Update blocks
+            generateBlocks();
+            renderBlocks();
+
+            // Update clock
+            $('clock').textContent = formatTime();
+            $('last-update').textContent = formatTimestamp();
+
+            // Update block rate
+            $('block-rate').textContent = `+${1 + Math.floor(Math.random() * 3)}/s`;
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // INITIALIZATION
+        // ═══════════════════════════════════════════════════════════════
+        function init() {
+            createParticles();
+            initCharts();
+            generateBlocks();
+            generateValidators();
+            renderBlocks();
+            renderValidators();
+            updateStats();
+
+            // Start update loop
+            setInterval(updateStats, 1000);
+
+            // Occasionally update validators
+            setInterval(() => {
+                generateValidators();
+                renderValidators();
+            }, 10000);
+        }
+
+        // Start
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
