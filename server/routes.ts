@@ -85,7 +85,7 @@ import enterpriseSessionMonitoringRoutes from "./routes/enterprise-session-monit
 import enterpriseDbOptimizerRoutes from "./routes/enterprise-db-optimizer-routes";
 import distributionProgramsRoutes from "./routes/distribution-programs-routes";
 import enterpriseAdminRoutes from "./routes/enterprise-admin-routes";
-import custodyAdminRoutes from "./routes/custody-admin-routes";
+import custodyAdminRoutes, { signerPortalRouter } from "./routes/custody-admin-routes";
 import { getCsrfToken, validateCsrf } from "./middleware/csrf";
 import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
 import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
@@ -2695,6 +2695,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       return next();
     }
     // Skip auth check for custody admin routes (admin auth handled by requireAdmin middleware on route registration)
+    // Skip auth check for signer portal (public access for multisig signers)
+    if (req.path.startsWith("/signer-portal/")) {
+      return next();
+    }
     if (req.path.startsWith("/custody-admin/")) {
       return next();
     }
@@ -3027,6 +3031,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints, admin auth + CSRF required)");
   app.use("/api/custody-admin", custodyAdminLimiter, requireAdmin, validateCsrf, custodyAdminRoutes);
   console.log("[CustodyAdmin] ✅ Custody admin routes registered (multisig signer management)");
+  app.use("/api/signer-portal", custodyAdminLimiter, signerPortalRouter);
+  console.log("[SignerPortal] ✅ Public signer portal routes registered (no admin auth required)");
 
   // ============================================
   // ENTERPRISE DATA HUB & ORCHESTRATION (Cross-Module Integration)

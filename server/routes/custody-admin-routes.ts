@@ -1039,6 +1039,68 @@ router.post("/transactions/expire-pending", requireAdmin, async (req: Request, r
 // Signer Portal API (Public for authenticated signers)
 // ============================================
 
+// Public endpoint for signer authentication by address
+router.get("/signer-by-address/:address", async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    
+    if (!address || !address.startsWith("tb1")) {
+      return res.status(400).json({ success: false, error: "Invalid address format" });
+    }
+    
+    // Find signer by address (case-insensitive)
+    const [signer] = await db.select()
+      .from(multisigSigners)
+      .where(
+        and(
+          sql`LOWER(${multisigSigners.signerAddress}) = LOWER(${address})`,
+          eq(multisigSigners.isActive, true)
+        )
+      );
+    
+    if (!signer) {
+      return res.status(404).json({ success: false, error: "Signer not found" });
+    }
+    
+    // Return signer info (excluding sensitive data)
+    res.json({
+      success: true,
+      signer: {
+        id: signer.id,
+        signerId: signer.signerId,
+        walletId: signer.walletId,
+        name: signer.name,
+        role: signer.role,
+        signerAddress: signer.signerAddress,
+        email: signer.email,
+        canApproveEmergency: signer.canApproveEmergency,
+        isActive: signer.isActive,
+        totalSignatures: signer.totalSignatures,
+        lastSignatureAt: signer.lastSignatureAt,
+      }
+    });
+  } catch (error: any) {
+    console.error("[Custody] Error finding signer by address:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Public endpoint to get pending transactions for signer portal
+router.get("/signer-portal/transactions", async (req: Request, res: Response) => {
+  try {
+    const transactions = await db.select()
+      .from(custodyTransactions)
+      .where(eq(custodyTransactions.status, "pending_approval"))
+      .orderBy(desc(custodyTransactions.proposedAt))
+      .limit(100);
+    
+    res.json({ success: true, transactions });
+  } catch (error: any) {
+    console.error("[Custody] Error fetching signer portal transactions:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 router.get("/signer-votes/:signerId", async (req: Request, res: Response) => {
   try {
     const { signerId } = req.params;
@@ -1173,6 +1235,231 @@ router.get("/error-codes", (req: Request, res: Response) => {
       "CUST-032": "Transaction not found",
     }
   });
+});
+
+// ============================================
+// Public Signer Portal Router (No Admin Auth Required)
+// ============================================
+
+export const signerPortalRouter = Router();
+
+// Public endpoint for signer authentication by address
+signerPortalRouter.get("/signer-by-address/:address", async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    
+    if (!address || !address.startsWith("tb1")) {
+      return res.status(400).json({ success: false, error: "Invalid address format" });
+    }
+    
+    // Find signer by address (case-insensitive)
+    const [signer] = await db.select()
+      .from(multisigSigners)
+      .where(
+        and(
+          sql`LOWER(${multisigSigners.signerAddress}) = LOWER(${address})`,
+          eq(multisigSigners.isActive, true)
+        )
+      );
+    
+    if (!signer) {
+      return res.status(404).json({ success: false, error: "Signer not found" });
+    }
+    
+    // Store signer authentication in session for security
+    (req.session as any).signerAuthenticated = true;
+    (req.session as any).authenticatedSignerId = signer.signerId;
+    (req.session as any).authenticatedSignerAddress = signer.signerAddress;
+    
+    // Explicitly save session
+    req.session.save((err) => {
+      if (err) {
+        console.error("[SignerPortal] Session save error:", err);
+      }
+    });
+    
+    // Return signer info (limited data for security - no email exposed)
+    res.json({
+      success: true,
+      signer: {
+        signerId: signer.signerId,
+        walletId: signer.walletId,
+        name: signer.name,
+        role: signer.role,
+        signerAddress: signer.signerAddress,
+        canApproveEmergency: signer.canApproveEmergency,
+        isActive: signer.isActive,
+        totalSignatures: signer.totalSignatures,
+        lastSignatureAt: signer.lastSignatureAt,
+      }
+    });
+  } catch (error: any) {
+    console.error("[SignerPortal] Error finding signer by address:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Public endpoint to get pending transactions for signer portal
+signerPortalRouter.get("/transactions", async (req: Request, res: Response) => {
+  try {
+    const transactions = await db.select()
+      .from(custodyTransactions)
+      .where(eq(custodyTransactions.status, "pending_approval"))
+      .orderBy(desc(custodyTransactions.proposedAt))
+      .limit(100);
+    
+    res.json({ success: true, transactions });
+  } catch (error: any) {
+    console.error("[SignerPortal] Error fetching transactions:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Public endpoint to get signer's vote history (requires session authentication)
+signerPortalRouter.get("/votes/:signerId", async (req: Request, res: Response) => {
+  try {
+    const { signerId } = req.params;
+    
+    // Security: Verify signer session authentication
+    const session = req.session as any;
+    if (!session.signerAuthenticated || !session.authenticatedSignerId) {
+      return res.status(401).json({ success: false, error: "Please authenticate first using your wallet address" });
+    }
+    
+    // Security: Verify signerId matches authenticated session (can only view own votes)
+    if (session.authenticatedSignerId !== signerId) {
+      return res.status(403).json({ success: false, error: "You can only view your own vote history" });
+    }
+    
+    // Verify signer exists
+    const [signer] = await db.select().from(multisigSigners).where(eq(multisigSigners.signerId, signerId));
+    if (!signer) {
+      return res.status(404).json({ success: false, error: "Signer not found" });
+    }
+    
+    // Get all approvals by this signer (use raw SQL due to schema mismatch)
+    const approvals = await db.execute(
+      sql`SELECT id, approval_id as "approvalId", transaction_id as "transactionId", 
+                 signer_id as "signerId", approved, signature, comments, approved_at as "approvedAt", 
+                 created_at as "createdAt"
+          FROM custody_transaction_approvals
+          WHERE signer_id = ${signerId}
+          ORDER BY approved_at DESC NULLS LAST
+          LIMIT 50`
+    );
+    
+    res.json({ success: true, approvals: approvals.rows || [], signer: { name: signer.name, role: signer.role } });
+  } catch (error: any) {
+    console.error("[SignerPortal] Error fetching signer votes:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Public endpoint for signer to vote on a transaction
+signerPortalRouter.post("/transactions/:transactionId/vote", async (req: Request, res: Response) => {
+  try {
+    const { transactionId } = req.params;
+    const { signerId, decision, comment } = req.body;
+    
+    // Security: Verify signer session authentication
+    const session = req.session as any;
+    if (!session.signerAuthenticated || !session.authenticatedSignerId) {
+      return res.status(401).json({ success: false, error: "Please authenticate first using your wallet address" });
+    }
+    
+    // Security: Verify signerId matches authenticated session
+    if (session.authenticatedSignerId !== signerId) {
+      console.warn(`[SignerPortal] Session mismatch: authenticated=${session.authenticatedSignerId}, requested=${signerId}`);
+      return res.status(403).json({ success: false, error: "You can only vote using your authenticated signer identity" });
+    }
+    
+    // Validate input
+    if (!signerId || !decision) {
+      return res.status(400).json({ success: false, error: "Missing required fields" });
+    }
+    
+    if (!["approve", "reject"].includes(decision)) {
+      return res.status(400).json({ success: false, error: "Invalid decision. Must be 'approve' or 'reject'" });
+    }
+    
+    // Verify signer exists and is active
+    const [signer] = await db.select().from(multisigSigners).where(
+      and(eq(multisigSigners.signerId, signerId), eq(multisigSigners.isActive, true))
+    );
+    if (!signer) {
+      return res.status(404).json({ success: false, error: "Signer not found or inactive" });
+    }
+    
+    // Get transaction
+    const [transaction] = await db.select().from(custodyTransactions).where(eq(custodyTransactions.transactionId, transactionId));
+    if (!transaction) {
+      return res.status(404).json({ success: false, error: "Transaction not found" });
+    }
+    
+    if (transaction.status !== "pending_approval") {
+      return res.status(400).json({ success: false, error: "Transaction is not pending approval" });
+    }
+    
+    // Check if signer belongs to the same wallet
+    if (signer.walletId !== transaction.walletId) {
+      return res.status(403).json({ success: false, error: "Signer does not belong to transaction's wallet" });
+    }
+    
+    // Check for existing approval
+    const [existingApproval] = await db.select()
+      .from(custodyTransactionApprovals)
+      .where(and(
+        eq(custodyTransactionApprovals.transactionId, transactionId),
+        eq(custodyTransactionApprovals.signerId, signerId)
+      ));
+    
+    if (existingApproval) {
+      return res.status(400).json({ success: false, error: "Signer has already voted on this transaction" });
+    }
+    
+    // Create approval record (use raw SQL due to schema mismatch)
+    const approvalId = `appr-${crypto.randomBytes(8).toString("hex")}`;
+    const approved = decision === "approve";
+    await db.execute(
+      sql`INSERT INTO custody_transaction_approvals 
+          (approval_id, transaction_id, signer_id, approved, comments, approved_at, created_at)
+          VALUES (${approvalId}, ${transactionId}, ${signerId}, ${approved}, ${comment || null}, NOW(), NOW())`
+    );
+    
+    // Update approval count if approved
+    let newApprovalCount = transaction.approvalCount;
+    if (decision === "approve") {
+      newApprovalCount = (transaction.approvalCount || 0) + 1;
+      await db.update(custodyTransactions)
+        .set({ approvalCount: newApprovalCount, updatedAt: new Date() })
+        .where(eq(custodyTransactions.transactionId, transactionId));
+    }
+    
+    // Update signer stats
+    await db.update(multisigSigners)
+      .set({
+        totalSignatures: (signer.totalSignatures || 0) + 1,
+        lastSignatureAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .where(eq(multisigSigners.signerId, signerId));
+    
+    // Check if threshold reached
+    const thresholdReached = newApprovalCount >= (transaction.requiredApprovals || 7);
+    
+    res.json({
+      success: true,
+      message: `Vote recorded: ${decision}`,
+      thresholdStatus: {
+        current: newApprovalCount,
+        required: transaction.requiredApprovals || 7,
+        reached: thresholdReached,
+      }
+    });
+  } catch (error: any) {
+    console.error("[SignerPortal] Error recording vote:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 export default router;

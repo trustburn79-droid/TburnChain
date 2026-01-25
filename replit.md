@@ -53,6 +53,21 @@ Key architectural decisions and features include:
 - **CSRF Protection for Admin Routes**: Session-bound CSRF token validation for custody-admin mutating operations (POST/PUT/PATCH/DELETE). Tokens expire after 1 hour with automatic retry on expiry.
 
 ## Recent Changes (2026-01-24)
+## Recent Changes (2026-01-25)
+- **Public Signer Portal**: Implemented `/signer-portal` page for multisig custody signers
+  - Session-based signer authentication via wallet address
+  - Public API at `/api/signer-portal` with rate limiting (no admin auth required)
+  - Endpoints: signer-by-address, transactions, votes, vote submission
+  - Security: Session-bound signer verification prevents impersonation
+  - Dashboard shows pending transactions, vote history, emergency approval status
+  
+- **Signer Portal Security Improvements**:
+  - Session stores authenticatedSignerId after address verification
+  - Vote submission requires session authentication and signerId match
+  - Vote history accessible only to authenticated signer
+  - Removed email from public API response for privacy
+  - Used raw SQL for approvals table due to schema mismatch (approved/comments/approved_at columns)
+
 - **Menu Test Page**: Added /menu route for menu structure improvement testing
   - Standalone test page with premium mega menu navigation design
   - TBurn Chain branding with gold/cyan/purple color scheme

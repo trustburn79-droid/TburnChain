@@ -164,22 +164,17 @@ export default function SignerPortalPage() {
     }
   }, []);
 
-  const { data: signersData, isLoading: signersLoading } = useQuery<{ signers: Signer[] }>({
-    queryKey: ["/api/custody-admin/signers", { walletId: "foundation-custody-main", activeOnly: "true" }],
-    enabled: !authenticatedSigner,
-  });
-
   const { data: transactionsData, isLoading: transactionsLoading, refetch: refetchTransactions } = useQuery<{ transactions: CustodyTransaction[] }>({
-    queryKey: ["/api/custody-admin/transactions", { status: "pending_approval" }],
+    queryKey: ["/api/signer-portal/transactions"],
     enabled: !!authenticatedSigner,
     refetchInterval: 30000,
   });
 
   const { data: myVotesData, refetch: refetchMyVotes } = useQuery<{ approvals: TransactionApproval[] }>({
-    queryKey: ["/api/custody-admin/signer-votes", authenticatedSigner?.signerId],
+    queryKey: ["/api/signer-portal/votes", authenticatedSigner?.signerId],
     enabled: !!authenticatedSigner,
     queryFn: async () => {
-      const res = await fetch(`/api/custody-admin/signer-votes/${authenticatedSigner?.signerId}`, {
+      const res = await fetch(`/api/signer-portal/votes/${authenticatedSigner?.signerId}`, {
         credentials: "include",
       });
       if (!res.ok) return { approvals: [] };
@@ -187,18 +182,41 @@ export default function SignerPortalPage() {
     },
   });
 
-  const signers: Signer[] = signersData?.signers || [];
   const pendingTransactions: CustodyTransaction[] = transactionsData?.transactions?.filter(t => t.status === "pending_approval") || [];
   const myVotes: TransactionApproval[] = myVotesData?.approvals || [];
 
-  const handleLogin = () => {
-    const signer = signers.find(s => s.signerAddress.toLowerCase() === signerAddress.toLowerCase());
-    if (signer) {
-      setAuthenticatedSigner(signer);
-      sessionStorage.setItem("signerPortalAuth", JSON.stringify(signer));
-      toast({ title: "로그인 성공", description: `${signer.name}님으로 로그인되었습니다.` });
-    } else {
-      toast({ title: "인증 실패", description: "등록된 서명자 주소가 아닙니다.", variant: "destructive" });
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+  const handleLogin = async () => {
+    if (!signerAddress.startsWith("tb1")) {
+      toast({ title: "인증 실패", description: "tb1으로 시작하는 유효한 주소를 입력하세요.", variant: "destructive" });
+      return;
+    }
+    
+    setIsLoggingIn(true);
+    try {
+      const response = await fetch(`/api/signer-portal/signer-by-address/${encodeURIComponent(signerAddress)}`, {
+        credentials: "include",
+      });
+      
+      if (!response.ok) {
+        const data = await response.json();
+        toast({ title: "인증 실패", description: data.error || "등록된 서명자 주소가 아닙니다.", variant: "destructive" });
+        return;
+      }
+      
+      const data = await response.json();
+      if (data.success && data.signer) {
+        setAuthenticatedSigner(data.signer);
+        sessionStorage.setItem("signerPortalAuth", JSON.stringify(data.signer));
+        toast({ title: "로그인 성공", description: `${data.signer.name}님으로 로그인되었습니다.` });
+      } else {
+        toast({ title: "인증 실패", description: "등록된 서명자 주소가 아닙니다.", variant: "destructive" });
+      }
+    } catch (error: any) {
+      toast({ title: "오류", description: error.message || "인증 중 오류가 발생했습니다.", variant: "destructive" });
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
@@ -211,7 +229,7 @@ export default function SignerPortalPage() {
 
   const voteMutation = useMutation({
     mutationFn: async ({ transactionId, data }: { transactionId: string; data: { signerId: string; decision: string; comment: string } }) => {
-      return apiRequest("POST", `/api/custody-admin/transactions/${transactionId}/approve`, data);
+      return apiRequest("POST", `/api/signer-portal/transactions/${transactionId}/vote`, data);
     },
     onSuccess: (response: any) => {
       const status = response?.thresholdStatus;
@@ -270,10 +288,10 @@ export default function SignerPortalPage() {
             <Button 
               className="w-full" 
               onClick={handleLogin}
-              disabled={!signerAddress || signersLoading}
+              disabled={!signerAddress || isLoggingIn}
               data-testid="button-signer-login"
             >
-              {signersLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <LogIn className="w-4 h-4 mr-2" />}
+              {isLoggingIn ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <LogIn className="w-4 h-4 mr-2" />}
               인증
             </Button>
           </CardFooter>
