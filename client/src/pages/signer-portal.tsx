@@ -385,13 +385,14 @@ export default function SignerPortalPage() {
       setCodeExpiresAt(null);
     },
     onError: (error: any) => {
-      // Check if code expired or max attempts
-      if (error.message?.includes("만료") || error.message?.includes("초과")) {
+      // Use standardized error codes instead of string matching
+      const errorCode = error.reason || error.code;
+      const shouldCloseDialog = ["CODE_NOT_FOUND", "MAX_ATTEMPTS_EXCEEDED", "CODE_EXPIRED"].includes(errorCode);
+      
+      if (shouldCloseDialog) {
         setShowEmailVerification(false);
-        toast({ title: "인증 실패", description: error.message, variant: "destructive" });
-      } else {
-        toast({ title: "인증 실패", description: error.message || "인증 코드가 올바르지 않습니다.", variant: "destructive" });
       }
+      toast({ title: "인증 실패", description: error.message || "인증 코드가 올바르지 않습니다.", variant: "destructive" });
     },
   });
 

@@ -122,6 +122,7 @@ const AUTH_REQUIRED_PREFIX_LIST = [
   '/api/user',
   '/api/admin',
   '/api/custody-admin',       // ★ [2026-01-23] Custody admin requires session for multisig management
+  '/api/signer-portal',       // ★ [2026-01-25] Signer portal requires session for 2FA email verification
   '/api/enterprise/admin',
   '/api/wallet',
   '/api/transaction',

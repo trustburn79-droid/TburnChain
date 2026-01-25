@@ -15,6 +15,27 @@ import { redisSecurityService } from "../services/redis-security-service";
 import { sendVerificationEmail } from "../services/resend-client";
 
 // ============================================
+// Zod Validation Schemas for Signer Portal
+// ============================================
+
+const requestVerificationSchema = z.object({
+  signerId: z.string().min(1, "서명자 ID가 필요합니다").max(100),
+  decision: z.enum(["approve", "reject"], { 
+    errorMap: () => ({ message: "결정은 'approve' 또는 'reject'이어야 합니다" }) 
+  }),
+  comment: z.string().max(1000, "코멘트는 1000자를 초과할 수 없습니다").optional().nullable(),
+});
+
+const verifyAndVoteSchema = z.object({
+  signerId: z.string().min(1, "서명자 ID가 필요합니다").max(100),
+  verificationCode: z.string().length(6, "인증 코드는 6자리여야 합니다").regex(/^\d{6}$/, "인증 코드는 숫자만 가능합니다"),
+});
+
+const cancelVerificationSchema = z.object({
+  signerId: z.string().min(1, "서명자 ID가 필요합니다").max(100),
+});
+
+// ============================================
 // TBURN Address Validation (Bech32m tb1 format)
 // ============================================
 
@@ -1363,26 +1384,29 @@ signerPortalRouter.get("/votes/:signerId", async (req: Request, res: Response) =
 signerPortalRouter.post("/transactions/:transactionId/request-verification", async (req: Request, res: Response) => {
   try {
     const { transactionId } = req.params;
-    const { signerId, decision, comment } = req.body;
+    
+    // Zod validation
+    const parseResult = requestVerificationSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      const firstError = parseResult.error.errors[0];
+      return res.status(400).json({ 
+        success: false, 
+        error: firstError?.message || "입력 데이터가 유효하지 않습니다",
+        code: "VALIDATION_ERROR"
+      });
+    }
+    
+    const { signerId, decision, comment } = parseResult.data;
     
     // Security: Verify signer session authentication
     const session = req.session as any;
     if (!session.signerAuthenticated || !session.authenticatedSignerId) {
-      return res.status(401).json({ success: false, error: "지갑 주소로 먼저 인증해주세요" });
+      return res.status(401).json({ success: false, error: "지갑 주소로 먼저 인증해주세요", code: "SESSION_REQUIRED" });
     }
     
     // Security: Verify signerId matches authenticated session
     if (session.authenticatedSignerId !== signerId) {
-      return res.status(403).json({ success: false, error: "인증된 서명자 ID와 일치하지 않습니다" });
-    }
-    
-    // Validate input
-    if (!signerId || !decision) {
-      return res.status(400).json({ success: false, error: "필수 필드가 누락되었습니다" });
-    }
-    
-    if (!["approve", "reject"].includes(decision)) {
-      return res.status(400).json({ success: false, error: "결정은 'approve' 또는 'reject'이어야 합니다" });
+      return res.status(403).json({ success: false, error: "인증된 서명자 ID와 일치하지 않습니다", code: "SIGNER_MISMATCH" });
     }
     
     // Verify signer exists and is active
@@ -1478,22 +1502,29 @@ signerPortalRouter.post("/transactions/:transactionId/request-verification", asy
 signerPortalRouter.post("/transactions/:transactionId/verify-and-vote", async (req: Request, res: Response) => {
   try {
     const { transactionId } = req.params;
-    const { signerId, verificationCode } = req.body;
+    
+    // Zod validation
+    const parseResult = verifyAndVoteSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      const firstError = parseResult.error.errors[0];
+      return res.status(400).json({ 
+        success: false, 
+        error: firstError?.message || "입력 데이터가 유효하지 않습니다",
+        code: "VALIDATION_ERROR"
+      });
+    }
+    
+    const { signerId, verificationCode } = parseResult.data;
     
     // Security: Verify signer session authentication
     const session = req.session as any;
     if (!session.signerAuthenticated || !session.authenticatedSignerId) {
-      return res.status(401).json({ success: false, error: "지갑 주소로 먼저 인증해주세요" });
+      return res.status(401).json({ success: false, error: "지갑 주소로 먼저 인증해주세요", code: "SESSION_REQUIRED" });
     }
     
     // Security: Verify signerId matches authenticated session
     if (session.authenticatedSignerId !== signerId) {
-      return res.status(403).json({ success: false, error: "인증된 서명자 ID와 일치하지 않습니다" });
-    }
-    
-    // Validate input
-    if (!signerId || !verificationCode) {
-      return res.status(400).json({ success: false, error: "인증 코드가 필요합니다" });
+      return res.status(403).json({ success: false, error: "인증된 서명자 ID와 일치하지 않습니다", code: "SIGNER_MISMATCH" });
     }
     
     // Check pending vote in session
@@ -1610,11 +1641,23 @@ signerPortalRouter.post("/transactions/:transactionId/verify-and-vote", async (r
 signerPortalRouter.post("/transactions/:transactionId/cancel-verification", async (req: Request, res: Response) => {
   try {
     const { transactionId } = req.params;
-    const { signerId } = req.body;
+    
+    // Zod validation
+    const parseResult = cancelVerificationSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      const firstError = parseResult.error.errors[0];
+      return res.status(400).json({ 
+        success: false, 
+        error: firstError?.message || "입력 데이터가 유효하지 않습니다",
+        code: "VALIDATION_ERROR"
+      });
+    }
+    
+    const { signerId } = parseResult.data;
     
     const session = req.session as any;
     if (session.authenticatedSignerId !== signerId) {
-      return res.status(403).json({ success: false, error: "권한이 없습니다" });
+      return res.status(403).json({ success: false, error: "권한이 없습니다", code: "SIGNER_MISMATCH" });
     }
     
     // Clean up verification code
