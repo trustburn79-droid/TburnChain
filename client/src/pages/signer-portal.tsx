@@ -203,6 +203,10 @@ export default function SignerPortalPage() {
     comment: "",
   });
   const [showConfirmVote, setShowConfirmVote] = useState(false);
+  const [showEmailVerification, setShowEmailVerification] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [maskedEmail, setMaskedEmail] = useState("");
+  const [codeExpiresAt, setCodeExpiresAt] = useState<Date | null>(null);
   const [activeTab, setActiveTab] = useState("pending");
   const [wsConnected, setWsConnected] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
@@ -336,22 +340,81 @@ export default function SignerPortalPage() {
     toast({ title: "로그아웃", description: "안전하게 로그아웃되었습니다." });
   };
 
-  const voteMutation = useMutation({
+  // Step 1: Request email verification code
+  const requestVerificationMutation = useMutation({
     mutationFn: async ({ transactionId, data }: { transactionId: string; data: { signerId: string; decision: string; comment: string } }) => {
-      return apiRequest("POST", `/api/signer-portal/transactions/${transactionId}/vote`, data);
+      const res = await apiRequest("POST", `/api/signer-portal/transactions/${transactionId}/request-verification`, data);
+      return res.json();
+    },
+    onSuccess: (response: any) => {
+      setMaskedEmail(response.email);
+      setCodeExpiresAt(new Date(Date.now() + (response.expiresIn || 600) * 1000));
+      setVerificationCode("");
+      setShowConfirmVote(false);
+      setShowEmailVerification(true);
+      toast({ 
+        title: "인증 코드 발송", 
+        description: `${response.email}로 인증 코드가 발송되었습니다.`,
+      });
+    },
+    onError: (error: any) => {
+      toast({ title: "인증 코드 발송 실패", description: error.message || "이메일 발송에 실패했습니다.", variant: "destructive" });
+    },
+  });
+
+  // Step 2: Verify code and submit vote
+  const verifyAndVoteMutation = useMutation({
+    mutationFn: async ({ transactionId, data }: { transactionId: string; data: { signerId: string; verificationCode: string } }) => {
+      const res = await apiRequest("POST", `/api/signer-portal/transactions/${transactionId}/verify-and-vote`, data);
+      return res.json();
     },
     onSuccess: (response: any) => {
       const status = response?.thresholdStatus;
       toast({ 
         title: "서명 완료", 
-        description: `트랜잭션에 서명했습니다. (${status?.current || 0}/${status?.required || 7} 승인)`,
+        description: response.message || `트랜잭션에 서명했습니다. (${status?.current || 0}/${status?.required || 7} 승인)`,
       });
       refetchTransactions();
       refetchMyVotes();
       setShowVoteDialog(false);
+      setShowEmailVerification(false);
       setShowConfirmVote(false);
       setVoteData({ decision: "approve", comment: "" });
+      setVerificationCode("");
+      setMaskedEmail("");
+      setCodeExpiresAt(null);
     },
+    onError: (error: any) => {
+      // Check if code expired or max attempts
+      if (error.message?.includes("만료") || error.message?.includes("초과")) {
+        setShowEmailVerification(false);
+        toast({ title: "인증 실패", description: error.message, variant: "destructive" });
+      } else {
+        toast({ title: "인증 실패", description: error.message || "인증 코드가 올바르지 않습니다.", variant: "destructive" });
+      }
+    },
+  });
+
+  // Cancel verification
+  const cancelVerificationMutation = useMutation({
+    mutationFn: async ({ transactionId, signerId }: { transactionId: string; signerId: string }) => {
+      return apiRequest("POST", `/api/signer-portal/transactions/${transactionId}/cancel-verification`, { signerId });
+    },
+    onSuccess: () => {
+      setShowEmailVerification(false);
+      setVerificationCode("");
+      setMaskedEmail("");
+      setCodeExpiresAt(null);
+    },
+  });
+
+  // Legacy mutation (kept for compatibility but redirects to new flow)
+  const voteMutation = useMutation({
+    mutationFn: async ({ transactionId, data }: { transactionId: string; data: { signerId: string; decision: string; comment: string } }) => {
+      // Redirect to new 2FA flow
+      return requestVerificationMutation.mutateAsync({ transactionId, data });
+    },
+    onSuccess: () => {},
     onError: (error: any) => {
       toast({ title: "서명 실패", description: error.message || "서명을 기록할 수 없습니다.", variant: "destructive" });
     },
@@ -975,10 +1038,14 @@ export default function SignerPortalPage() {
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white flex items-center gap-2">
               <Lock className="w-5 h-5 text-cyan-400" />
-              서명 확인
+              서명 확인 (1/2단계)
             </AlertDialogTitle>
             <AlertDialogDescription className="text-slate-400">
-              이 작업은 취소할 수 없습니다. 트랜잭션에 {voteData.decision === "approve" ? "승인" : "거부"} 서명을 하시겠습니까?
+              트랜잭션에 {voteData.decision === "approve" ? "승인" : "거부"} 서명을 하시겠습니까?
+              <br />
+              <span className="text-cyan-400 text-sm mt-2 block">
+                확인을 누르면 등록된 이메일로 인증 코드가 발송됩니다.
+              </span>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -988,7 +1055,7 @@ export default function SignerPortalPage() {
             <AlertDialogAction
               onClick={() => {
                 if (!selectedTransaction || !authenticatedSigner) return;
-                voteMutation.mutate({
+                requestVerificationMutation.mutate({
                   transactionId: selectedTransaction.transactionId,
                   data: {
                     signerId: authenticatedSigner.signerId,
@@ -997,20 +1064,128 @@ export default function SignerPortalPage() {
                   },
                 });
               }}
+              disabled={requestVerificationMutation.isPending}
               className={
                 voteData.decision === "approve"
                   ? "bg-emerald-600 hover:bg-emerald-500"
                   : "bg-red-600 hover:bg-red-500"
               }
             >
-              {voteMutation.isPending ? (
+              {requestVerificationMutation.isPending ? (
                 <Loader2 className="w-4 h-4 animate-spin mr-2" />
               ) : null}
-              확인
+              인증 코드 발송
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <Dialog open={showEmailVerification} onOpenChange={(open) => {
+        if (!open && selectedTransaction && authenticatedSigner) {
+          cancelVerificationMutation.mutate({
+            transactionId: selectedTransaction.transactionId,
+            signerId: authenticatedSigner.signerId,
+          });
+        }
+        setShowEmailVerification(open);
+      }}>
+        <DialogContent className="max-w-md bg-slate-800 border-slate-700">
+          <DialogHeader>
+            <DialogTitle className="text-white flex items-center gap-2">
+              <Shield className="w-5 h-5 text-cyan-400" />
+              이메일 인증 (2/2단계)
+            </DialogTitle>
+            <DialogDescription className="text-slate-400">
+              {maskedEmail}로 발송된 6자리 인증 코드를 입력하세요.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 py-4">
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 rounded-xl p-6 border border-slate-700/50">
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full flex items-center justify-center border border-cyan-500/30">
+                  <Key className="w-8 h-8 text-cyan-400" />
+                </div>
+                
+                <div>
+                  <Label htmlFor="verificationCode" className="text-slate-300 text-sm">인증 코드</Label>
+                  <Input
+                    id="verificationCode"
+                    value={verificationCode}
+                    onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                    placeholder="000000"
+                    maxLength={6}
+                    className="mt-2 text-center text-2xl font-mono tracking-[0.5em] bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-600 focus:border-cyan-500 focus:ring-cyan-500/20"
+                    data-testid="input-verification-code"
+                    autoFocus
+                  />
+                </div>
+
+                {codeExpiresAt && (
+                  <div className="text-xs text-slate-500 flex items-center justify-center gap-1">
+                    <Timer className="w-3 h-3" />
+                    코드 유효 시간: {Math.max(0, Math.floor((codeExpiresAt.getTime() - Date.now()) / 60000))}분
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-amber-300">
+                <p className="font-medium">보안 알림</p>
+                <ul className="text-amber-400/80 text-xs mt-1 space-y-1">
+                  <li>- 인증 코드는 10분 후 만료됩니다</li>
+                  <li>- 5회 오입력 시 새 코드를 요청해야 합니다</li>
+                  <li>- 이 코드를 다른 사람과 공유하지 마세요</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => {
+                if (selectedTransaction && authenticatedSigner) {
+                  cancelVerificationMutation.mutate({
+                    transactionId: selectedTransaction.transactionId,
+                    signerId: authenticatedSigner.signerId,
+                  });
+                }
+              }}
+              className="border-slate-600 text-slate-300 hover:bg-slate-700"
+            >
+              취소
+            </Button>
+            <Button
+              onClick={() => {
+                if (!selectedTransaction || !authenticatedSigner || verificationCode.length !== 6) return;
+                verifyAndVoteMutation.mutate({
+                  transactionId: selectedTransaction.transactionId,
+                  data: {
+                    signerId: authenticatedSigner.signerId,
+                    verificationCode,
+                  },
+                });
+              }}
+              disabled={verificationCode.length !== 6 || verifyAndVoteMutation.isPending}
+              className={
+                voteData.decision === "approve"
+                  ? "bg-emerald-600 hover:bg-emerald-500"
+                  : "bg-red-600 hover:bg-red-500"
+              }
+            >
+              {verifyAndVoteMutation.isPending ? (
+                <Loader2 className="w-4 h-4 animate-spin mr-2" />
+              ) : (
+                <ShieldCheck className="w-4 h-4 mr-2" />
+              )}
+              {voteData.decision === "approve" ? "최종 승인" : "최종 거부"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={showTransactionDetail} onOpenChange={setShowTransactionDetail}>
         <DialogContent className="max-w-2xl bg-slate-800 border-slate-700 max-h-[90vh] overflow-y-auto">
