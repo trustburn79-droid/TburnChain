@@ -86,6 +86,7 @@ import enterpriseDbOptimizerRoutes from "./routes/enterprise-db-optimizer-routes
 import distributionProgramsRoutes from "./routes/distribution-programs-routes";
 import enterpriseAdminRoutes from "./routes/enterprise-admin-routes";
 import custodyAdminRoutes, { signerPortalRouter } from "./routes/custody-admin-routes";
+import tokenVestingRoutes from "./routes/token-vesting-routes";
 import { getCsrfToken, validateCsrf } from "./middleware/csrf";
 import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
 import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
@@ -3033,6 +3034,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   console.log("[CustodyAdmin] ✅ Custody admin routes registered (multisig signer management)");
   app.use("/api/signer-portal", custodyAdminLimiter, signerPortalRouter);
   console.log("[SignerPortal] ✅ Public signer portal routes registered (no admin auth required)");
+  app.use("/api/public/v1", tokenVestingRoutes);
+  console.log("[TokenVesting] ✅ Token vesting & schedule routes registered (public API)");
 
   // ============================================
   // ENTERPRISE DATA HUB & ORCHESTRATION (Cross-Module Integration)
