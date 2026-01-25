@@ -1036,6 +1036,34 @@ router.post("/transactions/expire-pending", requireAdmin, async (req: Request, r
 });
 
 // ============================================
+// Signer Portal API (Public for authenticated signers)
+// ============================================
+
+router.get("/signer-votes/:signerId", async (req: Request, res: Response) => {
+  try {
+    const { signerId } = req.params;
+    
+    // Verify signer exists
+    const [signer] = await db.select().from(multisigSigners).where(eq(multisigSigners.signerId, signerId));
+    if (!signer) {
+      return res.status(404).json({ success: false, error: "Signer not found" });
+    }
+    
+    // Get all approvals by this signer
+    const approvals = await db.select()
+      .from(custodyTransactionApprovals)
+      .where(eq(custodyTransactionApprovals.signerId, signerId))
+      .orderBy(desc(custodyTransactionApprovals.decidedAt))
+      .limit(50);
+    
+    res.json({ success: true, approvals, signer: { name: signer.name, role: signer.role } });
+  } catch (error: any) {
+    console.error("[Custody] Error fetching signer votes:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ============================================
 // Custody Statistics
 // ============================================
 

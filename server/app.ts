@@ -17,6 +17,7 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { initializeBlockchainOrchestrator, shutdownBlockchainOrchestrator } from "./services/blockchain-orchestrator";
 import { memoryGuardian } from "./services/memory-guardian";
+import { startCustodyTransactionScheduler, stopCustodyTransactionScheduler } from "./services/custody-transaction-scheduler";
 import { never500ErrorHandler, getErrorHealthStats } from "./core/never-500-handler";
 
 // ★ [수정 1] connect-redis 불러오는 방식 변경 (ESM 호환)
@@ -808,6 +809,7 @@ export default async function runApp(
     log(`🛑 SIGTERM received, shutting down gracefully...`, "shutdown");
     try {
       memoryGuardian.stop();
+      stopCustodyTransactionScheduler();
       await shutdownBlockchainOrchestrator();
     } catch (e) {
       // Ignore shutdown errors
@@ -826,5 +828,9 @@ export default async function runApp(
     // ★ [v7.0] Start Memory Guardian for automated memory management
     memoryGuardian.start();
     log(`🛡️ Memory Guardian started - monitoring heap usage`, "memory");
+    
+    // ★ [v8.0] Start Custody Transaction Scheduler for automated expiration
+    startCustodyTransactionScheduler();
+    log(`⏰ Custody Transaction Scheduler started - 1 hour intervals`, "custody");
   });
 }
