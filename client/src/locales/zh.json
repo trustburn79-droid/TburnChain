@@ -17405,6 +17405,10 @@
       "marketplaceToken": {
         "name": "市场代币",
         "description": "具有忠诚奖励和支付集成的电子商务代币"
+      },
+      "memeToken": {
+        "name": "Memed 模因币",
+        "description": "具有病毒传播机制和社交功能的社区驱动模因代币"
       }
     },
     "categories": {
@@ -17439,7 +17443,9 @@
       "loyaltyPoints": "忠诚积分",
       "cashback": "返现",
       "merchantTools": "商家工具",
-      "paymentGateway": "支付网关"
+      "paymentGateway": "支付网关",
+      "communityDriven": "社区驱动",
+      "viralMechanics": "病毒传播"
     },
     "back": "返回",
     "next": "下一步",
@@ -17550,7 +17556,8 @@
       "gptDesc": "代币经济学和治理分析",
       "claudeDesc": "实时安全和MEV保护",
       "geminiDesc": "Gas优化和路由"
-    }
+    },
+    "popularityScore": "热度"
   },
   "launchEventPage": {
     "title": "TBURN主网 Genesis 发布",

@@ -16453,6 +16453,10 @@
       "marketplaceToken": {
         "name": "Marketplace Token",
         "description": "E-commerce token with loyalty rewards and payment integration"
+      },
+      "memeToken": {
+        "name": "Memed میم کوائن",
+        "description": "وائرل میکانزم اور سوشل فیچرز کے ساتھ کمیونٹی سے چلنے والا میم ٹوکن"
       }
     },
     "categories": {
@@ -16487,7 +16491,9 @@
       "loyaltyPoints": "Loyalty Points",
       "cashback": "Cashback",
       "merchantTools": "Merchant Tools",
-      "paymentGateway": "Payment Gateway"
+      "paymentGateway": "Payment Gateway",
+      "communityDriven": "کمیونٹی سے چلنے والا",
+      "viralMechanics": "وائرل میکانزم"
     },
     "back": "Back",
     "next": "Next",
@@ -16598,7 +16604,8 @@
       "gptDesc": "ٹوکن اکنامکس اور گورننس تجزیہ",
       "claudeDesc": "ریئل ٹائم سیکیورٹی اور MEV تحفظ",
       "geminiDesc": "گیس آپٹیمائزیشن اور روٹنگ"
-    }
+    },
+    "popularityScore": "مقبولیت"
   },
   "tokenPrograms": {
     "ecosystemFund": {

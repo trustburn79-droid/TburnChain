@@ -15047,6 +15047,10 @@
       "marketplaceToken": {
         "name": "Token Marketplace",
         "description": "Token e-commerce avec récompenses de fidélité et intégration de paiement"
+      },
+      "memeToken": {
+        "name": "Memed Mème Coin",
+        "description": "Token mème communautaire avec mécanismes viraux et fonctions sociales"
       }
     },
     "categories": {
@@ -15081,7 +15085,9 @@
       "loyaltyPoints": "Points de Fidélité",
       "cashback": "Cashback",
       "merchantTools": "Outils Marchands",
-      "paymentGateway": "Passerelle de Paiement"
+      "paymentGateway": "Passerelle de Paiement",
+      "communityDriven": "Communautaire",
+      "viralMechanics": "Mécanismes Viraux"
     },
     "back": "Retour",
     "next": "Suivant",
@@ -15192,7 +15198,8 @@
       "gptDesc": "Analyse de l'économie des tokens et de la gouvernance",
       "claudeDesc": "Sécurité en temps réel et protection MEV",
       "geminiDesc": "Optimisation du gas et routage"
-    }
+    },
+    "popularityScore": "Popularité"
   },
   "launchEventPage": {
     "title": "TBURN Mainnet Genesis Launch",

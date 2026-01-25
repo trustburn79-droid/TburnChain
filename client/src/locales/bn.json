@@ -13210,6 +13210,10 @@
       "marketplaceToken": {
         "name": "Marketplace Token",
         "description": "E-commerce token with loyalty rewards and payment integration"
+      },
+      "memeToken": {
+        "name": "Memed মিম কয়েন",
+        "description": "ভাইরাল মেকানিজম এবং সোশ্যাল ফিচার সহ কমিউনিটি-চালিত মিম টোকেন"
       }
     },
     "categories": {
@@ -13244,7 +13248,9 @@
       "loyaltyPoints": "Loyalty Points",
       "cashback": "Cashback",
       "merchantTools": "Merchant Tools",
-      "paymentGateway": "Payment Gateway"
+      "paymentGateway": "Payment Gateway",
+      "communityDriven": "কমিউনিটি চালিত",
+      "viralMechanics": "ভাইরাল মেকানিজম"
     },
     "back": "Back",
     "next": "Next",
@@ -13355,7 +13361,8 @@
       "gptDesc": "টোকেন অর্থনীতি এবং গভর্ন্যান্স বিশ্লেষণ",
       "claudeDesc": "রিয়েল-টাইম নিরাপত্তা এবং MEV সুরক্ষা",
       "geminiDesc": "গ্যাস অপ্টিমাইজেশন এবং রাউটিং"
-    }
+    },
+    "popularityScore": "জনপ্রিয়তা"
   },
   "launchEventPage": {
     "title": "TBURN Mainnet Genesis লঞ্চ",

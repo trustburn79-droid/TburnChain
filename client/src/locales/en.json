@@ -16859,7 +16859,7 @@
     "compliance": "Compliance",
     "bugBounty": "Bug Bounty",
     "custodySigners": "Custody Signers",
-      "custodyTransactions": "Custody Transactions",
+    "custodyTransactions": "Custody Transactions",
     "dataAnalytics": "Data & Analytics",
     "biDashboard": "BI Dashboard",
     "txAnalytics": "Transaction Analytics",
@@ -29130,6 +29130,10 @@
       "marketplaceToken": {
         "name": "Marketplace Token",
         "description": "E-commerce token with loyalty rewards and payment integration"
+      },
+      "memeToken": {
+        "name": "Memed Meme Coin",
+        "description": "Community-driven meme token with viral mechanics and social features"
       }
     },
     "categories": {
@@ -29164,7 +29168,9 @@
       "loyaltyPoints": "Loyalty Points",
       "cashback": "Cashback",
       "merchantTools": "Merchant Tools",
-      "paymentGateway": "Payment Gateway"
+      "paymentGateway": "Payment Gateway",
+      "communityDriven": "Community Driven",
+      "viralMechanics": "Viral Mechanics"
     },
     "back": "Back",
     "next": "Next",
@@ -29276,7 +29282,8 @@
       "gptDesc": "Token economics and governance analysis",
       "claudeDesc": "Real-time security and MEV protection",
       "geminiDesc": "Gas optimization and routing"
-    }
+    },
+    "popularityScore": "Popularity"
   },
   "launchEventPage": {
     "title": "TBURN Mainnet Genesis Launch",

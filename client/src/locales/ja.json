@@ -18231,6 +18231,10 @@
       "marketplaceToken": {
         "name": "マーケットプレイストークン",
         "description": "ロイヤリティ報酬と決済統合を備えたEコマーストークン"
+      },
+      "memeToken": {
+        "name": "Memed ミームコイン",
+        "description": "バイラルメカニズムとソーシャル機能を備えたコミュニティ主導のミームトークン"
       }
     },
     "categories": {
@@ -18265,7 +18269,9 @@
       "loyaltyPoints": "ロイヤリティポイント",
       "cashback": "キャッシュバック",
       "merchantTools": "マーチャントツール",
-      "paymentGateway": "ペイメントゲートウェイ"
+      "paymentGateway": "ペイメントゲートウェイ",
+      "communityDriven": "コミュニティ主導",
+      "viralMechanics": "バイラルメカニズム"
     },
     "back": "戻る",
     "next": "次へ",
@@ -18376,7 +18382,8 @@
       "gptDesc": "トークンエコノミクスとガバナンス分析",
       "claudeDesc": "リアルタイムセキュリティとMEV保護",
       "geminiDesc": "ガス最適化とルーティング"
-    }
+    },
+    "popularityScore": "人気度"
   },
   "launchEventPage": {
     "title": "TBURNメインネット Genesisローンチ",

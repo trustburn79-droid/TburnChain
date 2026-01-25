@@ -14988,6 +14988,10 @@
       "marketplaceToken": {
         "name": "Marketplace Token",
         "description": "E-commerce token with loyalty rewards and payment integration"
+      },
+      "memeToken": {
+        "name": "عملة ميم Memed",
+        "description": "رمز ميم مدفوع من المجتمع مع آليات فيروسية وميزات اجتماعية"
       }
     },
     "categories": {
@@ -15022,7 +15026,9 @@
       "loyaltyPoints": "Loyalty Points",
       "cashback": "Cashback",
       "merchantTools": "Merchant Tools",
-      "paymentGateway": "Payment Gateway"
+      "paymentGateway": "Payment Gateway",
+      "communityDriven": "مدفوع من المجتمع",
+      "viralMechanics": "آليات فيروسية"
     },
     "back": "Back",
     "next": "Next",
@@ -15133,7 +15139,8 @@
       "gptDesc": "تحليل اقتصاديات الرمز والحوكمة",
       "claudeDesc": "أمان في الوقت الفعلي وحماية MEV",
       "geminiDesc": "تحسين الغاز والتوجيه"
-    }
+    },
+    "popularityScore": "الشعبية"
   },
   "launchEventPage": {
     "title": "إطلاق TBURN Mainnet Genesis",
