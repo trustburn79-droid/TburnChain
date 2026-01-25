@@ -54,19 +54,24 @@ Key architectural decisions and features include:
 
 ## Recent Changes (2026-01-24)
 ## Recent Changes (2026-01-25)
-- **Public Signer Portal**: Implemented `/signer-portal` page for multisig custody signers
-  - Session-based signer authentication via wallet address
-  - Public API at `/api/signer-portal` with rate limiting (no admin auth required)
-  - Endpoints: signer-by-address, transactions, votes, vote submission
-  - Security: Session-bound signer verification prevents impersonation
-  - Dashboard shows pending transactions, vote history, emergency approval status
+- **Enterprise Signer Portal Upgrade**: Complete redesign of `/signer-portal` to production-level enterprise quality
+  - Premium dark UI with slate-900 gradients and glassmorphism effects
+  - 4 stat cards: pending transactions, total signatures, emergency authority, system status
+  - Tabbed interface: pending transactions, emergency transactions, vote history
+  - Transaction detail modal with full information display
+  - Vote confirmation dialog with signature flow (2-step confirmation)
+  - WebSocket integration for real-time updates with Live/Offline indicator
+  - Notification badge for new transactions
+  - Korean role labels with color-coded badges (창립자, 이사회 멤버, 자문위원, etc.)
+  - TooltipProvider wrapper for Radix UI compatibility
   
-- **Signer Portal Security Improvements**:
+- **Signer Portal Security**:
+  - Session-based authentication via wallet address (Bech32m tb1...)
   - Session stores authenticatedSignerId after address verification
   - Vote submission requires session authentication and signerId match
   - Vote history accessible only to authenticated signer
   - Removed email from public API response for privacy
-  - Used raw SQL for approvals table due to schema mismatch (approved/comments/approved_at columns)
+  - Used raw SQL for approvals table due to schema mismatch
 
 - **Menu Test Page**: Added /menu route for menu structure improvement testing
   - Standalone test page with premium mega menu navigation design
