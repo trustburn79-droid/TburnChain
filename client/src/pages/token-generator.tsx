@@ -1249,6 +1249,7 @@ function CreateTokenContent({
                       <th className="text-left py-3 px-2 font-semibold">{t('tokenGenerator.templateTable.standard', { defaultValue: '표준' })}</th>
                       <th className="text-left py-3 px-2 font-semibold">{t('tokenGenerator.templateTable.purpose', { defaultValue: '용도' })}</th>
                       <th className="text-left py-3 px-2 font-semibold">{t('tokenGenerator.templateTable.features', { defaultValue: '주요 기능' })}</th>
+                      <th className="text-right py-3 px-2 font-semibold">{t('tokenGenerator.templateTable.action', { defaultValue: '바로가기' })}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1257,36 +1258,66 @@ function CreateTokenContent({
                       <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
                       <td className="py-3 px-2">DAO 투표/스테이킹</td>
                       <td className="py-3 px-2 text-muted-foreground">거버넌스 투표, 스테이킹 보상</td>
+                      <td className="py-3 px-2 text-right">
+                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'defi-governance')!)} data-testid="btn-goto-defi">
+                          <ArrowRight className="h-3 w-3" />
+                        </Button>
+                      </td>
                     </tr>
                     <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
                       <td className="py-3 px-2 font-medium">유틸리티 토큰</td>
                       <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
                       <td className="py-3 px-2">플랫폼 결제/보상</td>
                       <td className="py-3 px-2 text-muted-foreground">사용 보상, 동적 가격 책정</td>
+                      <td className="py-3 px-2 text-right">
+                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'utility-token')!)} data-testid="btn-goto-utility">
+                          <ArrowRight className="h-3 w-3" />
+                        </Button>
+                      </td>
                     </tr>
                     <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
                       <td className="py-3 px-2 font-medium">GameFi 자산 토큰</td>
                       <td className="py-3 px-2"><Badge variant="outline" className="text-xs bg-amber-500/10 text-amber-500">TBC-1155</Badge></td>
                       <td className="py-3 px-2">게임 아이템</td>
                       <td className="py-3 px-2 text-muted-foreground">게임 내 아이템, 마켓플레이스</td>
+                      <td className="py-3 px-2 text-right">
+                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'gamefi-asset')!)} data-testid="btn-goto-gamefi">
+                          <ArrowRight className="h-3 w-3" />
+                        </Button>
+                      </td>
                     </tr>
                     <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
                       <td className="py-3 px-2 font-medium">NFT 아트 컬렉션</td>
                       <td className="py-3 px-2"><Badge variant="outline" className="text-xs bg-purple-500/10 text-purple-500">TBC-721</Badge></td>
                       <td className="py-3 px-2">디지털 아트</td>
                       <td className="py-3 px-2 text-muted-foreground">로열티 적용, AI 진품 확인</td>
+                      <td className="py-3 px-2 text-right">
+                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'nft-collection')!)} data-testid="btn-goto-nft">
+                          <ArrowRight className="h-3 w-3" />
+                        </Button>
+                      </td>
                     </tr>
                     <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
                       <td className="py-3 px-2 font-medium">기업용 보안 토큰</td>
                       <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
                       <td className="py-3 px-2">규제 준수 증권</td>
                       <td className="py-3 px-2 text-muted-foreground">KYC/AML, 다중 서명</td>
+                      <td className="py-3 px-2 text-right">
+                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'enterprise-token')!)} data-testid="btn-goto-enterprise">
+                          <ArrowRight className="h-3 w-3" />
+                        </Button>
+                      </td>
                     </tr>
                     <tr>
                       <td className="py-3 px-2 font-medium">마켓플레이스 토큰</td>
                       <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
                       <td className="py-3 px-2">전자상거래</td>
                       <td className="py-3 px-2 text-muted-foreground">로열티 포인트, 캐시백</td>
+                      <td className="py-3 px-2 text-right">
+                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'marketplace-token')!)} data-testid="btn-goto-marketplace">
+                          <ArrowRight className="h-3 w-3" />
+                        </Button>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
