@@ -69,6 +69,7 @@ const AdminCompliance = lazy(() => import("@/pages/admin-portal/compliance"));
 const AdminAccessControl = lazy(() => import("@/pages/admin-portal/access-control"));
 const AdminBugBounty = lazy(() => import("@/pages/admin-portal/bug-bounty"));
 const AdminCustodySigners = lazy(() => import("@/pages/admin/custody-signers"));
+const AdminCustodyTransactions = lazy(() => import("@/pages/admin/custody-transactions"));
 const AdminNetworkAnalytics = lazy(() => import("@/pages/admin-portal/network-analytics"));
 const AdminTxAnalytics = lazy(() => import("@/pages/admin-portal/tx-analytics"));
 const AdminUserAnalytics = lazy(() => import("@/pages/admin-portal/user-analytics"));
@@ -199,6 +200,7 @@ function AdminRouter() {
         <Route path="/admin/access-control" component={AdminAccessControl} />
         <Route path="/admin/bug-bounty" component={AdminBugBounty} />
         <Route path="/admin/custody-signers" component={AdminCustodySigners} />
+        <Route path="/admin/custody-transactions" component={AdminCustodyTransactions} />
         <Route path="/admin/bi" component={AdminBIDashboard} />
         <Route path="/admin/bi-dashboard" component={AdminBIDashboard} />
         <Route path="/admin/tx-analytics" component={AdminTxAnalytics} />
