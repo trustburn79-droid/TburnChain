@@ -82,9 +82,10 @@ export function calculateVestingStatus(
     const monthsVesting = Math.max(0, monthsElapsed - cliffMonths);
     
     if (vestingMonthsAfterCliff > 0) {
-      // Linear vesting calculation
-      const vestingRatio = Math.min(monthsVesting / vestingMonthsAfterCliff, 1);
-      vestedAmount = BigInt(Math.floor(Number(vestableAmount) * vestingRatio));
+      // Linear vesting calculation using BigInt-safe arithmetic
+      // Avoid Number() conversion to prevent precision loss with large token amounts
+      const cappedMonths = Math.min(monthsVesting, vestingMonthsAfterCliff);
+      vestedAmount = (vestableAmount * BigInt(cappedMonths)) / BigInt(vestingMonthsAfterCliff);
     } else {
       // No vesting period after cliff - all released at cliff end
       vestedAmount = vestableAmount;

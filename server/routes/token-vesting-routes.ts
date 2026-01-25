@@ -9,14 +9,62 @@ import { custodyTransactions, vestingContracts } from "@shared/schema";
 import { eq, desc, and, sql, gte, lte, or } from "drizzle-orm";
 import { z } from "zod";
 import { nanoid } from "nanoid";
+import rateLimit from "express-rate-limit";
 import VestingEngine, { 
   calculateVestingStatus, 
   generateVestingSchedule, 
   getVestingConfigByType,
   VestingConfig 
 } from "../services/vesting-engine";
+import { sanitizeSearchString } from "../utils/sql-security";
 
 const router = Router();
+
+// ========================================
+// Input Validation Schemas (Zod)
+// ========================================
+
+const tokenDetailsQuerySchema = z.object({
+  program: z.string().max(100).regex(/^[a-z_]+$/).optional(),
+  status: z.string().max(50).regex(/^[a-z_]+$/).optional(),
+  recipient: z.string().max(200).optional(),
+});
+
+// ========================================
+// Rate Limiting Middleware (Public Read Routes Only)
+// ========================================
+
+const publicReadRateLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 60, // 60 requests per minute per IP
+  message: { success: false, error: 'Rate limit exceeded. Please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// ========================================
+// XSS Prevention - Sanitize output strings
+// ========================================
+
+function escapeHtml(text: string | null | undefined): string {
+  if (!text) return '';
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function sanitizeTransactionOutput(tx: any): any {
+  return {
+    ...tx,
+    recipientName: escapeHtml(tx.recipientName),
+    recipientAddress: escapeHtml(tx.recipientAddress),
+    purpose: escapeHtml(tx.purpose),
+    justification: escapeHtml(tx.justification),
+  };
+}
 
 // ========================================
 // Token Schedule API (Aggregate View)
@@ -26,7 +74,7 @@ const router = Router();
  * GET /api/token-schedule
  * Returns aggregated token distribution schedule across all programs
  */
-router.get("/token-schedule", async (req: Request, res: Response) => {
+router.get("/token-schedule", publicReadRateLimiter, async (req: Request, res: Response) => {
   try {
     // Fetch all custody transactions with vesting info
     const transactions = await db
@@ -143,7 +191,8 @@ router.get("/token-schedule", async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error("[Token Schedule] Error:", error);
-    res.status(500).json({ success: false, error: error.message });
+    // Sanitize error message to prevent internal information leakage
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -151,27 +200,39 @@ router.get("/token-schedule", async (req: Request, res: Response) => {
  * GET /api/token-details
  * Returns individual token allocations with vesting status
  */
-router.get("/token-details", async (req: Request, res: Response) => {
+router.get("/token-details", publicReadRateLimiter, async (req: Request, res: Response) => {
   try {
-    const { program, status, recipient } = req.query;
+    // Validate query parameters with Zod
+    const parseResult = tokenDetailsQuerySchema.safeParse(req.query);
+    if (!parseResult.success) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid query parameters',
+        details: parseResult.error.errors.map(e => ({ field: e.path.join('.'), message: e.message })),
+      });
+    }
     
-    let query = db.select().from(custodyTransactions);
+    const { program, status, recipient } = parseResult.data;
     
-    // Apply filters
+    // Apply filters with validated and sanitized inputs
     const conditions = [];
-    if (program && typeof program === 'string') {
+    if (program) {
       conditions.push(eq(custodyTransactions.transactionType, program));
     }
-    if (status && typeof status === 'string') {
+    if (status) {
       conditions.push(eq(custodyTransactions.status, status));
     }
-    if (recipient && typeof recipient === 'string') {
-      conditions.push(
-        or(
-          sql`${custodyTransactions.recipientAddress} ILIKE ${'%' + recipient + '%'}`,
-          sql`${custodyTransactions.recipientName} ILIKE ${'%' + recipient + '%'}`
-        )
-      );
+    if (recipient) {
+      // Sanitize search string to prevent SQL pattern injection
+      const sanitizedRecipient = sanitizeSearchString(recipient);
+      if (sanitizedRecipient) {
+        conditions.push(
+          or(
+            sql`${custodyTransactions.recipientAddress} ILIKE ${'%' + sanitizedRecipient + '%'}`,
+            sql`${custodyTransactions.recipientName} ILIKE ${'%' + sanitizedRecipient + '%'}`
+          )
+        );
+      }
     }
 
     const transactions = await db
@@ -225,17 +286,18 @@ router.get("/token-details", async (req: Request, res: Response) => {
         }));
       }
 
+      // Sanitize user-provided fields to prevent XSS
       return {
         transactionId: tx.transactionId,
         transactionType: tx.transactionType,
         transactionTypeDisplay: formatProgramName(tx.transactionType),
-        recipientAddress: tx.recipientAddress,
-        recipientName: tx.recipientName,
+        recipientAddress: escapeHtml(tx.recipientAddress),
+        recipientName: escapeHtml(tx.recipientName),
         amount: tx.amount,
         amountUsd: tx.amountUsd,
         status: tx.status,
-        purpose: tx.purpose,
-        justification: tx.justification,
+        purpose: escapeHtml(tx.purpose),
+        justification: escapeHtml(tx.justification),
         proposedAt: tx.proposedAt?.toISOString(),
         executedAt: tx.executedAt?.toISOString() || null,
         
@@ -257,12 +319,13 @@ router.get("/token-details", async (req: Request, res: Response) => {
       success: true,
       timestamp: now.toISOString(),
       count: details.length,
-      filters: { program, status, recipient },
+      filters: { program: program || null, status: status || null, recipient: recipient || null },
       allocations: details,
     });
   } catch (error: any) {
     console.error("[Token Details] Error:", error);
-    res.status(500).json({ success: false, error: error.message });
+    // Sanitize error message to prevent internal information leakage
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -270,7 +333,7 @@ router.get("/token-details", async (req: Request, res: Response) => {
  * GET /api/token-details/:transactionId
  * Returns detailed vesting info for a specific transaction
  */
-router.get("/token-details/:transactionId", async (req: Request, res: Response) => {
+router.get("/token-details/:transactionId", publicReadRateLimiter, async (req: Request, res: Response) => {
   try {
     const { transactionId } = req.params;
     
@@ -326,6 +389,7 @@ router.get("/token-details/:transactionId", async (req: Request, res: Response) 
       }));
     }
 
+    // Sanitize user-provided fields to prevent XSS
     res.json({
       success: true,
       timestamp: now.toISOString(),
@@ -333,13 +397,13 @@ router.get("/token-details/:transactionId", async (req: Request, res: Response) 
         transactionId: tx.transactionId,
         transactionType: tx.transactionType,
         transactionTypeDisplay: formatProgramName(tx.transactionType),
-        recipientAddress: tx.recipientAddress,
-        recipientName: tx.recipientName,
+        recipientAddress: escapeHtml(tx.recipientAddress),
+        recipientName: escapeHtml(tx.recipientName),
         amount: tx.amount,
         amountUsd: tx.amountUsd,
         status: tx.status,
-        purpose: tx.purpose,
-        justification: tx.justification,
+        purpose: escapeHtml(tx.purpose),
+        justification: escapeHtml(tx.justification),
         proposedAt: tx.proposedAt?.toISOString(),
         executedAt: tx.executedAt?.toISOString() || null,
         vestingEnabled: tx.vestingEnabled,
@@ -354,7 +418,8 @@ router.get("/token-details/:transactionId", async (req: Request, res: Response) 
     });
   } catch (error: any) {
     console.error("[Token Details] Error:", error);
-    res.status(500).json({ success: false, error: error.message });
+    // Sanitize error message to prevent internal information leakage
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -458,7 +523,8 @@ router.post("/vesting-contracts/create", async (req: Request, res: Response) => 
     });
   } catch (error: any) {
     console.error("[Vesting Contract] Create error:", error);
-    res.status(500).json({ success: false, error: error.message });
+    // Sanitize error message to prevent internal information leakage
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -573,10 +639,12 @@ router.post("/vesting-contracts/batch-create", async (req: Request, res: Respons
           vestingConfig: defaultConfig,
         });
       } catch (err: any) {
+        // Log actual error for debugging but sanitize response
+        console.error(`[Batch Create] Error for tx ${tx.transactionId}:`, err);
         results.push({
           transactionId: tx.transactionId,
           status: "error",
-          error: err.message,
+          error: "Processing failed",
         });
       }
     }
@@ -591,7 +659,8 @@ router.post("/vesting-contracts/batch-create", async (req: Request, res: Respons
     });
   } catch (error: any) {
     console.error("[Vesting Contract] Batch create error:", error);
-    res.status(500).json({ success: false, error: error.message });
+    // Sanitize error message to prevent internal information leakage
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -683,7 +752,7 @@ import { validateTokenomicsConfig, validateCustodyTransactions } from "../utils/
  * GET /api/tokenomics/validate
  * Enterprise-grade validation of tokenomics configuration against official v4.3
  */
-router.get("/tokenomics/validate", async (req: Request, res: Response) => {
+router.get("/tokenomics/validate", publicReadRateLimiter, async (req: Request, res: Response) => {
   try {
     // 1. Validate GENESIS_ALLOCATION
     const configReport = validateTokenomicsConfig();
@@ -739,10 +808,10 @@ router.get("/tokenomics/validate", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("Tokenomics validation error:", error);
+    // Sanitize error message to prevent internal information leakage
     res.status(500).json({
       success: false,
-      error: "Validation failed",
-      message: error instanceof Error ? error.message : "Unknown error",
+      error: "Internal server error",
     });
   }
 });
@@ -751,7 +820,7 @@ router.get("/tokenomics/validate", async (req: Request, res: Response) => {
  * GET /api/tokenomics/validate/detailed
  * Full detailed validation report with all results
  */
-router.get("/tokenomics/validate/detailed", async (req: Request, res: Response) => {
+router.get("/tokenomics/validate/detailed", publicReadRateLimiter, async (req: Request, res: Response) => {
   try {
     const configReport = validateTokenomicsConfig();
     
@@ -784,9 +853,10 @@ router.get("/tokenomics/validate/detailed", async (req: Request, res: Response) 
     });
   } catch (error) {
     console.error("Detailed validation error:", error);
+    // Sanitize error message to prevent internal information leakage
     res.status(500).json({
       success: false,
-      error: "Validation failed",
+      error: "Internal server error",
     });
   }
 });
