@@ -46,9 +46,10 @@ router.post('/start', async (req: Request, res: Response) => {
       }
     });
   } catch (error: any) {
+    console.error('[BlockProduction] Error starting engine:', error);
     res.status(500).json({
       success: false,
-      error: error.message
+      error: 'Internal server error'
     });
   }
 });
@@ -77,9 +78,10 @@ router.post('/stop', async (req: Request, res: Response) => {
       message: 'Block production engine stopped'
     });
   } catch (error: any) {
+    console.error('[BlockProduction] Error stopping engine:', error);
     res.status(500).json({
       success: false,
-      error: error.message
+      error: 'Internal server error'
     });
   }
 });
@@ -125,9 +127,10 @@ router.get('/metrics', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error: any) {
+    console.error('[BlockProduction] Error fetching metrics:', error);
     res.status(500).json({
       success: false,
-      error: error.message
+      error: 'Internal server error'
     });
   }
 });
@@ -166,9 +169,10 @@ router.get('/blocks/recent', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error: any) {
+    console.error('[BlockProduction] Error fetching recent blocks:', error);
     res.status(500).json({
       success: false,
-      error: error.message
+      error: 'Internal server error'
     });
   }
 });
@@ -222,9 +226,10 @@ router.get('/blocks/:height', (req: Request, res: Response) => {
       }
     });
   } catch (error: any) {
+    console.error('[BlockProduction] Error fetching block by height:', error);
     res.status(500).json({
       success: false,
-      error: error.message
+      error: 'Internal server error'
     });
   }
 });
@@ -269,9 +274,10 @@ router.get('/blocks/state/:state', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error: any) {
+    console.error('[BlockProduction] Error fetching blocks by state:', error);
     res.status(500).json({
       success: false,
-      error: error.message
+      error: 'Internal server error'
     });
   }
 });
@@ -308,9 +314,10 @@ router.get('/health', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error: any) {
+    console.error('[BlockProduction] Error checking health:', error);
     res.status(500).json({
       success: false,
-      error: error.message
+      error: 'Internal server error'
     });
   }
 });
@@ -367,9 +374,10 @@ router.get('/stats', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error: any) {
+    console.error('[BlockProduction] Error fetching stats:', error);
     res.status(500).json({
       success: false,
-      error: error.message
+      error: 'Internal server error'
     });
   }
 });

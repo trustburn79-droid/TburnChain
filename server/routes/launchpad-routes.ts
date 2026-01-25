@@ -183,7 +183,7 @@ router.post("/mint", async (req: Request, res: Response) => {
     res.json(result);
   } catch (error: any) {
     console.error("[Launchpad API] Mint error:", error);
-    res.status(400).json({ error: error.message || "Failed to mint NFT" });
+    res.status(400).json({ error: "Failed to mint NFT" });
   }
 });
 
@@ -199,7 +199,7 @@ router.post("/whitelist/join", async (req: Request, res: Response) => {
     res.json(result);
   } catch (error: any) {
     console.error("[Launchpad API] Whitelist join error:", error);
-    res.status(400).json({ error: error.message || "Failed to join whitelist" });
+    res.status(400).json({ error: "Failed to join whitelist" });
   }
 });
 
@@ -215,7 +215,7 @@ router.post("/claim", async (req: Request, res: Response) => {
     res.json(result);
   } catch (error: any) {
     console.error("[Launchpad API] Claim error:", error);
-    res.status(400).json({ error: error.message || "Failed to claim NFT" });
+    res.status(400).json({ error: "Failed to claim NFT" });
   }
 });
 

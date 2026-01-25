@@ -81,9 +81,10 @@ router.get('/status', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting system status:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -104,9 +105,10 @@ router.get('/metrics', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting global metrics:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -141,9 +143,10 @@ router.get('/shards', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting all shards:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -192,9 +195,10 @@ router.get('/shards/:id', (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error(`[Sharding] Error getting shard ${req.params.id} details:`, error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -227,9 +231,10 @@ router.get('/shards/:id/metrics', (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error(`[Sharding] Error getting shard ${req.params.id} metrics:`, error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -252,9 +257,10 @@ router.get('/scaling-history', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting scaling history:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -286,9 +292,10 @@ router.get('/circuit-breakers', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting circuit breaker status:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -379,10 +386,11 @@ router.get('/health', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting health status:', error);
     res.status(500).json({
       success: false,
       status: 'error',
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -457,9 +465,10 @@ router.get('/performance', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting performance data:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -492,9 +501,10 @@ router.get('/v6/prometheus', (_req: Request, res: Response) => {
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     res.send(combined);
   } catch (error) {
+    console.error('[Sharding] Error generating Prometheus metrics:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -530,9 +540,10 @@ router.get('/v6/health', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting v6 health status:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -550,9 +561,10 @@ router.get('/v6/metrics', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting v6 metrics:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -582,9 +594,10 @@ router.get('/v6/pipeline', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting pipeline status:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -612,9 +625,10 @@ router.get('/v6/memory', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting memory governor status:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -640,9 +654,10 @@ router.get('/v6/shedder', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[Sharding] Error getting request shedder status:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -657,9 +672,10 @@ router.post('/v6/pipeline/reset-circuit-breaker', (_req: Request, res: Response)
       newState: shardBootPipeline.getMetrics().circuitBreakerState,
     });
   } catch (error) {
+    console.error('[Sharding] Error resetting circuit breaker:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -674,9 +690,10 @@ router.post('/v6/shedder/clear-cache', (_req: Request, res: Response) => {
       newCacheSize: requestShedder.getMetrics().cacheSize,
     });
   } catch (error) {
+    console.error('[Sharding] Error clearing cache:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -691,9 +708,10 @@ router.post('/v6/shedder/exit-degraded', (_req: Request, res: Response) => {
       isDegradedMode: requestShedder.getMetrics().isDegradedMode,
     });
   } catch (error) {
+    console.error('[Sharding] Error exiting degraded mode:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });

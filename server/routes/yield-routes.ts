@@ -180,7 +180,7 @@ router.post("/deposit", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(503).json({ error: error instanceof Error ? error.message : "Deposit failed" });
+    res.status(503).json({ error: "Deposit failed" });
   }
 });
 
@@ -204,7 +204,7 @@ router.post("/withdraw", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(503).json({ error: error instanceof Error ? error.message : "Withdrawal failed" });
+    res.status(503).json({ error: "Withdrawal failed" });
   }
 });
 
@@ -223,7 +223,7 @@ router.post("/claim-rewards", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(503).json({ error: error instanceof Error ? error.message : "Claim failed" });
+    res.status(503).json({ error: "Claim failed" });
   }
 });
 
@@ -242,7 +242,7 @@ router.post("/compound", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(503).json({ error: error instanceof Error ? error.message : "Compound failed" });
+    res.status(503).json({ error: "Compound failed" });
   }
 });
 
@@ -265,7 +265,7 @@ router.post("/harvest", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(503).json({ error: error instanceof Error ? error.message : "Harvest failed" });
+    res.status(503).json({ error: "Harvest failed" });
   }
 });
 

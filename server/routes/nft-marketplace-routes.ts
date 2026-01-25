@@ -192,7 +192,7 @@ router.post("/listings", async (req: Request, res: Response) => {
     res.status(201).json(listing);
   } catch (error: any) {
     console.error("[NFT API] Error creating listing:", error);
-    res.status(400).json({ error: error.message || "Failed to create listing" });
+    res.status(400).json({ error: "Failed to create listing" });
   }
 });
 
@@ -209,7 +209,7 @@ router.post("/listings/:id/cancel", async (req: Request, res: Response) => {
     res.json({ success: true });
   } catch (error: any) {
     console.error("[NFT API] Error cancelling listing:", error);
-    res.status(400).json({ error: error.message || "Failed to cancel listing" });
+    res.status(400).json({ error: "Failed to cancel listing" });
   }
 });
 
@@ -226,7 +226,7 @@ router.post("/listings/:id/buy", async (req: Request, res: Response) => {
     res.status(201).json(sale);
   } catch (error: any) {
     console.error("[NFT API] Error executing sale:", error);
-    res.status(400).json({ error: error.message || "Failed to execute sale" });
+    res.status(400).json({ error: "Failed to execute sale" });
   }
 });
 

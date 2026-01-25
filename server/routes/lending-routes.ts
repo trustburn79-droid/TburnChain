@@ -222,7 +222,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(201).json(market);
     } catch (error: any) {
       console.error('[Lending] Create market error:', error);
-      res.status(503).json({ error: error.message || "Failed to create market" });
+      res.status(503).json({ error: "Failed to create market" });
     }
   });
 
@@ -286,7 +286,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(quote);
     } catch (error: any) {
       console.error('[Lending] Supply quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get supply quote" });
+      res.status(400).json({ error: "Failed to get supply quote" });
     }
   });
 
@@ -305,7 +305,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(quote);
     } catch (error: any) {
       console.error('[Lending] Borrow quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get borrow quote" });
+      res.status(400).json({ error: "Failed to get borrow quote" });
     }
   });
 
@@ -324,7 +324,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(quote);
     } catch (error: any) {
       console.error('[Lending] Withdraw quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get withdraw quote" });
+      res.status(400).json({ error: "Failed to get withdraw quote" });
     }
   });
 
@@ -343,7 +343,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(quote);
     } catch (error: any) {
       console.error('[Lending] Repay quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get repay quote" });
+      res.status(400).json({ error: "Failed to get repay quote" });
     }
   });
 
@@ -367,7 +367,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(quote);
     } catch (error: any) {
       console.error('[Lending] Liquidation quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get liquidation quote" });
+      res.status(400).json({ error: "Failed to get liquidation quote" });
     }
   });
 
@@ -386,7 +386,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(201).json(result);
     } catch (error: any) {
       console.error('[Lending] Supply error:', error);
-      res.status(400).json({ error: error.message || "Failed to supply" });
+      res.status(400).json({ error: "Failed to supply" });
     }
   });
 
@@ -405,7 +405,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(200).json(result);
     } catch (error: any) {
       console.error('[Lending] Withdraw error:', error);
-      res.status(400).json({ error: error.message || "Failed to withdraw" });
+      res.status(400).json({ error: "Failed to withdraw" });
     }
   });
 
@@ -424,7 +424,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(201).json(result);
     } catch (error: any) {
       console.error('[Lending] Borrow error:', error);
-      res.status(400).json({ error: error.message || "Failed to borrow" });
+      res.status(400).json({ error: "Failed to borrow" });
     }
   });
 
@@ -443,7 +443,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(200).json(result);
     } catch (error: any) {
       console.error('[Lending] Repay error:', error);
-      res.status(400).json({ error: error.message || "Failed to repay" });
+      res.status(400).json({ error: "Failed to repay" });
     }
   });
 
@@ -468,7 +468,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(200).json(result);
     } catch (error: any) {
       console.error('[Lending] Liquidation error:', error);
-      res.status(400).json({ error: error.message || "Failed to liquidate" });
+      res.status(400).json({ error: "Failed to liquidate" });
     }
   });
 

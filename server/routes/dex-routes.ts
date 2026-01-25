@@ -283,7 +283,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(simulatedQuote);
     } catch (error: any) {
       console.error('[DEX] Quote error:', error);
-      res.status(503).json({ error: error.message || "Failed to get quote" });
+      res.status(503).json({ error: "Service temporarily unavailable" });
     }
   });
 
@@ -304,9 +304,9 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
     } catch (error: any) {
       console.error('[DEX] Quote error:', error);
       if (error.message.includes("Circuit breaker")) {
-        return res.status(503).json({ error: error.message });
+        return res.status(503).json({ error: "Service temporarily unavailable" });
       }
-      res.status(400).json({ error: error.message || "Failed to get quote" });
+      res.status(400).json({ error: "Invalid request parameters" });
     }
   });
 
@@ -336,15 +336,15 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
     } catch (error: any) {
       console.error('[DEX] Swap error:', error);
       if (error.message.includes("deadline expired")) {
-        return res.status(408).json({ error: error.message });
+        return res.status(408).json({ error: "Request deadline expired" });
       }
       if (error.message.includes("Slippage tolerance")) {
-        return res.status(400).json({ error: error.message });
+        return res.status(400).json({ error: "Slippage tolerance exceeded" });
       }
       if (error.message.includes("Circuit breaker")) {
-        return res.status(503).json({ error: error.message });
+        return res.status(503).json({ error: "Service temporarily unavailable" });
       }
-      res.status(503).json({ error: error.message || "Swap execution failed" });
+      res.status(503).json({ error: "Swap execution failed" });
     }
   });
 
@@ -400,12 +400,12 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
     } catch (error: any) {
       console.error('[DEX] Add liquidity error:', error);
       if (error.message.includes("Minimum LP tokens")) {
-        return res.status(400).json({ error: error.message });
+        return res.status(400).json({ error: "Insufficient liquidity for operation" });
       }
       if (error.message.includes("Circuit breaker")) {
-        return res.status(503).json({ error: error.message });
+        return res.status(503).json({ error: "Service temporarily unavailable" });
       }
-      res.status(503).json({ error: error.message || "Failed to add liquidity" });
+      res.status(503).json({ error: "Failed to add liquidity" });
     }
   });
 
@@ -421,7 +421,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(quote);
     } catch (error: any) {
       console.error('[DEX] Liquidity quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get liquidity quote" });
+      res.status(400).json({ error: "Failed to get liquidity quote" });
     }
   });
 
@@ -442,12 +442,12 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
     } catch (error: any) {
       console.error('[DEX] Remove liquidity error:', error);
       if (error.message.includes("Minimum amount")) {
-        return res.status(400).json({ error: error.message });
+        return res.status(400).json({ error: "Insufficient output amounts" });
       }
       if (error.message.includes("Circuit breaker")) {
-        return res.status(503).json({ error: error.message });
+        return res.status(503).json({ error: "Service temporarily unavailable" });
       }
-      res.status(503).json({ error: error.message || "Failed to remove liquidity" });
+      res.status(503).json({ error: "Failed to remove liquidity" });
     }
   });
 
@@ -505,9 +505,9 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
     } catch (error: any) {
       console.error('[DEX] Optimal route error:', error);
       if (error.message.includes("No valid swap route")) {
-        return res.status(404).json({ error: error.message });
+        return res.status(404).json({ error: "No valid trading route found" });
       }
-      res.status(503).json({ error: error.message || "Failed to find optimal route" });
+      res.status(503).json({ error: "Failed to find optimal route" });
     }
   });
 

@@ -317,7 +317,7 @@ router.post("/tournaments/:id/join", async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error("[GameFi API] Error joining tournament:", error);
-    res.status(400).json({ error: error.message || "Failed to join tournament" });
+    res.status(400).json({ error: "Failed to join tournament" });
   }
 });
 
@@ -338,7 +338,7 @@ router.post("/rewards/claim", async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error("[GameFi API] Error claiming rewards:", error);
-    res.status(400).json({ error: error.message || "Failed to claim rewards" });
+    res.status(400).json({ error: "Failed to claim rewards" });
   }
 });
 
@@ -359,7 +359,7 @@ router.post("/assets/:id/equip", async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error("[GameFi API] Error equipping asset:", error);
-    res.status(400).json({ error: error.message || "Failed to equip asset" });
+    res.status(400).json({ error: "Failed to equip asset" });
   }
 });
 

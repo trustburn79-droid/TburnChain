@@ -168,7 +168,7 @@ router.post("/mint", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(503).json({ error: error instanceof Error ? error.message : "Mint failed" });
+    res.status(503).json({ error: "Mint operation failed" });
   }
 });
 
@@ -192,7 +192,7 @@ router.post("/redeem", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(503).json({ error: error instanceof Error ? error.message : "Redeem failed" });
+    res.status(503).json({ error: "Redeem operation failed" });
   }
 });
 
@@ -211,7 +211,7 @@ router.post("/claim-rewards", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(503).json({ error: error instanceof Error ? error.message : "Claim failed" });
+    res.status(503).json({ error: "Claim operation failed" });
   }
 });
 

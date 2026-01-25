@@ -54,7 +54,7 @@ router.get('/status', async (req: Request, res: Response) => {
     console.error('[GenesisValidator] Status error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to get status',
+      error: 'Internal server error',
     });
   }
 });
@@ -79,7 +79,7 @@ router.get('/', requireAdmin, async (req: Request, res: Response) => {
     console.error('[GenesisValidator] List error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to list validators',
+      error: 'Internal server error',
     });
   }
 });
@@ -128,7 +128,7 @@ router.get('/:address', requireAdmin, async (req: Request, res: Response) => {
     console.error('[GenesisValidator] Get error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to get validator',
+      error: 'Internal server error',
     });
   }
 });
@@ -291,7 +291,7 @@ router.post('/register', registrationRateLimiter, requireInvitationCode, async (
     console.error('[GenesisValidator] BYO registration error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to register validator',
+      error: 'Internal server error',
     });
   }
 });
@@ -339,7 +339,7 @@ router.get('/by-tier/:tier', requireAdmin, async (req: Request, res: Response) =
     console.error('[GenesisValidator] Filter by tier error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to filter validators',
+      error: 'Internal server error',
     });
   }
 });
@@ -386,7 +386,7 @@ router.post('/verify/:address', requireAdmin, async (req: Request, res: Response
     console.error('[GenesisValidator] Verify error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Failed to verify validator',
+      error: 'Internal server error',
     });
   }
 });

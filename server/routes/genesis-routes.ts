@@ -1207,9 +1207,10 @@ router.get('/enterprise/network-stats', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting network stats:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1307,9 +1308,10 @@ router.get('/enterprise/validators/distribution', (_req: Request, res: Response)
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting validator distribution:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1406,9 +1408,10 @@ router.get('/enterprise/rewards/emission-schedule', (_req: Request, res: Respons
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting emission schedule:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1468,9 +1471,10 @@ router.get('/enterprise/summary', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting genesis summary:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1515,9 +1519,10 @@ router.get('/distribution/status', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting distribution status:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1534,9 +1539,10 @@ router.post('/distribution/start', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error starting distribution engine:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1553,9 +1559,10 @@ router.post('/distribution/stop', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error stopping distribution engine:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1578,9 +1585,10 @@ router.post('/distribution/initialize', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error initializing distribution:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1607,9 +1615,10 @@ router.get('/distribution/allocations', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting distribution allocations:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1646,9 +1655,10 @@ router.get('/distribution/category/:category', (req: Request, res: Response) => 
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting category allocation:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1670,9 +1680,10 @@ router.get('/distribution/metrics', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting distribution metrics:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1697,9 +1708,10 @@ router.get('/distribution/summary', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting distribution summary:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1732,9 +1744,10 @@ router.get('/distribution/vesting', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting vesting schedules:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1758,9 +1771,10 @@ router.get('/distribution/approvals', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting approval requests:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1778,9 +1792,10 @@ router.post('/distribution/circuit-breaker/reset', (_req: Request, res: Response
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error resetting circuit breaker:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1794,7 +1809,8 @@ router.get('/distribution/prometheus', (_req: Request, res: Response) => {
     res.set('Content-Type', 'text/plain');
     res.send(prometheusMetrics);
   } catch (error) {
-    res.status(500).send(`# Error: ${error instanceof Error ? error.message : "Unknown error"}`);
+    console.error('Error getting prometheus metrics:', error);
+    res.status(500).send('# Error: Internal server error');
   }
 });
 
@@ -1813,9 +1829,10 @@ router.get('/distribution/alerts', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('Error getting alerts:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });
@@ -1839,9 +1856,10 @@ router.post('/distribution/alerts/:alertId/acknowledge', (req: Request, res: Res
       });
     }
   } catch (error) {
+    console.error('Error acknowledging alert:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: 'Internal server error',
     });
   }
 });

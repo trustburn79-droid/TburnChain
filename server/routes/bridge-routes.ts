@@ -364,9 +364,8 @@ router.post("/transfers/:id/claim", async (req: Request, res: Response) => {
     }
     res.json(transfer);
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Failed to claim transfer";
     console.error("[Bridge] Error claiming transfer:", error);
-    res.status(400).json({ error: message });
+    res.status(400).json({ error: "Failed to claim transfer" });
   }
 });
 
@@ -382,9 +381,8 @@ router.post("/transfers/:id/refund", async (req: Request, res: Response) => {
       transfer,
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Failed to refund transfer";
     console.error("[Bridge] Error refunding transfer:", error);
-    res.status(400).json({ error: message });
+    res.status(400).json({ error: "Failed to refund transfer" });
   }
 });
 
