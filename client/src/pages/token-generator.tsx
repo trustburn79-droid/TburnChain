@@ -186,6 +186,75 @@ interface DeployedToken {
 
 const TOKEN_TEMPLATES: TokenTemplate[] = [
   {
+    id: "utility-token",
+    name: "Utility Token",
+    description: "Platform utility token with dynamic pricing and usage rewards",
+    category: "Utility",
+    icon: Zap,
+    standard: "TBC-20",
+    features: ["Usage Rewards", "Dynamic Pricing", "Cross-Platform", "API Access"],
+    presets: {
+      mintable: true,
+      burnable: true,
+      aiOptimizationEnabled: true,
+      aiPriceOracle: true,
+      mevProtection: true
+    },
+    popularity: 97,
+    aiRecommended: true
+  },
+  {
+    id: "nft-collection",
+    name: "NFT Art Collection",
+    description: "Premium NFT collection with AI authenticity verification and royalties",
+    category: "NFT",
+    icon: Gem,
+    standard: "TBC-721",
+    features: ["Royalty Enforcement", "AI Authenticity", "IPFS Metadata", "Rarity Scoring"],
+    presets: {
+      royaltyPercentage: 5,
+      aiOptimizationEnabled: true,
+      quantumResistant: true
+    },
+    popularity: 95,
+    aiRecommended: true
+  },
+  {
+    id: "gamefi-asset",
+    name: "GameFi Asset Token",
+    description: "Gaming asset token with semi-fungible support and marketplace integration",
+    category: "GameFi",
+    icon: Gamepad2,
+    standard: "TBC-1155",
+    features: ["In-Game Items", "Marketplace Ready", "Batch Transfers", "Level System"],
+    presets: {
+      aiOptimizationEnabled: true,
+      aiSupplyManagement: true,
+      quantumResistant: true,
+      accessControl: "roles"
+    },
+    popularity: 92,
+    aiRecommended: true
+  },
+  {
+    id: "meme-token",
+    name: "Memed Meme Coin",
+    description: "Community-driven meme token with viral mechanics and social features",
+    category: "Memed",
+    icon: Sparkles,
+    standard: "TBC-20",
+    features: ["Community Driven", "Viral Mechanics", "Social Rewards", "Anti-Bot"],
+    presets: {
+      mintable: false,
+      burnable: true,
+      aiOptimizationEnabled: true,
+      aiAntiBot: true,
+      mevProtection: true
+    },
+    popularity: 88,
+    aiRecommended: false
+  },
+  {
     id: "defi-governance",
     name: "DeFi Governance Token",
     description: "Full-featured governance token with staking, voting, and burn mechanisms",
@@ -203,58 +272,7 @@ const TOKEN_TEMPLATES: TokenTemplate[] = [
       quantumResistant: true,
       accessControl: "roles"
     },
-    popularity: 95,
-    aiRecommended: true
-  },
-  {
-    id: "utility-token",
-    name: "Utility Token",
-    description: "Platform utility token with dynamic pricing and usage rewards",
-    category: "Utility",
-    icon: Zap,
-    standard: "TBC-20",
-    features: ["Usage Rewards", "Dynamic Pricing", "Cross-Platform", "API Access"],
-    presets: {
-      mintable: true,
-      burnable: true,
-      aiOptimizationEnabled: true,
-      aiPriceOracle: true,
-      mevProtection: true
-    },
-    popularity: 88,
-    aiRecommended: false
-  },
-  {
-    id: "gamefi-asset",
-    name: "GameFi Asset Token",
-    description: "Gaming asset token with semi-fungible support and marketplace integration",
-    category: "GameFi",
-    icon: Gamepad2,
-    standard: "TBC-1155",
-    features: ["In-Game Items", "Marketplace Ready", "Batch Transfers", "Level System"],
-    presets: {
-      aiOptimizationEnabled: true,
-      aiSupplyManagement: true,
-      quantumResistant: true,
-      accessControl: "roles"
-    },
-    popularity: 82,
-    aiRecommended: true
-  },
-  {
-    id: "nft-collection",
-    name: "NFT Art Collection",
-    description: "Premium NFT collection with AI authenticity verification and royalties",
-    category: "NFT",
-    icon: Gem,
-    standard: "TBC-721",
-    features: ["Royalty Enforcement", "AI Authenticity", "IPFS Metadata", "Rarity Scoring"],
-    presets: {
-      royaltyPercentage: 5,
-      aiOptimizationEnabled: true,
-      quantumResistant: true
-    },
-    popularity: 90,
+    popularity: 80,
     aiRecommended: false
   },
   {
@@ -273,8 +291,8 @@ const TOKEN_TEMPLATES: TokenTemplate[] = [
       accessControl: "multisig",
       upgradeability: "transparent"
     },
-    popularity: 75,
-    aiRecommended: true
+    popularity: 70,
+    aiRecommended: false
   },
   {
     id: "marketplace-token",
@@ -291,7 +309,7 @@ const TOKEN_TEMPLATES: TokenTemplate[] = [
       aiAntiBot: true,
       mevProtection: true
     },
-    popularity: 70,
+    popularity: 60,
     aiRecommended: false
   }
 ];
@@ -303,7 +321,8 @@ const TEMPLATE_LOCALE_KEYS: Record<string, string> = {
   "gamefi-asset": "gamefiAsset",
   "nft-collection": "nftCollection",
   "enterprise-token": "enterpriseSecurity",
-  "marketplace-token": "marketplaceToken"
+  "marketplace-token": "marketplaceToken",
+  "meme-token": "memeToken"
 };
 
 // Mapping for feature names to locale keys
@@ -341,7 +360,8 @@ const CATEGORY_LOCALE_KEYS: Record<string, string> = {
   "GameFi": "gamefi",
   "NFT": "nft",
   "Enterprise": "enterprise",
-  "Commerce": "commerce"
+  "Commerce": "commerce",
+  "Memed": "memed"
 };
 
 const initialFormData: TokenFormData = {
@@ -1282,23 +1302,23 @@ function CreateTokenContent({
                   </thead>
                   <tbody>
                     <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
-                      <td className="py-3 px-2 font-medium">DeFi 거버넌스 토큰</td>
-                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
-                      <td className="py-3 px-2">DAO 투표/스테이킹</td>
-                      <td className="py-3 px-2 text-muted-foreground">거버넌스 투표, 스테이킹 보상</td>
-                      <td className="py-3 px-2 text-right">
-                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'defi-governance')!)} data-testid="btn-goto-defi">
-                          <ArrowRight className="h-3 w-3" />
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
                       <td className="py-3 px-2 font-medium">유틸리티 토큰</td>
                       <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
                       <td className="py-3 px-2">플랫폼 결제/보상</td>
                       <td className="py-3 px-2 text-muted-foreground">사용 보상, 동적 가격 책정</td>
                       <td className="py-3 px-2 text-right">
                         <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'utility-token')!)} data-testid="btn-goto-utility">
+                          <ArrowRight className="h-3 w-3" />
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
+                      <td className="py-3 px-2 font-medium">NFT 아트 컬렉션</td>
+                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs bg-purple-500/10 text-purple-500">TBC-721</Badge></td>
+                      <td className="py-3 px-2">디지털 아트</td>
+                      <td className="py-3 px-2 text-muted-foreground">로열티 적용, AI 진품 확인</td>
+                      <td className="py-3 px-2 text-right">
+                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'nft-collection')!)} data-testid="btn-goto-nft">
                           <ArrowRight className="h-3 w-3" />
                         </Button>
                       </td>
@@ -1315,12 +1335,23 @@ function CreateTokenContent({
                       </td>
                     </tr>
                     <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
-                      <td className="py-3 px-2 font-medium">NFT 아트 컬렉션</td>
-                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs bg-purple-500/10 text-purple-500">TBC-721</Badge></td>
-                      <td className="py-3 px-2">디지털 아트</td>
-                      <td className="py-3 px-2 text-muted-foreground">로열티 적용, AI 진품 확인</td>
+                      <td className="py-3 px-2 font-medium">Memed 밈코인</td>
+                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs bg-pink-500/10 text-pink-500">TBC-20</Badge></td>
+                      <td className="py-3 px-2">커뮤니티 토큰</td>
+                      <td className="py-3 px-2 text-muted-foreground">바이럴 메카닉, 소셜 보상</td>
                       <td className="py-3 px-2 text-right">
-                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'nft-collection')!)} data-testid="btn-goto-nft">
+                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'meme-token')!)} data-testid="btn-goto-meme">
+                          <ArrowRight className="h-3 w-3" />
+                        </Button>
+                      </td>
+                    </tr>
+                    <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
+                      <td className="py-3 px-2 font-medium">DeFi 거버넌스 토큰</td>
+                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
+                      <td className="py-3 px-2">DAO 투표/스테이킹</td>
+                      <td className="py-3 px-2 text-muted-foreground">거버넌스 투표, 스테이킹 보상</td>
+                      <td className="py-3 px-2 text-right">
+                        <Button size="sm" variant="outline" onClick={() => handleTemplateSelect(TOKEN_TEMPLATES.find(t => t.id === 'defi-governance')!)} data-testid="btn-goto-defi">
                           <ArrowRight className="h-3 w-3" />
                         </Button>
                       </td>
