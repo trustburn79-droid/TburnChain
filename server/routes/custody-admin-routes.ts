@@ -514,7 +514,9 @@ const MAINNET_OPERATIONAL_TYPES = [
   "operational", 
   "infrastructure",
   "validator_rewards",
-  "network_maintenance"
+  "network_maintenance",
+  "security",           // 보안/버그바운티 - 취약점 보상은 신속해야 함
+  "reserve",            // 리저브 펀드 - 긴급 상황 대비 목적
 ] as const;
 
 // Default fallback for legacy transactions without approval_expires_at
