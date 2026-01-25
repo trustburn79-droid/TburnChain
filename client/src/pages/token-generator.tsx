@@ -906,7 +906,7 @@ export default function TokenSystemPage() {
       
       <aside className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 fixed lg:relative w-64 lg:w-64 flex flex-col z-40 lg:z-20 transition-all duration-300 border-r h-full ${isDark ? 'bg-[#0F172A] border-gray-800' : 'bg-white border-slate-200'}`}>
         <div className={`h-16 flex items-center justify-between px-4 lg:px-6 border-b ${isDark ? 'border-gray-800' : 'border-slate-100'}`}>
-          <div className="flex items-center gap-2">
+          <Link href="/token-generator" className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity" data-testid="link-logo-home">
             <TBurnLogo className="w-10 h-10 shrink-0" />
             <div>
               <h1 className={`font-bold text-lg tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -914,7 +914,7 @@ export default function TokenSystemPage() {
               </h1>
               <p className="text-xs text-muted-foreground">{t('tokenGenerator.tokenCreationSystem')}</p>
             </div>
-          </div>
+          </Link>
           <button
             onClick={() => setSidebarOpen(false)}
             className={`lg:hidden p-2 rounded-lg ${isDark ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-slate-100 text-slate-500'}`}
