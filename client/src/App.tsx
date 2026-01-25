@@ -184,7 +184,6 @@ function AppRouter() {
         <Route path="/app/admin/investment-inquiries" component={InvestmentInquiriesAdmin} />
         <Route path="/app/admin/custody-signers" component={CustodySignersAdmin} />
         <Route path="/app/admin/custody-transactions" component={CustodyTransactionsAdmin} />
-        <Route path="/signer-portal" component={SignerPortal} />
         <Route path="/app/operator" component={ProtectedOperatorDashboard} />
         <Route path="/app/operator/members" component={ProtectedOperatorMembers} />
         <Route path="/app/operator/validators" component={ProtectedOperatorValidators} />
@@ -578,6 +577,15 @@ function RootRouter() {
       window.location.href = location;
     }
     return <PageLoading />;
+  }
+  
+  if (location === "/signer-portal" || location.startsWith("/signer-portal")) {
+    // Signer Portal for multi-sig custody transaction management
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <SignerPortal />
+      </Suspense>
+    );
   }
   
   return (
