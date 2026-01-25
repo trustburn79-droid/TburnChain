@@ -12549,6 +12549,14 @@ export const custodyTransactions = pgTable("custody_transactions", {
   rejectedBy: varchar("rejected_by", { length: 128 }),
   rejectionReason: text("rejection_reason"),
   
+  // Vesting Configuration - Applied when transaction is executed
+  vestingContractId: varchar("vesting_contract_id", { length: 64 }), // References vestingContracts.contractId
+  vestingEnabled: boolean("vesting_enabled").notNull().default(false),
+  tgePercent: integer("tge_percent").notNull().default(100), // % released at TGE (Token Generation Event)
+  cliffMonths: integer("cliff_months").notNull().default(0), // Cliff period in months
+  vestingMonths: integer("vesting_months").notNull().default(0), // Linear vesting duration in months
+  vestingStartDate: timestamp("vesting_start_date"), // When vesting clock starts (usually execution date)
+  
   // Metadata
   metadata: jsonb("metadata").default({}),
   createdAt: timestamp("created_at").notNull().defaultNow(),
@@ -12558,6 +12566,7 @@ export const custodyTransactions = pgTable("custody_transactions", {
   index("idx_custody_tx_status").on(table.status),
   index("idx_custody_tx_type").on(table.transactionType),
   index("idx_custody_tx_proposed").on(table.proposedAt),
+  index("idx_custody_tx_vesting").on(table.vestingContractId),
 ]);
 
 // Custody Transaction Approvals - Individual approval records
