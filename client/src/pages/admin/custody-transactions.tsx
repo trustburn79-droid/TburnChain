@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect, useCallback } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import {
   Select,
   SelectContent,
@@ -47,6 +50,7 @@ import {
   Plus,
   RefreshCw,
   CheckCircle,
+  CheckCircle2,
   XCircle,
   Loader2,
   Clock,
@@ -54,8 +58,10 @@ import {
   FileText,
   Users,
   ArrowRight,
+  ArrowUpRight,
   Timer,
   AlertTriangle,
+  AlertOctagon,
   Ban,
   Play,
   History,
@@ -64,13 +70,31 @@ import {
   ChevronDown,
   ChevronUp,
   Shield,
+  ShieldCheck,
+  ShieldAlert,
   Wallet,
   TrendingUp,
   DollarSign,
+  Eye,
+  Lock,
+  LockOpen,
+  Zap,
+  Activity,
+  Bell,
+  BellRing,
+  MoreHorizontal,
+  Building2,
+  Boxes,
+  Fingerprint,
+  CircleDot,
+  Database,
+  PiggyBank,
+  Receipt,
+  Target,
 } from "lucide-react";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { formatDistanceToNow, format, differenceInHours, differenceInMinutes } from "date-fns";
+import { formatDistanceToNow, format, differenceInHours, differenceInMinutes, addDays } from "date-fns";
 import { ko } from "date-fns/locale";
 
 interface CustodyTransaction {
@@ -105,10 +129,10 @@ interface TransactionApproval {
   approvalId: string;
   transactionId: string;
   signerId: string;
-  decision: string;
+  approved: boolean;
   signature: string | null;
-  comment: string | null;
-  decidedAt: string;
+  comments: string | null;
+  approvedAt: string;
 }
 
 interface Signer {
@@ -137,44 +161,51 @@ interface CustodyWallet {
   status: string;
 }
 
-const TRANSACTION_TYPES = [
-  { value: "grant_disbursement", label: "Grant Disbursement", description: "보조금 지급" },
-  { value: "marketing_spend", label: "Marketing Spend", description: "마케팅 비용" },
-  { value: "partnership_payment", label: "Partnership Payment", description: "파트너십 지급" },
-  { value: "emergency_transfer", label: "Emergency Transfer", description: "긴급 이체" },
-  { value: "dao_execution", label: "DAO Execution", description: "DAO 실행" },
-];
+const TRANSACTION_TYPES: Record<string, { label: string; description: string; icon: any; color: string }> = {
+  grant_disbursement: { label: "Grant Disbursement", description: "보조금 지급", icon: Building2, color: "text-blue-400" },
+  marketing_spend: { label: "Marketing Spend", description: "마케팅 비용", icon: TrendingUp, color: "text-purple-400" },
+  partnership_payment: { label: "Partnership Payment", description: "파트너십 지급", icon: Users, color: "text-green-400" },
+  emergency_transfer: { label: "Emergency Transfer", description: "긴급 이체", icon: Zap, color: "text-red-400" },
+  dao_execution: { label: "DAO Execution", description: "DAO 실행", icon: Boxes, color: "text-orange-400" },
+};
 
-const STATUS_CONFIG: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline"; icon: any }> = {
-  pending_approval: { label: "승인 대기", variant: "secondary", icon: Clock },
-  approved: { label: "승인됨", variant: "default", icon: CheckCircle },
-  executed: { label: "실행 완료", variant: "default", icon: Send },
-  rejected: { label: "거부됨", variant: "destructive", icon: XCircle },
-  cancelled: { label: "취소됨", variant: "outline", icon: Ban },
-  expired: { label: "만료됨", variant: "outline", icon: Timer },
+const STATUS_CONFIG: Record<string, { label: string; color: string; bgColor: string; icon: any }> = {
+  pending_approval: { label: "승인 대기", color: "text-orange-400", bgColor: "bg-orange-500/20", icon: Clock },
+  approved: { label: "승인됨", color: "text-emerald-400", bgColor: "bg-emerald-500/20", icon: CheckCircle },
+  executed: { label: "실행 완료", color: "text-cyan-400", bgColor: "bg-cyan-500/20", icon: Send },
+  rejected: { label: "거부됨", color: "text-red-400", bgColor: "bg-red-500/20", icon: XCircle },
+  cancelled: { label: "취소됨", color: "text-slate-400", bgColor: "bg-slate-500/20", icon: Ban },
+  expired: { label: "만료됨", color: "text-slate-500", bgColor: "bg-slate-600/20", icon: Timer },
 };
 
 function formatTburnAmount(amount: string): string {
   try {
     const value = BigInt(amount);
     const tburn = Number(value) / 1e18;
-    if (tburn >= 1_000_000_000) return `${(tburn / 1_000_000_000).toFixed(2)}B TBURN`;
-    if (tburn >= 1_000_000) return `${(tburn / 1_000_000).toFixed(2)}M TBURN`;
-    if (tburn >= 1_000) return `${(tburn / 1_000).toFixed(2)}K TBURN`;
-    return `${tburn.toFixed(4)} TBURN`;
+    if (tburn >= 1_000_000_000) return `${(tburn / 1_000_000_000).toFixed(2)}B`;
+    if (tburn >= 1_000_000) return `${(tburn / 1_000_000).toFixed(2)}M`;
+    if (tburn >= 1_000) return `${(tburn / 1_000).toFixed(2)}K`;
+    return tburn.toFixed(4);
   } catch {
     return amount;
   }
 }
 
-function formatAddress(address: string): string {
-  if (address.length <= 16) return address;
-  return `${address.slice(0, 10)}...${address.slice(-6)}`;
+function formatAddress(address: string, length: number = 16): string {
+  if (address.length <= length) return address;
+  const half = Math.floor(length / 2);
+  return `${address.slice(0, half + 4)}...${address.slice(-half)}`;
 }
 
 function copyToClipboard(text: string, toast: any) {
   navigator.clipboard.writeText(text);
   toast({ title: "복사됨", description: "클립보드에 복사되었습니다." });
+}
+
+function getTimeRemainingColor(hours: number): string {
+  if (hours < 24) return "text-red-400";
+  if (hours < 72) return "text-orange-400";
+  return "text-slate-400";
 }
 
 export default function CustodyTransactionsPage() {
@@ -184,8 +215,10 @@ export default function CustodyTransactionsPage() {
   const [showApproveDialog, setShowApproveDialog] = useState(false);
   const [showExecuteDialog, setShowExecuteDialog] = useState(false);
   const [showCancelDialog, setShowCancelDialog] = useState(false);
+  const [showDetailDialog, setShowDetailDialog] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<CustodyTransaction | null>(null);
-  const [expandedRow, setExpandedRow] = useState<string | null>(null);
+  const [wsConnected, setWsConnected] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
 
   const [newTransaction, setNewTransaction] = useState({
     walletId: "foundation-custody-main",
@@ -197,26 +230,79 @@ export default function CustodyTransactionsPage() {
     purpose: "",
     justification: "",
     documentationUrl: "",
+    isEmergency: false,
   });
 
   const [approvalData, setApprovalData] = useState({
     signerId: "",
-    decision: "approve" as "approve" | "reject" | "abstain",
+    decision: "approve" as "approve" | "reject",
     comment: "",
   });
 
   const [cancelReason, setCancelReason] = useState("");
 
+  useEffect(() => {
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const wsUrl = `${protocol}//${window.location.host}/ws`;
+    
+    let ws: WebSocket | null = null;
+    let reconnectTimeout: NodeJS.Timeout;
+
+    const connect = () => {
+      try {
+        ws = new WebSocket(wsUrl);
+        
+        ws.onopen = () => {
+          setWsConnected(true);
+          ws?.send(JSON.stringify({ type: "subscribe", channel: "custody-admin" }));
+        };
+
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === "custody-update" || data.type === "new-transaction" || data.type === "transaction-approved") {
+              setLastUpdate(new Date());
+              refetchTransactions();
+            }
+          } catch (e) {}
+        };
+
+        ws.onclose = () => {
+          setWsConnected(false);
+          reconnectTimeout = setTimeout(connect, 5000);
+        };
+
+        ws.onerror = () => {
+          setWsConnected(false);
+        };
+      } catch (e) {
+        setWsConnected(false);
+      }
+    };
+
+    connect();
+
+    return () => {
+      clearTimeout(reconnectTimeout);
+      ws?.close();
+    };
+  }, []);
+
   const { data: transactionsData, isLoading: transactionsLoading, refetch: refetchTransactions } = useQuery<{ transactions: CustodyTransaction[] }>({
     queryKey: ["/api/custody-admin/transactions"],
+    refetchInterval: 30000,
   });
 
   const { data: signersData } = useQuery<{ signers: Signer[] }>({
-    queryKey: ["/api/custody-admin/signers", { walletId: "foundation-custody-main", activeOnly: "true" }],
+    queryKey: ["/api/custody-admin/signers"],
   });
 
   const { data: walletsData } = useQuery<{ wallets: CustodyWallet[] }>({
     queryKey: ["/api/custody-admin/wallets"],
+  });
+
+  const { data: statsData } = useQuery<{ stats: any }>({
+    queryKey: ["/api/custody-admin/stats"],
   });
 
   const transactions: CustodyTransaction[] = transactionsData?.transactions || [];
@@ -228,6 +314,11 @@ export default function CustodyTransactionsPage() {
   const approvedTransactions = transactions.filter(t => t.status === "approved");
   const executedTransactions = transactions.filter(t => t.status === "executed");
   const otherTransactions = transactions.filter(t => ["rejected", "cancelled", "expired"].includes(t.status));
+  const emergencyTransactions = pendingTransactions.filter(t => t.isEmergency);
+
+  const totalPendingAmount = pendingTransactions.reduce((sum, t) => {
+    try { return sum + Number(BigInt(t.amount)) / 1e18; } catch { return sum; }
+  }, 0);
 
   const createMutation = useMutation({
     mutationFn: async (data: typeof newTransaction) => {
@@ -238,7 +329,7 @@ export default function CustodyTransactionsPage() {
       });
     },
     onSuccess: () => {
-      toast({ title: "성공", description: "트랜잭션이 생성되었습니다." });
+      toast({ title: "트랜잭션 생성됨", description: "새 트랜잭션이 승인 대기 상태로 생성되었습니다." });
       queryClient.invalidateQueries({ queryKey: ["/api/custody-admin/transactions"] });
       setShowCreateDialog(false);
       setNewTransaction({
@@ -251,10 +342,11 @@ export default function CustodyTransactionsPage() {
         purpose: "",
         justification: "",
         documentationUrl: "",
+        isEmergency: false,
       });
     },
     onError: (error: any) => {
-      toast({ title: "오류", description: error.message || "트랜잭션 생성 실패", variant: "destructive" });
+      toast({ title: "생성 실패", description: error.message || "트랜잭션을 생성할 수 없습니다.", variant: "destructive" });
     },
   });
 
@@ -265,15 +357,15 @@ export default function CustodyTransactionsPage() {
     onSuccess: (response: any) => {
       const status = response?.thresholdStatus;
       toast({ 
-        title: "성공", 
-        description: `투표가 기록되었습니다. (${status?.current || 0}/${status?.required || 7} 승인)` 
+        title: "투표 완료", 
+        description: `서명이 기록되었습니다. (${status?.current || 0}/${status?.required || 7} 승인)` 
       });
       queryClient.invalidateQueries({ queryKey: ["/api/custody-admin/transactions"] });
       setShowApproveDialog(false);
       setApprovalData({ signerId: "", decision: "approve", comment: "" });
     },
     onError: (error: any) => {
-      toast({ title: "오류", description: error.message || "투표 기록 실패", variant: "destructive" });
+      toast({ title: "투표 실패", description: error.message || "서명을 기록할 수 없습니다.", variant: "destructive" });
     },
   });
 
@@ -283,15 +375,15 @@ export default function CustodyTransactionsPage() {
     },
     onSuccess: (response: any) => {
       toast({ 
-        title: "실행 완료", 
-        description: `트랜잭션이 실행되었습니다. TxHash: ${response?.txHash?.slice(0, 16)}...` 
+        title: "트랜잭션 실행됨", 
+        description: `트랜잭션이 블록체인에 전송되었습니다.` 
       });
       queryClient.invalidateQueries({ queryKey: ["/api/custody-admin/transactions"] });
       queryClient.invalidateQueries({ queryKey: ["/api/custody-admin/wallets"] });
       setShowExecuteDialog(false);
     },
     onError: (error: any) => {
-      toast({ title: "실행 오류", description: error.message || "트랜잭션 실행 실패", variant: "destructive" });
+      toast({ title: "실행 실패", description: error.message || "트랜잭션을 실행할 수 없습니다.", variant: "destructive" });
     },
   });
 
@@ -300,13 +392,13 @@ export default function CustodyTransactionsPage() {
       return apiRequest("POST", `/api/custody-admin/transactions/${transactionId}/cancel`, { reason });
     },
     onSuccess: () => {
-      toast({ title: "취소됨", description: "트랜잭션이 취소되었습니다." });
+      toast({ title: "트랜잭션 취소됨", description: "트랜잭션이 취소되었습니다." });
       queryClient.invalidateQueries({ queryKey: ["/api/custody-admin/transactions"] });
       setShowCancelDialog(false);
       setCancelReason("");
     },
     onError: (error: any) => {
-      toast({ title: "오류", description: error.message || "취소 실패", variant: "destructive" });
+      toast({ title: "취소 실패", description: error.message || "트랜잭션을 취소할 수 없습니다.", variant: "destructive" });
     },
   });
 
@@ -318,784 +410,650 @@ export default function CustodyTransactionsPage() {
       const count = response?.expiredCount || 0;
       toast({ 
         title: "만료 처리 완료", 
-        description: count > 0 ? `${count}개 트랜잭션이 만료되었습니다.` : "만료된 트랜잭션이 없습니다." 
+        description: count > 0 ? `${count}개 트랜잭션이 만료 처리되었습니다.` : "만료 대상 트랜잭션이 없습니다." 
       });
       queryClient.invalidateQueries({ queryKey: ["/api/custody-admin/transactions"] });
     },
     onError: (error: any) => {
-      toast({ title: "오류", description: error.message || "만료 처리 실패", variant: "destructive" });
+      toast({ title: "처리 실패", description: error.message || "만료 처리에 실패했습니다.", variant: "destructive" });
     },
   });
 
-  const TransactionRow = ({ transaction }: { transaction: CustodyTransaction }) => {
-    const isExpanded = expandedRow === transaction.transactionId;
-    const statusConfig = STATUS_CONFIG[transaction.status] || STATUS_CONFIG.pending_approval;
-    const StatusIcon = statusConfig.icon;
-    
-    const timelockRemaining = transaction.timelockExpiresAt 
-      ? differenceInHours(new Date(transaction.timelockExpiresAt), new Date())
-      : 0;
-    
-    const canExecute = transaction.status === "approved" && timelockRemaining <= 0;
-
-    return (
-      <>
-        <TableRow 
-          className="cursor-pointer hover-elevate"
-          onClick={() => setExpandedRow(isExpanded ? null : transaction.transactionId)}
-          data-testid={`row-transaction-${transaction.transactionId}`}
-        >
-          <TableCell>
-            <div className="flex items-center gap-2">
-              {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              <code className="text-xs bg-muted px-2 py-1 rounded">{transaction.transactionId.slice(0, 12)}...</code>
-            </div>
-          </TableCell>
-          <TableCell>
-            <Badge variant={statusConfig.variant} className="gap-1">
-              <StatusIcon className="w-3 h-3" />
-              {statusConfig.label}
-            </Badge>
-            {transaction.isEmergency && (
-              <Badge variant="destructive" className="ml-1">긴급</Badge>
-            )}
-          </TableCell>
-          <TableCell>
-            <div className="font-medium">{formatTburnAmount(transaction.amount)}</div>
-            {transaction.amountUsd && (
-              <div className="text-xs text-muted-foreground">${transaction.amountUsd}</div>
-            )}
-          </TableCell>
-          <TableCell>
-            <div className="flex items-center gap-2">
-              <Progress 
-                value={(transaction.approvalCount / transaction.requiredApprovals) * 100} 
-                className="w-16 h-2"
-              />
-              <span className="text-sm font-medium">
-                {transaction.approvalCount}/{transaction.requiredApprovals}
-              </span>
-            </div>
-          </TableCell>
-          <TableCell>
-            <div className="text-sm">{formatAddress(transaction.recipientAddress)}</div>
-            {transaction.recipientName && (
-              <div className="text-xs text-muted-foreground">{transaction.recipientName}</div>
-            )}
-          </TableCell>
-          <TableCell>
-            <div className="text-sm">
-              {formatDistanceToNow(new Date(transaction.proposedAt), { addSuffix: true, locale: ko })}
-            </div>
-          </TableCell>
-          <TableCell onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center gap-1">
-              {transaction.status === "pending_approval" && (
-                <>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => {
-                      setSelectedTransaction(transaction);
-                      setShowApproveDialog(true);
-                    }}
-                    data-testid={`button-approve-${transaction.transactionId}`}
-                  >
-                    <Users className="w-3 h-3 mr-1" />
-                    투표
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={() => {
-                      setSelectedTransaction(transaction);
-                      setShowCancelDialog(true);
-                    }}
-                    data-testid={`button-cancel-${transaction.transactionId}`}
-                  >
-                    <Ban className="w-3 h-3" />
-                  </Button>
-                </>
-              )}
-              {transaction.status === "approved" && (
-                <Button
-                  size="sm"
-                  variant={canExecute ? "default" : "outline"}
-                  disabled={!canExecute}
-                  onClick={() => {
-                    setSelectedTransaction(transaction);
-                    setShowExecuteDialog(true);
-                  }}
-                  data-testid={`button-execute-${transaction.transactionId}`}
-                >
-                  {canExecute ? (
-                    <>
-                      <Play className="w-3 h-3 mr-1" />
-                      실행
-                    </>
-                  ) : (
-                    <>
-                      <Timer className="w-3 h-3 mr-1" />
-                      {timelockRemaining}h 남음
-                    </>
-                  )}
-                </Button>
-              )}
-              {transaction.status === "executed" && transaction.executedTxHash && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => copyToClipboard(transaction.executedTxHash!, toast)}
-                  data-testid={`button-copy-hash-${transaction.transactionId}`}
-                >
-                  <Copy className="w-3 h-3 mr-1" />
-                  Hash
-                </Button>
-              )}
-            </div>
-          </TableCell>
-        </TableRow>
-        {isExpanded && (
-          <TableRow>
-            <TableCell colSpan={7} className="bg-muted/50 p-4">
-              <TransactionDetails transaction={transaction} signers={signers} />
-            </TableCell>
-          </TableRow>
-        )}
-      </>
-    );
-  };
-
-  const TransactionDetails = ({ transaction, signers }: { transaction: CustodyTransaction; signers: Signer[] }) => {
-    const { data: detailsData } = useQuery({
-      queryKey: ["/api/custody-admin/transactions", transaction.transactionId],
-      queryFn: async () => {
-        const res = await fetch(`/api/custody-admin/transactions/${transaction.transactionId}`, {
-          credentials: "include",
-        });
-        return res.json();
-      },
-    });
-
-    const approvals: TransactionApproval[] = detailsData?.approvals || [];
-    const txType = TRANSACTION_TYPES.find(t => t.value === transaction.transactionType);
-
-    return (
-      <div className="grid grid-cols-2 gap-6">
-        <div className="space-y-4">
-          <div>
-            <h4 className="font-semibold mb-2">트랜잭션 상세</h4>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">유형:</span>
-                <span>{txType?.label} ({txType?.description})</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">목적:</span>
-                <span>{transaction.purpose}</span>
-              </div>
-              {transaction.justification && (
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">사유:</span>
-                  <span className="max-w-[200px] truncate">{transaction.justification}</span>
-                </div>
-              )}
-              <div className="flex justify-between items-center">
-                <span className="text-muted-foreground">수신 주소:</span>
-                <div className="flex items-center gap-1">
-                  <code className="text-xs">{formatAddress(transaction.recipientAddress)}</code>
-                  <Button 
-                    size="icon" 
-                    variant="ghost" 
-                    className="h-6 w-6"
-                    onClick={() => copyToClipboard(transaction.recipientAddress, toast)}
-                  >
-                    <Copy className="w-3 h-3" />
-                  </Button>
-                </div>
-              </div>
-              {transaction.documentationUrl && (
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">문서:</span>
-                  <a href={transaction.documentationUrl} target="_blank" rel="noopener noreferrer" className="text-primary flex items-center gap-1">
-                    문서 보기 <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-2">타임라인</h4>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">제안일:</span>
-                <span>{format(new Date(transaction.proposedAt), "yyyy-MM-dd HH:mm", { locale: ko })}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">제안자:</span>
-                <span>{transaction.proposedBy}</span>
-              </div>
-              {transaction.timelockExpiresAt && (
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">타임락 해제:</span>
-                  <span>{format(new Date(transaction.timelockExpiresAt), "yyyy-MM-dd HH:mm", { locale: ko })}</span>
-                </div>
-              )}
-              {transaction.executedAt && (
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">실행일:</span>
-                  <span>{format(new Date(transaction.executedAt), "yyyy-MM-dd HH:mm", { locale: ko })}</span>
-                </div>
-              )}
-              {transaction.executedTxHash && (
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">TxHash:</span>
-                  <div className="flex items-center gap-1">
-                    <code className="text-xs">{transaction.executedTxHash.slice(0, 16)}...</code>
-                    <Button 
-                      size="icon" 
-                      variant="ghost" 
-                      className="h-6 w-6"
-                      onClick={() => copyToClipboard(transaction.executedTxHash!, toast)}
-                    >
-                      <Copy className="w-3 h-3" />
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h4 className="font-semibold mb-2">승인 현황 ({approvals.length}명 투표)</h4>
-          <ScrollArea className="h-[200px]">
-            <div className="space-y-2">
-              {approvals.map((approval) => {
-                const signer = signers.find(s => s.signerId === approval.signerId);
-                return (
-                  <div key={approval.approvalId} className="flex items-center justify-between p-2 bg-background rounded border">
-                    <div className="flex items-center gap-2">
-                      {approval.decision === "approve" && <CheckCircle className="w-4 h-4 text-green-500" />}
-                      {approval.decision === "reject" && <XCircle className="w-4 h-4 text-red-500" />}
-                      {approval.decision === "abstain" && <Ban className="w-4 h-4 text-muted-foreground" />}
-                      <div>
-                        <div className="font-medium text-sm">{signer?.name || approval.signerId}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {formatDistanceToNow(new Date(approval.decidedAt), { addSuffix: true, locale: ko })}
-                        </div>
-                      </div>
-                    </div>
-                    <Badge variant={approval.decision === "approve" ? "default" : approval.decision === "reject" ? "destructive" : "secondary"}>
-                      {approval.decision === "approve" ? "승인" : approval.decision === "reject" ? "거부" : "기권"}
-                    </Badge>
-                  </div>
-                );
-              })}
-              {approvals.length === 0 && (
-                <div className="text-center text-muted-foreground py-4">
-                  아직 투표가 없습니다
-                </div>
-              )}
-            </div>
-          </ScrollArea>
-        </div>
-      </div>
-    );
-  };
-
   if (transactionsLoading) {
     return (
-      <div className="container mx-auto p-6">
-        <Skeleton className="h-8 w-64 mb-6" />
-        <div className="space-y-4">
-          <Skeleton className="h-32 w-full" />
-          <Skeleton className="h-64 w-full" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
+        <div className="max-w-7xl mx-auto space-y-6">
+          <Skeleton className="h-12 w-64 bg-slate-700/50" />
+          <div className="grid grid-cols-4 gap-4">
+            {[1,2,3,4].map(i => <Skeleton key={i} className="h-32 bg-slate-700/50" />)}
+          </div>
+          <Skeleton className="h-96 bg-slate-700/50" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <Shield className="w-6 h-6 text-primary" />
-            다중서명 트랜잭션 관리
-          </h1>
-          <p className="text-muted-foreground">7/11 임계값 기반 재단 자산 관리</p>
+    <TooltipProvider>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvc3ZnPg==')] opacity-40 pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto p-6 space-y-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
+              <Shield className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+                Foundation Treasury Management
+                <Badge variant="outline" className={`${wsConnected ? "border-emerald-500/50 text-emerald-400 bg-emerald-500/10" : "border-slate-500/50 text-slate-400 bg-slate-500/10"} text-xs`}>
+                  <CircleDot className={`w-2 h-2 mr-1 ${wsConnected ? "animate-pulse" : ""}`} />
+                  {wsConnected ? "Live" : "Offline"}
+                </Badge>
+              </h1>
+              <p className="text-slate-400">7/11 Multi-Signature Custody System</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => expireMutation.mutate()}
+                  disabled={expireMutation.isPending}
+                  className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                  data-testid="button-expire-pending"
+                >
+                  {expireMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Timer className="w-4 h-4" />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>만료 트랜잭션 처리</TooltipContent>
+            </Tooltip>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => refetchTransactions()}
+              className="border-slate-600 text-slate-300 hover:bg-slate-700"
+              data-testid="button-refresh-transactions"
+            >
+              <RefreshCw className="w-4 h-4 mr-1" />
+              새로고침
+            </Button>
+
+            <Button
+              onClick={() => setShowCreateDialog(true)}
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
+              data-testid="button-create-transaction"
+            >
+              <Plus className="w-4 h-4 mr-1" />
+              새 트랜잭션
+            </Button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => expireMutation.mutate()}
-            disabled={expireMutation.isPending}
-            data-testid="button-expire-pending"
-          >
-            {expireMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Timer className="w-4 h-4 mr-1" />}
-            만료 처리
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => refetchTransactions()}
-            data-testid="button-refresh-transactions"
-          >
-            <RefreshCw className="w-4 h-4 mr-1" />
-            새로고침
-          </Button>
-          <Button
-            onClick={() => setShowCreateDialog(true)}
-            data-testid="button-create-transaction"
-          >
-            <Plus className="w-4 h-4 mr-1" />
-            새 트랜잭션
-          </Button>
-        </div>
-      </div>
 
-      <div className="grid grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">대기 중</p>
-                <p className="text-2xl font-bold">{pendingTransactions.length}</p>
-              </div>
-              <Clock className="w-8 h-8 text-yellow-500" />
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">승인됨</p>
-                <p className="text-2xl font-bold">{approvedTransactions.length}</p>
-              </div>
-              <CheckCircle className="w-8 h-8 text-green-500" />
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">실행 완료</p>
-                <p className="text-2xl font-bold">{executedTransactions.length}</p>
-              </div>
-              <Send className="w-8 h-8 text-blue-500" />
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">지갑 잔액</p>
-                <p className="text-xl font-bold">{foundationWallet ? formatTburnAmount(foundationWallet.remainingAmount) : "-"}</p>
-              </div>
-              <Wallet className="w-8 h-8 text-primary" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList>
-          <TabsTrigger value="pending" data-testid="tab-pending">
-            대기 중 ({pendingTransactions.length})
-          </TabsTrigger>
-          <TabsTrigger value="approved" data-testid="tab-approved">
-            승인됨 ({approvedTransactions.length})
-          </TabsTrigger>
-          <TabsTrigger value="executed" data-testid="tab-executed">
-            실행 완료 ({executedTransactions.length})
-          </TabsTrigger>
-          <TabsTrigger value="other" data-testid="tab-other">
-            기타 ({otherTransactions.length})
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="pending">
-          <Card>
-            <CardHeader>
-              <CardTitle>승인 대기 트랜잭션</CardTitle>
-              <CardDescription>7/11 서명자 승인이 필요한 트랜잭션</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {pendingTransactions.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  대기 중인 트랜잭션이 없습니다
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm overflow-hidden relative group">
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CardContent className="pt-6 relative">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-slate-400">승인 대기</p>
+                  <p className="text-3xl font-bold text-white mt-1">{pendingTransactions.length}</p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {emergencyTransactions.length > 0 && (
+                      <span className="text-red-400">{emergencyTransactions.length} 긴급</span>
+                    )}
+                  </p>
                 </div>
-              ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>상태</TableHead>
-                      <TableHead>금액</TableHead>
-                      <TableHead>승인</TableHead>
-                      <TableHead>수신자</TableHead>
-                      <TableHead>제안일</TableHead>
-                      <TableHead>작업</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
+                  <Clock className="w-6 h-6 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm overflow-hidden relative group">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CardContent className="pt-6 relative">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-slate-400">승인됨</p>
+                  <p className="text-3xl font-bold text-white mt-1">{approvedTransactions.length}</p>
+                  <p className="text-xs text-slate-500 mt-1">실행 대기 중</p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                  <CheckCircle className="w-6 h-6 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm overflow-hidden relative group">
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CardContent className="pt-6 relative">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-slate-400">실행 완료</p>
+                  <p className="text-3xl font-bold text-white mt-1">{executedTransactions.length}</p>
+                  <p className="text-xs text-slate-500 mt-1">전체 기록</p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                  <Send className="w-6 h-6 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm overflow-hidden relative group">
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CardContent className="pt-6 relative">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-slate-400">대기 금액</p>
+                  <p className="text-2xl font-bold text-white mt-1">
+                    {formatTburnAmount((totalPendingAmount * 1e18).toString())}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-1">TBURN</p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
+                  <Receipt className="w-6 h-6 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm overflow-hidden relative group">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CardContent className="pt-6 relative">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-slate-400">지갑 잔액</p>
+                  <p className="text-2xl font-bold text-white mt-1">
+                    {foundationWallet ? formatTburnAmount(foundationWallet.remainingAmount) : "-"}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-1">TBURN</p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                  <PiggyBank className="w-6 h-6 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+          <TabsList className="bg-slate-800/50 border border-slate-700/50 p-1">
+            <TabsTrigger value="pending" className="data-[state=active]:bg-slate-700 data-[state=active]:text-white" data-testid="tab-pending">
+              <Clock className="w-4 h-4 mr-2" />
+              승인 대기
+              {pendingTransactions.length > 0 && (
+                <Badge variant="secondary" className="ml-2 bg-orange-500/20 text-orange-400">
+                  {pendingTransactions.length}
+                </Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="approved" className="data-[state=active]:bg-slate-700 data-[state=active]:text-white" data-testid="tab-approved">
+              <CheckCircle className="w-4 h-4 mr-2" />
+              승인됨
+              {approvedTransactions.length > 0 && (
+                <Badge variant="secondary" className="ml-2 bg-emerald-500/20 text-emerald-400">
+                  {approvedTransactions.length}
+                </Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="executed" className="data-[state=active]:bg-slate-700 data-[state=active]:text-white" data-testid="tab-executed">
+              <Send className="w-4 h-4 mr-2" />
+              실행 완료
+            </TabsTrigger>
+            <TabsTrigger value="other" className="data-[state=active]:bg-slate-700 data-[state=active]:text-white" data-testid="tab-other">
+              <History className="w-4 h-4 mr-2" />
+              기타
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="pending">
+            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-orange-400" />
+                  승인 대기 트랜잭션
+                </CardTitle>
+                <CardDescription className="text-slate-400">
+                  7/11 다중서명 승인이 필요합니다. 승인 기한은 7일입니다.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {pendingTransactions.length === 0 ? (
+                  <div className="text-center py-16 text-slate-400">
+                    <div className="w-20 h-20 mx-auto mb-6 bg-slate-700/50 rounded-full flex items-center justify-center">
+                      <CheckCircle2 className="w-10 h-10 text-slate-500" />
+                    </div>
+                    <p className="text-lg font-medium">승인 대기 중인 트랜잭션이 없습니다</p>
+                    <p className="text-sm text-slate-500 mt-2">새 트랜잭션을 생성하려면 위 버튼을 클릭하세요</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
                     {pendingTransactions.map(tx => (
-                      <TransactionRow key={tx.transactionId} transaction={tx} />
+                      <TransactionCard
+                        key={tx.transactionId}
+                        transaction={tx}
+                        signers={signers}
+                        onApprove={() => {
+                          setSelectedTransaction(tx);
+                          setShowApproveDialog(true);
+                        }}
+                        onCancel={() => {
+                          setSelectedTransaction(tx);
+                          setShowCancelDialog(true);
+                        }}
+                        onViewDetails={() => {
+                          setSelectedTransaction(tx);
+                          setShowDetailDialog(true);
+                        }}
+                        toast={toast}
+                      />
                     ))}
-                  </TableBody>
-                </Table>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-        <TabsContent value="approved">
-          <Card>
-            <CardHeader>
-              <CardTitle>승인된 트랜잭션</CardTitle>
-              <CardDescription>타임락 대기 또는 실행 가능한 트랜잭션</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {approvedTransactions.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  승인된 트랜잭션이 없습니다
-                </div>
-              ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>상태</TableHead>
-                      <TableHead>금액</TableHead>
-                      <TableHead>승인</TableHead>
-                      <TableHead>수신자</TableHead>
-                      <TableHead>제안일</TableHead>
-                      <TableHead>작업</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
+          <TabsContent value="approved">
+            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-400" />
+                  승인된 트랜잭션
+                </CardTitle>
+                <CardDescription className="text-slate-400">
+                  타임락 해제 후 실행할 수 있습니다.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {approvedTransactions.length === 0 ? (
+                  <div className="text-center py-16 text-slate-400">
+                    <div className="w-20 h-20 mx-auto mb-6 bg-slate-700/50 rounded-full flex items-center justify-center">
+                      <Timer className="w-10 h-10 text-slate-500" />
+                    </div>
+                    <p className="text-lg font-medium">승인된 트랜잭션이 없습니다</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
                     {approvedTransactions.map(tx => (
-                      <TransactionRow key={tx.transactionId} transaction={tx} />
+                      <TransactionCard
+                        key={tx.transactionId}
+                        transaction={tx}
+                        signers={signers}
+                        onExecute={() => {
+                          setSelectedTransaction(tx);
+                          setShowExecuteDialog(true);
+                        }}
+                        onViewDetails={() => {
+                          setSelectedTransaction(tx);
+                          setShowDetailDialog(true);
+                        }}
+                        toast={toast}
+                      />
                     ))}
-                  </TableBody>
-                </Table>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-        <TabsContent value="executed">
-          <Card>
-            <CardHeader>
-              <CardTitle>실행 완료 트랜잭션</CardTitle>
-              <CardDescription>성공적으로 실행된 트랜잭션 이력</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {executedTransactions.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  실행 완료된 트랜잭션이 없습니다
-                </div>
-              ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>상태</TableHead>
-                      <TableHead>금액</TableHead>
-                      <TableHead>승인</TableHead>
-                      <TableHead>수신자</TableHead>
-                      <TableHead>제안일</TableHead>
-                      <TableHead>작업</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {executedTransactions.map(tx => (
-                      <TransactionRow key={tx.transactionId} transaction={tx} />
+          <TabsContent value="executed">
+            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Send className="w-5 h-5 text-cyan-400" />
+                  실행 완료 트랜잭션
+                </CardTitle>
+                <CardDescription className="text-slate-400">
+                  블록체인에 기록된 완료된 트랜잭션입니다.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {executedTransactions.length === 0 ? (
+                  <div className="text-center py-16 text-slate-400">
+                    <div className="w-20 h-20 mx-auto mb-6 bg-slate-700/50 rounded-full flex items-center justify-center">
+                      <FileText className="w-10 h-10 text-slate-500" />
+                    </div>
+                    <p className="text-lg font-medium">실행된 트랜잭션이 없습니다</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {executedTransactions.slice(0, 20).map(tx => (
+                      <TransactionCard
+                        key={tx.transactionId}
+                        transaction={tx}
+                        signers={signers}
+                        onViewDetails={() => {
+                          setSelectedTransaction(tx);
+                          setShowDetailDialog(true);
+                        }}
+                        toast={toast}
+                      />
                     ))}
-                  </TableBody>
-                </Table>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-        <TabsContent value="other">
-          <Card>
-            <CardHeader>
-              <CardTitle>기타 트랜잭션</CardTitle>
-              <CardDescription>거부, 취소, 만료된 트랜잭션</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {otherTransactions.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  기타 트랜잭션이 없습니다
-                </div>
-              ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>상태</TableHead>
-                      <TableHead>금액</TableHead>
-                      <TableHead>승인</TableHead>
-                      <TableHead>수신자</TableHead>
-                      <TableHead>제안일</TableHead>
-                      <TableHead>작업</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
+          <TabsContent value="other">
+            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white flex items-center gap-2">
+                  <History className="w-5 h-5 text-slate-400" />
+                  기타 트랜잭션
+                </CardTitle>
+                <CardDescription className="text-slate-400">
+                  거부, 취소, 만료된 트랜잭션입니다.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {otherTransactions.length === 0 ? (
+                  <div className="text-center py-16 text-slate-400">
+                    <div className="w-20 h-20 mx-auto mb-6 bg-slate-700/50 rounded-full flex items-center justify-center">
+                      <Ban className="w-10 h-10 text-slate-500" />
+                    </div>
+                    <p className="text-lg font-medium">기타 트랜잭션이 없습니다</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
                     {otherTransactions.map(tx => (
-                      <TransactionRow key={tx.transactionId} transaction={tx} />
+                      <TransactionCard
+                        key={tx.transactionId}
+                        transaction={tx}
+                        signers={signers}
+                        onViewDetails={() => {
+                          setSelectedTransaction(tx);
+                          setShowDetailDialog(true);
+                        }}
+                        toast={toast}
+                      />
                     ))}
-                  </TableBody>
-                </Table>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+
+        <div className="text-xs text-slate-500 text-center">
+          마지막 업데이트: {format(lastUpdate, "yyyy-MM-dd HH:mm:ss")}
+        </div>
+      </div>
 
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-lg bg-slate-800 border-slate-700">
           <DialogHeader>
-            <DialogTitle>새 다중서명 트랜잭션 생성</DialogTitle>
-            <DialogDescription>
-              7/11 서명자 승인이 필요한 재단 자산 이체 요청
+            <DialogTitle className="text-white flex items-center gap-2">
+              <Plus className="w-5 h-5 text-cyan-400" />
+              새 트랜잭션 생성
+            </DialogTitle>
+            <DialogDescription className="text-slate-400">
+              재단 자산 지출을 위한 새 트랜잭션을 생성합니다.
             </DialogDescription>
           </DialogHeader>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="transactionType">트랜잭션 유형</Label>
+
+          <div className="space-y-4 max-h-[60vh] overflow-y-auto">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label className="text-slate-300">트랜잭션 유형</Label>
                 <Select
                   value={newTransaction.transactionType}
-                  onValueChange={(value) => setNewTransaction(prev => ({ ...prev, transactionType: value }))}
+                  onValueChange={(v) => setNewTransaction(prev => ({ ...prev, transactionType: v }))}
                 >
-                  <SelectTrigger data-testid="select-transaction-type">
+                  <SelectTrigger className="bg-slate-900/50 border-slate-600 text-slate-100">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
-                    {TRANSACTION_TYPES.map(type => (
-                      <SelectItem key={type.value} value={type.value}>
-                        {type.label} - {type.description}
+                  <SelectContent className="bg-slate-800 border-slate-700">
+                    {Object.entries(TRANSACTION_TYPES).map(([key, val]) => (
+                      <SelectItem key={key} value={key} className="text-slate-100">
+                        {val.label} ({val.description})
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
-              <div>
-                <Label htmlFor="recipientAddress">수신 주소 (tb1...)</Label>
+
+              <div className="space-y-2">
+                <Label className="text-slate-300">금액 (TBURN)</Label>
                 <Input
-                  id="recipientAddress"
-                  value={newTransaction.recipientAddress}
-                  onChange={(e) => setNewTransaction(prev => ({ ...prev, recipientAddress: e.target.value }))}
-                  placeholder="tb1q..."
-                  data-testid="input-recipient-address"
-                />
-              </div>
-              <div>
-                <Label htmlFor="recipientName">수신자 이름 (선택)</Label>
-                <Input
-                  id="recipientName"
-                  value={newTransaction.recipientName}
-                  onChange={(e) => setNewTransaction(prev => ({ ...prev, recipientName: e.target.value }))}
-                  placeholder="Partner Company A"
-                  data-testid="input-recipient-name"
-                />
-              </div>
-              <div>
-                <Label htmlFor="amount">금액 (TBURN)</Label>
-                <Input
-                  id="amount"
                   type="number"
                   value={newTransaction.amount}
                   onChange={(e) => setNewTransaction(prev => ({ ...prev, amount: e.target.value }))}
                   placeholder="1000000"
-                  data-testid="input-amount"
+                  className="bg-slate-900/50 border-slate-600 text-slate-100"
                 />
               </div>
             </div>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="purpose">목적</Label>
-                <Input
-                  id="purpose"
-                  value={newTransaction.purpose}
-                  onChange={(e) => setNewTransaction(prev => ({ ...prev, purpose: e.target.value }))}
-                  placeholder="Q1 2026 생태계 보조금"
-                  data-testid="input-purpose"
-                />
-              </div>
-              <div>
-                <Label htmlFor="justification">사유 (선택)</Label>
-                <Textarea
-                  id="justification"
-                  value={newTransaction.justification}
-                  onChange={(e) => setNewTransaction(prev => ({ ...prev, justification: e.target.value }))}
-                  placeholder="자세한 사유를 입력하세요..."
-                  rows={3}
-                  data-testid="input-justification"
-                />
-              </div>
-              <div>
-                <Label htmlFor="documentationUrl">문서 URL (선택)</Label>
-                <Input
-                  id="documentationUrl"
-                  value={newTransaction.documentationUrl}
-                  onChange={(e) => setNewTransaction(prev => ({ ...prev, documentationUrl: e.target.value }))}
-                  placeholder="https://docs.example.com/proposal"
-                  data-testid="input-documentation-url"
-                />
-              </div>
+
+            <div className="space-y-2">
+              <Label className="text-slate-300">수신자 주소</Label>
+              <Input
+                value={newTransaction.recipientAddress}
+                onChange={(e) => setNewTransaction(prev => ({ ...prev, recipientAddress: e.target.value }))}
+                placeholder="tb1..."
+                className="font-mono bg-slate-900/50 border-slate-600 text-slate-100"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-slate-300">수신자 이름 (선택)</Label>
+              <Input
+                value={newTransaction.recipientName}
+                onChange={(e) => setNewTransaction(prev => ({ ...prev, recipientName: e.target.value }))}
+                placeholder="수신자 이름 또는 조직명"
+                className="bg-slate-900/50 border-slate-600 text-slate-100"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-slate-300">목적</Label>
+              <Input
+                value={newTransaction.purpose}
+                onChange={(e) => setNewTransaction(prev => ({ ...prev, purpose: e.target.value }))}
+                placeholder="지출 목적을 입력하세요"
+                className="bg-slate-900/50 border-slate-600 text-slate-100"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-slate-300">정당성 (선택)</Label>
+              <Textarea
+                value={newTransaction.justification}
+                onChange={(e) => setNewTransaction(prev => ({ ...prev, justification: e.target.value }))}
+                placeholder="지출의 정당성을 설명하세요"
+                className="bg-slate-900/50 border-slate-600 text-slate-100"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-slate-300">관련 문서 URL (선택)</Label>
+              <Input
+                value={newTransaction.documentationUrl}
+                onChange={(e) => setNewTransaction(prev => ({ ...prev, documentationUrl: e.target.value }))}
+                placeholder="https://..."
+                className="bg-slate-900/50 border-slate-600 text-slate-100"
+              />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="isEmergency"
+                checked={newTransaction.isEmergency}
+                onChange={(e) => setNewTransaction(prev => ({ ...prev, isEmergency: e.target.checked }))}
+                className="rounded border-slate-600"
+              />
+              <Label htmlFor="isEmergency" className="text-slate-300 flex items-center gap-2">
+                <Zap className="w-4 h-4 text-red-400" />
+                긴급 트랜잭션
+              </Label>
             </div>
           </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCreateDialog(false)}>
+
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setShowCreateDialog(false)} className="border-slate-600 text-slate-300 hover:bg-slate-700">
               취소
             </Button>
             <Button
               onClick={() => createMutation.mutate(newTransaction)}
               disabled={createMutation.isPending || !newTransaction.recipientAddress || !newTransaction.amount || !newTransaction.purpose}
-              data-testid="button-submit-transaction"
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
             >
-              {createMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Plus className="w-4 h-4 mr-1" />}
-              트랜잭션 생성
+              {createMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
+              생성
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
       <Dialog open={showApproveDialog} onOpenChange={setShowApproveDialog}>
-        <DialogContent>
+        <DialogContent className="max-w-lg bg-slate-800 border-slate-700">
           <DialogHeader>
-            <DialogTitle>트랜잭션 투표</DialogTitle>
-            <DialogDescription>
-              서명자로서 이 트랜잭션에 대해 투표하세요
+            <DialogTitle className="text-white flex items-center gap-2">
+              <Fingerprint className="w-5 h-5 text-cyan-400" />
+              트랜잭션 투표
+            </DialogTitle>
+            <DialogDescription className="text-slate-400">
+              이 트랜잭션에 대한 승인 또는 거부를 결정합니다.
             </DialogDescription>
           </DialogHeader>
+
           {selectedTransaction && (
             <div className="space-y-4">
-              <div className="p-4 bg-muted rounded-lg">
-                <div className="text-sm space-y-1">
-                  <div><span className="text-muted-foreground">금액:</span> {formatTburnAmount(selectedTransaction.amount)}</div>
-                  <div><span className="text-muted-foreground">수신자:</span> {formatAddress(selectedTransaction.recipientAddress)}</div>
-                  <div><span className="text-muted-foreground">목적:</span> {selectedTransaction.purpose}</div>
-                  <div><span className="text-muted-foreground">현재 승인:</span> {selectedTransaction.approvalCount}/{selectedTransaction.requiredApprovals}</div>
+              <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50 space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-400">금액:</span>
+                  <span className="text-white font-bold">{formatTburnAmount(selectedTransaction.amount)} TBURN</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-400">수신자:</span>
+                  <code className="text-slate-300 text-xs">{formatAddress(selectedTransaction.recipientAddress)}</code>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-400">현재 승인:</span>
+                  <span className="text-white">{selectedTransaction.approvalCount}/{selectedTransaction.requiredApprovals}</span>
                 </div>
               </div>
-              <div>
-                <Label>서명자 선택</Label>
-                <Select
-                  value={approvalData.signerId}
-                  onValueChange={(value) => setApprovalData(prev => ({ ...prev, signerId: value }))}
-                >
-                  <SelectTrigger data-testid="select-signer">
-                    <SelectValue placeholder="서명자를 선택하세요" />
+
+              <div className="space-y-2">
+                <Label className="text-slate-300">서명자 선택</Label>
+                <Select value={approvalData.signerId} onValueChange={(v) => setApprovalData(prev => ({ ...prev, signerId: v }))}>
+                  <SelectTrigger className="bg-slate-900/50 border-slate-600 text-slate-100">
+                    <SelectValue placeholder="서명자 선택" />
                   </SelectTrigger>
-                  <SelectContent>
-                    {signers.map(signer => (
-                      <SelectItem key={signer.signerId} value={signer.signerId}>
+                  <SelectContent className="bg-slate-800 border-slate-700">
+                    {signers.filter(s => s.isActive).map(signer => (
+                      <SelectItem key={signer.signerId} value={signer.signerId} className="text-slate-100">
                         {signer.name} ({signer.role})
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
-              <div>
-                <Label>결정</Label>
-                <div className="flex gap-2 mt-2">
+
+              <div className="space-y-2">
+                <Label className="text-slate-300">결정</Label>
+                <div className="grid grid-cols-2 gap-3">
                   <Button
+                    type="button"
                     variant={approvalData.decision === "approve" ? "default" : "outline"}
+                    className={approvalData.decision === "approve" ? "bg-emerald-600 hover:bg-emerald-500" : "border-slate-600 text-slate-300 hover:bg-slate-700"}
                     onClick={() => setApprovalData(prev => ({ ...prev, decision: "approve" }))}
-                    className="flex-1"
-                    data-testid="button-decision-approve"
                   >
-                    <CheckCircle className="w-4 h-4 mr-1" />
+                    <CheckCircle className="w-4 h-4 mr-2" />
                     승인
                   </Button>
                   <Button
-                    variant={approvalData.decision === "reject" ? "destructive" : "outline"}
+                    type="button"
+                    variant={approvalData.decision === "reject" ? "default" : "outline"}
+                    className={approvalData.decision === "reject" ? "bg-red-600 hover:bg-red-500" : "border-slate-600 text-slate-300 hover:bg-slate-700"}
                     onClick={() => setApprovalData(prev => ({ ...prev, decision: "reject" }))}
-                    className="flex-1"
-                    data-testid="button-decision-reject"
                   >
-                    <XCircle className="w-4 h-4 mr-1" />
+                    <XCircle className="w-4 h-4 mr-2" />
                     거부
-                  </Button>
-                  <Button
-                    variant={approvalData.decision === "abstain" ? "secondary" : "outline"}
-                    onClick={() => setApprovalData(prev => ({ ...prev, decision: "abstain" }))}
-                    className="flex-1"
-                    data-testid="button-decision-abstain"
-                  >
-                    <Ban className="w-4 h-4 mr-1" />
-                    기권
                   </Button>
                 </div>
               </div>
-              <div>
-                <Label htmlFor="comment">코멘트 (선택)</Label>
+
+              <div className="space-y-2">
+                <Label className="text-slate-300">코멘트 (선택)</Label>
                 <Textarea
-                  id="comment"
                   value={approvalData.comment}
                   onChange={(e) => setApprovalData(prev => ({ ...prev, comment: e.target.value }))}
-                  placeholder="투표에 대한 의견을 입력하세요..."
-                  rows={2}
-                  data-testid="input-vote-comment"
+                  placeholder="투표 사유를 입력하세요"
+                  className="bg-slate-900/50 border-slate-600 text-slate-100"
                 />
               </div>
             </div>
           )}
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowApproveDialog(false)}>
+
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setShowApproveDialog(false)} className="border-slate-600 text-slate-300 hover:bg-slate-700">
               취소
             </Button>
             <Button
-              onClick={() => selectedTransaction && approveMutation.mutate({
-                transactionId: selectedTransaction.transactionId,
-                data: approvalData
-              })}
+              onClick={() => {
+                if (!selectedTransaction || !approvalData.signerId) return;
+                approveMutation.mutate({
+                  transactionId: selectedTransaction.transactionId,
+                  data: approvalData,
+                });
+              }}
               disabled={approveMutation.isPending || !approvalData.signerId}
-              data-testid="button-submit-vote"
+              className={approvalData.decision === "approve" ? "bg-emerald-600 hover:bg-emerald-500" : "bg-red-600 hover:bg-red-500"}
             >
-              {approveMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : null}
-              투표 제출
+              {approveMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Fingerprint className="w-4 h-4 mr-2" />}
+              서명
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
       <AlertDialog open={showExecuteDialog} onOpenChange={setShowExecuteDialog}>
-        <AlertDialogContent>
+        <AlertDialogContent className="bg-slate-800 border-slate-700">
           <AlertDialogHeader>
-            <AlertDialogTitle>트랜잭션 실행</AlertDialogTitle>
-            <AlertDialogDescription>
-              이 작업은 되돌릴 수 없습니다. 승인된 트랜잭션을 실행하면 자산이 수신자에게 이체됩니다.
+            <AlertDialogTitle className="text-white flex items-center gap-2">
+              <Play className="w-5 h-5 text-cyan-400" />
+              트랜잭션 실행
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-slate-400">
+              이 트랜잭션을 블록체인에 전송합니다. 이 작업은 취소할 수 없습니다.
             </AlertDialogDescription>
           </AlertDialogHeader>
+
           {selectedTransaction && (
-            <div className="p-4 bg-muted rounded-lg">
-              <div className="text-sm space-y-1">
-                <div><span className="text-muted-foreground">금액:</span> <span className="font-bold">{formatTburnAmount(selectedTransaction.amount)}</span></div>
-                <div><span className="text-muted-foreground">수신자:</span> {selectedTransaction.recipientAddress}</div>
-                <div><span className="text-muted-foreground">승인:</span> {selectedTransaction.approvalCount}/{selectedTransaction.requiredApprovals}</div>
+            <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50 space-y-2 my-4">
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-400">금액:</span>
+                <span className="text-white font-bold">{formatTburnAmount(selectedTransaction.amount)} TBURN</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-400">수신자:</span>
+                <code className="text-slate-300 text-xs">{formatAddress(selectedTransaction.recipientAddress)}</code>
               </div>
             </div>
           )}
+
           <AlertDialogFooter>
-            <AlertDialogCancel>취소</AlertDialogCancel>
+            <AlertDialogCancel className="border-slate-600 text-slate-300 hover:bg-slate-700">취소</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => selectedTransaction && executeMutation.mutate(selectedTransaction.transactionId)}
-              disabled={executeMutation.isPending}
-              data-testid="button-confirm-execute"
+              onClick={() => {
+                if (!selectedTransaction) return;
+                executeMutation.mutate(selectedTransaction.transactionId);
+              }}
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
             >
-              {executeMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Play className="w-4 h-4 mr-1" />}
+              {executeMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Play className="w-4 h-4 mr-2" />}
               실행
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -1103,41 +1061,472 @@ export default function CustodyTransactionsPage() {
       </AlertDialog>
 
       <AlertDialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
-        <AlertDialogContent>
+        <AlertDialogContent className="bg-slate-800 border-slate-700">
           <AlertDialogHeader>
-            <AlertDialogTitle>트랜잭션 취소</AlertDialogTitle>
-            <AlertDialogDescription>
-              이 트랜잭션을 취소하시겠습니까? 취소된 트랜잭션은 복구할 수 없습니다.
+            <AlertDialogTitle className="text-white flex items-center gap-2">
+              <Ban className="w-5 h-5 text-red-400" />
+              트랜잭션 취소
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-slate-400">
+              이 트랜잭션을 취소합니다. 이 작업은 취소할 수 없습니다.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <div>
-            <Label htmlFor="cancelReason">취소 사유</Label>
+
+          <div className="space-y-2 my-4">
+            <Label className="text-slate-300">취소 사유</Label>
             <Textarea
-              id="cancelReason"
               value={cancelReason}
               onChange={(e) => setCancelReason(e.target.value)}
-              placeholder="취소 사유를 입력하세요..."
-              rows={2}
-              data-testid="input-cancel-reason"
+              placeholder="취소 사유를 입력하세요"
+              className="bg-slate-900/50 border-slate-600 text-slate-100"
             />
           </div>
+
           <AlertDialogFooter>
-            <AlertDialogCancel>돌아가기</AlertDialogCancel>
+            <AlertDialogCancel className="border-slate-600 text-slate-300 hover:bg-slate-700">뒤로</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => selectedTransaction && cancelMutation.mutate({
-                transactionId: selectedTransaction.transactionId,
-                reason: cancelReason
-              })}
-              disabled={cancelMutation.isPending}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              data-testid="button-confirm-cancel"
+              onClick={() => {
+                if (!selectedTransaction) return;
+                cancelMutation.mutate({
+                  transactionId: selectedTransaction.transactionId,
+                  reason: cancelReason,
+                });
+              }}
+              className="bg-red-600 hover:bg-red-500"
             >
-              {cancelMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Ban className="w-4 h-4 mr-1" />}
-              취소
+              {cancelMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Ban className="w-4 h-4 mr-2" />}
+              취소하기
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <Dialog open={showDetailDialog} onOpenChange={setShowDetailDialog}>
+        <DialogContent className="max-w-2xl bg-slate-800 border-slate-700 max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-white flex items-center gap-2">
+              <FileText className="w-5 h-5 text-cyan-400" />
+              트랜잭션 상세 정보
+            </DialogTitle>
+          </DialogHeader>
+
+          {selectedTransaction && (
+            <TransactionDetailView transaction={selectedTransaction} signers={signers} toast={toast} />
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowDetailDialog(false)} className="border-slate-600 text-slate-300 hover:bg-slate-700">
+              닫기
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+    </TooltipProvider>
+  );
+}
+
+interface TransactionCardProps {
+  transaction: CustodyTransaction;
+  signers: Signer[];
+  onApprove?: () => void;
+  onExecute?: () => void;
+  onCancel?: () => void;
+  onViewDetails: () => void;
+  toast: any;
+}
+
+function TransactionCard({ transaction, signers, onApprove, onExecute, onCancel, onViewDetails, toast }: TransactionCardProps) {
+  const txType = TRANSACTION_TYPES[transaction.transactionType] || TRANSACTION_TYPES.grant_disbursement;
+  const statusConfig = STATUS_CONFIG[transaction.status] || STATUS_CONFIG.pending_approval;
+  const TypeIcon = txType.icon;
+  const StatusIcon = statusConfig.icon;
+
+  const hoursRemaining = transaction.approvalExpiresAt 
+    ? differenceInHours(new Date(transaction.approvalExpiresAt), new Date())
+    : 168;
+
+  const timelockRemaining = transaction.timelockExpiresAt 
+    ? differenceInHours(new Date(transaction.timelockExpiresAt), new Date())
+    : 0;
+  
+  const canExecute = transaction.status === "approved" && timelockRemaining <= 0;
+
+  return (
+    <Card className={`
+      bg-slate-900/50 border-slate-700/50 backdrop-blur-sm overflow-hidden
+      ${transaction.isEmergency ? "border-red-500/30" : "border-slate-700/30"}
+      transition-all duration-300 hover:border-cyan-500/50
+    `}>
+      {transaction.isEmergency && (
+        <div className="bg-gradient-to-r from-red-500/20 to-transparent px-4 py-2 border-b border-red-500/20">
+          <div className="flex items-center gap-2 text-red-400 text-sm font-medium">
+            <Zap className="w-4 h-4" />
+            긴급 트랜잭션
+          </div>
+        </div>
+      )}
+
+      <CardContent className="pt-4">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 space-y-3">
+            <div className="flex items-center gap-3">
+              <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${txType.color} bg-slate-800`}>
+                <TypeIcon className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <code className="text-xs text-cyan-400 bg-slate-800 px-2 py-1 rounded font-mono">
+                    {transaction.transactionId.slice(0, 12)}...
+                  </code>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-6 text-slate-500 hover:text-white"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      copyToClipboard(transaction.transactionId, toast);
+                    }}
+                  >
+                    <Copy className="w-3 h-3" />
+                  </Button>
+                  <Badge className={`${statusConfig.bgColor} ${statusConfig.color} border-0`}>
+                    <StatusIcon className="w-3 h-3 mr-1" />
+                    {statusConfig.label}
+                  </Badge>
+                </div>
+                <p className="text-sm text-slate-400 mt-1">
+                  {txType.label} • {txType.description}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+              <div>
+                <p className="text-xs text-slate-500 mb-1">금액</p>
+                <p className="font-bold text-white">{formatTburnAmount(transaction.amount)} TBURN</p>
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 mb-1">수신자</p>
+                <p className="font-mono text-xs text-slate-300">{formatAddress(transaction.recipientAddress, 12)}</p>
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 mb-1">목적</p>
+                <p className="text-slate-300 truncate">{transaction.purpose}</p>
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 mb-1">제안일시</p>
+                <p className="text-slate-400">{formatDistanceToNow(new Date(transaction.proposedAt), { addSuffix: true, locale: ko })}</p>
+              </div>
+            </div>
+
+            {transaction.status === "pending_approval" && (
+              <div className="flex items-center gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-500">승인:</span>
+                  <Progress 
+                    value={(transaction.approvalCount / transaction.requiredApprovals) * 100} 
+                    className="w-24 h-2"
+                  />
+                  <span className="font-medium text-white">{transaction.approvalCount}/{transaction.requiredApprovals}</span>
+                </div>
+                <div className={`flex items-center gap-1 ${getTimeRemainingColor(hoursRemaining)}`}>
+                  <Timer className="w-3 h-3" />
+                  <span>{hoursRemaining > 0 ? `${hoursRemaining}시간 남음` : "만료됨"}</span>
+                </div>
+              </div>
+            )}
+
+            {transaction.status === "approved" && (
+              <div className="flex items-center gap-2 text-sm">
+                {canExecute ? (
+                  <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
+                    <LockOpen className="w-3 h-3 mr-1" />
+                    타임락 해제됨 - 실행 가능
+                  </Badge>
+                ) : (
+                  <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30">
+                    <Lock className="w-3 h-3 mr-1" />
+                    타임락 대기 중 - {timelockRemaining}시간 남음
+                  </Badge>
+                )}
+              </div>
+            )}
+
+            {transaction.executedTxHash && (
+              <div className="flex items-center gap-2 text-sm">
+                <span className="text-slate-500">TxHash:</span>
+                <code className="text-xs text-cyan-400">{transaction.executedTxHash.slice(0, 16)}...</code>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-5 w-5 text-slate-500 hover:text-white"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    copyToClipboard(transaction.executedTxHash!, toast);
+                  }}
+                >
+                  <Copy className="w-3 h-3" />
+                </Button>
+              </div>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            {transaction.status === "pending_approval" && onApprove && (
+              <>
+                <Button
+                  onClick={onApprove}
+                  size="sm"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
+                  data-testid={`button-approve-${transaction.transactionId}`}
+                >
+                  <Users className="w-4 h-4 mr-1" />
+                  투표
+                </Button>
+                {onCancel && (
+                  <Button
+                    onClick={onCancel}
+                    size="sm"
+                    variant="outline"
+                    className="border-red-500/30 text-red-400 hover:bg-red-500/10"
+                    data-testid={`button-cancel-${transaction.transactionId}`}
+                  >
+                    <Ban className="w-4 h-4 mr-1" />
+                    취소
+                  </Button>
+                )}
+              </>
+            )}
+
+            {transaction.status === "approved" && onExecute && (
+              <Button
+                onClick={onExecute}
+                size="sm"
+                disabled={!canExecute}
+                className={canExecute ? "bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500" : ""}
+                data-testid={`button-execute-${transaction.transactionId}`}
+              >
+                {canExecute ? (
+                  <><Play className="w-4 h-4 mr-1" /> 실행</>
+                ) : (
+                  <><Timer className="w-4 h-4 mr-1" /> 대기</>
+                )}
+              </Button>
+            )}
+
+            <Button
+              onClick={onViewDetails}
+              size="sm"
+              variant="ghost"
+              className="text-slate-400 hover:text-white"
+            >
+              <Eye className="w-4 h-4 mr-1" />
+              상세
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+interface TransactionDetailViewProps {
+  transaction: CustodyTransaction;
+  signers: Signer[];
+  toast: any;
+}
+
+function TransactionDetailView({ transaction, signers, toast }: TransactionDetailViewProps) {
+  const { data: detailsData } = useQuery({
+    queryKey: ["/api/custody-admin/transactions", transaction.transactionId],
+    queryFn: async () => {
+      const res = await fetch(`/api/custody-admin/transactions/${transaction.transactionId}`, {
+        credentials: "include",
+      });
+      return res.json();
+    },
+  });
+
+  const approvals: TransactionApproval[] = detailsData?.approvals || [];
+  const txType = TRANSACTION_TYPES[transaction.transactionType];
+  const statusConfig = STATUS_CONFIG[transaction.status];
+
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50">
+          <p className="text-xs text-slate-500 mb-1">트랜잭션 ID</p>
+          <div className="flex items-center gap-2">
+            <p className="font-mono text-sm text-cyan-400 break-all">{transaction.transactionId}</p>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 text-slate-500 hover:text-white flex-shrink-0"
+              onClick={() => copyToClipboard(transaction.transactionId, toast)}
+            >
+              <Copy className="w-3 h-3" />
+            </Button>
+          </div>
+        </div>
+        <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50">
+          <p className="text-xs text-slate-500 mb-1">상태</p>
+          <Badge className={`${statusConfig.bgColor} ${statusConfig.color} border-0`}>
+            {statusConfig.label}
+          </Badge>
+        </div>
+      </div>
+
+      <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50 space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <p className="text-xs text-slate-500 mb-1">금액</p>
+            <p className="text-xl font-bold text-white">{formatTburnAmount(transaction.amount)} TBURN</p>
+            {transaction.amountUsd && (
+              <p className="text-sm text-slate-400">${transaction.amountUsd} USD</p>
+            )}
+          </div>
+          <div>
+            <p className="text-xs text-slate-500 mb-1">유형</p>
+            <p className="text-sm text-white">{txType?.label}</p>
+            <p className="text-xs text-slate-400">{txType?.description}</p>
+          </div>
+        </div>
+
+        <Separator className="bg-slate-700" />
+
+        <div>
+          <p className="text-xs text-slate-500 mb-1">수신자 주소</p>
+          <div className="flex items-center gap-2">
+            <code className="text-sm text-slate-300 font-mono break-all">{transaction.recipientAddress}</code>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 text-slate-500 hover:text-white flex-shrink-0"
+              onClick={() => copyToClipboard(transaction.recipientAddress, toast)}
+            >
+              <Copy className="w-3 h-3" />
+            </Button>
+          </div>
+          {transaction.recipientName && (
+            <p className="text-sm text-slate-400 mt-1">{transaction.recipientName}</p>
+          )}
+        </div>
+
+        <div>
+          <p className="text-xs text-slate-500 mb-1">목적</p>
+          <p className="text-sm text-white">{transaction.purpose}</p>
+        </div>
+
+        {transaction.justification && (
+          <div>
+            <p className="text-xs text-slate-500 mb-1">정당성</p>
+            <p className="text-sm text-slate-300">{transaction.justification}</p>
+          </div>
+        )}
+
+        {transaction.documentationUrl && (
+          <div>
+            <p className="text-xs text-slate-500 mb-1">관련 문서</p>
+            <a
+              href={transaction.documentationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-cyan-400 flex items-center gap-1 hover:underline"
+            >
+              문서 보기 <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+        )}
+      </div>
+
+      <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50 space-y-3">
+        <p className="text-sm font-medium text-white">타임라인</p>
+        <div className="space-y-2 text-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-slate-400">제안일시</span>
+            <span className="text-slate-300">{format(new Date(transaction.proposedAt), "yyyy-MM-dd HH:mm:ss", { locale: ko })}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-slate-400">제안자</span>
+            <span className="text-slate-300">{transaction.proposedBy}</span>
+          </div>
+          {transaction.approvalExpiresAt && (
+            <div className="flex items-center justify-between">
+              <span className="text-slate-400">승인 기한</span>
+              <span className="text-slate-300">{format(new Date(transaction.approvalExpiresAt), "yyyy-MM-dd HH:mm", { locale: ko })}</span>
+            </div>
+          )}
+          {transaction.timelockExpiresAt && (
+            <div className="flex items-center justify-between">
+              <span className="text-slate-400">타임락 해제</span>
+              <span className="text-slate-300">{format(new Date(transaction.timelockExpiresAt), "yyyy-MM-dd HH:mm", { locale: ko })}</span>
+            </div>
+          )}
+          {transaction.executedAt && (
+            <div className="flex items-center justify-between">
+              <span className="text-slate-400">실행일시</span>
+              <span className="text-slate-300">{format(new Date(transaction.executedAt), "yyyy-MM-dd HH:mm:ss", { locale: ko })}</span>
+            </div>
+          )}
+          {transaction.executedTxHash && (
+            <div className="flex items-center justify-between">
+              <span className="text-slate-400">TxHash</span>
+              <div className="flex items-center gap-1">
+                <code className="text-xs text-cyan-400">{transaction.executedTxHash.slice(0, 20)}...</code>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-5 w-5 text-slate-500 hover:text-white"
+                  onClick={() => copyToClipboard(transaction.executedTxHash!, toast)}
+                >
+                  <Copy className="w-3 h-3" />
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50">
+        <p className="text-sm font-medium text-white mb-3">승인 현황 ({approvals.length}명 투표)</p>
+        <ScrollArea className="h-[200px]">
+          <div className="space-y-2">
+            {approvals.map((approval) => {
+              const signer = signers.find(s => s.signerId === approval.signerId);
+              return (
+                <div key={approval.approvalId} className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg border border-slate-700/30">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="w-8 h-8">
+                      <AvatarFallback className={`text-xs ${approval.approved ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400"}`}>
+                        {signer?.name?.slice(0, 2) || "??"}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-medium text-sm text-white">{signer?.name || approval.signerId}</p>
+                      <p className="text-xs text-slate-400">
+                        {approval.approvedAt ? formatDistanceToNow(new Date(approval.approvedAt), { addSuffix: true, locale: ko }) : "-"}
+                      </p>
+                    </div>
+                  </div>
+                  <Badge className={approval.approved ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : "bg-red-500/20 text-red-400 border-red-500/30"}>
+                    {approval.approved ? (
+                      <><CheckCircle className="w-3 h-3 mr-1" /> 승인</>
+                    ) : (
+                      <><XCircle className="w-3 h-3 mr-1" /> 거부</>
+                    )}
+                  </Badge>
+                </div>
+              );
+            })}
+            {approvals.length === 0 && (
+              <div className="text-center py-8 text-slate-400">
+                아직 투표가 없습니다
+              </div>
+            )}
+          </div>
+        </ScrollArea>
+      </div>
     </div>
   );
 }
