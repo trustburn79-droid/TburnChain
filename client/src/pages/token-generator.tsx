@@ -1226,15 +1226,9 @@ function CreateTokenContent({
                               <Badge key={feature} variant="secondary" className="text-xs">{t(`tokenGenerator.featuresList.${FEATURE_LOCALE_KEYS[feature] || feature}`, { defaultValue: feature })}</Badge>
                             ))}
                           </div>
-                          <div className="mt-4 flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <TrendingUp className="h-4 w-4 text-green-500" />
-                              <span className="text-xs text-muted-foreground">{t('tokenGenerator.popularityScore', { defaultValue: '인기도' })}: {template.popularity}%</span>
-                            </div>
-                            <Button size="sm" variant="default" className="gap-1">
-                              {t('tokenGenerator.startNow', { defaultValue: '바로 시작' })}
-                              <ArrowRight className="h-3 w-3" />
-                            </Button>
+                          <div className="mt-4 flex items-center gap-2">
+                            <TrendingUp className="h-4 w-4 text-green-500" />
+                            <span className="text-xs text-muted-foreground">{t('tokenGenerator.popularityScore', { defaultValue: '인기도' })}: {template.popularity}%</span>
                           </div>
                         </CardContent>
                       </Card>
