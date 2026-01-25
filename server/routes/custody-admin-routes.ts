@@ -188,7 +188,7 @@ router.get("/wallets", requireAdmin, async (req: Request, res: Response) => {
     res.json({ success: true, wallets });
   } catch (error: any) {
     console.error("[Custody] Error fetching wallets:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -207,7 +207,7 @@ router.get("/wallets/:walletId", requireAdmin, async (req: Request, res: Respons
     res.json({ success: true, wallet, signers, signerCount: signers.length });
   } catch (error: any) {
     console.error("[Custody] Error fetching wallet:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -233,7 +233,7 @@ router.get("/signers", requireAdmin, async (req: Request, res: Response) => {
     res.json({ success: true, signers });
   } catch (error: any) {
     console.error("[Custody] Error fetching signers:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -249,7 +249,7 @@ router.get("/signers/:signerId", requireAdmin, async (req: Request, res: Respons
     res.json({ success: true, signer });
   } catch (error: any) {
     console.error("[Custody] Error fetching signer:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -332,7 +332,7 @@ router.post("/signers", requireAdmin, async (req: Request, res: Response) => {
     res.json({ success: true, signer: newSigner });
   } catch (error: any) {
     console.error("[Custody] Error adding signer:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -393,7 +393,7 @@ router.patch("/signers/:signerId", requireAdmin, async (req: Request, res: Respo
     res.json({ success: true, signer: updatedSigner });
   } catch (error: any) {
     console.error("[Custody] Error updating signer:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -453,7 +453,7 @@ router.delete("/signers/:signerId", requireAdmin, async (req: Request, res: Resp
     res.json({ success: true, signer: removedSigner });
   } catch (error: any) {
     console.error("[Custody] Error removing signer:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -576,7 +576,7 @@ router.get("/transactions", requireAdmin, async (req: Request, res: Response) =>
     res.json({ success: true, transactions });
   } catch (error: any) {
     console.error("[Custody] Error fetching transactions:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -600,7 +600,7 @@ router.get("/transactions/:transactionId", requireAdmin, async (req: Request, re
     res.json({ success: true, transaction, approvals });
   } catch (error: any) {
     console.error("[Custody] Error fetching transaction:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -722,7 +722,7 @@ router.post("/transactions", requireAdmin, async (req: Request, res: Response) =
     });
   } catch (error: any) {
     console.error("[Custody] Error creating transaction:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -877,7 +877,7 @@ router.post("/transactions/:transactionId/approve", requireAdmin, async (req: Re
     });
   } catch (error: any) {
     console.error("[Custody] Error recording approval:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -984,7 +984,7 @@ router.post("/transactions/:transactionId/execute", requireAdmin, async (req: Re
     });
   } catch (error: any) {
     console.error("[Custody] Error executing transaction:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1029,7 +1029,7 @@ router.post("/transactions/:transactionId/cancel", requireAdmin, async (req: Req
     res.json({ success: true, cancelled: true });
   } catch (error: any) {
     console.error("[Custody] Error cancelling transaction:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1088,7 +1088,7 @@ router.post("/transactions/expire-pending", requireAdmin, async (req: Request, r
     });
   } catch (error: any) {
     console.error("[Custody] Error expiring transactions:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1138,7 +1138,7 @@ router.get("/signer-by-address/:address", async (req: Request, res: Response) =>
     });
   } catch (error: any) {
     console.error("[Custody] Error finding signer by address:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1154,7 +1154,7 @@ router.get("/signer-portal/transactions", async (req: Request, res: Response) =>
     res.json({ success: true, transactions });
   } catch (error: any) {
     console.error("[Custody] Error fetching signer portal transactions:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1178,7 +1178,7 @@ router.get("/signer-votes/:signerId", async (req: Request, res: Response) => {
     res.json({ success: true, approvals, signer: { name: signer.name, role: signer.role } });
   } catch (error: any) {
     console.error("[Custody] Error fetching signer votes:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1211,7 +1211,7 @@ router.get("/stats", requireAdmin, async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error("[Custody] Error fetching stats:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1262,7 +1262,7 @@ router.get("/audit-logs", requireAdmin, async (req: Request, res: Response) => {
     res.json({ success: true, logs: parsedLogs });
   } catch (error: any) {
     console.error("[Custody] Error fetching audit logs:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1352,7 +1352,7 @@ signerPortalRouter.get("/signer-by-address/:address", async (req: Request, res: 
     });
   } catch (error: any) {
     console.error("[SignerPortal] Error finding signer by address:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1368,7 +1368,7 @@ signerPortalRouter.get("/transactions", async (req: Request, res: Response) => {
     res.json({ success: true, transactions });
   } catch (error: any) {
     console.error("[SignerPortal] Error fetching transactions:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1408,7 +1408,7 @@ signerPortalRouter.get("/votes/:signerId", async (req: Request, res: Response) =
     res.json({ success: true, approvals: approvals.rows || [], signer: { name: signer.name, role: signer.role } });
   } catch (error: any) {
     console.error("[SignerPortal] Error fetching signer votes:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1526,7 +1526,7 @@ signerPortalRouter.post("/transactions/:transactionId/request-verification", asy
     });
   } catch (error: any) {
     console.error("[SignerPortal] Error requesting verification:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1665,7 +1665,7 @@ signerPortalRouter.post("/transactions/:transactionId/verify-and-vote", async (r
     });
   } catch (error: any) {
     console.error("[SignerPortal] Error verifying and voting:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -1706,7 +1706,7 @@ signerPortalRouter.post("/transactions/:transactionId/cancel-verification", asyn
     res.json({ success: true, message: "인증이 취소되었습니다" });
   } catch (error: any) {
     console.error("[SignerPortal] Error canceling verification:", error);
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: 'Internal server error' });
   }
 });
 

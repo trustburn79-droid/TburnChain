@@ -65,9 +65,10 @@ router.get('/status', async (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[DB Optimization] Status endpoint error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -89,9 +90,10 @@ router.post('/apply-indexes', async (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[DB Optimization] Apply indexes endpoint error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -109,9 +111,10 @@ router.post('/analyze', async (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[DB Optimization] Analyze endpoint error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -152,9 +155,10 @@ router.get('/index-stats', async (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[DB Optimization] Index stats endpoint error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -186,9 +190,10 @@ router.get('/table-sizes', async (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[DB Optimization] Table sizes endpoint error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -241,9 +246,10 @@ router.get('/slow-queries', async (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[DB Optimization] Slow queries endpoint error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -274,10 +280,11 @@ router.post('/vacuum', async (req: Request, res: Response) => {
         await db.execute(sql.raw(`VACUUM ANALYZE ${table}`));
         results.push({ table, success: true });
       } catch (error) {
+        console.error(`[DB Optimization] VACUUM failed for ${table}:`, error);
         results.push({
           table,
           success: false,
-          error: error instanceof Error ? error.message : 'Unknown error',
+          error: 'Operation failed',
         });
       }
     }
@@ -288,9 +295,10 @@ router.post('/vacuum', async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[DB Optimization] VACUUM error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
@@ -362,9 +370,10 @@ router.get('/health', async (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
+    console.error('[DB Optimization] Health check endpoint error:', error);
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Internal server error',
     });
   }
 });
