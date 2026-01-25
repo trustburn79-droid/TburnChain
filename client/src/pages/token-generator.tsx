@@ -909,7 +909,7 @@ export default function TokenSystemPage() {
           <button 
             onClick={() => { 
               setActiveTab("create"); 
-              setWizardStep(0); 
+              setWizardStep(1); 
               setSelectedTemplate(null);
               setSidebarOpen(false);
             }} 
