@@ -14894,7 +14894,30 @@
       "claudeDesc": "Безопасность в реальном времени и защита от MEV",
       "geminiDesc": "Оптимизация газа и маршрутизация"
     },
-    "popularityScore": "Популярность"
+    "popularityScore": "Популярность",
+    "templateGuide": "Руководство по Шаблонам Токенов",
+    "templateGuideDesc": "Ознакомьтесь с назначением и основными функциями каждого шаблона",
+    "templateTable": {
+      "template": "Шаблон",
+      "standard": "Стандарт",
+      "purpose": "Назначение",
+      "features": "Функции",
+      "action": "Быстрый Старт",
+      "utilityPurpose": "Платежи/Награды Платформы",
+      "utilityFeatures": "Награды за Использование, Динамическое Ценообразование",
+      "nftPurpose": "Цифровое Искусство",
+      "nftFeatures": "Применение Роялти, ИИ Подлинность",
+      "gamefiPurpose": "Игровые Предметы",
+      "gamefiFeatures": "Внутриигровые Предметы, Маркетплейс",
+      "memePurpose": "Токен Сообщества",
+      "memeFeatures": "Вирусные Механики, Социальные Награды",
+      "defiPurpose": "Голосование DAO/Стейкинг",
+      "defiFeatures": "Голосование по Управлению, Награды за Стейкинг",
+      "enterprisePurpose": "Регулируемые Ценные Бумаги",
+      "enterpriseFeatures": "KYC/AML, Мультиподпись",
+      "marketplacePurpose": "Электронная Коммерция",
+      "marketplaceFeatures": "Баллы Лояльности, Кэшбэк"
+    }
   },
   "launchEventPage": {
     "title": "TBURN Mainnet Genesis Запуск",

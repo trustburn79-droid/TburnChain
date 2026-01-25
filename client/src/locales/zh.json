@@ -17557,7 +17557,30 @@
       "claudeDesc": "实时安全和MEV保护",
       "geminiDesc": "Gas优化和路由"
     },
-    "popularityScore": "热度"
+    "popularityScore": "热度",
+    "templateGuide": "代币模板指南",
+    "templateGuideDesc": "查看每个模板的用途和主要功能",
+    "templateTable": {
+      "template": "模板",
+      "standard": "标准",
+      "purpose": "用途",
+      "features": "主要功能",
+      "action": "快速开始",
+      "utilityPurpose": "平台支付/奖励",
+      "utilityFeatures": "使用奖励、动态定价",
+      "nftPurpose": "数字艺术",
+      "nftFeatures": "版税执行、AI真伪验证",
+      "gamefiPurpose": "游戏物品",
+      "gamefiFeatures": "游戏内物品、市场",
+      "memePurpose": "社区代币",
+      "memeFeatures": "病毒传播机制、社交奖励",
+      "defiPurpose": "DAO投票/质押",
+      "defiFeatures": "治理投票、质押奖励",
+      "enterprisePurpose": "合规证券",
+      "enterpriseFeatures": "KYC/AML、多重签名",
+      "marketplacePurpose": "电子商务",
+      "marketplaceFeatures": "积分、返现"
+    }
   },
   "launchEventPage": {
     "title": "TBURN主网 Genesis 发布",

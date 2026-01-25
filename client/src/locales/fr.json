@@ -15199,7 +15199,30 @@
       "claudeDesc": "Sécurité en temps réel et protection MEV",
       "geminiDesc": "Optimisation du gas et routage"
     },
-    "popularityScore": "Popularité"
+    "popularityScore": "Popularité",
+    "templateGuide": "Guide des Modèles de Jetons",
+    "templateGuideDesc": "Consultez l'objectif et les fonctionnalités clés de chaque modèle",
+    "templateTable": {
+      "template": "Modèle",
+      "standard": "Standard",
+      "purpose": "Objectif",
+      "features": "Fonctionnalités",
+      "action": "Démarrage Rapide",
+      "utilityPurpose": "Paiement/Récompenses Plateforme",
+      "utilityFeatures": "Récompenses d'Utilisation, Prix Dynamiques",
+      "nftPurpose": "Art Numérique",
+      "nftFeatures": "Application des Royalties, Authenticité IA",
+      "gamefiPurpose": "Objets de Jeu",
+      "gamefiFeatures": "Objets In-Game, Marketplace",
+      "memePurpose": "Jeton Communautaire",
+      "memeFeatures": "Mécanismes Viraux, Récompenses Sociales",
+      "defiPurpose": "Vote DAO/Staking",
+      "defiFeatures": "Vote de Gouvernance, Récompenses de Staking",
+      "enterprisePurpose": "Titres Réglementés",
+      "enterpriseFeatures": "KYC/AML, Multi-Signature",
+      "marketplacePurpose": "E-Commerce",
+      "marketplaceFeatures": "Points de Fidélité, Cashback"
+    }
   },
   "launchEventPage": {
     "title": "TBURN Mainnet Genesis Launch",

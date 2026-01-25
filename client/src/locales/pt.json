@@ -15018,7 +15018,30 @@
       "claudeDesc": "Segurança em tempo real e proteção MEV",
       "geminiDesc": "Otimização de gas e roteamento"
     },
-    "popularityScore": "Popularidade"
+    "popularityScore": "Popularidade",
+    "templateGuide": "Guia de Modelos de Token",
+    "templateGuideDesc": "Confira o propósito e as principais características de cada modelo",
+    "templateTable": {
+      "template": "Modelo",
+      "standard": "Padrão",
+      "purpose": "Propósito",
+      "features": "Recursos",
+      "action": "Início Rápido",
+      "utilityPurpose": "Pagamento/Recompensas da Plataforma",
+      "utilityFeatures": "Recompensas de Uso, Preços Dinâmicos",
+      "nftPurpose": "Arte Digital",
+      "nftFeatures": "Aplicação de Royalties, Autenticidade IA",
+      "gamefiPurpose": "Itens de Jogo",
+      "gamefiFeatures": "Itens In-Game, Marketplace",
+      "memePurpose": "Token Comunitário",
+      "memeFeatures": "Mecânicas Virais, Recompensas Sociais",
+      "defiPurpose": "Votação DAO/Staking",
+      "defiFeatures": "Votação de Governança, Recompensas de Staking",
+      "enterprisePurpose": "Títulos Regulados",
+      "enterpriseFeatures": "KYC/AML, Multi-Assinatura",
+      "marketplacePurpose": "E-Commerce",
+      "marketplaceFeatures": "Pontos de Fidelidade, Cashback"
+    }
   },
   "launchEventPage": {
     "title": "TBURN Mainnet Genesis Launch",

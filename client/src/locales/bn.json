@@ -13362,7 +13362,30 @@
       "claudeDesc": "রিয়েল-টাইম নিরাপত্তা এবং MEV সুরক্ষা",
       "geminiDesc": "গ্যাস অপ্টিমাইজেশন এবং রাউটিং"
     },
-    "popularityScore": "জনপ্রিয়তা"
+    "popularityScore": "জনপ্রিয়তা",
+    "templateGuide": "টোকেন টেমপ্লেট গাইড",
+    "templateGuideDesc": "প্রতিটি টেমপ্লেটের উদ্দেশ্য এবং মূল বৈশিষ্ট্যগুলি দেখুন",
+    "templateTable": {
+      "template": "টেমপ্লেট",
+      "standard": "স্ট্যান্ডার্ড",
+      "purpose": "উদ্দেশ্য",
+      "features": "বৈশিষ্ট্য",
+      "action": "দ্রুত শুরু",
+      "utilityPurpose": "প্ল্যাটফর্ম পেমেন্ট/পুরস্কার",
+      "utilityFeatures": "ব্যবহার পুরস্কার, ডায়নামিক প্রাইসিং",
+      "nftPurpose": "ডিজিটাল আর্ট",
+      "nftFeatures": "রয়্যালটি প্রয়োগ, AI প্রামাণিকতা",
+      "gamefiPurpose": "গেম আইটেম",
+      "gamefiFeatures": "ইন-গেম আইটেম, মার্কেটপ্লেস",
+      "memePurpose": "কমিউনিটি টোকেন",
+      "memeFeatures": "ভাইরাল মেকানিক্স, সোশ্যাল রিওয়ার্ড",
+      "defiPurpose": "DAO ভোটিং/স্টেকিং",
+      "defiFeatures": "গভার্নেন্স ভোটিং, স্টেকিং রিওয়ার্ড",
+      "enterprisePurpose": "নিয়ন্ত্রিত সিকিউরিটিজ",
+      "enterpriseFeatures": "KYC/AML, মাল্টি-সিগনেচার",
+      "marketplacePurpose": "ই-কমার্স",
+      "marketplaceFeatures": "লয়্যালটি পয়েন্ট, ক্যাশব্যাক"
+    }
   },
   "launchEventPage": {
     "title": "TBURN Mainnet Genesis লঞ্চ",

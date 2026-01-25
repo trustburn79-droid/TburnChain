@@ -16605,7 +16605,30 @@
       "claudeDesc": "ریئل ٹائم سیکیورٹی اور MEV تحفظ",
       "geminiDesc": "گیس آپٹیمائزیشن اور روٹنگ"
     },
-    "popularityScore": "مقبولیت"
+    "popularityScore": "مقبولیت",
+    "templateGuide": "ٹوکن ٹیمپلیٹ گائیڈ",
+    "templateGuideDesc": "ہر ٹیمپلیٹ کا مقصد اور اہم خصوصیات دیکھیں",
+    "templateTable": {
+      "template": "ٹیمپلیٹ",
+      "standard": "معیار",
+      "purpose": "مقصد",
+      "features": "خصوصیات",
+      "action": "فوری شروع",
+      "utilityPurpose": "پلیٹ فارم ادائیگی/انعامات",
+      "utilityFeatures": "استعمال انعامات، متحرک قیمتیں",
+      "nftPurpose": "ڈیجیٹل آرٹ",
+      "nftFeatures": "رائلٹی نفاذ، AI تصدیق",
+      "gamefiPurpose": "گیم آئٹمز",
+      "gamefiFeatures": "ان-گیم آئٹمز، مارکیٹ پلیس",
+      "memePurpose": "کمیونٹی ٹوکن",
+      "memeFeatures": "وائرل میکانزم، سوشل انعامات",
+      "defiPurpose": "DAO ووٹنگ/سٹیکنگ",
+      "defiFeatures": "گورننس ووٹنگ، سٹیکنگ انعامات",
+      "enterprisePurpose": "ریگولیٹڈ سیکیورٹیز",
+      "enterpriseFeatures": "KYC/AML، ملٹی-سگنیچر",
+      "marketplacePurpose": "ای-کامرس",
+      "marketplaceFeatures": "لائلٹی پوائنٹس، کیش بیک"
+    }
   },
   "tokenPrograms": {
     "ecosystemFund": {

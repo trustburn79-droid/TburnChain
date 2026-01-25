@@ -15140,7 +15140,30 @@
       "claudeDesc": "أمان في الوقت الفعلي وحماية MEV",
       "geminiDesc": "تحسين الغاز والتوجيه"
     },
-    "popularityScore": "الشعبية"
+    "popularityScore": "الشعبية",
+    "templateGuide": "دليل قوالب الرموز",
+    "templateGuideDesc": "تحقق من الغرض والميزات الرئيسية لكل قالب",
+    "templateTable": {
+      "template": "القالب",
+      "standard": "المعيار",
+      "purpose": "الغرض",
+      "features": "الميزات",
+      "action": "البدء السريع",
+      "utilityPurpose": "مدفوعات/مكافآت المنصة",
+      "utilityFeatures": "مكافآت الاستخدام، التسعير الديناميكي",
+      "nftPurpose": "الفن الرقمي",
+      "nftFeatures": "تطبيق حقوق الملكية، مصادقة AI",
+      "gamefiPurpose": "عناصر اللعبة",
+      "gamefiFeatures": "عناصر داخل اللعبة، السوق",
+      "memePurpose": "رمز المجتمع",
+      "memeFeatures": "آليات فيروسية، مكافآت اجتماعية",
+      "defiPurpose": "تصويت DAO/الرهان",
+      "defiFeatures": "تصويت الحوكمة، مكافآت الرهان",
+      "enterprisePurpose": "الأوراق المالية المنظمة",
+      "enterpriseFeatures": "KYC/AML، توقيع متعدد",
+      "marketplacePurpose": "التجارة الإلكترونية",
+      "marketplaceFeatures": "نقاط الولاء، استرداد نقدي"
+    }
   },
   "launchEventPage": {
     "title": "إطلاق TBURN Mainnet Genesis",

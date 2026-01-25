@@ -18232,7 +18232,30 @@
       "claudeDesc": "रीयल-टाइम सुरक्षा और MEV सुरक्षा",
       "geminiDesc": "गैस अनुकूलन और रूटिंग"
     },
-    "popularityScore": "लोकप्रियता"
+    "popularityScore": "लोकप्रियता",
+    "templateGuide": "टोकन टेम्पलेट गाइड",
+    "templateGuideDesc": "प्रत्येक टेम्पलेट का उद्देश्य और मुख्य विशेषताएं देखें",
+    "templateTable": {
+      "template": "टेम्पलेट",
+      "standard": "मानक",
+      "purpose": "उद्देश्य",
+      "features": "विशेषताएं",
+      "action": "त्वरित प्रारंभ",
+      "utilityPurpose": "प्लेटफॉर्म भुगतान/पुरस्कार",
+      "utilityFeatures": "उपयोग पुरस्कार, डायनामिक प्राइसिंग",
+      "nftPurpose": "डिजिटल आर्ट",
+      "nftFeatures": "रॉयल्टी लागू, AI प्रामाणिकता",
+      "gamefiPurpose": "गेम आइटम",
+      "gamefiFeatures": "इन-गेम आइटम, मार्केटप्लेस",
+      "memePurpose": "समुदाय टोकन",
+      "memeFeatures": "वायरल मैकेनिक्स, सोशल रिवॉर्ड्स",
+      "defiPurpose": "DAO वोटिंग/स्टेकिंग",
+      "defiFeatures": "गवर्नेंस वोटिंग, स्टेकिंग रिवॉर्ड्स",
+      "enterprisePurpose": "विनियमित प्रतिभूतियां",
+      "enterpriseFeatures": "KYC/AML, मल्टी-सिग्नेचर",
+      "marketplacePurpose": "ई-कॉमर्स",
+      "marketplaceFeatures": "लॉयल्टी पॉइंट्स, कैशबैक"
+    }
   },
   "tokenPrograms": {
     "ecosystemFund": {

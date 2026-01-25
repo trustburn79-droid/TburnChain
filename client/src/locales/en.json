@@ -29283,7 +29283,30 @@
       "claudeDesc": "Real-time security and MEV protection",
       "geminiDesc": "Gas optimization and routing"
     },
-    "popularityScore": "Popularity"
+    "popularityScore": "Popularity",
+    "templateGuide": "Token Template Guide",
+    "templateGuideDesc": "Check the purpose and key features of each template",
+    "templateTable": {
+      "template": "Template",
+      "standard": "Standard",
+      "purpose": "Purpose",
+      "features": "Key Features",
+      "action": "Quick Start",
+      "utilityPurpose": "Platform Payment/Rewards",
+      "utilityFeatures": "Usage Rewards, Dynamic Pricing",
+      "nftPurpose": "Digital Art",
+      "nftFeatures": "Royalty Enforcement, AI Authenticity",
+      "gamefiPurpose": "Game Items",
+      "gamefiFeatures": "In-Game Items, Marketplace",
+      "memePurpose": "Community Token",
+      "memeFeatures": "Viral Mechanics, Social Rewards",
+      "defiPurpose": "DAO Voting/Staking",
+      "defiFeatures": "Governance Voting, Staking Rewards",
+      "enterprisePurpose": "Regulated Securities",
+      "enterpriseFeatures": "KYC/AML, Multi-Signature",
+      "marketplacePurpose": "E-Commerce",
+      "marketplaceFeatures": "Loyalty Points, Cashback"
+    }
   },
   "launchEventPage": {
     "title": "TBURN Mainnet Genesis Launch",

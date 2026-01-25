@@ -29786,7 +29786,30 @@
       "claudeDesc": "실시간 보안 및 MEV 보호",
       "geminiDesc": "가스 최적화 및 라우팅"
     },
-    "popularityScore": "인기도"
+    "popularityScore": "인기도",
+    "templateGuide": "토큰 템플릿 가이드",
+    "templateGuideDesc": "각 템플릿의 용도와 주요 기능을 확인하세요",
+    "templateTable": {
+      "template": "템플릿",
+      "standard": "표준",
+      "purpose": "용도",
+      "features": "주요 기능",
+      "action": "바로가기",
+      "utilityPurpose": "플랫폼 결제/보상",
+      "utilityFeatures": "사용 보상, 동적 가격 책정",
+      "nftPurpose": "디지털 아트",
+      "nftFeatures": "로열티 적용, AI 진품 확인",
+      "gamefiPurpose": "게임 아이템",
+      "gamefiFeatures": "게임 내 아이템, 마켓플레이스",
+      "memePurpose": "커뮤니티 토큰",
+      "memeFeatures": "바이럴 메커니즘, 소셜 보상",
+      "defiPurpose": "DAO 투표/스테이킹",
+      "defiFeatures": "거버넌스 투표, 스테이킹 보상",
+      "enterprisePurpose": "규제 준수 증권",
+      "enterpriseFeatures": "KYC/AML, 다중 서명",
+      "marketplacePurpose": "전자상거래",
+      "marketplaceFeatures": "로열티 포인트, 캐시백"
+    }
   },
   "launchEventPage": {
     "title": "TBURN 메인넷 Genesis 런칭",

@@ -18383,7 +18383,30 @@
       "claudeDesc": "リアルタイムセキュリティとMEV保護",
       "geminiDesc": "ガス最適化とルーティング"
     },
-    "popularityScore": "人気度"
+    "popularityScore": "人気度",
+    "templateGuide": "トークンテンプレートガイド",
+    "templateGuideDesc": "各テンプレートの用途と主な機能を確認してください",
+    "templateTable": {
+      "template": "テンプレート",
+      "standard": "規格",
+      "purpose": "用途",
+      "features": "主な機能",
+      "action": "クイックスタート",
+      "utilityPurpose": "プラットフォーム決済/報酬",
+      "utilityFeatures": "使用報酬、動的価格設定",
+      "nftPurpose": "デジタルアート",
+      "nftFeatures": "ロイヤリティ適用、AI真正性確認",
+      "gamefiPurpose": "ゲームアイテム",
+      "gamefiFeatures": "ゲーム内アイテム、マーケットプレイス",
+      "memePurpose": "コミュニティトークン",
+      "memeFeatures": "バイラルメカニズム、ソーシャル報酬",
+      "defiPurpose": "DAO投票/ステーキング",
+      "defiFeatures": "ガバナンス投票、ステーキング報酬",
+      "enterprisePurpose": "規制準拠証券",
+      "enterpriseFeatures": "KYC/AML、マルチシグ",
+      "marketplacePurpose": "Eコマース",
+      "marketplaceFeatures": "ロイヤルティポイント、キャッシュバック"
+    }
   },
   "launchEventPage": {
     "title": "TBURNメインネット Genesisローンチ",
