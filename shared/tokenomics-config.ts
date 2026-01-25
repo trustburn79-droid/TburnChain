@@ -640,6 +640,7 @@ export const GENESIS_ALLOCATION = {
   
   // ============================================
   // COMMUNITY: 30% = 30억 TBURN (3B)
+  // v4.3 베스팅 스케줄 적용
   // ============================================
   COMMUNITY: {
     percentage: 30,
@@ -652,6 +653,9 @@ export const GENESIS_ALLOCATION = {
         amount: 1.2 * BILLION, // 12억 TBURN
         amountFormatted: "1,200,000,000",
         description: "에어드랍",
+        tgePercent: 10,      // v4.3: TGE 10%
+        cliffMonths: 0,      // v4.3: 클리프 0M
+        vestingMonths: 12,   // v4.3: 베스팅 12M (Y1 완료)
       },
       REFERRAL: {
         percentage: 10,
@@ -659,6 +663,9 @@ export const GENESIS_ALLOCATION = {
         amount: 0.3 * BILLION, // 3억 TBURN
         amountFormatted: "300,000,000",
         description: "레퍼럴",
+        tgePercent: 5,       // v4.3: TGE 5%
+        cliffMonths: 0,      // v4.3: 클리프 0M
+        vestingMonths: 36,   // v4.3: 베스팅 36M (Y3 완료)
       },
       EVENTS: {
         percentage: 13.3,
@@ -666,6 +673,9 @@ export const GENESIS_ALLOCATION = {
         amount: 0.4 * BILLION, // 4억 TBURN
         amountFormatted: "400,000,000",
         description: "이벤트",
+        tgePercent: 10,      // v4.3: TGE 10%
+        cliffMonths: 0,      // v4.3: 클리프 0M
+        vestingMonths: 24,   // v4.3: 베스팅 24M (Y2 완료)
       },
       COMMUNITY_ACTIVITY: {
         percentage: 10,
@@ -673,6 +683,9 @@ export const GENESIS_ALLOCATION = {
         amount: 0.3 * BILLION, // 3억 TBURN
         amountFormatted: "300,000,000",
         description: "커뮤니티활동",
+        tgePercent: 0,       // v4.3: TGE 0%
+        cliffMonths: 3,      // v4.3: 클리프 3M
+        vestingMonths: 36,   // v4.3: 베스팅 36M (Y3+ 완료)
       },
       DAO_TREASURY: {
         percentage: 26.7,
@@ -680,12 +693,16 @@ export const GENESIS_ALLOCATION = {
         amount: 0.8 * BILLION, // 8억 TBURN
         amountFormatted: "800,000,000",
         description: "DAO 트레저리",
+        tgePercent: 0,       // v4.3: TGE 0%
+        cliffMonths: 12,     // v4.3: 클리프 12M
+        vestingMonths: 48,   // v4.3: 베스팅 48M (Y5 완료)
       },
     },
   },
   
   // ============================================
   // REWARDS: 22% = 22억 TBURN (2.2B)
+  // v4.3 베스팅 스케줄 적용 - 반감기 적용
   // ============================================
   REWARDS: {
     percentage: 22,
@@ -698,6 +715,9 @@ export const GENESIS_ALLOCATION = {
         amount: 1.45 * BILLION, // 14.5억 TBURN
         amountFormatted: "1,450,000,000",
         description: "블록 보상",
+        tgePercent: 0,       // v4.3: TGE 0% - 프로토콜 분배
+        cliffMonths: 0,      // v4.3: 클리프 0M
+        vestingMonths: 240,  // v4.3: 베스팅 240M (Y20 완료, 반감기 적용)
       },
       VALIDATOR_INCENTIVES: {
         percentage: 34.1,
@@ -705,12 +725,16 @@ export const GENESIS_ALLOCATION = {
         amount: 0.75 * BILLION, // 7.5억 TBURN
         amountFormatted: "750,000,000",
         description: "검증자 인센티브",
+        tgePercent: 0,       // v4.3: TGE 0% - 성과 기반 분배
+        cliffMonths: 0,      // v4.3: 클리프 0M
+        vestingMonths: 60,   // v4.3: 베스팅 60M (Y5 완료)
       },
     },
   },
   
   // ============================================
   // INVESTORS: 20% = 20억 TBURN (2B)
+  // v4.3 업계 표준 TGE 적용
   // ============================================
   INVESTORS: {
     percentage: 20,
@@ -722,30 +746,37 @@ export const GENESIS_ALLOCATION = {
         parentPercentage: 5, // 20% × 25% = 5%
         amount: 0.5 * BILLION, // 5억 TBURN
         amountFormatted: "500,000,000",
-        tgePercent: 0,
         description: "Seed Round (TGE 0%)",
+        tgePercent: 0,       // v4.3: TGE 0% - 최저가 참여
+        cliffMonths: 12,     // v4.3: 클리프 12M
+        vestingMonths: 24,   // v4.3: 베스팅 24M (Y3 완료)
       },
       PRIVATE_ROUND: {
         percentage: 45,
         parentPercentage: 9, // 20% × 45% = 9%
         amount: 0.9 * BILLION, // 9억 TBURN
         amountFormatted: "900,000,000",
-        tgePercent: 5,
         description: "Private Round (TGE 5%)",
+        tgePercent: 5,       // v4.3: TGE 5% - 중간가 참여
+        cliffMonths: 9,      // v4.3: 클리프 9M
+        vestingMonths: 18,   // v4.3: 베스팅 18M (Y2.5 완료)
       },
       PUBLIC_SALE: {
         percentage: 30,
         parentPercentage: 6, // 20% × 30% = 6%
         amount: 0.6 * BILLION, // 6억 TBURN
         amountFormatted: "600,000,000",
-        tgePercent: 15,
         description: "Public Sale (TGE 15%)",
+        tgePercent: 15,      // v4.3: TGE 15% - 최고가 참여
+        cliffMonths: 3,      // v4.3: 클리프 3M
+        vestingMonths: 9,    // v4.3: 베스팅 9M (Y1 완료)
       },
     },
   },
   
   // ============================================
   // ECOSYSTEM: 14% = 14억 TBURN (1.4B)
+  // v4.3 베스팅 스케줄 적용
   // ============================================
   ECOSYSTEM: {
     percentage: 14,
@@ -758,6 +789,9 @@ export const GENESIS_ALLOCATION = {
         amount: 0.7 * BILLION, // 7억 TBURN
         amountFormatted: "700,000,000",
         description: "생태계 펀드",
+        tgePercent: 0,       // v4.3: TGE 0% - 그랜트 기반
+        cliffMonths: 0,      // v4.3: 클리프 0M
+        vestingMonths: 60,   // v4.3: 베스팅 60M (Y5 완료)
       },
       PARTNERSHIP: {
         percentage: 28.6,
@@ -765,6 +799,9 @@ export const GENESIS_ALLOCATION = {
         amount: 0.4 * BILLION, // 4억 TBURN
         amountFormatted: "400,000,000",
         description: "파트너십",
+        tgePercent: 0,       // v4.3: TGE 0%
+        cliffMonths: 6,      // v4.3: 클리프 6M
+        vestingMonths: 24,   // v4.3: 베스팅 24M (Y2.5 완료)
       },
       MARKETING: {
         percentage: 21.4,
@@ -772,12 +809,16 @@ export const GENESIS_ALLOCATION = {
         amount: 0.3 * BILLION, // 3억 TBURN
         amountFormatted: "300,000,000",
         description: "마케팅",
+        tgePercent: 15,      // v4.3: TGE 15%
+        cliffMonths: 0,      // v4.3: 클리프 0M
+        vestingMonths: 24,   // v4.3: 베스팅 24M (Y2 완료)
       },
     },
   },
   
   // ============================================
   // TEAM: 11% = 11억 TBURN (1.1B)
+  // v4.3 베스팅 스케줄 적용 - 가장 긴 락업
   // ============================================
   TEAM: {
     percentage: 11,
@@ -790,6 +831,9 @@ export const GENESIS_ALLOCATION = {
         amount: 0.7 * BILLION, // 7억 TBURN
         amountFormatted: "700,000,000",
         description: "코어 팀",
+        tgePercent: 0,       // v4.3: TGE 0% - 가장 긴 락업
+        cliffMonths: 18,     // v4.3: 클리프 18M
+        vestingMonths: 36,   // v4.3: 베스팅 36M (Y4.5 완료)
       },
       ADVISOR: {
         percentage: 18.2,
@@ -797,6 +841,9 @@ export const GENESIS_ALLOCATION = {
         amount: 0.2 * BILLION, // 2억 TBURN
         amountFormatted: "200,000,000",
         description: "어드바이저",
+        tgePercent: 0,       // v4.3: TGE 0%
+        cliffMonths: 12,     // v4.3: 클리프 12M
+        vestingMonths: 24,   // v4.3: 베스팅 24M (Y3 완료)
       },
       STRATEGIC_PARTNER: {
         percentage: 18.2,
@@ -804,12 +851,16 @@ export const GENESIS_ALLOCATION = {
         amount: 0.2 * BILLION, // 2억 TBURN
         amountFormatted: "200,000,000",
         description: "전략 파트너",
+        tgePercent: 0,       // v4.3: TGE 0%
+        cliffMonths: 6,      // v4.3: 클리프 6M
+        vestingMonths: 18,   // v4.3: 베스팅 18M (Y2 완료)
       },
     },
   },
   
   // ============================================
   // FOUNDATION: 3% = 3억 TBURN (0.3B)
+  // v4.3 신설 - 재단 운영 예비금
   // ============================================
   FOUNDATION: {
     percentage: 3,
@@ -821,16 +872,20 @@ export const GENESIS_ALLOCATION = {
         parentPercentage: 1.5, // 3% × 50% = 1.5%
         amount: 0.15 * BILLION, // 1.5억 TBURN
         amountFormatted: "150,000,000",
-        tgePercent: 30,
         description: "운영 예비금 (TGE 30%)",
+        tgePercent: 30,      // v4.3: TGE 30% - 초기 운영, 상장, 마켓메이킹
+        cliffMonths: 0,      // v4.3: 클리프 0M
+        vestingMonths: 24,   // v4.3: 베스팅 24M (Y2 완료)
       },
       EMERGENCY_RESERVE: {
         percentage: 33.3,
         parentPercentage: 1, // 3% × 33.3% = 1%
         amount: 0.1 * BILLION, // 1억 TBURN
         amountFormatted: "100,000,000",
-        tgePercent: 50,
         description: "긴급 예비금 (TGE 50%)",
+        tgePercent: 50,      // v4.3: TGE 50% - 시장 방어, 보안 사고
+        cliffMonths: 0,      // v4.3: 클리프 0M
+        vestingMonths: 12,   // v4.3: 베스팅 12M (Y1 완료)
       },
       STRATEGIC_INVESTMENT: {
         percentage: 16.7,
@@ -838,6 +893,9 @@ export const GENESIS_ALLOCATION = {
         amount: 0.05 * BILLION, // 0.5억 TBURN
         amountFormatted: "50,000,000",
         description: "전략 투자",
+        tgePercent: 0,       // v4.3: TGE 0%
+        cliffMonths: 6,      // v4.3: 클리프 6M
+        vestingMonths: 18,   // v4.3: 베스팅 18M (Y2 완료)
       },
     },
   },
