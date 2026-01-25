@@ -673,4 +673,122 @@ function generate20YearSchedule(transactions: any[]): any[] {
   return schedule;
 }
 
+// ========================================
+// Enterprise Tokenomics Validation API
+// ========================================
+
+import { validateTokenomicsConfig, validateCustodyTransactions } from "../utils/tokenomics-validator";
+
+/**
+ * GET /api/tokenomics/validate
+ * Enterprise-grade validation of tokenomics configuration against official v4.3
+ */
+router.get("/tokenomics/validate", async (req: Request, res: Response) => {
+  try {
+    // 1. Validate GENESIS_ALLOCATION
+    const configReport = validateTokenomicsConfig();
+    
+    // 2. Fetch custody transactions from DB
+    const transactions = await db
+      .select({
+        transaction_type: custodyTransactions.transactionType,
+        amount: custodyTransactions.amount,
+        tge_percent: custodyTransactions.tgePercent,
+        cliff_months: custodyTransactions.cliffMonths,
+        vesting_months: custodyTransactions.vestingMonths,
+      })
+      .from(custodyTransactions);
+    
+    // 3. Validate custody transactions
+    const custodyReport = validateCustodyTransactions(
+      transactions.map(tx => ({
+        transaction_type: tx.transaction_type,
+        amount: tx.amount || "0",
+        tge_percent: tx.tge_percent || 0,
+        cliff_months: tx.cliff_months || 0,
+        vesting_months: tx.vesting_months || 0,
+      }))
+    );
+    
+    // 4. Combined validation result
+    const allPassed = configReport.failedChecks === 0 && custodyReport.failedChecks === 0;
+    
+    res.json({
+      success: true,
+      timestamp: new Date().toISOString(),
+      version: "v4.3",
+      overallStatus: allPassed ? "PASSED" : "FAILED",
+      genesisAllocationValidation: {
+        status: configReport.failedChecks === 0 ? "PASSED" : "FAILED",
+        totalChecks: configReport.totalChecks,
+        passedChecks: configReport.passedChecks,
+        failedChecks: configReport.failedChecks,
+        successRate: configReport.successRate,
+        summary: configReport.summary,
+        failedResults: configReport.results.filter(r => !r.passed),
+      },
+      custodyTransactionValidation: {
+        status: custodyReport.failedChecks === 0 ? "PASSED" : "FAILED",
+        totalChecks: custodyReport.totalChecks,
+        passedChecks: custodyReport.passedChecks,
+        failedChecks: custodyReport.failedChecks,
+        successRate: custodyReport.successRate,
+        transactionCount: transactions.length,
+        failedResults: custodyReport.results.filter(r => !r.passed),
+      },
+    });
+  } catch (error) {
+    console.error("Tokenomics validation error:", error);
+    res.status(500).json({
+      success: false,
+      error: "Validation failed",
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+/**
+ * GET /api/tokenomics/validate/detailed
+ * Full detailed validation report with all results
+ */
+router.get("/tokenomics/validate/detailed", async (req: Request, res: Response) => {
+  try {
+    const configReport = validateTokenomicsConfig();
+    
+    const transactions = await db
+      .select({
+        transaction_type: custodyTransactions.transactionType,
+        amount: custodyTransactions.amount,
+        tge_percent: custodyTransactions.tgePercent,
+        cliff_months: custodyTransactions.cliffMonths,
+        vesting_months: custodyTransactions.vestingMonths,
+      })
+      .from(custodyTransactions);
+    
+    const custodyReport = validateCustodyTransactions(
+      transactions.map(tx => ({
+        transaction_type: tx.transaction_type,
+        amount: tx.amount || "0",
+        tge_percent: tx.tge_percent || 0,
+        cliff_months: tx.cliff_months || 0,
+        vesting_months: tx.vesting_months || 0,
+      }))
+    );
+    
+    res.json({
+      success: true,
+      timestamp: new Date().toISOString(),
+      version: "v4.3",
+      genesisAllocationValidation: configReport,
+      custodyTransactionValidation: custodyReport,
+    });
+  } catch (error) {
+    console.error("Detailed validation error:", error);
+    res.status(500).json({
+      success: false,
+      error: "Validation failed",
+    });
+  }
+});
+
 export default router;
