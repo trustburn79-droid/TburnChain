@@ -42,6 +42,7 @@ import {
   Play,
   RefreshCw,
   Scale,
+  Send,
   Server,
   Settings,
   Shield,
@@ -121,6 +122,7 @@ const adminMenuItems = [
   { titleKey: "adminNav.compliance", url: "/admin/compliance", icon: Scale, groupKey: "adminNav.securityAudit", badge: null },
   { titleKey: "adminNav.bugBounty", url: "/admin/bug-bounty", icon: Bug, groupKey: "adminNav.securityAudit", badge: null },
   { titleKey: "adminNav.custodySigners", url: "/admin/custody-signers", icon: Key, groupKey: "adminNav.securityAudit", badge: "NEW" },
+  { titleKey: "adminNav.custodyTransactions", url: "/admin/custody-transactions", icon: Send, groupKey: "adminNav.securityAudit", badge: "NEW" },
   
   // Group 7: Data & Analytics
   { titleKey: "adminNav.biDashboard", url: "/admin/bi", icon: BarChart3, groupKey: "adminNav.dataAnalytics", badge: null },

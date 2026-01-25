@@ -5037,6 +5037,7 @@
       "compliance": "Compliance",
       "bugBounty": "Bug Bounty",
       "custodySigners": "Custody Signers",
+      "custodyTransactions": "Custody Transactions",
       "support": "Support",
       "warning": "Warning",
       "priority": "Priority",
@@ -7628,6 +7629,7 @@
       "insurance": "Insurance",
       "bugBounty": "Bug Bounty",
       "custodySigners": "Custody Signers",
+      "custodyTransactions": "Custody Transactions",
       "activeLink": "Active →"
     },
     "nav": {
@@ -16857,6 +16859,7 @@
     "compliance": "Compliance",
     "bugBounty": "Bug Bounty",
     "custodySigners": "Custody Signers",
+      "custodyTransactions": "Custody Transactions",
     "dataAnalytics": "Data & Analytics",
     "biDashboard": "BI Dashboard",
     "txAnalytics": "Transaction Analytics",
@@ -28781,6 +28784,7 @@
       "securityAudit": "Security Audit",
       "bugBounty": "Bug Bounty",
       "custodySigners": "Custody Signers",
+      "custodyTransactions": "Custody Transactions",
       "hallOfFame": "Hall of Fame",
       "wallet": "Wallet",
       "auditsReports": "Audits & Reports"

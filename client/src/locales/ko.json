@@ -7975,6 +7975,7 @@
       "insurance": "보험",
       "bugBounty": "버그 바운티",
     "custodySigners": "커스터디 서명자",
+    "custodyTransactions": "커스터디 트랜잭션",
       "activeLink": "활성 →"
     },
     "nav": {
@@ -29291,6 +29292,7 @@
       "securityAudit": "보안 감사",
       "bugBounty": "버그 바운티",
     "custodySigners": "커스터디 서명자",
+    "custodyTransactions": "커스터디 트랜잭션",
       "hallOfFame": "명예의 전당",
       "wallet": "지갑",
       "auditsReports": "감사 및 보고서"
@@ -33946,6 +33948,7 @@
         "apiReference": "API 레퍼런스",
         "bugBounty": "버그 바운티",
     "custodySigners": "커스터디 서명자",
+    "custodyTransactions": "커스터디 트랜잭션",
         "termsOfService": "이용약관",
         "privacyPolicy": "개인정보처리방침",
         "disclaimer": "면책조항",
@@ -37040,6 +37043,7 @@
       "github": "GitHub",
       "bugBounty": "버그 바운티",
     "custodySigners": "커스터디 서명자",
+    "custodyTransactions": "커스터디 트랜잭션",
       "community": "커뮤니티",
       "twitter": "트위터",
       "telegram": "텔레그램",
