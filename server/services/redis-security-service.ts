@@ -118,8 +118,8 @@ class RedisSecurityService {
         multi.pTTL(redisKey);
         
         const results = await multi.exec();
-        const count = results[0] as number;
-        const ttl = results[1] as number;
+        const count = results[0] as unknown as number;
+        const ttl = results[1] as unknown as number;
         
         // Set expiry when key is first created (ttl === -2 means key doesn't exist)
         // or when key has no expiry (ttl === -1)

@@ -11,6 +11,8 @@ import { eq, and, desc, sql, lt, or } from "drizzle-orm";
 import { requireAdmin } from "../middleware/auth";
 import crypto from "crypto";
 import { z } from "zod";
+import { redisSecurityService } from "../services/redis-security-service";
+import { sendVerificationEmail } from "../services/resend-client";
 
 // ============================================
 // TBURN Address Validation (Bech32m tb1 format)
@@ -1355,8 +1357,10 @@ signerPortalRouter.get("/votes/:signerId", async (req: Request, res: Response) =
   }
 });
 
-// Public endpoint for signer to vote on a transaction
-signerPortalRouter.post("/transactions/:transactionId/vote", async (req: Request, res: Response) => {
+// ============================================
+// Step 1: Request Email Verification Code
+// ============================================
+signerPortalRouter.post("/transactions/:transactionId/request-verification", async (req: Request, res: Response) => {
   try {
     const { transactionId } = req.params;
     const { signerId, decision, comment } = req.body;
@@ -1364,22 +1368,21 @@ signerPortalRouter.post("/transactions/:transactionId/vote", async (req: Request
     // Security: Verify signer session authentication
     const session = req.session as any;
     if (!session.signerAuthenticated || !session.authenticatedSignerId) {
-      return res.status(401).json({ success: false, error: "Please authenticate first using your wallet address" });
+      return res.status(401).json({ success: false, error: "지갑 주소로 먼저 인증해주세요" });
     }
     
     // Security: Verify signerId matches authenticated session
     if (session.authenticatedSignerId !== signerId) {
-      console.warn(`[SignerPortal] Session mismatch: authenticated=${session.authenticatedSignerId}, requested=${signerId}`);
-      return res.status(403).json({ success: false, error: "You can only vote using your authenticated signer identity" });
+      return res.status(403).json({ success: false, error: "인증된 서명자 ID와 일치하지 않습니다" });
     }
     
     // Validate input
     if (!signerId || !decision) {
-      return res.status(400).json({ success: false, error: "Missing required fields" });
+      return res.status(400).json({ success: false, error: "필수 필드가 누락되었습니다" });
     }
     
     if (!["approve", "reject"].includes(decision)) {
-      return res.status(400).json({ success: false, error: "Invalid decision. Must be 'approve' or 'reject'" });
+      return res.status(400).json({ success: false, error: "결정은 'approve' 또는 'reject'이어야 합니다" });
     }
     
     // Verify signer exists and is active
@@ -1387,22 +1390,27 @@ signerPortalRouter.post("/transactions/:transactionId/vote", async (req: Request
       and(eq(multisigSigners.signerId, signerId), eq(multisigSigners.isActive, true))
     );
     if (!signer) {
-      return res.status(404).json({ success: false, error: "Signer not found or inactive" });
+      return res.status(404).json({ success: false, error: "서명자를 찾을 수 없거나 비활성화 상태입니다" });
+    }
+    
+    // Check if signer has email configured
+    if (!signer.email) {
+      return res.status(400).json({ success: false, error: "이메일이 등록되지 않았습니다. 관리자에게 문의하세요" });
     }
     
     // Get transaction
     const [transaction] = await db.select().from(custodyTransactions).where(eq(custodyTransactions.transactionId, transactionId));
     if (!transaction) {
-      return res.status(404).json({ success: false, error: "Transaction not found" });
+      return res.status(404).json({ success: false, error: "트랜잭션을 찾을 수 없습니다" });
     }
     
     if (transaction.status !== "pending_approval") {
-      return res.status(400).json({ success: false, error: "Transaction is not pending approval" });
+      return res.status(400).json({ success: false, error: "승인 대기 중인 트랜잭션이 아닙니다" });
     }
     
     // Check if signer belongs to the same wallet
     if (signer.walletId !== transaction.walletId) {
-      return res.status(403).json({ success: false, error: "Signer does not belong to transaction's wallet" });
+      return res.status(403).json({ success: false, error: "서명자가 해당 지갑에 속하지 않습니다" });
     }
     
     // Check for existing approval
@@ -1414,7 +1422,136 @@ signerPortalRouter.post("/transactions/:transactionId/vote", async (req: Request
       ));
     
     if (existingApproval) {
-      return res.status(400).json({ success: false, error: "Signer has already voted on this transaction" });
+      return res.status(400).json({ success: false, error: "이미 이 트랜잭션에 투표했습니다" });
+    }
+    
+    // Generate and store verification code
+    const verificationKey = `${signerId}:${transactionId}`;
+    const verificationCode = redisSecurityService.generateVerificationCode();
+    
+    await redisSecurityService.storeVerificationCode(verificationKey, verificationCode, 600); // 10 minutes
+    
+    // Store pending vote in session
+    session.pendingVote = {
+      transactionId,
+      signerId,
+      decision,
+      comment: comment || null,
+      requestedAt: new Date().toISOString()
+    };
+    
+    // Send verification email
+    const emailResult = await sendVerificationEmail(
+      signer.email,
+      verificationCode,
+      signer.name,
+      transactionId
+    );
+    
+    if (!emailResult.success) {
+      // Clean up verification code on email failure
+      await redisSecurityService.deleteVerificationCode(verificationKey);
+      console.error("[SignerPortal] Email send failed:", emailResult.error);
+      return res.status(500).json({ success: false, error: "인증 이메일 발송에 실패했습니다. 잠시 후 다시 시도해주세요" });
+    }
+    
+    // Mask email for display
+    const maskedEmail = signer.email.replace(/(.{2})(.*)(@.*)/, "$1***$3");
+    
+    console.log(`[SignerPortal] Verification code sent to ${signer.email} for transaction ${transactionId}`);
+    
+    res.json({
+      success: true,
+      message: "인증 코드가 이메일로 발송되었습니다",
+      email: maskedEmail,
+      expiresIn: 600 // seconds
+    });
+  } catch (error: any) {
+    console.error("[SignerPortal] Error requesting verification:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ============================================
+// Step 2: Verify Code and Submit Vote
+// ============================================
+signerPortalRouter.post("/transactions/:transactionId/verify-and-vote", async (req: Request, res: Response) => {
+  try {
+    const { transactionId } = req.params;
+    const { signerId, verificationCode } = req.body;
+    
+    // Security: Verify signer session authentication
+    const session = req.session as any;
+    if (!session.signerAuthenticated || !session.authenticatedSignerId) {
+      return res.status(401).json({ success: false, error: "지갑 주소로 먼저 인증해주세요" });
+    }
+    
+    // Security: Verify signerId matches authenticated session
+    if (session.authenticatedSignerId !== signerId) {
+      return res.status(403).json({ success: false, error: "인증된 서명자 ID와 일치하지 않습니다" });
+    }
+    
+    // Validate input
+    if (!signerId || !verificationCode) {
+      return res.status(400).json({ success: false, error: "인증 코드가 필요합니다" });
+    }
+    
+    // Check pending vote in session
+    if (!session.pendingVote || session.pendingVote.transactionId !== transactionId || session.pendingVote.signerId !== signerId) {
+      return res.status(400).json({ success: false, error: "대기 중인 투표 요청이 없습니다. 다시 시작해주세요" });
+    }
+    
+    const { decision, comment } = session.pendingVote;
+    
+    // Verify the code
+    const verificationKey = `${signerId}:${transactionId}`;
+    const verifyResult = await redisSecurityService.verifyAndConsumeCode(verificationKey, verificationCode);
+    
+    if (!verifyResult.valid) {
+      let errorMessage = "인증 코드가 유효하지 않습니다";
+      if (verifyResult.reason === "CODE_NOT_FOUND") {
+        errorMessage = "인증 코드가 만료되었습니다. 새로운 코드를 요청해주세요";
+      } else if (verifyResult.reason === "MAX_ATTEMPTS_EXCEEDED") {
+        errorMessage = "인증 시도 횟수를 초과했습니다. 새로운 코드를 요청해주세요";
+      } else if (verifyResult.reason === "INVALID_CODE") {
+        errorMessage = "잘못된 인증 코드입니다. 다시 확인해주세요";
+      }
+      return res.status(400).json({ success: false, error: errorMessage, reason: verifyResult.reason });
+    }
+    
+    // Code verified - proceed with vote
+    const [signer] = await db.select().from(multisigSigners).where(
+      and(eq(multisigSigners.signerId, signerId), eq(multisigSigners.isActive, true))
+    );
+    if (!signer) {
+      return res.status(404).json({ success: false, error: "서명자를 찾을 수 없거나 비활성화 상태입니다" });
+    }
+    
+    // Get transaction
+    const [transaction] = await db.select().from(custodyTransactions).where(eq(custodyTransactions.transactionId, transactionId));
+    if (!transaction) {
+      return res.status(404).json({ success: false, error: "트랜잭션을 찾을 수 없습니다" });
+    }
+    
+    if (transaction.status !== "pending_approval") {
+      return res.status(400).json({ success: false, error: "승인 대기 중인 트랜잭션이 아닙니다" });
+    }
+    
+    // Check if signer belongs to the same wallet
+    if (signer.walletId !== transaction.walletId) {
+      return res.status(403).json({ success: false, error: "서명자가 해당 지갑에 속하지 않습니다" });
+    }
+    
+    // Check for existing approval (double-check)
+    const [existingApproval] = await db.select()
+      .from(custodyTransactionApprovals)
+      .where(and(
+        eq(custodyTransactionApprovals.transactionId, transactionId),
+        eq(custodyTransactionApprovals.signerId, signerId)
+      ));
+    
+    if (existingApproval) {
+      return res.status(400).json({ success: false, error: "이미 이 트랜잭션에 투표했습니다" });
     }
     
     // Create approval record (use raw SQL due to schema mismatch)
@@ -1444,12 +1581,17 @@ signerPortalRouter.post("/transactions/:transactionId/vote", async (req: Request
       })
       .where(eq(multisigSigners.signerId, signerId));
     
+    // Clear pending vote from session
+    delete session.pendingVote;
+    
     // Check if threshold reached
     const thresholdReached = newApprovalCount >= (transaction.requiredApprovals || 7);
     
+    console.log(`[SignerPortal] Vote recorded with 2FA: ${signerId} -> ${decision} for ${transactionId}`);
+    
     res.json({
       success: true,
-      message: `Vote recorded: ${decision}`,
+      message: decision === "approve" ? "승인이 완료되었습니다" : "거부가 완료되었습니다",
       thresholdStatus: {
         current: newApprovalCount,
         required: transaction.requiredApprovals || 7,
@@ -1457,9 +1599,54 @@ signerPortalRouter.post("/transactions/:transactionId/vote", async (req: Request
       }
     });
   } catch (error: any) {
-    console.error("[SignerPortal] Error recording vote:", error);
+    console.error("[SignerPortal] Error verifying and voting:", error);
     res.status(500).json({ success: false, error: error.message });
   }
+});
+
+// ============================================
+// Cancel Verification (optional cleanup)
+// ============================================
+signerPortalRouter.post("/transactions/:transactionId/cancel-verification", async (req: Request, res: Response) => {
+  try {
+    const { transactionId } = req.params;
+    const { signerId } = req.body;
+    
+    const session = req.session as any;
+    if (session.authenticatedSignerId !== signerId) {
+      return res.status(403).json({ success: false, error: "권한이 없습니다" });
+    }
+    
+    // Clean up verification code
+    const verificationKey = `${signerId}:${transactionId}`;
+    await redisSecurityService.deleteVerificationCode(verificationKey);
+    
+    // Clear pending vote from session
+    if (session.pendingVote && session.pendingVote.transactionId === transactionId) {
+      delete session.pendingVote;
+    }
+    
+    res.json({ success: true, message: "인증이 취소되었습니다" });
+  } catch (error: any) {
+    console.error("[SignerPortal] Error canceling verification:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ============================================
+// Legacy vote endpoint (deprecated - redirects to new flow)
+// ============================================
+signerPortalRouter.post("/transactions/:transactionId/vote", async (req: Request, res: Response) => {
+  // Return instruction to use new 2FA flow
+  res.status(400).json({
+    success: false,
+    error: "이메일 2FA 인증이 필요합니다. /request-verification 엔드포인트를 먼저 호출하세요",
+    code: "EMAIL_2FA_REQUIRED",
+    newFlow: {
+      step1: "POST /api/signer-portal/transactions/:id/request-verification",
+      step2: "POST /api/signer-portal/transactions/:id/verify-and-vote"
+    }
+  });
 });
 
 export default router;
