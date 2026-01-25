@@ -1148,50 +1148,78 @@ function CreateTokenContent({
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {TOKEN_TEMPLATES.map((template) => (
-                  <Card 
-                    key={template.id}
-                    className={`cursor-pointer border-2 transition-all hover:scale-[1.02] ${isDark ? 'bg-[#0B1120] hover:border-blue-500' : 'hover:border-blue-500'}`}
-                    onClick={() => handleTemplateSelect(template)}
-                    data-testid={`card-template-${template.id}`}
-                  >
-                    <CardContent className="pt-6 relative">
-                      <div className="absolute top-2 right-2">
-                        <TBurnLogo className="w-7 h-7" showText={true} textColor="#000000" />
-                      </div>
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
-                          template.standard === "TBC-20" ? 'bg-blue-500/20' :
-                          template.standard === "TBC-721" ? 'bg-purple-500/20' : 'bg-amber-500/20'
-                        }`}>
-                          <template.icon className={`h-5 w-5 ${
-                            template.standard === "TBC-20" ? 'text-blue-500' :
-                            template.standard === "TBC-721" ? 'text-purple-500' : 'text-amber-500'
-                          }`} />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-semibold text-sm">{t(`tokenGenerator.templates.${TEMPLATE_LOCALE_KEYS[template.id] || template.id}.name`, { defaultValue: template.name })}</h4>
-                          <div className="flex items-center gap-1 mt-1">
-                            <Badge variant="outline" className="text-xs">{template.standard}</Badge>
-                            {template.aiRecommended && (
-                              <Badge className="text-xs bg-purple-500/10 text-purple-500">
-                                <Brain className="h-2 w-2 mr-1" />
-                                {t('tokenGenerator.aiRecommended')}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {TOKEN_TEMPLATES
+                  .slice()
+                  .sort((a, b) => b.popularity - a.popularity)
+                  .map((template, index) => {
+                    const isTop2 = index < 2;
+                    const isTop4 = index < 4;
+                    return (
+                      <Card 
+                        key={template.id}
+                        className={`cursor-pointer border-2 transition-all hover:scale-[1.02] ${
+                          isTop2 ? 'lg:col-span-2 ring-2 ring-blue-500/30' : ''
+                        } ${isDark ? 'bg-[#0B1120] hover:border-blue-500' : 'hover:border-blue-500'}`}
+                        onClick={() => handleTemplateSelect(template)}
+                        data-testid={`card-template-${template.id}`}
+                      >
+                        <CardContent className={`relative ${isTop2 ? 'pt-8 pb-6' : 'pt-6'}`}>
+                          <div className="absolute top-2 right-2 flex items-center gap-2">
+                            {isTop2 && (
+                              <Badge className="text-xs bg-gradient-to-r from-amber-500 to-orange-500 text-white border-0">
+                                TOP {index + 1}
                               </Badge>
                             )}
+                            <TBurnLogo className={isTop2 ? "w-9 h-9" : "w-7 h-7"} showText={true} textColor="#000000" />
                           </div>
-                        </div>
-                      </div>
-                      <p className={`text-xs mb-3 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>{t(`tokenGenerator.templates.${TEMPLATE_LOCALE_KEYS[template.id] || template.id}.description`, { defaultValue: template.description })}</p>
-                      <div className="flex flex-wrap gap-1">
-                        {template.features.slice(0, 2).map((feature: string) => (
-                          <Badge key={feature} variant="secondary" className="text-xs">{t(`tokenGenerator.featuresList.${FEATURE_LOCALE_KEYS[feature] || feature}`, { defaultValue: feature })}</Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                          <div className={`flex items-center gap-3 ${isTop2 ? 'mb-4' : 'mb-3'}`}>
+                            <div className={`rounded-full flex items-center justify-center ${
+                              isTop2 ? 'h-14 w-14' : 'h-10 w-10'
+                            } ${
+                              template.standard === "TBC-20" ? 'bg-blue-500/20' :
+                              template.standard === "TBC-721" ? 'bg-purple-500/20' : 'bg-amber-500/20'
+                            }`}>
+                              <template.icon className={`${isTop2 ? 'h-7 w-7' : 'h-5 w-5'} ${
+                                template.standard === "TBC-20" ? 'text-blue-500' :
+                                template.standard === "TBC-721" ? 'text-purple-500' : 'text-amber-500'
+                              }`} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className={`font-semibold ${isTop2 ? 'text-base' : 'text-sm'}`}>{t(`tokenGenerator.templates.${TEMPLATE_LOCALE_KEYS[template.id] || template.id}.name`, { defaultValue: template.name })}</h4>
+                              <div className="flex items-center gap-1 mt-1 flex-wrap">
+                                <Badge variant="outline" className="text-xs">{template.standard}</Badge>
+                                {template.aiRecommended && (
+                                  <Badge className="text-xs bg-purple-500/10 text-purple-500">
+                                    <Brain className="h-2 w-2 mr-1" />
+                                    {t('tokenGenerator.aiRecommended')}
+                                  </Badge>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <p className={`mb-3 ${isTop2 ? 'text-sm' : 'text-xs'} ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>{t(`tokenGenerator.templates.${TEMPLATE_LOCALE_KEYS[template.id] || template.id}.description`, { defaultValue: template.description })}</p>
+                          <div className="flex flex-wrap gap-1">
+                            {template.features.slice(0, isTop2 ? 4 : 2).map((feature: string) => (
+                              <Badge key={feature} variant="secondary" className="text-xs">{t(`tokenGenerator.featuresList.${FEATURE_LOCALE_KEYS[feature] || feature}`, { defaultValue: feature })}</Badge>
+                            ))}
+                          </div>
+                          {isTop2 && (
+                            <div className="mt-4 flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <TrendingUp className="h-4 w-4 text-green-500" />
+                                <span className="text-xs text-muted-foreground">{t('tokenGenerator.popularityScore', { defaultValue: '인기도' })}: {template.popularity}%</span>
+                              </div>
+                              <Button size="sm" variant="default" className="gap-1">
+                                {t('tokenGenerator.startNow', { defaultValue: '바로 시작' })}
+                                <ArrowRight className="h-3 w-3" />
+                              </Button>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
               </div>
             </CardContent>
           </Card>
