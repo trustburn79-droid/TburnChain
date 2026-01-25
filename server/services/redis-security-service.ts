@@ -15,6 +15,7 @@ import { createClient, RedisClientType } from 'redis';
 
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 const NONCE_TTL_SECONDS = 300;
+const VERIFICATION_CODE_TTL_SECONDS = 600; // 10 minutes
 
 interface RateLimitResult {
   allowed: boolean;
@@ -32,6 +33,7 @@ class RedisSecurityService {
   
   private memoryRateLimitStore = new Map<string, { count: number; resetTime: number }>();
   private memoryNonceStore = new Map<string, number>();
+  private memoryVerificationCodeStore = new Map<string, { code: string; expiry: number; attempts: number }>();
   
   private constructor() {
     setInterval(() => this.cleanupMemoryStores(), 60000);
@@ -211,6 +213,14 @@ class RedisSecurityService {
         this.memoryNonceStore.delete(key);
       }
     }
+    
+    // Cleanup expired verification codes
+    const verificationEntries = Array.from(this.memoryVerificationCodeStore.entries());
+    for (const [key, record] of verificationEntries) {
+      if (record.expiry < now) {
+        this.memoryVerificationCodeStore.delete(key);
+      }
+    }
   }
   
   getStatus(): { connected: boolean; source: 'redis' | 'memory' } {
@@ -218,6 +228,147 @@ class RedisSecurityService {
       connected: this.isConnected,
       source: this.isConnected ? 'redis' : 'memory'
     };
+  }
+  
+  /**
+   * Store a verification code for email 2FA
+   * @param key Unique key (e.g., signerId:transactionId)
+   * @param code 6-digit verification code
+   * @param ttlSeconds Time-to-live in seconds (default 10 minutes)
+   */
+  async storeVerificationCode(key: string, code: string, ttlSeconds: number = VERIFICATION_CODE_TTL_SECONDS): Promise<{ success: boolean; source: 'redis' | 'memory' }> {
+    const redisKey = `verification:${key}`;
+    const data = JSON.stringify({ code, attempts: 0 });
+    
+    if (this.isConnected && this.redisClient?.isOpen) {
+      try {
+        await this.redisClient.set(redisKey, data, { EX: ttlSeconds });
+        console.log(`[SecurityService] Verification code stored in Redis: ${key}`);
+        return { success: true, source: 'redis' };
+      } catch (error) {
+        console.warn('[SecurityService] Redis store verification code failed, using memory:', error);
+      }
+    }
+    
+    // Memory fallback
+    this.memoryVerificationCodeStore.set(key, {
+      code,
+      expiry: Date.now() + (ttlSeconds * 1000),
+      attempts: 0
+    });
+    console.log(`[SecurityService] Verification code stored in memory: ${key}`);
+    return { success: true, source: 'memory' };
+  }
+  
+  /**
+   * Verify a code and consume it if valid
+   * @param key Unique key (e.g., signerId:transactionId)
+   * @param inputCode Code entered by user
+   * @returns { valid: boolean, reason?: string }
+   */
+  async verifyAndConsumeCode(key: string, inputCode: string): Promise<{ valid: boolean; reason?: string; source: 'redis' | 'memory' }> {
+    const redisKey = `verification:${key}`;
+    const MAX_ATTEMPTS = 5;
+    
+    if (this.isConnected && this.redisClient?.isOpen) {
+      try {
+        const storedData = await this.redisClient.get(redisKey);
+        if (!storedData) {
+          return { valid: false, reason: 'CODE_NOT_FOUND', source: 'redis' };
+        }
+        
+        const { code, attempts } = JSON.parse(storedData);
+        
+        // Check max attempts
+        if (attempts >= MAX_ATTEMPTS) {
+          await this.redisClient.del(redisKey);
+          return { valid: false, reason: 'MAX_ATTEMPTS_EXCEEDED', source: 'redis' };
+        }
+        
+        if (inputCode !== code) {
+          // Increment attempts
+          const ttl = await this.redisClient.ttl(redisKey);
+          await this.redisClient.set(redisKey, JSON.stringify({ code, attempts: attempts + 1 }), { EX: ttl > 0 ? ttl : VERIFICATION_CODE_TTL_SECONDS });
+          return { valid: false, reason: 'INVALID_CODE', source: 'redis' };
+        }
+        
+        // Valid code - delete it (one-time use)
+        await this.redisClient.del(redisKey);
+        return { valid: true, source: 'redis' };
+      } catch (error) {
+        console.warn('[SecurityService] Redis verify code failed, using memory:', error);
+      }
+    }
+    
+    // Memory fallback
+    return this.memoryVerifyCode(key, inputCode);
+  }
+  
+  private memoryVerifyCode(key: string, inputCode: string): { valid: boolean; reason?: string; source: 'redis' | 'memory' } {
+    const MAX_ATTEMPTS = 5;
+    const record = this.memoryVerificationCodeStore.get(key);
+    
+    if (!record || record.expiry < Date.now()) {
+      this.memoryVerificationCodeStore.delete(key);
+      return { valid: false, reason: 'CODE_NOT_FOUND', source: 'memory' };
+    }
+    
+    if (record.attempts >= MAX_ATTEMPTS) {
+      this.memoryVerificationCodeStore.delete(key);
+      return { valid: false, reason: 'MAX_ATTEMPTS_EXCEEDED', source: 'memory' };
+    }
+    
+    if (inputCode !== record.code) {
+      record.attempts++;
+      return { valid: false, reason: 'INVALID_CODE', source: 'memory' };
+    }
+    
+    // Valid code - delete it (one-time use)
+    this.memoryVerificationCodeStore.delete(key);
+    return { valid: true, source: 'memory' };
+  }
+  
+  /**
+   * Check if a verification code exists for the given key
+   */
+  async hasVerificationCode(key: string): Promise<boolean> {
+    const redisKey = `verification:${key}`;
+    
+    if (this.isConnected && this.redisClient?.isOpen) {
+      try {
+        const exists = await this.redisClient.exists(redisKey);
+        return exists === 1;
+      } catch (error) {
+        console.warn('[SecurityService] Redis check verification code failed:', error);
+      }
+    }
+    
+    const record = this.memoryVerificationCodeStore.get(key);
+    return !!record && record.expiry > Date.now();
+  }
+  
+  /**
+   * Delete verification code (e.g., on cancel)
+   */
+  async deleteVerificationCode(key: string): Promise<void> {
+    const redisKey = `verification:${key}`;
+    
+    if (this.isConnected && this.redisClient?.isOpen) {
+      try {
+        await this.redisClient.del(redisKey);
+      } catch (error) {
+        console.warn('[SecurityService] Redis delete verification code failed:', error);
+      }
+    }
+    
+    this.memoryVerificationCodeStore.delete(key);
+  }
+  
+  /**
+   * Generate a 6-digit verification code
+   */
+  generateVerificationCode(): string {
+    return Math.floor(100000 + Math.random() * 900000).toString();
   }
   
   async disconnect(): Promise<void> {
