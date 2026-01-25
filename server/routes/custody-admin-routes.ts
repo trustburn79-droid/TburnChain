@@ -517,6 +517,9 @@ const MAINNET_OPERATIONAL_TYPES = [
   "network_maintenance"
 ] as const;
 
+// Default fallback for legacy transactions without approval_expires_at
+const TRANSACTION_EXPIRY_HOURS = 48;
+
 /**
  * Calculate approval window hours based on TBURN Custody Policy v2.0
  * @param amount - Transaction amount in TBURN (without decimals)
@@ -684,7 +687,7 @@ router.post("/transactions", requireAdmin, async (req: Request, res: Response) =
     }).returning();
     
     console.log(`[Custody] New transaction created: ${transactionId}, requires ${wallet.signaturesRequired}/${wallet.totalSigners} approvals`);
-    console.log(`[Custody] Timelock: ${timelockHours}h (expires: ${timelockExpiresAt.toISOString()}), Approval expires: ${expiresAt.toISOString()}`);
+    console.log(`[Custody] Approval window: ${approvalWindowHours}h (expires: ${expiresAt.toISOString()})`);
     
     // Record audit log (non-blocking)
     recordAuditLog({
@@ -697,7 +700,7 @@ router.post("/transactions", requireAdmin, async (req: Request, res: Response) =
         transactionType: data.transactionType,
         amount: data.amount,
         recipientAddress: data.recipientAddress.slice(0, 20) + "...",
-        timelockHours,
+        approvalWindowHours,
         isEmergency,
       },
       ipAddress: clientIp,
@@ -709,7 +712,7 @@ router.post("/transactions", requireAdmin, async (req: Request, res: Response) =
       threshold: {
         required: wallet.signaturesRequired,
         total: wallet.totalSigners,
-        timelockHours,
+        approvalWindowHours,
         timelockExpiresAt: timelockExpiresAt.toISOString(),
         approvalExpiresAt: expiresAt.toISOString(),
         isEmergency,
