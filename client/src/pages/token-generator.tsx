@@ -1229,6 +1229,70 @@ function CreateTokenContent({
               </div>
             </CardContent>
           </Card>
+
+          <Card className={isDark ? 'bg-[#151E32]/70 border-white/5' : ''}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <HelpCircle className="h-5 w-5 text-blue-500" />
+                {t('tokenGenerator.templateGuide', { defaultValue: '토큰 템플릿 가이드' })}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenGenerator.templateGuideDesc', { defaultValue: '각 템플릿의 용도와 주요 기능을 확인하세요' })}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className={`border-b ${isDark ? 'border-gray-700' : 'border-slate-200'}`}>
+                      <th className="text-left py-3 px-2 font-semibold">{t('tokenGenerator.templateTable.template', { defaultValue: '템플릿' })}</th>
+                      <th className="text-left py-3 px-2 font-semibold">{t('tokenGenerator.templateTable.standard', { defaultValue: '표준' })}</th>
+                      <th className="text-left py-3 px-2 font-semibold">{t('tokenGenerator.templateTable.purpose', { defaultValue: '용도' })}</th>
+                      <th className="text-left py-3 px-2 font-semibold">{t('tokenGenerator.templateTable.features', { defaultValue: '주요 기능' })}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
+                      <td className="py-3 px-2 font-medium">DeFi 거버넌스 토큰</td>
+                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
+                      <td className="py-3 px-2">DAO 투표/스테이킹</td>
+                      <td className="py-3 px-2 text-muted-foreground">거버넌스 투표, 스테이킹 보상</td>
+                    </tr>
+                    <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
+                      <td className="py-3 px-2 font-medium">유틸리티 토큰</td>
+                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
+                      <td className="py-3 px-2">플랫폼 결제/보상</td>
+                      <td className="py-3 px-2 text-muted-foreground">사용 보상, 동적 가격 책정</td>
+                    </tr>
+                    <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
+                      <td className="py-3 px-2 font-medium">GameFi 자산 토큰</td>
+                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs bg-amber-500/10 text-amber-500">TBC-1155</Badge></td>
+                      <td className="py-3 px-2">게임 아이템</td>
+                      <td className="py-3 px-2 text-muted-foreground">게임 내 아이템, 마켓플레이스</td>
+                    </tr>
+                    <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
+                      <td className="py-3 px-2 font-medium">NFT 아트 컬렉션</td>
+                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs bg-purple-500/10 text-purple-500">TBC-721</Badge></td>
+                      <td className="py-3 px-2">디지털 아트</td>
+                      <td className="py-3 px-2 text-muted-foreground">로열티 적용, AI 진품 확인</td>
+                    </tr>
+                    <tr className={`border-b ${isDark ? 'border-gray-700/50' : 'border-slate-100'}`}>
+                      <td className="py-3 px-2 font-medium">기업용 보안 토큰</td>
+                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
+                      <td className="py-3 px-2">규제 준수 증권</td>
+                      <td className="py-3 px-2 text-muted-foreground">KYC/AML, 다중 서명</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">마켓플레이스 토큰</td>
+                      <td className="py-3 px-2"><Badge variant="outline" className="text-xs">TBC-20</Badge></td>
+                      <td className="py-3 px-2">전자상거래</td>
+                      <td className="py-3 px-2 text-muted-foreground">로열티 포인트, 캐시백</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       )}
 
