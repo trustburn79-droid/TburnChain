@@ -491,38 +491,67 @@ const createTransactionSchema = z.object({
   documentationUrl: z.string().url().optional(),
 });
 
-// Token thresholds with 18 decimals (1 TBURN = 10^18 base units)
-// Policy per TBURN Security Spec v1.0:
-// - Tier 1 (< 1M tokens): 48 hours timelock - routine operations
-// - Tier 2 (1M - 1B tokens): 48 hours timelock - medium operations (implicit default)
-// - Tier 3 (> 1B tokens): 168 hours (7 days) timelock - significant operations
-// - Tier 4 (> 5B tokens): 720 hours (30 days) timelock - critical operations
-const ONE_MILLION_TOKENS = BigInt("1000000") * BigInt("1000000000000000000"); // 1M * 10^18
-const ONE_BILLION_TOKENS = BigInt("1000000000") * BigInt("1000000000000000000"); // 1B * 10^18
-const FIVE_BILLION_TOKENS = BigInt("5000000000") * BigInt("1000000000000000000"); // 5B * 10^18
+// ============================================
+// TBURN Custody Approval Policy v2.0
+// ============================================
+// Updated 2026-01-25: Optimized for mainnet operations
+// 
+// Policy:
+// - 긴급 (Emergency): 즉시 (1시간)
+// - 1억 이하 (< 100M TBURN): 즉시 (1시간)
+// - 1-10억 (100M - 1B TBURN): 24시간
+// - 10억 이상 (> 1B TBURN): 2일 (48시간)
+// - 메인넷 운영 필수 (staking_rewards, operational, infrastructure): 즉시 (1시간)
+// ============================================
 
-// Transaction expiry: 7 days to complete approvals
-const TRANSACTION_EXPIRY_HOURS = 168;
+// Token thresholds (amounts stored without decimals for simplicity)
+const ONE_HUNDRED_MILLION = BigInt("100000000");  // 1억 TBURN
+const ONE_BILLION = BigInt("1000000000");         // 10억 TBURN
+
+// Mainnet operational transaction types (require immediate processing)
+const MAINNET_OPERATIONAL_TYPES = [
+  "staking_rewards",
+  "operational", 
+  "infrastructure",
+  "validator_rewards",
+  "network_maintenance"
+] as const;
 
 /**
- * Calculate timelock hours based on amount using strict > comparisons
- * Note: Amounts in the 1M-1B range use 48h as the implicit default tier
- * @param amount - Transaction amount in base units (18 decimals)
- * @param isEmergency - If true, applies reduced 4h timelock (requires extra approval)
+ * Calculate approval window hours based on TBURN Custody Policy v2.0
+ * @param amount - Transaction amount in TBURN (without decimals)
+ * @param transactionType - Type of transaction
+ * @param isEmergency - If true, applies immediate (1h) window
  */
-function calculateTimelockHours(amount: bigint, isEmergency: boolean = false): number {
-  // Emergency transfers have reduced timelock (4h) but require canApproveEmergency signers
+function calculateApprovalWindowHours(
+  amount: bigint, 
+  transactionType: string,
+  isEmergency: boolean = false
+): number {
+  // Emergency transfers: 즉시 (1시간)
   if (isEmergency) {
-    return 4;
+    return 1;
   }
   
-  if (amount > FIVE_BILLION_TOKENS) {
-    return 720; // 30 days for > 5B tokens (Tier 4)
-  } else if (amount > ONE_BILLION_TOKENS) {
-    return 168; // 7 days for > 1B tokens (Tier 3)
+  // Mainnet operational types: 즉시 (1시간)
+  if (MAINNET_OPERATIONAL_TYPES.includes(transactionType as any)) {
+    return 1;
   }
-  // Tier 1 & 2: 48h for all amounts <= 1B
-  return 48;
+  
+  // Amount-based tiers
+  if (amount > ONE_BILLION) {
+    return 48; // 10억 이상: 2일
+  } else if (amount > ONE_HUNDRED_MILLION) {
+    return 24; // 1-10억: 24시간
+  }
+  
+  // 1억 이하: 즉시 (1시간)
+  return 1;
+}
+
+// Legacy function for backward compatibility
+function calculateTimelockHours(amount: bigint, isEmergency: boolean = false): number {
+  return calculateApprovalWindowHours(amount, "", isEmergency);
 }
 
 // Get all transactions
@@ -625,14 +654,14 @@ router.post("/transactions", requireAdmin, async (req: Request, res: Response) =
       }
     }
     
-    // Calculate timelock based on amount and transaction type
-    const timelockHours = calculateTimelockHours(amount, isEmergency);
+    // Calculate approval window based on amount, type, and emergency status (Policy v2.0)
+    const approvalWindowHours = calculateApprovalWindowHours(amount, data.transactionType, isEmergency);
     
     const transactionId = `tx-${crypto.randomBytes(12).toString("hex")}`;
     const adminEmail = (req as any).session?.user?.email || "system";
     const clientIp = req.ip || req.headers["x-forwarded-for"] as string || "unknown";
-    const timelockExpiresAt = new Date(Date.now() + timelockHours * 60 * 60 * 1000);
-    const expiresAt = new Date(Date.now() + TRANSACTION_EXPIRY_HOURS * 60 * 60 * 1000);
+    const timelockExpiresAt = new Date(Date.now() + approvalWindowHours * 60 * 60 * 1000);
+    const expiresAt = new Date(Date.now() + approvalWindowHours * 60 * 60 * 1000); // Same as approval window
     
     const [newTransaction] = await db.insert(custodyTransactions).values({
       transactionId,
