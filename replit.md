@@ -46,6 +46,12 @@ Key architectural features include:
     - `IntentDexAdapter`: DEX ↔ 인텐트 아키텍처 통합 (MEV 보호)
   - **API 엔드포인트**: `/api/advanced-tech/feature-flags`, `/api/advanced-tech/adapters`
   - **목표 성능**: TPS 1,900% 증가, 비용 95% 절감, Web2 수준 UX
+  - **⚠️ 토큰노믹스 독립성 보장** (2026-01-26):
+    - 리스테이킹 보상은 20년 TBURN 토큰노믹스와 완전히 분리됨
+    - 기존 스테이킹 보상: TBURN 토큰 발행 (20년 토큰노믹스 일정)
+    - 리스테이킹 보상: AVS 운영자가 지불하는 외부 수수료 (USDT, USDC 등)
+    - TBURN 토큰 발행량에 영향 없음
+    - 별도 회계 계정(EXTERNAL_AVS_REWARDS)으로 관리
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
