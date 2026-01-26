@@ -255,6 +255,80 @@ export default function TechnicalWhitepaper() {
           <p>{t('technicalWhitepaper.sections.consensus.finality.totalTime')}</p>
         </section>
 
+        <section id="advanced-tech" className="tw-section">
+          <h2>4. 5 Core Technologies (2026)</h2>
+          <p>TBURN integrates five cutting-edge blockchain technologies to achieve 1,900% TPS improvement, 95% cost reduction, and Web2-level user experience while maintaining backward compatibility with existing systems.</p>
+          
+          <div className="tw-spec-grid">
+            <div className="tw-spec-card">
+              <div className="label">Account Abstraction</div>
+              <div className="value cyan">ERC-4337</div>
+            </div>
+            <div className="tw-spec-card">
+              <div className="label">Intent Network</div>
+              <div className="value green">MEV Protected</div>
+            </div>
+            <div className="tw-spec-card">
+              <div className="label">ZK Rollup</div>
+              <div className="value orange">95% Gas Saved</div>
+            </div>
+            <div className="tw-spec-card">
+              <div className="label">Restaking</div>
+              <div className="value purple">AVS Rewards</div>
+            </div>
+          </div>
+
+          <h3>4.1 Account Abstraction (TBC-4337)</h3>
+          <p>Full ERC-4337 implementation with native smart wallet support, session keys for gasless transactions, and social recovery mechanisms.</p>
+          <ul>
+            <li><strong>Smart Wallet Factory:</strong> Deploy wallets with deterministic addresses using CREATE2</li>
+            <li><strong>Paymaster Integration:</strong> Sponsors gas fees for seamless onboarding</li>
+            <li><strong>Session Keys:</strong> Time-limited delegated signing for dApp interactions</li>
+            <li><strong>Multi-sig Support:</strong> Threshold signatures for enterprise security</li>
+          </ul>
+
+          <h3>4.2 Intent Architecture</h3>
+          <p>Declarative transaction system where users express desired outcomes and solvers compete for optimal execution.</p>
+          <ul>
+            <li><strong>Solver Competition:</strong> 5+ active solvers compete for best execution price</li>
+            <li><strong>MEV Protection:</strong> Batch auctions prevent front-running and sandwich attacks</li>
+            <li><strong>Natural Language:</strong> Express intents in human-readable format</li>
+          </ul>
+
+          <h3>4.3 ZK Rollup Layer</h3>
+          <p>Validity proofs for off-chain transaction batches with instant finality and 95% gas cost reduction.</p>
+          <div className="tw-formula">
+            <div className="title">Gas Savings Formula</div>
+            <div className="equation">L2_Cost = L1_Cost × (1 - 0.95) = 5% of L1</div>
+          </div>
+
+          <h3>4.4 Restaking Protocol</h3>
+          <p>Extend economic security to external services (AVS) while maintaining TBURN tokenomics independence.</p>
+          <ul>
+            <li><strong>Base Staking:</strong> TBURN tokens earn native rewards (20-year tokenomics)</li>
+            <li><strong>AVS Rewards:</strong> External rewards in USDT/USDC (separate accounting)</li>
+            <li><strong>Slashing Protection:</strong> Maximum 30% slashing cap per AVS</li>
+          </ul>
+
+          <h3>4.5 Modular Data Availability</h3>
+          <p>Multi-provider DA layer supporting TBURN native, Celestia, and EigenDA with automatic failover.</p>
+          <table className="tw-table">
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Latency</th>
+                <th>Cost</th>
+                <th>Guarantee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>TBURN Native</td><td>100ms</td><td>Lowest</td><td>BFT Consensus</td></tr>
+              <tr><td>Celestia</td><td>500ms</td><td>Medium</td><td>DAS Sampling</td></tr>
+              <tr><td>EigenDA</td><td>200ms</td><td>Higher</td><td>ETH Restaking</td></tr>
+            </tbody>
+          </table>
+        </section>
+
         <section id="sharding" className="tw-section">
           <h2>4. {t('technicalWhitepaper.sections.sharding.title')}</h2>
           <p>{t('technicalWhitepaper.sections.sharding.intro')}</p>

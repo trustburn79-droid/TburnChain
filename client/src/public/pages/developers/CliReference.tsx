@@ -508,6 +508,100 @@ tburn shards rebalance --watch
 # Last: 2025-01-05 14:30:00 UTC
 # Moved: Shard 23 → 45 (15% load reduction)`,
     },
+    {
+      category: "Advanced Tech",
+      cmd: "tburn aa create-wallet",
+      desc: "Create an ERC-4337 smart wallet with social recovery",
+      usage: "tburn aa create-wallet [options]",
+      options: [
+        { flag: "--owner", desc: "Owner address (tb1 format)", default: "current wallet" },
+        { flag: "--recovery", desc: "Comma-separated recovery addresses", default: "" },
+        { flag: "--session-duration", desc: "Session key duration in hours", default: "24" },
+      ],
+      examples: `# Create smart wallet with recovery
+tburn aa create-wallet --owner=tb1q... --recovery=tb1q1...,tb1q2...
+
+# Output:
+# Smart Wallet Created!
+# Address: tb1sw9a8b7c6d5e4f3...
+# Owner: tb1qowner...
+# Recovery: 2 addresses configured`,
+    },
+    {
+      category: "Advanced Tech",
+      cmd: "tburn intent submit",
+      desc: "Submit a swap intent with MEV protection",
+      usage: "tburn intent submit [options]",
+      options: [
+        { flag: "--from", desc: "Source token", default: "" },
+        { flag: "--to", desc: "Target token", default: "" },
+        { flag: "--amount", desc: "Amount to swap", default: "" },
+        { flag: "--slippage", desc: "Max slippage percentage", default: "0.5" },
+      ],
+      examples: `# Submit swap intent
+tburn intent submit --from=USDT --to=TBURN --amount=100 --slippage=0.5
+
+# Output:
+# Intent Submitted!
+# ID: intent_8a7b6c5d4e3f
+# Solvers competing: 5
+# Expected output: 245.67 TBURN`,
+    },
+    {
+      category: "Advanced Tech",
+      cmd: "tburn zk deposit",
+      desc: "Deposit to ZK Rollup Layer 2 (95% gas savings)",
+      usage: "tburn zk deposit <amount> [options]",
+      options: [
+        { flag: "--token", desc: "Token to deposit", default: "TBURN" },
+        { flag: "--fast", desc: "Enable fast deposit mode", default: "true" },
+      ],
+      examples: `# Deposit to L2
+tburn zk deposit 1000 --token=TBURN
+
+# Output:
+# L2 Deposit Initiated
+# Amount: 1000 TBURN
+# Gas saved: 95%
+# L1 TX: 0x8a7b...
+# L2 Balance available in: ~2 minutes`,
+    },
+    {
+      category: "Advanced Tech",
+      cmd: "tburn restake stake",
+      desc: "Stake TBURN with optional AVS restaking",
+      usage: "tburn restake stake <amount> [options]",
+      options: [
+        { flag: "--avs", desc: "AVS service ID to restake to", default: "" },
+        { flag: "--percent", desc: "Percentage to restake (0-100)", default: "0" },
+      ],
+      examples: `# Stake with restaking to Oracle AVS
+tburn restake stake 10000 --avs=oracle-network --percent=50
+
+# Output:
+# Stake Successful!
+# Base APY: 12.5%
+# AVS APY: +4.2% (from oracle-network)
+# Total APY: 16.7%`,
+    },
+    {
+      category: "Advanced Tech",
+      cmd: "tburn da submit",
+      desc: "Submit data blob to DA layer",
+      usage: "tburn da submit <file> [options]",
+      options: [
+        { flag: "--provider", desc: "DA provider (native/celestia/eigenda)", default: "native" },
+        { flag: "--redundancy", desc: "Number of providers to use", default: "1" },
+      ],
+      examples: `# Submit to Celestia DA
+tburn da submit ./batch.json --provider=celestia
+
+# Output:
+# Blob Submitted!
+# Provider: Celestia
+# Blob ID: blob_9c8b7a6d5e4f3
+# Cost: 0.001 TBURN (85% cheaper than L1)`,
+    },
   ];
 
   const scriptingExamples = [

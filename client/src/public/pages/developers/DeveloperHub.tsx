@@ -9,7 +9,8 @@ import {
   Coins,
   Brain,
   FlaskConical,
-  Server
+  Server,
+  Zap
 } from "lucide-react";
 import { SiJavascript, SiPython, SiRust, SiGo, SiSwift } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
@@ -322,6 +323,31 @@ export default function DeveloperHub() {
               </h3>
               <div className="space-y-3 font-mono text-xs">
                 {aiApiEndpoints.map((endpoint, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <span 
+                      className="px-2 py-0.5 rounded"
+                      style={{ 
+                        backgroundColor: `${endpoint.color}20`,
+                        color: endpoint.color,
+                        border: `1px solid ${endpoint.color}30`
+                      }}
+                    >
+                      {endpoint.method}
+                    </span>
+                    <span className="text-gray-600 dark:text-gray-300">{endpoint.path}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Advanced Tech API - 2026 */}
+            <div className="bg-gradient-to-br from-purple-500/10 to-cyan-500/10 shadow-sm border border-purple-500/30 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <Zap className="w-5 h-5 text-purple-500" /> 5 Core Technologies (2026)
+              </h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Account Abstraction, Intent Network, ZK Rollup, Restaking, Modular DA</p>
+              <div className="space-y-3 font-mono text-xs">
+                {advancedTechApiEndpoints.map((endpoint, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <span 
                       className="px-2 py-0.5 rounded"

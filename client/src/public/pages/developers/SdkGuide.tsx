@@ -180,7 +180,18 @@ const restaking = await client.restaking.stake({
 console.log(\`Base APY: \${restaking.baseAPY}% + AVS APY: \${restaking.avsAPY}%\`);
 
 // ═══════════════════════════════════════════════════════
-// 5. GET ADVANCED TECH METRICS
+// 5. MODULAR DA - Data Availability Layer
+// ═══════════════════════════════════════════════════════
+const daResult = await client.da.submitBlob({
+  data: Buffer.from('Transaction batch data...'),
+  provider: 'CELESTIA',  // TBURN_NATIVE | CELESTIA | EIGENDA
+  redundancy: 2
+});
+console.log(\`DA Blob ID: \${daResult.blobId}\`);
+console.log(\`Provider: \${daResult.provider} | Cost: \${daResult.costSavings}% cheaper\`);
+
+// ═══════════════════════════════════════════════════════
+// 6. GET ADVANCED TECH METRICS
 // ═══════════════════════════════════════════════════════
 const metrics = await client.advancedTech.getOverview();
 console.log(\`Total TPS: \${metrics.tpsBreakdown.totalCombinedTPS}\`);
