@@ -87,6 +87,7 @@ import distributionProgramsRoutes from "./routes/distribution-programs-routes";
 import enterpriseAdminRoutes from "./routes/enterprise-admin-routes";
 import custodyAdminRoutes, { signerPortalRouter } from "./routes/custody-admin-routes";
 import tokenVestingRoutes from "./routes/token-vesting-routes";
+import advancedTechRoutes from "./routes/advanced-tech-routes";
 import { getCsrfToken, validateCsrf } from "./middleware/csrf";
 import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
 import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
@@ -3196,6 +3197,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/shard-cache", shardCacheRoutes);
   console.log("[ShardCache] ✅ Enterprise shard cache routes registered (2s TTL, O(1) pair selection)");
+
+  // ============================================
+  // ADVANCED TECHNOLOGY ROUTES
+  // 5대 신기술: 모듈러 DA, 리스테이킹, ZK 롤업, 어카운트 추상화, 인텐트 아키텍처
+  // ============================================
+  app.use("/api", advancedTechRoutes);
+  console.log("[AdvancedTech] ✅ 5대 신기술 라우트 등록 완료 (DA, Restaking, ZK, AA, Intent)");
 
   // ============================================
   // ENTERPRISE BATCH PROCESSOR
