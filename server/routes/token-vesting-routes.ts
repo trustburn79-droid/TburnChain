@@ -192,7 +192,7 @@ router.get("/token-schedule", publicReadRateLimiter, async (req: Request, res: R
   } catch (error: any) {
     console.error("[Token Schedule] Error:", error);
     // Sanitize error message to prevent internal information leakage
-    res.status(500).json({ success: false, error: 'Internal server error' });
+    res.status(503).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -325,7 +325,7 @@ router.get("/token-details", publicReadRateLimiter, async (req: Request, res: Re
   } catch (error: any) {
     console.error("[Token Details] Error:", error);
     // Sanitize error message to prevent internal information leakage
-    res.status(500).json({ success: false, error: 'Internal server error' });
+    res.status(503).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -419,7 +419,7 @@ router.get("/token-details/:transactionId", publicReadRateLimiter, async (req: R
   } catch (error: any) {
     console.error("[Token Details] Error:", error);
     // Sanitize error message to prevent internal information leakage
-    res.status(500).json({ success: false, error: 'Internal server error' });
+    res.status(503).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -524,7 +524,7 @@ router.post("/vesting-contracts/create", async (req: Request, res: Response) => 
   } catch (error: any) {
     console.error("[Vesting Contract] Create error:", error);
     // Sanitize error message to prevent internal information leakage
-    res.status(500).json({ success: false, error: 'Internal server error' });
+    res.status(503).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -660,7 +660,7 @@ router.post("/vesting-contracts/batch-create", async (req: Request, res: Respons
   } catch (error: any) {
     console.error("[Vesting Contract] Batch create error:", error);
     // Sanitize error message to prevent internal information leakage
-    res.status(500).json({ success: false, error: 'Internal server error' });
+    res.status(503).json({ success: false, error: 'Internal server error' });
   }
 });
 
@@ -809,7 +809,7 @@ router.get("/tokenomics/validate", publicReadRateLimiter, async (req: Request, r
   } catch (error) {
     console.error("Tokenomics validation error:", error);
     // Sanitize error message to prevent internal information leakage
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: "Internal server error",
     });
@@ -854,7 +854,7 @@ router.get("/tokenomics/validate/detailed", publicReadRateLimiter, async (req: R
   } catch (error) {
     console.error("Detailed validation error:", error);
     // Sanitize error message to prevent internal information leakage
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: "Internal server error",
     });

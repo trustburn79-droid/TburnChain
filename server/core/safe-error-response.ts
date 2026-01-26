@@ -64,7 +64,7 @@ export function safeErrorResponse(
   if (error?.statusCode === 400 || error?.status === 400) {
     return res.status(400).json({
       error: userMessage,
-      message: errorMessage,
+      message: 'Invalid request parameters.',
       requestId,
     });
   }

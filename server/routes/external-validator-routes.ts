@@ -252,7 +252,7 @@ router.get('/stats', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Stats error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch stats' });
+    res.status(503).json({ success: false, error: 'Failed to fetch stats' });
   }
 });
 
@@ -277,7 +277,7 @@ router.get('/network-stats', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Network stats error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch network stats' });
+    res.status(503).json({ success: false, error: 'Failed to fetch network stats' });
   }
 });
 
@@ -311,7 +311,7 @@ router.get('/tiers', async (_req: Request, res: Response) => {
     res.json({ success: true, data: tierDetails });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Tiers error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch tier information' });
+    res.status(503).json({ success: false, error: 'Failed to fetch tier information' });
   }
 });
 
@@ -328,7 +328,7 @@ router.get('/setup-guide/:tier', async (req: Request, res: Response) => {
     res.json({ success: true, data: guide });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Setup guide error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch setup guide' });
+    res.status(503).json({ success: false, error: 'Failed to fetch setup guide' });
   }
 });
 
@@ -353,7 +353,7 @@ router.get('/regions', async (_req: Request, res: Response) => {
     res.json({ success: true, data: regionDetails });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Regions error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch region information' });
+    res.status(503).json({ success: false, error: 'Failed to fetch region information' });
   }
 });
 
@@ -429,7 +429,7 @@ router.post('/register', registrationRateLimiter, async (req: Request, res: Resp
     }
   } catch (error) {
     console.error('[ExternalValidatorAPI] Registration error:', error);
-    res.status(500).json({ success: false, error: 'Registration failed' });
+    res.status(503).json({ success: false, error: 'Registration failed' });
   }
 });
 
@@ -494,7 +494,7 @@ router.post('/heartbeat', heartbeatRateLimiter, validateSecurityHeaders, async (
     }
   } catch (error) {
     console.error('[ExternalValidatorAPI] Heartbeat error:', error);
-    res.status(500).json({ success: false, error: 'Heartbeat processing failed' });
+    res.status(503).json({ success: false, error: 'Heartbeat processing failed' });
   }
 });
 
@@ -531,7 +531,7 @@ router.get('/validators', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ExternalValidatorAPI] List validators error:', error);
-    res.status(500).json({ success: false, error: 'Failed to list validators' });
+    res.status(503).json({ success: false, error: 'Failed to list validators' });
   }
 });
 
@@ -547,7 +547,7 @@ router.get('/validators/active', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Active validators error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch active validators' });
+    res.status(503).json({ success: false, error: 'Failed to fetch active validators' });
   }
 });
 
@@ -566,7 +566,7 @@ router.get('/validator/:nodeId', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Get validator error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch validator' });
+    res.status(503).json({ success: false, error: 'Failed to fetch validator' });
   }
 });
 
@@ -585,7 +585,7 @@ router.get('/validator/address/:address', async (req: Request, res: Response) =>
     });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Get validator by address error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch validator' });
+    res.status(503).json({ success: false, error: 'Failed to fetch validator' });
   }
 });
 
@@ -608,7 +608,7 @@ router.post('/validator/:nodeId/stake', async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[ExternalValidatorAPI] Update stake error:', error);
-    res.status(500).json({ success: false, error: 'Failed to update stake' });
+    res.status(503).json({ success: false, error: 'Failed to update stake' });
   }
 });
 
@@ -635,7 +635,7 @@ router.post('/validator/:nodeId/unbond', async (req: Request, res: Response) => 
     }
   } catch (error) {
     console.error('[ExternalValidatorAPI] Unbond error:', error);
-    res.status(500).json({ success: false, error: 'Failed to initiate unbonding' });
+    res.status(503).json({ success: false, error: 'Failed to initiate unbonding' });
   }
 });
 
@@ -664,7 +664,7 @@ router.get('/validator/:nodeId/rewards', async (req: Request, res: Response) => 
     });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Get rewards error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch rewards' });
+    res.status(503).json({ success: false, error: 'Failed to fetch rewards' });
   }
 });
 
@@ -691,7 +691,7 @@ router.post('/validator/:nodeId/claim-rewards', async (req: Request, res: Respon
     }
   } catch (error) {
     console.error('[ExternalValidatorAPI] Claim rewards error:', error);
-    res.status(500).json({ success: false, error: 'Failed to claim rewards' });
+    res.status(503).json({ success: false, error: 'Failed to claim rewards' });
   }
 });
 
@@ -733,7 +733,7 @@ router.get('/leaderboard', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Leaderboard error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch leaderboard' });
+    res.status(503).json({ success: false, error: 'Failed to fetch leaderboard' });
   }
 });
 
@@ -926,7 +926,7 @@ router.get('/security/overview', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ValidatorSecurity] Overview error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch security overview' });
+    res.status(503).json({ success: false, error: 'Failed to fetch security overview' });
   }
 });
 
@@ -949,7 +949,7 @@ router.get('/security/alerts', async (req: Request, res: Response) => {
     res.json({ success: true, data: alerts });
   } catch (error) {
     console.error('[ValidatorSecurity] Alerts error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch alerts' });
+    res.status(503).json({ success: false, error: 'Failed to fetch alerts' });
   }
 });
 
@@ -972,7 +972,7 @@ router.post('/security/alerts/:alertId/status', async (req: Request, res: Respon
     res.json({ success: true, data: alert });
   } catch (error) {
     console.error('[ValidatorSecurity] Alert status error:', error);
-    res.status(500).json({ success: false, error: 'Failed to update alert status' });
+    res.status(503).json({ success: false, error: 'Failed to update alert status' });
   }
 });
 
@@ -998,7 +998,7 @@ router.get('/security/rate-limits', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ValidatorSecurity] Rate limits error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch rate limits' });
+    res.status(503).json({ success: false, error: 'Failed to fetch rate limits' });
   }
 });
 
@@ -1027,7 +1027,7 @@ router.post('/security/rate-limits/unblock/:address', async (req: Request, res: 
     res.json({ success: true, message: 'Address unblocked successfully' });
   } catch (error) {
     console.error('[ValidatorSecurity] Unblock error:', error);
-    res.status(500).json({ success: false, error: 'Failed to unblock address' });
+    res.status(503).json({ success: false, error: 'Failed to unblock address' });
   }
 });
 
@@ -1042,7 +1042,7 @@ router.get('/security/ip-whitelist', async (_req: Request, res: Response) => {
     res.json({ success: true, data: entries });
   } catch (error) {
     console.error('[ValidatorSecurity] IP whitelist error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch IP whitelist' });
+    res.status(503).json({ success: false, error: 'Failed to fetch IP whitelist' });
   }
 });
 
@@ -1086,7 +1086,7 @@ router.post('/security/ip-whitelist', async (req: Request, res: Response) => {
     res.json({ success: true, message: 'IP added to whitelist' });
   } catch (error) {
     console.error('[ValidatorSecurity] IP whitelist add error:', error);
-    res.status(500).json({ success: false, error: 'Failed to add IP to whitelist' });
+    res.status(503).json({ success: false, error: 'Failed to add IP to whitelist' });
   }
 });
 
@@ -1116,7 +1116,7 @@ router.delete('/security/ip-whitelist/:ip', async (req: Request, res: Response) 
     res.json({ success: true, message: 'IP removed from whitelist' });
   } catch (error) {
     console.error('[ValidatorSecurity] IP whitelist remove error:', error);
-    res.status(500).json({ success: false, error: 'Failed to remove IP from whitelist' });
+    res.status(503).json({ success: false, error: 'Failed to remove IP from whitelist' });
   }
 });
 
@@ -1139,7 +1139,7 @@ router.get('/security/audit-logs', async (req: Request, res: Response) => {
     res.json({ success: true, data: logs });
   } catch (error) {
     console.error('[ValidatorSecurity] Audit logs error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch audit logs' });
+    res.status(503).json({ success: false, error: 'Failed to fetch audit logs' });
   }
 });
 
@@ -1528,7 +1528,7 @@ async function validateValidatorApiKey(req: Request, res: Response, next: Functi
     console.error('[ValidatorAuth] Database error:', error);
     // Fail open in development, fail closed in production
     if (process.env.NODE_ENV === 'production') {
-      return res.status(500).json({
+      return res.status(503).json({
         success: false,
         error: 'Authentication service unavailable',
       });
@@ -1598,7 +1598,7 @@ router.get('/security/my-status', validateValidatorApiKey, async (req: Request, 
     });
   } catch (error) {
     console.error('[ValidatorSecuritySync] Status error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch security status' });
+    res.status(503).json({ success: false, error: 'Failed to fetch security status' });
   }
 });
 
@@ -1659,7 +1659,7 @@ router.post('/security/report', validateValidatorApiKey, async (req: Request, re
     });
   } catch (error) {
     console.error('[ValidatorSecuritySync] Report error:', error);
-    res.status(500).json({ success: false, error: 'Failed to process security report' });
+    res.status(503).json({ success: false, error: 'Failed to process security report' });
   }
 });
 
@@ -1692,7 +1692,7 @@ router.post('/security/alerts/:alertId/acknowledge', validateValidatorApiKey, as
     res.json({ success: true, data: { alertId, status: 'acknowledged' } });
   } catch (error) {
     console.error('[ValidatorSecuritySync] Acknowledge error:', error);
-    res.status(500).json({ success: false, error: 'Failed to acknowledge alert' });
+    res.status(503).json({ success: false, error: 'Failed to acknowledge alert' });
   }
 });
 
@@ -1724,7 +1724,7 @@ router.post('/security/heartbeat', validateValidatorApiKey, async (req: Request,
     });
   } catch (error) {
     console.error('[ValidatorSecuritySync] Heartbeat error:', error);
-    res.status(500).json({ success: false, error: 'Failed to process heartbeat' });
+    res.status(503).json({ success: false, error: 'Failed to process heartbeat' });
   }
 });
 
@@ -1772,7 +1772,7 @@ router.post('/register', async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[ValidatorRegistration] Registration error:', error);
-    res.status(500).json({ success: false, error: 'Registration failed' });
+    res.status(503).json({ success: false, error: 'Registration failed' });
   }
 });
 
@@ -1803,7 +1803,7 @@ router.get('/registrations', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ValidatorRegistration] List error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch registrations' });
+    res.status(503).json({ success: false, error: 'Failed to fetch registrations' });
   }
 });
 
@@ -1819,7 +1819,7 @@ router.get('/registrations/pending', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ValidatorRegistration] Pending list error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch pending registrations' });
+    res.status(503).json({ success: false, error: 'Failed to fetch pending registrations' });
   }
 });
 
@@ -1847,7 +1847,7 @@ router.get('/registrations/:id', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ValidatorRegistration] Get registration error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch registration' });
+    res.status(503).json({ success: false, error: 'Failed to fetch registration' });
   }
 });
 
@@ -1866,7 +1866,7 @@ router.get('/registrations/address/:address', async (req: Request, res: Response
     });
   } catch (error) {
     console.error('[ValidatorRegistration] Get by address error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch registration' });
+    res.status(503).json({ success: false, error: 'Failed to fetch registration' });
   }
 });
 
@@ -1901,7 +1901,7 @@ router.post('/registrations/:id/approve', async (req: Request, res: Response) =>
     }
   } catch (error) {
     console.error('[ValidatorRegistration] Approval error:', error);
-    res.status(500).json({ success: false, error: 'Approval failed' });
+    res.status(503).json({ success: false, error: 'Approval failed' });
   }
 });
 
@@ -1927,7 +1927,7 @@ router.post('/registrations/:id/reject', async (req: Request, res: Response) => 
     }
   } catch (error) {
     console.error('[ValidatorRegistration] Rejection error:', error);
-    res.status(500).json({ success: false, error: 'Rejection failed' });
+    res.status(503).json({ success: false, error: 'Rejection failed' });
   }
 });
 
@@ -1968,7 +1968,7 @@ router.post('/registrations/:id/multisig', async (req: Request, res: Response) =
     }
   } catch (error) {
     console.error('[ValidatorRegistration] Multi-sig error:', error);
-    res.status(500).json({ success: false, error: 'Multi-sig submission failed' });
+    res.status(503).json({ success: false, error: 'Multi-sig submission failed' });
   }
 });
 
@@ -2008,7 +2008,7 @@ router.post('/api-key/rotate', validateValidatorApiKey, async (req: Request, res
     }
   } catch (error) {
     console.error('[ValidatorRegistration] Key rotation error:', error);
-    res.status(500).json({ success: false, error: 'Key rotation failed' });
+    res.status(503).json({ success: false, error: 'Key rotation failed' });
   }
 });
 
@@ -2037,7 +2037,7 @@ router.post('/api-key/revoke', async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[ValidatorRegistration] Revocation error:', error);
-    res.status(500).json({ success: false, error: 'Revocation failed' });
+    res.status(503).json({ success: false, error: 'Revocation failed' });
   }
 });
 
@@ -2056,7 +2056,7 @@ router.get('/api-key/rotations/:address', async (req: Request, res: Response) =>
     });
   } catch (error) {
     console.error('[ValidatorRegistration] Rotation history error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch rotation history' });
+    res.status(503).json({ success: false, error: 'Failed to fetch rotation history' });
   }
 });
 
@@ -2075,7 +2075,7 @@ router.get('/heartbeats/:address', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ValidatorRegistration] Heartbeat history error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch heartbeat history' });
+    res.status(503).json({ success: false, error: 'Failed to fetch heartbeat history' });
   }
 });
 
@@ -2116,7 +2116,7 @@ router.post('/heartbeat/record', validateValidatorApiKey, async (req: Request, r
     }
   } catch (error) {
     console.error('[ValidatorRegistration] Heartbeat record error:', error);
-    res.status(500).json({ success: false, error: 'Heartbeat recording failed' });
+    res.status(503).json({ success: false, error: 'Heartbeat recording failed' });
   }
 });
 
@@ -2162,7 +2162,7 @@ router.get('/admin/registrations', requireAdmin, async (req: Request, res: Respo
     });
   } catch (error) {
     console.error('[ExternalValidatorAPI] List registrations error:', error);
-    res.status(500).json({ success: false, error: 'Failed to list registrations' });
+    res.status(503).json({ success: false, error: 'Failed to list registrations' });
   }
 });
 
@@ -2180,7 +2180,7 @@ router.get('/admin/registrations/:id', requireAdmin, async (req: Request, res: R
     });
   } catch (error) {
     console.error('[ExternalValidatorAPI] Get registration error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get registration' });
+    res.status(503).json({ success: false, error: 'Failed to get registration' });
   }
 });
 
@@ -2205,7 +2205,7 @@ router.post('/admin/registrations/:id/approve', requireAdmin, async (req: Reques
     }
   } catch (error) {
     console.error('[ExternalValidatorAPI] Approve registration error:', error);
-    res.status(500).json({ success: false, error: 'Failed to approve registration' });
+    res.status(503).json({ success: false, error: 'Failed to approve registration' });
   }
 });
 
@@ -2231,7 +2231,7 @@ router.post('/admin/registrations/:id/reject', requireAdmin, async (req: Request
     }
   } catch (error) {
     console.error('[ExternalValidatorAPI] Reject registration error:', error);
-    res.status(500).json({ success: false, error: 'Failed to reject registration' });
+    res.status(503).json({ success: false, error: 'Failed to reject registration' });
   }
 });
 
@@ -2249,7 +2249,7 @@ router.get('/rpc-integration/stats', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[RPCIntegration] Stats error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch RPC integration stats' });
+    res.status(503).json({ success: false, error: 'Failed to fetch RPC integration stats' });
   }
 });
 
@@ -2273,7 +2273,7 @@ router.get('/rpc-integration/allowlist', requireAdmin, async (_req: Request, res
     });
   } catch (error) {
     console.error('[RPCIntegration] Allowlist error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch RPC allowlist' });
+    res.status(503).json({ success: false, error: 'Failed to fetch RPC allowlist' });
   }
 });
 
@@ -2287,7 +2287,7 @@ router.get('/rpc-integration/allowlist/export', requireAdmin, async (_req: Reque
     });
   } catch (error) {
     console.error('[RPCIntegration] Export error:', error);
-    res.status(500).json({ success: false, error: 'Failed to export RPC allowlist' });
+    res.status(503).json({ success: false, error: 'Failed to export RPC allowlist' });
   }
 });
 
@@ -2312,7 +2312,7 @@ router.get('/rpc-integration/check/:address', async (req: Request, res: Response
     });
   } catch (error) {
     console.error('[RPCIntegration] Check error:', error);
-    res.status(500).json({ success: false, error: 'Failed to check address' });
+    res.status(503).json({ success: false, error: 'Failed to check address' });
   }
 });
 
@@ -2337,7 +2337,7 @@ router.get('/rpc-integration/endpoints/:region', requireAdmin, async (req: Reque
     });
   } catch (error) {
     console.error('[RPCIntegration] Endpoints error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch region endpoints' });
+    res.status(503).json({ success: false, error: 'Failed to fetch region endpoints' });
   }
 });
 
@@ -2355,7 +2355,7 @@ router.post('/rpc-integration/sync', requireAdmin, async (_req: Request, res: Re
     });
   } catch (error) {
     console.error('[RPCIntegration] Sync error:', error);
-    res.status(500).json({ success: false, error: 'Failed to sync RPC integration' });
+    res.status(503).json({ success: false, error: 'Failed to sync RPC integration' });
   }
 });
 

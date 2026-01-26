@@ -300,9 +300,10 @@ export function wrapSafeRoute(
       
       if (isValidationError(error)) {
         updateErrorStats('validation', false);
+        console.log(`${logPrefix} Validation error [${requestId}]: ${errorMessage}`);
         return res.status(400).json({
           error: 'Invalid request',
-          message: errorMessage,
+          message: 'Please check your request parameters.',
           requestId,
         });
       }
@@ -431,9 +432,10 @@ export function never500ErrorHandler(
   
   if (isValidationError(err)) {
     updateErrorStats('validation', false);
+    console.log(`[GlobalError:400] Validation: ${req.method} ${req.path} - ${errorMessage.substring(0, 100)} [${requestId}]`);
     return res.status(400).json({
       error: 'Invalid request',
-      message: errorMessage,
+      message: 'Please check your request parameters.',
       requestId,
     });
   }

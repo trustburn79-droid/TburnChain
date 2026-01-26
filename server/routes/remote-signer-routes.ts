@@ -22,7 +22,7 @@ router.get('/health', async (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       healthy: false,
       error: 'Health check failed' 
@@ -50,7 +50,7 @@ router.get('/stats', async (_req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch stats' });
+    res.status(503).json({ success: false, error: 'Failed to fetch stats' });
   }
 });
 
@@ -82,7 +82,7 @@ router.get('/validators', async (_req: Request, res: Response) => {
       }))
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch validators' });
+    res.status(503).json({ success: false, error: 'Failed to fetch validators' });
   }
 });
 
@@ -111,7 +111,7 @@ router.get('/validators/:tier', async (req: Request, res: Response) => {
       }))
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch validators by tier' });
+    res.status(503).json({ success: false, error: 'Failed to fetch validators by tier' });
   }
 });
 
@@ -167,7 +167,7 @@ router.post('/register', async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[RemoteSignerAPI] Registration error:', error);
-    res.status(500).json({ success: false, error: 'Registration failed' });
+    res.status(503).json({ success: false, error: 'Registration failed' });
   }
 });
 
@@ -205,7 +205,7 @@ router.post('/sign', async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[RemoteSignerAPI] Signing error:', error);
-    res.status(500).json({ success: false, error: 'Signing request failed' });
+    res.status(503).json({ success: false, error: 'Signing request failed' });
   }
 });
 
@@ -236,7 +236,7 @@ router.post('/rotate-key', async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[RemoteSignerAPI] Key rotation error:', error);
-    res.status(500).json({ success: false, error: 'Key rotation failed' });
+    res.status(503).json({ success: false, error: 'Key rotation failed' });
   }
 });
 
@@ -267,7 +267,7 @@ router.delete('/validators/:address', async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[RemoteSignerAPI] Unregistration error:', error);
-    res.status(500).json({ success: false, error: 'Unregistration failed' });
+    res.status(503).json({ success: false, error: 'Unregistration failed' });
   }
 });
 
@@ -293,7 +293,7 @@ router.get('/audit-logs', async (req: Request, res: Response) => {
       }))
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch audit logs' });
+    res.status(503).json({ success: false, error: 'Failed to fetch audit logs' });
   }
 });
 
@@ -310,7 +310,7 @@ router.get('/audit-logs/:address', async (req: Request, res: Response) => {
       data: logs
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch validator audit logs' });
+    res.status(503).json({ success: false, error: 'Failed to fetch validator audit logs' });
   }
 });
 
@@ -329,7 +329,7 @@ router.get('/expiring-keys', async (_req: Request, res: Response) => {
       }))
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to check expiring keys' });
+    res.status(503).json({ success: false, error: 'Failed to check expiring keys' });
   }
 });
 

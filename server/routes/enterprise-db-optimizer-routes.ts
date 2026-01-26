@@ -25,7 +25,7 @@ router.get('/status', (req, res) => {
       data: status,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -42,7 +42,7 @@ router.post('/retention/config', (req, res) => {
       data: dbOptimizer.getStatus().retentionConfig,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -63,7 +63,7 @@ router.post('/cleanup/run', async (req, res) => {
       data: stats,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -80,7 +80,7 @@ router.post('/rollup/run', async (req, res) => {
       data: stats,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -96,7 +96,7 @@ router.post('/vacuum/run', async (req, res) => {
       message: success ? 'VACUUM/ANALYZE completed' : 'VACUUM/ANALYZE failed',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -134,7 +134,7 @@ router.get('/tables/stats', async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -155,7 +155,7 @@ router.post('/start', (req, res) => {
       data: dbOptimizer.getStatus(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -170,7 +170,7 @@ router.post('/stop', (req, res) => {
       message: 'Database optimizer stopped',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });

@@ -52,7 +52,7 @@ export async function getCsrfToken(req: Request, res: Response): Promise<void> {
     });
   } catch (error: any) {
     console.error("[CSRF] Error generating token:", error);
-    res.status(500).json({ success: false, error: "Failed to generate CSRF token" });
+    res.status(503).json({ success: false, error: "Service temporarily unavailable" });
   }
 }
 

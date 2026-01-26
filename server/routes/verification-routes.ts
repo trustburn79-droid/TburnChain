@@ -58,7 +58,7 @@ router.get('/metrics', (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: error.message,
     });
@@ -98,7 +98,7 @@ router.get('/health', (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: error.message,
     });
@@ -137,7 +137,7 @@ router.post('/verify-transaction', async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: error.message,
     });
@@ -191,7 +191,7 @@ router.post('/verify-batch', async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: error.message,
     });
@@ -233,7 +233,7 @@ router.post('/generate-merkle-root', (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: error.message,
     });
@@ -280,7 +280,7 @@ router.post('/generate-merkle-proof', (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: error.message,
     });
@@ -311,7 +311,7 @@ router.post('/verify-merkle-proof', (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: error.message,
     });
@@ -346,7 +346,7 @@ router.post('/verify-block', (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: error.message,
     });
@@ -371,7 +371,7 @@ router.post('/reset-metrics', (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: error.message,
     });
@@ -428,7 +428,7 @@ router.get('/benchmark', async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error: any) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: error.message,
     });

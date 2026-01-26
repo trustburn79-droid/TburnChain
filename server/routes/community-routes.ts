@@ -1263,7 +1263,7 @@ router.post("/translate", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("[Community] Translation error:", error);
-    res.status(500).json({ error: "Translation failed" });
+    res.status(503).json({ error: "Translation failed" });
   }
 });
 
@@ -1285,7 +1285,7 @@ router.post("/translate-batch", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("[Community] Batch translation error:", error);
-    res.status(500).json({ error: "Translation failed" });
+    res.status(503).json({ error: "Translation failed" });
   }
 });
 

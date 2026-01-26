@@ -26,7 +26,7 @@ router.post("/engine/start", async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -42,7 +42,7 @@ router.post("/engine/stop", async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -58,7 +58,7 @@ router.get("/engine/status", async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -89,7 +89,7 @@ router.get("/programs", async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -126,7 +126,7 @@ router.get("/programs/:program", async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -152,7 +152,7 @@ router.post("/programs/:program/enable", async (req: Request, res: Response) => 
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -178,7 +178,7 @@ router.post("/programs/:program/disable", async (req: Request, res: Response) =>
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -204,7 +204,7 @@ router.post("/programs/:program/reset-circuit-breaker", async (req: Request, res
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -252,7 +252,7 @@ router.get("/metrics", async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -286,7 +286,7 @@ router.get("/metrics/:program", async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -387,7 +387,7 @@ router.post("/claims/:claimId/approve", async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -664,7 +664,7 @@ router.post("/blacklist/add", async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -690,7 +690,7 @@ router.post("/blacklist/remove", async (req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });

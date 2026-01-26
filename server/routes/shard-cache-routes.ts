@@ -44,7 +44,7 @@ router.get('/status', (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ShardCache] Status error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get cache status' });
+    res.status(503).json({ success: false, error: 'Failed to get cache status' });
   }
 });
 
@@ -76,7 +76,7 @@ router.get('/stats', (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ShardCache] Stats error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get cache stats' });
+    res.status(503).json({ success: false, error: 'Failed to get cache stats' });
   }
 });
 
@@ -101,7 +101,7 @@ router.get('/shard/:id', async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[ShardCache] Get shard error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get shard' });
+    res.status(503).json({ success: false, error: 'Failed to get shard' });
   }
 });
 
@@ -121,7 +121,7 @@ router.get('/shards', async (_req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[ShardCache] Get all shards error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get shards' });
+    res.status(503).json({ success: false, error: 'Failed to get shards' });
   }
 });
 
@@ -148,7 +148,7 @@ router.get('/pair/:source/:target', (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[ShardCache] Get pair error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get shard pair' });
+    res.status(503).json({ success: false, error: 'Failed to get shard pair' });
   }
 });
 
@@ -172,7 +172,7 @@ router.post('/warm', requireAdmin, async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ShardCache] Warm error:', error);
-    res.status(500).json({ success: false, error: 'Failed to warm cache' });
+    res.status(503).json({ success: false, error: 'Failed to warm cache' });
   }
 });
 
@@ -188,7 +188,7 @@ router.post('/invalidate', requireAdmin, (_req: Request, res: Response) => {
     res.json({ success: true, message: 'Cache invalidated successfully' });
   } catch (error) {
     console.error('[ShardCache] Invalidate error:', error);
-    res.status(500).json({ success: false, error: 'Failed to invalidate cache' });
+    res.status(503).json({ success: false, error: 'Failed to invalidate cache' });
   }
 });
 
@@ -233,7 +233,7 @@ router.get('/route/:from/:to', (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error('[ShardCache] Get route error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get route' });
+    res.status(503).json({ success: false, error: 'Failed to get route' });
   }
 });
 
@@ -279,7 +279,7 @@ router.get('/health', (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ShardCache] Health check error:', error);
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       data: { status: 'unhealthy', message: 'Health check failed' },
     });
@@ -346,7 +346,7 @@ router.post('/benchmark', requireAdmin, (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ShardCache] Benchmark error:', error);
-    res.status(500).json({ success: false, error: 'Failed to run benchmark' });
+    res.status(503).json({ success: false, error: 'Failed to run benchmark' });
   }
 });
 

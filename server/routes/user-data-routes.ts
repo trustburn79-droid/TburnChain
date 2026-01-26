@@ -346,7 +346,7 @@ router.get('/:address/overview', async (req: Request, res: Response) => {
     res.json({ success: true, data: overview });
   } catch (error: any) {
     console.error('[UserData] Overview error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch user overview' });
+    res.status(503).json({ success: false, error: 'Failed to fetch user overview' });
   }
 });
 
@@ -394,7 +394,7 @@ router.get('/:address/mining-rewards', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Mining rewards error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch mining rewards' });
+    res.status(503).json({ success: false, error: 'Failed to fetch mining rewards' });
   }
 });
 
@@ -429,7 +429,7 @@ router.get('/:address/staking-positions', async (req: Request, res: Response) =>
     });
   } catch (error: any) {
     console.error('[UserData] Staking positions error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch staking positions' });
+    res.status(503).json({ success: false, error: 'Failed to fetch staking positions' });
   }
 });
 
@@ -478,7 +478,7 @@ router.get('/:address/staking-rewards', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Staking rewards error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch staking rewards' });
+    res.status(503).json({ success: false, error: 'Failed to fetch staking rewards' });
   }
 });
 
@@ -519,7 +519,7 @@ router.get('/:address/events', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Events error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch event participation' });
+    res.status(503).json({ success: false, error: 'Failed to fetch event participation' });
   }
 });
 
@@ -561,7 +561,7 @@ router.get('/:address/activities', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Activities error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch activities' });
+    res.status(503).json({ success: false, error: 'Failed to fetch activities' });
   }
 });
 
@@ -621,7 +621,7 @@ router.post('/:address/delegations', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Delegation error:', error);
-    res.status(500).json({ success: false, error: 'Failed to create delegation' });
+    res.status(503).json({ success: false, error: 'Failed to create delegation' });
   }
 });
 
@@ -668,7 +668,7 @@ router.get('/:address/delegations', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Delegations list error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch delegations' });
+    res.status(503).json({ success: false, error: 'Failed to fetch delegations' });
   }
 });
 
@@ -724,7 +724,7 @@ router.post('/:address/claim-all', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Claim all error:', error);
-    res.status(500).json({ success: false, error: 'Failed to claim rewards' });
+    res.status(503).json({ success: false, error: 'Failed to claim rewards' });
   }
 });
 
@@ -751,7 +751,7 @@ router.post('/:address/claim/:rewardId', async (req: Request, res: Response) => 
     });
   } catch (error: any) {
     console.error('[UserData] Claim reward error:', error);
-    res.status(500).json({ success: false, error: 'Failed to claim reward' });
+    res.status(503).json({ success: false, error: 'Failed to claim reward' });
   }
 });
 
@@ -799,7 +799,7 @@ router.post('/:address/transfer', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Transfer error:', error);
-    res.status(500).json({ success: false, error: 'Failed to process transfer' });
+    res.status(503).json({ success: false, error: 'Failed to process transfer' });
   }
 });
 
@@ -826,7 +826,7 @@ router.get('/:address/staking-portfolio', async (req: Request, res: Response) =>
     res.json({ success: true, data: portfolio });
   } catch (error: any) {
     console.error('[UserData] Portfolio error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch staking portfolio' });
+    res.status(503).json({ success: false, error: 'Failed to fetch staking portfolio' });
   }
 });
 
@@ -896,7 +896,7 @@ router.get('/:address/unbondings', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Unbondings error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch unbonding positions' });
+    res.status(503).json({ success: false, error: 'Failed to fetch unbonding positions' });
   }
 });
 
@@ -935,7 +935,7 @@ router.post('/:address/undelegate', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Undelegate error:', error);
-    res.status(500).json({ success: false, error: 'Failed to initiate unbonding' });
+    res.status(503).json({ success: false, error: 'Failed to initiate unbonding' });
   }
 });
 
@@ -972,7 +972,7 @@ router.post('/:address/emergency-unstake', async (req: Request, res: Response) =
     });
   } catch (error: any) {
     console.error('[UserData] Emergency unstake error:', error);
-    res.status(500).json({ success: false, error: 'Failed to process emergency unstake' });
+    res.status(503).json({ success: false, error: 'Failed to process emergency unstake' });
   }
 });
 
@@ -1021,7 +1021,7 @@ router.post('/:address/claim-staking', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Claim staking error:', error);
-    res.status(500).json({ success: false, error: 'Failed to claim staking rewards' });
+    res.status(503).json({ success: false, error: 'Failed to claim staking rewards' });
   }
 });
 
@@ -1051,7 +1051,7 @@ router.post('/:address/auto-compound', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Auto-compound error:', error);
-    res.status(500).json({ success: false, error: 'Failed to update auto-compound setting' });
+    res.status(503).json({ success: false, error: 'Failed to update auto-compound setting' });
   }
 });
 
@@ -1092,7 +1092,7 @@ router.post('/:address/redelegate', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Redelegate error:', error);
-    res.status(500).json({ success: false, error: 'Failed to initiate redelegation' });
+    res.status(503).json({ success: false, error: 'Failed to initiate redelegation' });
   }
 });
 
@@ -1129,7 +1129,7 @@ router.get('/:address/reward-history', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('[UserData] Reward history error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch reward history' });
+    res.status(503).json({ success: false, error: 'Failed to fetch reward history' });
   }
 });
 
@@ -1151,7 +1151,7 @@ router.get('/staking-portfolio/metrics', async (req: Request, res: Response) => 
     });
   } catch (error: any) {
     console.error('[UserData] Metrics error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch metrics' });
+    res.status(503).json({ success: false, error: 'Failed to fetch metrics' });
   }
 });
 
@@ -1178,7 +1178,7 @@ router.post('/staking-portfolio/cache/invalidate', async (req: Request, res: Res
     res.status(400).json({ success: false, error: 'Address or pattern required' });
   } catch (error: any) {
     console.error('[UserData] Cache invalidation error:', error);
-    res.status(500).json({ success: false, error: 'Failed to invalidate cache' });
+    res.status(503).json({ success: false, error: 'Failed to invalidate cache' });
   }
 });
 
@@ -1188,7 +1188,7 @@ router.post('/staking-portfolio/metrics/reset', async (req: Request, res: Respon
     res.json({ success: true, message: 'Metrics reset successfully' });
   } catch (error: any) {
     console.error('[UserData] Metrics reset error:', error);
-    res.status(500).json({ success: false, error: 'Failed to reset metrics' });
+    res.status(503).json({ success: false, error: 'Failed to reset metrics' });
   }
 });
 

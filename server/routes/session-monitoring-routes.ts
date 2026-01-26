@@ -24,7 +24,7 @@ router.get('/telemetry/session/status', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -38,7 +38,7 @@ router.get('/telemetry/session/prometheus', (req: Request, res: Response) => {
     res.set('Content-Type', 'text/plain; charset=utf-8');
     res.send(metrics);
   } catch (error) {
-    res.status(500).send(`# Error: ${(error as Error).message}`);
+    res.status(503).send(`# Error: ${(error as Error).message}`);
   }
 });
 
@@ -54,7 +54,7 @@ router.get('/telemetry/session/history', (req: Request, res: Response) => {
       hours,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -78,7 +78,7 @@ router.get('/telemetry/session/alerts', (req: Request, res: Response) => {
       activeOnly,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -96,7 +96,7 @@ router.post('/telemetry/session/alerts/:id/acknowledge', (req: Request, res: Res
       message: acknowledged ? 'Alert acknowledged' : 'Alert not found',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -115,7 +115,7 @@ router.post('/telemetry/session/thresholds', (req: Request, res: Response) => {
       thresholds: sessionMetrics.getStatus().thresholds,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -139,7 +139,7 @@ router.get('/session-store/health', async (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -157,7 +157,7 @@ router.post('/session-store/failover', (req: Request, res: Response) => {
       health: resilientStore.getHealth(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -175,7 +175,7 @@ router.post('/session-store/recover', (req: Request, res: Response) => {
       health: resilientStore.getHealth(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -196,7 +196,7 @@ router.get('/soak-tests/status', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -237,7 +237,7 @@ router.post('/soak-tests/stop', (req: Request, res: Response) => {
       message: 'Soak test stopped',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -262,7 +262,7 @@ router.get('/soak-tests/:runId', (req: Request, res: Response) => {
       data: run,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -288,7 +288,7 @@ router.get('/soak-tests/history', (req: Request, res: Response) => {
       count: history.length,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -325,7 +325,7 @@ router.get('/telemetry/memory', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -369,7 +369,7 @@ router.get('/telemetry/memory/prometheus', (req: Request, res: Response) => {
     res.set('Content-Type', 'text/plain; charset=utf-8');
     res.send(lines.join('\n'));
   } catch (error) {
-    res.status(500).send(`# Error: ${(error as Error).message}`);
+    res.status(503).send(`# Error: ${(error as Error).message}`);
   }
 });
 

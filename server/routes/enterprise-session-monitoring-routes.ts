@@ -30,7 +30,7 @@ router.get('/telemetry/session/enterprise/status', (req: Request, res: Response)
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -43,7 +43,7 @@ router.get('/telemetry/session/enterprise/prometheus', (req: Request, res: Respo
     res.set('Content-Type', 'text/plain; charset=utf-8');
     res.send(metrics);
   } catch (error) {
-    res.status(500).send(`# Error: ${(error as Error).message}`);
+    res.status(503).send(`# Error: ${(error as Error).message}`);
   }
 });
 
@@ -58,7 +58,7 @@ router.get('/telemetry/session/enterprise/history', (req: Request, res: Response
       hours,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -76,7 +76,7 @@ router.get('/telemetry/session/enterprise/hourly', (req: Request, res: Response)
       hours,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -92,7 +92,7 @@ router.get('/telemetry/session/enterprise/security', (req: Request, res: Respons
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -119,7 +119,7 @@ router.get('/telemetry/session/enterprise/alerts', (req: Request, res: Response)
       activeOnly,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -138,7 +138,7 @@ router.post('/telemetry/session/enterprise/alerts/:id/acknowledge', (req: Reques
       message: acknowledged ? 'Alert acknowledged' : 'Alert not found or not firing',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -158,7 +158,7 @@ router.get('/telemetry/session/enterprise/policies', (req: Request, res: Respons
       count: policies.length,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -196,7 +196,7 @@ router.post('/telemetry/session/enterprise/policies', (req: Request, res: Respon
       policy,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -215,7 +215,7 @@ router.patch('/telemetry/session/enterprise/policies/:id', (req: Request, res: R
       message: updated ? 'Policy updated' : 'Policy not found',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -232,7 +232,7 @@ router.delete('/telemetry/session/enterprise/policies/:id', (req: Request, res: 
       message: deleted ? 'Policy deleted' : 'Policy not found',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -252,7 +252,7 @@ router.get('/enterprise/status', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -294,7 +294,7 @@ router.post('/enterprise/stop', (req: Request, res: Response) => {
       status: enterpriseSoakTest.getStatus(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -318,7 +318,7 @@ router.get('/enterprise/run/:runId', (req: Request, res: Response) => {
       data: run,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -352,7 +352,7 @@ router.get('/enterprise/history', (req: Request, res: Response) => {
       count: history.length,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -368,7 +368,7 @@ router.get('/enterprise/anomalies', (req: Request, res: Response) => {
       count: anomalies.length,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -388,7 +388,7 @@ router.get('/enterprise/baselines', (req: Request, res: Response) => {
       count: baselines.length,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -421,7 +421,7 @@ router.post('/enterprise/baselines', (req: Request, res: Response) => {
       data: baseline,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -440,7 +440,7 @@ router.patch('/enterprise/baselines/:id/tolerances', (req: Request, res: Respons
       message: updated ? 'Tolerances updated' : 'Baseline not found',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -504,7 +504,7 @@ router.get('/enterprise/sla-report', (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -535,7 +535,7 @@ router.get('/enterprise/sla-sync/status', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -568,7 +568,7 @@ router.post('/enterprise/sla-sync/:scenario', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -608,7 +608,7 @@ router.post('/enterprise/sla-sync/all', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -629,7 +629,7 @@ router.get('/enterprise/scheduler/status', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -651,7 +651,7 @@ router.post('/enterprise/scheduler/start', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -668,7 +668,7 @@ router.post('/enterprise/scheduler/stop', (req: Request, res: Response) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -687,7 +687,7 @@ router.post('/enterprise/scheduler/trigger', async (req: Request, res: Response)
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -720,7 +720,7 @@ router.get('/session-store/enterprise/health', async (req: Request, res: Respons
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -737,7 +737,7 @@ router.post('/session-store/enterprise/failover', (req: Request, res: Response) 
       health: resilientStore.getHealth(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -754,7 +754,7 @@ router.post('/session-store/enterprise/recover', (req: Request, res: Response) =
       health: resilientStore.getHealth(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -800,7 +800,7 @@ router.get('/dashboard/enterprise/session-overview', async (req: Request, res: R
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });

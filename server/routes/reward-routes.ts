@@ -77,9 +77,9 @@ router.get('/status', (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -117,9 +117,9 @@ router.get('/statistics', (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -206,9 +206,9 @@ router.get('/epoch/:epoch', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -259,9 +259,9 @@ router.get('/epoch/:epoch/gas', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -299,9 +299,9 @@ router.post('/epoch/start', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -340,9 +340,9 @@ router.post('/epoch/finalize', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -386,9 +386,9 @@ router.get('/validator/:id', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -413,9 +413,9 @@ router.get('/validator/:id/pending', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -456,9 +456,9 @@ router.get('/validator/:id/history', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -527,9 +527,9 @@ router.post('/calculate', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -583,9 +583,9 @@ router.post('/staking/calculate', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -609,9 +609,9 @@ router.post('/batch/start', (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -631,9 +631,9 @@ router.post('/batch/stop', (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -674,9 +674,9 @@ router.get('/batch/:id', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -713,9 +713,9 @@ router.post('/validation/mode', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -736,9 +736,9 @@ router.post('/wal/replay', (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -758,9 +758,9 @@ router.get('/wal/stats', (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -785,9 +785,9 @@ router.get('/incentives/dashboard', (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -828,9 +828,9 @@ router.get('/incentives/validator/:id', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -876,9 +876,9 @@ router.post('/incentives/update-performance', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -918,9 +918,9 @@ router.post('/incentives/calculate-bonus', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -953,9 +953,9 @@ router.get('/auto-distribution/status', (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -990,9 +990,9 @@ router.post('/auto-distribution/configure', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -1014,9 +1014,9 @@ router.post('/auto-distribution/start', (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -1038,9 +1038,9 @@ router.post('/auto-distribution/stop', (_req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }
@@ -1066,9 +1066,9 @@ router.post('/cleanup', (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Operation failed',
       timestamp: Date.now()
     });
   }

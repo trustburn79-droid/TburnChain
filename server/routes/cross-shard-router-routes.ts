@@ -42,10 +42,10 @@ router.get('/status', (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get router status',
-      message: error instanceof Error ? error.message : 'Unknown error'
+      message: 'Operation failed. Please try again.'
     });
   }
 });
@@ -60,7 +60,7 @@ router.get('/stats', (req: Request, res: Response) => {
       data: stats
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get router stats'
     });
@@ -130,10 +130,10 @@ router.post('/send', async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to send message',
-      message: error instanceof Error ? error.message : 'Unknown error'
+      message: 'Operation failed. Please try again.'
     });
   }
 });
@@ -178,7 +178,7 @@ router.post('/send/batch', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to send batch messages'
     });
@@ -207,7 +207,7 @@ router.get('/routes', (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get routes'
     });
@@ -243,7 +243,7 @@ router.get('/routes/:sourceShard/:targetShard', (req: Request, res: Response) =>
       data: metrics
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get route metrics'
     });
@@ -273,7 +273,7 @@ router.get('/queue/depth', (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get queue depth'
     });
@@ -308,7 +308,7 @@ router.get('/shards', (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get shards'
     });
@@ -343,7 +343,7 @@ router.get('/shards/:shardId', (req: Request, res: Response) => {
       data: health
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get shard health'
     });
@@ -370,7 +370,7 @@ router.post('/shards/:shardId/add', (req: Request, res: Response) => {
       message: `Shard ${shardId} added successfully`
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to add shard'
     });
@@ -397,7 +397,7 @@ router.delete('/shards/:shardId', (req: Request, res: Response) => {
       message: `Shard ${shardId} removed successfully`
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to remove shard'
     });
@@ -433,7 +433,7 @@ router.get('/circuits', (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get circuit states'
     });
@@ -459,7 +459,7 @@ router.get('/latency', (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get latency metrics'
     });
@@ -492,7 +492,7 @@ router.get('/throughput', (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get throughput metrics'
     });
@@ -518,7 +518,7 @@ router.get('/wal/stats', (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get WAL stats'
     });
@@ -539,7 +539,7 @@ router.post('/admin/start', async (req: Request, res: Response) => {
       message: `Cross-shard router started with ${shardCount} shards`
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to start router'
     });
@@ -555,7 +555,7 @@ router.post('/admin/stop', async (req: Request, res: Response) => {
       message: 'Cross-shard router stopped'
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to stop router'
     });
@@ -574,7 +574,7 @@ router.post('/admin/restart', async (req: Request, res: Response) => {
       message: `Cross-shard router restarted with ${shardCount} shards`
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to restart router'
     });
@@ -625,7 +625,7 @@ router.post('/benchmark', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Benchmark failed'
     });

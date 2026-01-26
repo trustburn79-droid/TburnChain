@@ -206,7 +206,7 @@ router.get('/:address', async (req: Request, res: Response) => {
     res.json(validatorDetail);
   } catch (error) {
     console.error("[ValidatorRoutes] Error fetching validator detail:", error);
-    res.status(500).json({ 
+    res.status(503).json({ 
       error: 'Failed to fetch validator',
       message: error instanceof Error ? error.message : 'Unknown error'
     });
@@ -219,7 +219,7 @@ router.get('/status', async (req: Request, res: Response) => {
     const status = orchestrator.getStatus();
     res.json({ success: true, data: status, timestamp: Date.now() });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -232,7 +232,7 @@ router.get('/metrics', async (req: Request, res: Response) => {
     const metrics = orchestrator.getMetrics();
     res.json({ success: true, data: metrics, timestamp: Date.now() });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -245,7 +245,7 @@ router.get('/dashboard', async (req: Request, res: Response) => {
     const dashboard = orchestrator.getPerformanceDashboard();
     res.json({ success: true, data: dashboard, timestamp: Date.now() });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -292,7 +292,7 @@ router.get('/list', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -320,7 +320,7 @@ router.get('/active', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -346,7 +346,7 @@ router.get('/top-performers', async (req: Request, res: Response) => {
     
     res.json({ success: true, data: result, timestamp: Date.now() });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -373,7 +373,7 @@ router.get('/top-stakers', async (req: Request, res: Response) => {
     
     res.json({ success: true, data: result, timestamp: Date.now() });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -399,7 +399,7 @@ router.get('/rotation-pool', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -441,7 +441,7 @@ router.get('/shard/:shardId', async (req: Request, res: Response) => {
     
     res.json({ success: true, data: result, timestamp: Date.now() });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -632,7 +632,7 @@ router.get('/:validatorId', async (req: Request, res: Response) => {
     
     res.json({ success: true, data: result, timestamp: Date.now() });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -652,7 +652,7 @@ router.post('/initialize', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -679,7 +679,7 @@ router.post('/record-block', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -711,7 +711,7 @@ router.post('/distribute-rewards', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -729,7 +729,7 @@ router.post('/claim-rewards/:validatorId', async (req: Request, res: Response) =
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -763,7 +763,7 @@ router.post('/delegate', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -797,7 +797,7 @@ router.post('/undelegate', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -824,7 +824,7 @@ router.post('/slash-double-sign', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -845,7 +845,7 @@ router.get('/telemetry/summary', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -871,7 +871,7 @@ router.get('/telemetry/:validatorId', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -888,7 +888,7 @@ router.get('/alerts/active', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -914,7 +914,7 @@ router.post('/alerts/:alertKey/acknowledge', async (req: Request, res: Response)
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -940,7 +940,7 @@ router.post('/alerts/:alertKey/resolve', async (req: Request, res: Response) => 
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -957,7 +957,7 @@ router.get('/slashing/pending', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -975,7 +975,7 @@ router.get('/slashing/history', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -998,7 +998,7 @@ router.post('/slashing/:slashId/confirm', async (req: Request, res: Response) =>
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -1025,7 +1025,7 @@ router.post('/telemetry/record-latency', async (req: Request, res: Response) => 
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -1052,7 +1052,7 @@ router.post('/telemetry/record-uptime', async (req: Request, res: Response) => {
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });
@@ -1079,7 +1079,7 @@ router.get('/performance/:validatorId/sla', async (req: Request, res: Response) 
       timestamp: Date.now() 
     });
   } catch (error) {
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
     });

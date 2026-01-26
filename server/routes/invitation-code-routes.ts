@@ -80,7 +80,7 @@ router.get('/quotas', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[InvitationCodes] Error fetching quotas:', error);
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: 'Failed to fetch tier quotas' 
     });
@@ -153,7 +153,7 @@ router.post('/validate', validateRateLimiter, async (req: Request, res: Response
     });
   } catch (error) {
     console.error('[InvitationCodes] Error validating code:', error);
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: 'Failed to validate invitation code' 
     });
@@ -205,7 +205,7 @@ router.post('/admin/generate', requireAdmin, async (req: Request, res: Response)
     });
   } catch (error) {
     console.error('[InvitationCodes] Error generating codes:', error);
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: 'Failed to generate invitation codes' 
     });
@@ -248,7 +248,7 @@ router.get('/admin/list', requireAdmin, async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[InvitationCodes] Error listing codes:', error);
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: 'Failed to list invitation codes' 
     });
@@ -314,7 +314,7 @@ router.post('/use', useCodeRateLimiter, async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[InvitationCodes] Error using code:', error);
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: 'Failed to use invitation code' 
     });

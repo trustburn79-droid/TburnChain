@@ -22,7 +22,7 @@ router.get('/stats', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ConsensusAPI] Error fetching stats:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch consensus stats' });
+    res.status(503).json({ success: false, error: 'Failed to fetch consensus stats' });
   }
 });
 
@@ -45,7 +45,7 @@ router.get('/metrics', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ConsensusAPI] Error fetching metrics:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch metrics' });
+    res.status(503).json({ success: false, error: 'Failed to fetch metrics' });
   }
 });
 
@@ -82,7 +82,7 @@ router.get('/phase', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ConsensusAPI] Error fetching phase info:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch phase info' });
+    res.status(503).json({ success: false, error: 'Failed to fetch phase info' });
   }
 });
 
@@ -161,7 +161,7 @@ router.get('/round', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ConsensusAPI] Error fetching round state:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch round state' });
+    res.status(503).json({ success: false, error: 'Failed to fetch round state' });
   }
 });
 
@@ -184,7 +184,7 @@ router.get('/blocks/recent', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ConsensusAPI] Error fetching recent blocks:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch recent blocks' });
+    res.status(503).json({ success: false, error: 'Failed to fetch recent blocks' });
   }
 });
 
@@ -210,7 +210,7 @@ router.get('/tps', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ConsensusAPI] Error fetching TPS:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch TPS metrics' });
+    res.status(503).json({ success: false, error: 'Failed to fetch TPS metrics' });
   }
 });
 
@@ -256,7 +256,7 @@ router.get('/config', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ConsensusAPI] Error fetching config:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch consensus config' });
+    res.status(503).json({ success: false, error: 'Failed to fetch consensus config' });
   }
 });
 
@@ -317,7 +317,7 @@ router.get('/summary', async (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[ConsensusAPI] Error fetching summary:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch consensus summary' });
+    res.status(503).json({ success: false, error: 'Failed to fetch consensus summary' });
   }
 });
 

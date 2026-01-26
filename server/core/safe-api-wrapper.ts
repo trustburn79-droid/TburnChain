@@ -176,9 +176,7 @@ export async function safeCall<T>(
       success: false,
       data: null,
       degraded: true,
-      error: isRpcError(error) 
-        ? 'Service temporarily unavailable. Please try again later.'
-        : errorMessage,
+      error: 'Service temporarily unavailable. Please try again later.',
       source: 'static',
     };
   }
@@ -219,8 +217,10 @@ export function safeRouteHandler(
       }
 
       console.error(`${logPrefix} Unhandled error:`, errorMessage);
-      return res.status(500).json({
-        error: 'An unexpected error occurred',
+      return res.status(503).json({
+        error: 'Service temporarily unavailable',
+        degraded: true,
+        retryAfter: 10,
         requestId: `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       });
     }

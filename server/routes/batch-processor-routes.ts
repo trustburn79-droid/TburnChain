@@ -51,7 +51,7 @@ router.get('/status', (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Status error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get processor status' });
+    res.status(503).json({ success: false, error: 'Failed to get processor status' });
   }
 });
 
@@ -86,7 +86,7 @@ router.get('/stats', (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Stats error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get stats' });
+    res.status(503).json({ success: false, error: 'Failed to get stats' });
   }
 });
 
@@ -128,7 +128,7 @@ router.get('/health', (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Health check error:', error);
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       data: { status: 'unhealthy', message: 'Health check failed' },
     });
@@ -160,7 +160,7 @@ router.get('/queue', (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Queue status error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get queue status' });
+    res.status(503).json({ success: false, error: 'Failed to get queue status' });
   }
 });
 
@@ -189,7 +189,7 @@ router.get('/config', (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Config error:', error);
-    res.status(500).json({ success: false, error: 'Failed to get config' });
+    res.status(503).json({ success: false, error: 'Failed to get config' });
   }
 });
 
@@ -237,10 +237,10 @@ router.post('/insert', requireAdmin, async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Insert error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to insert batch',
-      message: error instanceof Error ? error.message : 'Unknown error',
+      message: 'Operation failed. Please try again.',
     });
   }
 });
@@ -279,7 +279,7 @@ router.post('/insert/direct', requireAdmin, async (req: Request, res: Response) 
     });
   } catch (error) {
     console.error('[BatchProcessor] Direct insert error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to process batch directly',
     });
@@ -311,7 +311,7 @@ router.post('/benchmark', requireAdmin, async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Benchmark error:', error);
-    res.status(500).json({ success: false, error: 'Failed to run benchmark' });
+    res.status(503).json({ success: false, error: 'Failed to run benchmark' });
   }
 });
 
@@ -331,10 +331,10 @@ router.post('/start', requireAdmin, async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Start error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to start batch processor',
-      message: error instanceof Error ? error.message : 'Unknown error',
+      message: 'Operation failed. Please try again.',
     });
   }
 });
@@ -355,7 +355,7 @@ router.post('/stop', requireAdmin, async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Stop error:', error);
-    res.status(500).json({ success: false, error: 'Failed to stop batch processor' });
+    res.status(503).json({ success: false, error: 'Failed to stop batch processor' });
   }
 });
 
@@ -375,7 +375,7 @@ router.post('/pause', requireAdmin, (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Pause error:', error);
-    res.status(500).json({ success: false, error: 'Failed to pause batch processor' });
+    res.status(503).json({ success: false, error: 'Failed to pause batch processor' });
   }
 });
 
@@ -395,7 +395,7 @@ router.post('/resume', requireAdmin, (_req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[BatchProcessor] Resume error:', error);
-    res.status(500).json({ success: false, error: 'Failed to resume batch processor' });
+    res.status(503).json({ success: false, error: 'Failed to resume batch processor' });
   }
 });
 
@@ -481,7 +481,7 @@ router.post('/cross-shard/batch', requireAdmin, async (req: Request, res: Respon
     });
   } catch (error) {
     console.error('[BatchProcessor] Cross-shard batch error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to process cross-shard batch',
     });

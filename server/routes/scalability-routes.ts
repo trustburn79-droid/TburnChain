@@ -34,7 +34,7 @@ export function registerScalabilityRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -64,7 +64,7 @@ export function registerScalabilityRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -86,7 +86,7 @@ export function registerScalabilityRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -103,7 +103,7 @@ export function registerScalabilityRoutes(app: Express): void {
         message: acknowledged ? 'Alert acknowledged' : 'Alert not found',
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -126,7 +126,7 @@ export function registerScalabilityRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -157,7 +157,7 @@ export function registerScalabilityRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -203,7 +203,7 @@ export function registerScalabilityRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -223,7 +223,7 @@ export function registerScalabilityRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -260,7 +260,7 @@ export function registerScalabilityRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -310,7 +310,7 @@ export function registerScalabilityRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -366,7 +366,7 @@ export function registerScalabilityRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
@@ -435,7 +435,7 @@ export function registerScalabilityRoutes(app: Express): void {
       res.set('Content-Type', 'text/plain; charset=utf-8');
       res.send(lines.join('\n'));
     } catch (error) {
-      res.status(500).json({
+      res.status(503).json({
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
       });

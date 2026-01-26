@@ -62,7 +62,7 @@ router.get('/metrics', (_req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get fast path metrics',
     });
@@ -97,7 +97,7 @@ router.get('/registry', (_req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get registry',
     });
@@ -157,7 +157,7 @@ router.post('/registry/token', (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to register token',
     });
@@ -189,7 +189,7 @@ router.get('/registry/token/:address', (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get token',
     });
@@ -248,7 +248,7 @@ router.post('/check-eligibility', (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to check eligibility',
     });
@@ -292,7 +292,7 @@ router.post('/enable', (_req: Request, res: Response) => {
       data: { enabled: true },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to enable fast path',
     });
@@ -309,7 +309,7 @@ router.post('/disable', (_req: Request, res: Response) => {
       data: { enabled: false },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to disable fast path',
     });
@@ -326,7 +326,7 @@ router.post('/reset-metrics', (_req: Request, res: Response) => {
       data: { metricsReset: true },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to reset metrics',
     });
@@ -343,7 +343,7 @@ router.post('/flush', async (_req: Request, res: Response) => {
       data: { flushed: true },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to flush pending writes',
     });
@@ -414,7 +414,7 @@ router.get('/benchmark', async (_req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to run benchmark',
     });
@@ -432,7 +432,7 @@ router.get('/state-stats', (_req: Request, res: Response) => {
       data: stats,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get state stats',
     });
@@ -452,7 +452,7 @@ router.get('/telemetry', (_req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get telemetry',
     });
@@ -471,7 +471,7 @@ router.get('/telemetry/shards', (_req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get shard metrics',
     });
@@ -501,7 +501,7 @@ router.get('/telemetry/shard/:shardId', (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get shard metrics',
     });
@@ -528,7 +528,7 @@ router.get('/telemetry/alerts', (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get alerts',
     });
@@ -547,7 +547,7 @@ router.post('/telemetry/thresholds', (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update thresholds',
     });
@@ -573,7 +573,7 @@ router.post('/telemetry/record', (req: Request, res: Response) => {
       data: { recorded: true },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to record metrics',
     });
@@ -589,7 +589,7 @@ router.delete('/telemetry/alerts', (_req: Request, res: Response) => {
       data: { cleared: true },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to clear alerts',
     });
@@ -602,7 +602,7 @@ router.get('/telemetry/prometheus', (_req: Request, res: Response) => {
     res.set('Content-Type', 'text/plain; charset=utf-8');
     res.send(metrics);
   } catch (error) {
-    res.status(500).send('# Error exporting metrics');
+    res.status(503).send('# Error exporting metrics');
   }
 });
 
@@ -627,7 +627,7 @@ router.post('/test/cross-shard-burst', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[TBC20-Test] Cross-shard burst test failed:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Cross-shard burst test failed',
       details: error instanceof Error ? error.message : String(error),

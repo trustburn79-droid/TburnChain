@@ -363,7 +363,7 @@ router.get('/network/stats', async (req: Request, res: Response) => {
       return;
     }
     
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch network stats'
     });
@@ -458,7 +458,7 @@ router.get('/network/blocks/recent', async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch recent blocks'
     });
@@ -566,7 +566,7 @@ router.get('/network/transactions/recent', async (req: Request, res: Response) =
       lastUpdated: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch recent transactions'
     });
@@ -664,7 +664,7 @@ router.get('/validators', async (req: Request, res: Response) => {
       lastUpdated: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch validators'
     });
@@ -721,7 +721,7 @@ router.get('/validators/top', async (req: Request, res: Response) => {
       lastUpdated: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch top validators'
     });
@@ -784,7 +784,7 @@ router.get('/defi/summary', async (req: Request, res: Response) => {
       lastUpdated: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch DeFi summary'
     });
@@ -830,7 +830,7 @@ router.get('/bridge/summary', async (req: Request, res: Response) => {
       lastUpdated: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch bridge summary'
     });
@@ -872,7 +872,7 @@ router.get('/tokenomics/burn', async (req: Request, res: Response) => {
       lastUpdated: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch burn stats'
     });
@@ -926,7 +926,7 @@ router.get('/ai/summary', async (req: Request, res: Response) => {
       lastUpdated: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch AI summary'
     });
@@ -1302,7 +1302,7 @@ router.get('/search', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[Search API] Error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Search failed'
     });
@@ -1389,7 +1389,7 @@ router.get('/news', async (req: Request, res: Response) => {
       lastUpdated: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch news'
     });
@@ -1441,7 +1441,7 @@ router.get('/events', async (req: Request, res: Response) => {
       lastUpdated: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch events'
     });
@@ -1621,7 +1621,7 @@ router.get('/tokens', async (req: Request, res: Response) => {
       lastUpdated: now
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch tokens'
     });
@@ -1670,7 +1670,7 @@ router.get('/tokens/:address', async (req: Request, res: Response) => {
       lastUpdated: now
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch token detail'
     });
@@ -1705,7 +1705,7 @@ router.get('/testnet/network/stats', async (req: Request, res: Response) => {
     
     res.json({ success: true, data, lastUpdated: now });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch testnet stats' });
+    res.status(503).json({ success: false, error: 'Failed to fetch testnet stats' });
   }
 });
 
@@ -1733,7 +1733,7 @@ router.get('/testnet/network/blocks/recent', async (req: Request, res: Response)
     
     res.json({ success: true, data: blocks, lastUpdated: now });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch testnet blocks' });
+    res.status(503).json({ success: false, error: 'Failed to fetch testnet blocks' });
   }
 });
 
@@ -1761,7 +1761,7 @@ router.get('/testnet/network/transactions/recent', async (req: Request, res: Res
     
     res.json({ success: true, data: transactions, lastUpdated: now });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch testnet transactions' });
+    res.status(503).json({ success: false, error: 'Failed to fetch testnet transactions' });
   }
 });
 
@@ -1791,7 +1791,7 @@ router.get('/testnet/network/blocks', async (req: Request, res: Response) => {
     
     res.json({ success: true, data: blocks, total: baseBlock, page, limit, lastUpdated: now });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch testnet blocks' });
+    res.status(503).json({ success: false, error: 'Failed to fetch testnet blocks' });
   }
 });
 
@@ -1821,7 +1821,7 @@ router.get('/testnet/network/transactions', async (req: Request, res: Response) 
     
     res.json({ success: true, data: transactions, total: 4532100, page, limit, lastUpdated: now });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch testnet transactions' });
+    res.status(503).json({ success: false, error: 'Failed to fetch testnet transactions' });
   }
 });
 
@@ -1850,7 +1850,7 @@ router.get('/testnet/validators', async (req: Request, res: Response) => {
     
     res.json({ success: true, data: validators, lastUpdated: Date.now() });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch testnet validators' });
+    res.status(503).json({ success: false, error: 'Failed to fetch testnet validators' });
   }
 });
 
@@ -1872,7 +1872,7 @@ router.get('/testnet/tokens', async (req: Request, res: Response) => {
     
     res.json({ success: true, data: tokens, lastUpdated: Date.now() });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch testnet tokens' });
+    res.status(503).json({ success: false, error: 'Failed to fetch testnet tokens' });
   }
 });
 
@@ -1904,7 +1904,7 @@ router.get('/testnet/network/block/:blockNumber', async (req: Request, res: Resp
       lastUpdated: now
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch testnet block' });
+    res.status(503).json({ success: false, error: 'Failed to fetch testnet block' });
   }
 });
 
@@ -1938,7 +1938,7 @@ router.get('/testnet/network/tx/:hash', async (req: Request, res: Response) => {
       lastUpdated: now
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch testnet transaction' });
+    res.status(503).json({ success: false, error: 'Failed to fetch testnet transaction' });
   }
 });
 
@@ -1980,7 +1980,7 @@ router.get('/testnet/address/:address', async (req: Request, res: Response) => {
       lastUpdated: now
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch testnet address' });
+    res.status(503).json({ success: false, error: 'Failed to fetch testnet address' });
   }
 });
 
@@ -2098,7 +2098,7 @@ router.post('/testnet/faucet/request', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[Testnet Faucet] Error:', error);
-    res.status(500).json({ 
+    res.status(503).json({ 
       success: false, 
       error: 'Failed to process faucet request' 
     });
@@ -2133,7 +2133,7 @@ router.get('/testnet/faucet/history/:address', async (req: Request, res: Respons
       }
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch faucet history' });
+    res.status(503).json({ success: false, error: 'Failed to fetch faucet history' });
   }
 });
 
@@ -2190,7 +2190,7 @@ router.get('/testnet/wallet/:address', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to fetch wallet data' });
+    res.status(503).json({ success: false, error: 'Failed to fetch wallet data' });
   }
 });
 
@@ -2308,7 +2308,7 @@ router.get('/tps', (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[Public API] TPS endpoint error:', error);
-    return res.status(500).json({
+    return res.status(503).json({
       success: false,
       error: 'Failed to fetch TPS data'
     });

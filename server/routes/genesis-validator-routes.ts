@@ -52,7 +52,7 @@ router.get('/status', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[GenesisValidator] Status error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Internal server error',
     });
@@ -77,7 +77,7 @@ router.get('/', requireAdmin, async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[GenesisValidator] List error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Internal server error',
     });
@@ -126,7 +126,7 @@ router.get('/:address', requireAdmin, async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[GenesisValidator] Get error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Internal server error',
     });
@@ -289,7 +289,7 @@ router.post('/register', registrationRateLimiter, requireInvitationCode, async (
     });
   } catch (error) {
     console.error('[GenesisValidator] BYO registration error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Internal server error',
     });
@@ -337,7 +337,7 @@ router.get('/by-tier/:tier', requireAdmin, async (req: Request, res: Response) =
     });
   } catch (error) {
     console.error('[GenesisValidator] Filter by tier error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Internal server error',
     });
@@ -384,7 +384,7 @@ router.post('/verify/:address', requireAdmin, async (req: Request, res: Response
     });
   } catch (error) {
     console.error('[GenesisValidator] Verify error:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Internal server error',
     });

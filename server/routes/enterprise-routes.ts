@@ -63,7 +63,7 @@ function requireCriticalAuth(req: Request, res: Response, next: NextFunction) {
   const envAdminPassword = process.env.ADMIN_PASSWORD;
   if (!envAdminPassword) {
     console.error('[Enterprise Security] ADMIN_PASSWORD not configured');
-    return res.status(500).json({
+    return res.status(503).json({
       success: false,
       error: 'Critical auth not configured',
       code: 'CONFIG_ERROR'
@@ -305,7 +305,7 @@ router.get('/snapshot', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch network snapshot',
       details: sanitizeError(error)
@@ -327,7 +327,7 @@ router.get('/accounts/:address', async (req: Request, res: Response) => {
       data: accountState
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch account state',
       details: sanitizeError(error)
@@ -356,7 +356,7 @@ router.get('/validators/:address', async (req: Request, res: Response) => {
       data: validatorState
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch validator state',
       details: sanitizeError(error)
@@ -390,7 +390,7 @@ router.get('/metrics', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch metrics',
       details: sanitizeError(error)
@@ -421,7 +421,7 @@ router.post('/staking/stake', validateBody(stakeOperationSchema), async (req: Re
     res.json(result);
   } catch (error) {
     console.error('[Enterprise] Stake operation failed:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Stake operation failed',
       code: 'STAKE_ERROR',
@@ -449,7 +449,7 @@ router.post('/staking/unstake', validateBody(unstakeOperationSchema), async (req
     res.json(result);
   } catch (error) {
     console.error('[Enterprise] Unstake operation failed:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Unstake operation failed',
       code: 'UNSTAKE_ERROR',
@@ -476,7 +476,7 @@ router.post('/staking/claim-rewards', validateBody(claimRewardsSchema), async (r
     res.json(result);
   } catch (error) {
     console.error('[Enterprise] Claim rewards failed:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Claim rewards failed',
       code: 'CLAIM_ERROR',
@@ -511,7 +511,7 @@ router.post('/dex/swap', validateBody(swapOperationSchema), async (req: Request,
     res.json(result);
   } catch (error) {
     console.error('[Enterprise] Swap operation failed:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Swap operation failed',
       code: 'SWAP_ERROR',
@@ -540,7 +540,7 @@ router.post('/dex/add-liquidity', validateBody(liquidityOperationSchema), async 
     res.json(result);
   } catch (error) {
     console.error('[Enterprise] Add liquidity failed:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Add liquidity failed',
       code: 'LIQUIDITY_ERROR',
@@ -569,7 +569,7 @@ router.post('/dex/remove-liquidity', validateBody(removeLiquiditySchema), async 
     res.json(result);
   } catch (error) {
     console.error('[Enterprise] Remove liquidity failed:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Remove liquidity failed',
       code: 'REMOVE_LIQUIDITY_ERROR',
@@ -608,7 +608,7 @@ router.post('/bridge/transfer', async (req: Request, res: Response) => {
 
     res.json(result);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Bridge transfer failed',
       details: sanitizeError(error)
@@ -639,7 +639,7 @@ router.post('/bridge/claim', async (req: Request, res: Response) => {
 
     res.json(result);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Claim transfer failed',
       details: sanitizeError(error)
@@ -659,7 +659,7 @@ router.get('/bridge/chains', async (req: Request, res: Response) => {
       data: chains
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get supported chains'
     });
@@ -682,7 +682,7 @@ router.get('/burn/metrics', async (req: Request, res: Response) => {
       data: metrics
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get burn metrics'
     });
@@ -702,7 +702,7 @@ router.get('/burn/history', async (req: Request, res: Response) => {
       data: history
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get burn history'
     });
@@ -725,7 +725,7 @@ router.get('/burn/projected', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get projected burn'
     });
@@ -762,7 +762,7 @@ router.post('/nft/list', async (req: Request, res: Response) => {
 
     res.json(result);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'List NFT failed',
       details: sanitizeError(error)
@@ -793,7 +793,7 @@ router.post('/nft/buy', async (req: Request, res: Response) => {
 
     res.json(result);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Buy NFT failed',
       details: sanitizeError(error)
@@ -820,7 +820,7 @@ router.get('/events/history/:channel', async (req: Request, res: Response) => {
       data: history
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get event history'
     });
@@ -841,7 +841,7 @@ router.get('/events/recent', async (req: Request, res: Response) => {
       data: events
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get recent events'
     });
@@ -865,7 +865,7 @@ router.get('/events/stats', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get event stats'
     });
@@ -935,7 +935,7 @@ router.get('/defi/overview', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get DeFi overview',
       details: sanitizeError(error)
@@ -990,7 +990,7 @@ router.get('/token-system/summary', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get token system summary',
       details: sanitizeError(error)
@@ -1049,7 +1049,7 @@ router.get('/staking-defi/correlation', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get staking-DeFi correlation',
       details: sanitizeError(error)
@@ -1099,7 +1099,7 @@ router.get('/bridge-defi/integration', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get bridge-DeFi integration',
       details: sanitizeError(error)
@@ -1148,7 +1148,7 @@ router.get('/governance/overview', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get governance overview',
       details: sanitizeError(error)
@@ -1204,7 +1204,7 @@ router.get('/admin/system-status', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get admin system status',
       details: sanitizeError(error)
@@ -1262,7 +1262,7 @@ router.get('/operator/dashboard', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get operator dashboard',
       details: sanitizeError(error)
@@ -1337,7 +1337,7 @@ router.get('/dashboard/unified', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to get unified dashboard',
       details: sanitizeError(error)
@@ -1385,7 +1385,7 @@ router.get('/health', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Health check failed',
       details: sanitizeError(error)
@@ -1435,7 +1435,7 @@ router.get('/gamefi/summary', async (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'GameFi summary fetch failed',
       details: sanitizeError(error)
@@ -1481,7 +1481,7 @@ router.get('/admin/api-keys', async (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch API keys summary',
       details: sanitizeError(error)
@@ -1530,7 +1530,7 @@ router.post('/admin/api-keys', requireAdmin, validateBody(apiKeyCreateSchema), a
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to create API key',
       details: sanitizeError(error)
@@ -1570,7 +1570,7 @@ router.delete('/admin/api-keys/:keyId', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to revoke API key',
       details: sanitizeError(error)
@@ -1611,7 +1611,7 @@ router.post('/admin/api-keys/:keyId/rotate', async (req: Request, res: Response)
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to rotate API key',
       details: sanitizeError(error)
@@ -1650,7 +1650,7 @@ router.get('/operator/session', async (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch operator session',
       details: sanitizeError(error)
@@ -1705,7 +1705,7 @@ router.get('/launchpad/summary', async (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Launchpad summary fetch failed',
       details: sanitizeError(error)
@@ -1812,7 +1812,7 @@ router.get('/admin/token/issuance', async (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Token issuance fetch failed',
       details: sanitizeError(error)
@@ -1850,7 +1850,7 @@ router.post('/admin/token/mint', requireAdmin, validateBody(tokenMintSchema), as
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Mint request failed',
       details: sanitizeError(error)
@@ -1887,7 +1887,7 @@ router.post('/admin/token/burn-manual', requireAdmin, validateBody(tokenBurnSche
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Burn request failed',
       details: sanitizeError(error)
@@ -1961,7 +1961,7 @@ router.get('/admin/burn-control', async (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Burn control fetch failed',
       details: sanitizeError(error)
@@ -1991,7 +1991,7 @@ router.post('/admin/burn-control/update-rates', requireAdmin, validateBody(burnR
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Update rates failed',
       details: sanitizeError(error)
@@ -2067,7 +2067,7 @@ router.get('/admin/economics', async (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Economics data fetch failed',
       details: sanitizeError(error)
@@ -2097,7 +2097,7 @@ router.post('/admin/economics/update', requireAdmin, validateBody(economicsUpdat
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Economics update failed',
       details: sanitizeError(error)
@@ -2173,7 +2173,7 @@ router.get('/admin/treasury', async (req: Request, res: Response) => {
       timestamp: Date.now()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Treasury data fetch failed',
       details: sanitizeError(error)
@@ -2211,7 +2211,7 @@ router.post('/admin/treasury/transfer', requireAdmin, validateBody(treasuryTrans
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Transfer request failed',
       details: sanitizeError(error)
@@ -2237,7 +2237,7 @@ router.get('/admin/security', async (req: Request, res: Response) => {
       ...securityData
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch security data',
       details: sanitizeError(error)
@@ -2259,7 +2259,7 @@ router.get('/admin/access/policies', async (req: Request, res: Response) => {
       ...accessData
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch access control data',
       details: sanitizeError(error)
@@ -2281,7 +2281,7 @@ router.get('/admin/audit/logs', async (req: Request, res: Response) => {
       ...auditData
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch audit logs',
       details: sanitizeError(error)
@@ -2303,7 +2303,7 @@ router.get('/admin/security/threats', async (req: Request, res: Response) => {
       ...threatData
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch threat data',
       details: sanitizeError(error)
@@ -2325,7 +2325,7 @@ router.get('/admin/compliance', async (req: Request, res: Response) => {
       ...complianceData
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch compliance data',
       details: sanitizeError(error)
@@ -2350,7 +2350,7 @@ router.post('/admin/security/sessions/:id/terminate', async (req: Request, res: 
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to terminate session',
       details: sanitizeError(error)
@@ -2375,7 +2375,7 @@ router.post('/admin/security/threats/:id/block', async (req: Request, res: Respo
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to block threat',
       details: sanitizeError(error)
@@ -2400,7 +2400,7 @@ router.post('/admin/security/threats/:id/unblock', async (req: Request, res: Res
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to unblock threat',
       details: sanitizeError(error)
@@ -2424,7 +2424,7 @@ router.post('/admin/compliance/assessment', requireAdmin, validateBody(complianc
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to run assessment',
       details: sanitizeError(error)
@@ -2443,7 +2443,7 @@ router.get('/admin/bi/metrics', async (req: Request, res: Response) => {
     const data = node.getBIMetrics(timeRange);
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch BI metrics',
       details: sanitizeError(error)
@@ -2457,7 +2457,7 @@ router.get('/admin/analytics/transactions', async (req: Request, res: Response) 
     const data = node.getTxAnalytics();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch transaction analytics',
       details: sanitizeError(error)
@@ -2471,7 +2471,7 @@ router.get('/admin/analytics/users', async (req: Request, res: Response) => {
     const data = node.getUserAnalytics();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch user analytics',
       details: sanitizeError(error)
@@ -2485,7 +2485,7 @@ router.get('/admin/analytics/network', async (req: Request, res: Response) => {
     const data = node.getNetworkAnalytics();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch network analytics',
       details: sanitizeError(error)
@@ -2499,7 +2499,7 @@ router.get('/admin/reports/templates', async (req: Request, res: Response) => {
     const data = node.getReportTemplates();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch report templates',
       details: sanitizeError(error)
@@ -2523,7 +2523,7 @@ router.post('/admin/reports/generate', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to generate report',
       details: sanitizeError(error)
@@ -2544,7 +2544,7 @@ router.patch('/admin/reports/schedule/:id', async (req: Request, res: Response) 
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update schedule',
       details: sanitizeError(error)
@@ -2564,7 +2564,7 @@ router.delete('/admin/reports/schedule/:id', async (req: Request, res: Response)
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to delete schedule',
       details: sanitizeError(error)
@@ -2582,7 +2582,7 @@ router.get('/admin/operations/emergency', async (req: Request, res: Response) =>
     const data = enterpriseNode.getEmergencyStatus();
     res.json({ success: true, data });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch emergency status',
       details: sanitizeError(error)
@@ -2603,7 +2603,7 @@ router.post('/admin/operations/emergency/activate/:controlId', async (req: Reque
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to activate emergency control',
       details: sanitizeError(error)
@@ -2623,7 +2623,7 @@ router.patch('/admin/operations/emergency/breaker', async (req: Request, res: Re
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update circuit breaker',
       details: sanitizeError(error)
@@ -2641,7 +2641,7 @@ router.get('/admin/operations/maintenance', async (req: Request, res: Response) 
     const data = enterpriseNode.getMaintenanceData();
     res.json({ success: true, data });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch maintenance data',
       details: sanitizeError(error)
@@ -2660,7 +2660,7 @@ router.post('/admin/operations/maintenance/mode', async (req: Request, res: Resp
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to toggle maintenance mode',
       details: sanitizeError(error)
@@ -2686,7 +2686,7 @@ router.post('/admin/operations/maintenance/schedule', requireAdmin, validateBody
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to schedule maintenance',
       details: sanitizeError(error)
@@ -2706,7 +2706,7 @@ router.post('/admin/operations/maintenance/cancel/:id', async (req: Request, res
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to cancel maintenance',
       details: sanitizeError(error)
@@ -2724,7 +2724,7 @@ router.get('/admin/operations/backups', async (req: Request, res: Response) => {
     const data = enterpriseNode.getBackupData();
     res.json({ success: true, data });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch backup data',
       details: sanitizeError(error)
@@ -2745,7 +2745,7 @@ router.post('/admin/operations/backups/create', async (req: Request, res: Respon
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to create backup',
       details: sanitizeError(error)
@@ -2765,7 +2765,7 @@ router.post('/admin/operations/backups/restore/:id', async (req: Request, res: R
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to restore backup',
       details: sanitizeError(error)
@@ -2785,7 +2785,7 @@ router.delete('/admin/operations/backups/:id', async (req: Request, res: Respons
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to delete backup',
       details: sanitizeError(error)
@@ -2805,7 +2805,7 @@ router.patch('/admin/operations/backups/job', async (req: Request, res: Response
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update backup job',
       details: sanitizeError(error)
@@ -2823,7 +2823,7 @@ router.get('/admin/operations/updates', async (req: Request, res: Response) => {
     const data = enterpriseNode.getUpdatesData();
     res.json({ success: true, data });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch updates data',
       details: sanitizeError(error)
@@ -2841,7 +2841,7 @@ router.post('/admin/operations/updates/check', async (req: Request, res: Respons
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to check for updates',
       details: sanitizeError(error)
@@ -2861,7 +2861,7 @@ router.post('/admin/operations/updates/install', async (req: Request, res: Respo
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to install update',
       details: sanitizeError(error)
@@ -2881,7 +2881,7 @@ router.post('/admin/operations/updates/rollback', async (req: Request, res: Resp
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to rollback update',
       details: sanitizeError(error)
@@ -2901,7 +2901,7 @@ router.post('/admin/operations/updates/node', async (req: Request, res: Response
       }
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update node',
       details: sanitizeError(error)
@@ -2919,7 +2919,7 @@ router.get('/admin/operations/logs', async (req: Request, res: Response) => {
     const data = enterpriseNode.getSystemLogs();
     res.json({ success: true, data });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch system logs',
       details: sanitizeError(error)
@@ -2937,7 +2937,7 @@ router.get('/admin/settings', async (req: Request, res: Response) => {
     const data = enterpriseNode.getSystemSettings();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch system settings',
       details: sanitizeError(error)
@@ -2949,7 +2949,7 @@ router.post('/admin/settings', requireAdmin, validateBody(adminSettingsSchema), 
   try {
     res.json({ success: true, message: 'Settings saved successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to save settings',
       details: sanitizeError(error)
@@ -2963,7 +2963,7 @@ router.post('/admin/settings/reset', async (req: Request, res: Response) => {
     const data = enterpriseNode.getSystemSettings();
     res.json({ success: true, message: 'Settings reset to defaults', data });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to reset settings',
       details: sanitizeError(error)
@@ -2981,7 +2981,7 @@ router.get('/admin/config/api', async (req: Request, res: Response) => {
     const data = enterpriseNode.getApiConfig();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch API config',
       details: sanitizeError(error)
@@ -2993,7 +2993,7 @@ router.post('/admin/config/api', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'API configuration saved successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to save API config',
       details: sanitizeError(error)
@@ -3017,7 +3017,7 @@ router.post('/admin/config/api/keys', async (req: Request, res: Response) => {
     };
     res.json({ success: true, apiKey: newKey });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to create API key',
       details: sanitizeError(error)
@@ -3030,7 +3030,7 @@ router.delete('/admin/config/api/keys/:keyId', async (req: Request, res: Respons
     const { keyId } = req.params;
     res.json({ success: true, message: `API key ${keyId} deleted successfully` });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to delete API key',
       details: sanitizeError(error)
@@ -3048,7 +3048,7 @@ router.get('/admin/integrations', async (req: Request, res: Response) => {
     const data = enterpriseNode.getIntegrations();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch integrations',
       details: sanitizeError(error)
@@ -3060,7 +3060,7 @@ router.post('/admin/integrations', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Integrations saved successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to save integrations',
       details: sanitizeError(error)
@@ -3074,7 +3074,7 @@ router.patch('/admin/integrations/:id', async (req: Request, res: Response) => {
     const { enabled } = req.body;
     res.json({ success: true, message: `Integration ${id} updated`, enabled });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update integration',
       details: sanitizeError(error)
@@ -3092,7 +3092,7 @@ router.get('/admin/notifications/settings', async (req: Request, res: Response) 
     const data = enterpriseNode.getNotificationSettings();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch notification settings',
       details: sanitizeError(error)
@@ -3104,7 +3104,7 @@ router.post('/admin/notifications/settings', async (req: Request, res: Response)
   try {
     res.json({ success: true, message: 'Notification settings saved successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to save notification settings',
       details: sanitizeError(error)
@@ -3116,7 +3116,7 @@ router.post('/admin/notifications/test', async (req: Request, res: Response) => 
   try {
     res.json({ success: true, message: 'Test notification sent successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to send test notification',
       details: sanitizeError(error)
@@ -3134,7 +3134,7 @@ router.get('/admin/appearance', async (req: Request, res: Response) => {
     const data = enterpriseNode.getAppearanceSettings();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch appearance settings',
       details: sanitizeError(error)
@@ -3146,7 +3146,7 @@ router.post('/admin/appearance', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Appearance settings saved successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to save appearance settings',
       details: sanitizeError(error)
@@ -3160,7 +3160,7 @@ router.post('/admin/appearance/reset', async (req: Request, res: Response) => {
     const data = enterpriseNode.getAppearanceSettings();
     res.json({ success: true, message: 'Appearance settings reset to defaults', data });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to reset appearance settings',
       details: sanitizeError(error)
@@ -3178,7 +3178,7 @@ router.get('/admin/accounts', async (req: Request, res: Response) => {
     const data = enterpriseNode.getAdminAccounts();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch admin accounts',
       details: sanitizeError(error)
@@ -3190,7 +3190,7 @@ router.post('/admin/accounts', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Account created successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to create account',
       details: sanitizeError(error)
@@ -3202,7 +3202,7 @@ router.patch('/admin/accounts/:id', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Account updated successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update account',
       details: sanitizeError(error)
@@ -3214,7 +3214,7 @@ router.delete('/admin/accounts/:id', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Account deleted successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to delete account',
       details: sanitizeError(error)
@@ -3228,7 +3228,7 @@ router.get('/admin/roles', async (req: Request, res: Response) => {
     const data = enterpriseNode.getAdminRoles();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch admin roles',
       details: sanitizeError(error)
@@ -3240,7 +3240,7 @@ router.post('/admin/roles', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Role created successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to create role',
       details: sanitizeError(error)
@@ -3252,7 +3252,7 @@ router.patch('/admin/roles/:id', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Role updated successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update role',
       details: sanitizeError(error)
@@ -3264,7 +3264,7 @@ router.delete('/admin/roles/:id', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Role deleted successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to delete role',
       details: sanitizeError(error)
@@ -3278,7 +3278,7 @@ router.get('/admin/permissions', async (req: Request, res: Response) => {
     const data = enterpriseNode.getAdminPermissions();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch admin permissions',
       details: sanitizeError(error)
@@ -3290,7 +3290,7 @@ router.post('/admin/permissions', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Permissions updated successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update permissions',
       details: sanitizeError(error)
@@ -3305,7 +3305,7 @@ router.get('/admin/activity', async (req: Request, res: Response) => {
     const data = enterpriseNode.getAdminActivity(timeRange);
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch admin activity',
       details: sanitizeError(error)
@@ -3319,7 +3319,7 @@ router.get('/admin/sessions', async (req: Request, res: Response) => {
     const data = enterpriseNode.getAdminSessions();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch admin sessions',
       details: sanitizeError(error)
@@ -3331,7 +3331,7 @@ router.delete('/admin/sessions/:id', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Session terminated successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to terminate session',
       details: sanitizeError(error)
@@ -3343,7 +3343,7 @@ router.delete('/admin/sessions/all', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'All sessions terminated successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to terminate all sessions',
       details: sanitizeError(error)
@@ -3355,7 +3355,7 @@ router.post('/admin/sessions/settings', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Session settings updated successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update session settings',
       details: sanitizeError(error)
@@ -3373,7 +3373,7 @@ router.get('/admin/governance/proposals', async (req: Request, res: Response) =>
     const data = enterpriseNode.getGovernanceProposals();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch governance proposals',
       details: sanitizeError(error)
@@ -3385,7 +3385,7 @@ router.post('/admin/governance/proposals', async (req: Request, res: Response) =
   try {
     res.json({ success: true, message: 'Proposal created successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to create proposal',
       details: sanitizeError(error)
@@ -3397,7 +3397,7 @@ router.delete('/admin/governance/proposals/:id', async (req: Request, res: Respo
   try {
     res.json({ success: true, message: 'Proposal deleted successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to delete proposal',
       details: sanitizeError(error)
@@ -3412,7 +3412,7 @@ router.get('/admin/governance/votes', async (req: Request, res: Response) => {
     const data = enterpriseNode.getGovernanceVotes(proposalId);
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch governance votes',
       details: sanitizeError(error)
@@ -3424,7 +3424,7 @@ router.post('/admin/governance/votes/config', async (req: Request, res: Response
   try {
     res.json({ success: true, message: 'Voting config updated successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update voting config',
       details: sanitizeError(error)
@@ -3438,7 +3438,7 @@ router.get('/admin/governance/execution', async (req: Request, res: Response) =>
     const data = enterpriseNode.getGovernanceExecution();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch execution tasks',
       details: sanitizeError(error)
@@ -3450,7 +3450,7 @@ router.post('/admin/governance/execution/:id/execute', async (req: Request, res:
   try {
     res.json({ success: true, message: 'Task execution started' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to execute task',
       details: sanitizeError(error)
@@ -3462,7 +3462,7 @@ router.post('/admin/governance/execution/:id/cancel', async (req: Request, res: 
   try {
     res.json({ success: true, message: 'Task cancelled' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to cancel task',
       details: sanitizeError(error)
@@ -3474,7 +3474,7 @@ router.post('/admin/governance/execution/:id/retry', async (req: Request, res: R
   try {
     res.json({ success: true, message: 'Task retry initiated' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to retry task',
       details: sanitizeError(error)
@@ -3488,7 +3488,7 @@ router.get('/admin/governance/params', async (req: Request, res: Response) => {
     const data = enterpriseNode.getGovernanceParams();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch governance params',
       details: sanitizeError(error)
@@ -3500,7 +3500,7 @@ router.post('/admin/governance/params', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Governance params updated' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update governance params',
       details: sanitizeError(error)
@@ -3514,7 +3514,7 @@ router.get('/admin/feedback', async (req: Request, res: Response) => {
     const data = enterpriseNode.getCommunityFeedback();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch community feedback',
       details: sanitizeError(error)
@@ -3526,7 +3526,7 @@ router.patch('/admin/feedback/:id', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Feedback updated' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update feedback',
       details: sanitizeError(error)
@@ -3538,7 +3538,7 @@ router.post('/admin/feedback/:id/respond', async (req: Request, res: Response) =
   try {
     res.json({ success: true, message: 'Response submitted' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to submit response',
       details: sanitizeError(error)
@@ -3564,7 +3564,7 @@ router.get('/admin/community', async (req: Request, res: Response) => {
     cache.set(cacheKey, data, 30000);
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch community content',
       details: sanitizeError(error)
@@ -3576,7 +3576,7 @@ router.patch('/admin/community/posts/:id', async (req: Request, res: Response) =
   try {
     res.json({ success: true, message: 'Post updated' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update post',
       details: sanitizeError(error)
@@ -3588,7 +3588,7 @@ router.delete('/admin/community/posts/:id', async (req: Request, res: Response) 
   try {
     res.json({ success: true, message: 'Post deleted' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to delete post',
       details: sanitizeError(error)
@@ -3600,7 +3600,7 @@ router.patch('/admin/community/members/:id', async (req: Request, res: Response)
   try {
     res.json({ success: true, message: 'Member updated' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update member',
       details: sanitizeError(error)
@@ -3618,7 +3618,7 @@ router.get('/admin/developer/docs', async (req: Request, res: Response) => {
     const data = enterpriseNode.getApiDocs();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch API documentation',
       details: sanitizeError(error)
@@ -3632,7 +3632,7 @@ router.get('/admin/developer/sdk', async (req: Request, res: Response) => {
     const data = enterpriseNode.getSdkInfo();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch SDK information',
       details: sanitizeError(error)
@@ -3646,7 +3646,7 @@ router.get('/admin/developer/contracts', async (req: Request, res: Response) => 
     const data = enterpriseNode.getContractTools();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch contract tools',
       details: sanitizeError(error)
@@ -3658,7 +3658,7 @@ router.post('/admin/developer/contracts/deploy', async (req: Request, res: Respo
   try {
     res.json({ success: true, message: 'Contract deployment initiated', txHash: '0xDeploy_' + Date.now() });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to deploy contract',
       details: sanitizeError(error)
@@ -3670,7 +3670,7 @@ router.post('/admin/developer/contracts/verify', async (req: Request, res: Respo
   try {
     res.json({ success: true, message: 'Contract verification submitted' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to verify contract',
       details: sanitizeError(error)
@@ -3684,7 +3684,7 @@ router.get('/admin/testnet', async (req: Request, res: Response) => {
     const data = enterpriseNode.getTestnetInfo();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch testnet information',
       details: sanitizeError(error)
@@ -3697,7 +3697,7 @@ router.post('/admin/testnet/faucet', async (req: Request, res: Response) => {
     const { address, amount } = req.body;
     res.json({ success: true, message: 'Faucet request processed', txHash: '0xFaucet_' + Date.now(), amount });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to process faucet request',
       details: sanitizeError(error)
@@ -3709,7 +3709,7 @@ router.post('/admin/testnet/:id/start', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Testnet instance started' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to start testnet',
       details: sanitizeError(error)
@@ -3721,7 +3721,7 @@ router.post('/admin/testnet/:id/stop', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Testnet instance stopped' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to stop testnet',
       details: sanitizeError(error)
@@ -3733,7 +3733,7 @@ router.post('/admin/testnet/:id/reset', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Testnet instance reset' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to reset testnet',
       details: sanitizeError(error)
@@ -3747,7 +3747,7 @@ router.get('/admin/debug', async (req: Request, res: Response) => {
     const data = enterpriseNode.getDebugInfo();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch debug information',
       details: sanitizeError(error)
@@ -3788,7 +3788,7 @@ Execution Complete - Transaction Finalized`;
 
     res.json({ success: true, output });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to trace transaction',
       details: sanitizeError(error)
@@ -3800,7 +3800,7 @@ router.post('/admin/debug/execute', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Code execution completed' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to execute code',
       details: sanitizeError(error)
@@ -3812,7 +3812,7 @@ router.delete('/admin/debug/logs', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Debug logs cleared' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to clear logs',
       details: sanitizeError(error)
@@ -3830,7 +3830,7 @@ router.get('/admin/monitoring/realtime', async (req: Request, res: Response) => 
     const data = enterpriseNode.getRealtimeMonitoring();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch realtime monitoring data',
       details: sanitizeError(error)
@@ -3844,7 +3844,7 @@ router.get('/admin/monitoring/metrics', async (req: Request, res: Response) => {
     const data = enterpriseNode.getMetricsExplorer();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch metrics data',
       details: sanitizeError(error)
@@ -3858,7 +3858,7 @@ router.get('/admin/alerts/rules', async (req: Request, res: Response) => {
     const data = enterpriseNode.getAlertRules();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch alert rules',
       details: sanitizeError(error)
@@ -3871,7 +3871,7 @@ router.post('/admin/alerts/rules', async (req: Request, res: Response) => {
     const rule = req.body;
     res.json({ success: true, message: 'Alert rule created', id: 'rule_' + Date.now() });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to create alert rule',
       details: sanitizeError(error)
@@ -3883,7 +3883,7 @@ router.patch('/admin/alerts/rules/:id', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Alert rule updated' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update alert rule',
       details: sanitizeError(error)
@@ -3895,7 +3895,7 @@ router.delete('/admin/alerts/rules/:id', async (req: Request, res: Response) => 
   try {
     res.json({ success: true, message: 'Alert rule deleted' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to delete alert rule',
       details: sanitizeError(error)
@@ -3907,7 +3907,7 @@ router.post('/admin/alerts/rules/test', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Alert rules test completed', passed: 8, failed: 0 });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to test alert rules',
       details: sanitizeError(error)
@@ -3921,7 +3921,7 @@ router.get('/admin/dashboards', async (req: Request, res: Response) => {
     const data = enterpriseNode.getDashboards();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch dashboards',
       details: sanitizeError(error)
@@ -3934,7 +3934,7 @@ router.post('/admin/dashboards', async (req: Request, res: Response) => {
     const dashboard = req.body;
     res.json({ success: true, message: 'Dashboard created', id: 'dash_' + Date.now() });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to create dashboard',
       details: sanitizeError(error)
@@ -3946,7 +3946,7 @@ router.patch('/admin/dashboards/:id', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Dashboard updated' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update dashboard',
       details: sanitizeError(error)
@@ -3958,7 +3958,7 @@ router.delete('/admin/dashboards/:id', async (req: Request, res: Response) => {
   try {
     res.json({ success: true, message: 'Dashboard deleted' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to delete dashboard',
       details: sanitizeError(error)
@@ -4081,7 +4081,7 @@ router.get('/admin/sla', async (req: Request, res: Response) => {
     cache.set(cacheKey, slaData, 30000);
     res.json(slaData);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch SLA metrics',
       details: sanitizeError(error)
@@ -4097,7 +4097,7 @@ router.get('/admin/finance', async (req: Request, res: Response) => {
     const data = enterpriseNode.getFinanceOverview();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch finance overview',
       details: sanitizeError(error)
@@ -4111,7 +4111,7 @@ router.get('/admin/tx-accounting', async (req: Request, res: Response) => {
     const data = enterpriseNode.getTransactionAccounting();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch transaction accounting',
       details: sanitizeError(error)
@@ -4125,7 +4125,7 @@ router.get('/admin/budget', async (req: Request, res: Response) => {
     const data = enterpriseNode.getBudgetManagement();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch budget management data',
       details: sanitizeError(error)
@@ -4139,7 +4139,7 @@ router.get('/admin/cost-analysis', async (req: Request, res: Response) => {
     const data = enterpriseNode.getCostAnalysis();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch cost analysis',
       details: sanitizeError(error)
@@ -4153,7 +4153,7 @@ router.get('/admin/tax', async (req: Request, res: Response) => {
     const data = enterpriseNode.getTaxCompliance();
     res.json(data);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch tax compliance data',
       details: sanitizeError(error)
@@ -4199,7 +4199,7 @@ router.get('/admin/help', async (req: Request, res: Response) => {
     };
     res.json(helpData);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch help center data',
       details: sanitizeError(error)
@@ -4230,7 +4230,7 @@ router.get('/admin/training', async (req: Request, res: Response) => {
     };
     res.json(trainingData);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch training materials',
       details: sanitizeError(error)
@@ -4242,7 +4242,7 @@ router.post('/admin/training/courses/:courseId/enroll', async (req: Request, res
   try {
     res.json({ success: true, message: 'Enrolled in course successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to enroll in course',
       details: sanitizeError(error)
@@ -4254,7 +4254,7 @@ router.post('/admin/training/courses/:courseId/modules/:moduleId/complete', asyn
   try {
     res.json({ success: true, message: 'Module completed successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to complete module',
       details: sanitizeError(error)
@@ -4277,7 +4277,7 @@ router.get('/admin/tickets', async (req: Request, res: Response) => {
     };
     res.json(ticketsData);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch support tickets',
       details: sanitizeError(error)
@@ -4290,7 +4290,7 @@ router.post('/admin/tickets', async (req: Request, res: Response) => {
     const ticket = req.body;
     res.json({ success: true, message: 'Ticket created successfully', ticketId: `TKT-${Date.now()}` });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to create ticket',
       details: sanitizeError(error)
@@ -4302,7 +4302,7 @@ router.patch('/admin/tickets/:ticketId', async (req: Request, res: Response) => 
   try {
     res.json({ success: true, message: 'Ticket updated successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update ticket',
       details: sanitizeError(error)
@@ -4314,7 +4314,7 @@ router.post('/admin/tickets/:ticketId/close', async (req: Request, res: Response
   try {
     res.json({ success: true, message: 'Ticket closed successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to close ticket',
       details: sanitizeError(error)
@@ -4334,7 +4334,7 @@ router.get('/admin/announcements', async (req: Request, res: Response) => {
     };
     res.json(announcementsData);
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch announcements',
       details: sanitizeError(error)
@@ -4347,7 +4347,7 @@ router.post('/admin/announcements', async (req: Request, res: Response) => {
     const announcement = req.body;
     res.json({ success: true, message: 'Announcement created successfully', id: `ANN-${Date.now()}` });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to create announcement',
       details: sanitizeError(error)
@@ -4359,7 +4359,7 @@ router.patch('/admin/announcements/:id', async (req: Request, res: Response) => 
   try {
     res.json({ success: true, message: 'Announcement updated successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to update announcement',
       details: sanitizeError(error)
@@ -4371,7 +4371,7 @@ router.delete('/admin/announcements/:id', async (req: Request, res: Response) =>
   try {
     res.json({ success: true, message: 'Announcement deleted successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to delete announcement',
       details: sanitizeError(error)
@@ -4383,7 +4383,7 @@ router.post('/admin/announcements/:id/publish', async (req: Request, res: Respon
   try {
     res.json({ success: true, message: 'Announcement published successfully' });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to publish announcement',
       details: sanitizeError(error)
@@ -4478,7 +4478,7 @@ router.get('/ai/metrics', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[Enterprise] AI metrics fetch failed:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch AI metrics',
       details: sanitizeError(error),
@@ -4504,7 +4504,7 @@ router.get('/ai/retry-queue', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[Enterprise] Retry queue fetch failed:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'Failed to fetch retry queue status',
       details: sanitizeError(error),
@@ -4566,7 +4566,7 @@ router.post('/ai/trigger-decision', requireCriticalAuth, validateBody(aiDecision
     }
   } catch (error) {
     console.error('[Enterprise] Manual AI decision failed:', error);
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: 'AI decision trigger failed',
       code: 'AI_DECISION_ERROR',

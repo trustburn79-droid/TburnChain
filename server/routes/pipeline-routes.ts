@@ -24,7 +24,7 @@ router.get('/stats', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -56,7 +56,7 @@ router.get('/blocks', (req: Request, res: Response) => {
       count: blocks.length,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -88,7 +88,7 @@ router.post('/start', async (_req: Request, res: Response) => {
       stats: pipeline.getStats(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -118,7 +118,7 @@ router.post('/stop', async (_req: Request, res: Response) => {
       message: 'Pipeline stopped',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -146,7 +146,7 @@ router.get('/health', (_req: Request, res: Response) => {
       lastBlockAgo: stats.lastBlockTime ? Date.now() - stats.lastBlockTime : null,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       healthy: false,
       error: (error as Error).message,
     });
@@ -171,7 +171,7 @@ router.get('/config', (_req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -221,7 +221,7 @@ router.get('/benchmark', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -266,7 +266,7 @@ router.get('/parallel/stats', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -296,7 +296,7 @@ router.post('/parallel/start', async (_req: Request, res: Response) => {
       message: 'Parallel producer started',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -326,7 +326,7 @@ router.post('/parallel/stop', async (_req: Request, res: Response) => {
       message: 'Parallel producer stopped',
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });
@@ -371,7 +371,7 @@ router.get('/combined/stats', (_req: Request, res: Response) => {
       timestamp: Date.now(),
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       success: false,
       error: (error as Error).message,
     });

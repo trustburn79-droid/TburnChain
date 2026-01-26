@@ -121,7 +121,7 @@ export async function handleAdminLogin(req: Request, res: Response): Promise<voi
   
   if (!ADMIN_PASSWORD) {
     console.error('[Admin] CRITICAL: ADMIN_PASSWORD environment variable not set!');
-    res.status(500).json({ error: 'Server configuration error' });
+    res.status(503).json({ error: 'Service temporarily unavailable' });
     return;
   }
   
@@ -165,7 +165,7 @@ export async function handleAdminLogin(req: Request, res: Response): Promise<voi
     });
   } catch (error) {
     console.error('[Admin] Login error:', error);
-    res.status(500).json({ error: 'Login failed' });
+    res.status(503).json({ error: 'Service temporarily unavailable' });
   }
 }
 
@@ -238,8 +238,8 @@ export async function requireInvitationCode(req: Request, res: Response, next: N
     next();
   } catch (error) {
     console.error('[Auth] Invitation code validation error:', error);
-    res.status(500).json({
-      error: 'Failed to validate invitation code'
+    res.status(503).json({
+      error: 'Service temporarily unavailable'
     });
   }
 }
