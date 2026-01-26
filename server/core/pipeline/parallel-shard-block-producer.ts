@@ -1,5 +1,4 @@
 /**
-import { validatorAddressFromString } from "../../utils/tburn-address";
  * TBURN Parallel Shard Block Producer
  * 
  * Each shard produces blocks independently in parallel,
@@ -9,8 +8,20 @@ import { validatorAddressFromString } from "../../utils/tburn-address";
  * - 24 shards × 2,500 TPS/shard = 60,000 TPS (DEV_SAFE_MODE)
  * - 24 shards × 4,200 TPS/shard = 100,800 TPS (Production)
  * 
+ * ⚠️ 핵심 코어 보호 (DO NOT MODIFY)
+ * ────────────────────────────────────
+ * 이 파일은 TBURN 메인넷의 핵심 코어입니다.
+ * 5대 신기술 통합 어댑터는 이 파일에 영향을 주지 않습니다.
+ * 
+ * 보호 정책:
+ * - ShardDAAdapter: 이벤트 기반 연동만 허용, 직접 import 금지
+ * - 모든 신기술 어댑터: Feature Flag로 독립 제어
+ * - 어댑터 장애 시에도 이 코어는 정상 동작
+ * 
  * @version 1.0.0
+ * @core TBURN_MAINNET_CORE
  */
+import { validatorAddressFromString } from "../../utils/tburn-address";
 
 import { EventEmitter } from 'events';
 import crypto from 'crypto';

@@ -52,6 +52,18 @@ Key architectural features include:
     - 리스테이킹 보상: AVS 운영자가 지불하는 외부 수수료 (USDT, USDC 등)
     - TBURN 토큰 발행량에 영향 없음
     - 별도 회계 계정(EXTERNAL_AVS_REWARDS)으로 관리
+  - **⚠️ 핵심 코어 보호 정책** (2026-01-26):
+    - 5대 신기술 어댑터는 TBURN 메인넷 핵심 코어에 영향을 주지 않음
+    - 보호되는 핵심 코어 (DO NOT MODIFY):
+      - `parallel-shard-block-producer.ts`: 샤드 병렬 블록 생성
+      - `shard-processing-coordinator.ts`: 샤드 트랜잭션 라우팅
+      - `enterprise-shard-orchestrator.ts`: 샤드 오케스트레이션
+      - `enterprise-cross-shard-router.ts`: 크로스샤드 메시징
+    - 분리 원칙:
+      - 어댑터는 핵심 코어를 import/수정하지 않음
+      - 이벤트 기반 느슨한 결합 (EventEmitter)
+      - Feature Flag로 완전 비활성화 가능
+      - 어댑터 장애 시 핵심 코어 정상 동작 보장
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

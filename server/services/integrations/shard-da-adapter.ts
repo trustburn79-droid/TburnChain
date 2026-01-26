@@ -8,6 +8,23 @@
  * - 샤드 데이터의 DA 레이어 저장으로 데이터 가용성 보장
  * - 크로스 샤드 메시지 영구 보존
  * - 롤업 친화적 구조로 L2 확장성 향상
+ * 
+ * ⚠️ 핵심 코어 독립성 보장
+ * ────────────────────────────
+ * 이 어댑터는 TBURN 메인넷 핵심 코어에 영향을 주지 않습니다.
+ * 
+ * 보호되는 핵심 코어:
+ * - parallel-shard-block-producer.ts (샤드 병렬 블록 생성)
+ * - shard-processing-coordinator.ts (샤드 트랜잭션 라우팅)
+ * - enterprise-shard-orchestrator.ts (샤드 오케스트레이션)
+ * - enterprise-cross-shard-router.ts (크로스샤드 메시징)
+ * 
+ * 분리 원칙:
+ * 1. 핵심 코어 파일을 import하거나 수정하지 않음
+ * 2. 이벤트 기반 느슨한 결합 (EventEmitter)
+ * 3. Feature Flag로 완전 비활성화 가능
+ * 4. 핵심 코어 장애 시 어댑터만 영향받음
+ * 5. 어댑터 장애 시 핵심 코어에 영향 없음
  */
 
 import { EventEmitter } from 'events';
