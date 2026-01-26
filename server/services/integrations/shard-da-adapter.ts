@@ -138,6 +138,10 @@ export class ShardDAAdapter extends EventEmitter {
 
     if (this.config.enableAutoSubmit) {
       this.startAutoSubmit();
+    } else {
+      this.metricsInterval = setInterval(() => {
+        this.calculatePercentiles();
+      }, 10000);
     }
 
     this.emit('started');
@@ -288,8 +292,9 @@ export class ShardDAAdapter extends EventEmitter {
       if (this.config.dropPolicy === 'oldest') {
         const oldestKey = this.pendingSubmissions.keys().next().value;
         if (oldestKey) this.pendingSubmissions.delete(oldestKey);
+        this.emit('queueFull', { dropped: true, key, policy: 'oldest', droppedKey: oldestKey });
       } else {
-        this.emit('queueFull', { dropped: true, key });
+        this.emit('queueFull', { dropped: true, key, policy: 'newest' });
         this.droppedCount++;
         this.metrics.totalDropped++;
         return false;
@@ -315,6 +320,7 @@ export class ShardDAAdapter extends EventEmitter {
     const pending = Array.from(this.pendingSubmissions.values());
     this.pendingSubmissions.clear();
     this.updateQueueMetrics();
+    this.updateBackpressureState();
 
     for (const payload of pending) {
       await this.submitShardBlock(payload);
