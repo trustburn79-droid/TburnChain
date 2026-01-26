@@ -4743,7 +4743,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Estimate gas for token deployment
-  app.post("/api/token-factory/estimate-gas", async (req, res) => {
+  app.post("/api/token-factory/estimate-gas", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const { tokenFactoryService } = await import("./services/TokenFactoryService");
       const gasEstimation = await tokenFactoryService.estimateGas(req.body);
@@ -4755,7 +4755,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Build deployment transaction (for wallet signing)
-  app.post("/api/token-factory/build-transaction", async (req, res) => {
+  app.post("/api/token-factory/build-transaction", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const { tokenFactoryService } = await import("./services/TokenFactoryService");
       const gasEstimation = await tokenFactoryService.estimateGas(req.body);
@@ -4773,7 +4773,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Process deployment receipt (after wallet confirmation)
-  app.post("/api/token-factory/confirm-deployment", async (req, res) => {
+  app.post("/api/token-factory/confirm-deployment", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const { tokenFactoryService } = await import("./services/TokenFactoryService");
       const { request, txHash, receipt } = req.body;
@@ -4814,7 +4814,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Simulation mode deployment (for testing without wallet)
-  app.post("/api/token-factory/simulate-deploy", async (req, res) => {
+  app.post("/api/token-factory/simulate-deploy", sensitiveOpLimiter, requireAuth, async (req, res) => {
     try {
       const { tokenFactoryService } = await import("./services/TokenFactoryService");
       const result = await tokenFactoryService.generateMockDeploymentForSimulation(req.body);
@@ -22475,6 +22475,28 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   const tokenBalanceSchema = z.object({
     walletAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
   });
+
+// Token Deployment Input Validation Schema (Security)
+const tokenDeploymentSchema = z.object({
+  standard: z.enum(["TBC-20", "TBC-721", "TBC-1155"]),
+  name: z.string().min(1).max(64).regex(/^[a-zA-Z0-9\s\-_]+$/, "Invalid token name"),
+  symbol: z.string().min(1).max(16).regex(/^[A-Z0-9]+$/, "Invalid token symbol"),
+  totalSupply: z.string().optional(),
+  decimals: z.number().min(0).max(18).optional(),
+  mintable: z.boolean().optional(),
+  burnable: z.boolean().optional(),
+  pausable: z.boolean().optional(),
+  maxSupply: z.string().optional(),
+  baseUri: z.string().url().optional().or(z.literal("")),
+  royaltyPercentage: z.number().min(0).max(100).optional(),
+  royaltyRecipient: z.string().optional(),
+  aiOptimizationEnabled: z.boolean().optional(),
+  quantumResistant: z.boolean().optional(),
+  mevProtection: z.boolean().optional(),
+  deployerAddress: z.string().regex(/^(0x[a-fA-F0-9]{40}|tb1[a-z0-9]{38,})$/, "Invalid deployer address"),
+});
+
+
 
   app.post("/api/staking/token/verify-balance", requireAuth, async (req, res) => {
     try {
