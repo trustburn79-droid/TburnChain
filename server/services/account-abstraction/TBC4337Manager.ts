@@ -162,6 +162,9 @@ export class TBC4337Manager extends EventEmitter {
   private readonly BUNDLE_SIZE = 100;
   private readonly BUNDLE_INTERVAL = 1000; // 1초
   private readonly RECOVERY_DELAY = 2 * 24 * 60 * 60 * 1000; // 2일
+  private readonly MAX_PENDING_OPS = 10000;
+  private readonly MAX_WALLETS = 100000;
+  private readonly MAX_RESULTS = 50000;
 
   constructor(config: Partial<TBC4337Config> = {}) {
     super();

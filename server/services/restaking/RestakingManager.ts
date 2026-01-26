@@ -150,6 +150,9 @@ export class RestakingManager extends EventEmitter {
 
   private readonly EXCHANGE_RATE_PRECISION = BigInt('1000000000000000000'); // 1e18
   private readonly REBASE_INTERVAL = 24 * 60 * 60 * 1000; // 24시간
+  private readonly MAX_POSITIONS = 100000;
+  private readonly MAX_OPERATORS = 1000;
+  private readonly MAX_AVS = 100;
 
   constructor(config: Partial<RestakingConfig> = {}) {
     super();

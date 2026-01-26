@@ -155,6 +155,9 @@ export class IntentNetworkManager extends EventEmitter {
   private readonly MIN_SOLVER_STAKE = BigInt('100000000000000000000000'); // 100K TBURN
   private readonly AUCTION_DURATION = 2000; // 2초
   private readonly SETTLEMENT_TIMEOUT = 60000; // 1분
+  private readonly MAX_INTENTS = 50000;
+  private readonly MAX_MEMPOOL = 10000;
+  private readonly MAX_RESULTS = 100000;
 
   constructor(config: Partial<IntentNetworkConfig> = {}) {
     super();

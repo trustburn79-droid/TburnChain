@@ -126,6 +126,9 @@ export class ZKRollupManager extends EventEmitter {
 
   private readonly PROOF_SUBMISSION_INTERVAL = 60000; // 1분
   private readonly MAX_BATCH_SIZE = 1000;
+  private readonly MAX_PENDING_TX = 50000;
+  private readonly MAX_ACCOUNTS = 1000000;
+  private readonly MAX_PROOFS = 10000;
 
   constructor(config: Partial<ZKRollupConfig> = {}) {
     super();

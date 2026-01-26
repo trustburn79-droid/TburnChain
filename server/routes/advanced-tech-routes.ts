@@ -2,16 +2,156 @@
  * Advanced Technology Routes - 5대 신기술 API 라우트
  * 
  * 모듈러 DA, 리스테이킹, ZK 롤업, 어카운트 추상화, 인텐트 아키텍처
+ * 
+ * Security: Zod 검증, 크기 제한, 인증 미들웨어 적용
  */
 
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
+import { z } from 'zod';
+import { randomBytes } from 'crypto';
 import { shardDACoordinator, DAProvider } from '../services/modular-da/ShardDACoordinator';
 import { restakingManager } from '../services/restaking/RestakingManager';
 import { zkRollupManager } from '../services/zk-rollup/ZKRollupManager';
 import { tbc4337Manager } from '../services/account-abstraction/TBC4337Manager';
 import { intentNetworkManager, IntentType } from '../services/intent-network/IntentNetworkManager';
+import { validateCsrf } from '../middleware/csrf';
 
 const router = Router();
+
+function requireAuth(req: Request, res: Response, next: NextFunction) {
+  if (req.isAuthenticated && req.isAuthenticated()) {
+    return next();
+  }
+  if (req.session?.userId || req.session?.isAdmin) {
+    return next();
+  }
+  return res.status(401).json({
+    error: 'Unauthorized',
+    message: 'Authentication required for this operation',
+    code: 'AUTH_REQUIRED',
+  });
+}
+
+const MAX_BLOB_SIZE = 128 * 1024;
+const MAX_INTENT_DESC_LENGTH = 1000;
+const MAX_CALLDATA_SIZE = 64 * 1024;
+
+const blobSubmitSchema = z.object({
+  shardId: z.number().int().min(0).max(63),
+  data: z.string().max(MAX_BLOB_SIZE * 1.4),
+});
+
+const stakeSchema = z.object({
+  walletAddress: z.string().regex(/^tb1[a-z0-9]{38,42}$/, 'Invalid TBURN address'),
+  amount: z.string().regex(/^\d+(\.\d+)?$/, 'Invalid amount format'),
+  avsId: z.string().max(64).optional(),
+});
+
+const l2SubmitSchema = z.object({
+  from: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid address'),
+  to: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid address'),
+  value: z.string().regex(/^\d+$/, 'Invalid value'),
+  data: z.string().max(MAX_CALLDATA_SIZE).optional(),
+  nonce: z.number().int().min(0).optional(),
+});
+
+const bridgeDepositSchema = z.object({
+  l1Address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid L1 address'),
+  l2Address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid L2 address'),
+  amount: z.string().regex(/^\d+$/, 'Invalid amount'),
+  tokenAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
+});
+
+const bridgeWithdrawSchema = z.object({
+  l2Address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid L2 address'),
+  l1Address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid L1 address'),
+  amount: z.string().regex(/^\d+$/, 'Invalid amount'),
+  tokenAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
+});
+
+const walletCreateSchema = z.object({
+  owner: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid owner address'),
+  salt: z.number().int().min(0).optional(),
+  modules: z.array(z.string()).max(10).optional(),
+});
+
+const userOpSubmitSchema = z.object({
+  sender: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid sender'),
+  nonce: z.number().int().min(0),
+  callData: z.string().max(MAX_CALLDATA_SIZE),
+  callGasLimit: z.number().int().min(21000).max(30000000),
+  verificationGasLimit: z.number().int().min(21000).max(10000000),
+  preVerificationGas: z.number().int().min(0).max(1000000),
+  maxFeePerGas: z.string().regex(/^\d+$/, 'Invalid gas fee'),
+  maxPriorityFeePerGas: z.string().regex(/^\d+$/, 'Invalid priority fee'),
+  paymasterAndData: z.string().max(MAX_CALLDATA_SIZE).optional(),
+  signature: z.string().max(1024).optional(),
+});
+
+const intentNaturalSchema = z.object({
+  description: z.string().min(1).max(MAX_INTENT_DESC_LENGTH),
+  userAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid user address'),
+});
+
+const intentSubmitSchema = z.object({
+  type: z.enum(['SWAP', 'BRIDGE', 'STAKE', 'LEND', 'LIMIT_ORDER', 'RECURRING']),
+  userAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid user address'),
+  params: z.object({
+    tokenIn: z.string().optional(),
+    tokenOut: z.string().optional(),
+    amountIn: z.string().optional(),
+    minAmountOut: z.string().optional(),
+    deadline: z.number().optional(),
+    slippageTolerance: z.number().min(0).max(50).optional(),
+  }),
+  constraints: z.object({
+    maxGasPrice: z.string().optional(),
+    deadline: z.number().optional(),
+    preferredDEXs: z.array(z.string()).max(10).optional(),
+  }).optional(),
+});
+
+const optimalPathSchema = z.object({
+  tokenIn: z.string(),
+  tokenOut: z.string(),
+  amountIn: z.string().regex(/^\d+$/, 'Invalid amount'),
+  options: z.object({
+    maxHops: z.number().int().min(1).max(5).optional(),
+    includeGasEstimate: z.boolean().optional(),
+  }).optional(),
+});
+
+function validateBody<T>(schema: z.ZodType<T>) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req.body);
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        error: 'Validation failed',
+        details: result.error.errors.map(e => ({
+          path: e.path.join('.'),
+          message: e.message,
+        })),
+      });
+    }
+    req.body = result.data;
+    next();
+  };
+}
+
+function parseDecimalToBigInt(value: string, decimals: number): bigint {
+  const parts = value.split('.');
+  const wholePart = parts[0] || '0';
+  let fractionalPart = parts[1] || '';
+  
+  if (fractionalPart.length > decimals) {
+    fractionalPart = fractionalPart.substring(0, decimals);
+  } else {
+    fractionalPart = fractionalPart.padEnd(decimals, '0');
+  }
+  
+  return BigInt(wholePart + fractionalPart);
+}
 
 // ============================================================================
 // 모듈러 DA 라우트
@@ -65,15 +205,16 @@ router.get('/da/providers', async (req: Request, res: Response) => {
 
 /**
  * POST /api/da/blob/submit
- * 블롭 제출
+ * 블롭 제출 (Zod 검증 적용)
  */
-router.post('/da/blob/submit', async (req: Request, res: Response) => {
+router.post('/da/blob/submit', requireAuth, validateCsrf, validateBody(blobSubmitSchema), async (req: Request, res: Response) => {
   try {
     const { shardId, data } = req.body;
-    const proof = await shardDACoordinator.submitBlob(
-      shardId,
-      Buffer.from(data, 'base64')
-    );
+    const decodedData = Buffer.from(data, 'base64');
+    if (decodedData.length > MAX_BLOB_SIZE) {
+      return res.status(400).json({ success: false, error: `Blob size exceeds maximum of ${MAX_BLOB_SIZE} bytes` });
+    }
+    const proof = await shardDACoordinator.submitBlob(shardId, decodedData);
     res.json({
       success: true,
       data: {
@@ -210,15 +351,17 @@ router.get('/restaking/operators', async (req: Request, res: Response) => {
 
 /**
  * POST /api/restaking/stake
- * 리스테이킹
+ * 리스테이킹 (Zod 검증 적용)
  */
-router.post('/restaking/stake', async (req: Request, res: Response) => {
+router.post('/restaking/stake', requireAuth, validateCsrf, validateBody(stakeSchema), async (req: Request, res: Response) => {
   try {
-    const { staker, amount, avsAllocations } = req.body;
+    const { walletAddress, amount, avsId } = req.body;
+    const parsedAmount = parseDecimalToBigInt(amount, 18);
+    const avsAllocations = avsId ? new Map([[avsId, parsedAmount]]) : undefined;
     const position = await restakingManager.restake(
-      staker,
-      BigInt(amount),
-      avsAllocations ? new Map(Object.entries(avsAllocations).map(([k, v]) => [k, BigInt(v as string)])) : undefined
+      walletAddress,
+      parsedAmount,
+      avsAllocations
     );
     res.json({
       success: true,
@@ -305,9 +448,9 @@ router.get('/zk/state', async (req: Request, res: Response) => {
 
 /**
  * POST /api/zk/l2/submit
- * L2 트랜잭션 제출
+ * L2 트랜잭션 제출 (Zod 검증 적용)
  */
-router.post('/zk/l2/submit', async (req: Request, res: Response) => {
+router.post('/zk/l2/submit', requireAuth, validateCsrf, validateBody(l2SubmitSchema), async (req: Request, res: Response) => {
   try {
     const txHash = await zkRollupManager.submitL2Transaction(req.body);
     res.json({ success: true, data: { txHash } });
@@ -318,13 +461,14 @@ router.post('/zk/l2/submit', async (req: Request, res: Response) => {
 
 /**
  * POST /api/zk/bridge/deposit
- * L1 → L2 브릿지
+ * L1 → L2 브릿지 (Zod 검증 적용)
  */
-router.post('/zk/bridge/deposit', async (req: Request, res: Response) => {
+router.post('/zk/bridge/deposit', requireAuth, validateCsrf, validateBody(bridgeDepositSchema), async (req: Request, res: Response) => {
   try {
-    const { l1TxHash, recipient, amount, token } = req.body;
-    await zkRollupManager.bridgeToL2(l1TxHash, recipient, BigInt(amount), token);
-    res.json({ success: true, message: 'Bridged to L2' });
+    const { l1Address, l2Address, amount, tokenAddress } = req.body;
+    const l1TxHash = `0x${randomBytes(32).toString('hex')}`;
+    await zkRollupManager.bridgeToL2(l1TxHash, l2Address, BigInt(amount), tokenAddress);
+    res.json({ success: true, message: 'Bridged to L2', l1TxHash });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -332,12 +476,12 @@ router.post('/zk/bridge/deposit', async (req: Request, res: Response) => {
 
 /**
  * POST /api/zk/bridge/withdraw
- * L2 → L1 출금
+ * L2 → L1 출금 (Zod 검증 적용)
  */
-router.post('/zk/bridge/withdraw', async (req: Request, res: Response) => {
+router.post('/zk/bridge/withdraw', requireAuth, validateCsrf, validateBody(bridgeWithdrawSchema), async (req: Request, res: Response) => {
   try {
-    const { sender, recipient, amount, token } = req.body;
-    const txHash = await zkRollupManager.withdrawToL1(sender, recipient, BigInt(amount), token);
+    const { l2Address, l1Address, amount, tokenAddress } = req.body;
+    const txHash = await zkRollupManager.withdrawToL1(l2Address, l1Address, BigInt(amount), tokenAddress);
     res.json({ success: true, data: { txHash } });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });
@@ -419,9 +563,9 @@ router.get('/aa/stats', async (req: Request, res: Response) => {
 
 /**
  * POST /api/aa/wallet/create
- * 스마트 월렛 생성
+ * 스마트 월렛 생성 (Zod 검증 적용)
  */
-router.post('/aa/wallet/create', async (req: Request, res: Response) => {
+router.post('/aa/wallet/create', requireAuth, validateCsrf, validateBody(walletCreateSchema), async (req: Request, res: Response) => {
   try {
     const address = await tbc4337Manager.createSmartWallet(req.body);
     res.json({ success: true, data: { address } });
@@ -455,20 +599,20 @@ router.get('/aa/wallet/:address', async (req: Request, res: Response) => {
 
 /**
  * POST /api/aa/userop/submit
- * UserOperation 제출
+ * UserOperation 제출 (Zod 검증 적용)
  */
-router.post('/aa/userop/submit', async (req: Request, res: Response) => {
+router.post('/aa/userop/submit', requireAuth, validateCsrf, validateBody(userOpSubmitSchema), async (req: Request, res: Response) => {
   try {
     const userOp = {
-      ...req.body,
-      nonce: BigInt(req.body.nonce || 0),
-      callGasLimit: BigInt(req.body.callGasLimit || 100000),
-      verificationGasLimit: BigInt(req.body.verificationGasLimit || 100000),
-      preVerificationGas: BigInt(req.body.preVerificationGas || 21000),
-      maxFeePerGas: BigInt(req.body.maxFeePerGas || 1000000000),
-      maxPriorityFeePerGas: BigInt(req.body.maxPriorityFeePerGas || 1000000000),
-      initCode: Buffer.from(req.body.initCode || '', 'hex'),
-      callData: Buffer.from(req.body.callData || '', 'hex'),
+      sender: req.body.sender,
+      nonce: BigInt(req.body.nonce),
+      callGasLimit: BigInt(req.body.callGasLimit),
+      verificationGasLimit: BigInt(req.body.verificationGasLimit),
+      preVerificationGas: BigInt(req.body.preVerificationGas),
+      maxFeePerGas: BigInt(req.body.maxFeePerGas),
+      maxPriorityFeePerGas: BigInt(req.body.maxPriorityFeePerGas),
+      initCode: Buffer.alloc(0),
+      callData: Buffer.from(req.body.callData, 'hex'),
       paymasterAndData: Buffer.from(req.body.paymasterAndData || '', 'hex'),
       signature: Buffer.from(req.body.signature || '', 'hex'),
     };
@@ -544,12 +688,12 @@ router.get('/intent/solvers', async (req: Request, res: Response) => {
 
 /**
  * POST /api/intent/submit/natural
- * 자연어 인텐트 제출
+ * 자연어 인텐트 제출 (Zod 검증 적용)
  */
-router.post('/intent/submit/natural', async (req: Request, res: Response) => {
+router.post('/intent/submit/natural', requireAuth, validateCsrf, validateBody(intentNaturalSchema), async (req: Request, res: Response) => {
   try {
-    const { user, text } = req.body;
-    const intentId = await intentNetworkManager.submitNaturalLanguageIntent(user, text);
+    const { userAddress, description } = req.body;
+    const intentId = await intentNetworkManager.submitNaturalLanguageIntent(userAddress, description);
     res.json({ success: true, data: { intentId } });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });
@@ -558,20 +702,20 @@ router.post('/intent/submit/natural', async (req: Request, res: Response) => {
 
 /**
  * POST /api/intent/submit
- * 구조화된 인텐트 제출
+ * 구조화된 인텐트 제출 (Zod 검증 적용)
  */
-router.post('/intent/submit', async (req: Request, res: Response) => {
+router.post('/intent/submit', requireAuth, validateCsrf, validateBody(intentSubmitSchema), async (req: Request, res: Response) => {
   try {
-    const { user, type, inputToken, inputAmount, outputToken, minOutputAmount, constraints, deadline } = req.body;
+    const { userAddress, type, params, constraints } = req.body;
     const intentId = await intentNetworkManager.submitStructuredIntent(
-      user,
+      userAddress,
       type as IntentType,
-      inputToken,
-      BigInt(inputAmount),
-      outputToken,
-      BigInt(minOutputAmount),
+      params.tokenIn || 'TBURN',
+      BigInt(params.amountIn || '0'),
+      params.tokenOut || 'ETH',
+      BigInt(params.minAmountOut || '0'),
       constraints,
-      deadline
+      constraints?.deadline
     );
     res.json({ success: true, data: { intentId } });
   } catch (error: any) {
@@ -623,7 +767,7 @@ router.get('/intent/:intentId/bids', async (req: Request, res: Response) => {
  * POST /api/intent/:intentId/execute
  * 인텐트 실행
  */
-router.post('/intent/:intentId/execute', async (req: Request, res: Response) => {
+router.post('/intent/:intentId/execute', requireAuth, validateCsrf, async (req: Request, res: Response) => {
   try {
     const result = await intentNetworkManager.executeIntent(req.params.intentId);
     res.json({
@@ -663,15 +807,15 @@ router.get('/intent/:intentId/mev-status', async (req: Request, res: Response) =
 
 /**
  * POST /api/intent/path/optimal
- * 최적 경로 탐색
+ * 최적 경로 탐색 (Zod 검증 적용)
  */
-router.post('/intent/path/optimal', async (req: Request, res: Response) => {
+router.post('/intent/path/optimal', requireAuth, validateCsrf, validateBody(optimalPathSchema), async (req: Request, res: Response) => {
   try {
-    const { inputToken, outputToken, inputAmount } = req.body;
+    const { tokenIn, tokenOut, amountIn } = req.body;
     const path = await intentNetworkManager.findOptimalPath(
-      inputToken,
-      outputToken,
-      BigInt(inputAmount)
+      tokenIn,
+      tokenOut,
+      BigInt(amountIn)
     );
     res.json({
       success: true,
