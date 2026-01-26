@@ -63,6 +63,10 @@ export interface ShardDAAdapterConfig {
   batchSize: number;
   compressionEnabled: boolean;
   primaryProvider: DAProvider;
+  maxQueueSize: number;
+  backpressureThreshold: number;
+  dropPolicy: 'oldest' | 'newest' | 'none';
+  integrationThresholdMs: number;
 }
 
 const DEFAULT_CONFIG: ShardDAAdapterConfig = {
@@ -71,14 +75,28 @@ const DEFAULT_CONFIG: ShardDAAdapterConfig = {
   batchSize: 100,
   compressionEnabled: true,
   primaryProvider: DAProvider.TBURN_NATIVE,
+  maxQueueSize: 10000,
+  backpressureThreshold: 0.8,
+  dropPolicy: 'oldest',
+  integrationThresholdMs: 50,
 };
+
+export enum BackpressureState {
+  NORMAL = 'NORMAL',
+  WARNING = 'WARNING',
+  CRITICAL = 'CRITICAL',
+  DROPPING = 'DROPPING',
+}
 
 export class ShardDAAdapter extends EventEmitter {
   private config: ShardDAAdapterConfig;
   private pendingSubmissions: Map<string, ShardDataPayload> = new Map();
   private submissionHistory: Map<string, DASubmissionResult> = new Map();
   private autoSubmitInterval: ReturnType<typeof setInterval> | null = null;
+  private metricsInterval: ReturnType<typeof setInterval> | null = null;
   private isRunning: boolean = false;
+  private backpressureState: BackpressureState = BackpressureState.NORMAL;
+  private droppedCount: number = 0;
 
   private metrics = {
     totalSubmissions: 0,
@@ -86,7 +104,17 @@ export class ShardDAAdapter extends EventEmitter {
     failedSubmissions: 0,
     totalBytesSubmitted: BigInt(0),
     averageLatencyMs: 0,
+    currentQueueDepth: 0,
+    peakQueueDepth: 0,
+    totalDropped: 0,
+    backpressureEvents: 0,
+    p50LatencyMs: 0,
+    p95LatencyMs: 0,
+    p99LatencyMs: 0,
+    shardLoopImpactMs: 0,
   };
+
+  private latencyBuffer: number[] = [];
 
   constructor(config: Partial<ShardDAAdapterConfig> = {}) {
     super();
@@ -123,6 +151,11 @@ export class ShardDAAdapter extends EventEmitter {
     if (this.autoSubmitInterval) {
       clearInterval(this.autoSubmitInterval);
       this.autoSubmitInterval = null;
+    }
+    
+    if (this.metricsInterval) {
+      clearInterval(this.metricsInterval);
+      this.metricsInterval = null;
     }
 
     await this.flushPending();
@@ -237,23 +270,122 @@ export class ShardDAAdapter extends EventEmitter {
   }
 
   /**
-   * 제출 대기열에 추가
+   * 큐에 제출 추가 (백프레셔 적용)
+   * 핵심 샤드 루프에 영향을 주지 않도록 non-blocking
    */
-  queueForSubmission(payload: ShardDataPayload): void {
+  queueForSubmission(payload: ShardDataPayload): boolean {
+    const startTime = Date.now();
     const key = `shard-${payload.shardId}-block-${payload.blockHeight}`;
+    
+    this.updateBackpressureState();
+    
+    if (this.pendingSubmissions.size >= this.config.maxQueueSize) {
+      if (this.config.dropPolicy === 'none') {
+        this.emit('queueFull', { dropped: false, key });
+        return false;
+      }
+      
+      if (this.config.dropPolicy === 'oldest') {
+        const oldestKey = this.pendingSubmissions.keys().next().value;
+        if (oldestKey) this.pendingSubmissions.delete(oldestKey);
+      } else {
+        this.emit('queueFull', { dropped: true, key });
+        this.droppedCount++;
+        this.metrics.totalDropped++;
+        return false;
+      }
+      this.droppedCount++;
+      this.metrics.totalDropped++;
+    }
+    
     this.pendingSubmissions.set(key, payload);
+    this.updateQueueMetrics();
+    
+    const impactMs = Date.now() - startTime;
+    this.metrics.shardLoopImpactMs = 
+      (this.metrics.shardLoopImpactMs * 0.9) + (impactMs * 0.1);
+    
+    return true;
   }
 
   /**
-   * 대기 중인 모든 제출 처리
+   * 대기 중인 모든 제출 처리 (비동기, non-blocking)
    */
   async flushPending(): Promise<void> {
     const pending = Array.from(this.pendingSubmissions.values());
     this.pendingSubmissions.clear();
+    this.updateQueueMetrics();
 
     for (const payload of pending) {
       await this.submitShardBlock(payload);
     }
+  }
+
+  /**
+   * 백프레셔 상태 업데이트
+   */
+  private updateBackpressureState(): void {
+    const ratio = this.pendingSubmissions.size / this.config.maxQueueSize;
+    const prevState = this.backpressureState;
+    
+    if (ratio >= 1.0) {
+      this.backpressureState = BackpressureState.DROPPING;
+    } else if (ratio >= this.config.backpressureThreshold) {
+      this.backpressureState = BackpressureState.CRITICAL;
+    } else if (ratio >= this.config.backpressureThreshold * 0.7) {
+      this.backpressureState = BackpressureState.WARNING;
+    } else {
+      this.backpressureState = BackpressureState.NORMAL;
+    }
+    
+    if (prevState !== this.backpressureState) {
+      this.metrics.backpressureEvents++;
+      this.emit('backpressureChange', { 
+        from: prevState, 
+        to: this.backpressureState,
+        queueSize: this.pendingSubmissions.size,
+      });
+    }
+  }
+
+  /**
+   * 큐 메트릭스 업데이트
+   */
+  private updateQueueMetrics(): void {
+    this.metrics.currentQueueDepth = this.pendingSubmissions.size;
+    if (this.metrics.currentQueueDepth > this.metrics.peakQueueDepth) {
+      this.metrics.peakQueueDepth = this.metrics.currentQueueDepth;
+    }
+  }
+
+  /**
+   * 백프레셔 상태 조회
+   */
+  getBackpressureState(): BackpressureState {
+    return this.backpressureState;
+  }
+
+  /**
+   * 통합 권장 여부 (임계값 기반)
+   */
+  shouldConsiderIntegration(): { recommend: boolean; reason: string } {
+    if (this.metrics.shardLoopImpactMs > this.config.integrationThresholdMs) {
+      return {
+        recommend: true,
+        reason: `샤드 루프 영향: ${this.metrics.shardLoopImpactMs.toFixed(2)}ms > 임계값 ${this.config.integrationThresholdMs}ms`,
+      };
+    }
+    if (this.backpressureState === BackpressureState.CRITICAL || 
+        this.backpressureState === BackpressureState.DROPPING) {
+      return {
+        recommend: true,
+        reason: `백프레셔 상태: ${this.backpressureState}`,
+      };
+    }
+    return {
+      recommend: false,
+      reason: '현재 분리 아키텍처가 적합함',
+    };
   }
 
   private startAutoSubmit(): void {
@@ -262,6 +394,28 @@ export class ShardDAAdapter extends EventEmitter {
         await this.flushPending();
       }
     }, this.config.submitIntervalMs);
+    
+    this.metricsInterval = setInterval(() => {
+      this.calculatePercentiles();
+    }, 10000);
+  }
+
+  /**
+   * 지연시간 백분위수 계산
+   */
+  private calculatePercentiles(): void {
+    if (this.latencyBuffer.length === 0) return;
+    
+    const sorted = [...this.latencyBuffer].sort((a, b) => a - b);
+    const len = sorted.length;
+    
+    this.metrics.p50LatencyMs = sorted[Math.floor(len * 0.5)] || 0;
+    this.metrics.p95LatencyMs = sorted[Math.floor(len * 0.95)] || 0;
+    this.metrics.p99LatencyMs = sorted[Math.floor(len * 0.99)] || 0;
+    
+    if (this.latencyBuffer.length > 1000) {
+      this.latencyBuffer = this.latencyBuffer.slice(-500);
+    }
   }
 
   private serializePayload(payload: ShardDataPayload): Buffer {
@@ -285,6 +439,8 @@ export class ShardDAAdapter extends EventEmitter {
       this.metrics.failedSubmissions++;
     }
     
+    this.latencyBuffer.push(latencyMs);
+    
     this.metrics.averageLatencyMs = 
       (this.metrics.averageLatencyMs * (this.metrics.totalSubmissions - 1) + latencyMs) / 
       this.metrics.totalSubmissions;
@@ -299,6 +455,16 @@ export class ShardDAAdapter extends EventEmitter {
       averageLatencyMs: this.metrics.averageLatencyMs,
       pendingCount: this.pendingSubmissions.size,
       historyCount: this.submissionHistory.size,
+      currentQueueDepth: this.metrics.currentQueueDepth,
+      peakQueueDepth: this.metrics.peakQueueDepth,
+      totalDropped: this.metrics.totalDropped,
+      backpressureEvents: this.metrics.backpressureEvents,
+      backpressureState: this.backpressureState,
+      p50LatencyMs: this.metrics.p50LatencyMs,
+      p95LatencyMs: this.metrics.p95LatencyMs,
+      p99LatencyMs: this.metrics.p99LatencyMs,
+      shardLoopImpactMs: this.metrics.shardLoopImpactMs,
+      integrationRecommendation: this.shouldConsiderIntegration(),
       isRunning: this.isRunning,
       featureEnabled: isFeatureEnabled('ENABLE_MODULAR_DA'),
     };

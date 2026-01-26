@@ -64,6 +64,19 @@ Key architectural features include:
       - 이벤트 기반 느슨한 결합 (EventEmitter)
       - Feature Flag로 완전 비활성화 가능
       - 어댑터 장애 시 핵심 코어 정상 동작 보장
+  - **비동기 큐 최적화** (2026-01-26):
+    - ShardDAAdapter에 Bounded Buffer 적용 (maxQueueSize: 10,000)
+    - 백프레셔 정책: NORMAL → WARNING → CRITICAL → DROPPING
+    - Drop Policy: oldest (가장 오래된 항목 먼저 삭제)
+    - 지연시간 백분위수 모니터링: P50, P95, P99
+    - 샤드 루프 영향 측정: shardLoopImpactMs
+  - **조건부 통합 결정 기준** (2026-01-26):
+    - 깊은 통합 고려 조건 (현재는 분리 유지):
+      1. shardLoopImpactMs > 50ms (기본 임계값)
+      2. backpressureState가 CRITICAL 또는 DROPPING
+      3. P99 지연시간이 블록 생성 시간의 10% 초과
+    - API로 확인: `GET /api/advanced-tech/adapters` → integrationRecommendation
+    - 현재 권장: 분리 아키텍처 유지 (어댑터 오버헤드 << 네트워크 지연)
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
