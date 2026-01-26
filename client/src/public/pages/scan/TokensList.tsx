@@ -35,9 +35,27 @@ interface Token {
   change24h?: string;
   volume24h?: string;
   type: 'TBC-20' | 'TBC-721' | 'TBC-1155';
+  deployedAt?: string;
+  deployerAddress?: string;
+  isUserDeployed?: boolean;
 }
 
-const mockTokens: Token[] = [
+interface DeployedToken {
+  id: string;
+  name: string;
+  symbol: string;
+  contractAddress: string;
+  standard: string;
+  totalSupply: string;
+  decimals: number;
+  holders?: number;
+  deployerAddress?: string;
+  deployedAt?: string;
+  volume24h?: string;
+  status?: string;
+}
+
+const platformTokens: Token[] = [
   { address: '0x1234...abcd', name: 'TBURN Token', symbol: 'TBURN', decimals: 18, totalSupply: '10,000,000,000', holders: 1256780, price: '$2.47', change24h: '+5.2%', volume24h: '$452M', type: 'TBC-20' },
   { address: '0x2345...bcde', name: 'Staked TBURN', symbol: 'stTBURN', decimals: 18, totalSupply: '3,200,000,000', holders: 456780, price: '$2.47', change24h: '+5.1%', volume24h: '$125M', type: 'TBC-20' },
   { address: '0x3456...cdef', name: 'TBURN Governance', symbol: 'gTBURN', decimals: 18, totalSupply: '500,000,000', holders: 123450, price: '$8.75', change24h: '+2.3%', volume24h: '$32M', type: 'TBC-20' },
@@ -45,7 +63,7 @@ const mockTokens: Token[] = [
   { address: '0x5678...efgh', name: 'Wrapped Ethereum', symbol: 'WETH', decimals: 18, totalSupply: '50,000', holders: 34567, price: '$2,450', change24h: '+3.5%', volume24h: '$89M', type: 'TBC-20' },
 ];
 
-const mockNFTs: Token[] = [
+const platformNFTs: Token[] = [
   { address: '0xnft1...1234', name: 'TBURN Genesis', symbol: 'TBGEN', decimals: 0, totalSupply: '10,000', holders: 4567, type: 'TBC-721' },
   { address: '0xnft2...2345', name: 'TBURN Validators', symbol: 'TBVAL', decimals: 0, totalSupply: '500', holders: 489, type: 'TBC-721' },
   { address: '0xnft3...3456', name: 'TBURN Rewards', symbol: 'TBRWD', decimals: 0, totalSupply: '50,000', holders: 12345, type: 'TBC-1155' },
@@ -57,6 +75,29 @@ export default function TokensList() {
   const { isConnected } = useScanWebSocket();
   const [searchToken, setSearchToken] = useState("");
   const [activeTab, setActiveTab] = useState("tbc20");
+
+  const { data: deployedTokensData } = useQuery<DeployedToken[]>({
+    queryKey: ["/api/token-system/deployed"],
+    refetchInterval: 30000,
+    staleTime: 30000,
+  });
+
+  const userDeployedTokens: Token[] = (deployedTokensData || []).map((t) => ({
+    address: t.contractAddress,
+    name: t.name,
+    symbol: t.symbol,
+    decimals: t.decimals || 18,
+    totalSupply: t.totalSupply || '0',
+    holders: t.holders || 1,
+    volume24h: t.volume24h || '$0',
+    type: (t.standard as 'TBC-20' | 'TBC-721' | 'TBC-1155') || 'TBC-20',
+    deployedAt: t.deployedAt,
+    deployerAddress: t.deployerAddress,
+    isUserDeployed: true,
+  }));
+
+  const mockTokens = [...platformTokens, ...userDeployedTokens.filter(t => t.type === 'TBC-20')];
+  const mockNFTs = [...platformNFTs, ...userDeployedTokens.filter(t => t.type === 'TBC-721' || t.type === 'TBC-1155')];
 
   const copyToClipboard = useCallback((text: string) => {
     navigator.clipboard.writeText(text);
