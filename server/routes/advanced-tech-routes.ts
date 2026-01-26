@@ -21,6 +21,7 @@ import { enhancedStakingAdapter } from '../services/integrations/enhanced-stakin
 import { zkBridgeAdapter } from '../services/integrations/zk-bridge-adapter';
 import { smartWalletAdapter } from '../services/integrations/smart-wallet-adapter';
 import { intentDexAdapter } from '../services/integrations/intent-dex-adapter';
+import { getParallelProducer } from '../core/pipeline/parallel-shard-block-producer';
 
 const router = Router();
 
@@ -850,10 +851,26 @@ router.get('/advanced-tech/overview', async (req: Request, res: Response) => {
     const zkStats = zkRollupManager.getStats();
     const aaStats = tbc4337Manager.getStats();
     const intentStats = intentNetworkManager.getStats();
+    
+    // L1 FastPath TPS from parallel shard block producer
+    const parallelProducer = getParallelProducer();
+    const l1Stats = parallelProducer.getStats();
 
     res.json({
       success: true,
       data: {
+        // ============================================================
+        // TPS 계층 구조 (L1 FastPath / L1 AA / L2)
+        // ============================================================
+        tpsBreakdown: {
+          l1FastPathTPS: l1Stats.currentTPS,
+          l1FastPathPeakTPS: l1Stats.peakTPS,
+          l1FastPathAvgTPS: l1Stats.averageTPS,
+          l1AATPS: aaStats.aaTPS,
+          l1AARecentOps: aaStats.recentUserOps,
+          l2TPS: zkStats.l2TPS,
+          totalCombinedTPS: l1Stats.currentTPS + aaStats.aaTPS + zkStats.l2TPS,
+        },
         modularDA: {
           totalBlobs: daStats.totalBlobsSubmitted,
           totalDataBytes: daStats.totalDataBytes.toString(),
@@ -875,6 +892,8 @@ router.get('/advanced-tech/overview', async (req: Request, res: Response) => {
           totalWallets: aaStats.totalWallets,
           totalUserOps: aaStats.totalUserOps,
           totalPaymasterSponsored: aaStats.totalPaymasterSponsored.toString(),
+          aaTPS: aaStats.aaTPS,
+          recentUserOps: aaStats.recentUserOps,
         },
         intentNetwork: {
           totalIntents: intentStats.totalIntents,
@@ -887,6 +906,78 @@ router.get('/advanced-tech/overview', async (req: Request, res: Response) => {
           expectedCostReduction: '95%',
           targetTVL: '$2B+',
           uxLevel: 'Web2',
+        },
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/**
+ * GET /api/advanced-tech/tps-breakdown
+ * TPS 계층 구조 상세 조회 (L1 FastPath / L1 AA / L2)
+ */
+router.get('/advanced-tech/tps-breakdown', async (req: Request, res: Response) => {
+  try {
+    const parallelProducer = getParallelProducer();
+    const l1Stats = parallelProducer.getStats();
+    const aaStats = tbc4337Manager.getStats();
+    const zkStats = zkRollupManager.getStats();
+
+    // 샤드별 TPS 분포
+    const shardTPS: Record<string, number> = {};
+    l1Stats.tpsPerShard.forEach((tps, shardId) => {
+      shardTPS[`shard_${shardId}`] = tps;
+    });
+
+    res.json({
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: {
+        // L1 FastPath TPS (기본 트랜잭션)
+        l1FastPath: {
+          currentTPS: l1Stats.currentTPS,
+          averageTPS: l1Stats.averageTPS,
+          peakTPS: l1Stats.peakTPS,
+          activeShards: l1Stats.activeShards,
+          totalBlocks: l1Stats.totalBlocks,
+          totalTransactions: l1Stats.totalTransactions,
+          shardDistribution: shardTPS,
+          description: 'L1 기본 트랜잭션 처리 (TBC-20 fast path, 8μs/TX 목표)',
+        },
+        // L1 AA TPS (Account Abstraction)
+        l1AccountAbstraction: {
+          currentTPS: aaStats.aaTPS,
+          recentUserOps: aaStats.recentUserOps,
+          totalUserOps: aaStats.totalUserOps,
+          bundlerQueueSize: aaStats.bundlerQueueSize,
+          totalWallets: aaStats.totalWallets,
+          activeSessionKeys: aaStats.activeSessionKeys,
+          description: 'L1 Account Abstraction 트랜잭션 (ERC-4337 UserOps)',
+        },
+        // L2 TPS (ZK Rollup)
+        l2ZKRollup: {
+          currentTPS: zkStats.l2TPS,
+          currentBatch: zkStats.currentBatch,
+          totalTransactions: zkStats.totalTransactions,
+          pendingTransactions: zkStats.pendingTransactions,
+          gasSavingsPercent: zkStats.gasSavingsPercent,
+          averageProofTime: zkStats.averageProofTime,
+          description: 'L2 ZK Rollup 트랜잭션 (95% 가스 절감)',
+        },
+        // 통합 TPS
+        combined: {
+          totalTPS: l1Stats.currentTPS + aaStats.aaTPS + zkStats.l2TPS,
+          l1Ratio: l1Stats.currentTPS > 0 
+            ? Math.round((l1Stats.currentTPS / (l1Stats.currentTPS + aaStats.aaTPS + zkStats.l2TPS)) * 100) 
+            : 0,
+          aaRatio: aaStats.aaTPS > 0 
+            ? Math.round((aaStats.aaTPS / (l1Stats.currentTPS + aaStats.aaTPS + zkStats.l2TPS)) * 100) 
+            : 0,
+          l2Ratio: zkStats.l2TPS > 0 
+            ? Math.round((zkStats.l2TPS / (l1Stats.currentTPS + aaStats.aaTPS + zkStats.l2TPS)) * 100) 
+            : 0,
         },
       },
     });

@@ -133,6 +133,10 @@ export interface AA4337Stats {
   pendingRecoveries: number;
   bundlerQueueSize: number;
   averageGasCost: bigint;
+  /** L1 AA TPS - Account Abstraction 트랜잭션 처리량 */
+  aaTPS: number;
+  /** 최근 1분간 처리된 UserOps 수 */
+  recentUserOps: number;
 }
 
 /**
@@ -159,6 +163,11 @@ export class TBC4337Manager extends EventEmitter {
 
   private bundlerInterval: NodeJS.Timer | null = null;
   private isRunning: boolean = false;
+
+  /** AA TPS 추적용 롤링 윈도우 */
+  private userOpWindow: { timestamp: number; count: number }[] = [];
+  private readonly TPS_WINDOW_SIZE_MS = 60000; // 60초 롤링 윈도우
+  private readonly MAX_TPS_ENTRIES = 120; // 메모리 제한
 
   private readonly BUNDLE_SIZE = 100;
   private readonly BUNDLE_INTERVAL = 1000; // 1초
@@ -458,6 +467,35 @@ export class TBC4337Manager extends EventEmitter {
   }
 
   /**
+   * UserOp 처리 시 TPS 추적 기록
+   */
+  private recordUserOpProcessed(count: number = 1): void {
+    const now = Date.now();
+    this.userOpWindow.push({ timestamp: now, count });
+    
+    // 오래된 엔트리 제거 (60초 윈도우)
+    const cutoff = now - this.TPS_WINDOW_SIZE_MS;
+    this.userOpWindow = this.userOpWindow.filter(w => w.timestamp > cutoff);
+    
+    // 메모리 제한 적용
+    if (this.userOpWindow.length > this.MAX_TPS_ENTRIES) {
+      this.userOpWindow = this.userOpWindow.slice(-this.MAX_TPS_ENTRIES);
+    }
+  }
+
+  /**
+   * AA TPS 계산 (최근 60초 기준)
+   */
+  private calculateAATPS(): { aaTPS: number; recentUserOps: number } {
+    const now = Date.now();
+    const cutoff = now - this.TPS_WINDOW_SIZE_MS;
+    const recentOps = this.userOpWindow.filter(w => w.timestamp > cutoff);
+    const recentUserOps = recentOps.reduce((sum, w) => sum + w.count, 0);
+    const aaTPS = recentUserOps / (this.TPS_WINDOW_SIZE_MS / 1000); // ops per second
+    return { aaTPS: Math.round(aaTPS * 100) / 100, recentUserOps };
+  }
+
+  /**
    * 통계 조회
    */
   getStats(): AA4337Stats {
@@ -471,6 +509,8 @@ export class TBC4337Manager extends EventEmitter {
       totalPaymasterSponsored += paymaster.getTotalSponsored();
     }
 
+    const { aaTPS, recentUserOps } = this.calculateAATPS();
+
     return {
       totalWallets: this.wallets.size(),
       totalUserOps: this.userOpResults.size(),
@@ -479,7 +519,9 @@ export class TBC4337Manager extends EventEmitter {
       pendingRecoveries: this.recoveryRequests.values()
         .filter(r => r.status === 'PENDING').length,
       bundlerQueueSize: this.pendingUserOps.size(),
-      averageGasCost: BigInt(50000), // 예상치
+      averageGasCost: BigInt(50000),
+      aaTPS,
+      recentUserOps,
     };
   }
 
@@ -577,6 +619,9 @@ export class TBC4337Manager extends EventEmitter {
 
     const currentNonce = this.nonces.get(userOp.sender) || BigInt(0);
     this.nonces.set(userOp.sender, currentNonce + BigInt(1));
+
+    // AA TPS 추적
+    this.recordUserOpProcessed(1);
 
     return {
       userOpHash: this.computeUserOpHash(userOp),
