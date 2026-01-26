@@ -1,6 +1,23 @@
 /**
  * TBURN Token Vesting & Schedule API Routes
  * Production-grade endpoints for /token-schedule and /token-details pages
+ * 
+ * ⚠️ 토큰노믹스 독립성 보장
+ * ────────────────────────────
+ * 이 API는 20년 TBURN 토큰노믹스 분배 일정만 반환합니다.
+ * 
+ * 포함되는 항목:
+ * - 토큰 발행 일정 (20년 분배)
+ * - 베스팅 컨트랙트 상태
+ * - 커스터디 트랜잭션 (팀, 재단, 에코시스템 등)
+ * 
+ * 제외되는 항목:
+ * - 리스테이킹 보상 (EXTERNAL_AVS_REWARDS)
+ * - AVS 운영자 수수료
+ * - 외부 스테이블코인 보상
+ * 
+ * 리스테이킹 보상은 별도 계정에서 관리되며, 
+ * TBURN 토큰 발행량에 영향을 주지 않습니다.
  */
 
 import { Router, Request, Response } from "express";
@@ -77,9 +94,15 @@ function sanitizeTransactionOutput(tx: any): any {
 router.get("/token-schedule", publicReadRateLimiter, async (req: Request, res: Response) => {
   try {
     // Fetch all custody transactions with vesting info
+    // ⚠️ EXTERNAL_AVS_REWARDS 제외 - 리스테이킹 보상은 토큰노믹스와 분리
+    const EXCLUDED_TYPES = ['EXTERNAL_AVS_REWARDS', 'AVS_OPERATOR_FEE', 'RESTAKING_REWARD'];
+    
     const transactions = await db
       .select()
       .from(custodyTransactions)
+      .where(
+        sql`${custodyTransactions.transactionType} NOT IN (${sql.raw(EXCLUDED_TYPES.map(t => `'${t}'`).join(', '))})`
+      )
       .orderBy(desc(custodyTransactions.proposedAt));
 
     // Calculate aggregate schedules
@@ -199,6 +222,7 @@ router.get("/token-schedule", publicReadRateLimiter, async (req: Request, res: R
 /**
  * GET /api/token-details
  * Returns individual token allocations with vesting status
+ * ⚠️ 리스테이킹 보상(EXTERNAL_AVS_REWARDS) 제외 - 토큰노믹스 분리
  */
 router.get("/token-details", publicReadRateLimiter, async (req: Request, res: Response) => {
   try {
@@ -214,8 +238,17 @@ router.get("/token-details", publicReadRateLimiter, async (req: Request, res: Re
     
     const { program, status, recipient } = parseResult.data;
     
+    // ⚠️ EXTERNAL_AVS_REWARDS 제외 - 리스테이킹 보상은 토큰노믹스와 분리
+    const EXCLUDED_TYPES = ['EXTERNAL_AVS_REWARDS', 'AVS_OPERATOR_FEE', 'RESTAKING_REWARD'];
+    
     // Apply filters with validated and sanitized inputs
     const conditions = [];
+    
+    // 항상 외부 AVS 보상 제외
+    conditions.push(
+      sql`${custodyTransactions.transactionType} NOT IN (${sql.raw(EXCLUDED_TYPES.map(t => `'${t}'`).join(', '))})`
+    );
+    
     if (program) {
       conditions.push(eq(custodyTransactions.transactionType, program));
     }
@@ -238,7 +271,7 @@ router.get("/token-details", publicReadRateLimiter, async (req: Request, res: Re
     const transactions = await db
       .select()
       .from(custodyTransactions)
-      .where(conditions.length > 0 ? and(...conditions) : undefined)
+      .where(and(...conditions))
       .orderBy(desc(custodyTransactions.proposedAt));
 
     const now = new Date();
