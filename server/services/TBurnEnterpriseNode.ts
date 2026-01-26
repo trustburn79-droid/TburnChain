@@ -3647,7 +3647,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
         
         res.json({ jsonrpc: '2.0', result, id });
       } catch (error: any) {
-        res.json({ jsonrpc: '2.0', error: { code: -32603, message: error.message }, id });
+        console.error('[RPC] Error:', error.message);
+        res.json({ jsonrpc: '2.0', error: { code: -32603, message: 'Internal error' }, id });
       }
     });
 
