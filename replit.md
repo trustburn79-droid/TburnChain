@@ -36,6 +36,16 @@ Key architectural features include:
 - **Genesis Key Generation**: Production-grade 125 validator key generation and secure storage.
 - **Custody Admin System**: Multisig wallet management with 7/11 threshold, Bech32m address validation, and audit logging.
 - **Authentication**: Two-step admin authentication with timing-safe password comparison and session-based rate limiting.
+- **5대 신기술 통합 시스템** (2026-01-26):
+  - **Feature Flag 시스템**: 환경변수로 각 기술을 독립적으로 활성화/비활성화 (`ENABLE_MODULAR_DA`, `ENABLE_RESTAKING`, `ENABLE_ZK_ROLLUP`, `ENABLE_ACCOUNT_ABSTRACTION`, `ENABLE_INTENT_ARCHITECTURE`)
+  - **통합 어댑터 패턴**: 기존 시스템 수정 없이 래퍼/어댑터로 신기술 연동
+    - `ShardDAAdapter`: 샤딩 ↔ 모듈러 DA 레이어 통합
+    - `EnhancedStakingAdapter`: 스테이킹 ↔ 리스테이킹 통합
+    - `ZKBridgeAdapter`: 브릿지 ↔ ZK 롤업 통합 (빠른 출금)
+    - `SmartWalletAdapter`: 지갑 ↔ 어카운트 추상화 통합 (가스리스 TX, 세션키)
+    - `IntentDexAdapter`: DEX ↔ 인텐트 아키텍처 통합 (MEV 보호)
+  - **API 엔드포인트**: `/api/advanced-tech/feature-flags`, `/api/advanced-tech/adapters`
+  - **목표 성능**: TPS 1,900% 증가, 비용 95% 절감, Web2 수준 UX
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

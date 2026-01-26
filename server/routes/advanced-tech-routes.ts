@@ -15,6 +15,12 @@ import { zkRollupManager } from '../services/zk-rollup/ZKRollupManager';
 import { tbc4337Manager } from '../services/account-abstraction/TBC4337Manager';
 import { intentNetworkManager, IntentType } from '../services/intent-network/IntentNetworkManager';
 import { validateCsrf } from '../middleware/csrf';
+import { featureFlags, getActiveFeatures, logFeatureStatus, isFeatureEnabled } from '../services/integrations/feature-flags';
+import { shardDAAdapter } from '../services/integrations/shard-da-adapter';
+import { enhancedStakingAdapter } from '../services/integrations/enhanced-staking-adapter';
+import { zkBridgeAdapter } from '../services/integrations/zk-bridge-adapter';
+import { smartWalletAdapter } from '../services/integrations/smart-wallet-adapter';
+import { intentDexAdapter } from '../services/integrations/intent-dex-adapter';
 
 const router = Router();
 
@@ -888,5 +894,54 @@ router.get('/advanced-tech/overview', async (req: Request, res: Response) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
+/**
+ * GET /api/advanced-tech/feature-flags
+ * 5대 신기술 Feature Flag 상태 조회
+ */
+router.get('/advanced-tech/feature-flags', (req: Request, res: Response) => {
+  res.json({
+    success: true,
+    data: {
+      featureFlags,
+      activeFeatures: getActiveFeatures(),
+    },
+  });
+});
+
+/**
+ * GET /api/advanced-tech/adapters
+ * 5대 신기술 어댑터 상태 조회
+ */
+router.get('/advanced-tech/adapters', (req: Request, res: Response) => {
+  res.json({
+    success: true,
+    data: {
+      shardDA: shardDAAdapter.getStatus(),
+      enhancedStaking: enhancedStakingAdapter.getStatus(),
+      zkBridge: zkBridgeAdapter.getStatus(),
+      smartWallet: smartWalletAdapter.getStatus(),
+      intentDex: intentDexAdapter.getStatus(),
+    },
+  });
+});
+
+/**
+ * 어댑터 초기화 함수
+ */
+export async function initializeAdvancedTechAdapters(): Promise<void> {
+  console.log('[AdvancedTech] 5대 신기술 통합 어댑터 초기화 시작...');
+  logFeatureStatus();
+
+  await Promise.all([
+    shardDAAdapter.start(),
+    enhancedStakingAdapter.start(),
+    zkBridgeAdapter.start(),
+    smartWalletAdapter.start(),
+    intentDexAdapter.start(),
+  ]);
+
+  console.log('[AdvancedTech] ✅ 모든 어댑터 초기화 완료');
+}
 
 export default router;
