@@ -78,6 +78,53 @@ Key architectural features include:
     - API로 확인: `GET /api/advanced-tech/adapters` → integrationRecommendation
     - 현재 권장: 분리 아키텍처 유지 (어댑터 오버헤드 << 네트워크 지연)
 
+## Security Documentation (2026-01-26)
+
+### SQL Injection Prevention
+모든 데이터베이스 쿼리는 Drizzle ORM의 파라미터화된 쿼리를 사용합니다.
+
+**sql.raw() 사용 위치 및 검증 방식:**
+| 파일 | 용도 | 검증 방식 |
+|------|------|----------|
+| `server/routes/db-optimization-routes.ts` | VACUUM ANALYZE | 정규식 검증 (`/^[a-z_][a-z0-9_]*$/i`) |
+| `server/routes/token-vesting-routes.ts` | NOT IN 쿼리 | 하드코딩된 상수 배열 (EXCLUDED_TYPES) |
+| `server/core/db/enterprise-db-optimizer.ts` | 테이블 통계 | 화이트리스트 검증 |
+| `server/db/enterprise-index-optimization.ts` | ANALYZE | 내부 테이블 목록만 사용 |
+
+**입력 검증 유틸리티:**
+- `server/utils/sql-security.ts`: `getSafeSortColumn`, `getSafeSortOrder`, `sanitizeSearchString`
+
+### XSS Prevention
+- Helmet 미들웨어로 보안 헤더 적용 (`server/app.ts`)
+- 프로덕션에서 nonce 기반 CSP (`server/index-prod.ts`, `server/middleware/csp-nonce.ts`)
+- `dangerouslySetInnerHTML`은 정적 코드 하이라이팅에만 사용 (사용자 입력 없음)
+
+### Authentication & Authorization
+- `crypto.timingSafeEqual`로 비밀번호 비교 (타이밍 공격 방지)
+- bcrypt 해싱 (라운드 10-12)
+- Rate Limiting: 5회 실패 → 15분 윈도우 → 1시간 락아웃
+- 세션 기반 인증: `requireAdmin`, `requireAuth` 미들웨어
+
+### CSRF Protection
+- 세션 바인딩 CSRF 토큰 (32바이트, 1시간 만료)
+- `validateCsrf` 미들웨어로 상태 변경 라우트 보호
+- `timingSafeEqual`로 토큰 비교
+
+### Public Endpoint Protection (2026-01-26)
+공개 POST 엔드포인트에 Rate Limiting 및 Zod 스키마 검증 적용:
+| 엔드포인트 | Rate Limiter | 제한 |
+|-----------|--------------|------|
+| `/api/bug-bounty` | bugBountyLimiter | 24시간당 5회 |
+| `/api/newsletter/subscribe` | newsletterLimiter | 1시간당 5회 |
+| `/api/investment-inquiry` | publicSubmitLimiter | 10분당 10회 |
+| `/api/airdrop/claim` | publicSubmitLimiter | 10분당 10회 |
+| `/api/referral/apply` | publicSubmitLimiter | 10분당 10회 |
+| `/api/events/register` | publicSubmitLimiter | 10분당 10회 |
+| `/api/events/claim` | publicSubmitLimiter | 10분당 10회 |
+
+**스키마 정의:** `server/schemas/public-endpoint-schemas.ts`
+**미들웨어:** `server/middleware/public-rate-limiter.ts`
+
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
 - **ORM**: Drizzle ORM

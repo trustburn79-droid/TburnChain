@@ -89,6 +89,16 @@ import custodyAdminRoutes, { signerPortalRouter } from "./routes/custody-admin-r
 import tokenVestingRoutes from "./routes/token-vesting-routes";
 import advancedTechRoutes from "./routes/advanced-tech-routes";
 import { getCsrfToken, validateCsrf } from "./middleware/csrf";
+import { publicSubmitLimiter, newsletterLimiter, bugBountyLimiter } from "./middleware/public-rate-limiter";
+import { 
+  bugBountySchema, 
+  newsletterSubscribeSchema, 
+  investmentInquirySchema, 
+  airdropClaimSchema,
+  eventRegisterSchema,
+  eventClaimSchema,
+  referralApplySchema
+} from "./schemas/public-endpoint-schemas";
 import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
 import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
 import { healthMonitor } from "./core/health/production-health-monitor";
@@ -8230,13 +8240,18 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
 
   // Public: Submit a bug bounty report
-  app.post("/api/bug-bounty", async (req, res) => {
+  app.post("/api/bug-bounty", bugBountyLimiter, async (req, res) => {
     try {
-      const { reporterEmail, reporterWallet, reporterName, title, description, reproductionSteps, assetTarget, reportedSeverity } = req.body;
-
-      if (!title || !description) {
-        return res.status(400).json({ error: "Title and description are required" });
+      const parseResult = bugBountySchema.safeParse(req.body);
+      
+      if (!parseResult.success) {
+        return res.status(400).json({ 
+          error: "Invalid input", 
+          details: parseResult.error.flatten().fieldErrors 
+        });
       }
+
+      const { reporterEmail, reporterWallet, reporterName, title, description, reproductionSteps, assetTarget, reportedSeverity } = parseResult.data;
 
       const report = await storage.createBugBountyReport({
         reporterEmail,
@@ -8245,8 +8260,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         title,
         description,
         reproductionSteps,
-        assetTarget: assetTarget || 'smart_contracts',
-        reportedSeverity: reportedSeverity || 'medium',
+        assetTarget,
+        reportedSeverity,
       });
 
       res.status(201).json({ 
@@ -13923,13 +13938,18 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Claim airdrop (participant action)
-  app.post("/api/airdrop/claim", async (req, res) => {
+  app.post("/api/airdrop/claim", publicSubmitLimiter, async (req, res) => {
     try {
-      const { walletAddress, claimId, signature } = req.body;
+      const parseResult = airdropClaimSchema.safeParse(req.body);
       
-      if (!walletAddress || !claimId) {
-        return res.status(400).json({ error: 'Wallet address and claim ID are required' });
+      if (!parseResult.success) {
+        return res.status(400).json({ 
+          error: "Invalid input", 
+          details: parseResult.error.flatten().fieldErrors 
+        });
       }
+
+      const { walletAddress, claimId, signature } = parseResult.data;
 
       const claim = await storage.getAirdropClaimById(claimId);
       
@@ -15777,13 +15797,18 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
 
   // Public endpoint - Submit investment inquiry (no auth required)
-  app.post("/api/investment-inquiry", async (req, res) => {
+  app.post("/api/investment-inquiry", publicSubmitLimiter, async (req, res) => {
     try {
-      const { name, email, company, investmentAmount, message, round } = req.body;
+      const parseResult = investmentInquirySchema.safeParse(req.body);
       
-      if (!name || !email) {
-        return res.status(400).json({ error: 'Name and email are required' });
+      if (!parseResult.success) {
+        return res.status(400).json({ 
+          error: "Invalid input", 
+          details: parseResult.error.flatten().fieldErrors 
+        });
       }
+
+      const { name, email, company, investmentAmount, message, round } = parseResult.data;
       
       const inquiry = await storage.createInvestmentInquiry({
         name,
@@ -15791,14 +15816,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         company: company || null,
         investmentAmount: investmentAmount || null,
         message: message || null,
-        investmentRound: round || 'seed',
+        investmentRound: round,
         status: 'pending',
         ipAddress: (req.headers['x-forwarded-for'] as string)?.split(',')[0] || req.socket.remoteAddress || null,
         userAgent: req.headers['user-agent'] || null,
         referrer: req.headers['referer'] || null,
       });
       
-      console.log(`[Investment] New inquiry from ${email} for ${round || 'seed'} round`);
+      console.log(`[Investment] New inquiry from ${email} for ${round} round`);
       res.json({ success: true, data: { id: inquiry.id }, message: 'Investment inquiry submitted successfully' });
     } catch (error) {
       console.error('[Investment] Error creating inquiry:', error);
@@ -16212,15 +16237,18 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Process referral (when someone signs up with a code)
-  app.post("/api/referral/apply", async (req, res) => {
+  app.post("/api/referral/apply", publicSubmitLimiter, async (req, res) => {
     try {
-      const { referralCode, newUserWallet } = req.body;
+      const parseResult = referralApplySchema.safeParse(req.body);
       
-      if (!referralCode || !newUserWallet) {
-        return res.status(400).json({ error: 'Referral code and new user wallet required' });
+      if (!parseResult.success) {
+        return res.status(400).json({ 
+          error: "Invalid input", 
+          details: parseResult.error.flatten().fieldErrors 
+        });
       }
-      
-      // Find referrer by code
+
+      const { referralCode, newUserWallet } = parseResult.data;
       const referrer = await storage.getReferralAccountByCode(referralCode);
       if (!referrer) {
         return res.status(404).json({ error: 'Invalid referral code' });
@@ -16428,13 +16456,18 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Register for an event
-  app.post("/api/events/register", async (req, res) => {
+  app.post("/api/events/register", publicSubmitLimiter, async (req, res) => {
     try {
-      const { walletAddress, eventId } = req.body;
+      const parseResult = eventRegisterSchema.safeParse(req.body);
       
-      if (!walletAddress || !eventId) {
-        return res.status(400).json({ error: 'Wallet address and event ID are required' });
+      if (!parseResult.success) {
+        return res.status(400).json({ 
+          error: "Invalid input", 
+          details: parseResult.error.flatten().fieldErrors 
+        });
       }
+
+      const { walletAddress, eventId, email } = parseResult.data;
       
       // Check if event exists and is active
       const event = await storage.getEventById(eventId);
@@ -16483,13 +16516,18 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Claim event rewards
-  app.post("/api/events/claim", async (req, res) => {
+  app.post("/api/events/claim", publicSubmitLimiter, async (req, res) => {
     try {
-      const { walletAddress, eventId } = req.body;
+      const parseResult = eventClaimSchema.safeParse(req.body);
       
-      if (!walletAddress || !eventId) {
-        return res.status(400).json({ error: 'Wallet address and event ID are required' });
+      if (!parseResult.success) {
+        return res.status(400).json({ 
+          error: "Invalid input", 
+          details: parseResult.error.flatten().fieldErrors 
+        });
       }
+
+      const { walletAddress, eventId } = parseResult.data;
       
       const registration = await storage.getEventRegistrationByWallet(eventId, walletAddress);
       if (!registration) {
@@ -25952,32 +25990,31 @@ Provide JSON portfolio analysis:
   // ============================================
   
   // Public: Subscribe to newsletter
-  app.post("/api/newsletter/subscribe", async (req, res) => {
+  app.post("/api/newsletter/subscribe", newsletterLimiter, async (req, res) => {
     try {
-      const { email, source } = req.body;
+      const parseResult = newsletterSubscribeSchema.safeParse(req.body);
       
-      if (!email || typeof email !== 'string') {
-        return res.status(400).json({ success: false, error: "이메일 주소가 필요합니다" });
+      if (!parseResult.success) {
+        return res.status(400).json({ 
+          error: "Invalid input", 
+          details: parseResult.error.flatten().fieldErrors 
+        });
       }
-      
-      // Validate email format
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        return res.status(400).json({ success: false, error: "올바른 이메일 형식이 아닙니다" });
-      }
+
+      const { email, source } = parseResult.data;
       
       // Get client IP
       const ipAddress = req.ip || req.headers['x-forwarded-for']?.toString().split(',')[0] || 'unknown';
       
       // Check if already subscribed
-      const existing = await db.select().from(newsletterSubscribers).where(eq(newsletterSubscribers.email, email.toLowerCase())).limit(1);
+      const existing = await db.select().from(newsletterSubscribers).where(eq(newsletterSubscribers.email, email)).limit(1);
       
       if (existing.length > 0) {
         if (existing[0].status === 'unsubscribed') {
           // Resubscribe
           await db.update(newsletterSubscribers)
             .set({ status: 'active', unsubscribedAt: null, subscribedAt: new Date() })
-            .where(eq(newsletterSubscribers.email, email.toLowerCase()));
+            .where(eq(newsletterSubscribers.email, email));
           return res.json({ success: true, message: "뉴스레터 구독이 재활성화되었습니다" });
         }
         return res.status(409).json({ success: false, error: "이미 구독 중인 이메일입니다" });
@@ -25985,7 +26022,7 @@ Provide JSON portfolio analysis:
       
       // Add new subscriber
       const [subscriber] = await db.insert(newsletterSubscribers).values({
-        email: email.toLowerCase(),
+        email,
         source: source || 'footer',
         ipAddress,
         status: 'active',
