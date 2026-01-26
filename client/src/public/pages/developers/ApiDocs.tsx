@@ -97,6 +97,13 @@ export default function ApiDocs() {
     { id: "error-codes", label: "Error Codes", icon: AlertTriangle },
     { section: "PUBLIC API" },
     { id: "public-tps", label: "TPS (Public)", icon: Zap },
+    { section: "ADVANCED TECH (5 Core)" },
+    { id: "advanced-overview", label: "Overview & TPS", icon: Zap },
+    { id: "modular-da", label: "Modular DA", icon: Layers },
+    { id: "restaking", label: "Restaking", icon: RefreshCw },
+    { id: "zk-rollup", label: "ZK Rollup", icon: Shield },
+    { id: "account-abstraction", label: "Account Abstraction", icon: Wallet },
+    { id: "intent-network", label: "Intent Network", icon: Flame },
     { section: t("apiDocs.sidebar.endpoints", "ENDPOINTS") },
     { id: "block", label: t("apiDocs.sidebar.block", "Block"), icon: Box },
     { id: "transaction", label: t("apiDocs.sidebar.transaction", "Transaction"), icon: Activity },
@@ -629,6 +636,143 @@ setInterval(getTBurnTPS, 30000);`} />
   "error": "Rate limit exceeded",
   "retryAfter": 45
 }`} />
+                  </div>
+                </div>
+              </section>
+
+              {/* Advanced Tech API Section - 5 Core Technologies */}
+              <section id="advanced-overview" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <Zap className="w-8 h-8 text-[#7000ff]" /> Advanced Tech API (5 Core Technologies)
+                </h2>
+                
+                <div className="bg-gradient-to-r from-[#7000ff]/10 to-[#00f0ff]/10 border border-[#7000ff]/20 rounded-xl p-6 mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Globe className="w-5 h-5 text-[#7000ff]" />
+                    <span className="text-[#7000ff] font-semibold">2026 Next-Gen Technology Stack</span>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    Enterprise-grade APIs for TBURN's 5 core technologies: <strong>Modular DA</strong>, <strong>Restaking</strong>, 
+                    <strong>ZK Rollup</strong>, <strong>Account Abstraction</strong>, and <strong>Intent Architecture</strong>.
+                  </p>
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div className="bg-white/50 dark:bg-white/5 rounded-lg p-3">
+                      <div className="text-2xl font-bold text-[#00ff9d]">1,900%</div>
+                      <div className="text-xs text-gray-500">TPS Increase</div>
+                    </div>
+                    <div className="bg-white/50 dark:bg-white/5 rounded-lg p-3">
+                      <div className="text-2xl font-bold text-[#00f0ff]">95%</div>
+                      <div className="text-xs text-gray-500">Cost Reduction</div>
+                    </div>
+                    <div className="bg-white/50 dark:bg-white/5 rounded-lg p-3">
+                      <div className="text-2xl font-bold text-[#7000ff]">Web2</div>
+                      <div className="text-xs text-gray-500">Level UX</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  {/* GET /api/advanced-tech/overview */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/api/advanced-tech/overview</code>
+                      <span className="px-2 py-0.5 text-xs rounded bg-green-500/10 text-green-500 border border-green-500/20">Public</span>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      Returns comprehensive overview of all 5 advanced technologies including TPS breakdown, metrics, and performance data.
+                    </p>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "tpsBreakdown": {
+      "l1FastPathTPS": 97000,
+      "l1AATPS": 1200,
+      "l2TPS": 15000,
+      "totalCombinedTPS": 113200
+    },
+    "modularDA": { "totalBlobs": 45000, "averageLatency": 12 },
+    "restaking": { "totalRestaked": "2500000000", "avsCount": 4, "averageAPY": 12.5 },
+    "zkRollup": { "currentBatch": 8500, "gasSavingsPercent": 95 },
+    "accountAbstraction": { "totalWallets": 125000, "totalUserOps": 890000 },
+    "intentNetwork": { "totalIntents": 45000, "activeSolvers": 5 }
+  }
+}`} />
+                  </div>
+
+                  {/* GET /api/advanced-tech/tps-breakdown */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/api/advanced-tech/tps-breakdown</code>
+                      <span className="px-2 py-0.5 text-xs rounded bg-green-500/10 text-green-500 border border-green-500/20">Public</span>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      Detailed TPS breakdown by layer: L1 FastPath (24 shards), L1 Account Abstraction, and L2 ZK Rollup.
+                    </p>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "l1FastPath": {
+      "currentTPS": 97000,
+      "activeShards": 24,
+      "description": "L1 기본 트랜잭션 처리 (8μs/TX 목표)"
+    },
+    "l1AccountAbstraction": {
+      "currentTPS": 1200,
+      "totalWallets": 125000,
+      "description": "ERC-4337 UserOps 처리"
+    },
+    "l2ZKRollup": {
+      "currentTPS": 15000,
+      "gasSavingsPercent": 95,
+      "description": "L2 ZK Rollup 트랜잭션"
+    }
+  }
+}`} />
+                  </div>
+
+                  {/* GET /api/advanced-tech/feature-flags */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/api/advanced-tech/feature-flags</code>
+                      <span className="px-2 py-0.5 text-xs rounded bg-green-500/10 text-green-500 border border-green-500/20">Public</span>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      Check which advanced technologies are currently enabled on the network.
+                    </p>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "featureFlags": {
+      "ENABLE_MODULAR_DA": true,
+      "ENABLE_RESTAKING": true,
+      "ENABLE_ZK_ROLLUP": true,
+      "ENABLE_ACCOUNT_ABSTRACTION": true,
+      "ENABLE_INTENT_ARCHITECTURE": true
+    }
+  }
+}`} />
+                  </div>
+
+                  {/* GET /api/advanced-tech/adapters */}
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/api/advanced-tech/adapters</code>
+                      <span className="px-2 py-0.5 text-xs rounded bg-green-500/10 text-green-500 border border-green-500/20">Public</span>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      Detailed status and metrics for all 5 technology adapters including queue depths, circuit breaker states, and performance metrics.
+                    </p>
+                    <ParamTable params={[
+                      { name: "shardDA", type: "object", desc: "Modular DA adapter metrics (compression, blob submissions)" },
+                      { name: "enhancedStaking", type: "object", desc: "Restaking adapter metrics (AVS, APY)" },
+                      { name: "zkBridge", type: "object", desc: "ZK Rollup bridge adapter (fast withdrawals)" },
+                      { name: "smartWallet", type: "object", desc: "Account Abstraction adapter (gasless TX, session keys)" },
+                      { name: "intentDex", type: "object", desc: "Intent network adapter (MEV protection, solvers)" },
+                    ]} />
                   </div>
                 </div>
               </section>

@@ -9,6 +9,7 @@ export default function TechnicalWhitepaper() {
   const tocItems = [
     { id: "abstract", label: t('technicalWhitepaper.toc.abstract') },
     { id: "architecture", label: t('technicalWhitepaper.toc.architecture') },
+    { id: "advanced-tech", label: "5 Core Technologies (2026)" },
     { id: "consensus", label: t('technicalWhitepaper.toc.consensus') },
     { id: "sharding", label: t('technicalWhitepaper.toc.sharding') },
     { id: "ai-system", label: t('technicalWhitepaper.toc.aiSystem') },

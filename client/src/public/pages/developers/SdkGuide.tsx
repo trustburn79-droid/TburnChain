@@ -112,6 +112,82 @@ client.ws.subscribeTrustScores(['tb1qcontract7x2e5d4c6b8...'], (update) => {
   console.log(\`Score changed: \${update.oldScore} → \${update.newScore}\`);
 });`;
 
+// ★ 5 Core Technologies SDK Examples
+const advancedTechExample = `import { TBurnClient } from '@tburn/sdk';
+
+// Initialize with Advanced Tech features enabled
+const client = new TBurnClient({
+  apiKey: 'YOUR_KEY',
+  network: 'mainnet',
+  advancedTech: {
+    accountAbstraction: true,  // ERC-4337 support
+    intentNetwork: true,       // Natural language swaps
+    zkRollup: true            // L2 transactions
+  }
+});
+
+// ═══════════════════════════════════════════════════════
+// 1. ACCOUNT ABSTRACTION - Gasless Transactions
+// ═══════════════════════════════════════════════════════
+const smartWallet = await client.aa.createSmartWallet({
+  owner: 'tb1qowner7x2e5d4c6b8a7n9m0...',
+  recoveryAddresses: ['tb1qbackup1...', 'tb1qbackup2...'],
+  sessionKeyDuration: 86400000  // 24 hours
+});
+
+// Gasless transfer (Paymaster sponsors gas)
+const tx = await client.aa.transfer({
+  wallet: smartWallet.address,
+  to: 'tb1qrecipient...',
+  amount: '100',
+  paymaster: 'AUTO'  // Use TBURN's default paymaster
+});
+console.log(\`Gasless TX: \${tx.userOpHash}\`);
+
+// ═══════════════════════════════════════════════════════
+// 2. INTENT ARCHITECTURE - Natural Language Trading
+// ═══════════════════════════════════════════════════════
+// Submit intent with natural language
+const intent = await client.intent.submit({
+  description: "Swap 100 USDT for TBURN at best rate",
+  maxSlippage: 0.5,
+  mevProtection: true
+});
+
+// Solvers compete for best execution
+const result = await client.intent.waitForExecution(intent.id);
+console.log(\`MEV Saved: \${result.mevSaved} | Output: \${result.output}\`);
+
+// ═══════════════════════════════════════════════════════
+// 3. ZK ROLLUP - L2 Transactions (95% gas savings)
+// ═══════════════════════════════════════════════════════
+const l2Tx = await client.l2.transfer({
+  to: 'tb1qrecipient...',
+  amount: '1000',
+  fastWithdraw: true  // Instant L1 availability
+});
+console.log(\`L2 TX (95% cheaper): \${l2Tx.hash}\`);
+console.log(\`Proof generated in: \${l2Tx.proofTimeMs}ms\`);
+
+// ═══════════════════════════════════════════════════════
+// 4. RESTAKING - Earn Additional APY
+// ═══════════════════════════════════════════════════════
+const restaking = await client.restaking.stake({
+  amount: '10000',  // TBURN
+  avsId: 'oracle-network',
+  restakePercent: 50  // 50% to AVS for extra rewards
+});
+console.log(\`Base APY: \${restaking.baseAPY}% + AVS APY: \${restaking.avsAPY}%\`);
+
+// ═══════════════════════════════════════════════════════
+// 5. GET ADVANCED TECH METRICS
+// ═══════════════════════════════════════════════════════
+const metrics = await client.advancedTech.getOverview();
+console.log(\`Total TPS: \${metrics.tpsBreakdown.totalCombinedTPS}\`);
+console.log(\`L1 FastPath: \${metrics.tpsBreakdown.l1FastPathTPS}\`);
+console.log(\`L1 AA: \${metrics.tpsBreakdown.l1AATPS}\`);
+console.log(\`L2 ZK: \${metrics.tpsBreakdown.l2TPS}\`);`;
+
 const errorHandlingExample = `import { TBurnClient, TBurnError, RateLimitError, NetworkError } from '@tburn/sdk';
 
 const client = new TBurnClient({ apiKey: 'YOUR_KEY', network: 'mainnet' });
@@ -423,6 +499,7 @@ export default function SdkGuide() {
     t('publicPages.developers.sdk.examples.core'),
     t('publicPages.developers.sdk.examples.defi'),
     t('publicPages.developers.sdk.examples.streaming'),
+    "Advanced Tech",
     "Error Handling",
     "Consensus",
     "Validators",
@@ -440,6 +517,7 @@ export default function SdkGuide() {
     switch (activeTab) {
       case t('publicPages.developers.sdk.examples.defi'): return defiExample;
       case t('publicPages.developers.sdk.examples.streaming'): return streamingExample;
+      case "Advanced Tech": return advancedTechExample;
       case "Error Handling": return errorHandlingExample;
       case "Consensus": return consensusExample;
       case "Validators": return validatorsExample;

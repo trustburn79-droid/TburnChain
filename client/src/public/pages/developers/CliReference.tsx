@@ -41,6 +41,7 @@ export default function CliReference() {
     { name: "Staking", icon: TrendingUp },
     { name: "Bridge", icon: Link2 },
     { name: "Token", icon: Coins },
+    { name: "Advanced Tech", icon: Zap },
     { name: "Consensus", icon: Zap },
     { name: "Validators", icon: Server },
     { name: "Sharding", icon: FileCode },

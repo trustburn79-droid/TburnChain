@@ -56,6 +56,15 @@ const aiApiEndpoints = [
   { method: "POST", path: "/v8/ai/burn-optimize", color: "#3b82f6" },
 ];
 
+const advancedTechApiEndpoints = [
+  { method: "GET", path: "/advanced-tech/overview", color: "#22c55e" },
+  { method: "GET", path: "/advanced-tech/tps-breakdown", color: "#22c55e" },
+  { method: "GET", path: "/advanced-tech/feature-flags", color: "#22c55e" },
+  { method: "GET", path: "/advanced-tech/adapters", color: "#22c55e" },
+  { method: "POST", path: "/v8/aa/create-wallet", color: "#3b82f6" },
+  { method: "POST", path: "/v8/intent/submit", color: "#3b82f6" },
+];
+
 const grantTierKeys = ["seed", "build", "scale", "enterprise"];
 
 export default function DeveloperHub() {
