@@ -9,6 +9,13 @@
  * - 슬래싱 리스크 관리
  * - 추가 수익 창출 (외부 AVS 운영자 수수료에서 발생)
  * 
+ * ⚠️ 동시성 처리 정책:
+ * ──────────────────────
+ * 이 어댑터는 ConcurrencyLimiter(3)를 사용하여 동시 리스테이킹 작업을 제한합니다.
+ * - 최대 3개의 동시 리스테이킹 작업만 허용
+ * - 사용자별 쿨다운 기간(기본 24시간)으로 반복 제출 방지
+ * - CircuitBreaker로 장애 격리, retryWithBackoff + withTimeout으로 복원력 확보
+ * 
  * ⚠️ 중요: 토큰노믹스 독립성 보장
  * ────────────────────────────────
  * 리스테이킹을 통한 추가 수익은 20년 TBURN 토큰노믹스와 완전히 분리됩니다.
@@ -32,6 +39,7 @@ import { isFeatureEnabled } from './feature-flags';
 import { 
   LRUCache, 
   CircuitBreaker, 
+  ConcurrencyLimiter,
   retryWithBackoff,
   withTimeout 
 } from './utils/bounded-cache';
@@ -79,6 +87,7 @@ export class EnhancedStakingAdapter extends EventEmitter {
   private lastRestakeTime: Map<string, number> = new Map();
   private isRunning: boolean = false;
   private circuitBreaker: CircuitBreaker;
+  private concurrencyLimiter: ConcurrencyLimiter;
 
   private metrics = {
     totalRestakingRequests: 0,
@@ -107,6 +116,8 @@ export class EnhancedStakingAdapter extends EventEmitter {
       resetTimeoutMs: 60000,
       halfOpenMaxCalls: 2,
     });
+
+    this.concurrencyLimiter = new ConcurrencyLimiter(3);
   }
 
   async start(): Promise<void> {
@@ -185,24 +196,26 @@ export class EnhancedStakingAdapter extends EventEmitter {
     }
 
     try {
-      const position = await this.circuitBreaker.execute(async () => {
-        return await retryWithBackoff(
-          async () => {
-            const avsAllocations = new Map<string, bigint>();
-            avsAllocations.set(request.avsId, restakingAmount);
-            
-            return await withTimeout(
-              () => restakingManager.restake(
-                stakingPosition.walletAddress,
-                restakingAmount,
-                avsAllocations
-              ),
-              30000,
-              'Restaking operation timed out'
-            );
-          },
-          { maxRetries: 2, baseDelayMs: 500, maxDelayMs: 5000 }
-        );
+      const position = await this.concurrencyLimiter.execute(async () => {
+        return await this.circuitBreaker.execute(async () => {
+          return await retryWithBackoff(
+            async () => {
+              const avsAllocations = new Map<string, bigint>();
+              avsAllocations.set(request.avsId, restakingAmount);
+              
+              return await withTimeout(
+                () => restakingManager.restake(
+                  stakingPosition.walletAddress,
+                  restakingAmount,
+                  avsAllocations
+                ),
+                30000,
+                'Restaking operation timed out'
+              );
+            },
+            { maxRetries: 2, baseDelayMs: 500, maxDelayMs: 5000 }
+          );
+        });
       });
 
       this.metrics.successfulRestakings++;

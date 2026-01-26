@@ -129,11 +129,25 @@ export class IntentDexAdapter extends EventEmitter {
 
     this.metrics.totalSwapIntents++;
 
+    if (!this.rateLimiter.tryAcquire()) {
+      this.metrics.rateLimitRejections++;
+      return {
+        success: false,
+        error: 'Rate limit exceeded. Please try again later.',
+        mevProtected: false,
+      };
+    }
+
     try {
-      const intentId = await intentNetworkManager.submitNaturalLanguageIntent(
-        request.sender,
-        `Swap ${request.amount} ${request.fromToken} for ${request.toToken} with max slippage ${request.slippageTolerance}%`
-      );
+      const intentId = await this.circuitBreaker.execute(async () => {
+        return await retryWithBackoff(
+          () => intentNetworkManager.submitNaturalLanguageIntent(
+            request.sender,
+            `Swap ${request.amount} ${request.fromToken} for ${request.toToken} with max slippage ${request.slippageTolerance}%`
+          ),
+          { maxRetries: 3, baseDelayMs: 200, maxDelayMs: 2000 }
+        );
+      });
 
       this.pendingSwaps.set(intentId, request);
 
@@ -155,6 +169,9 @@ export class IntentDexAdapter extends EventEmitter {
       };
     } catch (error) {
       this.metrics.failedSwaps++;
+      if (error instanceof Error && error.message.includes('Circuit breaker')) {
+        this.metrics.circuitBreakerTrips++;
+      }
 
       return {
         success: false,
@@ -176,11 +193,22 @@ export class IntentDexAdapter extends EventEmitter {
       return { success: false, error: 'Natural language swaps are disabled', mevProtected: false };
     }
 
+    if (!this.rateLimiter.tryAcquire()) {
+      this.metrics.rateLimitRejections++;
+      return {
+        success: false,
+        error: 'Rate limit exceeded. Please try again later.',
+        mevProtected: false,
+      };
+    }
+
     try {
-      const intentId = await intentNetworkManager.submitNaturalLanguageIntent(
-        sender,
-        naturalLanguageRequest
-      );
+      const intentId = await this.circuitBreaker.execute(async () => {
+        return await retryWithBackoff(
+          () => intentNetworkManager.submitNaturalLanguageIntent(sender, naturalLanguageRequest),
+          { maxRetries: 3, baseDelayMs: 200, maxDelayMs: 2000 }
+        );
+      });
 
       this.metrics.naturalLanguageSwaps++;
 
@@ -190,6 +218,9 @@ export class IntentDexAdapter extends EventEmitter {
         mevProtected: this.config.enableMEVProtection,
       };
     } catch (error) {
+      if (error instanceof Error && error.message.includes('Circuit breaker')) {
+        this.metrics.circuitBreakerTrips++;
+      }
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -210,11 +241,25 @@ export class IntentDexAdapter extends EventEmitter {
       return { success: false, error: 'Cross-chain swaps are disabled', mevProtected: false };
     }
 
+    if (!this.rateLimiter.tryAcquire()) {
+      this.metrics.rateLimitRejections++;
+      return {
+        success: false,
+        error: 'Rate limit exceeded. Please try again later.',
+        mevProtected: false,
+      };
+    }
+
     try {
-      const intentId = await intentNetworkManager.submitNaturalLanguageIntent(
-        request.sender,
-        `Bridge ${request.amount} ${request.fromToken} to ${targetChain} and swap for ${request.toToken}`
-      );
+      const intentId = await this.circuitBreaker.execute(async () => {
+        return await retryWithBackoff(
+          () => intentNetworkManager.submitNaturalLanguageIntent(
+            request.sender,
+            `Bridge ${request.amount} ${request.fromToken} to ${targetChain} and swap for ${request.toToken}`
+          ),
+          { maxRetries: 3, baseDelayMs: 200, maxDelayMs: 2000 }
+        );
+      });
 
       this.metrics.crossChainSwaps++;
 
@@ -224,6 +269,9 @@ export class IntentDexAdapter extends EventEmitter {
         mevProtected: this.config.enableMEVProtection,
       };
     } catch (error) {
+      if (error instanceof Error && error.message.includes('Circuit breaker')) {
+        this.metrics.circuitBreakerTrips++;
+      }
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',

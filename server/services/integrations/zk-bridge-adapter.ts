@@ -143,7 +143,7 @@ export class ZKBridgeAdapter extends EventEmitter {
               () => zkRollupManager.submitL2Transaction({
                 from: transfer.sender,
                 to: transfer.recipient,
-                value: transfer.amount.toString(),
+                value: transfer.amount,
                 data: `bridge:${transfer.transferId}`,
               }),
               this.config.proofTimeoutMs,
@@ -240,8 +240,9 @@ export class ZKBridgeAdapter extends EventEmitter {
     const startTime = Date.now();
 
     try {
-      await zkRollupManager.requestWithdrawal(
+      await zkRollupManager.withdrawToL1(
         transfer.sender,
+        transfer.recipient,
         transfer.amount
       );
 

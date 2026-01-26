@@ -54,7 +54,7 @@ const DEFAULT_CONFIG: SmartWalletAdapterConfig = {
 export class SmartWalletAdapter extends EventEmitter {
   private config: SmartWalletAdapterConfig;
   private upgradedWallets: LRUCache<string>;
-  private nonceTracker: Map<string, number> = new Map();
+  private nonceTracker: Map<string, bigint> = new Map();
   private isRunning: boolean = false;
   private circuitBreaker: CircuitBreaker;
 
@@ -89,9 +89,9 @@ export class SmartWalletAdapter extends EventEmitter {
     });
   }
 
-  private getNextNonce(address: string): number {
-    const current = this.nonceTracker.get(address) || 0;
-    this.nonceTracker.set(address, current + 1);
+  private getNextNonce(address: string): bigint {
+    const current = this.nonceTracker.get(address) || BigInt(0);
+    this.nonceTracker.set(address, current + BigInt(1));
     return current;
   }
 
@@ -133,15 +133,22 @@ export class SmartWalletAdapter extends EventEmitter {
     }
 
     try {
-      const walletConfig: SmartWalletConfig = {
-        owner: legacyWallet.address,
-        guardians: guardians || [],
-        recoveryThreshold: Math.max(1, Math.floor((guardians?.length || 0) / 2)),
-        sessionKeys: [],
-        modules: [],
-      };
+      const smartWalletAddress = await this.circuitBreaker.execute(async () => {
+        return await retryWithBackoff(
+          async () => {
+            const walletConfig: SmartWalletConfig = {
+              owner: legacyWallet.address,
+              guardians: guardians || [],
+              recoveryThreshold: Math.max(1, Math.floor((guardians?.length || 0) / 2)),
+              sessionKeys: [],
+              modules: [],
+            };
+            return await tbc4337Manager.createSmartWallet(walletConfig);
+          },
+          { maxRetries: 3, baseDelayMs: 200, maxDelayMs: 2000 }
+        );
+      });
 
-      const smartWalletAddress = await tbc4337Manager.createSmartWallet(walletConfig);
       this.upgradedWallets.set(legacyWallet.address, smartWalletAddress);
       this.metrics.successfulUpgrades++;
 
@@ -149,6 +156,9 @@ export class SmartWalletAdapter extends EventEmitter {
 
       return { success: true, smartWalletAddress };
     } catch (error) {
+      if (error instanceof Error && error.message.includes('Circuit breaker')) {
+        this.metrics.circuitBreakerTrips++;
+      }
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -171,9 +181,11 @@ export class SmartWalletAdapter extends EventEmitter {
     }
 
     try {
+      const currentNonce = this.nonceTracker.get(walletAddress) || BigInt(0);
+
       const userOp: UserOperation = {
         sender: walletAddress,
-        nonce: BigInt(0),
+        nonce: currentNonce,
         initCode: Buffer.alloc(0),
         callData: Buffer.from(calldata, 'hex'),
         callGasLimit: BigInt(100000),
@@ -185,7 +197,14 @@ export class SmartWalletAdapter extends EventEmitter {
         signature: Buffer.alloc(65),
       };
 
-      const userOpHash = await tbc4337Manager.submitUserOp(userOp);
+      const userOpHash = await this.circuitBreaker.execute(async () => {
+        return await retryWithBackoff(
+          () => tbc4337Manager.submitUserOp(userOp),
+          { maxRetries: 3, baseDelayMs: 100, maxDelayMs: 1500 }
+        );
+      });
+
+      this.nonceTracker.set(walletAddress, currentNonce + BigInt(1));
       this.metrics.gaslessTransactions++;
       this.metrics.totalGasSponsored += BigInt(21000) * BigInt(1000000000);
 
