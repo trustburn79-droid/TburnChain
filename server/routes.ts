@@ -4743,22 +4743,34 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Estimate gas for token deployment
-  app.post("/api/token-factory/estimate-gas", sensitiveOpLimiter, requireAuth, async (req, res) => {
+  app.post("/api/token-factory/estimate-gas", sensitiveOpLimiter, requireAuth, validateCsrf, async (req, res) => {
     try {
+      // Validate input
+      const validation = tokenDeploymentSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ error: "Invalid token deployment parameters" });
+      }
+      const validatedData = validation.data;
       const { tokenFactoryService } = await import("./services/TokenFactoryService");
-      const gasEstimation = await tokenFactoryService.estimateGas(req.body);
+      const gasEstimation = await tokenFactoryService.estimateGas(validatedData);
       res.json(gasEstimation);
     } catch (error: any) {
       console.error("Gas estimation error:", error);
-      res.status(503).json({ error: error.message });
+      res.status(503).json({ error: "Gas estimation failed" });
     }
   });
 
   // Build deployment transaction (for wallet signing)
-  app.post("/api/token-factory/build-transaction", sensitiveOpLimiter, requireAuth, async (req, res) => {
+  app.post("/api/token-factory/build-transaction", sensitiveOpLimiter, requireAuth, validateCsrf, async (req, res) => {
     try {
+      // Validate input
+      const validation = tokenDeploymentSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ error: "Invalid token deployment parameters" });
+      }
+      const validatedData = validation.data;
       const { tokenFactoryService } = await import("./services/TokenFactoryService");
-      const gasEstimation = await tokenFactoryService.estimateGas(req.body);
+      const gasEstimation = await tokenFactoryService.estimateGas(validatedData);
       const transaction = tokenFactoryService.buildDeploymentTransaction(req.body, gasEstimation);
       
       res.json({
@@ -4768,15 +4780,21 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error("Build transaction error:", error);
-      res.status(503).json({ error: error.message });
+      res.status(503).json({ error: "Transaction build failed" });
     }
   });
 
   // Process deployment receipt (after wallet confirmation)
-  app.post("/api/token-factory/confirm-deployment", sensitiveOpLimiter, requireAuth, async (req, res) => {
+  app.post("/api/token-factory/confirm-deployment", sensitiveOpLimiter, requireAuth, validateCsrf, async (req, res) => {
     try {
+      // Validate input
+      const validation = confirmDeploymentSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ error: "Invalid deployment confirmation parameters" });
+      }
+      
       const { tokenFactoryService } = await import("./services/TokenFactoryService");
-      const { request, txHash, receipt } = req.body;
+      const { request, txHash, receipt } = validation.data;
       
       if (!request || !txHash || !receipt) {
         return res.status(400).json({ error: "Missing required fields: request, txHash, receipt" });
@@ -4786,7 +4804,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error: any) {
       console.error("Confirm deployment error:", error);
-      res.status(503).json({ error: error.message });
+      res.status(503).json({ error: "Deployment confirmation failed" });
     }
   });
 
@@ -4814,10 +4832,16 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Simulation mode deployment (for testing without wallet)
-  app.post("/api/token-factory/simulate-deploy", sensitiveOpLimiter, requireAuth, async (req, res) => {
+  app.post("/api/token-factory/simulate-deploy", sensitiveOpLimiter, requireAuth, validateCsrf, async (req, res) => {
     try {
+      // Validate input
+      const validation = tokenDeploymentSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ error: "Invalid token deployment parameters" });
+      }
+      const validatedData = validation.data;
       const { tokenFactoryService } = await import("./services/TokenFactoryService");
-      const result = await tokenFactoryService.generateMockDeploymentForSimulation(req.body);
+      const result = await tokenFactoryService.generateMockDeploymentForSimulation(validatedData);
       res.json({
         success: true,
         mode: "simulation",
@@ -4825,7 +4849,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error("Simulation deploy error:", error);
-      res.status(503).json({ error: error.message });
+      res.status(503).json({ error: "Simulation deployment failed" });
     }
   });
 
@@ -22495,6 +22519,22 @@ const tokenDeploymentSchema = z.object({
   mevProtection: z.boolean().optional(),
   deployerAddress: z.string().regex(/^(0x[a-fA-F0-9]{40}|tb1[a-z0-9]{38,})$/, "Invalid deployer address"),
 });
+
+// Confirm Deployment Input Validation Schema
+const confirmDeploymentSchema = z.object({
+  request: z.object({
+    standard: z.enum(["TBC-20", "TBC-721", "TBC-1155"]),
+    name: z.string().min(1).max(64),
+    symbol: z.string().min(1).max(16),
+    deployerAddress: z.string(),
+  }),
+  txHash: z.string().regex(/^0x[a-fA-F0-9]{64}$/, "Invalid transaction hash"),
+  receipt: z.object({
+    blockNumber: z.number().optional(),
+    status: z.string().optional(),
+  }).passthrough(),
+});
+
 
 
 
