@@ -25,6 +25,7 @@ const routeTree: RouteItem[] = [
       { path: "/scan/validators", label: "Validators" },
       { path: "/scan/tokens", label: "Tokens" },
       { path: "/scan/stats", label: "Network Stats" },
+      { path: "/network", label: "Network View" },
     ]
   },
   {
