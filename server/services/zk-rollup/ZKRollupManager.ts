@@ -7,6 +7,7 @@
 
 import { EventEmitter } from 'events';
 import * as crypto from 'crypto';
+import { BoundedMap, BoundedQueue } from '../utils/BoundedQueue';
 
 /**
  * L2 트랜잭션
@@ -113,10 +114,10 @@ export interface ZKRollupConfig {
 export class ZKRollupManager extends EventEmitter {
   private config: ZKRollupConfig;
   private currentState: L2State;
-  private accountStates: Map<string, AccountState> = new Map();
-  private pendingTransactions: L2Transaction[] = [];
-  private submittedProofs: Map<number, ZKProof> = new Map();
-  private withdrawalRequests: Map<string, WithdrawalRequest> = new Map();
+  private accountStates: BoundedMap<string, AccountState>;
+  private pendingTransactions: BoundedQueue<L2Transaction>;
+  private submittedProofs: BoundedMap<number, ZKProof>;
+  private withdrawalRequests: BoundedMap<string, WithdrawalRequest>;
   
   private proofSubmissionLoop: NodeJS.Timer | null = null;
   private isRunning: boolean = false;
@@ -129,9 +130,15 @@ export class ZKRollupManager extends EventEmitter {
   private readonly MAX_PENDING_TX = 50000;
   private readonly MAX_ACCOUNTS = 1000000;
   private readonly MAX_PROOFS = 10000;
+  private readonly PROOF_TTL = 30 * 24 * 60 * 60 * 1000; // 30일
 
   constructor(config: Partial<ZKRollupConfig> = {}) {
     super();
+
+    this.accountStates = new BoundedMap<string, AccountState>(this.MAX_ACCOUNTS, 0, 'L2Accounts');
+    this.pendingTransactions = new BoundedQueue<L2Transaction>({ maxSize: this.MAX_PENDING_TX, name: 'PendingL2Tx', evictionPolicy: 'fifo' });
+    this.submittedProofs = new BoundedMap<number, ZKProof>(this.MAX_PROOFS, this.PROOF_TTL, 'ZKProofs');
+    this.withdrawalRequests = new BoundedMap<string, WithdrawalRequest>(this.MAX_PENDING_TX, 14 * 24 * 60 * 60 * 1000, 'Withdrawals');
 
     this.config = {
       l1ContractAddress: '0xZKVerifier001',
@@ -207,7 +214,7 @@ export class ZKRollupManager extends EventEmitter {
     console.log(`[ZKRollupManager] L2 TX submitted: ${fullTx.txHash}`);
     this.emit('transactionSubmitted', fullTx);
 
-    if (this.pendingTransactions.length >= this.config.batchSize) {
+    if (this.pendingTransactions.size() >= this.config.batchSize) {
       this.triggerBatchCreation();
     }
 
@@ -399,10 +406,10 @@ export class ZKRollupManager extends EventEmitter {
     return {
       currentBatch: this.currentState.batchNumber,
       totalTransactions: this.currentState.transactionCount,
-      pendingTransactions: this.pendingTransactions.length,
+      pendingTransactions: this.pendingTransactions.size(),
       stateRoot: this.currentState.stateRoot.toString('hex'),
-      accountCount: this.accountStates.size,
-      proofCount: this.submittedProofs.size,
+      accountCount: this.accountStates.size(),
+      proofCount: this.submittedProofs.size(),
       averageProofTime: avgProofTime,
       l2TPS,
       gasSavingsPercent: 95, // ZK 롤업으로 ~95% 가스 절감
@@ -509,7 +516,7 @@ export class ZKRollupManager extends EventEmitter {
   private startProofSubmissionLoop(): void {
     this.proofSubmissionLoop = setInterval(async () => {
       try {
-        if (this.pendingTransactions.length > 0) {
+        if (!this.pendingTransactions.isEmpty()) {
           const proof = await this.createAndProveBatch();
           await this.submitProofToL1(proof);
         }

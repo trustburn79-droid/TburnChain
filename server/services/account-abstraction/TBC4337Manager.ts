@@ -7,6 +7,7 @@
 
 import { EventEmitter } from 'events';
 import * as crypto from 'crypto';
+import { BoundedMap, BoundedQueue } from '../utils/BoundedQueue';
 
 /**
  * UserOperation (ERC-4337 표준)
@@ -149,12 +150,12 @@ export interface TBC4337Config {
  */
 export class TBC4337Manager extends EventEmitter {
   private config: TBC4337Config;
-  private wallets: Map<string, SmartWallet> = new Map();
-  private nonces: Map<string, bigint> = new Map();
-  private pendingUserOps: UserOperation[] = [];
+  private wallets: BoundedMap<string, SmartWallet>;
+  private nonces: BoundedMap<string, bigint>;
+  private pendingUserOps: BoundedQueue<UserOperation>;
   private paymasters: Map<string, Paymaster> = new Map();
-  private recoveryRequests: Map<string, RecoveryRequest> = new Map();
-  private userOpResults: Map<string, UserOpResult> = new Map();
+  private recoveryRequests: BoundedMap<string, RecoveryRequest>;
+  private userOpResults: BoundedMap<string, UserOpResult>;
 
   private bundlerInterval: NodeJS.Timer | null = null;
   private isRunning: boolean = false;
@@ -165,9 +166,16 @@ export class TBC4337Manager extends EventEmitter {
   private readonly MAX_PENDING_OPS = 10000;
   private readonly MAX_WALLETS = 100000;
   private readonly MAX_RESULTS = 50000;
+  private readonly RESULT_TTL = 7 * 24 * 60 * 60 * 1000; // 7일
 
   constructor(config: Partial<TBC4337Config> = {}) {
     super();
+
+    this.wallets = new BoundedMap<string, SmartWallet>(this.MAX_WALLETS, 0, 'SmartWallets');
+    this.nonces = new BoundedMap<string, bigint>(this.MAX_WALLETS, 0, 'WalletNonces');
+    this.pendingUserOps = new BoundedQueue<UserOperation>({ maxSize: this.MAX_PENDING_OPS, name: 'PendingUserOps', evictionPolicy: 'fifo' });
+    this.recoveryRequests = new BoundedMap<string, RecoveryRequest>(10000, this.RECOVERY_DELAY * 2, 'RecoveryRequests');
+    this.userOpResults = new BoundedMap<string, UserOpResult>(this.MAX_RESULTS, this.RESULT_TTL, 'UserOpResults');
 
     this.config = {
       entryPointAddress: '0xEntryPoint001',
@@ -464,13 +472,13 @@ export class TBC4337Manager extends EventEmitter {
     }
 
     return {
-      totalWallets: this.wallets.size,
-      totalUserOps: this.userOpResults.size,
+      totalWallets: this.wallets.size(),
+      totalUserOps: this.userOpResults.size(),
       totalPaymasterSponsored,
       activeSessionKeys,
-      pendingRecoveries: Array.from(this.recoveryRequests.values())
+      pendingRecoveries: this.recoveryRequests.values()
         .filter(r => r.status === 'PENDING').length,
-      bundlerQueueSize: this.pendingUserOps.length,
+      bundlerQueueSize: this.pendingUserOps.size(),
       averageGasCost: BigInt(50000), // 예상치
     };
   }
@@ -521,7 +529,7 @@ export class TBC4337Manager extends EventEmitter {
    */
   private startBundler(): void {
     this.bundlerInterval = setInterval(async () => {
-      if (this.pendingUserOps.length === 0) return;
+      if (this.pendingUserOps.isEmpty()) return;
 
       try {
         await this.executeBatch();

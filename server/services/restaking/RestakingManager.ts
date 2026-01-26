@@ -6,6 +6,7 @@
  */
 
 import { EventEmitter } from 'events';
+import { BoundedMap } from '../utils/BoundedQueue';
 
 /**
  * 리스테이킹 상태
@@ -139,9 +140,9 @@ export interface RestakingStats {
  */
 export class RestakingManager extends EventEmitter {
   private config: RestakingConfig;
-  private positions: Map<string, RestakingPosition> = new Map();
-  private operators: Map<string, OperatorInfo> = new Map();
-  private avsList: Map<string, AVSInfo> = new Map();
+  private positions: BoundedMap<string, RestakingPosition>;
+  private operators: BoundedMap<string, OperatorInfo>;
+  private avsList: BoundedMap<string, AVSInfo>;
   private rsTBURNInfo: RsTBURNInfo;
   private stats: RestakingStats;
   
@@ -153,9 +154,14 @@ export class RestakingManager extends EventEmitter {
   private readonly MAX_POSITIONS = 100000;
   private readonly MAX_OPERATORS = 1000;
   private readonly MAX_AVS = 100;
+  private readonly POSITION_TTL = 365 * 24 * 60 * 60 * 1000; // 1년
 
   constructor(config: Partial<RestakingConfig> = {}) {
     super();
+
+    this.positions = new BoundedMap<string, RestakingPosition>(this.MAX_POSITIONS, this.POSITION_TTL, 'RestakingPositions');
+    this.operators = new BoundedMap<string, OperatorInfo>(this.MAX_OPERATORS, 0, 'RestakingOperators');
+    this.avsList = new BoundedMap<string, AVSInfo>(this.MAX_AVS, 0, 'AVSList');
 
     this.config = {
       minRestakeAmount: BigInt('1000000000000000000'), // 1 TBURN
@@ -266,8 +272,8 @@ export class RestakingManager extends EventEmitter {
       this.avsList.set(avs.avsId, avs);
     }
 
-    this.stats.avsCount = this.avsList.size;
-    console.log('[RestakingManager] Initialized', this.avsList.size, 'AVS services');
+    this.stats.avsCount = this.avsList.size();
+    console.log('[RestakingManager] Initialized', this.avsList.size(), 'AVS services');
   }
 
   /**
@@ -317,8 +323,8 @@ export class RestakingManager extends EventEmitter {
       this.operators.set(operator.operatorId, operator);
     }
 
-    this.stats.operatorCount = this.operators.size;
-    console.log('[RestakingManager] Initialized', this.operators.size, 'operators');
+    this.stats.operatorCount = this.operators.size();
+    console.log('[RestakingManager] Initialized', this.operators.size(), 'operators');
   }
 
   /**

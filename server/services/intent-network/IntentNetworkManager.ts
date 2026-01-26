@@ -7,6 +7,7 @@
 
 import { EventEmitter } from 'events';
 import * as crypto from 'crypto';
+import { BoundedMap, BoundedQueue } from '../utils/BoundedQueue';
 
 /**
  * 인텐트 타입
@@ -139,12 +140,12 @@ export interface IntentNetworkConfig {
  */
 export class IntentNetworkManager extends EventEmitter {
   private config: IntentNetworkConfig;
-  private intents: Map<string, StructuredIntent> = new Map();
-  private solvers: Map<string, SolverInfo> = new Map();
-  private bids: Map<string, SolverBid[]> = new Map();
-  private privateMempool: StructuredIntent[] = [];
-  private executionResults: Map<string, ExecutionResult> = new Map();
-  private mevProtectionStatus: Map<string, MEVProtectionStatus> = new Map();
+  private intents: BoundedMap<string, StructuredIntent>;
+  private solvers: BoundedMap<string, SolverInfo>;
+  private bids: BoundedMap<string, SolverBid[]>;
+  private privateMempool: BoundedQueue<StructuredIntent>;
+  private executionResults: BoundedMap<string, ExecutionResult>;
+  private mevProtectionStatus: BoundedMap<string, MEVProtectionStatus>;
 
   private settlementLoop: NodeJS.Timer | null = null;
   private isRunning: boolean = false;
@@ -158,9 +159,18 @@ export class IntentNetworkManager extends EventEmitter {
   private readonly MAX_INTENTS = 50000;
   private readonly MAX_MEMPOOL = 10000;
   private readonly MAX_RESULTS = 100000;
+  private readonly MAX_SOLVERS = 1000;
+  private readonly INTENT_TTL = 24 * 60 * 60 * 1000; // 24시간
 
   constructor(config: Partial<IntentNetworkConfig> = {}) {
     super();
+
+    this.intents = new BoundedMap<string, StructuredIntent>(this.MAX_INTENTS, this.INTENT_TTL, 'Intents');
+    this.solvers = new BoundedMap<string, SolverInfo>(this.MAX_SOLVERS, 0, 'Solvers');
+    this.bids = new BoundedMap<string, SolverBid[]>(this.MAX_INTENTS, this.INTENT_TTL, 'IntentBids');
+    this.privateMempool = new BoundedQueue<StructuredIntent>({ maxSize: this.MAX_MEMPOOL, name: 'PrivateMempool', ttlMs: this.INTENT_TTL });
+    this.executionResults = new BoundedMap<string, ExecutionResult>(this.MAX_RESULTS, 7 * 24 * 60 * 60 * 1000, 'ExecutionResults');
+    this.mevProtectionStatus = new BoundedMap<string, MEVProtectionStatus>(this.MAX_INTENTS, this.INTENT_TTL, 'MEVProtection');
 
     this.config = {
       minSolverStake: this.MIN_SOLVER_STAKE,
@@ -245,7 +255,7 @@ export class IntentNetworkManager extends EventEmitter {
       this.solvers.set(solver.solverId, solver);
     }
 
-    console.log('[IntentNetworkManager] Initialized', this.solvers.size, 'solvers');
+    console.log('[IntentNetworkManager] Initialized', this.solvers.size(), 'solvers');
   }
 
   /**
@@ -740,16 +750,15 @@ export class IntentNetworkManager extends EventEmitter {
         }
       }
 
-      for (let i = this.privateMempool.length - 1; i >= 0; i--) {
-        const intent = this.privateMempool[i];
+      const mempoolItems = this.privateMempool.toArray();
+      for (const intent of mempoolItems) {
         if (intent.status === 'PENDING' && intent.deadline < now) {
           intent.status = 'EXPIRED';
-          this.privateMempool.splice(i, 1);
           this.emit('intentExpired', { intentId: intent.intentId });
         }
       }
 
-      for (const intent of [...this.intents.values(), ...this.privateMempool]) {
+      for (const intent of [...this.intents.values(), ...mempoolItems]) {
         if (intent.status === 'PENDING') {
           const bids = this.bids.get(intent.intentId) || [];
           const validBids = bids.filter(b => b.validUntil >= now);
