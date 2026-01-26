@@ -62,6 +62,11 @@ NODE_OPTIONS = "--max-old-space-size=8192"
 ENABLE_BLOCK_PIPELINE = "false"
 ENABLE_REALTIME_METRICS = "true"
 MAINNET_RPC_URL = "http://3.27.196.77:5000"
+ENABLE_MODULAR_DA = "true"
+ENABLE_RESTAKING = "true"
+ENABLE_ZK_ROLLUP = "true"
+ENABLE_ACCOUNT_ABSTRACTION = "true"
+ENABLE_INTENT_ARCHITECTURE = "true"
 
 [userenv.production]
 NODE_ENV = "production"
