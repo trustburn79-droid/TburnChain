@@ -8,6 +8,13 @@
 import { EventEmitter } from 'events';
 import { intentNetworkManager, IntentType, type StructuredIntent } from '../intent-network/IntentNetworkManager';
 import { isFeatureEnabled } from './feature-flags';
+import { 
+  LRUCache, 
+  CircuitBreaker, 
+  RateLimiter,
+  retryWithBackoff,
+  withTimeout 
+} from './utils/bounded-cache';
 
 export interface SwapRequest {
   fromToken: string;
@@ -45,8 +52,11 @@ const DEFAULT_CONFIG: IntentDexAdapterConfig = {
 
 export class IntentDexAdapter extends EventEmitter {
   private config: IntentDexAdapterConfig;
-  private pendingSwaps: Map<string, SwapRequest> = new Map();
+  private pendingSwaps: LRUCache<SwapRequest>;
   private isRunning: boolean = false;
+  private circuitBreaker: CircuitBreaker;
+  private rateLimiter: RateLimiter;
+  private cleanupInterval: ReturnType<typeof setInterval> | null = null;
 
   private metrics = {
     totalSwapIntents: 0,
@@ -57,11 +67,31 @@ export class IntentDexAdapter extends EventEmitter {
     mevSaved: BigInt(0),
     crossChainSwaps: 0,
     naturalLanguageSwaps: 0,
+    expiredIntents: 0,
+    rateLimitRejections: 0,
+    circuitBreakerTrips: 0,
   };
 
   constructor(config: Partial<IntentDexAdapterConfig> = {}) {
     super();
     this.config = { ...DEFAULT_CONFIG, ...config };
+    
+    this.pendingSwaps = new LRUCache<SwapRequest>({
+      maxSize: 5000,
+      ttlMs: this.config.defaultDeadlineSeconds * 1000,
+      onEvict: (key, value) => {
+        this.metrics.expiredIntents++;
+        this.emit('intentExpired', { intentId: key });
+      },
+    });
+
+    this.circuitBreaker = new CircuitBreaker({
+      failureThreshold: 5,
+      resetTimeoutMs: 60000,
+      halfOpenMaxCalls: 3,
+    });
+
+    this.rateLimiter = new RateLimiter(100, 50);
   }
 
   async start(): Promise<void> {
@@ -216,9 +246,14 @@ export class IntentDexAdapter extends EventEmitter {
       mevSaved: this.metrics.mevSaved.toString(),
       crossChainSwaps: this.metrics.crossChainSwaps,
       naturalLanguageSwaps: this.metrics.naturalLanguageSwaps,
+      expiredIntents: this.metrics.expiredIntents,
+      rateLimitRejections: this.metrics.rateLimitRejections,
+      circuitBreakerTrips: this.metrics.circuitBreakerTrips,
+      circuitBreakerState: this.circuitBreaker.getState(),
+      pendingSwapsStats: this.pendingSwaps.getStats(),
+      rateLimiterStats: this.rateLimiter.getStats(),
       isRunning: this.isRunning,
       featureEnabled: isFeatureEnabled('ENABLE_INTENT_ARCHITECTURE'),
-      pendingSwapsCount: this.pendingSwaps.size,
     };
   }
 

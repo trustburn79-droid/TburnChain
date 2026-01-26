@@ -8,6 +8,12 @@
 import { EventEmitter } from 'events';
 import { tbc4337Manager, type SmartWalletConfig, type UserOperation } from '../account-abstraction/TBC4337Manager';
 import { isFeatureEnabled } from './feature-flags';
+import { 
+  LRUCache, 
+  CircuitBreaker, 
+  retryWithBackoff,
+  withTimeout 
+} from './utils/bounded-cache';
 
 export interface LegacyWallet {
   address: string;
@@ -47,8 +53,10 @@ const DEFAULT_CONFIG: SmartWalletAdapterConfig = {
 
 export class SmartWalletAdapter extends EventEmitter {
   private config: SmartWalletAdapterConfig;
-  private upgradedWallets: Map<string, string> = new Map();
+  private upgradedWallets: LRUCache<string>;
+  private nonceTracker: Map<string, number> = new Map();
   private isRunning: boolean = false;
+  private circuitBreaker: CircuitBreaker;
 
   private metrics = {
     totalUpgrades: 0,
@@ -57,11 +65,34 @@ export class SmartWalletAdapter extends EventEmitter {
     totalGasSponsored: BigInt(0),
     sessionKeysCreated: 0,
     recoveryInitiated: 0,
+    circuitBreakerTrips: 0,
+    nonceErrors: 0,
   };
 
   constructor(config: Partial<SmartWalletAdapterConfig> = {}) {
     super();
     this.config = { ...DEFAULT_CONFIG, ...config };
+    
+    this.upgradedWallets = new LRUCache<string>({
+      maxSize: 1000,
+      ttlMs: 7 * 24 * 60 * 60 * 1000,
+      onEvict: (key) => {
+        this.emit('walletEvicted', { address: key });
+        this.nonceTracker.delete(key);
+      },
+    });
+
+    this.circuitBreaker = new CircuitBreaker({
+      failureThreshold: 5,
+      resetTimeoutMs: 30000,
+      halfOpenMaxCalls: 2,
+    });
+  }
+
+  private getNextNonce(address: string): number {
+    const current = this.nonceTracker.get(address) || 0;
+    this.nonceTracker.set(address, current + 1);
+    return current;
   }
 
   async start(): Promise<void> {
@@ -252,6 +283,11 @@ export class SmartWalletAdapter extends EventEmitter {
       totalGasSponsored: this.metrics.totalGasSponsored.toString(),
       sessionKeysCreated: this.metrics.sessionKeysCreated,
       recoveryInitiated: this.metrics.recoveryInitiated,
+      circuitBreakerTrips: this.metrics.circuitBreakerTrips,
+      nonceErrors: this.metrics.nonceErrors,
+      circuitBreakerState: this.circuitBreaker.getState(),
+      walletCacheStats: this.upgradedWallets.getStats(),
+      activeNonces: this.nonceTracker.size,
       isRunning: this.isRunning,
       featureEnabled: isFeatureEnabled('ENABLE_ACCOUNT_ABSTRACTION'),
     };

@@ -30,6 +30,13 @@
 import { EventEmitter } from 'events';
 import { shardDACoordinator, DAProvider, type DABlob, type DACommitmentProof } from '../modular-da/ShardDACoordinator';
 import { isFeatureEnabled } from './feature-flags';
+import { 
+  LRUCache, 
+  ConcurrencyLimiter, 
+  CircuitBreaker, 
+  retryWithBackoff,
+  withTimeout 
+} from './utils/bounded-cache';
 
 export interface ShardDataPayload {
   shardId: number;
@@ -91,12 +98,15 @@ export enum BackpressureState {
 export class ShardDAAdapter extends EventEmitter {
   private config: ShardDAAdapterConfig;
   private pendingSubmissions: Map<string, ShardDataPayload> = new Map();
-  private submissionHistory: Map<string, DASubmissionResult> = new Map();
+  private submissionHistory: LRUCache<DASubmissionResult>;
   private autoSubmitInterval: ReturnType<typeof setInterval> | null = null;
   private metricsInterval: ReturnType<typeof setInterval> | null = null;
   private isRunning: boolean = false;
   private backpressureState: BackpressureState = BackpressureState.NORMAL;
   private droppedCount: number = 0;
+
+  private concurrencyLimiter: ConcurrencyLimiter;
+  private circuitBreaker: CircuitBreaker;
 
   private metrics = {
     totalSubmissions: 0,
@@ -112,6 +122,8 @@ export class ShardDAAdapter extends EventEmitter {
     p95LatencyMs: 0,
     p99LatencyMs: 0,
     shardLoopImpactMs: 0,
+    circuitBreakerTrips: 0,
+    retryCount: 0,
   };
 
   private latencyBuffer: number[] = [];
@@ -119,6 +131,22 @@ export class ShardDAAdapter extends EventEmitter {
   constructor(config: Partial<ShardDAAdapterConfig> = {}) {
     super();
     this.config = { ...DEFAULT_CONFIG, ...config };
+    
+    this.submissionHistory = new LRUCache<DASubmissionResult>({
+      maxSize: 1000,
+      ttlMs: 3600000,
+      onEvict: (key) => {
+        this.emit('historyEvicted', { key });
+      },
+    });
+
+    this.concurrencyLimiter = new ConcurrencyLimiter(10);
+    
+    this.circuitBreaker = new CircuitBreaker({
+      failureThreshold: 5,
+      resetTimeoutMs: 30000,
+      halfOpenMaxCalls: 3,
+    });
   }
 
   async start(): Promise<void> {
@@ -169,6 +197,7 @@ export class ShardDAAdapter extends EventEmitter {
 
   /**
    * 샤드 블록 데이터를 DA 레이어에 제출
+   * 서킷 브레이커 + 재시도 + 타임아웃 적용
    */
   async submitShardBlock(payload: ShardDataPayload): Promise<DASubmissionResult> {
     if (!isFeatureEnabled('ENABLE_MODULAR_DA')) {
@@ -183,14 +212,23 @@ export class ShardDAAdapter extends EventEmitter {
     const submissionId = `shard-${payload.shardId}-block-${payload.blockHeight}`;
 
     try {
-      const serialized = this.serializePayload(payload);
-      
-      const result = await shardDACoordinator.submitBlob(
-        payload.shardId,
-        serialized
-      );
+      const result = await this.circuitBreaker.execute(async () => {
+        return await retryWithBackoff(
+          async () => {
+            this.metrics.retryCount++;
+            const serialized = this.serializePayload(payload);
+            return await withTimeout(
+              () => shardDACoordinator.submitBlob(payload.shardId, serialized),
+              10000,
+              'DA submission timed out'
+            );
+          },
+          { maxRetries: 3, baseDelayMs: 100, maxDelayMs: 2000 }
+        );
+      });
 
       const latencyMs = Date.now() - startTime;
+      const serialized = this.serializePayload(payload);
       this.updateMetrics(true, serialized.length, latencyMs);
 
       const submissionResult: DASubmissionResult = {
@@ -207,6 +245,10 @@ export class ShardDAAdapter extends EventEmitter {
     } catch (error) {
       const latencyMs = Date.now() - startTime;
       this.updateMetrics(false, 0, latencyMs);
+
+      if ((error as Error).message?.includes('Circuit breaker')) {
+        this.metrics.circuitBreakerTrips++;
+      }
 
       const submissionResult: DASubmissionResult = {
         success: false,
@@ -314,7 +356,7 @@ export class ShardDAAdapter extends EventEmitter {
   }
 
   /**
-   * 대기 중인 모든 제출 처리 (비동기, non-blocking)
+   * 대기 중인 모든 제출 처리 (동시성 제한된 병렬 처리)
    */
   async flushPending(): Promise<void> {
     const pending = Array.from(this.pendingSubmissions.values());
@@ -322,8 +364,15 @@ export class ShardDAAdapter extends EventEmitter {
     this.updateQueueMetrics();
     this.updateBackpressureState();
 
-    for (const payload of pending) {
-      await this.submitShardBlock(payload);
+    const results = await Promise.allSettled(
+      pending.map(payload => 
+        this.concurrencyLimiter.execute(() => this.submitShardBlock(payload))
+      )
+    );
+
+    const failed = results.filter(r => r.status === 'rejected').length;
+    if (failed > 0) {
+      this.emit('flushPartialFailure', { total: pending.length, failed });
     }
   }
 
@@ -461,6 +510,7 @@ export class ShardDAAdapter extends EventEmitter {
       averageLatencyMs: this.metrics.averageLatencyMs,
       pendingCount: this.pendingSubmissions.size,
       historyCount: this.submissionHistory.size,
+      historyStats: this.submissionHistory.getStats(),
       currentQueueDepth: this.metrics.currentQueueDepth,
       peakQueueDepth: this.metrics.peakQueueDepth,
       totalDropped: this.metrics.totalDropped,
@@ -470,6 +520,10 @@ export class ShardDAAdapter extends EventEmitter {
       p95LatencyMs: this.metrics.p95LatencyMs,
       p99LatencyMs: this.metrics.p99LatencyMs,
       shardLoopImpactMs: this.metrics.shardLoopImpactMs,
+      circuitBreakerTrips: this.metrics.circuitBreakerTrips,
+      circuitBreakerState: this.circuitBreaker.getState(),
+      retryCount: this.metrics.retryCount,
+      concurrencyStats: this.concurrencyLimiter.getStats(),
       integrationRecommendation: this.shouldConsiderIntegration(),
       isRunning: this.isRunning,
       featureEnabled: isFeatureEnabled('ENABLE_MODULAR_DA'),

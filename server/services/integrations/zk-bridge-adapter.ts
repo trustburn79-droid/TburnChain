@@ -13,6 +13,13 @@
 import { EventEmitter } from 'events';
 import { zkRollupManager } from '../zk-rollup/ZKRollupManager';
 import { isFeatureEnabled } from './feature-flags';
+import { 
+  LRUCache, 
+  ConcurrencyLimiter,
+  CircuitBreaker, 
+  retryWithBackoff,
+  withTimeout 
+} from './utils/bounded-cache';
 
 export interface BridgeTransfer {
   transferId: string;
@@ -50,8 +57,10 @@ const DEFAULT_CONFIG: ZKBridgeAdapterConfig = {
 
 export class ZKBridgeAdapter extends EventEmitter {
   private config: ZKBridgeAdapterConfig;
-  private verificationHistory: Map<string, ZKProofResult> = new Map();
+  private verificationHistory: LRUCache<ZKProofResult>;
   private isRunning: boolean = false;
+  private concurrencyLimiter: ConcurrencyLimiter;
+  private circuitBreaker: CircuitBreaker;
 
   private metrics = {
     totalVerifications: 0,
@@ -60,11 +69,29 @@ export class ZKBridgeAdapter extends EventEmitter {
     totalGasSaved: BigInt(0),
     averageProofTimeMs: 0,
     fastWithdrawalsProcessed: 0,
+    timeouts: 0,
+    circuitBreakerTrips: 0,
   };
 
   constructor(config: Partial<ZKBridgeAdapterConfig> = {}) {
     super();
     this.config = { ...DEFAULT_CONFIG, ...config };
+    
+    this.verificationHistory = new LRUCache<ZKProofResult>({
+      maxSize: 1000,
+      ttlMs: 24 * 60 * 60 * 1000,
+      onEvict: (key) => {
+        this.emit('historyEvicted', { transferId: key });
+      },
+    });
+
+    this.concurrencyLimiter = new ConcurrencyLimiter(5);
+    
+    this.circuitBreaker = new CircuitBreaker({
+      failureThreshold: 3,
+      resetTimeoutMs: 60000,
+      halfOpenMaxCalls: 2,
+    });
   }
 
   async start(): Promise<void> {
@@ -94,6 +121,7 @@ export class ZKBridgeAdapter extends EventEmitter {
 
   /**
    * 브릿지 전송에 대한 ZK 증명 생성 및 검증
+   * 서킷 브레이커 + 타임아웃 + 재시도 적용
    */
   async verifyTransferWithZKProof(transfer: BridgeTransfer): Promise<ZKProofResult> {
     if (!isFeatureEnabled('ENABLE_ZK_ROLLUP')) {
@@ -108,11 +136,22 @@ export class ZKBridgeAdapter extends EventEmitter {
     this.metrics.totalVerifications++;
 
     try {
-      const txHash = await zkRollupManager.submitL2Transaction({
-        from: transfer.sender,
-        to: transfer.recipient,
-        value: transfer.amount.toString(),
-        data: `bridge:${transfer.transferId}`,
+      const txHash = await this.circuitBreaker.execute(async () => {
+        return await retryWithBackoff(
+          async () => {
+            return await withTimeout(
+              () => zkRollupManager.submitL2Transaction({
+                from: transfer.sender,
+                to: transfer.recipient,
+                value: transfer.amount.toString(),
+                data: `bridge:${transfer.transferId}`,
+              }),
+              this.config.proofTimeoutMs,
+              'ZK proof generation timed out'
+            );
+          },
+          { maxRetries: this.config.maxRetries, baseDelayMs: 200, maxDelayMs: 3000 }
+        );
       });
 
       const latencyMs = Date.now() - startTime;
@@ -122,7 +161,7 @@ export class ZKBridgeAdapter extends EventEmitter {
         success: true,
         proofId: txHash,
         verificationHash: txHash,
-        gasUsed: 21000n,
+        gasUsed: BigInt(21000),
         latencyMs,
       };
 
@@ -133,6 +172,14 @@ export class ZKBridgeAdapter extends EventEmitter {
     } catch (error) {
       const latencyMs = Date.now() - startTime;
       this.updateMetrics(false, latencyMs);
+      
+      const errMsg = (error as Error).message || '';
+      if (errMsg.includes('timed out')) {
+        this.metrics.timeouts++;
+      }
+      if (errMsg.includes('Circuit breaker')) {
+        this.metrics.circuitBreakerTrips++;
+      }
 
       const result: ZKProofResult = {
         success: false,
@@ -143,6 +190,28 @@ export class ZKBridgeAdapter extends EventEmitter {
       this.verificationHistory.set(transfer.transferId, result);
       return result;
     }
+  }
+
+  /**
+   * 배치 전송 검증 (동시성 제한된 병렬 처리)
+   */
+  async verifyBatchTransfers(transfers: BridgeTransfer[]): Promise<ZKProofResult[]> {
+    const results = await Promise.allSettled(
+      transfers.map(transfer =>
+        this.concurrencyLimiter.execute(() => this.verifyTransferWithZKProof(transfer))
+      )
+    );
+
+    return results.map((r, i) => {
+      if (r.status === 'fulfilled') {
+        return r.value;
+      }
+      return {
+        success: false,
+        error: r.reason?.message || 'Unknown error',
+        latencyMs: 0,
+      };
+    });
   }
 
   /**
@@ -193,20 +262,6 @@ export class ZKBridgeAdapter extends EventEmitter {
   }
 
   /**
-   * 배치 전송 검증
-   */
-  async verifyBatchTransfers(transfers: BridgeTransfer[]): Promise<Map<string, ZKProofResult>> {
-    const results = new Map<string, ZKProofResult>();
-
-    for (const transfer of transfers) {
-      const result = await this.verifyTransferWithZKProof(transfer);
-      results.set(transfer.transferId, result);
-    }
-
-    return results;
-  }
-
-  /**
    * 증명 상태 조회
    */
   getProofStatus(transferId: string): ZKProofResult | undefined {
@@ -234,6 +289,11 @@ export class ZKBridgeAdapter extends EventEmitter {
       totalGasSaved: this.metrics.totalGasSaved.toString(),
       averageProofTimeMs: this.metrics.averageProofTimeMs,
       fastWithdrawalsProcessed: this.metrics.fastWithdrawalsProcessed,
+      timeouts: this.metrics.timeouts,
+      circuitBreakerTrips: this.metrics.circuitBreakerTrips,
+      circuitBreakerState: this.circuitBreaker.getState(),
+      historyStats: this.verificationHistory.getStats(),
+      concurrencyStats: this.concurrencyLimiter.getStats(),
       isRunning: this.isRunning,
       featureEnabled: isFeatureEnabled('ENABLE_ZK_ROLLUP'),
     };

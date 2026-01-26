@@ -29,6 +29,12 @@
 import { EventEmitter } from 'events';
 import { restakingManager, type RestakingPosition, type AVSInfo } from '../restaking/RestakingManager';
 import { isFeatureEnabled } from './feature-flags';
+import { 
+  LRUCache, 
+  CircuitBreaker, 
+  retryWithBackoff,
+  withTimeout 
+} from './utils/bounded-cache';
 
 export interface StakingPosition {
   positionId: string;
@@ -69,8 +75,10 @@ const DEFAULT_CONFIG: EnhancedStakingAdapterConfig = {
 
 export class EnhancedStakingAdapter extends EventEmitter {
   private config: EnhancedStakingAdapterConfig;
-  private restakingHistory: Map<string, RestakingResult[]> = new Map();
+  private restakingHistory: LRUCache<RestakingResult[]>;
+  private lastRestakeTime: Map<string, number> = new Map();
   private isRunning: boolean = false;
+  private circuitBreaker: CircuitBreaker;
 
   private metrics = {
     totalRestakingRequests: 0,
@@ -78,11 +86,27 @@ export class EnhancedStakingAdapter extends EventEmitter {
     failedRestakings: 0,
     totalRestaked: BigInt(0),
     averageRestakingPercentage: 0,
+    cooldownRejections: 0,
+    circuitBreakerTrips: 0,
   };
 
   constructor(config: Partial<EnhancedStakingAdapterConfig> = {}) {
     super();
     this.config = { ...DEFAULT_CONFIG, ...config };
+    
+    this.restakingHistory = new LRUCache<RestakingResult[]>({
+      maxSize: 500,
+      ttlMs: 7 * 24 * 60 * 60 * 1000,
+      onEvict: (key) => {
+        this.emit('historyEvicted', { positionId: key });
+      },
+    });
+
+    this.circuitBreaker = new CircuitBreaker({
+      failureThreshold: 5,
+      resetTimeoutMs: 60000,
+      halfOpenMaxCalls: 2,
+    });
   }
 
   async start(): Promise<void> {
@@ -111,7 +135,17 @@ export class EnhancedStakingAdapter extends EventEmitter {
   }
 
   /**
+   * 쿨다운 체크
+   */
+  private checkCooldown(positionId: string): boolean {
+    const lastTime = this.lastRestakeTime.get(positionId);
+    if (!lastTime) return true;
+    return Date.now() - lastTime >= this.config.cooldownPeriodMs;
+  }
+
+  /**
    * 기존 스테이킹 포지션을 리스테이킹
+   * 쿨다운 + 서킷 브레이커 + 재시도 적용
    */
   async restakePosition(
     stakingPosition: StakingPosition,
@@ -125,6 +159,14 @@ export class EnhancedStakingAdapter extends EventEmitter {
     }
 
     this.metrics.totalRestakingRequests++;
+
+    if (!this.checkCooldown(stakingPosition.positionId)) {
+      this.metrics.cooldownRejections++;
+      return {
+        success: false,
+        error: `Cooldown period not elapsed (${this.config.cooldownPeriodMs}ms)`,
+      };
+    }
 
     if (request.percentage > this.config.maxRestakingPercentage) {
       return {
@@ -143,18 +185,30 @@ export class EnhancedStakingAdapter extends EventEmitter {
     }
 
     try {
-      const avsAllocations = new Map<string, bigint>();
-      avsAllocations.set(request.avsId, restakingAmount);
-      
-      const position = await restakingManager.restake(
-        stakingPosition.walletAddress,
-        restakingAmount,
-        avsAllocations
-      );
+      const position = await this.circuitBreaker.execute(async () => {
+        return await retryWithBackoff(
+          async () => {
+            const avsAllocations = new Map<string, bigint>();
+            avsAllocations.set(request.avsId, restakingAmount);
+            
+            return await withTimeout(
+              () => restakingManager.restake(
+                stakingPosition.walletAddress,
+                restakingAmount,
+                avsAllocations
+              ),
+              30000,
+              'Restaking operation timed out'
+            );
+          },
+          { maxRetries: 2, baseDelayMs: 500, maxDelayMs: 5000 }
+        );
+      });
 
       this.metrics.successfulRestakings++;
       this.metrics.totalRestaked += restakingAmount;
       this.updateAveragePercentage(request.percentage);
+      this.lastRestakeTime.set(stakingPosition.positionId, Date.now());
 
       const result: RestakingResult = {
         success: true,
@@ -169,6 +223,10 @@ export class EnhancedStakingAdapter extends EventEmitter {
       return result;
     } catch (error) {
       this.metrics.failedRestakings++;
+      
+      if ((error as Error).message?.includes('Circuit breaker')) {
+        this.metrics.circuitBreakerTrips++;
+      }
 
       const result: RestakingResult = {
         success: false,
@@ -236,7 +294,7 @@ export class EnhancedStakingAdapter extends EventEmitter {
   private addToHistory(positionId: string, result: RestakingResult): void {
     const history = this.restakingHistory.get(positionId) || [];
     history.push(result);
-    if (history.length > 100) history.shift();
+    if (history.length > 50) history.shift();
     this.restakingHistory.set(positionId, history);
   }
 
@@ -253,6 +311,11 @@ export class EnhancedStakingAdapter extends EventEmitter {
       failedRestakings: this.metrics.failedRestakings,
       totalRestaked: this.metrics.totalRestaked.toString(),
       averageRestakingPercentage: this.metrics.averageRestakingPercentage,
+      cooldownRejections: this.metrics.cooldownRejections,
+      circuitBreakerTrips: this.metrics.circuitBreakerTrips,
+      circuitBreakerState: this.circuitBreaker.getState(),
+      historyStats: this.restakingHistory.getStats(),
+      activeCooldowns: this.lastRestakeTime.size,
       isRunning: this.isRunning,
       featureEnabled: isFeatureEnabled('ENABLE_RESTAKING'),
     };
