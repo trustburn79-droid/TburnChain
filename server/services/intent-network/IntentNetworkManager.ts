@@ -563,7 +563,7 @@ export class IntentNetworkManager extends EventEmitter {
    * 통계 조회
    */
   getStats(): IntentNetworkStats {
-    const allIntents = [...this.intents.values(), ...this.privateMempool];
+    const allIntents = [...this.intents.values(), ...this.privateMempool.toArray()];
     const filledIntents = allIntents.filter(i => i.status === 'FILLED').length;
     const pendingIntents = allIntents.filter(i => i.status === 'PENDING').length;
     

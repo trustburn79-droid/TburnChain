@@ -21,7 +21,7 @@ import { enhancedStakingAdapter } from '../services/integrations/enhanced-stakin
 import { zkBridgeAdapter } from '../services/integrations/zk-bridge-adapter';
 import { smartWalletAdapter } from '../services/integrations/smart-wallet-adapter';
 import { intentDexAdapter } from '../services/integrations/intent-dex-adapter';
-import { getParallelProducer } from '../core/pipeline/parallel-shard-block-producer';
+import { getParallelShardBlockProducer } from '../core/pipeline/parallel-shard-block-producer';
 
 const router = Router();
 
@@ -853,7 +853,7 @@ router.get('/advanced-tech/overview', async (req: Request, res: Response) => {
     const intentStats = intentNetworkManager.getStats();
     
     // L1 FastPath TPS from parallel shard block producer
-    const parallelProducer = getParallelProducer();
+    const parallelProducer = getParallelShardBlockProducer();
     const l1Stats = parallelProducer.getStats();
 
     res.json({
@@ -920,7 +920,7 @@ router.get('/advanced-tech/overview', async (req: Request, res: Response) => {
  */
 router.get('/advanced-tech/tps-breakdown', async (req: Request, res: Response) => {
   try {
-    const parallelProducer = getParallelProducer();
+    const parallelProducer = getParallelShardBlockProducer();
     const l1Stats = parallelProducer.getStats();
     const aaStats = tbc4337Manager.getStats();
     const zkStats = zkRollupManager.getStats();

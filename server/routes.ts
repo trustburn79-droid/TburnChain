@@ -2976,6 +2976,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.method === "GET" && req.path.startsWith("/enterprise/scalability/")) {
       return next();
     }
+    // ★ [5대 신기술] Skip auth for Advanced Tech public endpoints (TPS breakdown, overview)
+    if (req.method === "GET" && req.path.startsWith("/advanced-tech/")) {
+      return next();
+    }
     // ★ [Phase 16] Skip auth for internal monitoring endpoints (session metrics, soak tests)
     if (req.path.startsWith("/internal/")) {
       return next();
