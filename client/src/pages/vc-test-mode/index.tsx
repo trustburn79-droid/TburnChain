@@ -606,6 +606,186 @@ export default function VCTestMode() {
         </div>
       </section>
 
+      {/* 2026 Next-Gen Technology Section */}
+      <section className="relative py-16 border-b border-gray-200 dark:border-white/10 overflow-hidden" data-testid="section-nextgen-tech">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-cyan-900/20 to-blue-900/20" />
+        <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
+        
+        <div className="relative max-w-7xl mx-auto px-6">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-cyan-500 text-white border-0 px-4 py-1.5 text-sm font-bold" data-testid="badge-nextgen">
+              <Sparkles className="w-4 h-4 mr-2" />
+              {t('vcTestMode.nextGenBadge', '2026 NEXT-GEN BLOCKCHAIN')}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+              {t('vcTestMode.fiveCoreTechTitle', '5 Core Technologies')}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              {t('vcTestMode.fiveCoreTechDesc', 'Leading the future of blockchain with 5 innovative core technologies')}
+            </p>
+          </div>
+
+          {/* Performance Metrics Banner */}
+          <div className="grid grid-cols-3 gap-4 mb-10 max-w-3xl mx-auto">
+            <div className="bg-gradient-to-br from-green-500/20 to-green-600/10 rounded-xl p-5 text-center border border-green-500/30" data-testid="metric-tps-improvement">
+              <div className="text-3xl md:text-4xl font-bold text-green-400 mb-1">1,900%</div>
+              <div className="text-sm text-gray-400">{t('vcTestMode.tpsImprovement', 'TPS Improvement')}</div>
+            </div>
+            <div className="bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 rounded-xl p-5 text-center border border-cyan-500/30" data-testid="metric-peak-tps">
+              <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">100,000+</div>
+              <div className="text-sm text-gray-400">Peak TPS</div>
+            </div>
+            <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/10 rounded-xl p-5 text-center border border-purple-500/30" data-testid="metric-cost-reduction">
+              <div className="text-3xl md:text-4xl font-bold text-purple-400 mb-1">95%</div>
+              <div className="text-sm text-gray-400">{t('vcTestMode.costReduction', 'Cost Reduction')}</div>
+            </div>
+          </div>
+
+          {/* Technology Cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* Account Abstraction */}
+            <Card className="bg-gradient-to-br from-cyan-900/30 to-cyan-800/20 border-cyan-500/30 hover:border-cyan-400/50 transition-all hover:scale-[1.02]" data-testid="card-account-abstraction">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-500/40">ERC-4337</Badge>
+                  <Smartphone className="w-6 h-6 text-cyan-400" />
+                </div>
+                <CardTitle className="text-xl text-white mt-2">Account Abstraction</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-400 text-sm mb-3">
+                  {t('vcTestMode.aaDesc', 'Smart wallets with gasless transactions, social login, and session keys.')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline" className="text-cyan-300 border-cyan-500/40 text-xs">Gasless TX</Badge>
+                  <Badge variant="outline" className="text-cyan-300 border-cyan-500/40 text-xs">Session Keys</Badge>
+                  <Badge variant="outline" className="text-cyan-300 border-cyan-500/40 text-xs">Social Recovery</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Intent Architecture */}
+            <Card className="bg-gradient-to-br from-green-900/30 to-green-800/20 border-green-500/30 hover:border-green-400/50 transition-all hover:scale-[1.02]" data-testid="card-intent-architecture">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-green-500/20 text-green-300 border-green-500/40">MEV Protected</Badge>
+                  <Target className="w-6 h-6 text-green-400" />
+                </div>
+                <CardTitle className="text-xl text-white mt-2">Intent Architecture</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-400 text-sm mb-3">
+                  {t('vcTestMode.intentDesc', 'Declare desired outcomes and let optimal solvers compete for execution.')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline" className="text-green-300 border-green-500/40 text-xs">5+ Solvers</Badge>
+                  <Badge variant="outline" className="text-green-300 border-green-500/40 text-xs">Batch Auction</Badge>
+                  <Badge variant="outline" className="text-green-300 border-green-500/40 text-xs">Best Price</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* ZK Rollup */}
+            <Card className="bg-gradient-to-br from-orange-900/30 to-orange-800/20 border-orange-500/30 hover:border-orange-400/50 transition-all hover:scale-[1.02]" data-testid="card-zk-rollup">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-orange-500/20 text-orange-300 border-orange-500/40">Layer 2</Badge>
+                  <Layers className="w-6 h-6 text-orange-400" />
+                </div>
+                <CardTitle className="text-xl text-white mt-2">ZK Rollup</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-400 text-sm mb-3">
+                  {t('vcTestMode.zkDesc', '95% gas savings and instant finality with zero-knowledge proofs.')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline" className="text-orange-300 border-orange-500/40 text-xs">95% Gas Savings</Badge>
+                  <Badge variant="outline" className="text-orange-300 border-orange-500/40 text-xs">Instant Finality</Badge>
+                  <Badge variant="outline" className="text-orange-300 border-orange-500/40 text-xs">Fast Withdrawal</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Restaking */}
+            <Card className="bg-gradient-to-br from-purple-900/30 to-purple-800/20 border-purple-500/30 hover:border-purple-400/50 transition-all hover:scale-[1.02]" data-testid="card-restaking">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/40">AVS Rewards</Badge>
+                  <Coins className="w-6 h-6 text-purple-400" />
+                </div>
+                <CardTitle className="text-xl text-white mt-2">Restaking</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-400 text-sm mb-3">
+                  {t('vcTestMode.restakingDesc', 'Generate additional yield while preserving 20-year tokenomics independence.')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline" className="text-purple-300 border-purple-500/40 text-xs">+APY Boost</Badge>
+                  <Badge variant="outline" className="text-purple-300 border-purple-500/40 text-xs">4 AVS Services</Badge>
+                  <Badge variant="outline" className="text-purple-300 border-purple-500/40 text-xs">USDT/USDC</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Modular DA */}
+            <Card className="bg-gradient-to-br from-yellow-900/30 to-yellow-800/20 border-yellow-500/30 hover:border-yellow-400/50 transition-all hover:scale-[1.02]" data-testid="card-modular-da">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-500/40">Multi-Provider</Badge>
+                  <Database className="w-6 h-6 text-yellow-400" />
+                </div>
+                <CardTitle className="text-xl text-white mt-2">Modular DA</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-400 text-sm mb-3">
+                  {t('vcTestMode.daDesc', 'Auto-select optimal DA layer from TBURN, Celestia, and EigenDA.')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline" className="text-yellow-300 border-yellow-500/40 text-xs">Auto Failover</Badge>
+                  <Badge variant="outline" className="text-yellow-300 border-yellow-500/40 text-xs">100ms Latency</Badge>
+                  <Badge variant="outline" className="text-yellow-300 border-yellow-500/40 text-xs">85% Cheaper</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Web2-Level UX */}
+            <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/30 border-dashed border-gray-500/50 hover:border-gray-400/50 transition-all hover:scale-[1.02]" data-testid="card-web2-ux">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-gray-500/20 text-gray-300 border-gray-500/40">Combined Effect</Badge>
+                  <Globe className="w-6 h-6 text-gray-400" />
+                </div>
+                <CardTitle className="text-xl text-white mt-2">Web2-Level UX</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-400 text-sm mb-3">
+                  {t('vcTestMode.web2UxDesc', 'Familiar web experience without blockchain complexity')}
+                </p>
+                <Link href="/developers">
+                  <Button variant="outline" size="sm" className="w-full text-gray-300 border-gray-500/40 hover:bg-gray-700/50" data-testid="button-view-dev-docs">
+                    <FileText className="w-4 h-4 mr-2" />
+                    {t('vcTestMode.viewDevDocs', 'View Developer Docs')}
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center mt-10">
+            <Link href="/learn/technical-whitepaper">
+              <Button size="lg" className="bg-gradient-to-r from-purple-600 via-cyan-600 to-blue-600 hover:from-purple-700 hover:via-cyan-700 hover:to-blue-700" data-testid="button-view-whitepaper">
+                <FileText className="w-4 h-4 mr-2" />
+                {t('vcTestMode.viewTechWhitepaper', 'View Technical Whitepaper')}
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Investment Highlights */}
       <section className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
