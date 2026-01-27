@@ -167,6 +167,15 @@ class EmailWalletLinkingService extends EventEmitter {
     return link?.smartWalletAddress;
   }
 
+  getEmailByWallet(walletAddress: string): EmailWalletLink | undefined {
+    const normalizedWallet = walletAddress.toLowerCase();
+    const links = Array.from(this.emailLinks.values());
+    return links.find(link => 
+      link.walletAddress === normalizedWallet || 
+      link.smartWalletAddress === normalizedWallet
+    );
+  }
+
   async enableGaslessForEmail(email: string): Promise<boolean> {
     const link = this.emailLinks.get(email.toLowerCase());
     if (!link || !link.smartWalletAddress) {

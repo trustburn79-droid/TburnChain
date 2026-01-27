@@ -75,6 +75,7 @@ import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
 import { registerShardingRoutes } from "./routes/sharding-routes";
 import validatorRoutes from "./routes/validator-routes";
 import { registerSocialRecoveryRoutes } from "./routes/social-recovery-routes";
+import { registerTransactionOTPRoutes } from "./routes/transaction-otp-routes";
 import { registerExternalValidatorRoutes } from "./routes/external-validator-routes";
 import { rewardRoutes } from "./routes/reward-routes";
 import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
@@ -3182,6 +3183,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // SOCIAL RECOVERY (Account Abstraction)
   registerSocialRecoveryRoutes(app);
   console.log("[SocialRecovery] ✅ Enterprise social recovery routes registered");
+  // TRANSACTION OTP (Email Verification)
+  registerTransactionOTPRoutes(app);
+  console.log("[TransactionOTP] ✅ Transaction OTP routes registered");
 
   // ============================================
   // ENTERPRISE VALIDATOR ORCHESTRATOR (125 Validators, 1M TBURN Each)
