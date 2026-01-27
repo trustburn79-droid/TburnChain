@@ -13,6 +13,7 @@
 import { EventEmitter } from 'events';
 import * as crypto from 'crypto';
 import { tbc4337Manager, type SmartWalletConfig, type RecoveryRequest } from './TBC4337Manager';
+import { socialRecoveryEmailService, type RecoveryEmailType } from '../email/SocialRecoveryEmailService';
 
 export interface Guardian {
   id: string;
@@ -341,6 +342,28 @@ export class EnterpriseSocialRecoveryService extends EventEmitter {
     console.log(`[EnterpriseSocialRecovery] Recovery session ${session.sessionId} initiated for wallet ${normalizedWallet}`);
     this.emit('recoveryInitiated', { session });
 
+    const guardianEmails = Array.from(walletGuardians.values())
+      .filter(g => g.email)
+      .map(g => g.email as string);
+    
+    if (guardianEmails.length > 0) {
+      socialRecoveryEmailService.sendEmail('APPROVAL_REQUESTED', guardianEmails, {
+        walletAddress: normalizedWallet,
+        sessionId: session.sessionId,
+        newOwner: normalizedNewOwner,
+        requiredApprovals: threshold,
+        approvalCount: 0,
+        expiresAt: new Date(session.expiresAt)
+      });
+    }
+
+    socialRecoveryEmailService.sendEmail('RECOVERY_INITIATED', initiatorEmail, {
+      walletAddress: normalizedWallet,
+      sessionId: session.sessionId,
+      newOwner: normalizedNewOwner,
+      initiatorEmail
+    });
+
     return { success: true, sessionId: session.sessionId };
   }
 
@@ -479,6 +502,26 @@ export class EnterpriseSocialRecoveryService extends EventEmitter {
       console.log(`[EnterpriseSocialRecovery] Recovery ${sessionId} executed successfully. New owner: ${session.newOwnerAddress}`);
       this.emit('recoveryExecuted', { sessionId, walletAddress: session.walletAddress, newOwner: session.newOwnerAddress });
 
+      socialRecoveryEmailService.sendEmail('RECOVERY_EXECUTED', session.initiatorEmail, {
+        walletAddress: session.walletAddress,
+        sessionId: session.sessionId,
+        newOwner: session.newOwnerAddress
+      });
+
+      const walletGuardians = this.guardians.get(session.walletAddress);
+      if (walletGuardians) {
+        const guardianEmails = Array.from(walletGuardians.values())
+          .filter(g => g.email)
+          .map(g => g.email as string);
+        if (guardianEmails.length > 0) {
+          socialRecoveryEmailService.sendEmail('RECOVERY_EXECUTED', guardianEmails, {
+            walletAddress: session.walletAddress,
+            sessionId: session.sessionId,
+            newOwner: session.newOwnerAddress
+          });
+        }
+      }
+
       return { success: true, newOwner: session.newOwnerAddress };
     } catch (error) {
       this.stats.failedRecoveries++;
@@ -517,6 +560,24 @@ export class EnterpriseSocialRecoveryService extends EventEmitter {
 
     console.log(`[EnterpriseSocialRecovery] Recovery ${sessionId} cancelled by owner`);
     this.emit('recoveryCancelled', { sessionId, reason: reason || 'Cancelled by owner' });
+
+    socialRecoveryEmailService.sendEmail('RECOVERY_CANCELLED', session.initiatorEmail, {
+      walletAddress: session.walletAddress,
+      sessionId: session.sessionId
+    });
+
+    const walletGuardians = this.guardians.get(session.walletAddress);
+    if (walletGuardians) {
+      const guardianEmails = Array.from(walletGuardians.values())
+        .filter(g => g.email)
+        .map(g => g.email as string);
+      if (guardianEmails.length > 0) {
+        socialRecoveryEmailService.sendEmail('RECOVERY_CANCELLED', guardianEmails, {
+          walletAddress: session.walletAddress,
+          sessionId: session.sessionId
+        });
+      }
+    }
 
     return { success: true };
   }
