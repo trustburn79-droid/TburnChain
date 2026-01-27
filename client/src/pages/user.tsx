@@ -20,7 +20,8 @@ import {
   BarChart3, PieChart, Cpu, HardDrive, Network, Radio, Loader2,
   LogOut, Settings, Bell, Star, Boxes, GitBranch, Timer, CircleDot,
   Menu, X, Crown, Info, Image, ImageIcon, Plus, Play, Gamepad2, Rocket,
-  Home, HelpCircle, ScanLine, FileText, Bug, Key
+  Home, HelpCircle, ScanLine, FileText, Bug, Key, Trash2, UserPlus,
+  User, ArrowUpRight, History as HistoryIcon
 } from "lucide-react";
 import {
   Dialog,
@@ -1288,6 +1289,7 @@ function DashboardSection({
 
 function SmartWalletSection({ isConnected }: { isConnected: boolean }) {
   const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState<'overview' | 'sessions' | 'guardians' | 'history'>('overview');
   
   const { data: smartWalletStatus, isLoading } = useQuery<{
     hasSmartWallet: boolean;
@@ -1301,8 +1303,107 @@ function SmartWalletSection({ isConnected }: { isConnected: boolean }) {
     staleTime: 60000,
   });
 
+  const { data: walletInfo } = useQuery<{
+    hasSmartWallet: boolean;
+    address?: string;
+    features?: { gaslessEnabled: boolean; sessionKeyEnabled: boolean; socialRecoveryEnabled: boolean };
+    walletDetails?: { balance: string; nonce: string; isDeployed: boolean; sessionKeyCount: number };
+    recovery?: { guardianCount: number; threshold: number; isProtected: boolean };
+    branding?: { label: string; technology: string };
+  }>({
+    queryKey: ["/api/smart-wallet/info"],
+    enabled: isConnected && smartWalletStatus?.hasSmartWallet,
+    staleTime: 30000,
+  });
+
+  const { data: sessionKeys } = useQuery<{
+    sessionKeys: any[];
+    activeCount: number;
+    maxAllowed: number;
+    canCreate: boolean;
+  }>({
+    queryKey: ["/api/smart-wallet/session-keys"],
+    enabled: isConnected && activeTab === 'sessions',
+    staleTime: 30000,
+  });
+
+  const { data: guardians } = useQuery<{
+    guardians: { id: string; address: string; name: string; isActive: boolean; trustScore: number }[];
+    threshold: number;
+    isProtected: boolean;
+    policy: { minGuardians: number; maxGuardians: number; timelockHours: number };
+  }>({
+    queryKey: ["/api/smart-wallet/guardians"],
+    enabled: isConnected && activeTab === 'guardians',
+    staleTime: 30000,
+  });
+
+  const { data: transactions } = useQuery<{
+    transactions: { id: string; type: string; value?: string; symbol?: string; status: string; timestamp: number; gasSponsored?: boolean }[];
+    total: number;
+    summary: { totalTransactions: number; gaslessCount: number; batchCount: number };
+  }>({
+    queryKey: ["/api/smart-wallet/transactions"],
+    enabled: isConnected && activeTab === 'history',
+    staleTime: 30000,
+  });
+
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  const createSessionKeyMutation = useMutation({
+    mutationFn: () => apiRequest('POST', '/api/smart-wallet/session-keys', { validHours: 24, permissions: ['transfer'] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/smart-wallet/session-keys"] });
+      toast({ title: t('userPage.sessionKeyCreated', 'Session key created') });
+    },
+    onError: () => toast({ title: t('common.error', 'Error'), variant: 'destructive' }),
+  });
+
+  const revokeSessionKeyMutation = useMutation({
+    mutationFn: (keyId: string) => apiRequest('DELETE', `/api/smart-wallet/session-keys/${keyId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/smart-wallet/session-keys"] });
+      toast({ title: t('userPage.sessionKeyRevoked', 'Session key revoked') });
+    },
+  });
+
+  const addGuardianMutation = useMutation({
+    mutationFn: (guardian: { address: string; name: string }) => 
+      apiRequest('POST', '/api/smart-wallet/guardians/add', { guardian }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/smart-wallet/guardians"] });
+      setShowAddGuardianForm(false);
+      toast({ title: t('userPage.guardianAdded', 'Guardian added') });
+    },
+    onError: () => toast({ title: t('common.error', 'Error'), variant: 'destructive' }),
+  });
+
+  const [showAddGuardianForm, setShowAddGuardianForm] = useState(false);
+
+  const guardianFormSchema = z.object({
+    address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, t('userPage.invalidAddress', 'Invalid Ethereum address')),
+    name: z.string().optional().default('Guardian'),
+  });
+
+  const guardianForm = useForm<z.infer<typeof guardianFormSchema>>({
+    resolver: zodResolver(guardianFormSchema),
+    defaultValues: { address: '', name: '' },
+  });
+
+  const onGuardianSubmit = (values: z.infer<typeof guardianFormSchema>) => {
+    addGuardianMutation.mutate({ address: values.address, name: values.name || 'Guardian' });
+  };
+
   const smartWalletLabel = t('userPage.smartWallet', 'Smart Wallet');
   const nextGenLabel = t('userPage.nextGen2026', '2026 Next-Gen');
+
+  const tabs = [
+    { id: 'overview' as const, label: t('common.overview', 'Overview'), icon: Wallet },
+    { id: 'sessions' as const, label: t('userPage.sessionKeys', 'Session Keys'), icon: Key },
+    { id: 'guardians' as const, label: t('userPage.guardians', 'Guardians'), icon: Users },
+    { id: 'history' as const, label: t('userPage.transactionHistory', 'History'), icon: HistoryIcon },
+  ];
 
   return (
     <div className="bg-gradient-to-br from-orange-500/5 to-purple-500/5 dark:from-orange-500/10 dark:to-purple-500/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-orange-200 dark:border-orange-500/30" data-testid="section-smart-wallet">
@@ -1342,63 +1443,299 @@ function SmartWalletSection({ isConnected }: { isConnected: boolean }) {
           {t('userPage.noDataConnectWallet', { section: smartWalletLabel })}
         </p>
       ) : smartWalletStatus?.hasSmartWallet ? (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" data-testid="smart-wallet-features-grid">
-          <div className={`p-3 rounded-lg border ${smartWalletStatus.gaslessEnabled 
-            ? 'bg-green-50 dark:bg-green-500/10 border-green-200 dark:border-green-500/30' 
-            : 'bg-slate-50 dark:bg-slate-500/10 border-slate-200 dark:border-slate-500/30'}`} data-testid="card-feature-gasless">
-            <div className="flex items-center gap-2 mb-2">
-              <Zap className={`w-4 h-4 ${smartWalletStatus.gaslessEnabled ? 'text-green-500' : 'text-slate-400'}`} />
-              <span className={`text-sm font-medium ${smartWalletStatus.gaslessEnabled ? 'text-green-700 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'}`} data-testid="text-feature-gasless">
-                {t('userPage.gaslessTransactions', 'Gasless Transactions')}
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-gray-400">
-              {t('userPage.gaslessDesc', 'No gas fees for standard transactions')}
-            </p>
-            {smartWalletStatus.gaslessEnabled && (
-              <Badge className="mt-2 bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400 text-[10px]" data-testid="badge-gasless-enabled">
-                {t('common.enabled', 'Enabled')}
-              </Badge>
-            )}
+        <div className="space-y-4">
+          <div className="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-700 pb-3" data-testid="smart-wallet-tabs">
+            {tabs.map((tab) => (
+              <Button
+                key={tab.id}
+                size="sm"
+                variant={activeTab === tab.id ? 'default' : 'ghost'}
+                onClick={() => setActiveTab(tab.id)}
+                data-testid={`tab-${tab.id}`}
+              >
+                <tab.icon className="w-3.5 h-3.5 mr-1" />
+                {tab.label}
+              </Button>
+            ))}
           </div>
 
-          <div className={`p-3 rounded-lg border ${smartWalletStatus.sessionKeyEnabled 
-            ? 'bg-blue-50 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/30' 
-            : 'bg-slate-50 dark:bg-slate-500/10 border-slate-200 dark:border-slate-500/30'}`} data-testid="card-feature-session-key">
-            <div className="flex items-center gap-2 mb-2">
-              <Key className={`w-4 h-4 ${smartWalletStatus.sessionKeyEnabled ? 'text-blue-500' : 'text-slate-400'}`} />
-              <span className={`text-sm font-medium ${smartWalletStatus.sessionKeyEnabled ? 'text-blue-700 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400'}`} data-testid="text-feature-session-key">
-                {t('userPage.sessionKeys', 'Session Keys')}
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-gray-400">
-              {t('userPage.sessionKeysDesc', 'Time-limited transaction permissions')}
-            </p>
-            {smartWalletStatus.sessionKeyEnabled && (
-              <Badge className="mt-2 bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 text-[10px]" data-testid="badge-session-key-enabled">
-                {t('common.enabled', 'Enabled')}
-              </Badge>
-            )}
-          </div>
+          {activeTab === 'overview' && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" data-testid="smart-wallet-features-grid">
+              <div className={`p-3 rounded-lg border ${smartWalletStatus.gaslessEnabled 
+                ? 'bg-green-50 dark:bg-green-500/10 border-green-200 dark:border-green-500/30' 
+                : 'bg-slate-50 dark:bg-slate-500/10 border-slate-200 dark:border-slate-500/30'}`} data-testid="card-feature-gasless">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className={`w-4 h-4 ${smartWalletStatus.gaslessEnabled ? 'text-green-500' : 'text-slate-400'}`} />
+                  <span className={`text-sm font-medium ${smartWalletStatus.gaslessEnabled ? 'text-green-700 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'}`} data-testid="text-feature-gasless">
+                    {t('userPage.gaslessTransactions', 'Gasless Transactions')}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-gray-400">
+                  {t('userPage.gaslessDesc', 'No gas fees for standard transactions')}
+                </p>
+                {smartWalletStatus.gaslessEnabled && (
+                  <Badge className="mt-2 bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400 text-[10px]" data-testid="badge-gasless-enabled">
+                    {t('common.enabled', 'Enabled')}
+                  </Badge>
+                )}
+              </div>
 
-          <div className={`p-3 rounded-lg border ${smartWalletStatus.socialRecoveryEnabled 
-            ? 'bg-purple-50 dark:bg-purple-500/10 border-purple-200 dark:border-purple-500/30' 
-            : 'bg-slate-50 dark:bg-slate-500/10 border-slate-200 dark:border-slate-500/30'}`} data-testid="card-feature-social-recovery">
-            <div className="flex items-center gap-2 mb-2">
-              <Users className={`w-4 h-4 ${smartWalletStatus.socialRecoveryEnabled ? 'text-purple-500' : 'text-slate-400'}`} />
-              <span className={`text-sm font-medium ${smartWalletStatus.socialRecoveryEnabled ? 'text-purple-700 dark:text-purple-400' : 'text-slate-500 dark:text-slate-400'}`} data-testid="text-feature-social-recovery">
-                {t('userPage.socialRecovery', 'Social Recovery')}
-              </span>
+              <div className={`p-3 rounded-lg border ${smartWalletStatus.sessionKeyEnabled 
+                ? 'bg-blue-50 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/30' 
+                : 'bg-slate-50 dark:bg-slate-500/10 border-slate-200 dark:border-slate-500/30'}`} data-testid="card-feature-session-key">
+                <div className="flex items-center gap-2 mb-2">
+                  <Key className={`w-4 h-4 ${smartWalletStatus.sessionKeyEnabled ? 'text-blue-500' : 'text-slate-400'}`} />
+                  <span className={`text-sm font-medium ${smartWalletStatus.sessionKeyEnabled ? 'text-blue-700 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400'}`} data-testid="text-feature-session-key">
+                    {t('userPage.sessionKeys', 'Session Keys')}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-gray-400">
+                  {t('userPage.sessionKeysDesc', 'Time-limited transaction permissions')}
+                </p>
+                {smartWalletStatus.sessionKeyEnabled && (
+                  <Badge className="mt-2 bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 text-[10px]" data-testid="badge-session-key-enabled">
+                    {t('common.enabled', 'Enabled')}
+                  </Badge>
+                )}
+              </div>
+
+              <div className={`p-3 rounded-lg border ${smartWalletStatus.socialRecoveryEnabled 
+                ? 'bg-purple-50 dark:bg-purple-500/10 border-purple-200 dark:border-purple-500/30' 
+                : 'bg-slate-50 dark:bg-slate-500/10 border-slate-200 dark:border-slate-500/30'}`} data-testid="card-feature-social-recovery">
+                <div className="flex items-center gap-2 mb-2">
+                  <Users className={`w-4 h-4 ${smartWalletStatus.socialRecoveryEnabled ? 'text-purple-500' : 'text-slate-400'}`} />
+                  <span className={`text-sm font-medium ${smartWalletStatus.socialRecoveryEnabled ? 'text-purple-700 dark:text-purple-400' : 'text-slate-500 dark:text-slate-400'}`} data-testid="text-feature-social-recovery">
+                    {t('userPage.socialRecovery', 'Social Recovery')}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-gray-400">
+                  {t('userPage.socialRecoveryDesc', 'Recover wallet via trusted contacts')}
+                </p>
+                {smartWalletStatus.socialRecoveryEnabled && (
+                  <Badge className="mt-2 bg-purple-100 text-purple-600 dark:bg-purple-500/20 dark:text-purple-400 text-[10px]" data-testid="badge-social-recovery-enabled">
+                    {t('common.enabled', 'Enabled')}
+                  </Badge>
+                )}
+              </div>
             </div>
-            <p className="text-xs text-slate-500 dark:text-gray-400">
-              {t('userPage.socialRecoveryDesc', 'Recover wallet via trusted contacts')}
-            </p>
-            {smartWalletStatus.socialRecoveryEnabled && (
-              <Badge className="mt-2 bg-purple-100 text-purple-600 dark:bg-purple-500/20 dark:text-purple-400 text-[10px]" data-testid="badge-social-recovery-enabled">
-                {t('common.enabled', 'Enabled')}
-              </Badge>
-            )}
-          </div>
+          )}
+
+          {activeTab === 'sessions' && (
+            <div className="space-y-3" data-testid="session-keys-panel">
+              <div className="flex items-center justify-between">
+                <div className="text-xs text-slate-500 dark:text-gray-400">
+                  {t('userPage.activeSessionKeys', 'Active Session Keys')}: {sessionKeys?.activeCount ?? 0}/{sessionKeys?.maxAllowed ?? 10}
+                </div>
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  onClick={() => createSessionKeyMutation.mutate()}
+                  disabled={createSessionKeyMutation.isPending}
+                  data-testid="button-create-session-key"
+                >
+                  {createSessionKeyMutation.isPending ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Plus className="w-3 h-3 mr-1" />}
+                  {t('userPage.createSessionKey', 'Create Key')}
+                </Button>
+              </div>
+              {sessionKeys?.sessionKeys.length === 0 ? (
+                <div className="text-center py-6 text-slate-400 text-sm" data-testid="text-no-session-keys">
+                  <Key className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                  {t('userPage.noSessionKeys', 'No active session keys. Create one for time-limited permissions.')}
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {sessionKeys?.sessionKeys.map((key: any) => (
+                    <div key={key.id} className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg flex items-center justify-between" data-testid={`session-key-${key.id}`}>
+                      <div className="flex items-center gap-2">
+                        <Key className="w-4 h-4 text-blue-500" />
+                        <div>
+                          <div className="text-sm font-medium text-slate-700 dark:text-slate-300">{key.permissions?.join(', ') || 'Full Access'}</div>
+                          <div className="text-xs text-slate-400">{t('userPage.expiresAt', 'Expires')}: {new Date(key.validUntil).toLocaleDateString()}</div>
+                        </div>
+                      </div>
+                      <Button 
+                        size="icon" 
+                        variant="ghost" 
+                        onClick={() => revokeSessionKeyMutation.mutate(key.id)}
+                        disabled={revokeSessionKeyMutation.isPending}
+                        data-testid={`button-revoke-${key.id}`}
+                      >
+                        <Trash2 className="w-3 h-3 text-red-500" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'guardians' && (
+            <div className="space-y-3" data-testid="guardians-panel">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Shield className={`w-4 h-4 ${guardians?.isProtected ? 'text-purple-500' : 'text-slate-400'}`} />
+                  <span className="text-xs text-slate-500 dark:text-gray-400">
+                    {guardians?.isProtected 
+                      ? t('userPage.recoveryProtected', 'Recovery Protection Active')
+                      : t('userPage.setupRecovery', 'Set up recovery protection')}
+                  </span>
+                </div>
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => setShowAddGuardianForm(!showAddGuardianForm)}
+                  data-testid="button-add-guardian"
+                >
+                  <UserPlus className="w-3 h-3 mr-1" />
+                  {showAddGuardianForm ? t('common.cancel', 'Cancel') : t('userPage.addGuardian', 'Add Guardian')}
+                </Button>
+              </div>
+              {showAddGuardianForm && (
+                <Form {...guardianForm}>
+                  <form onSubmit={guardianForm.handleSubmit(onGuardianSubmit)} className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-3" data-testid="add-guardian-form">
+                    <FormField
+                      control={guardianForm.control}
+                      name="address"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel data-testid="label-guardian-address">
+                            {t('userPage.guardianAddress', 'Guardian Wallet Address')}
+                          </FormLabel>
+                          <FormControl>
+                            <Input placeholder="0x..." {...field} data-testid="input-guardian-address" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={guardianForm.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel data-testid="label-guardian-name">
+                            {t('userPage.guardianName', 'Guardian Name (optional)')}
+                          </FormLabel>
+                          <FormControl>
+                            <Input placeholder={t('userPage.guardianNamePlaceholder', 'e.g. Family Member')} {...field} data-testid="input-guardian-name" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button
+                      type="submit"
+                      size="sm"
+                      disabled={addGuardianMutation.isPending}
+                      data-testid="button-submit-guardian"
+                    >
+                      {addGuardianMutation.isPending ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Plus className="w-3 h-3 mr-1" />}
+                      {t('userPage.addGuardianSubmit', 'Add Guardian')}
+                    </Button>
+                  </form>
+                </Form>
+              )}
+              {guardians?.isProtected && (
+                <div className="p-3 bg-purple-50 dark:bg-purple-500/10 rounded-lg text-xs" data-testid="guardian-threshold-info">
+                  <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400">
+                    <Lock className="w-3.5 h-3.5" />
+                    {t('userPage.recoveryThreshold', 'Recovery requires {{threshold}} of {{total}} guardians', {
+                      threshold: guardians.threshold,
+                      total: guardians.guardians.length
+                    })}
+                  </div>
+                </div>
+              )}
+              {guardians?.guardians.length === 0 ? (
+                <div className="text-center py-6 text-slate-400 text-sm" data-testid="text-no-guardians">
+                  <Users className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                  {t('userPage.noGuardians', 'No guardians added. Add trusted contacts for wallet recovery.')}
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {guardians?.guardians.map((guardian: any) => (
+                    <div key={guardian.id} className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg flex items-center justify-between" data-testid={`guardian-${guardian.id}`}>
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center">
+                          <User className="w-4 h-4 text-purple-500" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium text-slate-700 dark:text-slate-300">{guardian.name}</div>
+                          <div className="text-xs text-slate-400 font-mono">{guardian.address}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className={`text-[10px] ${guardian.isActive ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-500'}`}>
+                          {guardian.isActive ? t('common.active', 'Active') : t('common.inactive', 'Inactive')}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'history' && (
+            <div className="space-y-3" data-testid="transaction-history-panel">
+              <div className="flex items-center justify-between text-xs text-slate-500 dark:text-gray-400">
+                <span>{t('userPage.totalTransactions', 'Total')}: {transactions?.summary?.totalTransactions ?? 0}</span>
+                <div className="flex items-center gap-3">
+                  <span className="flex items-center gap-1">
+                    <Zap className="w-3 h-3 text-green-500" />
+                    {t('userPage.gasless', 'Gasless')}: {transactions?.summary?.gaslessCount ?? 0}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Layers className="w-3 h-3 text-blue-500" />
+                    {t('userPage.batch', 'Batch')}: {transactions?.summary?.batchCount ?? 0}
+                  </span>
+                </div>
+              </div>
+              {transactions?.transactions.length === 0 ? (
+                <div className="text-center py-6 text-slate-400 text-sm" data-testid="text-no-transactions">
+                  <HistoryIcon className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                  {t('userPage.noTransactions', 'No transaction history yet.')}
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {transactions?.transactions.map((tx: any) => (
+                    <div key={tx.id} className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg flex items-center justify-between" data-testid={`transaction-${tx.id}`}>
+                      <div className="flex items-center gap-3">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                          tx.type === 'gasless_transfer' ? 'bg-green-100 dark:bg-green-500/20' :
+                          tx.type === 'batch_execute' ? 'bg-blue-100 dark:bg-blue-500/20' :
+                          'bg-orange-100 dark:bg-orange-500/20'
+                        }`}>
+                          {tx.type === 'gasless_transfer' ? <Zap className="w-4 h-4 text-green-500" /> :
+                           tx.type === 'batch_execute' ? <Layers className="w-4 h-4 text-blue-500" /> :
+                           <ArrowUpRight className="w-4 h-4 text-orange-500" />}
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                            {tx.type === 'batch_execute' ? `${t('userPage.batchTx', 'Batch')} (${tx.batchCount} txs)` :
+                             tx.value ? `${tx.value} ${tx.symbol}` : tx.type}
+                          </div>
+                          <div className="text-xs text-slate-400">
+                            {new Date(tx.timestamp).toLocaleString()}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {tx.gasSponsored && (
+                          <Badge className="bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400 text-[10px]">
+                            {t('userPage.gasSponsored', 'Sponsored')}
+                          </Badge>
+                        )}
+                        <Badge className={`text-[10px] ${tx.status === 'confirmed' ? 'bg-emerald-100 text-emerald-600' : 'bg-yellow-100 text-yellow-600'}`}>
+                          {tx.status === 'confirmed' ? t('common.confirmed', 'Confirmed') : t('common.pending', 'Pending')}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       ) : (
         <div className="text-center py-4">

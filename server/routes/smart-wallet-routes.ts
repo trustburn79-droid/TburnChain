@@ -13,9 +13,36 @@
  */
 
 import { Router, Request, Response } from 'express';
+import { z } from 'zod';
 import { emailWalletLinkingService } from '../services/account-abstraction/EmailWalletLinkingService';
 import { tbc4337Manager } from '../services/account-abstraction/TBC4337Manager';
 import { enterpriseSocialRecoveryService } from '../services/account-abstraction/EnterpriseSocialRecoveryService';
+
+const createSessionKeySchema = z.object({
+  validHours: z.number().min(1).max(720).default(24),
+  permissions: z.array(z.string()).default(['transfer']),
+  spendingLimit: z.string().optional(),
+  allowedTargets: z.array(z.string()).default([]),
+});
+
+const guardianSchema = z.object({
+  address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid Ethereum address'),
+  name: z.string().min(1).max(100).optional(),
+  email: z.string().email().optional(),
+});
+
+const setupGuardiansSchema = z.object({
+  guardians: z.array(guardianSchema).min(2).max(7),
+  threshold: z.number().min(1).optional(),
+});
+
+const batchTransactionSchema = z.object({
+  transactions: z.array(z.object({
+    to: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+    value: z.string().optional(),
+    data: z.string().optional(),
+  })).min(1).max(10),
+});
 
 declare module 'express-session' {
   interface SessionData {
@@ -125,16 +152,11 @@ router.get('/session-keys', requireAuth, async (req: Request, res: Response) => 
 router.post('/session-keys', requireAuth, async (req: Request, res: Response) => {
   try {
     const email = req.session.memberEmail!;
-    const { 
-      validHours = 24, 
-      permissions = ['transfer'],
-      spendingLimit,
-      allowedTargets = [],
-    } = req.body;
-    
-    if (validHours < 1 || validHours > 720) {
-      return res.status(400).json({ error: "validHours must be between 1 and 720" });
+    const parseResult = createSessionKeySchema.safeParse(req.body);
+    if (!parseResult.success) {
+      return res.status(400).json({ error: parseResult.error.errors[0].message });
     }
+    const { validHours, permissions, spendingLimit, allowedTargets } = parseResult.data;
 
     const validUntil = Date.now() + (validHours * 60 * 60 * 1000);
     const result = await emailWalletLinkingService.createSessionKeyForEmail(email, validUntil, permissions);
@@ -235,15 +257,11 @@ router.post('/guardians/setup', requireAuth, async (req: Request, res: Response)
       return res.status(400).json({ error: "No smart wallet found" });
     }
 
-    const { guardians, threshold } = req.body;
-    
-    if (!Array.isArray(guardians) || guardians.length < 2) {
-      return res.status(400).json({ error: "Minimum 2 guardians required" });
+    const parseResult = setupGuardiansSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      return res.status(400).json({ error: parseResult.error.errors[0].message });
     }
-
-    if (guardians.length > 7) {
-      return res.status(400).json({ error: "Maximum 7 guardians allowed" });
-    }
+    const { guardians, threshold } = parseResult.data;
 
     const result = await enterpriseSocialRecoveryService.setupGuardians(
       walletLink.smartWalletAddress,
@@ -275,6 +293,11 @@ router.post('/guardians/setup', requireAuth, async (req: Request, res: Response)
  * POST /api/smart-wallet/guardians/add
  * Add a single guardian
  */
+const addGuardianSchema = z.object({
+  guardian: guardianSchema,
+  signature: z.string().optional().default(''),
+});
+
 router.post('/guardians/add', requireAuth, async (req: Request, res: Response) => {
   try {
     const email = req.session.memberEmail!;
@@ -284,11 +307,11 @@ router.post('/guardians/add', requireAuth, async (req: Request, res: Response) =
       return res.status(400).json({ error: "No smart wallet found" });
     }
 
-    const { guardian, signature = '' } = req.body;
-    
-    if (!guardian?.address) {
-      return res.status(400).json({ error: "Guardian address required" });
+    const parseResult = addGuardianSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      return res.status(400).json({ error: parseResult.error.errors[0].message });
     }
+    const { guardian, signature } = parseResult.data;
 
     const result = await enterpriseSocialRecoveryService.addGuardian(
       walletLink.smartWalletAddress,
@@ -427,15 +450,11 @@ router.post('/batch-execute', requireAuth, async (req: Request, res: Response) =
       return res.status(400).json({ error: "No smart wallet found" });
     }
 
-    const { transactions } = req.body;
-    
-    if (!Array.isArray(transactions) || transactions.length === 0) {
-      return res.status(400).json({ error: "No transactions provided" });
+    const parseResult = batchTransactionSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      return res.status(400).json({ error: parseResult.error.errors[0].message });
     }
-
-    if (transactions.length > 10) {
-      return res.status(400).json({ error: "Maximum 10 transactions per batch" });
-    }
+    const { transactions } = parseResult.data;
 
     const batchTxs = transactions.map((tx: any) => ({
       to: tx.to,
