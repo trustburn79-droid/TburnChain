@@ -649,19 +649,19 @@ export default function VCTestMode() {
             <Card className="bg-gradient-to-br from-cyan-900/30 to-cyan-800/20 border-cyan-500/30 hover:border-cyan-400/50 transition-all hover:scale-[1.02]" data-testid="card-account-abstraction">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-500/40">ERC-4337</Badge>
+                  <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-500/40">{t('vcTestMode.aaBadge', 'ERC-4337')}</Badge>
                   <Smartphone className="w-6 h-6 text-cyan-400" />
                 </div>
-                <CardTitle className="text-xl text-white mt-2">Account Abstraction</CardTitle>
+                <CardTitle className="text-xl text-white mt-2">{t('vcTestMode.aaTitle', 'Account Abstraction')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 text-sm mb-3">
                   {t('vcTestMode.aaDesc', 'Smart wallets with gasless transactions, social login, and session keys.')}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-cyan-300 border-cyan-500/40 text-xs">Gasless TX</Badge>
-                  <Badge variant="outline" className="text-cyan-300 border-cyan-500/40 text-xs">Session Keys</Badge>
-                  <Badge variant="outline" className="text-cyan-300 border-cyan-500/40 text-xs">Social Recovery</Badge>
+                  <Badge variant="outline" className="text-cyan-300 border-cyan-500/40 text-xs">{t('vcTestMode.aaTag1', 'Gasless TX')}</Badge>
+                  <Badge variant="outline" className="text-cyan-300 border-cyan-500/40 text-xs">{t('vcTestMode.aaTag2', 'Session Keys')}</Badge>
+                  <Badge variant="outline" className="text-cyan-300 border-cyan-500/40 text-xs">{t('vcTestMode.aaTag3', 'Social Recovery')}</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -670,19 +670,19 @@ export default function VCTestMode() {
             <Card className="bg-gradient-to-br from-green-900/30 to-green-800/20 border-green-500/30 hover:border-green-400/50 transition-all hover:scale-[1.02]" data-testid="card-intent-architecture">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <Badge className="bg-green-500/20 text-green-300 border-green-500/40">MEV Protected</Badge>
+                  <Badge className="bg-green-500/20 text-green-300 border-green-500/40">{t('vcTestMode.intentBadge', 'MEV Protected')}</Badge>
                   <Target className="w-6 h-6 text-green-400" />
                 </div>
-                <CardTitle className="text-xl text-white mt-2">Intent Architecture</CardTitle>
+                <CardTitle className="text-xl text-white mt-2">{t('vcTestMode.intentTitle', 'Intent Architecture')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 text-sm mb-3">
                   {t('vcTestMode.intentDesc', 'Declare desired outcomes and let optimal solvers compete for execution.')}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-green-300 border-green-500/40 text-xs">5+ Solvers</Badge>
-                  <Badge variant="outline" className="text-green-300 border-green-500/40 text-xs">Batch Auction</Badge>
-                  <Badge variant="outline" className="text-green-300 border-green-500/40 text-xs">Best Price</Badge>
+                  <Badge variant="outline" className="text-green-300 border-green-500/40 text-xs">{t('vcTestMode.intentTag1', '5+ Solvers')}</Badge>
+                  <Badge variant="outline" className="text-green-300 border-green-500/40 text-xs">{t('vcTestMode.intentTag2', 'Batch Auction')}</Badge>
+                  <Badge variant="outline" className="text-green-300 border-green-500/40 text-xs">{t('vcTestMode.intentTag3', 'Best Price')}</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -691,19 +691,19 @@ export default function VCTestMode() {
             <Card className="bg-gradient-to-br from-orange-900/30 to-orange-800/20 border-orange-500/30 hover:border-orange-400/50 transition-all hover:scale-[1.02]" data-testid="card-zk-rollup">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <Badge className="bg-orange-500/20 text-orange-300 border-orange-500/40">Layer 2</Badge>
+                  <Badge className="bg-orange-500/20 text-orange-300 border-orange-500/40">{t('vcTestMode.zkBadge', 'Layer 2')}</Badge>
                   <Layers className="w-6 h-6 text-orange-400" />
                 </div>
-                <CardTitle className="text-xl text-white mt-2">ZK Rollup</CardTitle>
+                <CardTitle className="text-xl text-white mt-2">{t('vcTestMode.zkTitle', 'ZK Rollup')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 text-sm mb-3">
                   {t('vcTestMode.zkDesc', '95% gas savings and instant finality with zero-knowledge proofs.')}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-orange-300 border-orange-500/40 text-xs">95% Gas Savings</Badge>
-                  <Badge variant="outline" className="text-orange-300 border-orange-500/40 text-xs">Instant Finality</Badge>
-                  <Badge variant="outline" className="text-orange-300 border-orange-500/40 text-xs">Fast Withdrawal</Badge>
+                  <Badge variant="outline" className="text-orange-300 border-orange-500/40 text-xs">{t('vcTestMode.zkTag1', '95% Gas Savings')}</Badge>
+                  <Badge variant="outline" className="text-orange-300 border-orange-500/40 text-xs">{t('vcTestMode.zkTag2', 'Instant Finality')}</Badge>
+                  <Badge variant="outline" className="text-orange-300 border-orange-500/40 text-xs">{t('vcTestMode.zkTag3', 'Fast Withdrawal')}</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -712,19 +712,19 @@ export default function VCTestMode() {
             <Card className="bg-gradient-to-br from-purple-900/30 to-purple-800/20 border-purple-500/30 hover:border-purple-400/50 transition-all hover:scale-[1.02]" data-testid="card-restaking">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/40">AVS Rewards</Badge>
+                  <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/40">{t('vcTestMode.restakingBadge', 'AVS Rewards')}</Badge>
                   <Coins className="w-6 h-6 text-purple-400" />
                 </div>
-                <CardTitle className="text-xl text-white mt-2">Restaking</CardTitle>
+                <CardTitle className="text-xl text-white mt-2">{t('vcTestMode.restakingTitle', 'Restaking')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 text-sm mb-3">
                   {t('vcTestMode.restakingDesc', 'Generate additional yield while preserving 20-year tokenomics independence.')}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-purple-300 border-purple-500/40 text-xs">+APY Boost</Badge>
-                  <Badge variant="outline" className="text-purple-300 border-purple-500/40 text-xs">4 AVS Services</Badge>
-                  <Badge variant="outline" className="text-purple-300 border-purple-500/40 text-xs">USDT/USDC</Badge>
+                  <Badge variant="outline" className="text-purple-300 border-purple-500/40 text-xs">{t('vcTestMode.restakingTag1', '+APY Boost')}</Badge>
+                  <Badge variant="outline" className="text-purple-300 border-purple-500/40 text-xs">{t('vcTestMode.restakingTag2', '4 AVS Services')}</Badge>
+                  <Badge variant="outline" className="text-purple-300 border-purple-500/40 text-xs">{t('vcTestMode.restakingTag3', 'USDT/USDC')}</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -733,19 +733,19 @@ export default function VCTestMode() {
             <Card className="bg-gradient-to-br from-yellow-900/30 to-yellow-800/20 border-yellow-500/30 hover:border-yellow-400/50 transition-all hover:scale-[1.02]" data-testid="card-modular-da">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-500/40">Multi-Provider</Badge>
+                  <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-500/40">{t('vcTestMode.daBadge', 'Multi-Provider')}</Badge>
                   <Database className="w-6 h-6 text-yellow-400" />
                 </div>
-                <CardTitle className="text-xl text-white mt-2">Modular DA</CardTitle>
+                <CardTitle className="text-xl text-white mt-2">{t('vcTestMode.daTitle', 'Modular DA')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 text-sm mb-3">
                   {t('vcTestMode.daDesc', 'Auto-select optimal DA layer from TBURN, Celestia, and EigenDA.')}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-yellow-300 border-yellow-500/40 text-xs">Auto Failover</Badge>
-                  <Badge variant="outline" className="text-yellow-300 border-yellow-500/40 text-xs">100ms Latency</Badge>
-                  <Badge variant="outline" className="text-yellow-300 border-yellow-500/40 text-xs">85% Cheaper</Badge>
+                  <Badge variant="outline" className="text-yellow-300 border-yellow-500/40 text-xs">{t('vcTestMode.daTag1', 'Auto Failover')}</Badge>
+                  <Badge variant="outline" className="text-yellow-300 border-yellow-500/40 text-xs">{t('vcTestMode.daTag2', '100ms Latency')}</Badge>
+                  <Badge variant="outline" className="text-yellow-300 border-yellow-500/40 text-xs">{t('vcTestMode.daTag3', '85% Cheaper')}</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -754,10 +754,10 @@ export default function VCTestMode() {
             <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/30 border-dashed border-gray-500/50 hover:border-gray-400/50 transition-all hover:scale-[1.02]" data-testid="card-web2-ux">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <Badge className="bg-gray-500/20 text-gray-300 border-gray-500/40">Combined Effect</Badge>
+                  <Badge className="bg-gray-500/20 text-gray-300 border-gray-500/40">{t('vcTestMode.web2UxBadge', 'Combined Effect')}</Badge>
                   <Globe className="w-6 h-6 text-gray-400" />
                 </div>
-                <CardTitle className="text-xl text-white mt-2">Web2-Level UX</CardTitle>
+                <CardTitle className="text-xl text-white mt-2">{t('vcTestMode.web2UxTitle', 'Web2-Level UX')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 text-sm mb-3">
