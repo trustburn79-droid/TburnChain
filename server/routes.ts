@@ -50,9 +50,12 @@ import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
 import { getEnterpriseNode } from "./services/TBurnEnterpriseNode";
 import { getRestartSupervisor, type RestartState } from "./services/RestartSupervisor";
 import { emailWalletLinkingService } from "./services/account-abstraction/EmailWalletLinkingService";
+import { tbc4337Manager } from "./services/account-abstraction/TBC4337Manager";
+import { enterpriseSocialRecoveryService } from "./services/account-abstraction/EnterpriseSocialRecoveryService";
 import { registerDexRoutes } from "./routes/dex-routes";
 import { registerLendingRoutes } from "./routes/lending-routes";
 import { registerYieldRoutes } from "./routes/yield-routes";
+import { registerEnterpriseSmartWalletRoutes } from "./routes/smart-wallet-routes";
 import { registerLiquidStakingRoutes } from "./routes/liquid-staking-routes";
 import nftMarketplaceRoutes from "./routes/nft-marketplace-routes";
 import launchpadRoutes from "./routes/launchpad-routes";
@@ -3221,7 +3224,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(503).json({ error: "Failed to get smart wallet status" });
     }
   });
-  console.log("[SmartWallet] ✅ Smart wallet routes registered");
+  console.log("[SmartWallet] ✅ Basic smart wallet status route registered");
+
+  // Enterprise Smart Wallet Routes (Extended API)
+  registerEnterpriseSmartWalletRoutes(app);
 
   // ============================================
   // ENTERPRISE VALIDATOR ORCHESTRATOR (125 Validators, 1M TBURN Each)
