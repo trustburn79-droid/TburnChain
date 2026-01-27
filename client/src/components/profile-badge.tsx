@@ -27,6 +27,7 @@ import {
   TreeDeciduous,
   Image as ImageIcon,
   Bug,
+  Key,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link, useLocation } from "wouter";
@@ -135,6 +136,20 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
       if (!response.ok) return [];
       return response.json();
     },
+  });
+
+  // Smart Wallet (Account Abstraction) status
+  const { data: smartWalletStatus } = useQuery<{
+    hasSmartWallet: boolean;
+    smartWalletAddress: string | null;
+    gaslessEnabled: boolean;
+    sessionKeyEnabled: boolean;
+    socialRecoveryEnabled: boolean;
+  }>({
+    queryKey: ["/api/smart-wallet/status"],
+    enabled: authCheck?.authenticated === true,
+    staleTime: 60000,
+    refetchOnWindowFocus: false,
   });
 
   const isAuthenticated = authCheck?.authenticated || isConnected;
@@ -472,6 +487,38 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
                 </p>
               </div>
             </div>
+
+            {/* Smart Wallet (Account Abstraction) Status */}
+            {smartWalletStatus?.hasSmartWallet && (
+              <div className="p-3 rounded-lg bg-gradient-to-r from-orange-500/10 to-purple-500/10 border border-orange-500/20">
+                <div className="flex items-center gap-2 mb-2">
+                  <Key className="h-4 w-4 text-orange-500" />
+                  <span className="text-xs font-medium text-orange-400">
+                    {t("profile.smartWallet", "Smart Wallet")}
+                  </span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400">
+                    2026 Next-Gen
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {smartWalletStatus.gaslessEnabled && (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-400" data-testid="badge-gasless">
+                      {t("profile.gasless", "Gasless")}
+                    </span>
+                  )}
+                  {smartWalletStatus.sessionKeyEnabled && (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400" data-testid="badge-session-key">
+                      {t("profile.sessionKey", "Session Key")}
+                    </span>
+                  )}
+                  {smartWalletStatus.socialRecoveryEnabled && (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-400" data-testid="badge-social-recovery">
+                      {t("profile.socialRecovery", "Social Recovery")}
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="px-4 pb-4 pt-1 space-y-1 border-t border-border/40">
