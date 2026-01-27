@@ -282,6 +282,34 @@ export function TransactionConfirmDialog({
               </a>
             </div>
           )}
+
+          {/* OTP Authentication Info */}
+          {transaction.type === "transfer" && status === "idle" && (
+            <div className="p-3 rounded-lg bg-orange-500/10 border border-orange-500/20 space-y-2" data-testid="otp-auth-info">
+              <div className="flex items-center gap-2 text-sm font-medium text-orange-700 dark:text-orange-400">
+                <Shield className="h-4 w-4" />
+                {t("wallet.transaction.otpAuthTitle", "Email OTP Authentication")}
+              </div>
+              <div className="text-xs text-muted-foreground space-y-1">
+                <p className="flex items-center gap-2">
+                  <span className="text-orange-500">•</span>
+                  {t("wallet.transaction.otpMaxAttempts", "Max 3 attempts per request")}
+                </p>
+                <p className="flex items-center gap-2">
+                  <span className="text-green-500">•</span>
+                  {t("wallet.transaction.otpNoRequired", "$10 or less: No OTP (session key auto-approval)")}
+                </p>
+                <p className="flex items-center gap-2">
+                  <span className="text-blue-500">•</span>
+                  {t("wallet.transaction.otpStandard", "$10 - $1,000: Standard OTP")}
+                </p>
+                <p className="flex items-center gap-2">
+                  <span className="text-purple-500">•</span>
+                  {t("wallet.transaction.otpEnhanced", "$1,000+: Enhanced OTP")}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         <DialogFooter className="gap-2">
