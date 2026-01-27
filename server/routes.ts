@@ -49,6 +49,7 @@ import { ValidatorSimulationService } from "./validator-simulation";
 import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
 import { getEnterpriseNode } from "./services/TBurnEnterpriseNode";
 import { getRestartSupervisor, type RestartState } from "./services/RestartSupervisor";
+import { emailWalletLinkingService } from "./services/account-abstraction/EmailWalletLinkingService";
 import { registerDexRoutes } from "./routes/dex-routes";
 import { registerLendingRoutes } from "./routes/lending-routes";
 import { registerYieldRoutes } from "./routes/yield-routes";
@@ -1744,6 +1745,20 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       // Clear pending user
       delete req.session.pendingGoogleUser;
       
+      // Auto-create smart wallet for Account Abstraction
+      try {
+        const smartWalletResult = await emailWalletLinkingService.getOrCreateSmartWallet(
+          pendingGoogleUser.email,
+          tburnAddress,
+          pendingGoogleUser.googleId
+        );
+        if (smartWalletResult.smartWalletAddress) {
+          console.log('[Google OAuth] Smart wallet created:', smartWalletResult.smartWalletAddress);
+        }
+      } catch (smartWalletError) {
+        console.error('[Google OAuth] Smart wallet creation failed (non-blocking):', smartWalletError);
+      }
+      
       res.json({ success: true, message: "Account created successfully" });
     } catch (error) {
       console.error("Google signup completion error:", error);
@@ -3186,6 +3201,27 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // TRANSACTION OTP (Email Verification)
   registerTransactionOTPRoutes(app);
   console.log("[TransactionOTP] ✅ Transaction OTP routes registered");
+  
+  // SMART WALLET (Account Abstraction)
+  app.get("/api/smart-wallet/status", async (req, res) => {
+    if (!req.session.authenticated || !req.session.memberEmail) {
+      return res.status(401).json({ error: "Not authenticated" });
+    }
+    try {
+      const walletInfo = emailWalletLinkingService.getWalletByEmail(req.session.memberEmail);
+      res.json({
+        hasSmartWallet: walletInfo?.hasSmartWallet || false,
+        smartWalletAddress: walletInfo?.smartWalletAddress || null,
+        gaslessEnabled: walletInfo?.gaslessEnabled || false,
+        sessionKeyEnabled: walletInfo?.sessionKeyEnabled || false,
+        socialRecoveryEnabled: walletInfo?.socialRecoveryEnabled || false,
+      });
+    } catch (error) {
+      console.error("[SmartWallet] Status error:", error);
+      res.status(503).json({ error: "Failed to get smart wallet status" });
+    }
+  });
+  console.log("[SmartWallet] ✅ Smart wallet routes registered");
 
   // ============================================
   // ENTERPRISE VALIDATOR ORCHESTRATOR (125 Validators, 1M TBURN Each)
