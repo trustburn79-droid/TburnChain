@@ -70,6 +70,7 @@ const StakingDashboard = lazyWithRetry(() => import("@/pages/staking"));
 const StakingPoolDetail = lazyWithRetry(() => import("@/pages/staking-pool-detail"));
 const StakingRewards = lazyWithRetry(() => import("@/pages/staking-rewards"));
 const StakingSDK = lazyWithRetry(() => import("@/pages/staking-sdk"));
+const SocialRecoveryPage = lazyWithRetry(() => import("@/pages/social-recovery"));
 
 const DexPage = lazyWithRetry(() => import("@/pages/dex"));
 const LendingPage = lazyWithRetry(() => import("@/pages/lending"));
@@ -164,6 +165,7 @@ function AppRouter() {
         <Route path="/app/staking/rewards" component={StakingRewards} />
         <Route path="/app/staking/sdk" component={StakingSDK} />
         <Route path="/app/dex" component={DexPage} />
+        <Route path="/app/social-recovery" component={SocialRecoveryPage} />
         <Route path="/app/lending" component={LendingPage} />
         <Route path="/app/yield-farming" component={YieldFarmingPage} />
         <Route path="/app/liquid-staking" component={LiquidStakingPage} />
