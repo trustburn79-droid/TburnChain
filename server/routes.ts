@@ -74,6 +74,7 @@ import verificationRoutes from "./routes/verification-routes";
 import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
 import { registerShardingRoutes } from "./routes/sharding-routes";
 import validatorRoutes from "./routes/validator-routes";
+import { registerSocialRecoveryRoutes } from "./routes/social-recovery-routes";
 import { registerExternalValidatorRoutes } from "./routes/external-validator-routes";
 import { rewardRoutes } from "./routes/reward-routes";
 import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
@@ -3178,6 +3179,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   registerShardingRoutes(app);
   console.log("[Sharding] ✅ Enterprise dynamic sharding routes registered");
+  // SOCIAL RECOVERY (Account Abstraction)
+  registerSocialRecoveryRoutes(app);
+  console.log("[SocialRecovery] ✅ Enterprise social recovery routes registered");
 
   // ============================================
   // ENTERPRISE VALIDATOR ORCHESTRATOR (125 Validators, 1M TBURN Each)
