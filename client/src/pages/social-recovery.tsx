@@ -83,12 +83,22 @@ export default function SocialRecoveryPage() {
   const [initiatorEmail, setInitiatorEmail] = useState("");
 
   const { data: configData, isLoading: configLoading, refetch: refetchConfig } = useQuery<{ config: RecoveryConfig } | null>({
-    queryKey: ['/api/social-recovery/config', walletAddress],
+    queryKey: ['/api/social-recovery/guardians', walletAddress],
+    queryFn: async () => {
+      const res = await fetch(`/api/social-recovery/guardians/${walletAddress}`);
+      if (!res.ok) return null;
+      return res.json();
+    },
     enabled: walletAddress.length > 10,
   });
 
   const { data: sessionData, isLoading: sessionLoading, refetch: refetchSession } = useQuery<{ session: RecoverySession } | null>({
-    queryKey: ['/api/social-recovery/session', walletAddress],
+    queryKey: ['/api/social-recovery/recovery/wallet', walletAddress],
+    queryFn: async () => {
+      const res = await fetch(`/api/social-recovery/recovery/wallet/${walletAddress}`);
+      if (!res.ok) return null;
+      return res.json();
+    },
     enabled: walletAddress.length > 10,
   });
 
@@ -98,7 +108,7 @@ export default function SocialRecoveryPage() {
 
   const setupMutation = useMutation({
     mutationFn: async (data: { walletAddress: string; guardianEmails: string[]; threshold: number; securityLevel: string }) => {
-      return apiRequest('POST', '/api/social-recovery/setup', data);
+      return apiRequest('POST', '/api/social-recovery/guardians/setup', data);
     },
     onSuccess: () => {
       toast({ title: t('socialRecovery.setupSuccess'), description: t('socialRecovery.setupSuccessDesc') });
@@ -112,7 +122,7 @@ export default function SocialRecoveryPage() {
 
   const addGuardianMutation = useMutation({
     mutationFn: async (data: { walletAddress: string; guardianEmail: string; nickname?: string; trustLevel: string }) => {
-      return apiRequest('POST', '/api/social-recovery/guardian/add', data);
+      return apiRequest('POST', '/api/social-recovery/guardians/add', data);
     },
     onSuccess: () => {
       toast({ title: t('socialRecovery.guardianAdded'), description: t('socialRecovery.guardianAddedDesc') });
@@ -128,7 +138,7 @@ export default function SocialRecoveryPage() {
 
   const removeGuardianMutation = useMutation({
     mutationFn: async (data: { walletAddress: string; guardianEmail: string }) => {
-      return apiRequest('POST', '/api/social-recovery/guardian/remove', data);
+      return apiRequest('POST', '/api/social-recovery/guardians/remove', data);
     },
     onSuccess: () => {
       toast({ title: t('socialRecovery.guardianRemoved') });
@@ -141,7 +151,7 @@ export default function SocialRecoveryPage() {
 
   const initiateRecoveryMutation = useMutation({
     mutationFn: async (data: { walletAddress: string; newOwner: string; initiatorEmail: string }) => {
-      return apiRequest('POST', '/api/social-recovery/initiate', data);
+      return apiRequest('POST', '/api/social-recovery/recovery/initiate', data);
     },
     onSuccess: () => {
       toast({ title: t('socialRecovery.recoveryInitiated'), description: t('socialRecovery.recoveryInitiatedDesc') });
@@ -155,7 +165,7 @@ export default function SocialRecoveryPage() {
 
   const approveRecoveryMutation = useMutation({
     mutationFn: async (data: { sessionId: string; guardianEmail: string; signature: string }) => {
-      return apiRequest('POST', '/api/social-recovery/approve', data);
+      return apiRequest('POST', '/api/social-recovery/recovery/approve', data);
     },
     onSuccess: () => {
       toast({ title: t('socialRecovery.approvalSuccess') });
@@ -168,7 +178,7 @@ export default function SocialRecoveryPage() {
 
   const executeRecoveryMutation = useMutation({
     mutationFn: async (data: { sessionId: string }) => {
-      return apiRequest('POST', '/api/social-recovery/execute', data);
+      return apiRequest('POST', `/api/social-recovery/recovery/execute/${data.sessionId}`, data);
     },
     onSuccess: () => {
       toast({ title: t('socialRecovery.recoveryExecuted'), description: t('socialRecovery.recoveryExecutedDesc') });
@@ -182,7 +192,7 @@ export default function SocialRecoveryPage() {
 
   const cancelRecoveryMutation = useMutation({
     mutationFn: async (data: { sessionId: string; cancellerEmail: string }) => {
-      return apiRequest('POST', '/api/social-recovery/cancel', data);
+      return apiRequest('POST', '/api/social-recovery/recovery/cancel', data);
     },
     onSuccess: () => {
       toast({ title: t('socialRecovery.recoveryCancelled') });
