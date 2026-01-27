@@ -4941,6 +4941,36 @@
         "recentPosts": "Postagens Recentes",
         "exploreEcosystem": "Explorar Ecossistema",
         "joinCommunity": "Juntar-se à Comunidade"
+      },
+      "advancedTech": {
+        "badge": "TECNOLOGIA DE PRÓXIMA GERAÇÃO 2026",
+        "title": "5 Tecnologias Principais",
+        "subtitle": "Infraestrutura de nível empresarial com aumento de 1.900% em TPS, redução de 95% em custos e UX de nível Web2",
+        "modularDa": {
+          "title": "DA Modular",
+          "description": "Camada de Disponibilidade de Dados com compressão"
+        },
+        "restaking": {
+          "title": "Restaking",
+          "description": "Recompensas AVS até 12,5% APY"
+        },
+        "zkRollup": {
+          "title": "ZK Rollup",
+          "description": "95% de economia de gas com escala L2"
+        },
+        "accountAbstraction": {
+          "title": "Abstração de Conta",
+          "description": "TX sem gas e chaves de sessão"
+        },
+        "intentArchitecture": {
+          "title": "Arquitetura de Intenção",
+          "description": "Proteção MEV e linguagem natural"
+        },
+        "metrics": {
+          "tpsIncrease": "Aumento de TPS",
+          "costReduction": "Redução de Custos",
+          "levelUx": "Nível UX"
+        }
       }
     },
     "learn": {

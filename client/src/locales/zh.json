@@ -7934,6 +7934,36 @@
         "recentPosts": "最近帖子",
         "exploreEcosystem": "探索生态系统",
         "joinCommunity": "加入社区"
+      },
+      "advancedTech": {
+        "badge": "2026 下一代技术",
+        "title": "5大核心技术",
+        "subtitle": "企业级基础设施，TPS提升1,900%，成本降低95%，Web2级用户体验",
+        "modularDa": {
+          "title": "模块化DA",
+          "description": "带压缩功能的数据可用性层"
+        },
+        "restaking": {
+          "title": "再质押",
+          "description": "高达12.5% APY的AVS奖励"
+        },
+        "zkRollup": {
+          "title": "ZK Rollup",
+          "description": "L2扩展节省95%gas"
+        },
+        "accountAbstraction": {
+          "title": "账户抽象",
+          "description": "免Gas交易 & 会话密钥"
+        },
+        "intentArchitecture": {
+          "title": "意图架构",
+          "description": "MEV保护 & 自然语言"
+        },
+        "metrics": {
+          "tpsIncrease": "TPS提升",
+          "costReduction": "成本降低",
+          "levelUx": "级用户体验"
+        }
       }
     },
     "learn": {

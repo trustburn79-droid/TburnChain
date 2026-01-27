@@ -5400,6 +5400,36 @@
         "recentPosts": "حالیہ پوسٹس",
         "exploreEcosystem": "ایکو سسٹم دریافت کریں",
         "joinCommunity": "کمیونٹی میں شامل ہوں"
+      },
+      "advancedTech": {
+        "badge": "2026 اگلی نسل کی ٹیکنالوجی",
+        "title": "5 بنیادی ٹیکنالوجیز",
+        "subtitle": "انٹرپرائز گریڈ انفراسٹرکچر 1,900% TPS اضافہ، 95% لاگت میں کمی اور Web2 سطح UX کے ساتھ",
+        "modularDa": {
+          "title": "ماڈیولر DA",
+          "description": "کمپریشن کے ساتھ ڈیٹا دستیابی کی تہ"
+        },
+        "restaking": {
+          "title": "ری سٹیکنگ",
+          "description": "12.5% APY تک AVS انعامات"
+        },
+        "zkRollup": {
+          "title": "ZK رول اپ",
+          "description": "L2 سکیلنگ کے ساتھ 95% گیس کی بچت"
+        },
+        "accountAbstraction": {
+          "title": "اکاؤنٹ ایبسٹریکشن",
+          "description": "گیس کے بغیر TX اور سیشن کیز"
+        },
+        "intentArchitecture": {
+          "title": "انٹینٹ آرکیٹیکچر",
+          "description": "MEV تحفظ اور قدرتی زبان"
+        },
+        "metrics": {
+          "tpsIncrease": "TPS اضافہ",
+          "costReduction": "لاگت میں کمی",
+          "levelUx": "سطح UX"
+        }
       }
     },
     "learn": {

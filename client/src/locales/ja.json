@@ -8546,6 +8546,36 @@
         "recentPosts": "最近の投稿",
         "exploreEcosystem": "エコシステムを探索",
         "joinCommunity": "コミュニティに参加"
+      },
+      "advancedTech": {
+        "badge": "2026 次世代テクノロジー",
+        "title": "5つのコア技術",
+        "subtitle": "1,900% TPSの向上、95%のコスト削減、Web2レベルのUXを備えたエンタープライズ級インフラ",
+        "modularDa": {
+          "title": "モジュラーDA",
+          "description": "圧縮機能付きデータ可用性レイヤー"
+        },
+        "restaking": {
+          "title": "リステーキング",
+          "description": "最大12.5% APYのAVS報酬"
+        },
+        "zkRollup": {
+          "title": "ZKロールアップ",
+          "description": "L2スケーリングで95%ガス節約"
+        },
+        "accountAbstraction": {
+          "title": "アカウント抽象化",
+          "description": "ガスレスTX & セッションキー"
+        },
+        "intentArchitecture": {
+          "title": "インテントアーキテクチャ",
+          "description": "MEV保護 & 自然言語"
+        },
+        "metrics": {
+          "tpsIncrease": "TPS向上",
+          "costReduction": "コスト削減",
+          "levelUx": "レベルUX"
+        }
       }
     },
     "learn": {

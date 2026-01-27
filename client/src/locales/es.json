@@ -6576,6 +6576,36 @@
           "title": "Compatible con EVM",
           "description": "Despliega contratos Solidity existentes con compatibilidad total de herramientas Ethereum"
         }
+      },
+      "advancedTech": {
+        "badge": "TECNOLOGÍA DE PRÓXIMA GENERACIÓN 2026",
+        "title": "5 Tecnologías Principales",
+        "subtitle": "Infraestructura de nivel empresarial con aumento del 1,900% en TPS, reducción del 95% en costos y UX de nivel Web2",
+        "modularDa": {
+          "title": "DA Modular",
+          "description": "Capa de Disponibilidad de Datos con compresión"
+        },
+        "restaking": {
+          "title": "Restaking",
+          "description": "Recompensas AVS hasta 12.5% APY"
+        },
+        "zkRollup": {
+          "title": "ZK Rollup",
+          "description": "95% ahorro de gas con escalado L2"
+        },
+        "accountAbstraction": {
+          "title": "Abstracción de Cuenta",
+          "description": "TX sin gas y claves de sesión"
+        },
+        "intentArchitecture": {
+          "title": "Arquitectura de Intenciones",
+          "description": "Protección MEV y lenguaje natural"
+        },
+        "metrics": {
+          "tpsIncrease": "Aumento de TPS",
+          "costReduction": "Reducción de Costos",
+          "levelUx": "Nivel UX"
+        }
       }
     },
     "learn": {

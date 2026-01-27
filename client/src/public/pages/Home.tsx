@@ -489,13 +489,13 @@ export default function Home() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-mono mb-6">
               <Sparkles className="w-3 h-3" />
-              2026 NEXT-GEN TECHNOLOGY
+              {t('publicPages.home.advancedTech.badge')}
             </div>
             <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4" data-testid="text-advanced-tech-title">
-              5 Core Technologies
+              {t('publicPages.home.advancedTech.title')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Enterprise-grade infrastructure with 1,900% TPS increase, 95% cost reduction, and Web2-level UX
+              {t('publicPages.home.advancedTech.subtitle')}
             </p>
           </div>
 
@@ -504,55 +504,55 @@ export default function Home() {
               <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
                 <Layers className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-bold text-gray-900 dark:text-white mb-2">Modular DA</h3>
-              <p className="text-xs text-gray-600 dark:text-gray-400">Data Availability Layer with compression</p>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.home.advancedTech.modularDa.title')}</h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.home.advancedTech.modularDa.description')}</p>
             </div>
 
             <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl p-6 text-center hover:scale-105 transition-transform" data-testid="card-restaking">
               <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
                 <Repeat className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-bold text-gray-900 dark:text-white mb-2">Restaking</h3>
-              <p className="text-xs text-gray-600 dark:text-gray-400">AVS rewards up to 12.5% APY</p>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.home.advancedTech.restaking.title')}</h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.home.advancedTech.restaking.description')}</p>
             </div>
 
             <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl p-6 text-center hover:scale-105 transition-transform" data-testid="card-zk-rollup">
               <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-green-500/30">
                 <Lock className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-bold text-gray-900 dark:text-white mb-2">ZK Rollup</h3>
-              <p className="text-xs text-gray-600 dark:text-gray-400">95% gas savings with L2 scaling</p>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.home.advancedTech.zkRollup.title')}</h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.home.advancedTech.zkRollup.description')}</p>
             </div>
 
             <div className="bg-gradient-to-br from-orange-500/10 to-amber-500/10 border border-orange-500/20 rounded-2xl p-6 text-center hover:scale-105 transition-transform" data-testid="card-account-abstraction">
               <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/30">
                 <Wallet className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-bold text-gray-900 dark:text-white mb-2">Account Abstraction</h3>
-              <p className="text-xs text-gray-600 dark:text-gray-400">Gasless TX & session keys</p>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.home.advancedTech.accountAbstraction.title')}</h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.home.advancedTech.accountAbstraction.description')}</p>
             </div>
 
             <div className="bg-gradient-to-br from-rose-500/10 to-red-500/10 border border-rose-500/20 rounded-2xl p-6 text-center hover:scale-105 transition-transform" data-testid="card-intent-architecture">
               <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-rose-500 to-red-500 flex items-center justify-center shadow-lg shadow-rose-500/30">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-bold text-gray-900 dark:text-white mb-2">Intent Architecture</h3>
-              <p className="text-xs text-gray-600 dark:text-gray-400">MEV protection & natural language</p>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">{t('publicPages.home.advancedTech.intentArchitecture.title')}</h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400">{t('publicPages.home.advancedTech.intentArchitecture.description')}</p>
             </div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl p-6 text-center">
               <div className="text-4xl font-bold text-cyan-600 dark:text-cyan-400 mb-2">1,900%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">TPS Increase</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.home.advancedTech.metrics.tpsIncrease')}</div>
             </div>
             <div className="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl p-6 text-center">
               <div className="text-4xl font-bold text-green-600 dark:text-green-400 mb-2">95%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Cost Reduction</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.home.advancedTech.metrics.costReduction')}</div>
             </div>
             <div className="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl p-6 text-center">
               <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">Web2</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Level UX</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">{t('publicPages.home.advancedTech.metrics.levelUx')}</div>
             </div>
           </div>
         </section>

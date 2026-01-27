@@ -6988,6 +6988,36 @@
         "recentPosts": "हाल की पोस्ट",
         "exploreEcosystem": "इकोसिस्टम एक्सप्लोर करें",
         "joinCommunity": "कम्युनिटी में शामिल हों"
+      },
+      "advancedTech": {
+        "badge": "2026 अगली पीढ़ी की तकनीक",
+        "title": "5 मुख्य प्रौद्योगिकियाँ",
+        "subtitle": "1,900% TPS वृद्धि, 95% लागत में कमी और Web2-स्तर UX के साथ एंटरप्राइज़-ग्रेड इंफ्रास्ट्रक्चर",
+        "modularDa": {
+          "title": "मॉड्यूलर DA",
+          "description": "संपीड़न के साथ डेटा उपलब्धता लेयर"
+        },
+        "restaking": {
+          "title": "रीस्टेकिंग",
+          "description": "12.5% APY तक AVS पुरस्कार"
+        },
+        "zkRollup": {
+          "title": "ZK रोलअप",
+          "description": "L2 स्केलिंग के साथ 95% गैस बचत"
+        },
+        "accountAbstraction": {
+          "title": "अकाउंट एब्स्ट्रैक्शन",
+          "description": "गैसलेस TX और सेशन कुंजी"
+        },
+        "intentArchitecture": {
+          "title": "इंटेंट आर्किटेक्चर",
+          "description": "MEV सुरक्षा और प्राकृतिक भाषा"
+        },
+        "metrics": {
+          "tpsIncrease": "TPS वृद्धि",
+          "costReduction": "लागत में कमी",
+          "levelUx": "स्तर UX"
+        }
       }
     },
     "learn": {

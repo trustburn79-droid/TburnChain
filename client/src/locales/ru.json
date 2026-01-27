@@ -5269,6 +5269,36 @@
         "recentPosts": "Недавние записи",
         "exploreEcosystem": "Исследовать экосистему",
         "joinCommunity": "Присоединиться к сообществу"
+      },
+      "advancedTech": {
+        "badge": "ТЕХНОЛОГИИ НОВОГО ПОКОЛЕНИЯ 2026",
+        "title": "5 Ключевых Технологий",
+        "subtitle": "Инфраструктура корпоративного уровня с увеличением TPS на 1900%, снижением затрат на 95% и UX уровня Web2",
+        "modularDa": {
+          "title": "Модульный DA",
+          "description": "Уровень доступности данных со сжатием"
+        },
+        "restaking": {
+          "title": "Рестейкинг",
+          "description": "Награды AVS до 12,5% APY"
+        },
+        "zkRollup": {
+          "title": "ZK Rollup",
+          "description": "95% экономии газа с L2 масштабированием"
+        },
+        "accountAbstraction": {
+          "title": "Абстракция Аккаунта",
+          "description": "Безгазовые TX и сессионные ключи"
+        },
+        "intentArchitecture": {
+          "title": "Архитектура Интентов",
+          "description": "MEV защита и естественный язык"
+        },
+        "metrics": {
+          "tpsIncrease": "Увеличение TPS",
+          "costReduction": "Снижение Затрат",
+          "levelUx": "Уровень UX"
+        }
       }
     },
     "learn": {

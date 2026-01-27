@@ -5756,6 +5756,36 @@
         "recentPosts": "المشاركات الأخيرة",
         "exploreEcosystem": "استكشاف النظام البيئي",
         "joinCommunity": "الانضمام إلى المجتمع"
+      },
+      "advancedTech": {
+        "badge": "تقنية الجيل القادم 2026",
+        "title": "5 تقنيات أساسية",
+        "subtitle": "بنية تحتية على مستوى المؤسسات مع زيادة 1,900% في TPS وتخفيض 95% في التكاليف وتجربة مستخدم بمستوى Web2",
+        "modularDa": {
+          "title": "DA معياري",
+          "description": "طبقة توفر البيانات مع الضغط"
+        },
+        "restaking": {
+          "title": "إعادة التخزين",
+          "description": "مكافآت AVS تصل إلى 12.5% APY"
+        },
+        "zkRollup": {
+          "title": "ZK Rollup",
+          "description": "توفير 95% من الغاز مع توسيع L2"
+        },
+        "accountAbstraction": {
+          "title": "تجريد الحساب",
+          "description": "معاملات بدون غاز ومفاتيح جلسة"
+        },
+        "intentArchitecture": {
+          "title": "هندسة النوايا",
+          "description": "حماية MEV واللغة الطبيعية"
+        },
+        "metrics": {
+          "tpsIncrease": "زيادة TPS",
+          "costReduction": "تخفيض التكلفة",
+          "levelUx": "مستوى UX"
+        }
       }
     },
     "learn": {

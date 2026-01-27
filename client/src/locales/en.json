@@ -8473,6 +8473,36 @@
         "nft": "NFT",
         "gaming": "Gaming",
         "enterprise": "Enterprise"
+      },
+      "advancedTech": {
+        "badge": "2026 NEXT-GEN TECHNOLOGY",
+        "title": "5 Core Technologies",
+        "subtitle": "Enterprise-grade infrastructure with 1,900% TPS increase, 95% cost reduction, and Web2-level UX",
+        "modularDa": {
+          "title": "Modular DA",
+          "description": "Data Availability Layer with compression"
+        },
+        "restaking": {
+          "title": "Restaking",
+          "description": "AVS rewards up to 12.5% APY"
+        },
+        "zkRollup": {
+          "title": "ZK Rollup",
+          "description": "95% gas savings with L2 scaling"
+        },
+        "accountAbstraction": {
+          "title": "Account Abstraction",
+          "description": "Gasless TX & session keys"
+        },
+        "intentArchitecture": {
+          "title": "Intent Architecture",
+          "description": "MEV protection & natural language"
+        },
+        "metrics": {
+          "tpsIncrease": "TPS Increase",
+          "costReduction": "Cost Reduction",
+          "levelUx": "Level UX"
+        }
       }
     },
     "learn": {

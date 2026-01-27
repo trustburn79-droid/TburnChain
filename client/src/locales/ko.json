@@ -8847,6 +8847,36 @@
         "nft": "NFT",
         "gaming": "게이밍",
         "enterprise": "엔터프라이즈"
+      },
+      "advancedTech": {
+        "badge": "2026 차세대 기술",
+        "title": "5대 핵심 기술",
+        "subtitle": "1,900% TPS 증가, 95% 비용 절감, Web2 수준 UX를 갖춘 엔터프라이즈급 인프라",
+        "modularDa": {
+          "title": "모듈러 DA",
+          "description": "압축 기능을 갖춘 데이터 가용성 레이어"
+        },
+        "restaking": {
+          "title": "리스테이킹",
+          "description": "최대 12.5% APY의 AVS 보상"
+        },
+        "zkRollup": {
+          "title": "ZK 롤업",
+          "description": "L2 스케일링으로 95% 가스 절감"
+        },
+        "accountAbstraction": {
+          "title": "어카운트 추상화",
+          "description": "가스리스 TX & 세션 키"
+        },
+        "intentArchitecture": {
+          "title": "인텐트 아키텍처",
+          "description": "MEV 보호 & 자연어 처리"
+        },
+        "metrics": {
+          "tpsIncrease": "TPS 증가",
+          "costReduction": "비용 절감",
+          "levelUx": "수준 UX"
+        }
       }
     },
     "learn": {

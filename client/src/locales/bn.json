@@ -4063,6 +4063,36 @@
         "recentPosts": "সাম্প্রতিক পোস্ট",
         "exploreEcosystem": "ইকোসিস্টেম অন্বেষণ করুন",
         "joinCommunity": "কমিউনিটিতে যোগ দিন"
+      },
+      "advancedTech": {
+        "badge": "2026 পরবর্তী প্রজন্মের প্রযুক্তি",
+        "title": "5টি মূল প্রযুক্তি",
+        "subtitle": "1,900% TPS বৃদ্ধি, 95% খরচ হ্রাস এবং Web2-স্তরের UX সহ এন্টারপ্রাইজ-গ্রেড অবকাঠামো",
+        "modularDa": {
+          "title": "মডুলার DA",
+          "description": "সংকোচন সহ ডেটা প্রাপ্যতা স্তর"
+        },
+        "restaking": {
+          "title": "রিস্টেকিং",
+          "description": "12.5% APY পর্যন্ত AVS পুরস্কার"
+        },
+        "zkRollup": {
+          "title": "ZK রোলআপ",
+          "description": "L2 স্কেলিং সহ 95% গ্যাস সাশ্রয়"
+        },
+        "accountAbstraction": {
+          "title": "অ্যাকাউন্ট অ্যাবস্ট্রাকশন",
+          "description": "গ্যাসলেস TX এবং সেশন কী"
+        },
+        "intentArchitecture": {
+          "title": "ইনটেন্ট আর্কিটেকচার",
+          "description": "MEV সুরক্ষা এবং প্রাকৃতিক ভাষা"
+        },
+        "metrics": {
+          "tpsIncrease": "TPS বৃদ্ধি",
+          "costReduction": "খরচ হ্রাস",
+          "levelUx": "স্তর UX"
+        }
       }
     },
     "learn": {
