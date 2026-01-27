@@ -1279,7 +1279,135 @@ function DashboardSection({
           </div>
         </div>
       </div>
+
+      {/* Account Abstraction - Smart Wallet Section */}
+      <SmartWalletSection isConnected={isConnected} />
     </section>
+  );
+}
+
+function SmartWalletSection({ isConnected }: { isConnected: boolean }) {
+  const { t } = useTranslation();
+  
+  const { data: smartWalletStatus, isLoading } = useQuery<{
+    hasSmartWallet: boolean;
+    smartWalletAddress: string | null;
+    gaslessEnabled: boolean;
+    sessionKeyEnabled: boolean;
+    socialRecoveryEnabled: boolean;
+  }>({
+    queryKey: ["/api/smart-wallet/status"],
+    enabled: isConnected,
+    staleTime: 60000,
+  });
+
+  const smartWalletLabel = t('userPage.smartWallet', 'Smart Wallet');
+  const nextGenLabel = t('userPage.nextGen2026', '2026 Next-Gen');
+
+  return (
+    <div className="bg-gradient-to-br from-orange-500/5 to-purple-500/5 dark:from-orange-500/10 dark:to-purple-500/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-orange-200 dark:border-orange-500/30" data-testid="section-smart-wallet">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 bg-gradient-to-br from-orange-500 to-purple-600 rounded-lg">
+            <Key className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white" data-testid="text-smart-wallet-title">
+                {smartWalletLabel}
+              </h3>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-gradient-to-r from-orange-500 to-purple-600 text-white font-medium" data-testid="badge-next-gen">
+                {nextGenLabel}
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 dark:text-gray-400">
+              {t('userPage.smartWalletDesc', 'Account Abstraction technology for seamless Web3 experience')}
+            </p>
+          </div>
+        </div>
+        {smartWalletStatus?.hasSmartWallet && (
+          <Badge className="bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 text-xs" data-testid="badge-smart-wallet-active">
+            <CheckCircle className="w-3 h-3 mr-1" />
+            {t('userPage.smartWalletActive', 'Active')}
+          </Badge>
+        )}
+      </div>
+
+      {isLoading ? (
+        <div className="flex items-center justify-center py-4">
+          <Loader2 className="w-5 h-5 animate-spin text-orange-500" />
+        </div>
+      ) : !isConnected ? (
+        <p className="text-xs text-slate-400 text-center py-4" data-testid="text-smart-wallet-connect-prompt">
+          {t('userPage.noDataConnectWallet', { section: smartWalletLabel })}
+        </p>
+      ) : smartWalletStatus?.hasSmartWallet ? (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" data-testid="smart-wallet-features-grid">
+          <div className={`p-3 rounded-lg border ${smartWalletStatus.gaslessEnabled 
+            ? 'bg-green-50 dark:bg-green-500/10 border-green-200 dark:border-green-500/30' 
+            : 'bg-slate-50 dark:bg-slate-500/10 border-slate-200 dark:border-slate-500/30'}`} data-testid="card-feature-gasless">
+            <div className="flex items-center gap-2 mb-2">
+              <Zap className={`w-4 h-4 ${smartWalletStatus.gaslessEnabled ? 'text-green-500' : 'text-slate-400'}`} />
+              <span className={`text-sm font-medium ${smartWalletStatus.gaslessEnabled ? 'text-green-700 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'}`} data-testid="text-feature-gasless">
+                {t('userPage.gaslessTransactions', 'Gasless Transactions')}
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 dark:text-gray-400">
+              {t('userPage.gaslessDesc', 'No gas fees for standard transactions')}
+            </p>
+            {smartWalletStatus.gaslessEnabled && (
+              <Badge className="mt-2 bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400 text-[10px]" data-testid="badge-gasless-enabled">
+                {t('common.enabled', 'Enabled')}
+              </Badge>
+            )}
+          </div>
+
+          <div className={`p-3 rounded-lg border ${smartWalletStatus.sessionKeyEnabled 
+            ? 'bg-blue-50 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/30' 
+            : 'bg-slate-50 dark:bg-slate-500/10 border-slate-200 dark:border-slate-500/30'}`} data-testid="card-feature-session-key">
+            <div className="flex items-center gap-2 mb-2">
+              <Key className={`w-4 h-4 ${smartWalletStatus.sessionKeyEnabled ? 'text-blue-500' : 'text-slate-400'}`} />
+              <span className={`text-sm font-medium ${smartWalletStatus.sessionKeyEnabled ? 'text-blue-700 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400'}`} data-testid="text-feature-session-key">
+                {t('userPage.sessionKeys', 'Session Keys')}
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 dark:text-gray-400">
+              {t('userPage.sessionKeysDesc', 'Time-limited transaction permissions')}
+            </p>
+            {smartWalletStatus.sessionKeyEnabled && (
+              <Badge className="mt-2 bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 text-[10px]" data-testid="badge-session-key-enabled">
+                {t('common.enabled', 'Enabled')}
+              </Badge>
+            )}
+          </div>
+
+          <div className={`p-3 rounded-lg border ${smartWalletStatus.socialRecoveryEnabled 
+            ? 'bg-purple-50 dark:bg-purple-500/10 border-purple-200 dark:border-purple-500/30' 
+            : 'bg-slate-50 dark:bg-slate-500/10 border-slate-200 dark:border-slate-500/30'}`} data-testid="card-feature-social-recovery">
+            <div className="flex items-center gap-2 mb-2">
+              <Users className={`w-4 h-4 ${smartWalletStatus.socialRecoveryEnabled ? 'text-purple-500' : 'text-slate-400'}`} />
+              <span className={`text-sm font-medium ${smartWalletStatus.socialRecoveryEnabled ? 'text-purple-700 dark:text-purple-400' : 'text-slate-500 dark:text-slate-400'}`} data-testid="text-feature-social-recovery">
+                {t('userPage.socialRecovery', 'Social Recovery')}
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 dark:text-gray-400">
+              {t('userPage.socialRecoveryDesc', 'Recover wallet via trusted contacts')}
+            </p>
+            {smartWalletStatus.socialRecoveryEnabled && (
+              <Badge className="mt-2 bg-purple-100 text-purple-600 dark:bg-purple-500/20 dark:text-purple-400 text-[10px]" data-testid="badge-social-recovery-enabled">
+                {t('common.enabled', 'Enabled')}
+              </Badge>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="text-center py-4">
+          <p className="text-sm text-slate-500 dark:text-gray-400">
+            {t('userPage.noSmartWallet', 'Smart wallet will be created automatically on Google sign-up')}
+          </p>
+        </div>
+      )}
+    </div>
   );
 }
 
