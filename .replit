@@ -67,6 +67,7 @@ ENABLE_RESTAKING = "true"
 ENABLE_ZK_ROLLUP = "true"
 ENABLE_ACCOUNT_ABSTRACTION = "true"
 ENABLE_INTENT_ARCHITECTURE = "true"
+GCP_KMS_ENABLED = "true"
 
 [userenv.production]
 NODE_ENV = "production"
