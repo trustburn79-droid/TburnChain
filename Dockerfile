@@ -21,26 +21,33 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies with cache optimization
-RUN npm ci --only=production --ignore-scripts && \
+# Install production dependencies only
+RUN npm ci --omit=dev && \
     npm cache clean --force
 
 # Stage 2: Build
 FROM node:20-alpine AS builder
 
+# Install build dependencies
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev
+
 WORKDIR /app
 
-# Copy dependencies from previous stage
-COPY --from=dependencies /app/node_modules ./node_modules
+# Copy package files and install all dependencies
 COPY package*.json ./
-
-# Install all dependencies including devDependencies
-RUN npm install
+RUN npm ci
 
 # Copy source code
 COPY . .
 
-# Build the application
+# Build the application (frontend + backend)
 RUN npm run build
 
 # Stage 3: Production
@@ -58,15 +65,16 @@ RUN apk add --no-cache \
 
 WORKDIR /app
 
-# Copy built application and production dependencies
+# Copy built application from builder
 COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nodejs:nodejs /app/client/dist ./client/dist
+
+# Copy shared directory (required for Drizzle schema at runtime)
+COPY --from=builder --chown=nodejs:nodejs /app/shared ./shared
+
+# Copy production dependencies
 COPY --from=dependencies --chown=nodejs:nodejs /app/node_modules ./node_modules
 COPY --chown=nodejs:nodejs package*.json ./
-
-# Copy necessary configuration files
-COPY --chown=nodejs:nodejs drizzle.config.ts ./
-COPY --chown=nodejs:nodejs tsconfig.json ./
 
 # Set environment variables for production
 ENV NODE_ENV=production \
@@ -85,7 +93,7 @@ ENTRYPOINT ["/sbin/tini", "--"]
 
 # Health check for Cloud Run
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD node -e "require('http').get('http://localhost:8080/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+    CMD node -e "require('http').get('http://localhost:' + (process.env.PORT || 8080) + '/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
 # Start the application
 CMD ["node", "dist/index.js"]
