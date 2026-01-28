@@ -80,11 +80,11 @@ temp/
 
 # Replit specific
 .replit
-.replit.nix
 replit.nix
 .config/
 .upm/
 .cache/
+attached_assets/
 
 # Python (if any)
 __pycache__/
@@ -95,21 +95,10 @@ __pycache__/
 venv/
 ENV/
 
-# Database
+# Database files
 *.db
 *.sqlite
 *.sqlite3
-
-# Media files (if not needed)
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.ico
-*.svg
-*.mp4
-*.webm
-*.mov
 
 # Rust build artifacts (if applicable)
 target/
@@ -127,9 +116,29 @@ tsconfig.tsbuildinfo
 Dockerfile
 .dockerignore
 docker-compose*.yml
+docker/
 
 # Monitoring and profiling
-.vscode/
 *.cpuprofile
 *.heapprofile
 *.heapsnapshot
+
+# Separate projects (not needed in main app)
+validator-node/
+
+# Video files (large media)
+*.mp4
+*.webm
+*.mov
+*.avi
+
+# Keep these files (do NOT ignore):
+# - client/ (frontend source)
+# - server/ (backend source)
+# - shared/ (Drizzle schema)
+# - package.json, package-lock.json
+# - tsconfig.json (for build)
+# - vite.config.ts (for build)
+# - tailwind.config.ts (for build)
+# - postcss.config.js (for build)
+# - drizzle.config.ts (for build)
