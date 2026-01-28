@@ -93,6 +93,7 @@ import distributionProgramsRoutes from "./routes/distribution-programs-routes";
 import enterpriseAdminRoutes from "./routes/enterprise-admin-routes";
 import custodyAdminRoutes, { signerPortalRouter } from "./routes/custody-admin-routes";
 import tokenVestingRoutes from "./routes/token-vesting-routes";
+import keyManagementRoutes from "./routes/key-management-routes";
 import advancedTechRoutes from "./routes/advanced-tech-routes";
 import { getCsrfToken, validateCsrf } from "./middleware/csrf";
 import { publicSubmitLimiter, newsletterLimiter, bugBountyLimiter } from "./middleware/public-rate-limiter";
@@ -2734,6 +2735,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/custody-admin/")) {
       return next();
     }
+    // Skip auth check for key-management routes (individual endpoints handle their own auth)
+    if (req.path.startsWith("/key-management/")) {
+      return next();
+    }
     // Skip auth check for community routes (public access)
     if (req.path.startsWith("/community/")) {
       return next();
@@ -3071,6 +3076,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   console.log("[SignerPortal] ✅ Public signer portal routes registered (no admin auth required)");
   app.use("/api/public/v1", tokenVestingRoutes);
   console.log("[TokenVesting] ✅ Token vesting & schedule routes registered (public API)");
+  app.use("/api/key-management", keyManagementRoutes);
+  console.log("[KeyManagement] ✅ Hybrid key management routes registered (HSM + Hot Wallet)");
 
   // ============================================
   // ENTERPRISE DATA HUB & ORCHESTRATION (Cross-Module Integration)
