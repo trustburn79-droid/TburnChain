@@ -571,6 +571,11 @@ export default function TokenDetails() {
                     <div className="td-t-desc">$0.04, 5{t('tokenDetails.common.billion')} TBURN, $20M</div>
                   </div>
                   <div className="td-timeline-item">
+                    <div className="td-t-date">2026.01.12 ~ 18</div>
+                    <div className="td-t-title">{t('tokenDetails.overview.schedule.private.title', { defaultValue: 'Private Round' })}</div>
+                    <div className="td-t-desc">$0.10, 900M TBURN, $90M</div>
+                  </div>
+                  <div className="td-timeline-item">
                     <div className="td-t-date">2026.01.19 ~ 30</div>
                     <div className="td-t-title">{t('tokenDetails.overview.schedule.public.title')}</div>
                     <div className="td-t-desc">$0.20, 6{t('tokenDetails.common.billion')} TBURN, $120M</div>
