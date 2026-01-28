@@ -16088,7 +16088,11 @@
           "title": "Listagem em Exchange",
           "desc": "Primeira listagem em CEX Tier-1"
         },
-        "note": "Todos os cronogramas estão sujeitos às condições de mercado e requisitos regulatórios"
+        "note": "Todos os cronogramas estão sujeitos às condições de mercado e requisitos regulatórios",
+        "private": {
+          "title": "Rodada Privada",
+          "desc": "Período de participação de investidores privados"
+        }
       },
       "distribution": {
         "title": "Visão Geral da Distribuição de Tokens"

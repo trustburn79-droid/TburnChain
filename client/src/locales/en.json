@@ -10151,6 +10151,10 @@
         },
         "grantTiers": {
           "seed": {
+            "title": "Seed Round",
+            "desc": "Early investor participation period"
+          },
+          "private": {
             "tier": "Seed",
             "amount": "$5K - $25K",
             "description": "Idea Validation",
@@ -30169,6 +30173,10 @@
           "title": "Seed Round",
           "desc": "Early investor participation period"
         },
+        "private": {
+          "title": "Private Round",
+          "desc": "Private investor participation period"
+        },
         "public": {
           "title": "Public Sale",
           "desc": "General public token sale"
@@ -30322,12 +30330,9 @@
     "investors": {
       "title": "Investor Allocation (20%)",
       "seed": {
-        "name": "Seed Round",
-        "method": "SAFT agreement",
-        "target": "Strategic partners",
-        "vesting": "24M total (6M cliff + 18M linear)",
-        "y1Unlock": "Year 1 Unlock: 2.5B TBURN",
-        "firstUnlock": "First unlock at M7 after listing"
+        "title": "Seed Round",
+        "desc": "Early investor participation period",
+        "name": "Seed Round"
       },
       "private": {
         "name": "Private Round",
@@ -34023,8 +34028,7 @@
       "terms": "Terms of Service",
       "privacy": "Privacy Policy"
     }
-  }
-,
+  },
   "socialRecovery": {
     "title": "Social Recovery",
     "subtitle": "Enterprise-grade wallet recovery with guardian-based security",

@@ -16269,7 +16269,11 @@
           "title": "Listing Exchange",
           "desc": "Premier listing CEX Tier-1"
         },
-        "note": "Tous les calendriers sont soumis aux conditions du marché et aux exigences réglementaires"
+        "note": "Tous les calendriers sont soumis aux conditions du marché et aux exigences réglementaires",
+        "private": {
+          "title": "Tour Privé",
+          "desc": "Période de participation des investisseurs privés"
+        }
       },
       "distribution": {
         "title": "Aperçu de la Distribution des Tokens"

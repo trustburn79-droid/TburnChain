@@ -18589,7 +18589,11 @@
           "title": "Listado en Exchange",
           "desc": "Primer listado en CEX Tier-1"
         },
-        "note": "Todos los calendarios están sujetos a condiciones del mercado y requisitos regulatorios"
+        "note": "Todos los calendarios están sujetos a condiciones del mercado y requisitos regulatorios",
+        "private": {
+          "title": "Ronda Privada",
+          "desc": "Período de participación de inversores privados"
+        }
       },
       "distribution": {
         "title": "Resumen de Distribución de Tokens"
