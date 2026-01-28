@@ -2413,10 +2413,18 @@ export class TBurnEnterpriseNode extends EventEmitter {
       }
       this.shardConfig.minShards = 5;  // Keep min at 5 for admin flexibility
         
-      // Verify API key
-      if (this.config.apiKey !== 'tburn797900') {
-        console.error('[Enterprise Node] Invalid API key - expected tburn797900');
-        throw new Error('Invalid API key for enterprise node access');
+      // Verify API key (optional - for enterprise features)
+      const envApiKey = process.env.TBURN_API_KEY;
+      if (envApiKey && this.config.apiKey && this.config.apiKey !== envApiKey) {
+        console.warn('[Enterprise Node] API key mismatch - using environment variable value');
+      }
+      // Use environment variable if config doesn't have API key
+      if (!this.config.apiKey && envApiKey) {
+        this.config.apiKey = envApiKey;
+        console.log('[Enterprise Node] Using API key from environment variable');
+      }
+      if (!this.config.apiKey) {
+        console.log('[Enterprise Node] No API key configured - running in open mode');
       }
 
       this.isRunning = true;

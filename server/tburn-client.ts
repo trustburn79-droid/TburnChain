@@ -14,7 +14,7 @@ const DISABLE_ENTERPRISE_IN_PRODUCTION = !MAINNET_MODE; // MAINNET_MODE일 때 �
 export interface TBurnNodeConfig {
   rpcUrl: string;
   wsUrl: string;
-  apiKey: string;
+  apiKey?: string; // Optional - must be set via environment variable for enterprise features
 }
 
 export interface BlockData {
@@ -753,11 +753,11 @@ let tburnClient: TBurnClient | null = null;
 
 export function getTBurnClient(): TBurnClient {
   if (!tburnClient) {
-    // Use enterprise node with tburn797900 API key
+    // Use enterprise node with API key from environment variable
     const config: TBurnNodeConfig = {
       rpcUrl: process.env.TBURN_NODE_URL || 'http://localhost:8545', // Enterprise node RPC
       wsUrl: process.env.TBURN_WS_URL || 'ws://localhost:8546', // Enterprise node WebSocket
-      apiKey: process.env.TBURN_API_KEY || 'tburn797900', // Enterprise API key
+      apiKey: process.env.TBURN_API_KEY || undefined, // Enterprise API key (must be set via environment variable)
     };
     
     console.log('[TBURN Client] Configuration:', {

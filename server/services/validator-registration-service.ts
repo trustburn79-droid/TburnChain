@@ -25,8 +25,18 @@ import {
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
-// Server-side pepper for additional security (should be in environment variable)
-const API_KEY_PEPPER = process.env.API_KEY_PEPPER || "tburn_enterprise_pepper_v1_2024";
+// Server-side pepper for additional security (MUST be set via environment variable in production)
+const API_KEY_PEPPER = (() => {
+  const pepper = process.env.API_KEY_PEPPER;
+  if (!pepper) {
+    console.warn('[SECURITY WARNING] API_KEY_PEPPER not set in validator-registration-service.');
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('API_KEY_PEPPER must be set in production environment');
+    }
+    return 'dev-pepper-' + Date.now();
+  }
+  return pepper;
+})();
 const BCRYPT_ROUNDS = 12;
 
 // Tier configurations

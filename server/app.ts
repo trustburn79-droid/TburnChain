@@ -537,7 +537,17 @@ if (hasRedis) {
 // 내부 호출(ProductionDataPoller, DataCache 등)에서 세션이 생성되면 MemoryStore가 30-60분 내에 가득 차서 서버 에러 발생
 const sessionMiddleware = session({
   store: sessionStore,
-  secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
+  secret: (() => {
+    const secret = process.env.SESSION_SECRET;
+    if (!secret) {
+      console.warn('[SECURITY WARNING] SESSION_SECRET not set. Using development fallback.');
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('SESSION_SECRET must be set in production environment');
+      }
+      return 'dev-session-secret-' + Date.now();
+    }
+    return secret;
+  })(),
   resave: false,
   saveUninitialized: false,
   cookie: {

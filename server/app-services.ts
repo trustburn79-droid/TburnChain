@@ -120,7 +120,17 @@ export default async function runAppServices(
   // ★ 세션 미들웨어 정의
   const sessionMiddleware = session({
     store: sessionStore,
-    secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
+    secret: (() => {
+      const secret = process.env.SESSION_SECRET;
+      if (!secret) {
+        console.warn('[SECURITY WARNING] SESSION_SECRET not set. Using development fallback.');
+        if (process.env.NODE_ENV === 'production') {
+          throw new Error('SESSION_SECRET must be set in production environment');
+        }
+        return 'dev-session-secret-' + Date.now();
+      }
+      return secret;
+    })(),
     resave: false,
     saveUninitialized: false,
     cookie: {
