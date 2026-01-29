@@ -68,6 +68,9 @@ ENABLE_ZK_ROLLUP = "true"
 ENABLE_ACCOUNT_ABSTRACTION = "true"
 ENABLE_INTENT_ARCHITECTURE = "true"
 GCP_KMS_ENABLED = "true"
+GCP_KMS_PROJECT_ID = "tburn-mainnet"
+GCP_KMS_KEYRING = "tburn-hybrid-keyring"
+GCP_KMS_LOCATION = "global"
 
 [userenv.production]
 NODE_ENV = "production"
