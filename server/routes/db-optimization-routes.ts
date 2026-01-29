@@ -268,9 +268,18 @@ router.post('/vacuum', async (req: Request, res: Response) => {
       });
     }
     
+    // Type-safe validation: ensure all entries are strings
+    const stringTables = tables.filter((t): t is string => typeof t === 'string');
+    if (stringTables.length !== tables.length) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid input: all table names must be strings',
+      });
+    }
+    
     // Validate all table names against whitelist
-    const validatedTables = getSafeTableNames(tables);
-    const rejectedTables = tables.filter(t => !validatedTables.includes(t.toLowerCase()));
+    const validatedTables = getSafeTableNames(stringTables);
+    const rejectedTables = stringTables.filter(t => !validatedTables.includes(t.toLowerCase()));
     
     if (validatedTables.length === 0) {
       return res.status(400).json({

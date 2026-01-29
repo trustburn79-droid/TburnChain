@@ -257,21 +257,70 @@ export function logSecurityAudit(result: SecurityAuditResult): void {
 /**
  * Middleware verification helper
  * Ensures required middleware is present on a route
+ * 
+ * @param analyzedRoute - Route analysis result from runSecurityAudit
+ * @param requirements - Required security features
+ * @returns Validation result with missing requirements
  */
 export function verifyMiddleware(
-  route: { path: string; method: string },
-  requiredMiddleware: string[]
+  analyzedRoute: RouteSecurityInfo,
+  requirements: {
+    requireAuth?: boolean;
+    requireCsrf?: boolean;
+    requireRateLimit?: boolean;
+  }
 ): { valid: boolean; missing: string[] } {
+  const missing: string[] = [];
+  
+  if (requirements.requireAuth && !analyzedRoute.hasAuth) {
+    missing.push('authentication');
+  }
+  
+  if (requirements.requireCsrf && !analyzedRoute.hasCsrf) {
+    missing.push('csrf_protection');
+  }
+  
+  if (requirements.requireRateLimit && !analyzedRoute.hasRateLimit) {
+    missing.push('rate_limiting');
+  }
+  
   return {
-    valid: true,
-    missing: [],
+    valid: missing.length === 0,
+    missing,
   };
+}
+
+/**
+ * Verify security requirements for mutation endpoints
+ * Returns list of endpoints failing verification
+ */
+export function verifyMutationEndpoints(
+  auditResult: SecurityAuditResult
+): { endpoint: string; issues: string[] }[] {
+  const failures: { endpoint: string; issues: string[] }[] = [];
+  
+  for (const route of auditResult.unprotectedMutationRoutes) {
+    const verification = verifyMiddleware(route, {
+      requireAuth: true,
+      requireCsrf: true,
+    });
+    
+    if (!verification.valid) {
+      failures.push({
+        endpoint: `${route.method} ${route.path}`,
+        issues: verification.missing,
+      });
+    }
+  }
+  
+  return failures;
 }
 
 export default {
   runSecurityAudit,
   logSecurityAudit,
   verifyMiddleware,
+  verifyMutationEndpoints,
   isPublicRoute,
   hasAuthMiddleware,
   hasCsrfMiddleware,

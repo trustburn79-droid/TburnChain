@@ -98,16 +98,21 @@ Key architectural features include:
 ### SQL Injection Prevention
 모든 데이터베이스 쿼리는 Drizzle ORM의 파라미터화된 쿼리를 사용합니다.
 
-**sql.raw() 사용 위치 및 검증 방식:**
+**sql.raw() 사용 위치 및 검증 방식 (2026-01-29 강화):**
 | 파일 | 용도 | 검증 방식 |
 |------|------|----------|
-| `server/routes/db-optimization-routes.ts` | VACUUM ANALYZE | 정규식 검증 (`/^[a-z_][a-z0-9_]*$/i`) |
+| `server/routes/db-optimization-routes.ts` | VACUUM ANALYZE | **화이트리스트 검증** (`ALLOWED_TABLES` + 정규식) |
 | `server/routes/token-vesting-routes.ts` | NOT IN 쿼리 | 하드코딩된 상수 배열 (EXCLUDED_TYPES) |
-| `server/core/db/enterprise-db-optimizer.ts` | 테이블 통계 | 화이트리스트 검증 |
-| `server/db/enterprise-index-optimization.ts` | ANALYZE | 내부 테이블 목록만 사용 |
+| `server/core/db/enterprise-db-optimizer.ts` | 테이블 통계 | 하드코딩된 내부 테이블 목록 |
+| `server/db/enterprise-index-optimization.ts` | ANALYZE | ENTERPRISE_INDEXES 상수 |
 
-**입력 검증 유틸리티:**
-- `server/utils/sql-security.ts`: `getSafeSortColumn`, `getSafeSortOrder`, `sanitizeSearchString`
+**입력 검증 유틸리티 (2026-01-29 강화):**
+- `server/utils/sql-security.ts`: 
+  - `ALLOWED_TABLES`: 허용된 테이블 목록 (45개 테이블)
+  - `getSafeTableName`: 화이트리스트 + 정규식 이중 검증
+  - `getSafeTableNames`: 배열 일괄 검증
+  - `isAllowedTable`: 화이트리스트 존재 확인
+  - `getSafeSortColumn`, `getSafeSortOrder`, `sanitizeSearchString`
 
 ### XSS Prevention
 - Helmet 미들웨어로 보안 헤더 적용 (`server/app.ts`)
