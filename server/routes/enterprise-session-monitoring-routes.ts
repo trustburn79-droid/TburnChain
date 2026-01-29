@@ -14,8 +14,12 @@ import { Router, Request, Response } from 'express';
 import { enterpriseSessionMetrics } from '../core/monitoring/enterprise-session-metrics';
 import { enterpriseSoakTest } from '../core/testing/enterprise-soak-test-orchestrator';
 import { resilientStore } from '../core/sessions/resilient-session-store';
+import { requireAdmin } from '../middleware/auth';
 
 const router = Router();
+
+// All enterprise session monitoring routes require admin authentication
+router.use(requireAdmin);
 
 // ============================================================================
 // Enterprise Session Metrics Endpoints
