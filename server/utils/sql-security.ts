@@ -1,7 +1,93 @@
 /**
  * SQL Security Utilities
  * Prevents SQL injection by validating and sanitizing query parameters
+ * 
+ * @module sql-security
+ * @version 2.0.0
+ * @updated 2026-01-29
  */
+
+// Whitelist of allowed tables for VACUUM, ANALYZE, and other DDL operations
+export const ALLOWED_TABLES = [
+  // Core blockchain tables
+  'blocks',
+  'transactions',
+  'tokens',
+  'wallets',
+  'validators',
+  'delegations',
+  'rewards',
+  'slashing_events',
+  
+  // User and auth tables
+  'members',
+  'sessions',
+  'admin_audit_logs',
+  'security_events',
+  
+  // Staking and custody tables
+  'custody_transactions',
+  'custody_wallets',
+  'custody_approvals',
+  'staking_positions',
+  'validator_applications',
+  
+  // DeFi tables
+  'dex_pools',
+  'dex_trades',
+  'lending_markets',
+  'lending_positions',
+  'bridge_transactions',
+  
+  // Compliance and reporting
+  'compliance_reports',
+  'aml_screenings',
+  'kyc_verifications',
+  
+  // System tables
+  'sync_state',
+  'bootstrap_cache',
+  'distribution_schedules',
+  'vesting_schedules',
+] as const;
+
+export type AllowedTable = typeof ALLOWED_TABLES[number];
+
+/**
+ * Validates if a table name is in the allowed whitelist
+ * @param tableName - The table name to validate
+ * @returns true if table is allowed, false otherwise
+ */
+export function isAllowedTable(tableName: string): tableName is AllowedTable {
+  return ALLOWED_TABLES.includes(tableName.toLowerCase() as AllowedTable);
+}
+
+/**
+ * Validates and returns a safe table name
+ * @param tableName - The table name from user input
+ * @returns The validated table name or null if invalid
+ */
+export function getSafeTableName(tableName: string | undefined): string | null {
+  if (!tableName || typeof tableName !== 'string') return null;
+  
+  const normalized = tableName.toLowerCase().trim();
+  
+  // Additional regex validation for extra safety
+  if (!/^[a-z_][a-z0-9_]*$/.test(normalized)) return null;
+  
+  return isAllowedTable(normalized) ? normalized : null;
+}
+
+/**
+ * Validates an array of table names and returns only valid ones
+ * @param tables - Array of table names to validate
+ * @returns Array of validated table names
+ */
+export function getSafeTableNames(tables: string[]): string[] {
+  return tables
+    .map(t => getSafeTableName(t))
+    .filter((t): t is string => t !== null);
+}
 
 // Whitelist of allowed columns for different tables
 export const ALLOWED_SORT_COLUMNS = {

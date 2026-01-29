@@ -15,6 +15,7 @@ import {
 import { db } from "../db";
 import { sql } from "drizzle-orm";
 import { requireAdmin } from "../middleware/auth";
+import { getSafeTableName, getSafeTableNames, ALLOWED_TABLES } from "../utils/sql-security";
 
 const router = Router();
 
@@ -263,20 +264,32 @@ router.post('/vacuum', async (req: Request, res: Response) => {
       return res.status(400).json({
         success: false,
         error: 'Tables array required',
+        allowedTables: ALLOWED_TABLES,
+      });
+    }
+    
+    // Validate all table names against whitelist
+    const validatedTables = getSafeTableNames(tables);
+    const rejectedTables = tables.filter(t => !validatedTables.includes(t.toLowerCase()));
+    
+    if (validatedTables.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'No valid tables provided. All table names must be in the allowed whitelist.',
+        rejectedTables,
+        allowedTables: ALLOWED_TABLES,
       });
     }
     
     const results: { table: string; success: boolean; error?: string }[] = [];
     
-    for (const table of tables) {
+    // Add rejected tables to results
+    for (const table of rejectedTables) {
+      results.push({ table, success: false, error: 'Table not in allowed whitelist' });
+    }
+    
+    for (const table of validatedTables) {
       try {
-        // Validate table name to prevent SQL injection
-        const validTableName = /^[a-z_][a-z0-9_]*$/i.test(table);
-        if (!validTableName) {
-          results.push({ table, success: false, error: 'Invalid table name' });
-          continue;
-        }
-        
         await db.execute(sql.raw(`VACUUM ANALYZE ${table}`));
         results.push({ table, success: true });
       } catch (error) {
