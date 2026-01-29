@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { type Server, createServer } from "node:http";
 import express, { type Express } from "express";
-import { generateNonce, injectNonceIntoHtml, getCspDirectivesWithNonce } from "./middleware/csp-nonce";
+import { generateNonce, injectNonceIntoHtml, getCspDirectivesWithNonce, getSecurityHeaders } from "./middleware/csp-nonce";
 
 // Service readiness state - APIs can check this before responding
 export let servicesReady = false;
@@ -130,8 +130,14 @@ function serveIndexHtml(res: express.Response) {
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
     res.setHeader('Surrogate-Control', 'no-store');
-    res.setHeader('X-Content-Version', '2026.01.02.v3');
+    res.setHeader('X-Content-Version', '2026.01.29.v1');
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    
+    // Apply additional security headers (defense in depth)
+    const securityHeaders = getSecurityHeaders();
+    Object.entries(securityHeaders).forEach(([key, value]) => {
+      res.setHeader(key, value);
+    });
     
     res.send(htmlWithNonce);
   } catch (error) {

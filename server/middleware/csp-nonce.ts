@@ -66,12 +66,15 @@ export function injectNonceIntoHtml(html: string, nonce: string): string {
 
 /**
  * Get CSP directives with nonce
+ * Enterprise-grade Content Security Policy configuration
+ * 
+ * @updated 2026-01-29 - Enhanced security headers
  */
 export function getCspDirectivesWithNonce(nonce: string) {
   return {
     defaultSrc: ["'self'"],
     scriptSrc: ["'self'", `'nonce-${nonce}'`, "'strict-dynamic'"],
-    styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+    styleSrc: ["'self'", `'nonce-${nonce}'`, "'unsafe-inline'", "https://fonts.googleapis.com"],
     fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
     imgSrc: ["'self'", "data:", "https:", "blob:"],
     connectSrc: ["'self'", "wss:", "ws:", "https:"],
@@ -81,6 +84,27 @@ export function getCspDirectivesWithNonce(nonce: string) {
     formAction: ["'self'"],
     frameAncestors: ["'none'"],
     upgradeInsecureRequests: [],
+    blockAllMixedContent: [],
+    workerSrc: ["'self'", "blob:"],
+    manifestSrc: ["'self'"],
+    mediaSrc: ["'self'"],
+  };
+}
+
+/**
+ * Get additional security headers for production
+ * These headers complement CSP for defense in depth
+ */
+export function getSecurityHeaders() {
+  return {
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'X-XSS-Protection': '1; mode=block',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
+    'Cross-Origin-Opener-Policy': 'same-origin',
+    'Cross-Origin-Embedder-Policy': 'credentialless',
+    'Cross-Origin-Resource-Policy': 'same-origin',
   };
 }
 
@@ -89,4 +113,5 @@ export default {
   cspNonceMiddleware,
   injectNonceIntoHtml,
   getCspDirectivesWithNonce,
+  getSecurityHeaders,
 };
