@@ -502,7 +502,7 @@ function CustodySection() {
     queryKey: ['/api/custody/summary'],
   });
 
-  const TOTAL_SUPPLY = 500_000_000_000; // 500B TBURN
+  const TOTAL_SUPPLY = 10_000_000_000; // 10B TBURN
   
   // 4-Category Custody Mechanism
   const custodyCategories = [
@@ -919,22 +919,22 @@ function CustodySection() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t">
             <div className="p-3 rounded-lg bg-emerald-500/10 text-center">
               <div className="text-xs text-muted-foreground mb-1">프로토콜 자동화 총합</div>
-              <div className="text-lg font-bold text-emerald-500">110B TBURN</div>
+              <div className="text-lg font-bold text-emerald-500">2.2B TBURN</div>
               <div className="text-xs text-muted-foreground">22%</div>
             </div>
             <div className="p-3 rounded-lg bg-blue-500/10 text-center">
               <div className="text-xs text-muted-foreground mb-1">베스팅 컨트랙트 총합</div>
-              <div className="text-lg font-bold text-blue-500">155B TBURN</div>
+              <div className="text-lg font-bold text-blue-500">3.1B TBURN</div>
               <div className="text-xs text-muted-foreground">31%</div>
             </div>
             <div className="p-3 rounded-lg bg-purple-500/10 text-center">
               <div className="text-xs text-muted-foreground mb-1">재단 멀티시그 총합</div>
-              <div className="text-lg font-bold text-purple-500">85B TBURN</div>
+              <div className="text-lg font-bold text-purple-500">1.7B TBURN</div>
               <div className="text-xs text-muted-foreground">17%</div>
             </div>
             <div className="p-3 rounded-lg bg-amber-500/10 text-center">
               <div className="text-xs text-muted-foreground mb-1">커뮤니티 풀 총합</div>
-              <div className="text-lg font-bold text-amber-500">150B TBURN</div>
+              <div className="text-lg font-bold text-amber-500">3B TBURN</div>
               <div className="text-xs text-muted-foreground">30%</div>
             </div>
           </div>
@@ -945,37 +945,37 @@ function CustodySection() {
 }
 
 // Generate 20-year distribution schedule data
-// Verified to sum exactly to 100% (500B TBURN)
+// Verified to sum exactly to 100% (10B TBURN)
 function generate20YearSchedule() {
-  const TOTAL_SUPPLY = 500_000_000_000;
+  const TOTAL_SUPPLY = 10_000_000_000;
   const schedule = [];
   let cumulativePercent = 0;
 
   // Define release patterns for each custody category
-  // Protocol: 22% = 110B, linear 5% per year = 5.5B/year
-  const protocolPerYear = TOTAL_SUPPLY * 0.22 / 20; // 5.5B per year
+  // Protocol: 22% = 2.2B, linear over 20 years = 110M/year
+  const protocolPerYear = TOTAL_SUPPLY * 0.22 / 20; // 110M per year
   
-  // Vesting: 31% = 155B
-  // First 4 years: 60% (93B) = 23.25B/year
-  // Years 5-20: 40% (62B) = 3.875B/year
-  const vestingEarly = TOTAL_SUPPLY * 0.31 * 0.60 / 4; // 23.25B/year for years 1-4
-  const vestingLate = TOTAL_SUPPLY * 0.31 * 0.40 / 16; // 3.875B/year for years 5-20
+  // Vesting: 31% = 3.1B
+  // First 4 years: 60% (1.86B) = 465M/year
+  // Years 5-20: 40% (1.24B) = 77.5M/year
+  const vestingEarly = TOTAL_SUPPLY * 0.31 * 0.60 / 4; // 465M/year for years 1-4
+  const vestingLate = TOTAL_SUPPLY * 0.31 * 0.40 / 16; // 77.5M/year for years 5-20
   
-  // Foundation: 17% = 85B
-  // First 5 years: 50% (42.5B) = 8.5B/year
-  // Years 6-10: 30% (25.5B) = 5.1B/year
-  // Years 11-20: 20% (17B) = 1.7B/year
-  const foundationEarly = TOTAL_SUPPLY * 0.17 * 0.50 / 5; // 8.5B/year
-  const foundationMid = TOTAL_SUPPLY * 0.17 * 0.30 / 5; // 5.1B/year
-  const foundationLate = TOTAL_SUPPLY * 0.17 * 0.20 / 10; // 1.7B/year
+  // Foundation: 17% = 1.7B
+  // First 5 years: 50% (850M) = 170M/year
+  // Years 6-10: 30% (510M) = 102M/year
+  // Years 11-20: 20% (340M) = 34M/year
+  const foundationEarly = TOTAL_SUPPLY * 0.17 * 0.50 / 5; // 170M/year
+  const foundationMid = TOTAL_SUPPLY * 0.17 * 0.30 / 5; // 102M/year
+  const foundationLate = TOTAL_SUPPLY * 0.17 * 0.20 / 10; // 34M/year
   
-  // Community: 30% = 150B
-  // First 5 years: 20% (30B) = 6B/year
-  // Years 6-10: 30% (45B) = 9B/year
-  // Years 11-20: 50% (75B) = 7.5B/year
-  const communityEarly = TOTAL_SUPPLY * 0.30 * 0.20 / 5; // 6B/year
-  const communityMid = TOTAL_SUPPLY * 0.30 * 0.30 / 5; // 9B/year
-  const communityLate = TOTAL_SUPPLY * 0.30 * 0.50 / 10; // 7.5B/year
+  // Community: 30% = 3B
+  // First 5 years: 20% (600M) = 120M/year
+  // Years 6-10: 30% (900M) = 180M/year
+  // Years 11-20: 50% (1.5B) = 150M/year
+  const communityEarly = TOTAL_SUPPLY * 0.30 * 0.20 / 5; // 120M/year
+  const communityMid = TOTAL_SUPPLY * 0.30 * 0.30 / 5; // 180M/year
+  const communityLate = TOTAL_SUPPLY * 0.30 * 0.50 / 10; // 150M/year
 
   for (let i = 0; i < 20; i++) {
     const year = 2025 + i;

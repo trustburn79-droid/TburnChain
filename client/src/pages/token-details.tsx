@@ -568,17 +568,17 @@ export default function TokenDetails() {
                   <div className="td-timeline-item">
                     <div className="td-t-date">2026.01.05 ~ 11</div>
                     <div className="td-t-title">{t('tokenDetails.overview.schedule.seed.title')}</div>
-                    <div className="td-t-desc">$0.04, 5{t('tokenDetails.common.billion')} TBURN, $20M</div>
+                    <div className="td-t-desc">$0.04, 500M TBURN, $20M</div>
                   </div>
                   <div className="td-timeline-item">
                     <div className="td-t-date">2026.01.12 ~ 18</div>
                     <div className="td-t-title">{t('tokenDetails.overview.schedule.private.title', { defaultValue: 'Private Round' })}</div>
-                    <div className="td-t-desc">$0.10, 9{t('tokenDetails.common.billion')} TBURN, $90M</div>
+                    <div className="td-t-desc">$0.10, 900M TBURN, $90M</div>
                   </div>
                   <div className="td-timeline-item">
                     <div className="td-t-date">2026.01.19 ~ 30</div>
                     <div className="td-t-title">{t('tokenDetails.overview.schedule.public.title')}</div>
-                    <div className="td-t-desc">$0.20, 6{t('tokenDetails.common.billion')} TBURN, $120M</div>
+                    <div className="td-t-desc">$0.20, 600M TBURN, $120M</div>
                   </div>
                   <div className="td-timeline-item">
                     <div className="td-t-date">{t('tokenDetails.overview.schedule.listing.date')}</div>
@@ -599,32 +599,32 @@ export default function TokenDetails() {
               <div className="td-dist-chart">
                 <div className="td-dist-item" style={{ borderTop: '3px solid #FF6B35' }}>
                   <div className="td-dist-pct" style={{ color: '#FF6B35' }}>30%</div>
-                  <div className="td-dist-amt">30{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-amt">3B TBURN</div>
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.community')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #00D4AA' }}>
                   <div className="td-dist-pct" style={{ color: '#00D4AA' }}>22%</div>
-                  <div className="td-dist-amt">22{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-amt">2.2B TBURN</div>
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.rewards')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #FFD700' }}>
                   <div className="td-dist-pct" style={{ color: '#FFD700' }}>20%</div>
-                  <div className="td-dist-amt">20{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-amt">2B TBURN</div>
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.investors')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #8B5CF6' }}>
                   <div className="td-dist-pct" style={{ color: '#8B5CF6' }}>14%</div>
-                  <div className="td-dist-amt">14{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-amt">1.4B TBURN</div>
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.ecosystem')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #EC4899' }}>
                   <div className="td-dist-pct" style={{ color: '#EC4899' }}>11%</div>
-                  <div className="td-dist-amt">11{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-amt">1.1B TBURN</div>
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.team')}</div>
                 </div>
                 <div className="td-dist-item" style={{ borderTop: '3px solid #60A5FA' }}>
                   <div className="td-dist-pct" style={{ color: '#60A5FA' }}>3%</div>
-                  <div className="td-dist-amt">3{t('tokenDetails.common.billion')} TBURN</div>
+                  <div className="td-dist-amt">300M TBURN</div>
                   <div className="td-dist-lbl">{t('tokenDetails.distribution.foundation', { defaultValue: 'Foundation Reserve' })}</div>
                 </div>
               </div>
@@ -681,7 +681,7 @@ export default function TokenDetails() {
               </div>
               
               <div className="td-info-grid td-mb-6">
-                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.common.totalSupply')}</div><div className="td-info-val">12{t('tokenDetails.common.billion')} TBURN</div></div>
+                <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.common.totalSupply')}</div><div className="td-info-val">10B TBURN</div></div>
                 <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.common.vesting')}</div><div className="td-info-val">{t('tokenDetails.community.airdrop.vesting')}</div></div>
                 <div className="td-info-box"><div className="td-info-lbl">{t('tokenDetails.community.airdrop.claimPeriod')}</div><div className="td-info-val">{t('tokenDetails.community.airdrop.claimPeriodValue')}</div></div>
               </div>
@@ -759,9 +759,9 @@ export default function TokenDetails() {
                 <table>
                   <thead><tr><th>{t('tokenDetails.rewards.block.halving')}</th><th>{t('tokenDetails.rewards.block.period')}</th><th>{t('tokenDetails.rewards.block.perBlock')}</th><th>{t('tokenDetails.rewards.block.annualIssuance')}</th><th>{t('tokenDetails.rewards.block.note')}</th></tr></thead>
                   <tbody>
-                    <tr><td>{t('tokenDetails.rewards.block.phase1')}</td><td>Year 1~4</td><td style={{ color: 'var(--td-secondary)', fontWeight: 700 }}>10 TBURN</td><td>6.31{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.block.phase1Note')}</td></tr>
-                    <tr><td>{t('tokenDetails.rewards.block.phase2')}</td><td>Year 5~8</td><td>5 TBURN</td><td>3.15{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.block.phase2Note')}</td></tr>
-                    <tr><td>{t('tokenDetails.rewards.block.phase3')}</td><td>Year 9~12</td><td>2.5 TBURN</td><td>1.58{t('tokenDetails.common.billion')}</td><td>{t('tokenDetails.rewards.block.phase3Note')}</td></tr>
+                    <tr><td>{t('tokenDetails.rewards.block.phase1')}</td><td>Year 1~4</td><td style={{ color: 'var(--td-secondary)', fontWeight: 700 }}>10 TBURN</td><td>631M</td><td>{t('tokenDetails.rewards.block.phase1Note')}</td></tr>
+                    <tr><td>{t('tokenDetails.rewards.block.phase2')}</td><td>Year 5~8</td><td>5 TBURN</td><td>315M</td><td>{t('tokenDetails.rewards.block.phase2Note')}</td></tr>
+                    <tr><td>{t('tokenDetails.rewards.block.phase3')}</td><td>Year 9~12</td><td>2.5 TBURN</td><td>158M</td><td>{t('tokenDetails.rewards.block.phase3Note')}</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -916,14 +916,14 @@ export default function TokenDetails() {
               <div className="td-card td-text-center">
                 <h3 className="td-card-title td-mb-2" style={{ color: '#60A5FA' }}>{t('tokenDetails.foundation.operations.name', { defaultValue: 'Foundation Operations' })}</h3>
                 <div className="td-dist-pct" style={{ color: '#60A5FA', fontSize: '2rem' }}>1.5%</div>
-                <div className="td-dist-amt">1.5{t('tokenDetails.common.billion')} TBURN</div>
+                <div className="td-dist-amt">150M TBURN</div>
                 <div className="td-badge td-mb-4" style={{ background: 'rgba(96, 165, 250, 0.15)', color: '#60A5FA', border: '1px solid rgba(96, 165, 250, 0.3)' }}>30% TGE</div>
                 <p style={{ fontSize: '0.9rem', color: 'var(--td-text-muted)' }}>{t('tokenDetails.foundation.operations.desc') || 'Immediate operational funding for legal, exchange listing, infrastructure'}</p>
               </div>
               <div className="td-card td-text-center">
                 <h3 className="td-card-title td-mb-2" style={{ color: '#60A5FA' }}>{t('tokenDetails.foundation.emergency.name', { defaultValue: 'Emergency Fund' })}</h3>
                 <div className="td-dist-pct" style={{ color: '#60A5FA', fontSize: '2rem' }}>1.5%</div>
-                <div className="td-dist-amt">1.5{t('tokenDetails.common.billion')} TBURN</div>
+                <div className="td-dist-amt">150M TBURN</div>
                 <div className="td-badge td-mb-4" style={{ background: 'rgba(96, 165, 250, 0.15)', color: '#60A5FA', border: '1px solid rgba(96, 165, 250, 0.3)' }}>50% TGE + 50% Lock</div>
                 <p style={{ fontSize: '0.9rem', color: 'var(--td-text-muted)' }}>{t('tokenDetails.foundation.emergency.desc') || 'Reserved for unforeseen circumstances, market volatility, and ecosystem protection'}</p>
               </div>
