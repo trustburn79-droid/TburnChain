@@ -95,6 +95,7 @@ import custodyAdminRoutes, { signerPortalRouter } from "./routes/custody-admin-r
 import tokenVestingRoutes from "./routes/token-vesting-routes";
 import keyManagementRoutes from "./routes/key-management-routes";
 import advancedTechRoutes from "./routes/advanced-tech-routes";
+import tokenomicsDistributionRoutes from "./routes/tokenomics-distribution-routes";
 import { getCsrfToken, validateCsrf } from "./middleware/csrf";
 import { publicSubmitLimiter, newsletterLimiter, bugBountyLimiter } from "./middleware/public-rate-limiter";
 import { 
@@ -2738,6 +2739,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     // Skip auth check for key-management routes (individual endpoints handle their own auth)
     if (req.path.startsWith("/key-management/")) {
       return next();
+    // Skip auth check for tokenomics-distribution summary (public API)
+    if (req.path === "/api/tokenomics-distribution/summary") {
+      return next();
+    }
     }
     // Skip auth check for community routes (public access)
     if (req.path.startsWith("/community/")) {
@@ -3078,6 +3083,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   console.log("[TokenVesting] ✅ Token vesting & schedule routes registered (public API)");
   app.use("/api/key-management", keyManagementRoutes);
   console.log("[KeyManagement] ✅ Hybrid key management routes registered (HSM + Hot Wallet)");
+  app.use("/api/tokenomics-distribution", tokenomicsDistributionRoutes);
+  console.log("[TokenomicsDistribution] ✅ 20-year vesting distribution scheduler routes registered");
 
   // ============================================
   // ENTERPRISE DATA HUB & ORCHESTRATION (Cross-Module Integration)
@@ -26705,5 +26712,26 @@ Provide JSON portfolio analysis:
 
   console.log(`[Enterprise] ✅ Registered ${activeIntervals.length} tracked intervals for graceful shutdown`);
 
+  // Public tokenomics distribution summary (no auth required)
+  app.get("/api/public/v1/tokenomics-distribution/summary", async (_req, res) => {
+    try {
+      const { tokenomicsDistributionScheduler } = await import("./services/tokenomics-distribution-scheduler");
+      const status = tokenomicsDistributionScheduler.getStatus();
+      const categories = ["COMMUNITY", "REWARDS", "INVESTORS", "ECOSYSTEM", "TEAM", "FOUNDATION"] as const;
+      const categorySummary = categories.map(cat => {
+        const catStatus = status.categories[cat];
+        return {
+          category: cat,
+          totalAllocatedTBURN: Number(catStatus.totalAllocated / BigInt(10 ** 18)),
+          distributedTBURN: Number(catStatus.distributed / BigInt(10 ** 18)),
+          remainingTBURN: Number(catStatus.remaining / BigInt(10 ** 18)),
+          progressPercent: catStatus.totalAllocated > BigInt(0) ? Number((catStatus.distributed * BigInt(10000)) / catStatus.totalAllocated) / 100 : 100,
+          nextUnlockDate: catStatus.nextUnlockDate?.toISOString() || null,
+        };
+      });
+      res.json({ success: true, data: { isSchedulerRunning: status.isRunning, totalDistributedTBURN: Number(status.totalDistributed / BigInt(10 ** 18)), pendingDistributions: status.pendingDistributions, failedDistributions: status.failedDistributions, categories: categorySummary }});
+    } catch (error: any) { res.status(500).json({ success: false, error: error.message }); }
+  });
+  console.log("[Public API] ✅ Tokenomics distribution summary registered");
   return httpServer;
 }

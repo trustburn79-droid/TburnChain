@@ -77,6 +77,21 @@ Key architectural features include:
       3. P99 지연시간이 블록 생성 시간의 10% 초과
     - API로 확인: `GET /api/advanced-tech/adapters` → integrationRecommendation
     - 현재 권장: 분리 아키텍처 유지 (어댑터 오버헤드 << 네트워크 지연)
+  - **토큰노믹스 자동 배포 시스템** (2026-01-29):
+    - **20년 베스팅 스케줄 연동**: GENESIS_ALLOCATION 기반 667개 배포 일정 자동 생성
+    - **하이브리드 키 관리**: GCP KMS HSM 6개 키와 핫월렛 연동
+    - **카테고리별 KMS 매핑**:
+      | 카테고리 | KMS 키 | 할당량 (TBURN) |
+      |----------|--------|----------------|
+      | COMMUNITY | ecosystem-key | 3,000,000,000 |
+      | REWARDS | block-rewards-key | 2,200,000,000 |
+      | INVESTORS | investor-vesting-key | 2,000,000,000 |
+      | ECOSYSTEM | ecosystem-key | 1,400,000,000 |
+      | TEAM | team-vesting-key | 1,100,000,000 |
+      | FOUNDATION | treasury-master-key | 300,000,000 |
+    - **Wei 변환 규칙**: 모든 TBURN 금액은 내부적으로 wei (10^18) 단위로 저장
+    - **Admin API**: `/api/admin/tokenomics-distribution/*` (requireAdmin 미들웨어)
+    - **Public API**: `/api/public/v1/tokenomics-distribution/summary` (인증 불필요)
 
 ## Security Documentation (2026-01-26)
 
