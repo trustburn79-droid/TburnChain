@@ -29,6 +29,7 @@ export interface KMSKey {
   category: string;
   algorithm: 'EC_SIGN_SECP256K1_SHA256';
   protectionLevel: 'HSM' | 'SOFTWARE';
+  credentialsEnvVar: string;
 }
 
 export interface SignRequest {
@@ -80,6 +81,7 @@ const DEFAULT_KMS_KEYS: KMSKey[] = [
     category: 'FOUNDATION',
     algorithm: 'EC_SIGN_SECP256K1_SHA256',
     protectionLevel: 'HSM',
+    credentialsEnvVar: 'GCP_KMS_TREASURY_KEY',
   },
   {
     name: 'block-rewards-key',
@@ -88,6 +90,7 @@ const DEFAULT_KMS_KEYS: KMSKey[] = [
     category: 'REWARDS',
     algorithm: 'EC_SIGN_SECP256K1_SHA256',
     protectionLevel: 'HSM',
+    credentialsEnvVar: 'GCP_KMS_REWARDS_KEY',
   },
   {
     name: 'investor-vesting-key',
@@ -96,6 +99,7 @@ const DEFAULT_KMS_KEYS: KMSKey[] = [
     category: 'INVESTORS',
     algorithm: 'EC_SIGN_SECP256K1_SHA256',
     protectionLevel: 'HSM',
+    credentialsEnvVar: 'GCP_KMS_INVESTORS_KEY',
   },
   {
     name: 'ecosystem-key',
@@ -104,6 +108,7 @@ const DEFAULT_KMS_KEYS: KMSKey[] = [
     category: 'ECOSYSTEM',
     algorithm: 'EC_SIGN_SECP256K1_SHA256',
     protectionLevel: 'HSM',
+    credentialsEnvVar: 'GCP_KMS_ECOSYSTEM_KEY',
   },
   {
     name: 'team-vesting-key',
@@ -112,6 +117,7 @@ const DEFAULT_KMS_KEYS: KMSKey[] = [
     category: 'TEAM',
     algorithm: 'EC_SIGN_SECP256K1_SHA256',
     protectionLevel: 'HSM',
+    credentialsEnvVar: 'GCP_KMS_TEAM_KEY',
   },
   {
     name: 'foundation-key',
@@ -120,6 +126,7 @@ const DEFAULT_KMS_KEYS: KMSKey[] = [
     category: 'FOUNDATION',
     algorithm: 'EC_SIGN_SECP256K1_SHA256',
     protectionLevel: 'HSM',
+    credentialsEnvVar: 'GCP_KMS_FOUNDATION_KEY',
   },
 ];
 
@@ -177,11 +184,27 @@ export class GCPKMSClient extends EventEmitter {
     }
 
     try {
-      const credentialsJson = process.env.GCP_KMS_CREDENTIALS;
-      if (!credentialsJson) {
-        console.warn('[GCPKMSClient] No credentials found, running in simulation mode');
+      const connectedKeys: string[] = [];
+      const missingKeys: string[] = [];
+
+      for (const [keyName, key] of Array.from(this.keys.entries())) {
+        const credentialsJson = process.env[key.credentialsEnvVar];
+        if (credentialsJson) {
+          connectedKeys.push(keyName);
+        } else {
+          missingKeys.push(keyName);
+        }
+      }
+
+      if (connectedKeys.length === 0) {
+        console.warn('[GCPKMSClient] No credentials found for any key, running in simulation mode');
         this.connected = true;
         return true;
+      }
+
+      console.log(`[GCPKMSClient] Connected keys: ${connectedKeys.join(', ')}`);
+      if (missingKeys.length > 0) {
+        console.warn(`[GCPKMSClient] Missing credentials for: ${missingKeys.join(', ')}`);
       }
 
       this.connected = true;
